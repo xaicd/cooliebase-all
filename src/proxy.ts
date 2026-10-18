@@ -35,7 +35,7 @@ function headersFrom(source: Headers): Headers {
 async function forwardDomainUpstream(request: NextRequest, match: { domain: string; baseUrl: string }) {
   const target = new URL(`${request.nextUrl.pathname}${request.nextUrl.search}`, match.baseUrl)
   const headers = headersFrom(request.headers)
-  headers.set("x-ruoyi-upstream-domain", match.domain)
+  headers.set("x-cooliebase-upstream-domain", match.domain)
   headers.set("x-forwarded-host", request.headers.get("host") ?? "")
   headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", ""))
   const init: RequestInit = { method: request.method, headers, redirect: "manual" }
@@ -43,10 +43,10 @@ async function forwardDomainUpstream(request: NextRequest, match: { domain: stri
   try {
     const upstream = await fetch(target, init)
     const responseHeaders = headersFrom(upstream.headers)
-    responseHeaders.set("x-ruoyi-upstream-domain", match.domain)
+    responseHeaders.set("x-cooliebase-upstream-domain", match.domain)
     return new NextResponse(upstream.body, { status: upstream.status, headers: responseHeaders })
   } catch {
-    return NextResponse.json({ success: false, error: `domain upstream unavailable: ${match.domain}` }, { status: 502, headers: { "x-ruoyi-upstream-domain": match.domain } })
+    return NextResponse.json({ success: false, error: `domain upstream unavailable: ${match.domain}` }, { status: 502, headers: { "x-cooliebase-upstream-domain": match.domain } })
   }
 }
 
