@@ -24,7 +24,7 @@ export function resetBrokerRegistry() {
 }
 
 export function isLocalService(name: string, env: NodeJS.Dict<string> = activeEnv): boolean {
-  const packed = env.RUOYI_PACK_DOMAIN?.trim()
+  const packed = env.COOLIEBASE_PACK_DOMAIN?.trim()
   if (packed) return packed === name
   return !readDomainUpstream(name, env)
 }

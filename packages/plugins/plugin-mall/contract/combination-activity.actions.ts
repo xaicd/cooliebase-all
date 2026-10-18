@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/combination-activity.validator"
 
 export const combinationActivityActionSchemas = {
-  "ruoyi.cmd.mall.combinationActivity.page": combinationActivityPageQuerySchema,
-  "ruoyi.cmd.mall.combinationActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.combinationActivity.create": combinationActivityCreateSchema,
-  "ruoyi.cmd.mall.combinationActivity.update": combinationActivityUpdateSchema,
-  "ruoyi.cmd.mall.combinationActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationActivity.page": combinationActivityPageQuerySchema,
+  "cooliebase.cmd.mall.combinationActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationActivity.create": combinationActivityCreateSchema,
+  "cooliebase.cmd.mall.combinationActivity.update": combinationActivityUpdateSchema,
+  "cooliebase.cmd.mall.combinationActivity.delete": z.object({ id: z.string() }),
   "mall.pageCombinationActivity": combinationActivityPageQuerySchema,
   "mall.getCombinationActivity": z.object({ id: z.string() }),
   "mall.createCombinationActivity": combinationActivityCreateSchema,

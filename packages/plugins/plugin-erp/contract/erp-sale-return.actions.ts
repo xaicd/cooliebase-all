@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-sale-return.validator"
 
 export const erpSaleReturnActionSchemas = {
-  "ruoyi.cmd.erp.erpSaleReturn.page": erpSaleReturnPageQuerySchema,
-  "ruoyi.cmd.erp.erpSaleReturn.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpSaleReturn.create": erpSaleReturnCreateSchema,
-  "ruoyi.cmd.erp.erpSaleReturn.update": erpSaleReturnUpdateSchema,
-  "ruoyi.cmd.erp.erpSaleReturn.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleReturn.page": erpSaleReturnPageQuerySchema,
+  "cooliebase.cmd.erp.erpSaleReturn.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleReturn.create": erpSaleReturnCreateSchema,
+  "cooliebase.cmd.erp.erpSaleReturn.update": erpSaleReturnUpdateSchema,
+  "cooliebase.cmd.erp.erpSaleReturn.delete": z.object({ id: z.string() }),
   "erp.pageErpSaleReturn": erpSaleReturnPageQuerySchema,
   "erp.getErpSaleReturn": z.object({ id: z.string() }),
   "erp.createErpSaleReturn": erpSaleReturnCreateSchema,

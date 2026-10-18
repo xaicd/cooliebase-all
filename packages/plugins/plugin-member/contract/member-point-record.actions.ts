@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-point-record.validator"
 
 export const memberPointRecordActionSchemas = {
-  "ruoyi.cmd.member.memberPointRecord.page": memberPointRecordPageQuerySchema,
-  "ruoyi.cmd.member.memberPointRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberPointRecord.create": memberPointRecordCreateSchema,
-  "ruoyi.cmd.member.memberPointRecord.update": memberPointRecordUpdateSchema,
-  "ruoyi.cmd.member.memberPointRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberPointRecord.page": memberPointRecordPageQuerySchema,
+  "cooliebase.cmd.member.memberPointRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberPointRecord.create": memberPointRecordCreateSchema,
+  "cooliebase.cmd.member.memberPointRecord.update": memberPointRecordUpdateSchema,
+  "cooliebase.cmd.member.memberPointRecord.delete": z.object({ id: z.string() }),
   "member.pageMemberPointRecord": memberPointRecordPageQuerySchema,
   "member.getMemberPointRecord": z.object({ id: z.string() }),
   "member.createMemberPointRecord": memberPointRecordCreateSchema,

@@ -18,8 +18,8 @@ import { createHmac, randomBytes, createCipheriv, createDecipheriv } from "crypt
 
 // ============ Config ============
 
-const DEFAULT_AES_KEY = process.env.RUOYI_SHARED_AES_KEY || "ruoyi-all-next-default-aes-key!!" // 32 bytes
-const DEFAULT_HMAC_SECRET = process.env.RUOYI_SHARED_HMAC_SECRET || "ruoyi-all-next-hmac-secret"
+const DEFAULT_AES_KEY = process.env.COOLIEBASE_SHARED_AES_KEY || "cooliebase-all-base-default-aes-key!!" // 32 bytes
+const DEFAULT_HMAC_SECRET = process.env.COOLIEBASE_SHARED_HMAC_SECRET || "cooliebase-all-base-hmac-secret"
 
 // ============ Password ============
 

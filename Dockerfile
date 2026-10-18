@@ -1,5 +1,5 @@
 # ============================================================
-# ruoyi-all-next 多阶段构建（standalone 模式）
+# cooliebase-all-base 多阶段构建（standalone 模式）
 # ============================================================
 
 # Stage 1: 依赖安装
@@ -33,7 +33,7 @@ RUN pnpm install --frozen-lockfile
 #   1) pnpm 官方做法: 用 `pnpm deploy --prod --filter <pkg> <outdir>` 产出自包含目录再 COPY
 #   2) 退化为扁平布局: .npmrc 加 `node-linker=hoisted`（放弃 pnpm 严格布局，换取可 COPY）
 # 本条在本机未能实测（镜像构建卡在更早的 apk 阶段，属环境网络问题），故如实标注而不是声称通过。
-RUN rm -rf node_modules/@ruoyi node_modules/.pnpm/node_modules/@ruoyi node_modules/.pnpm/node_modules/@ruoyi
+RUN rm -rf node_modules/@cooliebase node_modules/.pnpm/node_modules/@cooliebase node_modules/.pnpm/node_modules/@cooliebase
 
 # Stage 2: 构建
 FROM node:24-alpine AS builder
@@ -63,8 +63,8 @@ RUN addgroup --system --gid 1001 nodejs && \
 
 # 复制 standalone 产物
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next-ruoyi/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next-ruoyi/static ./.next-ruoyi/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next-cooliebase/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next-cooliebase/static ./.next-cooliebase/static
 
 # Prisma schema（运行时 migration 可能需要）
 COPY --from=builder /app/prisma ./prisma

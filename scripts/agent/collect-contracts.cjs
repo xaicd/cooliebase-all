@@ -57,7 +57,7 @@ function main() {
   for (const contract of contracts) byDomain[contract.domain] = (byDomain[contract.domain] || 0) + 1
 
   const payload = {
-    $schema: "ruoyi.agent.registry/v1",
+    $schema: "cooliebase.agent.registry/v1",
     generatedBy: "scripts/agent/collect-contracts.cjs",
     total: contracts.length,
     domains: Object.entries(byDomain).map(([domain, count]) => ({ domain, count })),

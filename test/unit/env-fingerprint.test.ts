@@ -5,7 +5,7 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 const ROOT = path.resolve(__dirname, "../..")
 const ARTIFACT = path.join(ROOT, "docs", "architecture", "artifacts", "env-fingerprint.json")
-const BUILD_FILE = path.join(ROOT, ".next-ruoyi", "standalone", "server.js")
+const BUILD_FILE = path.join(ROOT, ".next-cooliebase", "standalone", "server.js")
 
 /** 跑指纹脚本，返回退出码（不抛）。 */
 function run(args: string[]): number {

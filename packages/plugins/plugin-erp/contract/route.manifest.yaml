@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/erp
 upstream:
-  env: RUOYI_DOMAIN_ERP_UPSTREAM
+  env: COOLIEBASE_DOMAIN_ERP_UPSTREAM
   protocol: http
   defaultPort: 3220
 auth:
@@ -25,9 +25,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.erp
-  commandSubject: ruoyi.cmd.erp.>
-  eventSubject: ruoyi.evt.erp.>
+  queueGroup: cooliebase.erp
+  commandSubject: cooliebase.cmd.erp.>
+  eventSubject: cooliebase.evt.erp.>
 invoke:
   colocated: sdk
   remote: rpc

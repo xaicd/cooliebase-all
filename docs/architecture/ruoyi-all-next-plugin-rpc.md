@@ -55,7 +55,7 @@
 | 浏览器 / 小程序 | 版本化 HTTP | `/api/v1/admin/pay/...` | 把 Service 类或 Prisma 类型泄漏给前端 |
 | 同域内部 | 本地 application port | `PayOrderService.create` | Route 里写事务 |
 | 跨域同步 | Facade 方法 = RPC action | 业务域调 `systemPublicFacade.getDictDataByType` / `getPermissionInfoByUser` | 把 system/infra 后台 CRUD 当公开 RPC；直接 import 其他域 |
-| 跨域异步 | 可靠事件 | `ruoyi.evt.pay.order.paid` | 只靠内存 emit 做资金/库存 |
+| 跨域异步 | 可靠事件 | `cooliebase.evt.pay.order.paid` | 只靠内存 emit 做资金/库存 |
 
 Facade **是强制的**。它就是 RPC 接口：
 
@@ -66,7 +66,7 @@ const pay = createDomainFacade("pay", ["ping", "createOrder"] as const)
 await pay.createOrder({ amount: 9900 }, { caller: "mall.order", idempotencyKey: "idem-1" })
 ```
 
-同进程时 `broker.call` 的 `invokeMode=sdk`；`RUOYI_PACK_DOMAIN=mall` 且 pay 在别的进程时，`invokeMode=rpc`。调用方代码不变。
+同进程时 `broker.call` 的 `invokeMode=sdk`；`COOLIEBASE_PACK_DOMAIN=mall` 且 pay 在别的进程时，`invokeMode=rpc`。调用方代码不变。
 
 ## 4. 协议与序列化如何定
 
@@ -84,7 +84,7 @@ await pay.createOrder({ amount: 9900 }, { caller: "mall.order", idempotencyKey: 
 2. **Thrift**：多一套 IDL 与运行时，收益不足以覆盖现有 NATS subject 契约。
 3. **Moleculer / NestJS transporter**：只对标治理能力，不引入运行时。
 
-阶段 C 的 gRPC **只替换** Facade 后面的 remote adapter（`dispatchRemoteAction`）。方法名、DTO、权限与 tenant 语义保持不变；浏览器 HTTP 契约不变。当前实现是自研 unary：路径 `/ruoyi.<domain>.v1.<Domain>Service/<Method>`，5 字节帧 + protojson，不引入 grpc 运行时。每域 `.proto` 与 Go 客户端桩（`gen/go/<domain>/v1/service.go`）已生成；Go 侧通过 `Invoker` 对接传输，尚未接入官方 grpc-go。
+阶段 C 的 gRPC **只替换** Facade 后面的 remote adapter（`dispatchRemoteAction`）。方法名、DTO、权限与 tenant 语义保持不变；浏览器 HTTP 契约不变。当前实现是自研 unary：路径 `/cooliebase.<domain>.v1.<Domain>Service/<Method>`，5 字节帧 + protojson，不引入 grpc 运行时。每域 `.proto` 与 Go 客户端桩（`gen/go/<domain>/v1/service.go`）已生成；Go 侧通过 `Invoker` 对接传输，尚未接入官方 grpc-go。
 
 ## 5. 双模切换规则
 
@@ -92,16 +92,16 @@ await pay.createOrder({ amount: 9900 }, { caller: "mall.order", idempotencyKey: 
 import { broker } from "@/shared/backend/lib/service-broker"
 
 broker.start()                              // all-in-one：全域 SDK
-broker.start({ RUOYI_DOMAIN_PAY_UPSTREAM: "http://pay:3100" })  // BFF：pay 走 RPC
-broker.start({ RUOYI_PACK_DOMAIN: "pay" })  // pay 进程：本域 SDK，外域 RPC
-broker.start({ RUOYI_PACK_DOMAIN: "pay", RUOYI_RPC_PROTOCOL: "grpc" })
+broker.start({ COOLIEBASE_DOMAIN_PAY_UPSTREAM: "http://pay:3100" })  // BFF：pay 走 RPC
+broker.start({ COOLIEBASE_PACK_DOMAIN: "pay" })  // pay 进程：本域 SDK，外域 RPC
+broker.start({ COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })
 ```
 
-1. **一体进程**（不设 `RUOYI_PACK_DOMAIN`，也不设该域 `RUOYI_DOMAIN_*_UPSTREAM`）→ SDK，`invokeAction`，不序列化。
-2. **拆出该域**（BFF 设置了该域 upstream，或本进程 `RUOYI_PACK_DOMAIN` 不是该域）→ RPC。
-3. 跨进程默认走 HTTP `POST /api/internal/rpc`（信封仍是 nats-rr + JSON；`RUOYI_RPC_PROTOCOL=grpc` 时带 protobuf frame）。同测进程、没有 upstream 时仍用内存 fabric，方便单测。
+1. **一体进程**（不设 `COOLIEBASE_PACK_DOMAIN`，也不设该域 `COOLIEBASE_DOMAIN_*_UPSTREAM`）→ SDK，`invokeAction`，不序列化。
+2. **拆出该域**（BFF 设置了该域 upstream，或本进程 `COOLIEBASE_PACK_DOMAIN` 不是该域）→ RPC。
+3. 跨进程默认走 HTTP `POST /api/internal/rpc`（信封仍是 nats-rr + JSON；`COOLIEBASE_RPC_PROTOCOL=grpc` 时带 protobuf frame）。同测进程、没有 upstream 时仍用内存 fabric，方便单测。
 4. 两种模式都经过 Facade、Zod、timeout、retry、bulkhead、circuit breaker。调用方代码不变。
-5. 拆出的域进程只处理本域 action；其它域通过 `RUOYI_RPC_GATEWAY`（通常是 BFF）回呼。
+5. 拆出的域进程只处理本域 action；其它域通过 `COOLIEBASE_RPC_GATEWAY`（通常是 BFF）回呼。
 
 ## 6. 代码入口
 

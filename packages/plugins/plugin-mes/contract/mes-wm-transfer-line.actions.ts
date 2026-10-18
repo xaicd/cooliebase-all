@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-transfer-line.validator"
 
 export const mesWmTransferLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmTransferLine.page": mesWmTransferLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmTransferLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmTransferLine.create": mesWmTransferLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmTransferLine.update": mesWmTransferLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmTransferLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransferLine.page": mesWmTransferLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmTransferLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransferLine.create": mesWmTransferLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmTransferLine.update": mesWmTransferLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmTransferLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmTransferLine": mesWmTransferLinePageQuerySchema,
   "mes.getMesWmTransferLine": z.object({ id: z.string() }),
   "mes.createMesWmTransferLine": mesWmTransferLineCreateSchema,

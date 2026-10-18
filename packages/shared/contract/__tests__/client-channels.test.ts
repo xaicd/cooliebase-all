@@ -21,7 +21,7 @@ describe("clientChannels", () => {
 
   it("does not publish bootstrap accounts in the public identity payload", () => {
     const published = toPublicProjectProfile()
-    expect(published).toMatchObject({ platformName: "RuoYi All Next", branding: { logoSrc: "/branding/logo.svg" } })
+    expect(published).toMatchObject({ platformName: "CoolieBase All Base", branding: { logoSrc: "/branding/logo.svg" } })
     expect(published).not.toHaveProperty("bootstrapAdmin")
     expect(published).not.toHaveProperty("tenants")
     expect(published).not.toHaveProperty("defaultUsers")

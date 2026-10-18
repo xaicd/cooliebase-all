@@ -4,7 +4,7 @@
 
 ## 1. 架构
 
-shop 是第一方插件（packages/plugins/plugin-shop），挂在 /api/v1/plugins/ruoyi.shop/api/**。C 端与运营端都走 HTTP；下单预占与支付回调**只走 Facade**（wmsFacade.lockStock / releaseStock、pay 的回调状态机），不 import 别的域 Service。
+shop 是第一方插件（packages/plugins/plugin-shop），挂在 /api/v1/plugins/cooliebase.shop/api/**。C 端与运营端都走 HTTP；下单预占与支付回调**只走 Facade**（wmsFacade.lockStock / releaseStock、pay 的回调状态机），不 import 别的域 Service。
 
 ## 2. 数据
 

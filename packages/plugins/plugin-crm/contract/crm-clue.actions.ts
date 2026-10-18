@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-clue.validator"
 
 export const crmClueActionSchemas = {
-  "ruoyi.cmd.crm.crmClue.page": crmCluePageQuerySchema,
-  "ruoyi.cmd.crm.crmClue.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmClue.create": crmClueCreateSchema,
-  "ruoyi.cmd.crm.crmClue.update": crmClueUpdateSchema,
-  "ruoyi.cmd.crm.crmClue.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmClue.page": crmCluePageQuerySchema,
+  "cooliebase.cmd.crm.crmClue.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmClue.create": crmClueCreateSchema,
+  "cooliebase.cmd.crm.crmClue.update": crmClueUpdateSchema,
+  "cooliebase.cmd.crm.crmClue.delete": z.object({ id: z.string() }),
   "crm.pageCrmClue": crmCluePageQuerySchema,
   "crm.getCrmClue": z.object({ id: z.string() }),
   "crm.createCrmClue": crmClueCreateSchema,

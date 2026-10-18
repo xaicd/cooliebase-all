@@ -30,7 +30,7 @@ export type ConfigListParams = { page: number; pageSize: number; keyword?: strin
  * （`配置项不存在: sys.application.name`）。两条路径必须来自同一份数据。
  */
 export const INFRA_CONFIG_DEFAULTS: InfraConfigRow[] = [
-  { id: "1", category: "DEFAULT", name: "系统名称", configKey: "sys.application.name", value: "ruoyi-all-next", visible: true, remark: "系统应用名称", createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" },
+  { id: "1", category: "DEFAULT", name: "系统名称", configKey: "sys.application.name", value: "cooliebase-all-base", visible: true, remark: "系统应用名称", createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" },
   { id: "2", category: "DEFAULT", name: "系统版本", configKey: "sys.application.version", value: "0.1.0", visible: true, remark: null, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" },
   { id: "3", category: "AUTH", name: "Token 有效期(秒)", configKey: "sys.auth.token.expire", value: "86400", visible: true, remark: "JWT 令牌有效期", createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" },
   { id: "4", category: "AUTH", name: "验证码开关", configKey: "sys.auth.captcha.enable", value: "true", visible: true, remark: "登录验证码是否开启", createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" },

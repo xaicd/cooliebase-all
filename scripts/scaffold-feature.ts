@@ -179,7 +179,7 @@ function main() {
     written.push(path.relative(cli.outRoot, outputPath))
   }
 
-  // 工程名从 package.json 取，不写死 —— 孵化出的工程不该再自称 ruoyi-all-next。
+  // 工程名从 package.json 取，不写死 —— 孵化出的工程不该再自称 cooliebase-all-base。
   const projectName = (() => {
     try {
       return JSON.parse(fs.readFileSync(path.resolve(process.cwd(), "package.json"), "utf8")).name ?? "project"

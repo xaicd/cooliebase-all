@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/coupon-template.validator"
 
 export const couponTemplateActionSchemas = {
-  "ruoyi.cmd.mall.couponTemplate.page": couponTemplatePageQuerySchema,
-  "ruoyi.cmd.mall.couponTemplate.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.couponTemplate.create": couponTemplateCreateSchema,
-  "ruoyi.cmd.mall.couponTemplate.update": couponTemplateUpdateSchema,
-  "ruoyi.cmd.mall.couponTemplate.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.couponTemplate.page": couponTemplatePageQuerySchema,
+  "cooliebase.cmd.mall.couponTemplate.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.couponTemplate.create": couponTemplateCreateSchema,
+  "cooliebase.cmd.mall.couponTemplate.update": couponTemplateUpdateSchema,
+  "cooliebase.cmd.mall.couponTemplate.delete": z.object({ id: z.string() }),
   "mall.pageCouponTemplate": couponTemplatePageQuerySchema,
   "mall.getCouponTemplate": z.object({ id: z.string() }),
   "mall.createCouponTemplate": couponTemplateCreateSchema,

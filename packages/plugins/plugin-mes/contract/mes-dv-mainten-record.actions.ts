@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-mainten-record.validator"
 
 export const mesDvMaintenRecordActionSchemas = {
-  "ruoyi.cmd.mes.mesDvMaintenRecord.page": mesDvMaintenRecordPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvMaintenRecord.create": mesDvMaintenRecordCreateSchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecord.update": mesDvMaintenRecordUpdateSchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMaintenRecord.page": mesDvMaintenRecordPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMaintenRecord.create": mesDvMaintenRecordCreateSchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecord.update": mesDvMaintenRecordUpdateSchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecord.delete": z.object({ id: z.string() }),
   "mes.pageMesDvMaintenRecord": mesDvMaintenRecordPageQuerySchema,
   "mes.getMesDvMaintenRecord": z.object({ id: z.string() }),
   "mes.createMesDvMaintenRecord": mesDvMaintenRecordCreateSchema,

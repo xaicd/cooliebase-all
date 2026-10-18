@@ -11,7 +11,7 @@ publicPrefix:
   - /api/v1/app/pay
   - /api/v1/open/pay
 upstream:
-  env: RUOYI_DOMAIN_PAY_UPSTREAM
+  env: COOLIEBASE_DOMAIN_PAY_UPSTREAM
   protocol: http
   defaultPort: 3214
 auth:
@@ -27,9 +27,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.pay
-  commandSubject: ruoyi.cmd.pay.>
-  eventSubject: ruoyi.evt.pay.>
+  queueGroup: cooliebase.pay
+  commandSubject: cooliebase.cmd.pay.>
+  eventSubject: cooliebase.evt.pay.>
 invoke:
   colocated: sdk
   remote: rpc

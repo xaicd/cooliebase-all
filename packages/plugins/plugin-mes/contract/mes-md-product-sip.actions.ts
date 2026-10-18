@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-product-sip.validator"
 
 export const mesMdProductSipActionSchemas = {
-  "ruoyi.cmd.mes.mesMdProductSip.page": mesMdProductSipPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdProductSip.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdProductSip.create": mesMdProductSipCreateSchema,
-  "ruoyi.cmd.mes.mesMdProductSip.update": mesMdProductSipUpdateSchema,
-  "ruoyi.cmd.mes.mesMdProductSip.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdProductSip.page": mesMdProductSipPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdProductSip.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdProductSip.create": mesMdProductSipCreateSchema,
+  "cooliebase.cmd.mes.mesMdProductSip.update": mesMdProductSipUpdateSchema,
+  "cooliebase.cmd.mes.mesMdProductSip.delete": z.object({ id: z.string() }),
   "mes.pageMesMdProductSip": mesMdProductSipPageQuerySchema,
   "mes.getMesMdProductSip": z.object({ id: z.string() }),
   "mes.createMesMdProductSip": mesMdProductSipCreateSchema,

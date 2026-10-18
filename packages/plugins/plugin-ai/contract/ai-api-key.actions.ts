@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-api-key.validator"
 
 export const aiApiKeyActionSchemas = {
-  "ruoyi.cmd.ai.aiApiKey.page": aiApiKeyPageQuerySchema,
-  "ruoyi.cmd.ai.aiApiKey.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiApiKey.create": aiApiKeyCreateSchema,
-  "ruoyi.cmd.ai.aiApiKey.update": aiApiKeyUpdateSchema,
-  "ruoyi.cmd.ai.aiApiKey.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiApiKey.page": aiApiKeyPageQuerySchema,
+  "cooliebase.cmd.ai.aiApiKey.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiApiKey.create": aiApiKeyCreateSchema,
+  "cooliebase.cmd.ai.aiApiKey.update": aiApiKeyUpdateSchema,
+  "cooliebase.cmd.ai.aiApiKey.delete": z.object({ id: z.string() }),
   "ai.pageAiApiKey": aiApiKeyPageQuerySchema,
   "ai.getAiApiKey": z.object({ id: z.string() }),
   "ai.createAiApiKey": aiApiKeyCreateSchema,

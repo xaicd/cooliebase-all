@@ -25,19 +25,19 @@
 - 命中: api-logs, swagger, encrypt, xss
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/infra/api-logs/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-crypto.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-swagger.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-xss.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/__tests__/infra-services.test.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/api-log.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/frontend/pages/api-logs.page.tsx
+  - apps/cooliebase-all-base/src/app/(admin)/admin/infra/api-logs/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-crypto.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-swagger.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-xss.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/__tests__/infra-services.test.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/api-log.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/frontend/pages/api-logs.page.tsx
 
 ## security
 
@@ -45,26 +45,26 @@
 - 命中: permission-guard, permissions, audit-log
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/api/admin/bpm/process-definitions/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/bpm/tasks/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/clues/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/customers/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/followups/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/orders/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/products/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/stock-adjustments/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/api-error-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/db-configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/file-configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/files/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/bpm/process-definitions/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/bpm/tasks/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/clues/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/customers/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/followups/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/orders/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/products/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/stock-adjustments/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/api-error-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/db-configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/file-configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/files/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts
 
 ## mybatis
 
@@ -72,11 +72,11 @@
 - 命中: datasource, mapper, translate
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/persistence-datasource.ts
-  - apps/ruoyi-all-next/src/backend/lib/persistence-mapper.ts
-  - apps/ruoyi-all-next/src/backend/lib/persistence-translate.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/persistence-datasource.ts
+  - apps/cooliebase-all-base/src/backend/lib/persistence-mapper.ts
+  - apps/cooliebase-all-base/src/backend/lib/persistence-translate.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts
 
 ## redis
 
@@ -84,19 +84,19 @@
 - 命中: redis, cache
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/infra/redis/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/cache-store.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-mq.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-redis.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/index.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/redis.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/frontend/pages/redis.page.tsx
+  - apps/cooliebase-all-base/src/app/(admin)/admin/infra/redis/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/cache-store.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-mq.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-redis.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/index.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/redis.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/frontend/pages/redis.page.tsx
 
 ## protection
 
@@ -104,26 +104,26 @@
 - 命中: idempotent, rate, lock, signature
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/system/operate-logs/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/template-engine-archive.test.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/auth/captcha/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/operate-logs/export/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/operate-logs/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/idempotent-lock-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/protection-idempotent.ts
-  - apps/ruoyi-all-next/src/backend/lib/protection-lock.ts
-  - apps/ruoyi-all-next/src/backend/lib/protection-signature.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-auth-oauth2.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts
+  - apps/cooliebase-all-base/src/app/(admin)/admin/system/operate-logs/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/template-engine-archive.test.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/auth/captcha/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/operate-logs/export/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/operate-logs/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/idempotent-lock-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/protection-idempotent.ts
+  - apps/cooliebase-all-base/src/backend/lib/protection-lock.ts
+  - apps/cooliebase-all-base/src/backend/lib/protection-signature.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-auth-oauth2.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts
 
 ## job
 
@@ -131,17 +131,17 @@
 - 命中: job-center, cron
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/infra/job-center/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/infra-services.test.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-job-center.service.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/__tests__/infra-services.test.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/index.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/job-center.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/frontend/pages/job-center.page.tsx
+  - apps/cooliebase-all-base/src/app/(admin)/admin/infra/job-center/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/infra-services.test.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-job-center.service.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/__tests__/infra-services.test.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/index.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/job-center.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/frontend/pages/job-center.page.tsx
 
 ## mq
 
@@ -149,8 +149,8 @@
 - 命中: mq, kafka, rabbit
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-mq.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-mq.ts
 
 ## websocket
 
@@ -158,26 +158,26 @@
 - 命中: websocket, ws
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/route.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-websocket.ts
-  - apps/ruoyi-all-next/src/backend/validators/infra.validator.ts
-  - apps/ruoyi-all-next/packages/domains/bpm/backend/services/process.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/__tests__/template-engine.service.test.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-engine-presets.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/index.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-client.template.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-route.template.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-service.template.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-validator.template.ts
-  - apps/ruoyi-all-next/packages/domains/infra/frontend/pages/template-engine.page.tsx
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/auth.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/dept.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/login-log.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/menu.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/online-user.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/operate-log.service.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/route.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-websocket.ts
+  - apps/cooliebase-all-base/src/backend/validators/infra.validator.ts
+  - apps/cooliebase-all-base/packages/domains/bpm/backend/services/process.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/__tests__/template-engine.service.test.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-engine-presets.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/index.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-client.template.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-route.template.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-service.template.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-workflow-validator.template.ts
+  - apps/cooliebase-all-base/packages/domains/infra/frontend/pages/template-engine.page.tsx
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/auth.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/dept.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/login-log.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/menu.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/online-user.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/operate-log.service.ts
 
 ## monitor
 
@@ -185,13 +185,13 @@
 - 命中: metrics, tracer, monitor
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-monitor.ts
-  - apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/redis.service.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-domain-api-index.template.ts
-  - apps/ruoyi-all-next/packages/domains/infra/backend/services/template-presets/next-react-admin-report-page.template.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-monitor.ts
+  - apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/redis.service.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-domain-api-index.template.ts
+  - apps/cooliebase-all-base/packages/domains/infra/backend/services/template-presets/next-react-admin-report-page.template.ts
 
 ## excel
 
@@ -199,22 +199,22 @@
 - 命中: excel, dict
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/system/dicts/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/system/dicts/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/persistence-translate.ts
-  - apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/system-dict.service.ts
-  - apps/ruoyi-all-next/src/backend/services/system-log-audit.test.ts
-  - apps/ruoyi-all-next/src/backend/validators/system.validator.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/__tests__/system-persistence-services.test.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/dict.service.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/index.ts
-  - apps/ruoyi-all-next/packages/domains/system/frontend/pages/dicts.page.tsx
+  - apps/cooliebase-all-base/src/app/(admin)/admin/system/dicts/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/system/dicts/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/persistence-translate.ts
+  - apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/system-dict.service.ts
+  - apps/cooliebase-all-base/src/backend/services/system-log-audit.test.ts
+  - apps/cooliebase-all-base/src/backend/validators/system.validator.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/__tests__/system-persistence-services.test.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/dict.service.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/index.ts
+  - apps/cooliebase-all-base/packages/domains/system/frontend/pages/dicts.page.tsx
 
 ## biz-tenant
 
@@ -222,26 +222,26 @@
 - 命中: tenant, tenant-package
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/system/tenant-packages/page.tsx
-  - apps/ruoyi-all-next/src/app/(admin)/admin/system/tenants/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/system/tenant-packages/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/tenants/assign-package/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/tenants/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/tenants/update-status/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/biz-tenant.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-tenant.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/system-log-audit.test.ts
-  - apps/ruoyi-all-next/src/backend/services/system-tenant-package.service.ts
-  - apps/ruoyi-all-next/src/backend/services/system-tenant.service.ts
-  - apps/ruoyi-all-next/src/backend/validators/system.validator.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/__tests__/tenant-package.service.test.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/__tests__/tenant.service.test.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/index.ts
-  - apps/ruoyi-all-next/packages/domains/system/backend/services/tenant-package.service.ts
+  - apps/cooliebase-all-base/src/app/(admin)/admin/system/tenant-packages/page.tsx
+  - apps/cooliebase-all-base/src/app/(admin)/admin/system/tenants/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/system/tenant-packages/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/tenants/assign-package/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/tenants/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/tenants/update-status/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/biz-tenant.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-tenant.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/system-log-audit.test.ts
+  - apps/cooliebase-all-base/src/backend/services/system-tenant-package.service.ts
+  - apps/cooliebase-all-base/src/backend/services/system-tenant.service.ts
+  - apps/cooliebase-all-base/src/backend/validators/system.validator.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/__tests__/tenant-package.service.test.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/__tests__/tenant.service.test.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/index.ts
+  - apps/cooliebase-all-base/packages/domains/system/backend/services/tenant-package.service.ts
 
 ## biz-data-permission
 
@@ -249,26 +249,26 @@
 - 命中: data-permission, scope, permission
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/api/admin/bpm/process-definitions/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/bpm/tasks/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/clues/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/customers/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/crm/followups/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/orders/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/products/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/erp/stock-adjustments/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/api-error-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/db-configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/file-configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/files/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/job-logs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/bpm/process-definitions/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/bpm/tasks/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/clues/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/customers/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/crm/followups/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/orders/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/products/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/erp/stock-adjustments/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/api-error-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/db-configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/file-configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/files/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/job-logs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts
 
 ## biz-ip
 
@@ -276,23 +276,23 @@
 - 命中: ip, area
 - 缺失: none
 - 证据文件:
-  - apps/ruoyi-all-next/src/app/(admin)/admin/system/ip-areas/page.tsx
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/template-engine-archive.test.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/codegen/export/template-engine-archive.ts
-  - apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts
-  - apps/ruoyi-all-next/src/app/api/admin/system/ip/areas/route.ts
-  - apps/ruoyi-all-next/src/backend/constants/admin-menu.ts
-  - apps/ruoyi-all-next/src/backend/constants/permissions.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts
-  - apps/ruoyi-all-next/src/backend/lib/biz-ip-area.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-crypto.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-swagger.ts
-  - apps/ruoyi-all-next/src/backend/lib/web-xss.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-notice-notify-persistence.test.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-sms-mail-social-persistence.test.ts
-  - apps/ruoyi-all-next/src/backend/services/__tests__/system-sys5.service.test.ts
-  - apps/ruoyi-all-next/src/backend/services/index.ts
-  - apps/ruoyi-all-next/src/backend/services/system-ip-area.service.ts
+  - apps/cooliebase-all-base/src/app/(admin)/admin/system/ip-areas/page.tsx
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/template-engine-archive.test.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/codegen/export/template-engine-archive.ts
+  - apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts
+  - apps/cooliebase-all-base/src/app/api/admin/system/ip/areas/route.ts
+  - apps/cooliebase-all-base/src/backend/constants/admin-menu.ts
+  - apps/cooliebase-all-base/src/backend/constants/permissions.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts
+  - apps/cooliebase-all-base/src/backend/lib/biz-ip-area.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-crypto.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-swagger.ts
+  - apps/cooliebase-all-base/src/backend/lib/web-xss.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-dict-notice-notify.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-notice-notify-persistence.test.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-sms-mail-social-persistence.test.ts
+  - apps/cooliebase-all-base/src/backend/services/__tests__/system-sys5.service.test.ts
+  - apps/cooliebase-all-base/src/backend/services/index.ts
+  - apps/cooliebase-all-base/src/backend/services/system-ip-area.service.ts

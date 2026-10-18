@@ -36,7 +36,7 @@
     "不做真实支付渠道对接（先复用 pay 的状态机与回调契约）",
     "不做库存调拨/盘点（复用 wms 既有能力）"
   ],
-  "architecture": "shop 是第一方插件（packages/plugins/plugin-shop），挂在 /api/v1/plugins/ruoyi.shop/api/**。C 端与运营端都走 HTTP；下单预占与支付回调**只走 Facade**（wmsFacade.lockStock / releaseStock、pay 的回调状态机），不 import 别的域 Service。",
+  "architecture": "shop 是第一方插件（packages/plugins/plugin-shop），挂在 /api/v1/plugins/cooliebase.shop/api/**。C 端与运营端都走 HTTP；下单预占与支付回调**只走 Facade**（wmsFacade.lockStock / releaseStock、pay 的回调状态机），不 import 别的域 Service。",
   "entities": [
     { "table": "shop_product", "note": "商品；id 一律 text（本仓约定）" },
     { "table": "shop_order", "note": "订单；状态列为可读字符串" }

@@ -14,9 +14,9 @@
  *   npx tsx scripts/agent/agent-ops-suite.ts --all           # 针对全量 326 个实体执行深水区全量运行态测试
  *
  * 环境变量:
- *   RUOYI_AGENT_BASE_URL    默认 http://localhost:3200
- *   RUOYI_AGENT_USERNAME    默认 admin
- *   RUOYI_AGENT_PASSWORD    默认 Admin@123456
+ *   COOLIEBASE_AGENT_BASE_URL    默认 http://localhost:3200
+ *   COOLIEBASE_AGENT_USERNAME    默认 admin
+ *   COOLIEBASE_AGENT_PASSWORD    默认 Admin@123456
  */
 
 import fs from "node:fs"
@@ -27,9 +27,9 @@ const ROOT = path.resolve(__dirname, "..", "..")
 const REGISTRY_FILE = path.join(ROOT, "docs", "agent", "contracts.json")
 const REPORT_FILE = path.join(ROOT, "docs", "agent", "agent-ops-suite-result.json")
 
-const baseUrl = (process.env.RUOYI_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
-const username = process.env.RUOYI_AGENT_USERNAME || "admin"
-const password = process.env.RUOYI_AGENT_PASSWORD || "Admin@123456"
+const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
+const username = process.env.COOLIEBASE_AGENT_USERNAME || "admin"
+const password = process.env.COOLIEBASE_AGENT_PASSWORD || "Admin@123456"
 
 export interface AgentContract {
   $schema: string
@@ -318,7 +318,7 @@ async function main() {
   const runAllEntities = args.includes("--all")
 
   console.log("================================================================================")
-  console.log("   🤖 RuoYi-All-Next 全能力 AI Agent 无头运营自动化套件 (Agent Ops Suite)       ")
+  console.log("   🤖 CoolieBase-All-Next 全能力 AI Agent 无头运营自动化套件 (Agent Ops Suite)       ")
   console.log("================================================================================")
 
   const registry = loadRegistry()

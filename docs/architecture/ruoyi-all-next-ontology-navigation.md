@@ -1,4 +1,4 @@
-# ruoyi-all-next 本体域导航总纲（Ontology Navigation）
+# cooliebase-all-base 本体域导航总纲（Ontology Navigation）
 
 > **这是本模板的唯一认知入口与全息导航中枢。** 任何 Agent / IDE 进入本仓库，先读这一页定位「改哪个模块、复用哪个工具、跑哪条预览、加载哪个 skill」，再按 `.agents/context/ASSEMBLY.md` 的 `order` 精准加载所需分段——**不要每次把整篇 `AGENTS.md` 塞进 system prompt**（省 token、防臆测）。
 >
@@ -8,7 +8,7 @@
 
 ## 0. 一句话定位
 
-Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据访问）+ Prisma（建模/迁移）的企业级低代码起步模板（RuoYi / yudao 式 all-in-one）。**预览零外部依赖即用，生产切真实中间件业务代码不改。**
+Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据访问）+ Prisma（建模/迁移）的企业级低代码起步模板（CoolieBase / yudao 式 all-in-one）。**预览零外部依赖即用，生产切真实中间件业务代码不改。**
 
 ---
 
@@ -20,7 +20,7 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 | `packages/domains/` | ⭐ **核心**。18 业务域 + 1 个跨切面 `shared` 模块（见 §2）。 |
 | `clients/` | 多端脚手架子工程：`expo/`(RN，Schema 驱动，可 web-export 预览)、`h5/`、`uniapp/`、`desktop-pc/`、`flutter/`。 |
 | `scripts/` | ~50 构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)。 |
-| `docs/` | `architecture/`(40+ 架构文档 + 本页) · `skills/ruoyi-all-next/`(SKILL 镜像) · `features/` · `guides/` · `operations/` · `spec(s)/`。 |
+| `docs/` | `architecture/`(40+ 架构文档 + 本页) · `skills/cooliebase-all-base/`(SKILL 镜像) · `features/` · `guides/` · `operations/` · `spec(s)/`。 |
 | `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `skills/`(16 个可执行 SKILL.md)。 |
 | `.kiro/` | `steering/`(`plugin-domain-structure.md` 权威模块布局、`coding-standards.md`、`feature-scaffold.md`、`ui-*`) + `specs/`。 |
 | `prisma/` | `schema.prisma`(含 `member_user.extra_fields Json?`) + migrations。 |
@@ -138,15 +138,15 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 
 ```bash
 # 1) SQLite 建库（零外部依赖）
-DATABASE_URL=file:./data/ruoyi.db DB_DRIVER=sqlite npm run db:bootstrap:sqlite
+DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run db:bootstrap:sqlite
 # 建 system_user/role/dept/menu/... + C 端 member_user(含 extra_fields)，全表带 8 大审计字段
 # 种子：admin/admin123、C 端 demo/demo123、核心菜单
 # 2) 起前后端
-DATABASE_URL=file:./data/ruoyi.db DB_DRIVER=sqlite npm run dev   # next dev -p 3200
+DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev -p 3200
 ```
 - 完全不配 DB env 时，`datasource-manager` 退化 `memory` 模式、服务走内存存储，仍可跑。
 - Expo web-export 预览：`clients/expo/`（Schema 驱动 RN），按其 README 导出 web 预览与 portal Web 同一份 PageSchema 驱动的表单。
-- 常用脚本：`dev` · `build` · `start`(standalone) · `test`(vitest) · `test:{unit,integration}` · `test:{e2e,agent}`(playwright) · `db:{migrate,seed}` · `scaffold` · `domain:*`/`runtime:*` · `ruoyi:*:scan/check`(治理门禁)。
+- 常用脚本：`dev` · `build` · `start`(standalone) · `test`(vitest) · `test:{unit,integration}` · `test:{e2e,agent}`(playwright) · `db:{migrate,seed}` · `scaffold` · `domain:*`/`runtime:*` · `cooliebase:*:scan/check`(治理门禁)。
 
 ---
 
@@ -176,7 +176,7 @@ DATABASE_URL=file:./data/ruoyi.db DB_DRIVER=sqlite npm run dev   # next dev -p 3
 2. **增量建域**：新业务只在 `packages/domains/<新域>/` 落地（`contract/`+`backend/`+`frontend/` 三件套），跑 `npm run scaffold` 生成骨架；在 `domain-catalog.json` 注册新域（层/端口/前缀/依赖/鉴权），跑 `npm run domain:seams` 重生成 `seam-graph.json`。
 3. **复用而非重写**：数据访问走 `BaseMapper`/`getKyselyDb`+`dynamic-table`；跨域走 `broker.call`/`eventBus`（禁反向依赖、禁裸 SQL、禁绕过 facade）；字段扩展优先 `extra_fields`/PageSchema，需真列才走 `schema-ddl`。
 4. **换库/换中间件零改码**：新应用部署到独立环境时，仅改 env(`DB_DRIVER`/`CACHE_DRIVER`/`STORAGE_DRIVER`/`MQ_DRIVER` + 连接串) 即切生产中间件（含国产数据库）。
-5. **门禁一致**：tsc 零增量、vitest 4 层金字塔、`ruoyi:*:check` 治理门禁、真实数据库驱动零假 Mock。
+5. **门禁一致**：tsc 零增量、vitest 4 层金字塔、`cooliebase:*:check` 治理门禁、真实数据库驱动零假 Mock。
 
 > 一句话：**新应用 = 本体域基线（不动） + `packages/domains/<新域>` 增量 + `domain-catalog` 注册**。地图、能力、门禁全继承，无需给客户额外说明。
 
@@ -201,7 +201,7 @@ DATABASE_URL=file:./data/ruoyi.db DB_DRIVER=sqlite npm run dev   # next dev -p 3
 2. **增量**：按开闭原则扩展（新域/新驱动/新 skill），**严禁改既有运行时契约迁就提示词**。
 3. **回写**：把新域/新能力写进 §10.1 对应真源，并**同步更新本页对应小节**（本页与真源必须始终一致）。
 4. **重生成**：catalog 变更后跑 `npm run domain:seams`；能力变更跑 tsc + vitest；skill 变更在 ASSEMBLY.md 注册。
-5. **门禁**：`npm run ruoyi:*:check` 等治理门禁全绿 → 走 PR 合并。
+5. **门禁**：`npm run cooliebase:*:check` 等治理门禁全绿 → 走 PR 合并。
 
 ### 10.3 铁律
 
@@ -231,6 +231,6 @@ DATABASE_URL=file:./data/ruoyi.db DB_DRIVER=sqlite npm run dev   # next dev -p 3
 
 - **方法论**：`docs/architecture/legacy-migration-playbook.md`（5 步穿透 / 中间件锚点 / gap 处置 / 分批盘点）。
 - **映射契约 schema**：`packages/shared/contract/ontology-mapping.schema.json`（`legacyService → ontologyDomain/catalogDomain → entity/action/eventMap → fidelity + valueTag`）。
-- **首个样板**：`packages/shared/contract/mappings/ecommerce.mapping.json`（ecommerce 本体域 ↔ ruoyi mall/pay，含实体/action 对齐、事件从状态机派生、system/infra 标注为跨域底座；已结构校验通过）。
+- **首个样板**：`packages/shared/contract/mappings/ecommerce.mapping.json`（ecommerce 本体域 ↔ cooliebase mall/pay，含实体/action 对齐、事件从状态机派生、system/infra 标注为跨域底座；已结构校验通过）。
 - **关键映射结论**：mall+pay ≈ 电商本体域骨架子集（`IssueCoupon↔mall.issueCoupon` 逐字对齐）；system/infra 是**跨域公共底座**（不属电商域）；事件两边形状不同（本体域=状态机生命周期事件，业务侧=动词事件），用 `eventMap.derivedFromAction` 从 action 状态迁移派生打通。
 - **中间件映射**：MySQL→database / Redis→cache / Kafka/Redis-PubSub→mq / Hazelcast→cache / 文件→storage（换环境只改 env，见 §5）。

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-warehouse.validator"
 
 export const erpWarehouseActionSchemas = {
-  "ruoyi.cmd.erp.erpWarehouse.page": erpWarehousePageQuerySchema,
-  "ruoyi.cmd.erp.erpWarehouse.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpWarehouse.create": erpWarehouseCreateSchema,
-  "ruoyi.cmd.erp.erpWarehouse.update": erpWarehouseUpdateSchema,
-  "ruoyi.cmd.erp.erpWarehouse.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpWarehouse.page": erpWarehousePageQuerySchema,
+  "cooliebase.cmd.erp.erpWarehouse.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpWarehouse.create": erpWarehouseCreateSchema,
+  "cooliebase.cmd.erp.erpWarehouse.update": erpWarehouseUpdateSchema,
+  "cooliebase.cmd.erp.erpWarehouse.delete": z.object({ id: z.string() }),
   "erp.pageErpWarehouse": erpWarehousePageQuerySchema,
   "erp.getErpWarehouse": z.object({ id: z.string() }),
   "erp.createErpWarehouse": erpWarehouseCreateSchema,

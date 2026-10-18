@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-package.validator"
 
 export const mesWmPackageActionSchemas = {
-  "ruoyi.cmd.mes.mesWmPackage.page": mesWmPackagePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmPackage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmPackage.create": mesWmPackageCreateSchema,
-  "ruoyi.cmd.mes.mesWmPackage.update": mesWmPackageUpdateSchema,
-  "ruoyi.cmd.mes.mesWmPackage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmPackage.page": mesWmPackagePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmPackage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmPackage.create": mesWmPackageCreateSchema,
+  "cooliebase.cmd.mes.mesWmPackage.update": mesWmPackageUpdateSchema,
+  "cooliebase.cmd.mes.mesWmPackage.delete": z.object({ id: z.string() }),
   "mes.pageMesWmPackage": mesWmPackagePageQuerySchema,
   "mes.getMesWmPackage": z.object({ id: z.string() }),
   "mes.createMesWmPackage": mesWmPackageCreateSchema,

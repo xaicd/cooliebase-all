@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-sales-detail.validator"
 
 export const mesWmProductSalesDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductSalesDetail.page": mesWmProductSalesDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductSalesDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductSalesDetail.create": mesWmProductSalesDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductSalesDetail.update": mesWmProductSalesDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductSalesDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductSalesDetail.page": mesWmProductSalesDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductSalesDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductSalesDetail.create": mesWmProductSalesDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductSalesDetail.update": mesWmProductSalesDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductSalesDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductSalesDetail": mesWmProductSalesDetailPageQuerySchema,
   "mes.getMesWmProductSalesDetail": z.object({ id: z.string() }),
   "mes.createMesWmProductSalesDetail": mesWmProductSalesDetailCreateSchema,

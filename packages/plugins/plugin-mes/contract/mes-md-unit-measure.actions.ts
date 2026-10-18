@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-unit-measure.validator"
 
 export const mesMdUnitMeasureActionSchemas = {
-  "ruoyi.cmd.mes.mesMdUnitMeasure.page": mesMdUnitMeasurePageQuerySchema,
-  "ruoyi.cmd.mes.mesMdUnitMeasure.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdUnitMeasure.create": mesMdUnitMeasureCreateSchema,
-  "ruoyi.cmd.mes.mesMdUnitMeasure.update": mesMdUnitMeasureUpdateSchema,
-  "ruoyi.cmd.mes.mesMdUnitMeasure.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdUnitMeasure.page": mesMdUnitMeasurePageQuerySchema,
+  "cooliebase.cmd.mes.mesMdUnitMeasure.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdUnitMeasure.create": mesMdUnitMeasureCreateSchema,
+  "cooliebase.cmd.mes.mesMdUnitMeasure.update": mesMdUnitMeasureUpdateSchema,
+  "cooliebase.cmd.mes.mesMdUnitMeasure.delete": z.object({ id: z.string() }),
   "mes.pageMesMdUnitMeasure": mesMdUnitMeasurePageQuerySchema,
   "mes.getMesMdUnitMeasure": z.object({ id: z.string() }),
   "mes.createMesMdUnitMeasure": mesMdUnitMeasureCreateSchema,

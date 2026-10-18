@@ -45,7 +45,7 @@
 | 渠道 | 包 | 源码根 |
 |---|---|---|
 | admin-web | 仓库内 `packages/domains/<domain>/frontend` | 不进 `clients/` |
-| expo | `@ruoyi/client-expo` | `clients/expo/src` |
+| expo | `@cooliebase/client-expo` | `clients/expo/src` |
 
 包内固定三层：
 

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-andon-record.validator"
 
 export const mesProAndonRecordActionSchemas = {
-  "ruoyi.cmd.mes.mesProAndonRecord.page": mesProAndonRecordPageQuerySchema,
-  "ruoyi.cmd.mes.mesProAndonRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProAndonRecord.create": mesProAndonRecordCreateSchema,
-  "ruoyi.cmd.mes.mesProAndonRecord.update": mesProAndonRecordUpdateSchema,
-  "ruoyi.cmd.mes.mesProAndonRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProAndonRecord.page": mesProAndonRecordPageQuerySchema,
+  "cooliebase.cmd.mes.mesProAndonRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProAndonRecord.create": mesProAndonRecordCreateSchema,
+  "cooliebase.cmd.mes.mesProAndonRecord.update": mesProAndonRecordUpdateSchema,
+  "cooliebase.cmd.mes.mesProAndonRecord.delete": z.object({ id: z.string() }),
   "mes.pageMesProAndonRecord": mesProAndonRecordPageQuerySchema,
   "mes.getMesProAndonRecord": z.object({ id: z.string() }),
   "mes.createMesProAndonRecord": mesProAndonRecordCreateSchema,

@@ -17,9 +17,9 @@
 
 ## 2. 输入依据
 
-1. mini 核心扫描报告：apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
-2. starter 覆盖报告：apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.md
-3. 全域迁移作战板：apps/ruoyi/ruoyi-all-next/docs/architecture/ruoyi-full-migration-board.md
+1. mini 核心扫描报告：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
+2. starter 覆盖报告：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.md
+3. 全域迁移作战板：apps/cooliebase/cooliebase-all-base/docs/architecture/cooliebase-full-migration-board.md
 
 ## 3. starter 缺口优先级（先修基础）
 
@@ -27,8 +27,8 @@
 
 1. 目标：补 swagger、encrypt、xss 对应的 all-next 配置与中间件。
 2. 目标文件：
-- apps/ruoyi/ruoyi-all-next/src/backend/lib/web/
-- apps/ruoyi/ruoyi-all-next/src/app/api/
+- apps/cooliebase/cooliebase-all-base/src/backend/lib/web/
+- apps/cooliebase/cooliebase-all-base/src/app/api/
 3. 验收：
 - 有配置开关
 - 有中间件/拦截器
@@ -38,8 +38,8 @@
 
 1. 目标：补 idempotent、lock、signature 三件套最小实现。
 2. 目标文件：
-- apps/ruoyi/ruoyi-all-next/src/backend/lib/protection/
-- apps/ruoyi/ruoyi-all-next/src/backend/validators/
+- apps/cooliebase/cooliebase-all-base/src/backend/lib/protection/
+- apps/cooliebase/cooliebase-all-base/src/backend/validators/
 3. 验收：
 - 幂等键重复请求可拦截
 - 关键写接口支持签名验签
@@ -49,8 +49,8 @@
 
 1. 目标：补 mq、websocket、monitor、excel、tenant、data-permission、ip。
 2. 目标文件：
-- apps/ruoyi/ruoyi-all-next/src/backend/lib/platform/
-- apps/ruoyi/ruoyi-all-next/src/backend/services/
+- apps/cooliebase/cooliebase-all-base/src/backend/lib/platform/
+- apps/cooliebase/cooliebase-all-base/src/backend/services/
 3. 验收：
 - 每项至少 1 个端到端示例接口
 - 每项有事件日志
@@ -248,10 +248,10 @@
 
 ## 8. 执行后命令
 
-以下命令统一在 `apps/ruoyi/ruoyi-all-next` 目录执行。
+以下命令统一在 `apps/cooliebase/cooliebase-all-base` 目录执行。
 
-1. npm run ruoyi:starter:scan
-2. npm run ruoyi:mini:scan
-3. npm run ruoyi:deep:scan
-4. npm run ruoyi:migration:board
-5. npm run ruoyi:governance:check:strict
+1. npm run cooliebase:starter:scan
+2. npm run cooliebase:mini:scan
+3. npm run cooliebase:deep:scan
+4. npm run cooliebase:migration:board
+5. npm run cooliebase:governance:check:strict

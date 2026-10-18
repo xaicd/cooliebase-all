@@ -14,16 +14,16 @@
  *   npm run verify:real-db -- --keep  # 跑完保留数据库与容器（调试用）
  *   npm run verify:real-db -- --reuse # 复用已有验证库（不重建，更快但可能有残留数据）
  *
- * 注意: 验证库默认是独立的 `ruoyi_verify`，**不碰**开发库。
+ * 注意: 验证库默认是独立的 `cooliebase_verify`，**不碰**开发库。
  */
 const { spawnSync } = require("node:child_process")
 const { randomBytes } = require("node:crypto")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const VERIFY_DB = "ruoyi_verify" // 只有这个名字允许被本脚本重建
-const DB_USER = process.env.VERIFY_DB_USER || "ruoyi"
-const DB_PASSWORD = process.env.VERIFY_DB_PASSWORD || "ruoyi123"
+const VERIFY_DB = "cooliebase_verify" // 只有这个名字允许被本脚本重建
+const DB_USER = process.env.VERIFY_DB_USER || "cooliebase"
+const DB_PASSWORD = process.env.VERIFY_DB_PASSWORD || "cooliebase123"
 const DB_PORT = process.env.VERIFY_DB_PORT || "5433"
 const PG_HOST = process.env.PGHOST || (require("node:fs").existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
 
@@ -108,7 +108,7 @@ function main() {
   const exists = psql(container, "postgres", `SELECT 1 FROM pg_database WHERE datname='${VERIFY_DB}'`).includes("1")
   if (!reuse || !exists) {
     // 只允许重建本脚本自己的验证库 —— 名字不符就拒绝，绝不误伤开发库。
-    if (VERIFY_DB !== "ruoyi_verify") fail(`拒绝重建非验证库: ${VERIFY_DB}`)
+    if (VERIFY_DB !== "cooliebase_verify") fail(`拒绝重建非验证库: ${VERIFY_DB}`)
     console.log(`[verify:real-db] ${exists ? "重建" : "创建"}验证库 ${VERIFY_DB}…`)
     psql(container, "postgres", `DROP DATABASE IF EXISTS ${VERIFY_DB} WITH (FORCE);`)
     psql(container, "postgres", `CREATE DATABASE ${VERIFY_DB} OWNER ${DB_USER}`)

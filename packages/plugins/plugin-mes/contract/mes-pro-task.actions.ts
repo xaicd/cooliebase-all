@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-task.validator"
 
 export const mesProTaskActionSchemas = {
-  "ruoyi.cmd.mes.mesProTask.page": mesProTaskPageQuerySchema,
-  "ruoyi.cmd.mes.mesProTask.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProTask.create": mesProTaskCreateSchema,
-  "ruoyi.cmd.mes.mesProTask.update": mesProTaskUpdateSchema,
-  "ruoyi.cmd.mes.mesProTask.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProTask.page": mesProTaskPageQuerySchema,
+  "cooliebase.cmd.mes.mesProTask.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProTask.create": mesProTaskCreateSchema,
+  "cooliebase.cmd.mes.mesProTask.update": mesProTaskUpdateSchema,
+  "cooliebase.cmd.mes.mesProTask.delete": z.object({ id: z.string() }),
   "mes.pageMesProTask": mesProTaskPageQuerySchema,
   "mes.getMesProTask": z.object({ id: z.string() }),
   "mes.createMesProTask": mesProTaskCreateSchema,

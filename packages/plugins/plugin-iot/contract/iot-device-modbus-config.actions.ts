@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-device-modbus-config.validator"
 
 export const iotDeviceModbusConfigActionSchemas = {
-  "ruoyi.cmd.iot.iotDeviceModbusConfig.page": iotDeviceModbusConfigPageQuerySchema,
-  "ruoyi.cmd.iot.iotDeviceModbusConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDeviceModbusConfig.create": iotDeviceModbusConfigCreateSchema,
-  "ruoyi.cmd.iot.iotDeviceModbusConfig.update": iotDeviceModbusConfigUpdateSchema,
-  "ruoyi.cmd.iot.iotDeviceModbusConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceModbusConfig.page": iotDeviceModbusConfigPageQuerySchema,
+  "cooliebase.cmd.iot.iotDeviceModbusConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceModbusConfig.create": iotDeviceModbusConfigCreateSchema,
+  "cooliebase.cmd.iot.iotDeviceModbusConfig.update": iotDeviceModbusConfigUpdateSchema,
+  "cooliebase.cmd.iot.iotDeviceModbusConfig.delete": z.object({ id: z.string() }),
   "iot.pageIotDeviceModbusConfig": iotDeviceModbusConfigPageQuerySchema,
   "iot.getIotDeviceModbusConfig": z.object({ id: z.string() }),
   "iot.createIotDeviceModbusConfig": iotDeviceModbusConfigCreateSchema,

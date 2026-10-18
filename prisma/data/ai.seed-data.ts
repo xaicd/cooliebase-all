@@ -99,7 +99,7 @@ export const SEED_AI_TOKENS = [
   {
     id: "tok-default-001",
     name: "全平台默认开发者令牌",
-    key: "sk-ruoyi-developer-master",
+    key: "sk-cooliebase-developer-master",
     status: "ACTIVE",
     remainQuota: 5_000_000,
     unlimited: false,
@@ -113,7 +113,7 @@ export const SEED_AI_TOKENS = [
   {
     id: "tok-demo-002",
     name: "演示租户体验令牌",
-    key: "sk-ruoyi-demo-experience",
+    key: "sk-cooliebase-demo-experience",
     status: "ACTIVE",
     remainQuota: 500_000,
     unlimited: false,

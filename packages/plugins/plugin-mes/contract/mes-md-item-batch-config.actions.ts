@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-item-batch-config.validator"
 
 export const mesMdItemBatchConfigActionSchemas = {
-  "ruoyi.cmd.mes.mesMdItemBatchConfig.page": mesMdItemBatchConfigPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdItemBatchConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdItemBatchConfig.create": mesMdItemBatchConfigCreateSchema,
-  "ruoyi.cmd.mes.mesMdItemBatchConfig.update": mesMdItemBatchConfigUpdateSchema,
-  "ruoyi.cmd.mes.mesMdItemBatchConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdItemBatchConfig.page": mesMdItemBatchConfigPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdItemBatchConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdItemBatchConfig.create": mesMdItemBatchConfigCreateSchema,
+  "cooliebase.cmd.mes.mesMdItemBatchConfig.update": mesMdItemBatchConfigUpdateSchema,
+  "cooliebase.cmd.mes.mesMdItemBatchConfig.delete": z.object({ id: z.string() }),
   "mes.pageMesMdItemBatchConfig": mesMdItemBatchConfigPageQuerySchema,
   "mes.getMesMdItemBatchConfig": z.object({ id: z.string() }),
   "mes.createMesMdItemBatchConfig": mesMdItemBatchConfigCreateSchema,

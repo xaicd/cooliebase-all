@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-work-record-log.validator"
 
 export const mesProWorkRecordLogActionSchemas = {
-  "ruoyi.cmd.mes.mesProWorkRecordLog.page": mesProWorkRecordLogPageQuerySchema,
-  "ruoyi.cmd.mes.mesProWorkRecordLog.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProWorkRecordLog.create": mesProWorkRecordLogCreateSchema,
-  "ruoyi.cmd.mes.mesProWorkRecordLog.update": mesProWorkRecordLogUpdateSchema,
-  "ruoyi.cmd.mes.mesProWorkRecordLog.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkRecordLog.page": mesProWorkRecordLogPageQuerySchema,
+  "cooliebase.cmd.mes.mesProWorkRecordLog.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkRecordLog.create": mesProWorkRecordLogCreateSchema,
+  "cooliebase.cmd.mes.mesProWorkRecordLog.update": mesProWorkRecordLogUpdateSchema,
+  "cooliebase.cmd.mes.mesProWorkRecordLog.delete": z.object({ id: z.string() }),
   "mes.pageMesProWorkRecordLog": mesProWorkRecordLogPageQuerySchema,
   "mes.getMesProWorkRecordLog": z.object({ id: z.string() }),
   "mes.createMesProWorkRecordLog": mesProWorkRecordLogCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-alert-config.validator"
 
 export const iotAlertConfigActionSchemas = {
-  "ruoyi.cmd.iot.iotAlertConfig.page": iotAlertConfigPageQuerySchema,
-  "ruoyi.cmd.iot.iotAlertConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotAlertConfig.create": iotAlertConfigCreateSchema,
-  "ruoyi.cmd.iot.iotAlertConfig.update": iotAlertConfigUpdateSchema,
-  "ruoyi.cmd.iot.iotAlertConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotAlertConfig.page": iotAlertConfigPageQuerySchema,
+  "cooliebase.cmd.iot.iotAlertConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotAlertConfig.create": iotAlertConfigCreateSchema,
+  "cooliebase.cmd.iot.iotAlertConfig.update": iotAlertConfigUpdateSchema,
+  "cooliebase.cmd.iot.iotAlertConfig.delete": z.object({ id: z.string() }),
   "iot.pageIotAlertConfig": iotAlertConfigPageQuerySchema,
   "iot.getIotAlertConfig": z.object({ id: z.string() }),
   "iot.createIotAlertConfig": iotAlertConfigCreateSchema,

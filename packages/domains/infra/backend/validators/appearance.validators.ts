@@ -5,7 +5,7 @@ import { z } from "zod"
  * 全字段带默认值，缺字段回填默认。
  */
 export const siteAppearanceSchema = z.object({
-  siteName: z.string().trim().min(1).max(60).default("RuoYi Next 商城"),
+  siteName: z.string().trim().min(1).max(60).default("CoolieBase Next 商城"),
   logoUrl: z.string().trim().max(500).default("/logo.svg"),
   faviconUrl: z.string().trim().max(500).default("/favicon.ico"),
   primaryColor: z

@@ -56,7 +56,7 @@ export class SystemAuthService {
       const roles = resolveLoginRoles(user.username)
       const { permissions } = await getEffectivePermissions(user, roles)
 
-      // Full RuoYi menu catalogs can contain thousands of button permissions. A platform
+      // Full CoolieBase menu catalogs can contain thousands of button permissions. A platform
       // administrator is already explicitly authorized by role, so store one wildcard in
       // the JWT instead of an oversized Authorization header that proxies reject with 431.
       const jwtPermissions = roles.includes(getPlatformRole()) ? ["*"] : permissions

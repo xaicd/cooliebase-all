@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-merchant.validator"
 
 export const wmsMerchantActionSchemas = {
-  "ruoyi.cmd.wms.wmsMerchant.page": wmsMerchantPageQuerySchema,
-  "ruoyi.cmd.wms.wmsMerchant.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsMerchant.create": wmsMerchantCreateSchema,
-  "ruoyi.cmd.wms.wmsMerchant.update": wmsMerchantUpdateSchema,
-  "ruoyi.cmd.wms.wmsMerchant.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsMerchant.page": wmsMerchantPageQuerySchema,
+  "cooliebase.cmd.wms.wmsMerchant.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsMerchant.create": wmsMerchantCreateSchema,
+  "cooliebase.cmd.wms.wmsMerchant.update": wmsMerchantUpdateSchema,
+  "cooliebase.cmd.wms.wmsMerchant.delete": z.object({ id: z.string() }),
 } as const

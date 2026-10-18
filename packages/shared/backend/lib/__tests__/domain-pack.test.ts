@@ -36,7 +36,7 @@ expect(moduleLayerOf("pay")).toBeUndefined()
     for (const domain of domains) {
       expect(domain.packable).toBe(true)
       expect(domain.publicPrefixes.length).toBeGreaterThan(0)
-      expect(domain.upstreamEnv).toBe(`RUOYI_DOMAIN_${domain.name.toUpperCase()}_UPSTREAM`)
+      expect(domain.upstreamEnv).toBe(`COOLIEBASE_DOMAIN_${domain.name.toUpperCase()}_UPSTREAM`)
     }
   })
 })
@@ -54,7 +54,7 @@ describe("domain pack routing", () => {
   })
 
   it("proxies only when an upstream is configured and the process is the BFF", () => {
-    const env = { RUOYI_DOMAIN_PAY_UPSTREAM: "http://pay:3100/" }
+    const env = { COOLIEBASE_DOMAIN_PAY_UPSTREAM: "http://pay:3100/" }
     const match = matchRemoteDomainUpstream("/api/v1/open/pay/notify", env)
     expect(match).toEqual({
       domain: "pay",
@@ -62,7 +62,7 @@ describe("domain pack routing", () => {
       baseUrl: "http://pay:3100",
       timeoutMs: 5000,
     })
-    expect(matchRemoteDomainUpstream("/api/v1/admin/pay/orders", { ...env, RUOYI_PACK_DOMAIN: "pay" })).toBeUndefined()
+    expect(matchRemoteDomainUpstream("/api/v1/admin/pay/orders", { ...env, COOLIEBASE_PACK_DOMAIN: "pay" })).toBeUndefined()
     expect(matchRemoteDomainUpstream("/api/v1/admin/mall/orders", env)).toBeUndefined()
   })
 })

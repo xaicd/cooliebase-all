@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "ai",
-  "id": "ruoyi.ai",
+  "id": "cooliebase.ai",
   "apiVersion": 1,
   "displayName": "模型中台",
   "kind": "plugin",
@@ -36,9 +36,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.ai",
-    "commandSubject": "ruoyi.cmd.ai.>",
-    "eventSubject": "ruoyi.evt.ai.>"
+    "queueGroup": "cooliebase.ai",
+    "commandSubject": "cooliebase.cmd.ai.>",
+    "eventSubject": "cooliebase.evt.ai.>"
   },
   "invoke": {
     "colocated": "sdk",
@@ -47,7 +47,7 @@
     "serialization": "json"
   },
   "upstream": {
-    "env": "RUOYI_DOMAIN_AI_UPSTREAM",
+    "env": "COOLIEBASE_DOMAIN_AI_UPSTREAM",
     "protocol": "http",
     "defaultPort": 3223
   },

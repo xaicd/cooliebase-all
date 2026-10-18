@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.bpm.v1;
+package cooliebase.bpm.v1;
 
-option go_package = "ruoyi/all-next/gen/bpm/v1;bpmv1";
+option go_package = "cooliebase/all-base/gen/bpm/v1;bpmv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.bpm.v1.BpmService/<Method>
+// gRPC path: /cooliebase.bpm.v1.BpmService/<Method>
 
 message JsonReply {
   string json = 1;

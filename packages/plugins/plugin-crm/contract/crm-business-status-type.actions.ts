@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-business-status-type.validator"
 
 export const crmBusinessStatusTypeActionSchemas = {
-  "ruoyi.cmd.crm.crmBusinessStatusType.page": crmBusinessStatusTypePageQuerySchema,
-  "ruoyi.cmd.crm.crmBusinessStatusType.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmBusinessStatusType.create": crmBusinessStatusTypeCreateSchema,
-  "ruoyi.cmd.crm.crmBusinessStatusType.update": crmBusinessStatusTypeUpdateSchema,
-  "ruoyi.cmd.crm.crmBusinessStatusType.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmBusinessStatusType.page": crmBusinessStatusTypePageQuerySchema,
+  "cooliebase.cmd.crm.crmBusinessStatusType.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmBusinessStatusType.create": crmBusinessStatusTypeCreateSchema,
+  "cooliebase.cmd.crm.crmBusinessStatusType.update": crmBusinessStatusTypeUpdateSchema,
+  "cooliebase.cmd.crm.crmBusinessStatusType.delete": z.object({ id: z.string() }),
   "crm.pageCrmBusinessStatusType": crmBusinessStatusTypePageQuerySchema,
   "crm.getCrmBusinessStatusType": z.object({ id: z.string() }),
   "crm.createCrmBusinessStatusType": crmBusinessStatusTypeCreateSchema,

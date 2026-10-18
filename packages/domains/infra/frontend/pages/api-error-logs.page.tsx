@@ -28,7 +28,7 @@ type Page = {
 }
 
 async function download(url: string) {
-  const token = localStorage.getItem("ruoyi_token")
+  const token = localStorage.getItem("cooliebase_token")
   const response = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
   if (!response.ok) throw new Error("导出失败")
   const link = document.createElement("a")

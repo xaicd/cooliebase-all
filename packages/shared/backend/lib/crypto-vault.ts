@@ -2,7 +2,7 @@ import { createCipheriv, createDecipheriv, randomBytes } from "node:crypto"
 
 const ALGORITHM = "aes-256-gcm"
 const DEFAULT_KEY = Buffer.from(
-  (process.env.RUOYI_VAULT_AES_KEY || "0123456789abcdef0123456789abcdef").slice(0, 32),
+  (process.env.COOLIEBASE_VAULT_AES_KEY || "0123456789abcdef0123456789abcdef").slice(0, 32),
   "utf8",
 )
 

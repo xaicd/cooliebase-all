@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/go-view-project.validator"
 
 export const goViewProjectActionSchemas = {
-  "ruoyi.cmd.report.goViewProject.page": goViewProjectPageQuerySchema,
-  "ruoyi.cmd.report.goViewProject.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.report.goViewProject.create": goViewProjectCreateSchema,
-  "ruoyi.cmd.report.goViewProject.update": goViewProjectUpdateSchema,
-  "ruoyi.cmd.report.goViewProject.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.report.goViewProject.page": goViewProjectPageQuerySchema,
+  "cooliebase.cmd.report.goViewProject.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.report.goViewProject.create": goViewProjectCreateSchema,
+  "cooliebase.cmd.report.goViewProject.update": goViewProjectUpdateSchema,
+  "cooliebase.cmd.report.goViewProject.delete": z.object({ id: z.string() }),
   "report.pageGoViewProject": goViewProjectPageQuerySchema,
   "report.getGoViewProject": z.object({ id: z.string() }),
   "report.createGoViewProject": goViewProjectCreateSchema,

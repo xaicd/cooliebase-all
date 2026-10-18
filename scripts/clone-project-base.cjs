@@ -29,9 +29,9 @@ const AGENT_PROFILE_REL = path.join("packages", "shared", "contract", "agent-pro
 const HATCH_MANIFEST_REL = path.join("packages", "shared", "contract", "hatch-manifest.json")
 
 // 默认基准标识符 (对标 Yudao 的 GROUP_ID, ARTIFACT_ID, TITLE)
-const BASE_PROJECT_NAME = "ruoyi-all-next"
-const BASE_PROJECT_TITLE = "RuoYi All Next"
-const BASE_DB_NAME = "ruoyi_next"
+const BASE_PROJECT_NAME = "cooliebase-all-base"
+const BASE_PROJECT_TITLE = "CoolieBase All Base"
+const BASE_DB_NAME = "cooliebase_next"
 
 /**
  * 基座的全部域（**不含 shared** —— shared 是核心 SDK、不是域，AGENTS §3.2）。
@@ -51,7 +51,7 @@ const BINARY_EXTENSIONS = new Set([
 const EXCLUDE_DIRS = new Set([
   "node_modules",
   ".next",
-  ".next-ruoyi",
+  ".next-cooliebase",
   ".git",
   ".idea",
   ".vscode",
@@ -88,9 +88,9 @@ const PROTECTED_DOCS = new Set([
  */
 function transformFileContent(content, targetName, targetTitle, targetDbName, targetPort) {
   return content
-    .replace(/ruoyi-all-next/g, targetName)
-    .replace(/RuoYi All Next/g, targetTitle)
-    .replace(/ruoyi_next/g, targetDbName)
+    .replace(/cooliebase-all-base/g, targetName)
+    .replace(/CoolieBase All Base/g, targetTitle)
+    .replace(/cooliebase_next/g, targetDbName)
     .replace(/PORT=3100/g, `PORT=${targetPort}`)
 }
 
@@ -135,7 +135,7 @@ function reactorCopy(src, dest, ctx, rel = "") {
       if (entry.name === "package.json") {
         try {
           const pkg = JSON.parse(fs.readFileSync(srcPath, "utf8"))
-          // **只改基座自己那份** package.json —— 工作区包（如 @ruoyi/plugin-sdk）
+          // **只改基座自己那份** package.json —— 工作区包（如 @cooliebase/plugin-sdk）
           // 有各自的包名，一起改会毁掉它们的身份：所有 `workspace:*` 依赖都解析不到
           // （实测: 孵化后 packages/plugins/sdk 的 name 变成目标工程名，install 直接失败）。
           if (pkg.name === BASE_PROJECT_NAME) pkg.name = ctx.targetName
@@ -183,7 +183,7 @@ function pruneDomainReferenceLists(destRoot, plan) {
     const text = read(rel)
     if (!text) continue
     const lines = text.split("\n").filter((line) => {
-      // key 里可能带点（如 "ruoyi.pay"）—— 只写 [a-z0-9_]+ 会整行漏掉，
+      // key 里可能带点（如 "cooliebase.pay"）—— 只写 [a-z0-9_]+ 会整行漏掉，
       // 而漏掉的后果是"登记了却加载不了"，最隐蔽。域取 import 路径里那段。
       const m = line.match(/^\s*"[a-z0-9_.]+":\s*\(\)\s*=>\s*import\("@\/modules\/([a-z0-9_]+)\//)
       if (!m) return true
@@ -647,7 +647,7 @@ async function autoProvisionDatabase(targetDbName) {
   console.log(`[REACTOR DB] 正在连接 PostgreSQL 并自动初始化数据库: ${targetDbName}...`)
 
   const client = new Client({
-    connectionString: "postgresql://ruoyi:ruoyi123@localhost:5433/postgres",
+    connectionString: "postgresql://cooliebase:cooliebase123@localhost:5433/postgres",
   })
 
   let dbReady = false
@@ -655,7 +655,7 @@ async function autoProvisionDatabase(targetDbName) {
     await client.connect()
     const check = await client.query("SELECT 1 FROM pg_database WHERE datname = $1", [targetDbName])
     if (check.rows.length === 0) {
-      await client.query(`CREATE DATABASE "${targetDbName}" OWNER ruoyi`)
+      await client.query(`CREATE DATABASE "${targetDbName}" OWNER cooliebase`)
       console.log(`[REACTOR DB] ✅ 成功创建新数据库: "${targetDbName}"`)
     } else {
       console.log(`[REACTOR DB] 数据库 "${targetDbName}" 已存在，准备检查与部署 SQL`)
@@ -670,7 +670,7 @@ async function autoProvisionDatabase(targetDbName) {
   if (dbReady) {
     try {
       console.log(`[REACTOR SQL] 正在自动导入全量基准 SQL 与 27 项迁移...`)
-      const targetDbUrl = `postgresql://ruoyi:ruoyi123@localhost:5433/${targetDbName}?schema=public`
+      const targetDbUrl = `postgresql://cooliebase:cooliebase123@localhost:5433/${targetDbName}?schema=public`
       execSync("npx prisma migrate deploy", {
         cwd: SOURCE_ROOT,
         env: {
@@ -761,7 +761,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   const srcEnv = path.join(SOURCE_ROOT, ".env")
   const bootstrap = resolveBootstrap()
   const required = {
-    DATABASE_URL: `postgresql://ruoyi:ruoyi123@localhost:5433/${targetDbName}?schema=public`,
+    DATABASE_URL: `postgresql://cooliebase:cooliebase123@localhost:5433/${targetDbName}?schema=public`,
     DB_DRIVER: "postgresql",
     PORT: String(targetPort),
     JWT_SECRET: require("node:crypto").randomBytes(32).toString("hex"),
@@ -830,7 +830,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     gitInit(["add", "-A"])
     gitInit([
       "-c", "user.email=hatch@local", "-c", "user.name=hatch",
-      "commit", "-q", "-m", "chore: 孵化自 ruoyi-all-next 基座\n\nCo-authored-by: CommandCodeBot <noreply@commandcode.ai>",
+      "commit", "-q", "-m", "chore: 孵化自 cooliebase-all-base 基座\n\nCo-authored-by: CommandCodeBot <noreply@commandcode.ai>",
     ])
     console.log("[reactor] 已 git init 并提交首个快照（任务痕迹与指纹需要它）")
   }

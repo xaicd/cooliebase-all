@@ -28,9 +28,9 @@ const ROOT = path.resolve(__dirname, "..")
 const KEEP = process.argv.includes("--keep")
 const arg = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined }
 const BASE = arg("--base") || "http://localhost:3200"
-const DB = "ruoyi_secscan"
+const DB = "cooliebase_secscan"
 const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://ruoyi:ruoyi123@${PG_HOST}:5433/${DB}?schema=public`
+const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
 const PASSWORD = "SecScan@123456"
 const SALT = "secscan-salt"
 
@@ -56,12 +56,12 @@ function dockerExec(args) {
 function psql(db, sql) {
   const hasDocker = spawnSync("which", ["docker"]).status === 0
   if (hasDocker) {
-    return spawnSync("docker", ["exec", "ruoyi-dev-postgres-1", "psql", "-U", "ruoyi", "-d", db, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
+    return spawnSync("docker", ["exec", "cooliebase-dev-postgres-1", "psql", "-U", "cooliebase", "-d", db, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
   }
   const hasHostExec = spawnSync("which", ["host-exec"]).status === 0
   if (hasHostExec) {
     const escapedSql = sql.replace(/'/g, "'\\''")
-    const cmd = `docker exec ruoyi-dev-postgres-1 psql -U ruoyi -d ${db} -t -A -c '${escapedSql}'`
+    const cmd = `docker exec cooliebase-dev-postgres-1 psql -U cooliebase -d ${db} -t -A -c '${escapedSql}'`
     return spawnSync("host-exec", [cmd], { cwd: ROOT, encoding: "utf8" })
   }
   return { status: 127, stdout: "", stderr: "docker and host-exec not found" }
@@ -96,7 +96,7 @@ async function main() {
   console.log(`\n=== 安全扫描（${BASE}）===\n`)
 
   if (!arg("--base")) {
-    const healthy = dockerExec(["inspect", "--format={{.State.Health.Status}}", "ruoyi-dev-postgres-1"]).stdout?.trim() === "healthy"
+    const healthy = dockerExec(["inspect", "--format={{.State.Health.Status}}", "cooliebase-dev-postgres-1"]).stdout?.trim() === "healthy"
     if (!healthy) {
       startedPostgres = true
       const hasDocker = spawnSync("which", ["docker"]).status === 0
@@ -104,7 +104,7 @@ async function main() {
       else spawnSync("host-exec", ["docker", "compose", "-f", "deploy/docker-compose.dev.yml", "up", "-d", "postgres"], { cwd: ROOT, encoding: "utf8" })
     }
     for (let i = 0; i < 20; i += 1) {
-      if (dockerExec(["inspect", "--format={{.State.Health.Status}}", "ruoyi-dev-postgres-1"]).stdout?.trim() === "healthy") break
+      if (dockerExec(["inspect", "--format={{.State.Health.Status}}", "cooliebase-dev-postgres-1"]).stdout?.trim() === "healthy") break
       await new Promise((r) => setTimeout(r, 2000))
     }
     psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE)`)
@@ -160,7 +160,7 @@ async function main() {
   step("伪造 x-tenant-id 不得放行", [401, 403].includes(forgedTenant.status), `HTTP ${forgedTenant.status}`)
 
   // ---- 4. 插件挂载点: 未认证访问 operator 插件必须 401 ----
-  const plugin = await probe("/api/v1/plugins/ruoyi.system/api/ping")
+  const plugin = await probe("/api/v1/plugins/cooliebase.system/api/ping")
   step("插件挂载点未认证被拒（或 404 未挂载，均非 200）", plugin.status !== 200, `HTTP ${plugin.status}`)
 
   // ---- 5. 错误响应不得泄露栈/内部路径（§4.5）----

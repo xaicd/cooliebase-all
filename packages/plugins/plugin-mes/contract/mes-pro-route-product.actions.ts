@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-route-product.validator"
 
 export const mesProRouteProductActionSchemas = {
-  "ruoyi.cmd.mes.mesProRouteProduct.page": mesProRouteProductPageQuerySchema,
-  "ruoyi.cmd.mes.mesProRouteProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProRouteProduct.create": mesProRouteProductCreateSchema,
-  "ruoyi.cmd.mes.mesProRouteProduct.update": mesProRouteProductUpdateSchema,
-  "ruoyi.cmd.mes.mesProRouteProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProRouteProduct.page": mesProRouteProductPageQuerySchema,
+  "cooliebase.cmd.mes.mesProRouteProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProRouteProduct.create": mesProRouteProductCreateSchema,
+  "cooliebase.cmd.mes.mesProRouteProduct.update": mesProRouteProductUpdateSchema,
+  "cooliebase.cmd.mes.mesProRouteProduct.delete": z.object({ id: z.string() }),
   "mes.pageMesProRouteProduct": mesProRouteProductPageQuerySchema,
   "mes.getMesProRouteProduct": z.object({ id: z.string() }),
   "mes.createMesProRouteProduct": mesProRouteProductCreateSchema,

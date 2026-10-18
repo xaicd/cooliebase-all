@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/online
 upstream:
-  env: RUOYI_DOMAIN_ONLINE_UPSTREAM
+  env: COOLIEBASE_DOMAIN_ONLINE_UPSTREAM
   protocol: http
   defaultPort: 3212
 pack:

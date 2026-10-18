@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-work-order-bom.validator"
 
 export const mesProWorkOrderBomActionSchemas = {
-  "ruoyi.cmd.mes.mesProWorkOrderBom.page": mesProWorkOrderBomPageQuerySchema,
-  "ruoyi.cmd.mes.mesProWorkOrderBom.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProWorkOrderBom.create": mesProWorkOrderBomCreateSchema,
-  "ruoyi.cmd.mes.mesProWorkOrderBom.update": mesProWorkOrderBomUpdateSchema,
-  "ruoyi.cmd.mes.mesProWorkOrderBom.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkOrderBom.page": mesProWorkOrderBomPageQuerySchema,
+  "cooliebase.cmd.mes.mesProWorkOrderBom.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkOrderBom.create": mesProWorkOrderBomCreateSchema,
+  "cooliebase.cmd.mes.mesProWorkOrderBom.update": mesProWorkOrderBomUpdateSchema,
+  "cooliebase.cmd.mes.mesProWorkOrderBom.delete": z.object({ id: z.string() }),
   "mes.pageMesProWorkOrderBom": mesProWorkOrderBomPageQuerySchema,
   "mes.getMesProWorkOrderBom": z.object({ id: z.string() }),
   "mes.createMesProWorkOrderBom": mesProWorkOrderBomCreateSchema,

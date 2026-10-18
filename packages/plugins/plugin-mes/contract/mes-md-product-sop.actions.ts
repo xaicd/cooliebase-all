@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-product-sop.validator"
 
 export const mesMdProductSopActionSchemas = {
-  "ruoyi.cmd.mes.mesMdProductSop.page": mesMdProductSopPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdProductSop.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdProductSop.create": mesMdProductSopCreateSchema,
-  "ruoyi.cmd.mes.mesMdProductSop.update": mesMdProductSopUpdateSchema,
-  "ruoyi.cmd.mes.mesMdProductSop.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdProductSop.page": mesMdProductSopPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdProductSop.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdProductSop.create": mesMdProductSopCreateSchema,
+  "cooliebase.cmd.mes.mesMdProductSop.update": mesMdProductSopUpdateSchema,
+  "cooliebase.cmd.mes.mesMdProductSop.delete": z.object({ id: z.string() }),
   "mes.pageMesMdProductSop": mesMdProductSopPageQuerySchema,
   "mes.getMesMdProductSop": z.object({ id: z.string() }),
   "mes.createMesMdProductSop": mesMdProductSopCreateSchema,

@@ -22,7 +22,7 @@ import { resetOutbox, runUnitOfWork, subscribeOutboxConsumer } from "./transacti
 export type DomainEvent = {
   /** 事件类型，格式：domain.entity.action，如 pay.order.created */
   type: string
-  /** NATS-style subject，如 ruoyi.evt.pay.order.created */
+  /** NATS-style subject，如 cooliebase.evt.pay.order.created */
   subject?: string
   /** 事件负载 */
   payload: Record<string, unknown>

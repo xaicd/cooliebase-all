@@ -1,6 +1,6 @@
 #!/bin/bash
 # ============================================================
-# ruoyi-all-next 一键启动脚本（Linux/macOS）
+# cooliebase-all-base 一键启动脚本（Linux/macOS）
 # 用法: bash scripts/quick-start.sh [mode]
 # mode: local(默认) | dev | test | prod | docker
 # ============================================================
@@ -27,7 +27,7 @@ log_error() { echo -e "${RED}[ERROR]${NC} $1"; }
 
 echo ""
 echo "  ╔══════════════════════════════════════╗"
-echo "  ║     ruoyi-all-next Quick Start       ║"
+echo "  ║     cooliebase-all-base Quick Start       ║"
 echo "  ║     Mode: $MODE                         ║"
 echo "  ╚══════════════════════════════════════╝"
 echo ""
@@ -51,7 +51,7 @@ if [ "$MODE" = "dev-docker" ]; then
   sleep 5
   log_info "容器已启动"
   log_info "访问: http://localhost:3100"
-  log_info "PostgreSQL: localhost:5432 (ruoyi/ruoyi123)"
+  log_info "PostgreSQL: localhost:5432 (cooliebase/cooliebase123)"
   exit 0
 fi
 
@@ -86,10 +86,10 @@ fi
 log_step "3/5 配置环境..."
 if [ ! -f ".env.local" ]; then
   cat > .env.local << 'EOF'
-# ruoyi-all-next 本地开发配置（自动生成）
+# cooliebase-all-base 本地开发配置（自动生成）
 DB_DRIVER=memory
 DATABASE_URL=file:./dev.db
-JWT_SECRET=ruoyi-all-next-dev-secret-key-2026
+JWT_SECRET=cooliebase-all-base-dev-secret-key-2026
 JWT_EXPIRES_IN=86400
 EOF
   log_info ".env.local 已生成（内存模式）✓"

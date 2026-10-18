@@ -31,7 +31,7 @@ export class TestingKit {
    * 创建一个隔离的临时 SQLite 数据库用于集成测试
    */
   static async createTestDatabase(): Promise<{ db: Kysely<DB>; dbPath: string; cleanup: () => void }> {
-    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'ruoyi-test-db-'));
+    const tmpDir = fs.mkdtempSync(path.join(os.tmpdir(), 'cooliebase-test-db-'));
     const dbPath = path.join(tmpDir, 'test.db');
     
     // 初始化表结构与种子数据

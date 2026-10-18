@@ -21,7 +21,7 @@ T7 权限码/契约  T8 单测  T9 SQLite 端到端预览(A7)  T10 门禁(tsc/li
 - `prisma/schema.prisma` 加 `model MemberUser`（design §2.1）。PG 侧生成 migration：`prisma migrate dev --name add_member_user`（在 PG 环境；若沙箱无 PG，则手写 migration SQL 对齐现有 migrations 风格）。
 - `scripts/bootstrap-sqlite.ts` 加 `CREATE TABLE IF NOT EXISTS member_user`（SQLite 原生类型 + 8 审计字段）；可选 seed 一个 demo 会员。
 - 在 Kysely `schema.ts` 登记 `member_user` 表类型（供类型安全查询）。
-- 验收：`npm run db:bootstrap:sqlite` 生成的 `data/ruoyi.db` 含 member_user 表（`.schema member_user` 可见）。
+- 验收：`npm run db:bootstrap:sqlite` 生成的 `data/cooliebase.db` 含 member_user 表（`.schema member_user` 可见）。
 
 ## T2 — MemberUserRepository（Kysely）
 - 新建 `member/backend/repositories/member-user.repository.ts`：`findByAccount/findById/insert/updateProfile`，走 datasource-manager，自动带 `deleted=0`/`tenant_id`。

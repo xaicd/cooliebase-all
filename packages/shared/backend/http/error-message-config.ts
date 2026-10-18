@@ -16,7 +16,7 @@ function sanitizeMessage(value: string | null | undefined): string | undefined {
  * category, and retry policy are always defined by the source-controlled catalog.
  *
  * Example runtime key: shared.ERROR_MESSAGE_DEPENDENCY_UNAVAILABLE
- * Environment equivalent: RUOYI_SHARED_ERROR_MESSAGE_DEPENDENCY_UNAVAILABLE
+ * Environment equivalent: COOLIEBASE_SHARED_ERROR_MESSAGE_DEPENDENCY_UNAVAILABLE
  */
 export const configCenterErrorMessageResolver: ErrorMessageResolver = (
   definition: ErrorDefinition,

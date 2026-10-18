@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-check-record-line.validator"
 
 export const mesDvCheckRecordLineActionSchemas = {
-  "ruoyi.cmd.mes.mesDvCheckRecordLine.page": mesDvCheckRecordLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesDvCheckRecordLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvCheckRecordLine.create": mesDvCheckRecordLineCreateSchema,
-  "ruoyi.cmd.mes.mesDvCheckRecordLine.update": mesDvCheckRecordLineUpdateSchema,
-  "ruoyi.cmd.mes.mesDvCheckRecordLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckRecordLine.page": mesDvCheckRecordLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesDvCheckRecordLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckRecordLine.create": mesDvCheckRecordLineCreateSchema,
+  "cooliebase.cmd.mes.mesDvCheckRecordLine.update": mesDvCheckRecordLineUpdateSchema,
+  "cooliebase.cmd.mes.mesDvCheckRecordLine.delete": z.object({ id: z.string() }),
   "mes.pageMesDvCheckRecordLine": mesDvCheckRecordLinePageQuerySchema,
   "mes.getMesDvCheckRecordLine": z.object({ id: z.string() }),
   "mes.createMesDvCheckRecordLine": mesDvCheckRecordLineCreateSchema,

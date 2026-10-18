@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-item-consume-line.validator"
 
 export const mesWmItemConsumeLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmItemConsumeLine.page": mesWmItemConsumeLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmItemConsumeLine.create": mesWmItemConsumeLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeLine.update": mesWmItemConsumeLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsumeLine.page": mesWmItemConsumeLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsumeLine.create": mesWmItemConsumeLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeLine.update": mesWmItemConsumeLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmItemConsumeLine": mesWmItemConsumeLinePageQuerySchema,
   "mes.getMesWmItemConsumeLine": z.object({ id: z.string() }),
   "mes.createMesWmItemConsumeLine": mesWmItemConsumeLineCreateSchema,

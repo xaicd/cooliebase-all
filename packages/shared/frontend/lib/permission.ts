@@ -8,9 +8,9 @@ const ALL_PERMISSION = "*:*:*"
 export function getUserPermissions(): string[] {
   if (typeof window === "undefined") return [ALL_PERMISSION]
   try {
-    const raw = localStorage.getItem("ruoyi_permissions")
+    const raw = localStorage.getItem("cooliebase_permissions")
     if (raw) return JSON.parse(raw)
-    const userRaw = localStorage.getItem("ruoyi_user")
+    const userRaw = localStorage.getItem("cooliebase_user")
     if (userRaw) {
       const user = JSON.parse(userRaw)
       if (Array.isArray(user.permissions)) return user.permissions
@@ -21,7 +21,7 @@ export function getUserPermissions(): string[] {
 }
 
 /**
- * 校验是否具备指定权限码 (对标 RuoYi v-hasPermi)
+ * 校验是否具备指定权限码 (对标 CoolieBase v-hasPermi)
  */
 export function hasPermission(permission: string | string[]): boolean {
   const permissions = getUserPermissions()

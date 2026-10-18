@@ -5,7 +5,7 @@
 
 import { apiPath } from "@/modules/shared/frontend/lib/request"
 
-const TOKEN_KEY = "ruoyi_member_token"
+const TOKEN_KEY = "cooliebase_member_token"
 
 export type Appearance = {
   siteName: string

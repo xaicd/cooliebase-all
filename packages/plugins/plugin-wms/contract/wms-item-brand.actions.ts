@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-item-brand.validator"
 
 export const wmsItemBrandActionSchemas = {
-  "ruoyi.cmd.wms.wmsItemBrand.page": wmsItemBrandPageQuerySchema,
-  "ruoyi.cmd.wms.wmsItemBrand.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsItemBrand.create": wmsItemBrandCreateSchema,
-  "ruoyi.cmd.wms.wmsItemBrand.update": wmsItemBrandUpdateSchema,
-  "ruoyi.cmd.wms.wmsItemBrand.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemBrand.page": wmsItemBrandPageQuerySchema,
+  "cooliebase.cmd.wms.wmsItemBrand.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemBrand.create": wmsItemBrandCreateSchema,
+  "cooliebase.cmd.wms.wmsItemBrand.update": wmsItemBrandUpdateSchema,
+  "cooliebase.cmd.wms.wmsItemBrand.delete": z.object({ id: z.string() }),
 } as const

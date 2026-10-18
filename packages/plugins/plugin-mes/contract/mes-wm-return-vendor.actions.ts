@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-vendor.validator"
 
 export const mesWmReturnVendorActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnVendor.page": mesWmReturnVendorPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnVendor.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnVendor.create": mesWmReturnVendorCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnVendor.update": mesWmReturnVendorUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnVendor.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnVendor.page": mesWmReturnVendorPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnVendor.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnVendor.create": mesWmReturnVendorCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnVendor.update": mesWmReturnVendorUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnVendor.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnVendor": mesWmReturnVendorPageQuerySchema,
   "mes.getMesWmReturnVendor": z.object({ id: z.string() }),
   "mes.createMesWmReturnVendor": mesWmReturnVendorCreateSchema,

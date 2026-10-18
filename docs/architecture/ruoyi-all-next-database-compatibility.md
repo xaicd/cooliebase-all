@@ -1,10 +1,10 @@
-# ruoyi-all-next 多数据库与国产数据库兼容规范（v1.0）
+# cooliebase-all-base 多数据库与国产数据库兼容规范（v1.0）
 
 更新时间：2026-08-02
 
 ## 1. 目标
 
-建立与 RuoYi 对齐的多数据库能力，并明确国产数据库可落地路径，确保 AI 与工程师在同一兼容口径下开发。
+建立与 CoolieBase 对齐的多数据库能力，并明确国产数据库可落地路径，确保 AI 与工程师在同一兼容口径下开发。
 
 ## 2. 数据库识别清单
 
@@ -64,7 +64,7 @@
 
 ## 4.1 数据访问抽象层
 
-在 ruoyi-all-next 内强制分层：
+在 cooliebase-all-base 内强制分层：
 
 1. Domain Service：业务逻辑
 2. Repository Port：数据库无关接口

@@ -24,7 +24,7 @@ export type TenantPackageRow = {
 export type CreateTenantPackageData = { name: string; status?: string; accountLimit?: number | null; menuIds?: string[]; remark?: string }
 export type UpdateTenantPackageData = Partial<CreateTenantPackageData>
 
-// 无数据库开发模式也使用由本地 RuoYi SQL 生成的同一套餐目录，禁止维护另一套手写数据。
+// 无数据库开发模式也使用由本地 CoolieBase SQL 生成的同一套餐目录，禁止维护另一套手写数据。
 const MEMORY_STORE: TenantPackageRow[] = SEED_TENANT_PACKAGES.map((item) => ({ ...item, name: overlayPackageName(item.id, item.name), accountLimit: null, menuIds: [...item.menuIds] }))
 let memoryIdSeq = 100
 

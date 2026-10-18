@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-notify-task.validator"
 
 export const payNotifyTaskActionSchemas = {
-  "ruoyi.cmd.pay.payNotifyTask.page": payNotifyTaskPageQuerySchema,
-  "ruoyi.cmd.pay.payNotifyTask.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payNotifyTask.create": payNotifyTaskCreateSchema,
-  "ruoyi.cmd.pay.payNotifyTask.update": payNotifyTaskUpdateSchema,
-  "ruoyi.cmd.pay.payNotifyTask.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payNotifyTask.page": payNotifyTaskPageQuerySchema,
+  "cooliebase.cmd.pay.payNotifyTask.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payNotifyTask.create": payNotifyTaskCreateSchema,
+  "cooliebase.cmd.pay.payNotifyTask.update": payNotifyTaskUpdateSchema,
+  "cooliebase.cmd.pay.payNotifyTask.delete": z.object({ id: z.string() }),
   "pay.pagePayNotifyTask": payNotifyTaskPageQuerySchema,
   "pay.getPayNotifyTask": z.object({ id: z.string() }),
   "pay.createPayNotifyTask": payNotifyTaskCreateSchema,

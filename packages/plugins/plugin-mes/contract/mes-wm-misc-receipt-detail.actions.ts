@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-misc-receipt-detail.validator"
 
 export const mesWmMiscReceiptDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmMiscReceiptDetail.page": mesWmMiscReceiptDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmMiscReceiptDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmMiscReceiptDetail.create": mesWmMiscReceiptDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmMiscReceiptDetail.update": mesWmMiscReceiptDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmMiscReceiptDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscReceiptDetail.page": mesWmMiscReceiptDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmMiscReceiptDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscReceiptDetail.create": mesWmMiscReceiptDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmMiscReceiptDetail.update": mesWmMiscReceiptDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmMiscReceiptDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmMiscReceiptDetail": mesWmMiscReceiptDetailPageQuerySchema,
   "mes.getMesWmMiscReceiptDetail": z.object({ id: z.string() }),
   "mes.createMesWmMiscReceiptDetail": mesWmMiscReceiptDetailCreateSchema,

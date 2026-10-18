@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-sensitive-word.validator"
 
 export const imSensitiveWordActionSchemas = {
-  "ruoyi.cmd.im.imSensitiveWord.page": imSensitiveWordPageQuerySchema,
-  "ruoyi.cmd.im.imSensitiveWord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imSensitiveWord.create": imSensitiveWordCreateSchema,
-  "ruoyi.cmd.im.imSensitiveWord.update": imSensitiveWordUpdateSchema,
-  "ruoyi.cmd.im.imSensitiveWord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imSensitiveWord.page": imSensitiveWordPageQuerySchema,
+  "cooliebase.cmd.im.imSensitiveWord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imSensitiveWord.create": imSensitiveWordCreateSchema,
+  "cooliebase.cmd.im.imSensitiveWord.update": imSensitiveWordUpdateSchema,
+  "cooliebase.cmd.im.imSensitiveWord.delete": z.object({ id: z.string() }),
   "im.pageImSensitiveWord": imSensitiveWordPageQuerySchema,
   "im.getImSensitiveWord": z.object({ id: z.string() }),
   "im.createImSensitiveWord": imSensitiveWordCreateSchema,

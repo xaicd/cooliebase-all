@@ -1,10 +1,10 @@
 {
-  "name": "@ruoyi/mcp-server",
+  "name": "@cooliebase/mcp-server",
   "version": "1.0.0",
-  "description": "Model Context Protocol (MCP) stdio server for ruoyi-all-next enterprise framework and DigitalStaff NPC",
+  "description": "Model Context Protocol (MCP) stdio server for cooliebase-all-base enterprise framework and DigitalStaff NPC",
   "main": "bin/index.js",
   "bin": {
-    "ruoyi-mcp-server": "bin/index.js"
+    "cooliebase-mcp-server": "bin/index.js"
   },
   "keywords": [
     "mcp",
@@ -12,18 +12,18 @@
     "cursor",
     "claude",
     "windsurf",
-    "ruoyi",
+    "cooliebase",
     "nextjs",
     "ai-agent"
   ],
-  "author": "ruoyi-all-next team",
+  "author": "cooliebase-all-base team",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xaicd/ruoyi-all-next.git",
+    "url": "https://github.com/xaicd/cooliebase-all-base.git",
     "directory": "packages/tools/mcp-server"
   }
 }

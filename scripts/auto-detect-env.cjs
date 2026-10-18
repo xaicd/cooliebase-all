@@ -29,10 +29,10 @@ function autoDetectAndSyncEnv() {
   fixBinShims(rootDir)
   const dirName = path.basename(rootDir)
   
-  // 从目录名推导数据库名 (如 agent-zqall -> agent_zqall, ruoyi-all-next -> ruoyi_next)
+  // 从目录名推导数据库名 (如 agent-zqall -> agent_zqall, cooliebase-all-base -> cooliebase_next)
   let derivedDbName = dirName.toLowerCase().replace(/[^a-z0-9_]/g, "_")
-  if (derivedDbName === "ruoyi_all_next") {
-    derivedDbName = "ruoyi_next" // 兼容 ruoyi 默认库名
+  if (derivedDbName === "cooliebase_all_next") {
+    derivedDbName = "cooliebase_next" // 兼容 cooliebase 默认库名
   }
 
   const envPath = path.join(rootDir, ".env")
@@ -65,7 +65,7 @@ function autoDetectAndSyncEnv() {
   if (fs.existsSync(pkgPath)) {
     try {
       const pkg = JSON.parse(fs.readFileSync(pkgPath, "utf8"))
-      if (pkg.name !== dirName && dirName !== "ruoyi-all-next") {
+      if (pkg.name !== dirName && dirName !== "cooliebase-all-base") {
         pkg.name = dirName
         fs.writeFileSync(pkgPath, JSON.stringify(pkg, null, 2), "utf8")
       }

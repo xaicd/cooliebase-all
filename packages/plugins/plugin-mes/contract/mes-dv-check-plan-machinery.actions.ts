@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-check-plan-machinery.validator"
 
 export const mesDvCheckPlanMachineryActionSchemas = {
-  "ruoyi.cmd.mes.mesDvCheckPlanMachinery.page": mesDvCheckPlanMachineryPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvCheckPlanMachinery.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvCheckPlanMachinery.create": mesDvCheckPlanMachineryCreateSchema,
-  "ruoyi.cmd.mes.mesDvCheckPlanMachinery.update": mesDvCheckPlanMachineryUpdateSchema,
-  "ruoyi.cmd.mes.mesDvCheckPlanMachinery.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckPlanMachinery.page": mesDvCheckPlanMachineryPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvCheckPlanMachinery.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckPlanMachinery.create": mesDvCheckPlanMachineryCreateSchema,
+  "cooliebase.cmd.mes.mesDvCheckPlanMachinery.update": mesDvCheckPlanMachineryUpdateSchema,
+  "cooliebase.cmd.mes.mesDvCheckPlanMachinery.delete": z.object({ id: z.string() }),
   "mes.pageMesDvCheckPlanMachinery": mesDvCheckPlanMachineryPageQuerySchema,
   "mes.getMesDvCheckPlanMachinery": z.object({ id: z.string() }),
   "mes.createMesDvCheckPlanMachinery": mesDvCheckPlanMachineryCreateSchema,

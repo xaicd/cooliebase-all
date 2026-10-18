@@ -5,7 +5,7 @@ import { withAdminRoute } from "@/modules/shared/backend/http/admin-route"
 
 type RouteContext = { params: Promise<{ code: string }> }
 
-/** Preview shared RuoYi CRUD output from the tenant-scoped immutable Published Release. */
+/** Preview shared CoolieBase CRUD output from the tenant-scoped immutable Published Release. */
 export const POST = withAdminRoute(async (_request, auth, context: RouteContext) => {
   const { code } = await context.params
   const result = await OnlineDefinitionService.previewGeneratedCode(auth, code)

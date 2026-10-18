@@ -20,7 +20,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 
 | | 平台地基 | **第一方插件**（域插件化后的形态） | 第三方插件 |
 |---|---|---|---|
-| 目录 | `packages/domains/<name>/` | `packages/plugins/plugin-<name>/` | 实例插件目录（`RUOYI_PLUGIN_DIR`） |
+| 目录 | `packages/domains/<name>/` | `packages/plugins/plugin-<name>/` | 实例插件目录（`COOLIEBASE_PLUGIN_DIR`） |
 | 当前成员 | `system` / `infra`（**永不插件化**） | 15 个业务域 | 客户/外部扩展 |
 | 语言 | TS | **TS**（必须登记静态入口） | 编译后的 JS（运行期 import） |
 | 信任 | 可信 | 可信（第一方） | **capability 受限** |
@@ -32,7 +32,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 **判断规则：**
 
 - 加**新的业务能力** → 走 `new-feature` skill；落在哪个域由该域当前形态决定，**别猜路径**
-  （用 `ruoyi_domain_resolve` / `domainDirOf` 解析）。
+  （用 `cooliebase_domain_resolve` / `domainDirOf` 解析）。
 - 把某个**还没插件化的业务域**变成插件 → 见 §12「域 → 插件迁移」。`system`/`infra` 除外。
 - 客户定制、按实例启停、来源不完全可信、要进程级隔离 → **第三方插件**（本 skill 其余章节）。
 
@@ -45,7 +45,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 
 ```
 <插件目录>/<你的插件>/
-├── package.json          ← 必须含 ruoyiPlugin 指针
+├── package.json          ← 必须含 cooliebasePlugin 指针
 ├── plugin.manifest.json  ← 必须；必须是 JSON（不能是 .js）
 ├── worker.js             ← 可选；独立运行入口（out-of-process，stdio JSON-RPC）
 ├── merged.js             ← 可选；合并运行入口（in-process，宿主直接 import）
@@ -54,13 +54,13 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 **worker 与 merged 至少声明一个**；两个都声明 = 该插件同时支持两种形态。
 ```
 
-`package.json` 的入口指针（键名固定 **`ruoyiPlugin`**）：
+`package.json` 的入口指针（键名固定 **`cooliebasePlugin`**）：
 
 ```json
 {
   "name": "@yourorg/plugin-foo",
   "type": "module",
-  "ruoyiPlugin": {
+  "cooliebasePlugin": {
     "manifest": "./plugin.manifest.json",
     "worker": "./worker.js",
     "merged": "./merged.js"
@@ -136,7 +136,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 **用 SDK 就不用手写这些：**
 
 ```js
-import { definePlugin, runWorker } from "@ruoyi/plugin-sdk"
+import { definePlugin, runWorker } from "@cooliebase/plugin-sdk"
 
 const plugin = definePlugin({
   async setup(ctx) { ctx.logger.info("ready") },
@@ -183,7 +183,7 @@ runWorker(plugin)
 只要把 handler 对象**导出**即可：
 
 ```js
-import { definePlugin } from "@ruoyi/plugin-sdk"
+import { definePlugin } from "@cooliebase/plugin-sdk"
 
 export default definePlugin({
   async setup(ctx) { ctx.logger.info("ready") },   // ctx.mode === "merged"
@@ -226,8 +226,8 @@ export default definePlugin({
 ## 8. 安装与验证
 
 ```bash
-# 1. 把插件包放进实例插件目录（默认 .ruoyi/plugins，已 gitignore）
-#    或用 RUOYI_PLUGIN_DIR 指定别处
+# 1. 把插件包放进实例插件目录（默认 .cooliebase/plugins，已 gitignore）
+#    或用 COOLIEBASE_PLUGIN_DIR 指定别处
 # 2. 触发扫描 + 启停 worker（需要 PLATFORM_PLUGIN_MANAGE 权限）
 curl -X POST /api/v1/admin/plugins
 # 3. 看状态（需要 PLATFORM_PLUGIN_QUERY 权限）
@@ -244,7 +244,7 @@ curl /api/v1/admin/plugins
 
 | 现象 | 原因 |
 |---|---|
-| `缺少合法的 ruoyiPlugin 指针` | `package.json` 没有 `ruoyiPlugin`，或缺 `manifest`/`worker` 字段 |
+| `缺少合法的 cooliebasePlugin 指针` | `package.json` 没有 `cooliebasePlugin`，或缺 `manifest`/`worker` 字段 |
 | `apiVersion N 与宿主支持的 1 不兼容` | 精确匹配失败，改 `apiVersion` |
 | `capability "x" 不在宿主能力白名单内` | 拼写错，或该能力确实不提供 |
 | `capability "x" 属禁忌能力` | 你在申请宿主明确不给的能力 |
@@ -317,7 +317,7 @@ UI bundle 也走同一前缀：`/api/v1/plugins/<pluginKey>/ui/<path>`（这样 
 
 宿主会在**启动运行时之前**执行它们，三条硬边界：
 
-1. **只执行宿主信任的插件** —— 信任来自运营配置 `RUOYI_TRUSTED_PLUGIN_KEYS`，
+1. **只执行宿主信任的插件** —— 信任来自运营配置 `COOLIEBASE_TRUSTED_PLUGIN_KEYS`，
    **manifest 不能自封**（否则任何插件都能自带迁移）。未信任则跳过并给出原因。
 2. **严格隔离在插件自己的 schema**（`plugin_<插件key>`）。所以迁移里**不要加 schema 限定**：
    未限定的表名会落在你自己的 schema 里，`public`（宿主表）对你不可见。
@@ -386,6 +386,6 @@ pnpm run check && npx vitest run && pnpm run build
 
 ### AI 侧怎么拿到这些信息（别靠记忆）
 
-- `ruoyi_domain_resolve` —— 域名 → 真实目录 + 是否插件
-- `ruoyi_plugin_list` —— 全部插件 + 声明路由数 + auth 面 + 域级特征
-- `ruoyi_codegen_targets` —— 低代码对该域的**落点**（按真实目录解析）
+- `cooliebase_domain_resolve` —— 域名 → 真实目录 + 是否插件
+- `cooliebase_plugin_list` —— 全部插件 + 声明路由数 + auth 面 + 域级特征
+- `cooliebase_codegen_targets` —— 低代码对该域的**落点**（按真实目录解析）

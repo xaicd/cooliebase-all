@@ -30,21 +30,21 @@ export const MallProductApi = {
     if (query?.keyword) params.set("keyword", query.keyword)
     const qs = params.toString() ? `?${params.toString()}` : ""
     return request<{ items: MallProductSpu[]; total: number }>({
-      url: `/api/v1/plugins/ruoyi.mall/api/admin/product-spu${qs}`,
+      url: `/api/v1/plugins/cooliebase.mall/api/admin/product-spu${qs}`,
       method: "GET",
     })
   },
 
   getSpu(id: number | string) {
     return request<MallProductSpu>({
-      url: `/api/v1/plugins/ruoyi.mall/api/admin/product-spu/${id}`,
+      url: `/api/v1/plugins/cooliebase.mall/api/admin/product-spu/${id}`,
       method: "GET",
     })
   },
 
   listSkus(spuId: number | string) {
     return request<{ items: MallProductSku[]; total: number }>({
-      url: `/api/v1/plugins/ruoyi.mall/api/admin/product-sku?spu_id=${spuId}`,
+      url: `/api/v1/plugins/cooliebase.mall/api/admin/product-sku?spu_id=${spuId}`,
       method: "GET",
     })
   },

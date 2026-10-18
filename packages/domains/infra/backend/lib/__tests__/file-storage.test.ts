@@ -13,7 +13,7 @@ describe("local file storage", () => {
   })
 
   it("writes and deletes objects under the configured directory", async () => {
-    const dir = await mkdtemp(path.join(os.tmpdir(), "ruoyi-files-"))
+    const dir = await mkdtemp(path.join(os.tmpdir(), "cooliebase-files-"))
     process.env.FILE_STORAGE_DIR = dir
     expect(resolveFileStorageDir()).toBe(path.resolve(dir))
     const stored = await putLocalFile({ key: "2026/08/demo.txt", bytes: Buffer.from("hello") })

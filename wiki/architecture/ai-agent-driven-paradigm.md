@@ -4,7 +4,7 @@
 
 ## 一、 核心公理：系统内一切能力皆为 AI Agent 驱动设计
 在传统工业级软件中，系统由人类使用鼠标逐个页面点击、由外包码农手写搬砖代码、由人工手工维护配置与对账。
-而在 `ruoyi-all-next` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
+而在 `cooliebase-all-base` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
 
 ## 二、 7 层全栈 AI Agent 驱动闭环矩阵
 
@@ -20,5 +20,5 @@
 
 ## 三、 三位一体协同机制：Skills + MCP + CLI
 1. **Skills (.agents/skills/)**：指导 Agent “怎么做”（方法论、EARS 句式、5-Whys、红绿测试准则，全仓 38 个原生技能）；
-2. **MCP (scripts/mcp/ruoyi-mcp-server.cjs)**：为外部 Agent 提供 “查什么”（只读反射查询 14 大工具，严禁副作用写入）；
+2. **MCP (scripts/mcp/cooliebase-mcp-server.cjs)**：为外部 Agent 提供 “查什么”（只读反射查询 14 大工具，严禁副作用写入）；
 3. **CLI (scripts/speckit.ts 等)**：确定性落地 “谁来执行”（工具引擎自动执行、编译与门禁）。

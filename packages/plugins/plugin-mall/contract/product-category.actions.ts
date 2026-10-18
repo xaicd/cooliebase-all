@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-category.validator"
 
 export const productCategoryActionSchemas = {
-  "ruoyi.cmd.mall.productCategory.page": productCategoryPageQuerySchema,
-  "ruoyi.cmd.mall.productCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productCategory.create": productCategoryCreateSchema,
-  "ruoyi.cmd.mall.productCategory.update": productCategoryUpdateSchema,
-  "ruoyi.cmd.mall.productCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productCategory.page": productCategoryPageQuerySchema,
+  "cooliebase.cmd.mall.productCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productCategory.create": productCategoryCreateSchema,
+  "cooliebase.cmd.mall.productCategory.update": productCategoryUpdateSchema,
+  "cooliebase.cmd.mall.productCategory.delete": z.object({ id: z.string() }),
   "mall.pageProductCategory": productCategoryPageQuerySchema,
   "mall.getProductCategory": z.object({ id: z.string() }),
   "mall.createProductCategory": productCategoryCreateSchema,

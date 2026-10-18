@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-receipt.validator"
 
 export const mesWmProductReceiptActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductReceipt.page": mesWmProductReceiptPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductReceipt.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductReceipt.create": mesWmProductReceiptCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductReceipt.update": mesWmProductReceiptUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductReceipt.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductReceipt.page": mesWmProductReceiptPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductReceipt.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductReceipt.create": mesWmProductReceiptCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductReceipt.update": mesWmProductReceiptUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductReceipt.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductReceipt": mesWmProductReceiptPageQuerySchema,
   "mes.getMesWmProductReceipt": z.object({ id: z.string() }),
   "mes.createMesWmProductReceipt": mesWmProductReceiptCreateSchema,

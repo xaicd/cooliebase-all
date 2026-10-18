@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-device.validator"
 
 export const iotDeviceActionSchemas = {
-  "ruoyi.cmd.iot.iotDevice.page": iotDevicePageQuerySchema,
-  "ruoyi.cmd.iot.iotDevice.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDevice.create": iotDeviceCreateSchema,
-  "ruoyi.cmd.iot.iotDevice.update": iotDeviceUpdateSchema,
-  "ruoyi.cmd.iot.iotDevice.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDevice.page": iotDevicePageQuerySchema,
+  "cooliebase.cmd.iot.iotDevice.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDevice.create": iotDeviceCreateSchema,
+  "cooliebase.cmd.iot.iotDevice.update": iotDeviceUpdateSchema,
+  "cooliebase.cmd.iot.iotDevice.delete": z.object({ id: z.string() }),
   "iot.pageIotDevice": iotDevicePageQuerySchema,
   "iot.getIotDevice": z.object({ id: z.string() }),
   "iot.createIotDevice": iotDeviceCreateSchema,

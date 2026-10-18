@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-address.validator"
 
 export const memberAddressActionSchemas = {
-  "ruoyi.cmd.member.memberAddress.page": memberAddressPageQuerySchema,
-  "ruoyi.cmd.member.memberAddress.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberAddress.create": memberAddressCreateSchema,
-  "ruoyi.cmd.member.memberAddress.update": memberAddressUpdateSchema,
-  "ruoyi.cmd.member.memberAddress.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberAddress.page": memberAddressPageQuerySchema,
+  "cooliebase.cmd.member.memberAddress.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberAddress.create": memberAddressCreateSchema,
+  "cooliebase.cmd.member.memberAddress.update": memberAddressUpdateSchema,
+  "cooliebase.cmd.member.memberAddress.delete": z.object({ id: z.string() }),
   "member.pageMemberAddress": memberAddressPageQuerySchema,
   "member.getMemberAddress": z.object({ id: z.string() }),
   "member.createMemberAddress": memberAddressCreateSchema,

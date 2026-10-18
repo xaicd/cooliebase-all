@@ -1,5 +1,5 @@
 import type { Prisma } from "@prisma/client"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 function listValue<T>(items: T[]): Prisma.InputJsonValue {
   return { items: items as Prisma.InputJsonArray }
@@ -9,7 +9,7 @@ export async function readSettingList<T>(key: string, prefixes: string[] = []): 
   const candidates = [key, ...prefixes]
 
   for (const candidate of candidates) {
-    const exact = await ruoyiPrisma.setting.findUnique({ where: { key: candidate } })
+    const exact = await cooliebasePrisma.setting.findUnique({ where: { key: candidate } })
     if (exact) {
       const payload = exact.value as { items?: T[] } | null
       if (Array.isArray(payload?.items)) {
@@ -17,7 +17,7 @@ export async function readSettingList<T>(key: string, prefixes: string[] = []): 
       }
     }
 
-    const prefixed = await ruoyiPrisma.setting.findMany({
+    const prefixed = await cooliebasePrisma.setting.findMany({
       where: { key: { startsWith: candidate } },
       orderBy: { createdAt: "asc" },
     })
@@ -34,7 +34,7 @@ export async function readSettingList<T>(key: string, prefixes: string[] = []): 
 }
 
 export async function writeSettingList<T>(key: string, items: T[]) {
-  await ruoyiPrisma.setting.upsert({
+  await cooliebasePrisma.setting.upsert({
     where: { key },
     create: { key, value: listValue(items) },
     update: { value: listValue(items) },

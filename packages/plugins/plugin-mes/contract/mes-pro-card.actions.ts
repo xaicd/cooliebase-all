@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-card.validator"
 
 export const mesProCardActionSchemas = {
-  "ruoyi.cmd.mes.mesProCard.page": mesProCardPageQuerySchema,
-  "ruoyi.cmd.mes.mesProCard.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProCard.create": mesProCardCreateSchema,
-  "ruoyi.cmd.mes.mesProCard.update": mesProCardUpdateSchema,
-  "ruoyi.cmd.mes.mesProCard.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProCard.page": mesProCardPageQuerySchema,
+  "cooliebase.cmd.mes.mesProCard.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProCard.create": mesProCardCreateSchema,
+  "cooliebase.cmd.mes.mesProCard.update": mesProCardUpdateSchema,
+  "cooliebase.cmd.mes.mesProCard.delete": z.object({ id: z.string() }),
   "mes.pageMesProCard": mesProCardPageQuerySchema,
   "mes.getMesProCard": z.object({ id: z.string() }),
   "mes.createMesProCard": mesProCardCreateSchema,

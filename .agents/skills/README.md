@@ -1,4 +1,4 @@
-# ruoyi-all-next Skill 注册表
+# cooliebase-all-base Skill 注册表
 
 权威入口。Agent 接到跨阶段需求时先读本文件，再只加载相关阶段 Skill。  
 Skill 编写规范见 [skill-authoring/SKILL.md](./skill-authoring/SKILL.md)。

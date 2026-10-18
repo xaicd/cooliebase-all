@@ -71,7 +71,7 @@ core platform modules → built-in first-party plugins → installed plugins。
 | route manifest + `.proto` + `actions.ts` | 可复用来生成插件 manifest 的 `apiRoutes` / `tools` 声明 |
 | `domain-catalog.json` | 域注册表（Platform Module 清单） |
 | seam-graph | 域间耦合图 |
-| broker / serviceBus（`ruoyi.cmd.<domain>.<method>`） | 与 worker 通信的 subject 寻址——**已同构** |
+| broker / serviceBus（`cooliebase.cmd.<domain>.<method>`） | 与 worker 通信的 subject 寻址——**已同构** |
 | 本体域导航 + `foundation:ontology:check` | Paperclip 亦以 `packages/ontology-core` 承载本体 |
 
 ## 3. 五个硬缺口（要引入 §6.2 插件侧才需解决）
@@ -160,7 +160,7 @@ core platform modules → built-in first-party plugins → installed plugins。
 | 项 | 现状 |
 |---|---|
 | 包管理 | **npm 单包**（`package-lock.json`，`workspaces: null`，无 `packageManager`） |
-| `clients/*` | 目录式独立包（`@ruoyi/client-h5` 等），**游离于任何 workspace**；`clients/expo` 还有自己的 lockfile |
+| `clients/*` | 目录式独立包（`@cooliebase/client-h5` 等），**游离于任何 workspace**；`clients/expo` 还有自己的 lockfile |
 | 域声明面 | 在 **app 源码树内**：`packages/domains/<domain>/contract/plugin.manifest.json` |
 | 插件入口契约 | **无**（没有 `paperclipPlugin` 之类的指针，也没有预构建 dist） |
 | SDK | 无独立包（`shared` 是源码内模块，非可发布包） |

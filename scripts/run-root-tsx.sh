@@ -3,7 +3,7 @@ set -euo pipefail
 
 if [[ $# -lt 1 ]]; then
   echo "用法: bash ./scripts/run-root-tsx.sh <script-path> [args...]"
-  echo "示例: bash ./scripts/run-root-tsx.sh scripts/check-ruoyi-capability-matrix.ts --strict"
+  echo "示例: bash ./scripts/run-root-tsx.sh scripts/check-cooliebase-capability-matrix.ts --strict"
   exit 2
 fi
 

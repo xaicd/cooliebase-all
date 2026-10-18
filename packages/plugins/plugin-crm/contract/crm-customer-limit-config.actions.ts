@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-customer-limit-config.validator"
 
 export const crmCustomerLimitConfigActionSchemas = {
-  "ruoyi.cmd.crm.crmCustomerLimitConfig.page": crmCustomerLimitConfigPageQuerySchema,
-  "ruoyi.cmd.crm.crmCustomerLimitConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmCustomerLimitConfig.create": crmCustomerLimitConfigCreateSchema,
-  "ruoyi.cmd.crm.crmCustomerLimitConfig.update": crmCustomerLimitConfigUpdateSchema,
-  "ruoyi.cmd.crm.crmCustomerLimitConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomerLimitConfig.page": crmCustomerLimitConfigPageQuerySchema,
+  "cooliebase.cmd.crm.crmCustomerLimitConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomerLimitConfig.create": crmCustomerLimitConfigCreateSchema,
+  "cooliebase.cmd.crm.crmCustomerLimitConfig.update": crmCustomerLimitConfigUpdateSchema,
+  "cooliebase.cmd.crm.crmCustomerLimitConfig.delete": z.object({ id: z.string() }),
   "crm.pageCrmCustomerLimitConfig": crmCustomerLimitConfigPageQuerySchema,
   "crm.getCrmCustomerLimitConfig": z.object({ id: z.string() }),
   "crm.createCrmCustomerLimitConfig": crmCustomerLimitConfigCreateSchema,

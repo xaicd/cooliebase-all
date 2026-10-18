@@ -26,7 +26,7 @@ async function connectAndPing(config: ConnectionConfig) {
   const startedAt = performance.now()
   if (["postgresql", "opengauss", "gaussdb", "kingbase"].includes(config.driver)) {
     // pg gives credentials embedded in connectionString precedence over separate fields.
-    // RuoYi data-source forms keep URL, username, and password separate, so parse URL
+    // CoolieBase data-source forms keep URL, username, and password separate, so parse URL
     // into non-credential options and pass form credentials explicitly.
     const url = new URL(config.url)
     const client = new PgClient({

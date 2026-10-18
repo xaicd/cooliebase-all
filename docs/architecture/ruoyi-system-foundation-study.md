@@ -1,4 +1,4 @@
-# RuoYi 系统基础能力学习笔记（第一轮）
+# CoolieBase 系统基础能力学习笔记（第一轮）
 
 ## 1. 学习目标
 
@@ -25,8 +25,8 @@
 ### 3.1 用户（User）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/user/UserController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/user/AdminUserServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/user/UserController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/user/AdminUserServiceImpl.java`
 
 关键点：
 1. 创建用户前会校验租户账号额度（`accountCount`）。
@@ -38,8 +38,8 @@
 ### 3.2 菜单（Menu）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/permission/MenuController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/MenuServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/permission/MenuController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/MenuServiceImpl.java`
 
 关键点：
 1. 菜单类型有严格约束：按钮类型会自动清空 component/icon/path。
@@ -51,9 +51,9 @@
 ### 3.3 权限（Permission）与角色（Role）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/permission/PermissionController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/PermissionServiceImpl.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/RoleServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/permission/PermissionController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/PermissionServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/permission/RoleServiceImpl.java`
 
 关键点：
 1. 角色菜单分配和用户角色分配都走差量算法（避免全删全插）。
@@ -65,8 +65,8 @@
 ### 3.4 部门（Dept）与岗位（Post）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/dept/DeptController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/dept/PostController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/dept/DeptController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/dept/PostController.java`
 
 关键点：
 1. 部门和岗位均为标准 CRUD + simple-list 下拉接口。
@@ -76,8 +76,8 @@
 ### 3.5 租户（Tenant）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/tenant/TenantController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/tenant/TenantServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/tenant/TenantController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/tenant/TenantServiceImpl.java`
 
 关键点：
 1. 创建租户时会自动创建租户管理员角色、管理员用户并绑定。
@@ -89,8 +89,8 @@
 ### 3.6 租户套餐（TenantPackage）
 
 核心文件：
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/tenant/TenantPackageController.java`
-- `ruoyi/ruoyi-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/tenant/TenantPackageServiceImpl.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/controller/admin/tenant/TenantPackageController.java`
+- `cooliebase/cooliebase-vue-pro/yudao-module-system/src/main/java/cn/iocoder/yudao/module/system/service/tenant/TenantPackageServiceImpl.java`
 
 关键点：
 1. 套餐包含菜单权限集（menuIds），是租户权限上限。
@@ -101,23 +101,23 @@
 ## 4. 前端页面与 API 对照
 
 后端接口在前端都有一一对应封装：
-- 用户 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/user/index.ts`
-- 菜单 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/menu/index.ts`
-- 权限 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/permission/index.ts`
-- 角色 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/role/index.ts`
-- 部门 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/dept/index.ts`
-- 岗位 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/post/index.ts`
-- 租户 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/tenant/index.ts`
-- 租户套餐 API：`ruoyi/yudao-ui-admin-vue3/src/api/system/tenantPackage/index.ts`
+- 用户 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/user/index.ts`
+- 菜单 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/menu/index.ts`
+- 权限 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/permission/index.ts`
+- 角色 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/role/index.ts`
+- 部门 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/dept/index.ts`
+- 岗位 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/post/index.ts`
+- 租户 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/tenant/index.ts`
+- 租户套餐 API：`cooliebase/yudao-ui-admin-vue3/src/api/system/tenantPackage/index.ts`
 
 页面入口（管理端）:
-- 用户页：`ruoyi/yudao-ui-admin-vue3/src/views/system/user/index.vue`
-- 角色页：`ruoyi/yudao-ui-admin-vue3/src/views/system/role/index.vue`
-- 菜单页：`ruoyi/yudao-ui-admin-vue3/src/views/system/menu/index.vue`
-- 租户页：`ruoyi/yudao-ui-admin-vue3/src/views/system/tenant/index.vue`
-- 套餐页：`ruoyi/yudao-ui-admin-vue3/src/views/system/tenantPackage/index.vue`
+- 用户页：`cooliebase/yudao-ui-admin-vue3/src/views/system/user/index.vue`
+- 角色页：`cooliebase/yudao-ui-admin-vue3/src/views/system/role/index.vue`
+- 菜单页：`cooliebase/yudao-ui-admin-vue3/src/views/system/menu/index.vue`
+- 租户页：`cooliebase/yudao-ui-admin-vue3/src/views/system/tenant/index.vue`
+- 套餐页：`cooliebase/yudao-ui-admin-vue3/src/views/system/tenantPackage/index.vue`
 
-## 5. 对 ruoyi-all-next 的落地启示
+## 5. 对 cooliebase-all-base 的落地启示
 
 1. 先做“关系模型”再做页面：user-role、role-menu、tenant-package 是核心链。
 2. 权限缓存与失效策略要提前设计，否则后期性能和一致性会一起出问题。
@@ -129,7 +129,7 @@
 
 1. 深读 mapper + DO + 枚举（尤其数据权限与菜单类型约束）。
 2. 深读登录鉴权链路（用户登录、菜单路由装载、permission 指令）。
-3. 提炼 ruoyi-all-next 对应的数据模型与最小可运行骨架（system-core module）。
+3. 提炼 cooliebase-all-base 对应的数据模型与最小可运行骨架（system-core module）。
 
 ---
 
@@ -148,7 +148,7 @@
 
 结论：
 
-1. RuoYi 系统基座的数据访问风格是“薄 Mapper + 业务在 Service 编排”。
+1. CoolieBase 系统基座的数据访问风格是“薄 Mapper + 业务在 Service 编排”。
 2. 关系表的差量更新逻辑不在 Mapper，而在 PermissionService。
 
 ### 7.2 数据对象（DO）关键事实
@@ -189,7 +189,7 @@
 
 结论：
 
-1. all-next 若要对齐 RuoYi，必须同时实现“权限判定链 + 菜单树装配链”，不能只做静态菜单。
+1. all-next 若要对齐 CoolieBase，必须同时实现“权限判定链 + 菜单树装配链”，不能只做静态菜单。
 
 ## 8. system-core 落地最小闭环（实现级）
 

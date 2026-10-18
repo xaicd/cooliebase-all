@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/brokerage-withdraw.validator"
 
 export const brokerageWithdrawActionSchemas = {
-  "ruoyi.cmd.mall.brokerageWithdraw.page": brokerageWithdrawPageQuerySchema,
-  "ruoyi.cmd.mall.brokerageWithdraw.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.brokerageWithdraw.create": brokerageWithdrawCreateSchema,
-  "ruoyi.cmd.mall.brokerageWithdraw.update": brokerageWithdrawUpdateSchema,
-  "ruoyi.cmd.mall.brokerageWithdraw.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.brokerageWithdraw.page": brokerageWithdrawPageQuerySchema,
+  "cooliebase.cmd.mall.brokerageWithdraw.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.brokerageWithdraw.create": brokerageWithdrawCreateSchema,
+  "cooliebase.cmd.mall.brokerageWithdraw.update": brokerageWithdrawUpdateSchema,
+  "cooliebase.cmd.mall.brokerageWithdraw.delete": z.object({ id: z.string() }),
   "mall.pageBrokerageWithdraw": brokerageWithdrawPageQuerySchema,
   "mall.getBrokerageWithdraw": z.object({ id: z.string() }),
   "mall.createBrokerageWithdraw": brokerageWithdrawCreateSchema,

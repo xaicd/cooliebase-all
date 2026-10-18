@@ -1,4 +1,4 @@
--- RuoYi's upstream package source is retained in generated seed files, but its
+-- CoolieBase's upstream package source is retained in generated seed files, but its
 -- control-plane entries must never be persisted as tenant-package permissions.
 -- Identify control roots by stable route/component/permission fields as well as
 -- legacy display names, then recursively remove every descendant.

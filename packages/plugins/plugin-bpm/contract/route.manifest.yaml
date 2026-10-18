@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/bpm
 upstream:
-  env: RUOYI_DOMAIN_BPM_UPSTREAM
+  env: COOLIEBASE_DOMAIN_BPM_UPSTREAM
   protocol: http
   defaultPort: 3213
 auth:
@@ -25,9 +25,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.bpm
-  commandSubject: ruoyi.cmd.bpm.>
-  eventSubject: ruoyi.evt.bpm.>
+  queueGroup: cooliebase.bpm
+  commandSubject: cooliebase.cmd.bpm.>
+  eventSubject: cooliebase.evt.bpm.>
 invoke:
   colocated: sdk
   remote: rpc

@@ -1,13 +1,13 @@
 {
-  "name": "@ruoyi/plugin-mall",
+  "name": "@cooliebase/plugin-mall",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "ruoyiPlugin": {
+  "cooliebasePlugin": {
     "manifest": "./plugin.manifest.json",
     "merged": "./plugin-entry.ts"
   },
   "dependencies": {
-    "@ruoyi/plugin-sdk": "workspace:*"
+    "@cooliebase/plugin-sdk": "workspace:*"
   }
 }

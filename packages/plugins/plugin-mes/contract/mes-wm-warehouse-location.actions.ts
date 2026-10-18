@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-warehouse-location.validator"
 
 export const mesWmWarehouseLocationActionSchemas = {
-  "ruoyi.cmd.mes.mesWmWarehouseLocation.page": mesWmWarehouseLocationPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmWarehouseLocation.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmWarehouseLocation.create": mesWmWarehouseLocationCreateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouseLocation.update": mesWmWarehouseLocationUpdateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouseLocation.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouseLocation.page": mesWmWarehouseLocationPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmWarehouseLocation.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouseLocation.create": mesWmWarehouseLocationCreateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouseLocation.update": mesWmWarehouseLocationUpdateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouseLocation.delete": z.object({ id: z.string() }),
   "mes.pageMesWmWarehouseLocation": mesWmWarehouseLocationPageQuerySchema,
   "mes.getMesWmWarehouseLocation": z.object({ id: z.string() }),
   "mes.createMesWmWarehouseLocation": mesWmWarehouseLocationCreateSchema,

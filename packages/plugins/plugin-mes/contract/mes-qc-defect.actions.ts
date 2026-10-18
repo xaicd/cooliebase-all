@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-qc-defect.validator"
 
 export const mesQcDefectActionSchemas = {
-  "ruoyi.cmd.mes.mesQcDefect.page": mesQcDefectPageQuerySchema,
-  "ruoyi.cmd.mes.mesQcDefect.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesQcDefect.create": mesQcDefectCreateSchema,
-  "ruoyi.cmd.mes.mesQcDefect.update": mesQcDefectUpdateSchema,
-  "ruoyi.cmd.mes.mesQcDefect.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcDefect.page": mesQcDefectPageQuerySchema,
+  "cooliebase.cmd.mes.mesQcDefect.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcDefect.create": mesQcDefectCreateSchema,
+  "cooliebase.cmd.mes.mesQcDefect.update": mesQcDefectUpdateSchema,
+  "cooliebase.cmd.mes.mesQcDefect.delete": z.object({ id: z.string() }),
   "mes.pageMesQcDefect": mesQcDefectPageQuerySchema,
   "mes.getMesQcDefect": z.object({ id: z.string() }),
   "mes.createMesQcDefect": mesQcDefectCreateSchema,

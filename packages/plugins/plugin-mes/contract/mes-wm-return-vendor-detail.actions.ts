@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-vendor-detail.validator"
 
 export const mesWmReturnVendorDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnVendorDetail.page": mesWmReturnVendorDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnVendorDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnVendorDetail.create": mesWmReturnVendorDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnVendorDetail.update": mesWmReturnVendorDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnVendorDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnVendorDetail.page": mesWmReturnVendorDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnVendorDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnVendorDetail.create": mesWmReturnVendorDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnVendorDetail.update": mesWmReturnVendorDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnVendorDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnVendorDetail": mesWmReturnVendorDetailPageQuerySchema,
   "mes.getMesWmReturnVendorDetail": z.object({ id: z.string() }),
   "mes.createMesWmReturnVendorDetail": mesWmReturnVendorDetailCreateSchema,

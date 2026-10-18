@@ -1,6 +1,6 @@
 /**
  * Cross-process RPC over HTTP. Same Facade; no nats.io / grpc-js.
- * All-in-one skips this path (SDK). Split uses RUOYI_DOMAIN_*_UPSTREAM or RUOYI_RPC_GATEWAY.
+ * All-in-one skips this path (SDK). Split uses COOLIEBASE_DOMAIN_*_UPSTREAM or COOLIEBASE_RPC_GATEWAY.
  */
 import { getDomainCatalogEntry, rpcPolicy } from "../constants/domain-catalog"
 import { applyActionSchema } from "./broker-validator"
@@ -14,7 +14,7 @@ import {
   resolveRemoteSerialization,
 } from "./rpc-protocol"
 
-export const RPC_TOKEN_HEADER = "x-ruoyi-rpc-token"
+export const RPC_TOKEN_HEADER = "x-cooliebase-rpc-token"
 
 export type RpcHttpEnvelope = {
   domain: string
@@ -34,18 +34,18 @@ export function rpcHttpPath(): string {
 export function resolveRpcBaseUrl(domain: string, env: NodeJS.Dict<string> = process.env): string | undefined {
   const specific = readDomainUpstream(domain, env)
   if (specific) return specific
-  const packed = env.RUOYI_PACK_DOMAIN?.trim()
+  const packed = env.COOLIEBASE_PACK_DOMAIN?.trim()
   if (packed && packed !== domain) {
-    const gateway = env.RUOYI_RPC_GATEWAY?.trim()
+    const gateway = env.COOLIEBASE_RPC_GATEWAY?.trim()
     return gateway ? gateway.replace(/\/+$/, "") : undefined
   }
   return undefined
 }
 
 export function assertRpcToken(headers: Record<string, string | undefined>, env: NodeJS.Dict<string> = process.env) {
-  const expected = env.RUOYI_RPC_TOKEN?.trim()
+  const expected = env.COOLIEBASE_RPC_TOKEN?.trim()
   if (!expected) {
-    if (env.NODE_ENV === "production") throw new Error("RUOYI_RPC_TOKEN is required in production")
+    if (env.NODE_ENV === "production") throw new Error("COOLIEBASE_RPC_TOKEN is required in production")
     return
   }
   const got = headers[RPC_TOKEN_HEADER] ?? headers[RPC_TOKEN_HEADER.toUpperCase()]
@@ -121,10 +121,10 @@ export async function httpRpcCall(input: {
 }): Promise<unknown> {
   const env = input.env ?? process.env
   const base = resolveRpcBaseUrl(input.domain, env)
-  if (!base) throw new Error(`NoResponders for ${input.domain}: missing upstream or RUOYI_RPC_GATEWAY`)
+  if (!base) throw new Error(`NoResponders for ${input.domain}: missing upstream or COOLIEBASE_RPC_GATEWAY`)
   const protocol = resolveRemoteProtocol(env)
   const serialization = resolveRemoteSerialization(protocol)
-  const token = env.RUOYI_RPC_TOKEN?.trim()
+  const token = env.COOLIEBASE_RPC_TOKEN?.trim()
   const response = await fetch(`${base}${rpcHttpPath()}`, {
     method: "POST",
     headers: {

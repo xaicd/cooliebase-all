@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedNote": "首个样板：DigitalStaff 平台默认电商本体域 ecommerce ↔ ruoyi-all-next mall/pay 的如实映射。证明映射法可行，供 100+ 微服务迁移复制。mall/pay 现为模板骨架子集(as-is)，system/infra 标注为跨域公共底座(不属电商域)。事件映射体现二者形状差异：本体域=状态机生命周期事件，业务侧=动词事件，需从 action 状态迁移派生。",
+  "generatedNote": "首个样板：DigitalStaff 平台默认电商本体域 ecommerce ↔ cooliebase-all-base mall/pay 的如实映射。证明映射法可行，供 100+ 微服务迁移复制。mall/pay 现为模板骨架子集(as-is)，system/infra 标注为跨域公共底座(不属电商域)。事件映射体现二者形状差异：本体域=状态机生命周期事件，业务侧=动词事件，需从 action 状态迁移派生。",
   "ontologyDomain": {
     "id": "ecommerce",
     "displayName": "电商平台",
@@ -12,9 +12,9 @@
   "crossDomainBaseline": [
     { "catalogDomain": "system", "role": "shared-baseline", "via": "公共底座直用(RBAC/用户/租户/字典)", "note": "system 不属电商语义，是所有域共用的 RBAC/租户底座；勿纳入 ecommerce 实体" },
     { "catalogDomain": "infra", "role": "shared-baseline", "via": "公共底座直用(外观/代码生成/文件)", "note": "infra 为基础设施控制台，同为跨域底座" },
-    { "catalogDomain": "fintech", "role": "neighbor-domain", "via": "跨域关系 SETTLED_IN_FINTECH (Payment→fintech.Transaction)", "note": "本体域把资金结算折进 fintech 邻域；ruoyi pay 域承载 Payment/Refund，资金侧对接 fintech" },
-    { "catalogDomain": "logistics", "role": "neighbor-domain", "via": "跨域关系 FULFILLED_BY_LOGISTICS (Shipment→logistics.Waybill)", "note": "履约物流在邻域，ruoyi 暂无 logistics 模块(gap)" },
-    { "catalogDomain": "erp", "role": "neighbor-domain", "via": "跨域关系 POSTED_TO_ERP (Order→erp.Ledger)", "note": "财务过账在 erp 邻域，ruoyi 有 erp 模块" }
+    { "catalogDomain": "fintech", "role": "neighbor-domain", "via": "跨域关系 SETTLED_IN_FINTECH (Payment→fintech.Transaction)", "note": "本体域把资金结算折进 fintech 邻域；cooliebase pay 域承载 Payment/Refund，资金侧对接 fintech" },
+    { "catalogDomain": "logistics", "role": "neighbor-domain", "via": "跨域关系 FULFILLED_BY_LOGISTICS (Shipment→logistics.Waybill)", "note": "履约物流在邻域，cooliebase 暂无 logistics 模块(gap)" },
+    { "catalogDomain": "erp", "role": "neighbor-domain", "via": "跨域关系 POSTED_TO_ERP (Order→erp.Ledger)", "note": "财务过账在 erp 邻域，cooliebase 有 erp 模块" }
   ],
   "legacyServices": [
     {
@@ -25,7 +25,7 @@
       "fidelity": "as-is",
       "valueTag": "keep",
       "migrationStatus": "mapped",
-      "note": "ruoyi mall 模块为电商域『商品+订单+营销』骨架子集，原样映射。老系统迁入时以本体域 17 实体为对照补齐缺口。",
+      "note": "cooliebase mall 模块为电商域『商品+订单+营销』骨架子集，原样映射。老系统迁入时以本体域 17 实体为对照补齐缺口。",
       "entityMap": [
         { "ontologyEntity": "Product", "target": "mall 商品(SPU)", "fidelity": "as-is" },
         { "ontologyEntity": "SKU", "target": "mall 库存单元", "fidelity": "as-is" },
@@ -37,10 +37,10 @@
         { "ontologyEntity": "Coupon", "target": "mall 优惠券", "fidelity": "as-is" },
         { "ontologyEntity": "Customer", "target": "member 会员(C端)", "fidelity": "adapted", "note": "买家用户映射到 member 域(C端用户模块)，非 mall 内部" },
         { "ontologyEntity": "Address", "target": "member 收货地址", "fidelity": "adapted" },
-        { "ontologyEntity": "Review", "target": "mall 商品评价", "fidelity": "gap", "note": "ruoyi 模板暂无评价表，迁入时补 nodeType/表" },
+        { "ontologyEntity": "Review", "target": "mall 商品评价", "fidelity": "gap", "note": "cooliebase 模板暂无评价表，迁入时补 nodeType/表" },
         { "ontologyEntity": "Warehouse", "target": "wms 仓库", "fidelity": "adapted", "note": "仓储在 wms 域" },
         { "ontologyEntity": "Inventory", "target": "wms/mall 库存记录", "fidelity": "adapted" },
-        { "ontologyEntity": "Shipment", "target": "(logistics 邻域)", "fidelity": "gap", "note": "ruoyi 暂无 logistics 模块" }
+        { "ontologyEntity": "Shipment", "target": "(logistics 邻域)", "fidelity": "gap", "note": "cooliebase 暂无 logistics 模块" }
       ],
       "actionMap": [
         { "ontologyAction": "PublishProduct", "target": "mall.listProducts(+上架接口)", "fidelity": "adapted", "note": "模板暂只有 list，上下架接口迁入时补" },
@@ -69,20 +69,20 @@
       "fidelity": "adapted",
       "valueTag": "keep",
       "migrationStatus": "mapped",
-      "note": "本体域把支付折进电商域(Payment/Refund 实体)+跨域 fintech；ruoyi pay 为独立模块，承载 Payment/Refund 并对接 fintech 邻域。域边界与本体域不同(记录为 adapted)。",
+      "note": "本体域把支付折进电商域(Payment/Refund 实体)+跨域 fintech；cooliebase pay 为独立模块，承载 Payment/Refund 并对接 fintech 邻域。域边界与本体域不同(记录为 adapted)。",
       "entityMap": [
         { "ontologyEntity": "Payment", "target": "pay 支付单", "fidelity": "as-is" },
         { "ontologyEntity": "Refund", "target": "pay 退款/售后单", "fidelity": "as-is" }
       ],
       "actionMap": [
-        { "ontologyAction": "ProcessPayment", "target": "pay.createOrder", "fidelity": "adapted", "note": "本体 PayOrder 创建 Payment；ruoyi 用 pay.createOrder 承接" },
+        { "ontologyAction": "ProcessPayment", "target": "pay.createOrder", "fidelity": "adapted", "note": "本体 PayOrder 创建 Payment；cooliebase 用 pay.createOrder 承接" },
         { "ontologyAction": "ApplyRefund", "target": "pay.createRefund", "fidelity": "as-is" },
         { "ontologyAction": "ApproveRefund", "target": "(pay 退款审批接口)", "fidelity": "gap" },
         { "ontologyAction": "RejectRefund", "target": "(pay 退款驳回接口)", "fidelity": "gap" }
       ],
       "eventMap": [
         { "semanticEvent": "PaymentSucceeded", "derivedFromAction": "ProcessPayment(→success)", "ontologyLifecycleEvent": "PaymentCompleted", "legacyTopic": "payment.success", "fidelity": "adapted" },
-        { "semanticEvent": "RefundCreated", "derivedFromAction": "ApplyRefund(→refunding)", "ontologyLifecycleEvent": "RefundActivated", "legacyTopic": "pay.refund.create", "fidelity": "as-is", "note": "ruoyi 已有 pay.refund.create 事件字符串，直接对齐" },
+        { "semanticEvent": "RefundCreated", "derivedFromAction": "ApplyRefund(→refunding)", "ontologyLifecycleEvent": "RefundActivated", "legacyTopic": "pay.refund.create", "fidelity": "as-is", "note": "cooliebase 已有 pay.refund.create 事件字符串，直接对齐" },
         { "semanticEvent": "RefundApproved", "derivedFromAction": "ApproveRefund(pending→approved)", "ontologyLifecycleEvent": "RefundProcessing", "legacyTopic": "pay.refund.approved", "fidelity": "gap", "note": "审批接口与事件迁入时补" }
       ]
     }

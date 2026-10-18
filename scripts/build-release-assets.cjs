@@ -33,14 +33,14 @@ function main() {
   fs.mkdirSync(DIST_ASSETS, { recursive: true })
 
   // 1. 打包脱机骨架 Tarball
-  const skeletonTar = path.join(DIST_ASSETS, `ruoyi-all-next-${tag}-skeleton.tar.gz`)
+  const skeletonTar = path.join(DIST_ASSETS, `cooliebase-all-base-${tag}-skeleton.tar.gz`)
   console.log(`[1/3] 打包离线纯净工程骨架: ${path.basename(skeletonTar)}...`)
   const tarCmd = [
     "tar",
     "--exclude='./.git'",
     "--exclude='./node_modules'",
     "--exclude='./.next'",
-    "--exclude='./.next-ruoyi'",
+    "--exclude='./.next-cooliebase'",
     "--exclude='./*.tsbuildinfo'",
     "--exclude='./.turbo'",
     "--exclude='./.cache'",

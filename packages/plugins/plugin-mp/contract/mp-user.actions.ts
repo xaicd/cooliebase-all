@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-user.validator"
 
 export const mpUserActionSchemas = {
-  "ruoyi.cmd.mp.mpUser.page": mpUserPageQuerySchema,
-  "ruoyi.cmd.mp.mpUser.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpUser.create": mpUserCreateSchema,
-  "ruoyi.cmd.mp.mpUser.update": mpUserUpdateSchema,
-  "ruoyi.cmd.mp.mpUser.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpUser.page": mpUserPageQuerySchema,
+  "cooliebase.cmd.mp.mpUser.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpUser.create": mpUserCreateSchema,
+  "cooliebase.cmd.mp.mpUser.update": mpUserUpdateSchema,
+  "cooliebase.cmd.mp.mpUser.delete": z.object({ id: z.string() }),
   "mp.pageMpUser": mpUserPageQuerySchema,
   "mp.getMpUser": z.object({ id: z.string() }),
   "mp.createMpUser": mpUserCreateSchema,

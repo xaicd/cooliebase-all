@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-demo-withdraw.validator"
 
 export const payDemoWithdrawActionSchemas = {
-  "ruoyi.cmd.pay.payDemoWithdraw.page": payDemoWithdrawPageQuerySchema,
-  "ruoyi.cmd.pay.payDemoWithdraw.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payDemoWithdraw.create": payDemoWithdrawCreateSchema,
-  "ruoyi.cmd.pay.payDemoWithdraw.update": payDemoWithdrawUpdateSchema,
-  "ruoyi.cmd.pay.payDemoWithdraw.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payDemoWithdraw.page": payDemoWithdrawPageQuerySchema,
+  "cooliebase.cmd.pay.payDemoWithdraw.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payDemoWithdraw.create": payDemoWithdrawCreateSchema,
+  "cooliebase.cmd.pay.payDemoWithdraw.update": payDemoWithdrawUpdateSchema,
+  "cooliebase.cmd.pay.payDemoWithdraw.delete": z.object({ id: z.string() }),
   "pay.pagePayDemoWithdraw": payDemoWithdrawPageQuerySchema,
   "pay.getPayDemoWithdraw": z.object({ id: z.string() }),
   "pay.createPayDemoWithdraw": payDemoWithdrawCreateSchema,

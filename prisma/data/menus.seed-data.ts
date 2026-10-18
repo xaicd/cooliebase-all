@@ -1,6 +1,6 @@
-// Auto-generated from ../../ruoyi-vue-pro/sql/mysql/ruoyi-vue-pro.sql
+// Auto-generated from ../../cooliebase-vue-pro/sql/mysql/cooliebase-vue-pro.sql
 // source sha256: 2dc660a101b0973095c8d2e3b618329639c3a2cda118a5184858b8044775fc56
-// 1441 active RuoYi menus; do not edit manually.
+// 1441 active CoolieBase menus; do not edit manually.
 import type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"
 
 export const SEED_MENUS: SystemMenuRow[] =  [

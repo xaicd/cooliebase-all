@@ -28,14 +28,14 @@ const DOMAIN_MESH = [
 
 // 模拟实时事件总线事件模板
 const EVENT_TEMPLATES = [
-  { subject: "ruoyi.evt.system.auth.operator_authenticated", domain: "system", tag: "AUTH", latency: "6ms" },
-  { subject: "ruoyi.evt.pay.order.payment_settled", domain: "pay", tag: "SETTLE", latency: "14ms" },
-  { id: "evt_ai", subject: "ruoyi.evt.aigw.token.quota_deducted", domain: "aigw", tag: "USAGE", latency: "8ms" },
-  { subject: "ruoyi.evt.bpm.task.transition_completed", domain: "bpm", tag: "FLOW", latency: "21ms" },
-  { subject: "ruoyi.evt.sre.slo.synthetic_probe_ack", domain: "sre", tag: "HEALTH", latency: "4ms" },
-  { subject: "ruoyi.evt.compliance.gate.invariant_verified", domain: "qa", tag: "GATE", latency: "12ms" },
-  { subject: "ruoyi.evt.strix.redteam.ingress_defended", domain: "security", tag: "SHIELD", latency: "9ms" },
-  { subject: "ruoyi.evt.erp.order.outbound_dispatched", domain: "erp", tag: "LOGISTIC", latency: "18ms" },
+  { subject: "cooliebase.evt.system.auth.operator_authenticated", domain: "system", tag: "AUTH", latency: "6ms" },
+  { subject: "cooliebase.evt.pay.order.payment_settled", domain: "pay", tag: "SETTLE", latency: "14ms" },
+  { id: "evt_ai", subject: "cooliebase.evt.aigw.token.quota_deducted", domain: "aigw", tag: "USAGE", latency: "8ms" },
+  { subject: "cooliebase.evt.bpm.task.transition_completed", domain: "bpm", tag: "FLOW", latency: "21ms" },
+  { subject: "cooliebase.evt.sre.slo.synthetic_probe_ack", domain: "sre", tag: "HEALTH", latency: "4ms" },
+  { subject: "cooliebase.evt.compliance.gate.invariant_verified", domain: "qa", tag: "GATE", latency: "12ms" },
+  { subject: "cooliebase.evt.strix.redteam.ingress_defended", domain: "security", tag: "SHIELD", latency: "9ms" },
+  { subject: "cooliebase.evt.erp.order.outbound_dispatched", domain: "erp", tag: "LOGISTIC", latency: "18ms" },
 ]
 
 interface BusEvent {

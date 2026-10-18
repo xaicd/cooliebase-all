@@ -42,7 +42,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
 
   // 终端日志流
   const [logs, setLogs] = useState<TelemetryLog[]>([
-    { id: "1", time: "00:00:01", level: "INFO", source: "KERNEL", message: "RuoYi-All-Next Sovereign Mesh 初始化完成" },
+    { id: "1", time: "00:00:01", level: "INFO", source: "KERNEL", message: "CoolieBase-All-Next Sovereign Mesh 初始化完成" },
     { id: "2", time: "00:00:02", level: "AUTH", source: "RBAC", message: "多租户 AST 动态上下文拦截器已挂载" },
     { id: "3", time: "00:00:03", level: "INFO", source: "BROKER", message: "17 个微内核领域事件总线已接入 (自研 NATS 语义)" },
     { id: "4", time: "00:00:04", level: "SUCCESS", source: "STRIX", message: "零信任安全边界激活，AST SQL 注入防御在线" },
@@ -124,9 +124,9 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
 
       if (res.success && res.data) {
         addLog("SUCCESS", "RBAC", "身份通行证核发成功，写入受信任会话上下文")
-        localStorage.setItem("ruoyi_token", res.data.token)
-        localStorage.setItem("ruoyi_user", JSON.stringify(res.data.user))
-        localStorage.setItem("ruoyi_auth_type", "operator")
+        localStorage.setItem("cooliebase_token", res.data.token)
+        localStorage.setItem("cooliebase_user", JSON.stringify(res.data.user))
+        localStorage.setItem("cooliebase_auth_type", "operator")
 
         // 成功后直通 AI Agent Command Cockpit (数据大屏指挥中心)
         window.location.href = "/admin/report/boards"
@@ -163,9 +163,9 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
     try {
       // 验证网关并登记智能体运行时
       await probeGateway()
-      localStorage.setItem("ruoyi_token", agentToken.trim())
+      localStorage.setItem("cooliebase_token", agentToken.trim())
       localStorage.setItem(
-        "ruoyi_user",
+        "cooliebase_user",
         JSON.stringify({
           id: agentId.trim(),
           username: agentId.trim(),
@@ -174,7 +174,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
           agentScope,
         })
       )
-      localStorage.setItem("ruoyi_auth_type", "agent")
+      localStorage.setItem("cooliebase_auth_type", "agent")
       addLog("SUCCESS", "AGENT-MESH", "智能体凭据校验通过，直通命令控制中枢")
       window.location.href = "/admin/report/boards"
     } catch {
@@ -194,16 +194,16 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
     setTimeout(() => {
       setPasskeyStatus("verified")
       addLog("SUCCESS", "WEBAUTHN", "硬件密钥握手成功，获得最高操作员控制权")
-      localStorage.setItem("ruoyi_token", `passkey-hw-${Date.now()}`)
+      localStorage.setItem("cooliebase_token", `passkey-hw-${Date.now()}`)
       localStorage.setItem(
-        "ruoyi_user",
+        "cooliebase_user",
         JSON.stringify({
           username: "hardware_operator",
           nickname: "硬件安全专员",
           roles: ["super_admin"],
         })
       )
-      localStorage.setItem("ruoyi_auth_type", "passkey")
+      localStorage.setItem("cooliebase_auth_type", "passkey")
       setTimeout(() => {
         window.location.href = "/admin/report/boards"
       }, 600)

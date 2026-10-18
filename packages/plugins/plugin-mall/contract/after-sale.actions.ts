@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/after-sale.validator"
 
 export const afterSaleActionSchemas = {
-  "ruoyi.cmd.mall.afterSale.page": afterSalePageQuerySchema,
-  "ruoyi.cmd.mall.afterSale.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.afterSale.create": afterSaleCreateSchema,
-  "ruoyi.cmd.mall.afterSale.update": afterSaleUpdateSchema,
-  "ruoyi.cmd.mall.afterSale.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.afterSale.page": afterSalePageQuerySchema,
+  "cooliebase.cmd.mall.afterSale.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.afterSale.create": afterSaleCreateSchema,
+  "cooliebase.cmd.mall.afterSale.update": afterSaleUpdateSchema,
+  "cooliebase.cmd.mall.afterSale.delete": z.object({ id: z.string() }),
   "mall.pageAfterSale": afterSalePageQuerySchema,
   "mall.getAfterSale": z.object({ id: z.string() }),
   "mall.createAfterSale": afterSaleCreateSchema,

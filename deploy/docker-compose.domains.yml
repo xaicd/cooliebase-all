@@ -1,6 +1,6 @@
 # ============================================================
-# ruoyi-all-next - 模块化独立部署（BFF + 可选域服务）
-# 页面始终由 BFF 提供；设置 RUOYI_DOMAIN_<NAME>_UPSTREAM 后，对应 /api/v1/**/<domain> 由域进程承接。
+# cooliebase-all-base - 模块化独立部署（BFF + 可选域服务）
+# 页面始终由 BFF 提供；设置 COOLIEBASE_DOMAIN_<NAME>_UPSTREAM 后，对应 /api/v1/**/<domain> 由域进程承接。
 #
 # 一体（单进程，Facade=SDK）：
 #   docker compose -f deploy/docker-compose.domains.yml up --build
@@ -11,10 +11,10 @@
 #   npm run domain:up -- pay
 # ============================================================
 
-name: ruoyi-domains
+name: cooliebase-domains
 services:
   bff:
-    image: ${REGISTRY:-registry.local}/ruoyi-all-next:${TAG:-latest}
+    image: ${REGISTRY:-registry.local}/cooliebase-all-base:${TAG:-latest}
     build:
       context: ..
       dockerfile: Dockerfile
@@ -23,16 +23,16 @@ services:
     environment:
       - NODE_ENV=production
       - DB_DRIVER=${DB_DRIVER:-postgresql}
-      - DATABASE_URL=${DATABASE_URL:-postgresql://ruoyi:ruoyi123@postgres:5432/ruoyi_next?schema=public}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://cooliebase:cooliebase123@postgres:5432/cooliebase_next?schema=public}
       # 生产模式(NODE_ENV=production)会拒绝 <32 字节或默认值的密钥 —— 这是正确的 fail-closed,
       # 但原来的默认值 `dev-team-secret-2026` 属于"默认值", 必然被拒, 于是新栈登录时报
       # 一个令人困惑的 500。用 :? 让配置缺失在**起栈时**就带着说明失败。
       - JWT_SECRET=${JWT_SECRET:?必须显式提供至少 32 字节的强随机密钥（生产模式会拒绝短/默认值）}
       - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-86400}
       - REDIS_URL=${REDIS_URL:-redis://redis:6379}
-      - RUOYI_DOMAIN_PAY_UPSTREAM=${RUOYI_DOMAIN_PAY_UPSTREAM:-}
-      - RUOYI_RPC_TOKEN=${RUOYI_RPC_TOKEN:-}
-      - RUOYI_RPC_GATEWAY=${RUOYI_RPC_GATEWAY:-}
+      - COOLIEBASE_DOMAIN_PAY_UPSTREAM=${COOLIEBASE_DOMAIN_PAY_UPSTREAM:-}
+      - COOLIEBASE_RPC_TOKEN=${COOLIEBASE_RPC_TOKEN:-}
+      - COOLIEBASE_RPC_GATEWAY=${COOLIEBASE_RPC_GATEWAY:-}
       # 平台控制面账号（无租户登录的身份）。必须与初始化 SQL 种下的平台管理员一致,
       # 否则新起的栈**根本登录不了**: isPlatformUsername() 返回 false ->
       # 无 tenantCode 时报"租户账号登录必须填写租户标识"; 带 tenantCode 又按租户查,
@@ -55,27 +55,27 @@ services:
 
   pay:
     profiles: ["pay"]
-    image: ${REGISTRY:-registry.local}/ruoyi-domain-pay:${TAG:-latest}
+    image: ${REGISTRY:-registry.local}/cooliebase-domain-pay:${TAG:-latest}
     build:
       context: ..
       dockerfile: Dockerfile.domain
       args:
-        RUOYI_PACK_DOMAIN: pay
+        COOLIEBASE_PACK_DOMAIN: pay
     expose:
       - "3100"
     environment:
       - NODE_ENV=production
-      - RUOYI_PACK_DOMAIN=pay
+      - COOLIEBASE_PACK_DOMAIN=pay
       - DB_DRIVER=${DB_DRIVER:-postgresql}
-      - DATABASE_URL=${DATABASE_URL:-postgresql://ruoyi:ruoyi123@postgres:5432/ruoyi_next?schema=public}
+      - DATABASE_URL=${DATABASE_URL:-postgresql://cooliebase:cooliebase123@postgres:5432/cooliebase_next?schema=public}
       # 生产模式(NODE_ENV=production)会拒绝 <32 字节或默认值的密钥 —— 这是正确的 fail-closed,
       # 但原来的默认值 `dev-team-secret-2026` 属于"默认值", 必然被拒, 于是新栈登录时报
       # 一个令人困惑的 500。用 :? 让配置缺失在**起栈时**就带着说明失败。
       - JWT_SECRET=${JWT_SECRET:?必须显式提供至少 32 字节的强随机密钥（生产模式会拒绝短/默认值）}
       - JWT_EXPIRES_IN=${JWT_EXPIRES_IN:-86400}
       - REDIS_URL=${REDIS_URL:-redis://redis:6379}
-      - RUOYI_RPC_TOKEN=${RUOYI_RPC_TOKEN:-dev-rpc-token}
-      - RUOYI_RPC_GATEWAY=${RUOYI_RPC_GATEWAY:-http://bff:3100}
+      - COOLIEBASE_RPC_TOKEN=${COOLIEBASE_RPC_TOKEN:-dev-rpc-token}
+      - COOLIEBASE_RPC_GATEWAY=${COOLIEBASE_RPC_GATEWAY:-http://bff:3100}
       # 域进程同样要鉴权自己的 /api/v1 路由, 故与 bff 保持一致的平台账号配置。
       - TENANT_MODE=${TENANT_MODE:-disabled}
       - TENANT_PLATFORM_ROLE=${TENANT_PLATFORM_ROLE:-platform-admin}
@@ -95,9 +95,9 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER=${PG_USER:-ruoyi}
-      - POSTGRES_PASSWORD=${PG_PASSWORD:-ruoyi123}
-      - POSTGRES_DB=${PG_DB:-ruoyi_next}
+      - POSTGRES_USER=${PG_USER:-cooliebase}
+      - POSTGRES_PASSWORD=${PG_PASSWORD:-cooliebase123}
+      - POSTGRES_DB=${PG_DB:-cooliebase_next}
     volumes:
       - pg_data_domains:/var/lib/postgresql/data
       # 首次初始化空数据卷时自动执行官方全量初始化 SQL。
@@ -107,7 +107,7 @@ services:
       # (数据卷非空则跳过)。
       - ../sql/init:/docker-entrypoint-initdb.d:ro
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-ruoyi}"]
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-cooliebase}"]
       interval: 10s
       timeout: 5s
       retries: 5

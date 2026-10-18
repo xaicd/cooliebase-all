@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-client.validator"
 
 export const mesMdClientActionSchemas = {
-  "ruoyi.cmd.mes.mesMdClient.page": mesMdClientPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdClient.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdClient.create": mesMdClientCreateSchema,
-  "ruoyi.cmd.mes.mesMdClient.update": mesMdClientUpdateSchema,
-  "ruoyi.cmd.mes.mesMdClient.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdClient.page": mesMdClientPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdClient.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdClient.create": mesMdClientCreateSchema,
+  "cooliebase.cmd.mes.mesMdClient.update": mesMdClientUpdateSchema,
+  "cooliebase.cmd.mes.mesMdClient.delete": z.object({ id: z.string() }),
   "mes.pageMesMdClient": mesMdClientPageQuerySchema,
   "mes.getMesMdClient": z.object({ id: z.string() }),
   "mes.createMesMdClient": mesMdClientCreateSchema,

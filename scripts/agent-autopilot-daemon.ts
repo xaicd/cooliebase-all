@@ -18,7 +18,7 @@ async function main() {
 
   if (!isJson) {
     console.log("==================================================================")
-    console.log("🤖 [ruoyi-all-next] 自主巡检守护中枢 (Autonomous Heartbeat Daemon)")
+    console.log("🤖 [cooliebase-all-base] 自主巡检守护中枢 (Autonomous Heartbeat Daemon)")
     console.log("==================================================================")
   }
 

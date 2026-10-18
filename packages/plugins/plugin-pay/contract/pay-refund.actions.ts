@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-refund.validator"
 
 export const payRefundActionSchemas = {
-  "ruoyi.cmd.pay.payRefund.page": payRefundPageQuerySchema,
-  "ruoyi.cmd.pay.payRefund.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payRefund.create": payRefundCreateSchema,
-  "ruoyi.cmd.pay.payRefund.update": payRefundUpdateSchema,
-  "ruoyi.cmd.pay.payRefund.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payRefund.page": payRefundPageQuerySchema,
+  "cooliebase.cmd.pay.payRefund.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payRefund.create": payRefundCreateSchema,
+  "cooliebase.cmd.pay.payRefund.update": payRefundUpdateSchema,
+  "cooliebase.cmd.pay.payRefund.delete": z.object({ id: z.string() }),
   "pay.pagePayRefund": payRefundPageQuerySchema,
   "pay.getPayRefund": z.object({ id: z.string() }),
   "pay.createPayRefund": payRefundCreateSchema,

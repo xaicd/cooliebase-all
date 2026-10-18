@@ -1,7 +1,7 @@
 # 领域百科：report (第一方业务插件)
 
 > **唯一源码目录**：[`packages/plugins/plugin-report/`](../../packages/plugins/plugin-report)  
-> **演进阶段**：阶段 A | **独立部署默认端口**：3215 | **上游环境变量**：`RUOYI_DOMAIN_REPORT_UPSTREAM`
+> **演进阶段**：阶段 A | **独立部署默认端口**：3215 | **上游环境变量**：`COOLIEBASE_DOMAIN_REPORT_UPSTREAM`
 
 ---
 

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-knowledge-segment.validator"
 
 export const aiKnowledgeSegmentActionSchemas = {
-  "ruoyi.cmd.ai.aiKnowledgeSegment.page": aiKnowledgeSegmentPageQuerySchema,
-  "ruoyi.cmd.ai.aiKnowledgeSegment.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiKnowledgeSegment.create": aiKnowledgeSegmentCreateSchema,
-  "ruoyi.cmd.ai.aiKnowledgeSegment.update": aiKnowledgeSegmentUpdateSchema,
-  "ruoyi.cmd.ai.aiKnowledgeSegment.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiKnowledgeSegment.page": aiKnowledgeSegmentPageQuerySchema,
+  "cooliebase.cmd.ai.aiKnowledgeSegment.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiKnowledgeSegment.create": aiKnowledgeSegmentCreateSchema,
+  "cooliebase.cmd.ai.aiKnowledgeSegment.update": aiKnowledgeSegmentUpdateSchema,
+  "cooliebase.cmd.ai.aiKnowledgeSegment.delete": z.object({ id: z.string() }),
   "ai.pageAiKnowledgeSegment": aiKnowledgeSegmentPageQuerySchema,
   "ai.getAiKnowledgeSegment": z.object({ id: z.string() }),
   "ai.createAiKnowledgeSegment": aiKnowledgeSegmentCreateSchema,

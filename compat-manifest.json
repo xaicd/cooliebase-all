@@ -3,7 +3,7 @@
   "kind": "compat-manifest",
   "description": "Machine-readable compatibility contract for this Workspace Bundle. Downstream projects hatched via `npm run project:create` and external agents (Claude Code / Cursor / Command Code / DSH / hermes) bind to what is declared here. Verified by scripts/check-compat-manifest.cjs in `npm run check`.",
   "framework": {
-    "name": "ruoyi-all-next",
+    "name": "cooliebase-all-base",
     "role": "workspace-bundle",
     "templateVersion": "1.2.0",
     "releasedAt": "2026-10-10",
@@ -53,8 +53,8 @@
       "packages/shared/contract/agent-profile.json"
     ],
     "hatch": {
-      "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
-      "degit": "npx degit xaicd/ruoyi-all-next#main <my-app>",
+      "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
+      "degit": "npx degit xaicd/cooliebase-all-base#main <my-app>",
       "inRepo": "npm run project:create -- <target-dir> --profile base"
     },
     "skills": {
@@ -62,27 +62,27 @@
       "count": 38
     },
     "mcp": {
-      "server": "scripts/mcp/ruoyi-mcp-server.cjs",
+      "server": "scripts/mcp/cooliebase-mcp-server.cjs",
       "transport": "stdio",
       "protocolVersions": [
         "2025-06-18",
         "2024-11-05"
       ],
       "tools": [
-        "ruoyi_action_lookup",
-        "ruoyi_cmmi_list",
-        "ruoyi_codegen_targets",
-        "ruoyi_compat_info",
-        "ruoyi_delivery_status",
-        "ruoyi_domain_list",
-        "ruoyi_domain_resolve",
-        "ruoyi_domain_seam",
-        "ruoyi_evolution_backlog",
-        "ruoyi_gate_run",
-        "ruoyi_plugin_list",
-        "ruoyi_skills_list",
-        "ruoyi_spec_list",
-        "ruoyi_standards_report"
+        "cooliebase_action_lookup",
+        "cooliebase_cmmi_list",
+        "cooliebase_codegen_targets",
+        "cooliebase_compat_info",
+        "cooliebase_delivery_status",
+        "cooliebase_domain_list",
+        "cooliebase_domain_resolve",
+        "cooliebase_domain_seam",
+        "cooliebase_evolution_backlog",
+        "cooliebase_gate_run",
+        "cooliebase_plugin_list",
+        "cooliebase_skills_list",
+        "cooliebase_spec_list",
+        "cooliebase_standards_report"
       ],
       "count": 14
     },
@@ -107,7 +107,7 @@
     "frozen": [
       "versioned HTTP paths under /api/v{n}/",
       "domain names in domain-catalog.json",
-      "RPC subjects ruoyi.cmd.<domain>.<method> and ruoyi.evt.<domain>.<entity>.<action>",
+      "RPC subjects cooliebase.cmd.<domain>.<method> and cooliebase.evt.<domain>.<entity>.<action>",
       "messaging header keys (x-contract-version / x-trace-id / x-tenant-id / x-actor-id / x-idempotency-key / x-source-domain)",
       "cross-domain integration via Domain Facade only",
       "tenant isolation via getCurrentTenantId() plus the 8 base audit columns",

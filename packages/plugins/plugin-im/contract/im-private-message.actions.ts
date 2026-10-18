@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-private-message.validator"
 
 export const imPrivateMessageActionSchemas = {
-  "ruoyi.cmd.im.imPrivateMessage.page": imPrivateMessagePageQuerySchema,
-  "ruoyi.cmd.im.imPrivateMessage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imPrivateMessage.create": imPrivateMessageCreateSchema,
-  "ruoyi.cmd.im.imPrivateMessage.update": imPrivateMessageUpdateSchema,
-  "ruoyi.cmd.im.imPrivateMessage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imPrivateMessage.page": imPrivateMessagePageQuerySchema,
+  "cooliebase.cmd.im.imPrivateMessage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imPrivateMessage.create": imPrivateMessageCreateSchema,
+  "cooliebase.cmd.im.imPrivateMessage.update": imPrivateMessageUpdateSchema,
+  "cooliebase.cmd.im.imPrivateMessage.delete": z.object({ id: z.string() }),
   "im.pageImPrivateMessage": imPrivateMessagePageQuerySchema,
   "im.getImPrivateMessage": z.object({ id: z.string() }),
   "im.createImPrivateMessage": imPrivateMessageCreateSchema,

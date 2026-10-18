@@ -175,7 +175,7 @@ importers:
       '@puckeditor/core':
         specifier: 0.23.0
         version: 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:packages/plugins/sdk
       better-sqlite3:
@@ -301,85 +301,85 @@ importers:
 
   packages/plugins/examples/hello-world:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../../sdk
 
   packages/plugins/plugin-ai:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-aigw:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-bpm:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-crm:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-erp:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-im:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-iot:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-mall:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-member:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-mes:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-mp:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-online:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-pay:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
       next:
@@ -394,19 +394,19 @@ importers:
 
   packages/plugins/plugin-report:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/plugin-wms:
     dependencies:
-      '@ruoyi/plugin-sdk':
+      '@cooliebase/plugin-sdk':
         specifier: workspace:*
         version: link:../sdk
 
   packages/plugins/sdk: {}
 
-  packages/tools/create-ruoyi-app: {}
+  packages/tools/create-cooliebase-app: {}
 
   packages/tools/mcp-server: {}
 

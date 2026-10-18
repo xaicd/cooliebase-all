@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-repair.validator"
 
 export const mesDvRepairActionSchemas = {
-  "ruoyi.cmd.mes.mesDvRepair.page": mesDvRepairPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvRepair.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvRepair.create": mesDvRepairCreateSchema,
-  "ruoyi.cmd.mes.mesDvRepair.update": mesDvRepairUpdateSchema,
-  "ruoyi.cmd.mes.mesDvRepair.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvRepair.page": mesDvRepairPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvRepair.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvRepair.create": mesDvRepairCreateSchema,
+  "cooliebase.cmd.mes.mesDvRepair.update": mesDvRepairUpdateSchema,
+  "cooliebase.cmd.mes.mesDvRepair.delete": z.object({ id: z.string() }),
   "mes.pageMesDvRepair": mesDvRepairPageQuerySchema,
   "mes.getMesDvRepair": z.object({ id: z.string() }),
   "mes.createMesDvRepair": mesDvRepairCreateSchema,

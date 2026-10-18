@@ -36,7 +36,7 @@ const catalogPath = path.join(ROOT, "packages/shared/backend/constants/domain-ca
 const governanceCandidates = fs.existsSync(path.join(ROOT, "docs/architecture"))
   ? fs.readdirSync(path.join(ROOT, "docs/architecture")).filter((f) => f.endsWith("-domain-governance.md"))
   : []
-const governancePath = path.join(ROOT, "docs/architecture", governanceCandidates[0] ?? "ruoyi-all-next-domain-governance.md")
+const governancePath = path.join(ROOT, "docs/architecture", governanceCandidates[0] ?? "cooliebase-all-base-domain-governance.md")
 const entriesPath = path.join(ROOT, "packages/shared/backend/plugins/first-party-entries.ts")
 const tsconfigPath = path.join(ROOT, "tsconfig.json")
 const vitestPath = path.join(ROOT, "vitest.config.ts")
@@ -104,7 +104,7 @@ function registerNewDomain(name) {
     contractVersion: "v1",
     publicPrefixes: derivePublicPrefixes(name),
     implementation: "local-ts",
-    upstreamEnv: `RUOYI_DOMAIN_${name.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_UPSTREAM`,
+    upstreamEnv: `COOLIEBASE_DOMAIN_${name.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_UPSTREAM`,
     defaultPort: (ports.length ? Math.max(...ports) : 3200) + 1,
     packable: true,
     packKind: "api-only",
@@ -213,18 +213,18 @@ for (const { name, from, to, files } of plan) {
     console.log(`   2/7 已移到 ${to}`)
   }
 
-  // 3) package.json: ruoyiPlugin 指针 + plugin-sdk 依赖
+  // 3) package.json: cooliebasePlugin 指针 + plugin-sdk 依赖
   const pkgPath = path.join(ROOT, to, "package.json")
-  const pkg = fs.existsSync(pkgPath) ? JSON.parse(read(pkgPath)) : { name: `@ruoyi/plugin-${name}`, version: "0.1.0", private: true, type: "module" }
-  pkg.name = pkg.name || `@ruoyi/plugin-${name}`
-  pkg.ruoyiPlugin = { manifest: "./plugin.manifest.json", merged: "./plugin-entry.ts" }
-  pkg.dependencies = { ...(pkg.dependencies || {}), "@ruoyi/plugin-sdk": "workspace:*" }
+  const pkg = fs.existsSync(pkgPath) ? JSON.parse(read(pkgPath)) : { name: `@cooliebase/plugin-${name}`, version: "0.1.0", private: true, type: "module" }
+  pkg.name = pkg.name || `@cooliebase/plugin-${name}`
+  pkg.cooliebasePlugin = { manifest: "./plugin.manifest.json", merged: "./plugin-entry.ts" }
+  pkg.dependencies = { ...(pkg.dependencies || {}), "@cooliebase/plugin-sdk": "workspace:*" }
   writeFile(pkgPath, JSON.stringify(pkg, null, 2) + "\n")
-  console.log("   3/7 已加 ruoyiPlugin 指针与 @ruoyi/plugin-sdk 依赖")
+  console.log("   3/7 已加 cooliebasePlugin 指针与 @cooliebase/plugin-sdk 依赖")
 
   // 4) 宿主静态入口表
   let entries = read(entriesPath)
-  const line = `  "ruoyi.${name}": () => import("@/modules/${name}/plugin-entry"),`
+  const line = `  "cooliebase.${name}": () => import("@/modules/${name}/plugin-entry"),`
   if (!entries.includes(line)) {
     entries = entries.replace(/(\n\}\n)/, `\n${line}$1`)
     writeFile(entriesPath, entries)
@@ -238,7 +238,7 @@ for (const { name, from, to, files } of plan) {
     cat.domains.push({
       name, owner: name, kind: "plugin", stage: "B", contractVersion: "v1",
       publicPrefixes: derivePublicPrefixes(name),
-      implementation: "local-ts", upstreamEnv: `RUOYI_DOMAIN_${name.toUpperCase()}_UPSTREAM`,
+      implementation: "local-ts", upstreamEnv: `COOLIEBASE_DOMAIN_${name.toUpperCase()}_UPSTREAM`,
       defaultPort: (ports.length ? Math.max(...ports) : 3200) + 1,
       packable: true, packKind: "api-only", dependsOnModules: ["shared"], independentDatabase: false,
       auth: { audience: "admin", tenantPolicy: "required" },
@@ -275,20 +275,20 @@ for (const { name, from, to, files } of plan) {
   if (govRow) {
     const cells = govRow.split("|")
     cells[7] = cells[7].replace(from.replace(/\//g, "/"), to)
-    cells[9] = ` **第一方插件**(kind=plugin): 保留域级特征(可 API-only 独立打包/运行/部署, \`npm run domain:up -- ${name}\`), 同时支持合并运行; 路由经 /api/v1/plugins/ruoyi.${name}/api/** 挂载 `
+    cells[9] = ` **第一方插件**(kind=plugin): 保留域级特征(可 API-only 独立打包/运行/部署, \`npm run domain:up -- ${name}\`), 同时支持合并运行; 路由经 /api/v1/plugins/cooliebase.${name}/api/** 挂载 `
     gov = gov.replace(govRow, cells.join("|"))
     writeFile(governancePath, gov)
   }
   // 5.5) `rpc-actions.json` 登记本域。
   //      这份文件**没有任何生成器**（只有校验器在读），不登记的话
   //      `domain:check` 会直接报 `rpc-actions.json missing domain: <域>`（实测）。
-  //      方法名从域内生成的 actions 契约里派生（`ruoyi.cmd.<域>.<实体>.<方法>`）。
+  //      方法名从域内生成的 actions 契约里派生（`cooliebase.cmd.<域>.<实体>.<方法>`）。
   const rpcActionsPath = path.join(ROOT, "packages", "shared", "backend", "constants", "rpc-actions.json")
   if (fs.existsSync(rpcActionsPath)) {
     const rpc = JSON.parse(read(rpcActionsPath))
     rpc.domains = rpc.domains || {}
     if (!rpc.domains[name]) {
-      // 从域内 actions 契约里派生: `"ruoyi.cmd.<域>.<实体>.<方法>": <schema>`
+      // 从域内 actions 契约里派生: `"cooliebase.cmd.<域>.<实体>.<方法>": <schema>`
       // 内联 `z.object(...)` 的（get/delete）没有具名 schema，校验器要求 schema 必须
       // 落在本域 validators 里，所以这类不写进来；`ping` 由框架内置，也不写。
       const actions = []
@@ -297,7 +297,7 @@ for (const { name, from, to, files } of plan) {
         for (const file of fs.readdirSync(contractDir)) {
           if (!file.endsWith(".actions.ts")) continue
           const source = fs.readFileSync(path.join(contractDir, file), "utf8")
-          for (const match of source.matchAll(/"ruoyi\.cmd\.\w+\.(\w+)\.(\w+)":\s*([A-Za-z_][A-Za-z0-9_]*)\s*,/g)) {
+          for (const match of source.matchAll(/"cooliebase\.cmd\.\w+\.(\w+)\.(\w+)":\s*([A-Za-z_][A-Za-z0-9_]*)\s*,/g)) {
             const entity = match[1]
             const kebab = entity.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
             actions.push({

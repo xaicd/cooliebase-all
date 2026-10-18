@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-ota-task-record.validator"
 
 export const iotOtaTaskRecordActionSchemas = {
-  "ruoyi.cmd.iot.iotOtaTaskRecord.page": iotOtaTaskRecordPageQuerySchema,
-  "ruoyi.cmd.iot.iotOtaTaskRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotOtaTaskRecord.create": iotOtaTaskRecordCreateSchema,
-  "ruoyi.cmd.iot.iotOtaTaskRecord.update": iotOtaTaskRecordUpdateSchema,
-  "ruoyi.cmd.iot.iotOtaTaskRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotOtaTaskRecord.page": iotOtaTaskRecordPageQuerySchema,
+  "cooliebase.cmd.iot.iotOtaTaskRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotOtaTaskRecord.create": iotOtaTaskRecordCreateSchema,
+  "cooliebase.cmd.iot.iotOtaTaskRecord.update": iotOtaTaskRecordUpdateSchema,
+  "cooliebase.cmd.iot.iotOtaTaskRecord.delete": z.object({ id: z.string() }),
   "iot.pageIotOtaTaskRecord": iotOtaTaskRecordPageQuerySchema,
   "iot.getIotOtaTaskRecord": z.object({ id: z.string() }),
   "iot.createIotOtaTaskRecord": iotOtaTaskRecordCreateSchema,

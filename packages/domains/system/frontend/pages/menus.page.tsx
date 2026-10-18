@@ -45,7 +45,7 @@ function getAllIds(nodes: MenuNode[]): string[] {
 }
 
 export default function SystemMenusPage() {
-  return <SystemMenusPageContent key="ruoyi-menu-data-v2" />
+  return <SystemMenusPageContent key="cooliebase-menu-data-v2" />
 }
 
 function SystemMenusPageContent() {

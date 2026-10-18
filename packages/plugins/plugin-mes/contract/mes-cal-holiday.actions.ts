@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-cal-holiday.validator"
 
 export const mesCalHolidayActionSchemas = {
-  "ruoyi.cmd.mes.mesCalHoliday.page": mesCalHolidayPageQuerySchema,
-  "ruoyi.cmd.mes.mesCalHoliday.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesCalHoliday.create": mesCalHolidayCreateSchema,
-  "ruoyi.cmd.mes.mesCalHoliday.update": mesCalHolidayUpdateSchema,
-  "ruoyi.cmd.mes.mesCalHoliday.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalHoliday.page": mesCalHolidayPageQuerySchema,
+  "cooliebase.cmd.mes.mesCalHoliday.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalHoliday.create": mesCalHolidayCreateSchema,
+  "cooliebase.cmd.mes.mesCalHoliday.update": mesCalHolidayUpdateSchema,
+  "cooliebase.cmd.mes.mesCalHoliday.delete": z.object({ id: z.string() }),
   "mes.pageMesCalHoliday": mesCalHolidayPageQuerySchema,
   "mes.getMesCalHoliday": z.object({ id: z.string() }),
   "mes.createMesCalHoliday": mesCalHolidayCreateSchema,

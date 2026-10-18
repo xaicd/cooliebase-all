@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-andon-config.validator"
 
 export const mesProAndonConfigActionSchemas = {
-  "ruoyi.cmd.mes.mesProAndonConfig.page": mesProAndonConfigPageQuerySchema,
-  "ruoyi.cmd.mes.mesProAndonConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProAndonConfig.create": mesProAndonConfigCreateSchema,
-  "ruoyi.cmd.mes.mesProAndonConfig.update": mesProAndonConfigUpdateSchema,
-  "ruoyi.cmd.mes.mesProAndonConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProAndonConfig.page": mesProAndonConfigPageQuerySchema,
+  "cooliebase.cmd.mes.mesProAndonConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProAndonConfig.create": mesProAndonConfigCreateSchema,
+  "cooliebase.cmd.mes.mesProAndonConfig.update": mesProAndonConfigUpdateSchema,
+  "cooliebase.cmd.mes.mesProAndonConfig.delete": z.object({ id: z.string() }),
   "mes.pageMesProAndonConfig": mesProAndonConfigPageQuerySchema,
   "mes.getMesProAndonConfig": z.object({ id: z.string() }),
   "mes.createMesProAndonConfig": mesProAndonConfigCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-check-record.validator"
 
 export const mesDvCheckRecordActionSchemas = {
-  "ruoyi.cmd.mes.mesDvCheckRecord.page": mesDvCheckRecordPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvCheckRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvCheckRecord.create": mesDvCheckRecordCreateSchema,
-  "ruoyi.cmd.mes.mesDvCheckRecord.update": mesDvCheckRecordUpdateSchema,
-  "ruoyi.cmd.mes.mesDvCheckRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckRecord.page": mesDvCheckRecordPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvCheckRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckRecord.create": mesDvCheckRecordCreateSchema,
+  "cooliebase.cmd.mes.mesDvCheckRecord.update": mesDvCheckRecordUpdateSchema,
+  "cooliebase.cmd.mes.mesDvCheckRecord.delete": z.object({ id: z.string() }),
   "mes.pageMesDvCheckRecord": mesDvCheckRecordPageQuerySchema,
   "mes.getMesDvCheckRecord": z.object({ id: z.string() }),
   "mes.createMesDvCheckRecord": mesDvCheckRecordCreateSchema,

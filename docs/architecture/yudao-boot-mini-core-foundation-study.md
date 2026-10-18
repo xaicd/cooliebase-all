@@ -60,7 +60,7 @@ admin API 包含：
 10. mail 全链路（account/template/log）
 11. oauth2（client/open/token/user）
 12. social（client/user）
-13. ip/area、ruoyi 通用接口
+13. ip/area、cooliebase 通用接口
 
 app API 包含：tenant、dict、ip。
 
@@ -112,5 +112,5 @@ yudao-server 配置显示 mini 默认具备：
 ## 11. 对应产物
 
 1. 扫描脚本：scripts/scan-yudao-boot-mini-core.ts
-2. 扫描报告：apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
-3. 扫描明细 JSON：apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.json
+2. 扫描报告：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
+3. 扫描明细 JSON：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.json

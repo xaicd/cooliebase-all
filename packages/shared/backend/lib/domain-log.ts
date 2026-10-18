@@ -16,7 +16,7 @@ const EVENT_BUFFER: DomainEventRecord[] = []
 const AUDIT_BUFFER: DomainAuditRecord[] = []
 
 /**
- * ruoyi-all-next 最小日志门面。
+ * cooliebase-all-base 最小日志门面。
  * 通过 event/audit 语义保持与后续日志中心对接的一致接口。
  */
 export const domainLog = {

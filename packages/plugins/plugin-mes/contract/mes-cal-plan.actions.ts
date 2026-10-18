@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-cal-plan.validator"
 
 export const mesCalPlanActionSchemas = {
-  "ruoyi.cmd.mes.mesCalPlan.page": mesCalPlanPageQuerySchema,
-  "ruoyi.cmd.mes.mesCalPlan.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesCalPlan.create": mesCalPlanCreateSchema,
-  "ruoyi.cmd.mes.mesCalPlan.update": mesCalPlanUpdateSchema,
-  "ruoyi.cmd.mes.mesCalPlan.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlan.page": mesCalPlanPageQuerySchema,
+  "cooliebase.cmd.mes.mesCalPlan.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlan.create": mesCalPlanCreateSchema,
+  "cooliebase.cmd.mes.mesCalPlan.update": mesCalPlanUpdateSchema,
+  "cooliebase.cmd.mes.mesCalPlan.delete": z.object({ id: z.string() }),
   "mes.pageMesCalPlan": mesCalPlanPageQuerySchema,
   "mes.getMesCalPlan": z.object({ id: z.string() }),
   "mes.createMesCalPlan": mesCalPlanCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/cart.validator"
 
 export const cartActionSchemas = {
-  "ruoyi.cmd.mall.cart.page": cartPageQuerySchema,
-  "ruoyi.cmd.mall.cart.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.cart.create": cartCreateSchema,
-  "ruoyi.cmd.mall.cart.update": cartUpdateSchema,
-  "ruoyi.cmd.mall.cart.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.cart.page": cartPageQuerySchema,
+  "cooliebase.cmd.mall.cart.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.cart.create": cartCreateSchema,
+  "cooliebase.cmd.mall.cart.update": cartUpdateSchema,
+  "cooliebase.cmd.mall.cart.delete": z.object({ id: z.string() }),
   "mall.pageCart": cartPageQuerySchema,
   "mall.getCart": z.object({ id: z.string() }),
   "mall.createCart": cartCreateSchema,

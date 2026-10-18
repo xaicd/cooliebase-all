@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-data-rule.validator"
 
 export const iotDataRuleActionSchemas = {
-  "ruoyi.cmd.iot.iotDataRule.page": iotDataRulePageQuerySchema,
-  "ruoyi.cmd.iot.iotDataRule.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDataRule.create": iotDataRuleCreateSchema,
-  "ruoyi.cmd.iot.iotDataRule.update": iotDataRuleUpdateSchema,
-  "ruoyi.cmd.iot.iotDataRule.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDataRule.page": iotDataRulePageQuerySchema,
+  "cooliebase.cmd.iot.iotDataRule.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDataRule.create": iotDataRuleCreateSchema,
+  "cooliebase.cmd.iot.iotDataRule.update": iotDataRuleUpdateSchema,
+  "cooliebase.cmd.iot.iotDataRule.delete": z.object({ id: z.string() }),
   "iot.pageIotDataRule": iotDataRulePageQuerySchema,
   "iot.getIotDataRule": z.object({ id: z.string() }),
   "iot.createIotDataRule": iotDataRuleCreateSchema,

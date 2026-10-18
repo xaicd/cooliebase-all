@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-warehouse.validator"
 
 export const mesWmWarehouseActionSchemas = {
-  "ruoyi.cmd.mes.mesWmWarehouse.page": mesWmWarehousePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmWarehouse.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmWarehouse.create": mesWmWarehouseCreateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouse.update": mesWmWarehouseUpdateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouse.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouse.page": mesWmWarehousePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmWarehouse.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouse.create": mesWmWarehouseCreateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouse.update": mesWmWarehouseUpdateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouse.delete": z.object({ id: z.string() }),
   "mes.pageMesWmWarehouse": mesWmWarehousePageQuerySchema,
   "mes.getMesWmWarehouse": z.object({ id: z.string() }),
   "mes.createMesWmWarehouse": mesWmWarehouseCreateSchema,

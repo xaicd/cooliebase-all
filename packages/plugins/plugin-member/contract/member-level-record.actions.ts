@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-level-record.validator"
 
 export const memberLevelRecordActionSchemas = {
-  "ruoyi.cmd.member.memberLevelRecord.page": memberLevelRecordPageQuerySchema,
-  "ruoyi.cmd.member.memberLevelRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberLevelRecord.create": memberLevelRecordCreateSchema,
-  "ruoyi.cmd.member.memberLevelRecord.update": memberLevelRecordUpdateSchema,
-  "ruoyi.cmd.member.memberLevelRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberLevelRecord.page": memberLevelRecordPageQuerySchema,
+  "cooliebase.cmd.member.memberLevelRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberLevelRecord.create": memberLevelRecordCreateSchema,
+  "cooliebase.cmd.member.memberLevelRecord.update": memberLevelRecordUpdateSchema,
+  "cooliebase.cmd.member.memberLevelRecord.delete": z.object({ id: z.string() }),
   "member.pageMemberLevelRecord": memberLevelRecordPageQuerySchema,
   "member.getMemberLevelRecord": z.object({ id: z.string() }),
   "member.createMemberLevelRecord": memberLevelRecordCreateSchema,

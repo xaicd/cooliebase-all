@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-misc-issue.validator"
 
 export const mesWmMiscIssueActionSchemas = {
-  "ruoyi.cmd.mes.mesWmMiscIssue.page": mesWmMiscIssuePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmMiscIssue.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmMiscIssue.create": mesWmMiscIssueCreateSchema,
-  "ruoyi.cmd.mes.mesWmMiscIssue.update": mesWmMiscIssueUpdateSchema,
-  "ruoyi.cmd.mes.mesWmMiscIssue.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscIssue.page": mesWmMiscIssuePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmMiscIssue.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscIssue.create": mesWmMiscIssueCreateSchema,
+  "cooliebase.cmd.mes.mesWmMiscIssue.update": mesWmMiscIssueUpdateSchema,
+  "cooliebase.cmd.mes.mesWmMiscIssue.delete": z.object({ id: z.string() }),
   "mes.pageMesWmMiscIssue": mesWmMiscIssuePageQuerySchema,
   "mes.getMesWmMiscIssue": z.object({ id: z.string() }),
   "mes.createMesWmMiscIssue": mesWmMiscIssueCreateSchema,

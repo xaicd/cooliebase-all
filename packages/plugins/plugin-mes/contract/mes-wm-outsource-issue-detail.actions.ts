@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-outsource-issue-detail.validator"
 
 export const mesWmOutsourceIssueDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmOutsourceIssueDetail.page": mesWmOutsourceIssueDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmOutsourceIssueDetail.create": mesWmOutsourceIssueDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueDetail.update": mesWmOutsourceIssueDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceIssueDetail.page": mesWmOutsourceIssueDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceIssueDetail.create": mesWmOutsourceIssueDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueDetail.update": mesWmOutsourceIssueDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmOutsourceIssueDetail": mesWmOutsourceIssueDetailPageQuerySchema,
   "mes.getMesWmOutsourceIssueDetail": z.object({ id: z.string() }),
   "mes.createMesWmOutsourceIssueDetail": mesWmOutsourceIssueDetailCreateSchema,

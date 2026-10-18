@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-account.validator"
 
 export const mpAccountActionSchemas = {
-  "ruoyi.cmd.mp.mpAccount.page": mpAccountPageQuerySchema,
-  "ruoyi.cmd.mp.mpAccount.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpAccount.create": mpAccountCreateSchema,
-  "ruoyi.cmd.mp.mpAccount.update": mpAccountUpdateSchema,
-  "ruoyi.cmd.mp.mpAccount.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpAccount.page": mpAccountPageQuerySchema,
+  "cooliebase.cmd.mp.mpAccount.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpAccount.create": mpAccountCreateSchema,
+  "cooliebase.cmd.mp.mpAccount.update": mpAccountUpdateSchema,
+  "cooliebase.cmd.mp.mpAccount.delete": z.object({ id: z.string() }),
   "mp.pageMpAccount": mpAccountPageQuerySchema,
   "mp.getMpAccount": z.object({ id: z.string() }),
   "mp.createMpAccount": mpAccountCreateSchema,

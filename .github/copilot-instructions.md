@@ -1,6 +1,6 @@
-# GitHub Copilot Instructions for ruoyi-all-next
+# GitHub Copilot Instructions for cooliebase-all-base
 
-This workspace is `ruoyi-all-next`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5.
+This workspace is `cooliebase-all-base`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5.
 
 ## Architecture & Technology Stack
 - Next.js 16 (App Router) + React 19 + TypeScript 5

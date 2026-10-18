@@ -33,7 +33,7 @@ export async function persistApiAccessLog(input: ApiAccessLogInput): Promise<voi
     const db = await getKyselyDb()
     await db.insertInto("infra_api_access_log").values({
       id: randomUUID(), trace_id: input.traceId, user_id: input.userId ?? null, tenant_id: input.tenantId ?? null,
-      application_name: "ruoyi-all-next", request_method: input.method, request_url: input.path,
+      application_name: "cooliebase-all-base", request_method: input.method, request_url: input.path,
       request_params: encode({ outcome: input.outcome, errorCode: input.errorCode, resultMessage: input.resultMessage }),
       response_body: null, result_code: input.status, duration: input.durationMs, user_ip: input.userIp ?? null,
       user_agent: input.userAgent ?? null, operation: input.operation ?? null, created_at: new Date(),
@@ -49,7 +49,7 @@ export async function persistApiErrorLog(input: ApiErrorLogInput): Promise<void>
     const db = await getKyselyDb()
     await db.insertInto("infra_api_error_log").values({
       id: randomUUID(), trace_id: input.traceId, user_id: input.userId ?? null, tenant_id: input.tenantId ?? null,
-      application_name: "ruoyi-all-next", request_method: input.method, request_url: input.path,
+      application_name: "cooliebase-all-base", request_method: input.method, request_url: input.path,
       request_params: encode({ operation: input.operation }), exception_name: input.errorName,
       exception_message: String(redact(input.errorMessage)), exception_stack: input.stack ? String(redact(input.stack)) : null,
       error_code: input.errorCode ?? null, root_cause: input.rootCause ? String(redact(input.rootCause)) : null,

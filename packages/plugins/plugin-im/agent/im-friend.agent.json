@@ -1,5 +1,5 @@
 {
-  "$schema": "ruoyi.agent.contract/v1",
+  "$schema": "cooliebase.agent.contract/v1",
   "domain": "im",
   "entity": "ImFriend",
   "kebab": "im-friend",
@@ -11,7 +11,7 @@
     "titleSelector": "[data-testid=\"im-friend-title\"]"
   },
   "api": {
-    "pluginMount": "/api/v1/plugins/ruoyi.im/api",
+    "pluginMount": "/api/v1/plugins/cooliebase.im/api",
     "bffMount": "/api/v1/admin/im",
     "resource": "im-friend",
     "methods": {
@@ -46,8 +46,8 @@
       "http": "POST",
       "path": "/api/v1/admin/system/auth",
       "payload": {
-        "username": "$RUOYI_AGENT_USERNAME",
-        "password": "$RUOYI_AGENT_PASSWORD"
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
       }
     },
     "tokenField": "data.token",
@@ -163,7 +163,7 @@
     ]
   },
   "agentNative": {
-    "scheme": "ruoyi.agent.native/v1",
+    "scheme": "cooliebase.agent.native/v1",
     "scope": "im-friend",
     "readiness": {
       "attribute": "data-agent-page-ready",

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-browse-history.validator"
 
 export const productBrowseHistoryActionSchemas = {
-  "ruoyi.cmd.mall.productBrowseHistory.page": productBrowseHistoryPageQuerySchema,
-  "ruoyi.cmd.mall.productBrowseHistory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productBrowseHistory.create": productBrowseHistoryCreateSchema,
-  "ruoyi.cmd.mall.productBrowseHistory.update": productBrowseHistoryUpdateSchema,
-  "ruoyi.cmd.mall.productBrowseHistory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productBrowseHistory.page": productBrowseHistoryPageQuerySchema,
+  "cooliebase.cmd.mall.productBrowseHistory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productBrowseHistory.create": productBrowseHistoryCreateSchema,
+  "cooliebase.cmd.mall.productBrowseHistory.update": productBrowseHistoryUpdateSchema,
+  "cooliebase.cmd.mall.productBrowseHistory.delete": z.object({ id: z.string() }),
   "mall.pageProductBrowseHistory": productBrowseHistoryPageQuerySchema,
   "mall.getProductBrowseHistory": z.object({ id: z.string() }),
   "mall.createProductBrowseHistory": productBrowseHistoryCreateSchema,

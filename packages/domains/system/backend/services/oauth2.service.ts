@@ -6,7 +6,7 @@ import type {
 import { projectProfile } from "@/modules/shared/contract/project-profile"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
 import { comparePasswordMD5 } from "@/modules/shared/backend/lib/crypto"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 import {
   readSettingList,
   writeSettingList,
@@ -103,7 +103,7 @@ export class SystemOauth2Service {
     let username = "system-client"
 
     if (input.grantType === "password") {
-      const admin = await ruoyiPrisma.admin.findFirst({
+      const admin = await cooliebasePrisma.admin.findFirst({
         where: {
           OR: [{ username: input.username }, { phone: input.username }],
         },

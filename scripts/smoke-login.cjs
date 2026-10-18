@@ -22,7 +22,7 @@ const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
 const KEEP = process.argv.includes("--keep")
-const DB = "ruoyi_smoke"
+const DB = "cooliebase_smoke"
 // 端口必须与 `pnpm run dev` 实际监听的一致 —— 仓库的 dev 脚本是
 // `prisma generate && next dev -p 3200`，**写死了 3200**，给 PORT 环境变量无效。
 // 实测踩到: 冒烟探 3201 而应用在 3200，报起服务失败（其实服务是好的）。
@@ -31,8 +31,8 @@ const BASE = `http://localhost:${PORT}`
 const PASSWORD = "Smoke@123456"
 const SALT = "smoke-salt"
 const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://ruoyi:ruoyi123@${PG_HOST}:5433/${DB}?schema=public`
-const CONTAINER = "ruoyi-dev-postgres-1"
+const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
+const CONTAINER = "cooliebase-dev-postgres-1"
 
 const results = []
 const step = (name, ok, detail = "") => {
@@ -64,13 +64,13 @@ function dockerExec(args) {
 function psql(database, sql) {
   const hasDocker = require("node:child_process").spawnSync("which", ["docker"]).status === 0
   if (hasDocker) {
-    const r = require("node:child_process").spawnSync("docker", ["exec", CONTAINER, "psql", "-U", "ruoyi", "-d", database, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
+    const r = require("node:child_process").spawnSync("docker", ["exec", CONTAINER, "psql", "-U", "cooliebase", "-d", database, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
     return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
   }
   const hasHostExec = require("node:child_process").spawnSync("which", ["host-exec"]).status === 0
   if (hasHostExec) {
     const escapedSql = sql.replace(/'/g, "'\\''")
-    const cmd = `docker exec ${CONTAINER} psql -U ruoyi -d ${database} -t -A -c '${escapedSql}'`
+    const cmd = `docker exec ${CONTAINER} psql -U cooliebase -d ${database} -t -A -c '${escapedSql}'`
     const r = require("node:child_process").spawnSync("host-exec", [cmd], { cwd: ROOT, encoding: "utf8" })
     return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
   }

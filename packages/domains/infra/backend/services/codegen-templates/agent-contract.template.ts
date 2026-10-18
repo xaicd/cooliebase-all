@@ -18,7 +18,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
   const { className, moduleName, businessName, submodule, permissionPrefix } = config
   const kebab = toKebab(className)
   const sub = submodule ? `/${submodule}` : ""
-  const pluginId = `ruoyi.${moduleName}`
+  const pluginId = `cooliebase.${moduleName}`
 
   const fields = formColumns(config).map((column) => ({
     name: column.name,
@@ -39,7 +39,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
   const tx = (name: string) => `[data-testid="${kebab}-${name}"]`
 
   const contract = {
-    $schema: "ruoyi.agent.contract/v1",
+    $schema: "cooliebase.agent.contract/v1",
 
     // ---- 身份 ----
     domain: moduleName,
@@ -74,7 +74,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
 
     // ---- 鉴权（自动化前置）----
     auth: {
-      login: { http: "POST", path: "/api/v1/admin/system/auth", payload: { username: "$RUOYI_AGENT_USERNAME", password: "$RUOYI_AGENT_PASSWORD" } },
+      login: { http: "POST", path: "/api/v1/admin/system/auth", payload: { username: "$COOLIEBASE_AGENT_USERNAME", password: "$COOLIEBASE_AGENT_PASSWORD" } },
       tokenField: "data.token",
       header: "Authorization",
       scheme: "Bearer",
@@ -112,7 +112,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
     //       多层弹窗打开时基底打 inert 做节点剪枝（避免点到被遮挡元素）。
     // 严禁让 agent 依赖无文本 CSS/坐标定位。
     agentNative: {
-      scheme: "ruoyi.agent.native/v1",
+      scheme: "cooliebase.agent.native/v1",
       scope: kebab,
       readiness: { attribute: "data-agent-page-ready", readySelector: `[data-agent-scope="${kebab}"][data-agent-page-ready="true"]`, states: ["true", "false"] },
       state: { attribute: "data-agent-state", page: ["loading", "modal-open", "empty", "ready"], row: ["idle", "editing"], form: ["open", "submitting", "error"] },

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/article.validator"
 
 export const articleActionSchemas = {
-  "ruoyi.cmd.mall.article.page": articlePageQuerySchema,
-  "ruoyi.cmd.mall.article.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.article.create": articleCreateSchema,
-  "ruoyi.cmd.mall.article.update": articleUpdateSchema,
-  "ruoyi.cmd.mall.article.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.article.page": articlePageQuerySchema,
+  "cooliebase.cmd.mall.article.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.article.create": articleCreateSchema,
+  "cooliebase.cmd.mall.article.update": articleUpdateSchema,
+  "cooliebase.cmd.mall.article.delete": z.object({ id: z.string() }),
   "mall.pageArticle": articlePageQuerySchema,
   "mall.getArticle": z.object({ id: z.string() }),
   "mall.createArticle": articleCreateSchema,

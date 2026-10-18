@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-purchase-order.validator"
 
 export const erpPurchaseOrderActionSchemas = {
-  "ruoyi.cmd.erp.erpPurchaseOrder.page": erpPurchaseOrderPageQuerySchema,
-  "ruoyi.cmd.erp.erpPurchaseOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpPurchaseOrder.create": erpPurchaseOrderCreateSchema,
-  "ruoyi.cmd.erp.erpPurchaseOrder.update": erpPurchaseOrderUpdateSchema,
-  "ruoyi.cmd.erp.erpPurchaseOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseOrder.page": erpPurchaseOrderPageQuerySchema,
+  "cooliebase.cmd.erp.erpPurchaseOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseOrder.create": erpPurchaseOrderCreateSchema,
+  "cooliebase.cmd.erp.erpPurchaseOrder.update": erpPurchaseOrderUpdateSchema,
+  "cooliebase.cmd.erp.erpPurchaseOrder.delete": z.object({ id: z.string() }),
   "erp.pageErpPurchaseOrder": erpPurchaseOrderPageQuerySchema,
   "erp.getErpPurchaseOrder": z.object({ id: z.string() }),
   "erp.createErpPurchaseOrder": erpPurchaseOrderCreateSchema,

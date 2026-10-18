@@ -1,10 +1,10 @@
 # ============================================================
-# ruoyi-all-next - DEV 环境（PostgreSQL + Redis）
+# cooliebase-all-base - DEV 环境（PostgreSQL + Redis）
 # 用途：团队开发联调，接真实数据库
 # 启动：docker compose -f deploy/docker-compose.dev.yml up -d
 # ============================================================
 
-name: ruoyi-dev
+name: cooliebase-dev
 services:
   app:
     build:
@@ -15,7 +15,7 @@ services:
     environment:
       - NODE_ENV=development
       - DB_DRIVER=postgresql
-      - DATABASE_URL=postgresql://ruoyi:ruoyi123@postgres:5432/ruoyi_next?schema=public
+      - DATABASE_URL=postgresql://cooliebase:cooliebase123@postgres:5432/cooliebase_next?schema=public
       - DB_POOL_SIZE=10
       - JWT_SECRET=dev-team-secret-2026
       - JWT_EXPIRES_IN=86400
@@ -33,13 +33,13 @@ services:
     ports:
       - "5433:5432"
     environment:
-      - POSTGRES_USER=ruoyi
-      - POSTGRES_PASSWORD=ruoyi123
-      - POSTGRES_DB=ruoyi_next
+      - POSTGRES_USER=cooliebase
+      - POSTGRES_PASSWORD=cooliebase123
+      - POSTGRES_DB=cooliebase_next
     volumes:
       - pg_data_dev:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ruoyi -d ruoyi_next"]
+      test: ["CMD-SHELL", "pg_isready -U cooliebase -d cooliebase_next"]
       interval: 5s
       timeout: 5s
       retries: 5
@@ -60,7 +60,7 @@ services:
 volumes:
   # 显式钉住卷名：本文件原先与 docker-compose.domains.yml 共用项目名 `deploy`
   # （容器名 deploy-postgres-1、卷名 deploy_pg_data_dev 都是这么来的）。
-  # 加了顶层 `name: ruoyi-dev` 之后项目名变了，若不钉住卷名，既有的开发库数据会被
+  # 加了顶层 `name: cooliebase-dev` 之后项目名变了，若不钉住卷名，既有的开发库数据会被
   # 静默"另起一个空卷"而看起来丢失。这里沿用旧卷名, 数据原地复用。
   pg_data_dev:
     name: deploy_pg_data_dev

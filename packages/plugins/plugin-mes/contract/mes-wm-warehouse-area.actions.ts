@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-warehouse-area.validator"
 
 export const mesWmWarehouseAreaActionSchemas = {
-  "ruoyi.cmd.mes.mesWmWarehouseArea.page": mesWmWarehouseAreaPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmWarehouseArea.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmWarehouseArea.create": mesWmWarehouseAreaCreateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouseArea.update": mesWmWarehouseAreaUpdateSchema,
-  "ruoyi.cmd.mes.mesWmWarehouseArea.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouseArea.page": mesWmWarehouseAreaPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmWarehouseArea.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmWarehouseArea.create": mesWmWarehouseAreaCreateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouseArea.update": mesWmWarehouseAreaUpdateSchema,
+  "cooliebase.cmd.mes.mesWmWarehouseArea.delete": z.object({ id: z.string() }),
   "mes.pageMesWmWarehouseArea": mesWmWarehouseAreaPageQuerySchema,
   "mes.getMesWmWarehouseArea": z.object({ id: z.string() }),
   "mes.createMesWmWarehouseArea": mesWmWarehouseAreaCreateSchema,

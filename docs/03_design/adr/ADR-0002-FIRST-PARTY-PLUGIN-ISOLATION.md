@@ -10,7 +10,7 @@
 
 ## 1. 背景与问题阐述 (Context and Problem Statement)
 
-系统初始阶段吸收了 RuoYi 原生的 15 个业务域（`bpm`, `pay`, `report`, `mp`, `mall`, `member`, `crm`, `erp`, `wms`, `mes`, `ai`, `iot`, `im` 等）。在传统单体应用中，所有业务逻辑堆叠在单一工程目录或直接分散在 Next.js 的 `src/app/` 路由树下：
+系统初始阶段吸收了 CoolieBase 原生的 15 个业务域（`bpm`, `pay`, `report`, `mp`, `mall`, `member`, `crm`, `erp`, `wms`, `mes`, `ai`, `iot`, `im` 等）。在传统单体应用中，所有业务逻辑堆叠在单一工程目录或直接分散在 Next.js 的 `src/app/` 路由树下：
 1. **构建体积失控**：单次构建拉起全量几十万行代码，Turbopack / Webpack 编译耗时严重劣化；
 2. **域间边界模糊**：团队不同成员易发生跨模块直接 import，代码互相纠缠导致无法独立按需交付；
 3. **微服务拆分困难**：无法在不改动前端与下游契约的前提下，将成熟高吞吐域（如 Mall、Pay）独立打包为独立服务或 Worker 进程。
@@ -19,8 +19,8 @@
 
 ## 2. 考虑的候选方案 (Considered Options)
 
-1. **方案 A：基于 `@ruoyi/plugin-sdk` 的第一方业务插件化体系 (`packages/plugins/plugin-*`)**
-   将 15 个业务域全部标准化为独立第一方插件（`ruoyi.<domain>`）。保留 `system` 与 `infra` 作为不可撼动的平台地基。插件具备独立的 `plugin.manifest.json`、`plugin-entry.ts`、路由注册与生命周期，支持在同一个主进程合并运行（`merged`）或以独立工作进程（`isolated`）/ 独立容器形式部署。
+1. **方案 A：基于 `@cooliebase/plugin-sdk` 的第一方业务插件化体系 (`packages/plugins/plugin-*`)**
+   将 15 个业务域全部标准化为独立第一方插件（`cooliebase.<domain>`）。保留 `system` 与 `infra` 作为不可撼动的平台地基。插件具备独立的 `plugin.manifest.json`、`plugin-entry.ts`、路由注册与生命周期，支持在同一个主进程合并运行（`merged`）或以独立工作进程（`isolated`）/ 独立容器形式部署。
 2. **方案 B：从第一天起直接物理拆分为 15 个独立 Git 仓库与微服务**
    直接建立 15 个独立仓库，各自独立构建部署，跨域纯走 HTTP/gRPC。
 3. **方案 C：维持单一单体代码包平铺在 `src/modules/<domain>/` 下**

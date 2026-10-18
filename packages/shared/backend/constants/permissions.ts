@@ -1,10 +1,10 @@
 export const PERMISSIONS = {
   SYSTEM_ONLINE_USER_VIEW: "system:online-user:view",
   SYSTEM_ONLINE_USER_FORCE_LOGOUT: "system:online-user:force-logout",
-  // Read permissions use the RuoYi :query buttons; legacy :view aliases are intentionally not used by routes or menus.
+  // Read permissions use the CoolieBase :query buttons; legacy :view aliases are intentionally not used by routes or menus.
   SYSTEM_LOGIN_LOG_QUERY: "system:login-log:query",
   SYSTEM_OPERATE_LOG_QUERY: "system:operate-log:query",
-  // 与 RuoYi 默认 system_menu 按钮权限码保持一致（查询统一使用 :query）。
+  // 与 CoolieBase 默认 system_menu 按钮权限码保持一致（查询统一使用 :query）。
   SYSTEM_USER_VIEW: "system:user:query",
   SYSTEM_USER_CREATE: "system:user:create",
   SYSTEM_USER_UPDATE: "system:user:update",
@@ -28,9 +28,9 @@ export const PERMISSIONS = {
   SYSTEM_DEPT_VIEW: "system:dept:query",
   SYSTEM_POST_VIEW: "system:post:query",
   SYSTEM_PERMISSION_ASSIGN_USER_ROLE: "system:user:update",
-  // RuoYi 将角色菜单授权视为角色修改权限，而不是额外的非标准按钮权限。
+  // CoolieBase 将角色菜单授权视为角色修改权限，而不是额外的非标准按钮权限。
   SYSTEM_PERMISSION_ASSIGN_ROLE_MENU: "system:role:update",
-  // 与本地 RuoYi OAuth2 菜单按钮权限码保持一致。
+  // 与本地 CoolieBase OAuth2 菜单按钮权限码保持一致。
   SYSTEM_OAUTH2_CLIENT_VIEW: "system:oauth2-client:query",
   SYSTEM_OAUTH2_TOKEN_VIEW: "system:oauth2-token:page",
   SYSTEM_TENANT_VIEW: "system:tenant:query",
@@ -44,7 +44,7 @@ export const PERMISSIONS = {
   SYSTEM_TENANT_PACKAGE_CREATE: "system:tenant-package:create",
   SYSTEM_TENANT_PACKAGE_UPDATE: "system:tenant-package:update",
   SYSTEM_TENANT_PACKAGE_DELETE: "system:tenant-package:delete",
-  // 与本地 RuoYi system_menu 按钮权限码保持一致。
+  // 与本地 CoolieBase system_menu 按钮权限码保持一致。
   SYSTEM_DICT_QUERY: "system:dict:query",
   SYSTEM_DICT_CREATE: "system:dict:create",
   SYSTEM_DICT_UPDATE: "system:dict:update",
@@ -138,7 +138,7 @@ export const PERMISSIONS = {
   MALL_PRODUCT_VIEW: "mall:product:view",
   MALL_ORDER_VIEW: "mall:order:view",
   MALL_COUPON_ISSUE: "mall:coupon:issue",
-  // pay — all values below are present in the local RuoYi menu catalog.
+  // pay — all values below are present in the local CoolieBase menu catalog.
   PAY_CHANNEL_VIEW: "pay:channel:query",
   PAY_CHANNEL_CREATE: "pay:channel:create",
   PAY_CHANNEL_UPDATE: "pay:channel:update",
@@ -162,7 +162,7 @@ export const PERMISSIONS = {
   // ai
   AI_MODEL_VIEW: "ai:model:view",
   AI_MODEL_CREATE: "ai:model:create",
-  // 与本地 RuoYi SQL 的 API 密钥按钮权限保持一致。
+  // 与本地 CoolieBase SQL 的 API 密钥按钮权限保持一致。
   AI_API_KEY_VIEW: "ai:api-key:query",
   AI_API_KEY_CREATE: "ai:api-key:create",
   AI_API_KEY_UPDATE: "ai:api-key:update",

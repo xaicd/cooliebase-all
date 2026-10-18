@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-08-03T02:27:39.241Z",
-  "target": "apps/ruoyi/yudao-boot-mini",
+  "target": "apps/cooliebase/yudao-boot-mini",
   "starters": [
     {
       "name": "yudao-spring-boot-starter-biz-data-permission",

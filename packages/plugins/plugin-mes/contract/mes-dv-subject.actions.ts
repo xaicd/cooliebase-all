@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-subject.validator"
 
 export const mesDvSubjectActionSchemas = {
-  "ruoyi.cmd.mes.mesDvSubject.page": mesDvSubjectPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvSubject.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvSubject.create": mesDvSubjectCreateSchema,
-  "ruoyi.cmd.mes.mesDvSubject.update": mesDvSubjectUpdateSchema,
-  "ruoyi.cmd.mes.mesDvSubject.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvSubject.page": mesDvSubjectPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvSubject.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvSubject.create": mesDvSubjectCreateSchema,
+  "cooliebase.cmd.mes.mesDvSubject.update": mesDvSubjectUpdateSchema,
+  "cooliebase.cmd.mes.mesDvSubject.delete": z.object({ id: z.string() }),
   "mes.pageMesDvSubject": mesDvSubjectPageQuerySchema,
   "mes.getMesDvSubject": z.object({ id: z.string() }),
   "mes.createMesDvSubject": mesDvSubjectCreateSchema,

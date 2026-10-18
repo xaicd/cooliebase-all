@@ -19,8 +19,8 @@ description: 全链路一站式新功能研发与交付闭环（融合 .kiro/fea
 
 所以**任何时候都不要手写 `packages/domains/{domain}/...`**。先解析：
 
-- MCP：`ruoyi_domain_resolve`（域名 → 真实目录 + 是否插件）
-- MCP：`ruoyi_codegen_targets`（低代码/脚手架在该域的**落点**，按真实目录算）
+- MCP：`cooliebase_domain_resolve`（域名 → 真实目录 + 是否插件）
+- MCP：`cooliebase_codegen_targets`（低代码/脚手架在该域的**落点**，按真实目录算）
 - 脚本侧：`scripts/lib/domain-catalog.cjs` 的 `domainDirOf` / `domainPathOf`
 - 服务端 TS 侧：codegen 的 `domainBaseDir`
 

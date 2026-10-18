@@ -10,7 +10,7 @@ publicPrefix:
   - /api/v1/admin/ai
   - /api/v1/open/ai
 upstream:
-  env: RUOYI_DOMAIN_AI_UPSTREAM
+  env: COOLIEBASE_DOMAIN_AI_UPSTREAM
   protocol: http
   defaultPort: 3223
 auth:
@@ -26,9 +26,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.ai
-  commandSubject: ruoyi.cmd.ai.>
-  eventSubject: ruoyi.evt.ai.>
+  queueGroup: cooliebase.ai
+  commandSubject: cooliebase.cmd.ai.>
+  eventSubject: cooliebase.evt.ai.>
 invoke:
   colocated: sdk
   remote: rpc

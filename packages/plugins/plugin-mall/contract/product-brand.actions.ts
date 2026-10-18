@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-brand.validator"
 
 export const productBrandActionSchemas = {
-  "ruoyi.cmd.mall.productBrand.page": productBrandPageQuerySchema,
-  "ruoyi.cmd.mall.productBrand.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productBrand.create": productBrandCreateSchema,
-  "ruoyi.cmd.mall.productBrand.update": productBrandUpdateSchema,
-  "ruoyi.cmd.mall.productBrand.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productBrand.page": productBrandPageQuerySchema,
+  "cooliebase.cmd.mall.productBrand.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productBrand.create": productBrandCreateSchema,
+  "cooliebase.cmd.mall.productBrand.update": productBrandUpdateSchema,
+  "cooliebase.cmd.mall.productBrand.delete": z.object({ id: z.string() }),
   "mall.pageProductBrand": productBrandPageQuerySchema,
   "mall.getProductBrand": z.object({ id: z.string() }),
   "mall.createProductBrand": productBrandCreateSchema,

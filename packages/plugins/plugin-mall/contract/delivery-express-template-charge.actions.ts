@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/delivery-express-template-charge.validator"
 
 export const deliveryExpressTemplateChargeActionSchemas = {
-  "ruoyi.cmd.mall.deliveryExpressTemplateCharge.page": deliveryExpressTemplateChargePageQuerySchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateCharge.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.deliveryExpressTemplateCharge.create": deliveryExpressTemplateChargeCreateSchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateCharge.update": deliveryExpressTemplateChargeUpdateSchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateCharge.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpressTemplateCharge.page": deliveryExpressTemplateChargePageQuerySchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateCharge.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpressTemplateCharge.create": deliveryExpressTemplateChargeCreateSchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateCharge.update": deliveryExpressTemplateChargeUpdateSchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateCharge.delete": z.object({ id: z.string() }),
   "mall.pageDeliveryExpressTemplateCharge": deliveryExpressTemplateChargePageQuerySchema,
   "mall.getDeliveryExpressTemplateCharge": z.object({ id: z.string() }),
   "mall.createDeliveryExpressTemplateCharge": deliveryExpressTemplateChargeCreateSchema,

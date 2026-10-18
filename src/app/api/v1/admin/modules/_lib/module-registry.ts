@@ -14,7 +14,7 @@
  *
  * 定位: 本仓的域是 **Platform Module**（可信/进程内/显式注册面），
  * 不是 §6.2 的可安装 Plugin。故本文件与产物一律用 module 命名。
- * 设计见 docs/architecture/ruoyi-all-next-module-to-plugin-migration.md。
+ * 设计见 docs/architecture/cooliebase-all-base-module-to-plugin-migration.md。
  */
 import { MODULE_MANIFESTS } from "./module-registry.generated"
 

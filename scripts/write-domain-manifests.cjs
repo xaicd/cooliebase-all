@@ -13,7 +13,7 @@ for (const file of routeManifests) console.log(`  ${file}`)
 //
 // 命名注意: 这些产物是 **Platform Module 声明**(可信/进程内/显式注册),
 // 显式注册面), 不是 §6.2 的可安装 Plugin。故一律用 module 而非 plugin 命名,
-// 详见 docs/architecture/ruoyi-all-next-module-to-plugin-migration.md §5.3。
+// 详见 docs/architecture/cooliebase-all-base-module-to-plugin-migration.md §5.3。
 const moduleManifests = writeGeneratedModuleManifests()
 console.log(`[domain-manifests] wrote ${moduleManifests.length} module manifests:`)
 for (const file of moduleManifests) console.log(`  ${file}`)

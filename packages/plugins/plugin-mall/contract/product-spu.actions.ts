@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-spu.validator"
 
 export const productSpuActionSchemas = {
-  "ruoyi.cmd.mall.productSpu.page": productSpuPageQuerySchema,
-  "ruoyi.cmd.mall.productSpu.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productSpu.create": productSpuCreateSchema,
-  "ruoyi.cmd.mall.productSpu.update": productSpuUpdateSchema,
-  "ruoyi.cmd.mall.productSpu.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productSpu.page": productSpuPageQuerySchema,
+  "cooliebase.cmd.mall.productSpu.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productSpu.create": productSpuCreateSchema,
+  "cooliebase.cmd.mall.productSpu.update": productSpuUpdateSchema,
+  "cooliebase.cmd.mall.productSpu.delete": z.object({ id: z.string() }),
   "mall.pageProductSpu": productSpuPageQuerySchema,
   "mall.getProductSpu": z.object({ id: z.string() }),
   "mall.createProductSpu": productSpuCreateSchema,

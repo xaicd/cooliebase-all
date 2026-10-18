@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-issue-line.validator"
 
 export const mesWmProductIssueLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductIssueLine.page": mesWmProductIssueLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductIssueLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductIssueLine.create": mesWmProductIssueLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductIssueLine.update": mesWmProductIssueLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductIssueLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductIssueLine.page": mesWmProductIssueLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductIssueLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductIssueLine.create": mesWmProductIssueLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductIssueLine.update": mesWmProductIssueLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductIssueLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductIssueLine": mesWmProductIssueLinePageQuerySchema,
   "mes.getMesWmProductIssueLine": z.object({ id: z.string() }),
   "mes.createMesWmProductIssueLine": mesWmProductIssueLineCreateSchema,

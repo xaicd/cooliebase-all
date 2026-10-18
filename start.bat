@@ -1,12 +1,12 @@
 @echo off
 setlocal enabledelayedexpansion
-title RuoYi All Next - Start Manager
+title CoolieBase All Base - Start Manager
 
 cd /d "%~dp0"
 set "PATH=%~dp0node_modules\.bin;%PATH%"
 
 echo ================================================================
-echo          RuoYi All Next - Developer Launcher
+echo          CoolieBase All Base - Developer Launcher
 echo ================================================================
 echo.
 
@@ -146,7 +146,7 @@ goto :end
 :memory
 echo [INFO] Starting in pure in-memory mode...
 set "DB_DRIVER=memory"
-set "DATABASE_URL=memory://ruoyi-all-next"
+set "DATABASE_URL=memory://cooliebase-all-base"
 set "REDIS_URL="
 call npm run dev
 goto :end

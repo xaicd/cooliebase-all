@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-shipment-order.validator"
 
 export const wmsShipmentOrderActionSchemas = {
-  "ruoyi.cmd.wms.wmsShipmentOrder.page": wmsShipmentOrderPageQuerySchema,
-  "ruoyi.cmd.wms.wmsShipmentOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsShipmentOrder.create": wmsShipmentOrderCreateSchema,
-  "ruoyi.cmd.wms.wmsShipmentOrder.update": wmsShipmentOrderUpdateSchema,
-  "ruoyi.cmd.wms.wmsShipmentOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsShipmentOrder.page": wmsShipmentOrderPageQuerySchema,
+  "cooliebase.cmd.wms.wmsShipmentOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsShipmentOrder.create": wmsShipmentOrderCreateSchema,
+  "cooliebase.cmd.wms.wmsShipmentOrder.update": wmsShipmentOrderUpdateSchema,
+  "cooliebase.cmd.wms.wmsShipmentOrder.delete": z.object({ id: z.string() }),
 } as const

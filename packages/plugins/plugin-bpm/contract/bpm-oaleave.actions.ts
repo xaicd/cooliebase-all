@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-oaleave.validator"
 
 export const bpmOALeaveActionSchemas = {
-  "ruoyi.cmd.bpm.bpmOALeave.page": bpmOALeavePageQuerySchema,
-  "ruoyi.cmd.bpm.bpmOALeave.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmOALeave.create": bpmOALeaveCreateSchema,
-  "ruoyi.cmd.bpm.bpmOALeave.update": bpmOALeaveUpdateSchema,
-  "ruoyi.cmd.bpm.bpmOALeave.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmOALeave.page": bpmOALeavePageQuerySchema,
+  "cooliebase.cmd.bpm.bpmOALeave.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmOALeave.create": bpmOALeaveCreateSchema,
+  "cooliebase.cmd.bpm.bpmOALeave.update": bpmOALeaveUpdateSchema,
+  "cooliebase.cmd.bpm.bpmOALeave.delete": z.object({ id: z.string() }),
   "bpm.pageBpmOALeave": bpmOALeavePageQuerySchema,
   "bpm.getBpmOALeave": z.object({ id: z.string() }),
   "bpm.createBpmOALeave": bpmOALeaveCreateSchema,

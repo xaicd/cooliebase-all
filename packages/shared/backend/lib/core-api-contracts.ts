@@ -80,7 +80,7 @@ export function registerOnlineApiContracts(): void {
     ["/api/v1/admin/online/definitions/{code}", "PUT", "使用乐观锁更新 Online Definition", "infra:online-definition:update"],
     ["/api/v1/admin/online/definitions/{code}", "DELETE", "软删除未发布且未被关联的 Online Definition", "infra:online-definition:delete"],
     ["/api/v1/admin/online/definitions/{code}/archive", "POST", "归档 Online Definition", "infra:online-definition:update"],
-    ["/api/v1/admin/online/definitions/{code}/normalize-system-fields", "POST", "补齐并固化 Online Definition 的 RuoYi 系统字段", "infra:online-definition:update"],
+    ["/api/v1/admin/online/definitions/{code}/normalize-system-fields", "POST", "补齐并固化 Online Definition 的 CoolieBase 系统字段", "infra:online-definition:update"],
     ["/api/v1/admin/online/definitions/{code}/draft", "PUT", "使用乐观锁更新 Draft Revision", "infra:online-definition:update"],
     ["/api/v1/admin/online/definitions/{code}/validate", "POST", "校验 Draft Revision", "infra:online-definition:update"],
     ["/api/v1/admin/online/definitions/{code}/publish", "POST", "发布不可变 Online Release", "infra:online-definition:publish"],

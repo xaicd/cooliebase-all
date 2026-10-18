@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-item-category.validator"
 
 export const wmsItemCategoryActionSchemas = {
-  "ruoyi.cmd.wms.wmsItemCategory.page": wmsItemCategoryPageQuerySchema,
-  "ruoyi.cmd.wms.wmsItemCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsItemCategory.create": wmsItemCategoryCreateSchema,
-  "ruoyi.cmd.wms.wmsItemCategory.update": wmsItemCategoryUpdateSchema,
-  "ruoyi.cmd.wms.wmsItemCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemCategory.page": wmsItemCategoryPageQuerySchema,
+  "cooliebase.cmd.wms.wmsItemCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemCategory.create": wmsItemCategoryCreateSchema,
+  "cooliebase.cmd.wms.wmsItemCategory.update": wmsItemCategoryUpdateSchema,
+  "cooliebase.cmd.wms.wmsItemCategory.delete": z.object({ id: z.string() }),
 } as const

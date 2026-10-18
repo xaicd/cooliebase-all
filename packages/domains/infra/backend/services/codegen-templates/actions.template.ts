@@ -25,11 +25,11 @@ import {
 } from "../backend/validators/${kebab}.validator"
 
 export const ${camel}ActionSchemas = {
-  "ruoyi.cmd.${moduleName}.${camel}.page": ${camel}PageQuerySchema,
-  "ruoyi.cmd.${moduleName}.${camel}.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.${moduleName}.${camel}.create": ${camel}CreateSchema,
-  "ruoyi.cmd.${moduleName}.${camel}.update": ${camel}UpdateSchema,
-  "ruoyi.cmd.${moduleName}.${camel}.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.${moduleName}.${camel}.page": ${camel}PageQuerySchema,
+  "cooliebase.cmd.${moduleName}.${camel}.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.${moduleName}.${camel}.create": ${camel}CreateSchema,
+  "cooliebase.cmd.${moduleName}.${camel}.update": ${camel}UpdateSchema,
+  "cooliebase.cmd.${moduleName}.${camel}.delete": z.object({ id: z.string() }),
   "${moduleName}.page${pascal}": ${camel}PageQuerySchema,
   "${moduleName}.get${pascal}": z.object({ id: z.string() }),
   "${moduleName}.create${pascal}": ${camel}CreateSchema,

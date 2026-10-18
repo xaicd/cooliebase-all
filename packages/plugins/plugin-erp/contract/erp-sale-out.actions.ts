@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-sale-out.validator"
 
 export const erpSaleOutActionSchemas = {
-  "ruoyi.cmd.erp.erpSaleOut.page": erpSaleOutPageQuerySchema,
-  "ruoyi.cmd.erp.erpSaleOut.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpSaleOut.create": erpSaleOutCreateSchema,
-  "ruoyi.cmd.erp.erpSaleOut.update": erpSaleOutUpdateSchema,
-  "ruoyi.cmd.erp.erpSaleOut.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleOut.page": erpSaleOutPageQuerySchema,
+  "cooliebase.cmd.erp.erpSaleOut.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleOut.create": erpSaleOutCreateSchema,
+  "cooliebase.cmd.erp.erpSaleOut.update": erpSaleOutUpdateSchema,
+  "cooliebase.cmd.erp.erpSaleOut.delete": z.object({ id: z.string() }),
   "erp.pageErpSaleOut": erpSaleOutPageQuerySchema,
   "erp.getErpSaleOut": z.object({ id: z.string() }),
   "erp.createErpSaleOut": erpSaleOutCreateSchema,

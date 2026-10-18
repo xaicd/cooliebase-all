@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-channel.validator"
 
 export const payChannelActionSchemas = {
-  "ruoyi.cmd.pay.payChannel.page": payChannelPageQuerySchema,
-  "ruoyi.cmd.pay.payChannel.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payChannel.create": payChannelCreateSchema,
-  "ruoyi.cmd.pay.payChannel.update": payChannelUpdateSchema,
-  "ruoyi.cmd.pay.payChannel.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payChannel.page": payChannelPageQuerySchema,
+  "cooliebase.cmd.pay.payChannel.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payChannel.create": payChannelCreateSchema,
+  "cooliebase.cmd.pay.payChannel.update": payChannelUpdateSchema,
+  "cooliebase.cmd.pay.payChannel.delete": z.object({ id: z.string() }),
   "pay.pagePayChannel": payChannelPageQuerySchema,
   "pay.getPayChannel": z.object({ id: z.string() }),
   "pay.createPayChannel": payChannelCreateSchema,

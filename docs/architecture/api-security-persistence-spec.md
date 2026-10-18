@@ -170,7 +170,7 @@ METHOD\nPATH\nQUERY\nTIMESTAMP\nNONCE\nCONTENT-SHA256
 - 每张表登记一个主要运行时访问层：`prisma` 或 `kysely`。
 - `system_*`、`infra_*` 的标准 CRUD 默认由 Kysely Repository 负责。
 - 关系密集、迁移期或 Prisma 已稳定覆盖的 `auth/session/open-app-key` 可由 Prisma 负责。
-- 同一 Service 方法不可在无显式适配器的情况下同时调用 `ruoyiPrisma` 与独立 `getKyselyDb()`。
+- 同一 Service 方法不可在无显式适配器的情况下同时调用 `cooliebasePrisma` 与独立 `getKyselyDb()`。
 - 跨表原子操作必须选择一个执行器：`prisma.$transaction` 或 `kysely.transaction()`；禁止假设两个事务能自动互相提交/回滚。
 
 ### 8.3 环境与失败策略

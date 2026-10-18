@@ -1,10 +1,10 @@
 # 租户套餐与菜单初始化
 
-套餐和菜单的唯一业务来源是本工作区的 RuoYi SQL：`../ruoyi-vue-pro/sql/mysql/ruoyi-vue-pro.sql`。不要手写另一套菜单或套餐目录。
+套餐和菜单的唯一业务来源是本工作区的 CoolieBase SQL：`../cooliebase-vue-pro/sql/mysql/cooliebase-vue-pro.sql`。不要手写另一套菜单或套餐目录。
 
 ## 生成与部署
 
-1. 上游 SQL 更新后执行 `npm run catalog:sync:ruoyi`，生成 `prisma/data/menus.seed-data.ts` 与 `prisma/data/tenant-packages.seed-data.ts`。
+1. 上游 SQL 更新后执行 `npm run catalog:sync:cooliebase`，生成 `prisma/data/menus.seed-data.ts` 与 `prisma/data/tenant-packages.seed-data.ts`。
 2. 部署数据库结构：`npm run db:migrate`。
 3. 写入可重复的目录与关联数据：`npm run db:seed`。
 
@@ -12,7 +12,7 @@
 
 ## 租户运行边界
 
-- `tenant-packages.seed-data.ts` 保留上游 RuoYi 套餐的原始菜单清单，便于同步和追溯；它不是租户的最终可授权范围。
+- `tenant-packages.seed-data.ts` 保留上游 CoolieBase 套餐的原始菜单清单，便于同步和追溯；它不是租户的最终可授权范围。
 - 写入 `system_tenant_package_menu`、套餐编辑候选、角色授权候选、建租户首管理员初始化都会统一排除平台控制面及其所有子孙节点。识别规则同时覆盖菜单名称、路径、组件路径与权限码，不能只依赖中文名称。
 - 平台控制面包括租户/套餐管理、数据源配置和 OAuth 2.0（令牌、客户端、应用）等；即使上游普通套餐原始清单包含这些节点，租户角色也不会取得这些权限。
 - 套餐未勾选任何菜单表示“未授权菜单”，不是“全部菜单”。菜单树会保留安全父链，避免子菜单被提升成无父级根节点。

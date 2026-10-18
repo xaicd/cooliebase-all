@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/banner.validator"
 
 export const bannerActionSchemas = {
-  "ruoyi.cmd.mall.banner.page": bannerPageQuerySchema,
-  "ruoyi.cmd.mall.banner.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.banner.create": bannerCreateSchema,
-  "ruoyi.cmd.mall.banner.update": bannerUpdateSchema,
-  "ruoyi.cmd.mall.banner.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.banner.page": bannerPageQuerySchema,
+  "cooliebase.cmd.mall.banner.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.banner.create": bannerCreateSchema,
+  "cooliebase.cmd.mall.banner.update": bannerUpdateSchema,
+  "cooliebase.cmd.mall.banner.delete": z.object({ id: z.string() }),
   "mall.pageBanner": bannerPageQuerySchema,
   "mall.getBanner": z.object({ id: z.string() }),
   "mall.createBanner": bannerCreateSchema,

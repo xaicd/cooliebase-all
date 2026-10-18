@@ -372,8 +372,8 @@
   "messaging": {
     "protocolVersion": "v1",
     "defaultTransport": "in-process",
-    "commandSubjectPrefix": "ruoyi.cmd",
-    "eventSubjectPrefix": "ruoyi.evt",
+    "commandSubjectPrefix": "cooliebase.cmd",
+    "eventSubjectPrefix": "cooliebase.evt",
     "headerKeys": {
       "contractVersion": "x-contract-version",
       "traceId": "x-trace-id",
@@ -394,7 +394,7 @@
         "/api/v1/admin/system"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_SYSTEM_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_SYSTEM_UPSTREAM",
       "defaultPort": 3210,
       "packable": true,
       "packKind": "api-only",
@@ -423,7 +423,7 @@
         "/api/v1/admin/infra"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_INFRA_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_INFRA_UPSTREAM",
       "defaultPort": 3211,
       "packable": true,
       "packKind": "api-only",
@@ -452,7 +452,7 @@
         "/api/v1/admin/online"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_ONLINE_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_ONLINE_UPSTREAM",
       "defaultPort": 3212,
       "packable": true,
       "packKind": "api-only",
@@ -482,7 +482,7 @@
         "/api/v1/admin/bpm"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_BPM_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_BPM_UPSTREAM",
       "defaultPort": 3213,
       "packable": true,
       "packKind": "api-only",
@@ -513,7 +513,7 @@
         "/api/v1/open/pay"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_PAY_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_PAY_UPSTREAM",
       "defaultPort": 3214,
       "packable": true,
       "packKind": "api-only",
@@ -542,7 +542,7 @@
         "/api/v1/admin/report"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_REPORT_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_REPORT_UPSTREAM",
       "defaultPort": 3215,
       "packable": true,
       "packKind": "api-only",
@@ -571,7 +571,7 @@
         "/api/v1/admin/mp"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_MP_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_MP_UPSTREAM",
       "defaultPort": 3216,
       "packable": true,
       "packKind": "api-only",
@@ -601,7 +601,7 @@
         "/api/v1/app/mall"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_MALL_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_MALL_UPSTREAM",
       "defaultPort": 3217,
       "packable": true,
       "packKind": "api-only",
@@ -631,7 +631,7 @@
         "/api/v1/app/member"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_MEMBER_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_MEMBER_UPSTREAM",
       "defaultPort": 3218,
       "packable": true,
       "packKind": "api-only",
@@ -660,7 +660,7 @@
         "/api/v1/admin/crm"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_CRM_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_CRM_UPSTREAM",
       "defaultPort": 3219,
       "packable": true,
       "packKind": "api-only",
@@ -689,7 +689,7 @@
         "/api/v1/admin/erp"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_ERP_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_ERP_UPSTREAM",
       "defaultPort": 3220,
       "packable": true,
       "packKind": "api-only",
@@ -718,7 +718,7 @@
         "/api/v1/admin/wms"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_WMS_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_WMS_UPSTREAM",
       "defaultPort": 3221,
       "packable": true,
       "packKind": "api-only",
@@ -747,7 +747,7 @@
         "/api/v1/admin/mes"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_MES_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_MES_UPSTREAM",
       "defaultPort": 3222,
       "packable": true,
       "packKind": "api-only",
@@ -777,7 +777,7 @@
         "/api/v1/open/ai"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_AI_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_AI_UPSTREAM",
       "defaultPort": 3223,
       "packable": true,
       "packKind": "api-only",
@@ -807,7 +807,7 @@
         "/api/v1/open/aigw"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_AIGW_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_AIGW_UPSTREAM",
       "defaultPort": 3226,
       "packable": true,
       "packKind": "api-only",
@@ -836,7 +836,7 @@
         "/api/v1/admin/iot"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_IOT_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_IOT_UPSTREAM",
       "defaultPort": 3224,
       "packable": true,
       "packKind": "api-only",
@@ -865,7 +865,7 @@
         "/api/v1/admin/im"
       ],
       "implementation": "local-ts",
-      "upstreamEnv": "RUOYI_DOMAIN_IM_UPSTREAM",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_IM_UPSTREAM",
       "defaultPort": 3225,
       "packable": true,
       "packKind": "api-only",

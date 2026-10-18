@@ -78,7 +78,7 @@ function buildIndexMd() {
     domainRows += `| ${link} | ${kindBadge} | 阶段 ${d.stage} | ${port} | ${entityCount} | ${methodsCount} | \`${(d.publicPrefixes || []).join("`, `")}\` |\n`;
   }
 
-  const content = `# ruoyi-all-next OpenWiki (LLM 知识大脑)
+  const content = `# cooliebase-all-base OpenWiki (LLM 知识大脑)
 
 > **面向 AI Agent 的核心索引**：本知识库由底座真实元数据（\`domain-catalog\`、\`seam-graph\`、\`contracts.json\`）**自动化编译生成与动态自愈**。AI 编程助手（Cursor / Claude / Copilot）应优先检索对应词条，严禁全盘盲扫代码。
 
@@ -355,7 +355,7 @@ await runUnitOfWork(async (uow) => {
 
 ## 一、 通信三原则
 1. **同域业务调用**：直接调用本地 Service / Application Port；
-2. **跨域同步调用**：必须走 **Domain Facade** 或 \`broker.call('ruoyi.cmd.<domain>.<method>')\`，严禁直连对方数据库或 import Service；
+2. **跨域同步调用**：必须走 **Domain Facade** 或 \`broker.call('cooliebase.cmd.<domain>.<method>')\`，严禁直连对方数据库或 import Service；
 3. **跨域异步通知**：必须走 \`broker.publishReliable()\` 经 Outbox 发送领域事件。
 
 ## 二、 韧性治理策略 (Resilience)
@@ -404,7 +404,7 @@ await runUnitOfWork(async (uow) => {
 
 ## 一、 核心公理：系统内一切能力皆为 AI Agent 驱动设计
 在传统工业级软件中，系统由人类使用鼠标逐个页面点击、由外包码农手写搬砖代码、由人工手工维护配置与对账。
-而在 \`ruoyi-all-next\` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
+而在 \`cooliebase-all-base\` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
 
 ## 二、 7 层全栈 AI Agent 驱动闭环矩阵
 
@@ -420,7 +420,7 @@ await runUnitOfWork(async (uow) => {
 
 ## 三、 三位一体协同机制：Skills + MCP + CLI
 1. **Skills (.agents/skills/)**：指导 Agent “怎么做”（方法论、EARS 句式、5-Whys、红绿测试准则，全仓 38 个原生技能）；
-2. **MCP (scripts/mcp/ruoyi-mcp-server.cjs)**：为外部 Agent 提供 “查什么”（只读反射查询 14 大工具，严禁副作用写入）；
+2. **MCP (scripts/mcp/cooliebase-mcp-server.cjs)**：为外部 Agent 提供 “查什么”（只读反射查询 14 大工具，严禁副作用写入）；
 3. **CLI (scripts/speckit.ts 等)**：确定性落地 “谁来执行”（工具引擎自动执行、编译与门禁）。
 `.trim() + "\n");
 
@@ -432,7 +432,7 @@ await runUnitOfWork(async (uow) => {
 ## 一、 对标全球顶尖项目矩阵
 1. **Supabase (80k★)**: 极致的本地开发体验、Realtime CDC 变更广播、原生 pgvector 向量检索；
 2. **MedusaJS v2 (27k★)**: TypeScript 原生可逆 DAG 工作流 (@medusajs/workflows-sdk) 与补偿长事务 (Saga)；
-3. **ruoyi-vue-pro (25k★)**: 17 领域工业级模型、Flowable BPMN 2.0 审批流设计器、严密的 @DataPermission 部门数据范围；
+3. **cooliebase-vue-pro (25k★)**: 17 领域工业级模型、Flowable BPMN 2.0 审批流设计器、严密的 @DataPermission 部门数据范围；
 4. **Directus (30k★) / Refine (29k★)**: 可视化 Low-Code 表单设计、TanStack Table v8 结合虚拟滚动支撑十万级数据；
 5. **Strix (60k★)**: 多智能体自主红队渗透测试平台与真实 PoC 验证。
 
@@ -716,7 +716,7 @@ function buildCmmiMds() {
    - 规范目录 \`docs/02_requirements/\` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
    - 架构决策记录：\`docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md\`、\`ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md\`
-   - 交互式架构图谱：\`docs/03_design/diagrams/ruoyi-architecture.arch.json\` / \`.arch.html\` (archify 技能)
+   - 交互式架构图谱：\`docs/03_design/diagrams/cooliebase-architecture.arch.json\` / \`.arch.html\` (archify 技能)
    - 数据库底座与8大审计字段：\`docs/03_design/database-design-erd.md\`
 4. **04_features / 04_implementation (构造与编码)**：
    - 第一方业务插件隔离：\`packages/plugins/plugin-*/\` (15 个业务域)
@@ -775,7 +775,7 @@ function buildGotchasMds() {
   generatedFiles.set("gotchas/admin-route-proxy-policy.md", `# 踩坑实录：插件路由与 Admin BFF 鉴权策略差异
 
 ### 现象
-直接访问 \`/api/v1/plugins/ruoyi.xxx/api/...\` 被误判为未鉴权或报 404。
+直接访问 \`/api/v1/plugins/cooliebase.xxx/api/...\` 被误判为未鉴权或报 404。
 
 ### 规约
 - \`/api/v1/admin/**\`：全部默认由 \`withAdminRoute\` 实施平台管理员鉴权；

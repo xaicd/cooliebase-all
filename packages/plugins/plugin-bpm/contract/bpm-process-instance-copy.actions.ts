@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-process-instance-copy.validator"
 
 export const bpmProcessInstanceCopyActionSchemas = {
-  "ruoyi.cmd.bpm.bpmProcessInstanceCopy.page": bpmProcessInstanceCopyPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmProcessInstanceCopy.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmProcessInstanceCopy.create": bpmProcessInstanceCopyCreateSchema,
-  "ruoyi.cmd.bpm.bpmProcessInstanceCopy.update": bpmProcessInstanceCopyUpdateSchema,
-  "ruoyi.cmd.bpm.bpmProcessInstanceCopy.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessInstanceCopy.page": bpmProcessInstanceCopyPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmProcessInstanceCopy.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessInstanceCopy.create": bpmProcessInstanceCopyCreateSchema,
+  "cooliebase.cmd.bpm.bpmProcessInstanceCopy.update": bpmProcessInstanceCopyUpdateSchema,
+  "cooliebase.cmd.bpm.bpmProcessInstanceCopy.delete": z.object({ id: z.string() }),
   "bpm.pageBpmProcessInstanceCopy": bpmProcessInstanceCopyPageQuerySchema,
   "bpm.getBpmProcessInstanceCopy": z.object({ id: z.string() }),
   "bpm.createBpmProcessInstanceCopy": bpmProcessInstanceCopyCreateSchema,

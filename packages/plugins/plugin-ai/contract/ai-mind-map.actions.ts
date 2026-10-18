@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-mind-map.validator"
 
 export const aiMindMapActionSchemas = {
-  "ruoyi.cmd.ai.aiMindMap.page": aiMindMapPageQuerySchema,
-  "ruoyi.cmd.ai.aiMindMap.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiMindMap.create": aiMindMapCreateSchema,
-  "ruoyi.cmd.ai.aiMindMap.update": aiMindMapUpdateSchema,
-  "ruoyi.cmd.ai.aiMindMap.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiMindMap.page": aiMindMapPageQuerySchema,
+  "cooliebase.cmd.ai.aiMindMap.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiMindMap.create": aiMindMapCreateSchema,
+  "cooliebase.cmd.ai.aiMindMap.update": aiMindMapUpdateSchema,
+  "cooliebase.cmd.ai.aiMindMap.delete": z.object({ id: z.string() }),
   "ai.pageAiMindMap": aiMindMapPageQuerySchema,
   "ai.getAiMindMap": z.object({ id: z.string() }),
   "ai.createAiMindMap": aiMindMapCreateSchema,

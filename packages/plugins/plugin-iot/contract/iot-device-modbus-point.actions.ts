@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-device-modbus-point.validator"
 
 export const iotDeviceModbusPointActionSchemas = {
-  "ruoyi.cmd.iot.iotDeviceModbusPoint.page": iotDeviceModbusPointPageQuerySchema,
-  "ruoyi.cmd.iot.iotDeviceModbusPoint.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDeviceModbusPoint.create": iotDeviceModbusPointCreateSchema,
-  "ruoyi.cmd.iot.iotDeviceModbusPoint.update": iotDeviceModbusPointUpdateSchema,
-  "ruoyi.cmd.iot.iotDeviceModbusPoint.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceModbusPoint.page": iotDeviceModbusPointPageQuerySchema,
+  "cooliebase.cmd.iot.iotDeviceModbusPoint.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceModbusPoint.create": iotDeviceModbusPointCreateSchema,
+  "cooliebase.cmd.iot.iotDeviceModbusPoint.update": iotDeviceModbusPointUpdateSchema,
+  "cooliebase.cmd.iot.iotDeviceModbusPoint.delete": z.object({ id: z.string() }),
   "iot.pageIotDeviceModbusPoint": iotDeviceModbusPointPageQuerySchema,
   "iot.getIotDeviceModbusPoint": z.object({ id: z.string() }),
   "iot.createIotDeviceModbusPoint": iotDeviceModbusPointCreateSchema,

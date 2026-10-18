@@ -1,7 +1,7 @@
 # 领域百科：system (平台地基)
 
 > **唯一源码目录**：[`packages/domains/system/`](../../packages/domains/system)  
-> **演进阶段**：阶段 A | **独立部署默认端口**：3210 | **上游环境变量**：`RUOYI_DOMAIN_SYSTEM_UPSTREAM`
+> **演进阶段**：阶段 A | **独立部署默认端口**：3210 | **上游环境变量**：`COOLIEBASE_DOMAIN_SYSTEM_UPSTREAM`
 
 ---
 

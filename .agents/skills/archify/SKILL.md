@@ -43,14 +43,14 @@ flowchart TD
 
 ## 3. 标准 Architecture 图 IR 编写范例
 
-以下为定义 ruoyi-all-next 跨域与微服务边界的 Archify JSON 结构范例：
+以下为定义 cooliebase-all-base 跨域与微服务边界的 Archify JSON 结构范例：
 
 ```json
 {
   "schema_version": "1.0",
   "diagram_type": "architecture",
   "meta": {
-    "title": "ruoyi-all-next 跨域 Facade 与多租户网关调用全景",
+    "title": "cooliebase-all-base 跨域 Facade 与多租户网关调用全景",
     "theme": "auto",
     "export": ["svg", "png"]
   },
@@ -81,7 +81,7 @@ flowchart TD
 
 ---
 
-## 4. 与 ruoyi-all-next 架构联动
+## 4. 与 cooliebase-all-base 架构联动
 
 1. **过程资产归档路径**：
    - 架构与设计图统一存放于 `docs/03_design/diagrams/<name>.arch.json`，并编译输出对应的 `<name>.arch.html`。

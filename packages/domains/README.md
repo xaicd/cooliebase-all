@@ -1,4 +1,4 @@
-# ruoyi-all-next Module-First Layout
+# cooliebase-all-base Module-First Layout
 
 每个业务域优先在 `packages/domains/<domain>/` 下实现，`src/backend/*` 仅保留兼容门面。
 

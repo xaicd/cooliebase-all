@@ -1,4 +1,4 @@
--- RuoYi-style platform datasource configuration table.
+-- CoolieBase-style platform datasource configuration table.
 -- Passwords are stored only as application-layer AES ciphertext in encrypted_password.
 CREATE TABLE "infra_data_source_config" (
   "id" TEXT NOT NULL,

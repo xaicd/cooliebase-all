@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bargain-help.validator"
 
 export const bargainHelpActionSchemas = {
-  "ruoyi.cmd.mall.bargainHelp.page": bargainHelpPageQuerySchema,
-  "ruoyi.cmd.mall.bargainHelp.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.bargainHelp.create": bargainHelpCreateSchema,
-  "ruoyi.cmd.mall.bargainHelp.update": bargainHelpUpdateSchema,
-  "ruoyi.cmd.mall.bargainHelp.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainHelp.page": bargainHelpPageQuerySchema,
+  "cooliebase.cmd.mall.bargainHelp.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainHelp.create": bargainHelpCreateSchema,
+  "cooliebase.cmd.mall.bargainHelp.update": bargainHelpUpdateSchema,
+  "cooliebase.cmd.mall.bargainHelp.delete": z.object({ id: z.string() }),
   "mall.pageBargainHelp": bargainHelpPageQuerySchema,
   "mall.getBargainHelp": z.object({ id: z.string() }),
   "mall.createBargainHelp": bargainHelpCreateSchema,

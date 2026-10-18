@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-outsource-receipt-line.validator"
 
 export const mesWmOutsourceReceiptLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptLine.page": mesWmOutsourceReceiptLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptLine.create": mesWmOutsourceReceiptLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptLine.update": mesWmOutsourceReceiptLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptLine.page": mesWmOutsourceReceiptLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptLine.create": mesWmOutsourceReceiptLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptLine.update": mesWmOutsourceReceiptLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmOutsourceReceiptLine": mesWmOutsourceReceiptLinePageQuerySchema,
   "mes.getMesWmOutsourceReceiptLine": z.object({ id: z.string() }),
   "mes.createMesWmOutsourceReceiptLine": mesWmOutsourceReceiptLineCreateSchema,

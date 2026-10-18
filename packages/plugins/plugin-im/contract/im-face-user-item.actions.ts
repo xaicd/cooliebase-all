@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-face-user-item.validator"
 
 export const imFaceUserItemActionSchemas = {
-  "ruoyi.cmd.im.imFaceUserItem.page": imFaceUserItemPageQuerySchema,
-  "ruoyi.cmd.im.imFaceUserItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imFaceUserItem.create": imFaceUserItemCreateSchema,
-  "ruoyi.cmd.im.imFaceUserItem.update": imFaceUserItemUpdateSchema,
-  "ruoyi.cmd.im.imFaceUserItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFaceUserItem.page": imFaceUserItemPageQuerySchema,
+  "cooliebase.cmd.im.imFaceUserItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFaceUserItem.create": imFaceUserItemCreateSchema,
+  "cooliebase.cmd.im.imFaceUserItem.update": imFaceUserItemUpdateSchema,
+  "cooliebase.cmd.im.imFaceUserItem.delete": z.object({ id: z.string() }),
   "im.pageImFaceUserItem": imFaceUserItemPageQuerySchema,
   "im.getImFaceUserItem": z.object({ id: z.string() }),
   "im.createImFaceUserItem": imFaceUserItemCreateSchema,

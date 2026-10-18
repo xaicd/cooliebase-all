@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-produce.validator"
 
 export const mesWmProductProduceActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductProduce.page": mesWmProductProducePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductProduce.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductProduce.create": mesWmProductProduceCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductProduce.update": mesWmProductProduceUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductProduce.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductProduce.page": mesWmProductProducePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductProduce.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductProduce.create": mesWmProductProduceCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductProduce.update": mesWmProductProduceUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductProduce.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductProduce": mesWmProductProducePageQuerySchema,
   "mes.getMesWmProductProduce": z.object({ id: z.string() }),
   "mes.createMesWmProductProduce": mesWmProductProduceCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-contract.validator"
 
 export const crmContractActionSchemas = {
-  "ruoyi.cmd.crm.crmContract.page": crmContractPageQuerySchema,
-  "ruoyi.cmd.crm.crmContract.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmContract.create": crmContractCreateSchema,
-  "ruoyi.cmd.crm.crmContract.update": crmContractUpdateSchema,
-  "ruoyi.cmd.crm.crmContract.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContract.page": crmContractPageQuerySchema,
+  "cooliebase.cmd.crm.crmContract.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContract.create": crmContractCreateSchema,
+  "cooliebase.cmd.crm.crmContract.update": crmContractUpdateSchema,
+  "cooliebase.cmd.crm.crmContract.delete": z.object({ id: z.string() }),
   "crm.pageCrmContract": crmContractPageQuerySchema,
   "crm.getCrmContract": z.object({ id: z.string() }),
   "crm.createCrmContract": crmContractCreateSchema,

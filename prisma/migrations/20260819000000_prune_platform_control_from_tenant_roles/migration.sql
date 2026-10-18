@@ -1,4 +1,4 @@
--- RuoYi's normal package source includes several platform control-plane menus.
+-- CoolieBase's normal package source includes several platform control-plane menus.
 -- Tenant-local roles must never receive those menus or any descendants.
 WITH RECURSIVE platform_control_menus AS (
   SELECT "id"

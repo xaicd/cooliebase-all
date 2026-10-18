@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-ota-firmware.validator"
 
 export const iotOtaFirmwareActionSchemas = {
-  "ruoyi.cmd.iot.iotOtaFirmware.page": iotOtaFirmwarePageQuerySchema,
-  "ruoyi.cmd.iot.iotOtaFirmware.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotOtaFirmware.create": iotOtaFirmwareCreateSchema,
-  "ruoyi.cmd.iot.iotOtaFirmware.update": iotOtaFirmwareUpdateSchema,
-  "ruoyi.cmd.iot.iotOtaFirmware.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotOtaFirmware.page": iotOtaFirmwarePageQuerySchema,
+  "cooliebase.cmd.iot.iotOtaFirmware.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotOtaFirmware.create": iotOtaFirmwareCreateSchema,
+  "cooliebase.cmd.iot.iotOtaFirmware.update": iotOtaFirmwareUpdateSchema,
+  "cooliebase.cmd.iot.iotOtaFirmware.delete": z.object({ id: z.string() }),
   "iot.pageIotOtaFirmware": iotOtaFirmwarePageQuerySchema,
   "iot.getIotOtaFirmware": z.object({ id: z.string() }),
   "iot.createIotOtaFirmware": iotOtaFirmwareCreateSchema,

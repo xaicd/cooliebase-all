@@ -1,10 +1,10 @@
-# ruoyi-all-next 微服务演进蓝图（Spring Cloud 对标）
+# cooliebase-all-base 微服务演进蓝图（Spring Cloud 对标）
 
 更新时间：2026-08-19
 
 ## 1. 目标
 
-使 ruoyi-all-next 在保持当前开发效率的同时，具备向 Spring Cloud 类似架构平滑升级的能力。
+使 cooliebase-all-base 在保持当前开发效率的同时，具备向 Spring Cloud 类似架构平滑升级的能力。
 
 ## 2. 演进阶段
 
@@ -20,9 +20,9 @@
 2. 事件总线统一（发布/订阅）
 3. 读写链路可观察（traceId）
 4. 模块具备独立配置、独立打包与独立进程运行
-5. BFF 可按 route manifest / `RUOYI_DOMAIN_*_UPSTREAM` 把单域 API 切到独立镜像
+5. BFF 可按 route manifest / `COOLIEBASE_DOMAIN_*_UPSTREAM` 把单域 API 切到独立镜像
 
-独立打包命令与切流约定见 `docs/architecture/ruoyi-all-next-domain-pack.md`。跨域命令/事件约束见 `docs/architecture/ruoyi-all-next-messaging-constraints.md`。模块分层与 SDK/RPC 双模见 `docs/architecture/ruoyi-all-next-plugin-rpc.md`。
+独立打包命令与切流约定见 `docs/architecture/cooliebase-all-base-domain-pack.md`。跨域命令/事件约束见 `docs/architecture/cooliebase-all-base-messaging-constraints.md`。模块分层与 SDK/RPC 双模见 `docs/architecture/cooliebase-all-base-plugin-rpc.md`。
 
 ## 2.3 阶段 C：微服务化
 
@@ -34,7 +34,7 @@
 
 ## 3. Spring Cloud 能力映射
 
-| 目标能力 | ruoyi-all-next 对应方案 |
+| 目标能力 | cooliebase-all-base 对应方案 |
 |---|---|
 | Gateway | Traefik / API Gateway 层 |
 | Config Server | 配置中心（Setting + 配置服务） |

@@ -1,6 +1,6 @@
 # 功能与物理配置审计总结报告 (FCA / PCA Compliance Audit Report)
 
-- **审计基线**: RuoYi-All-Next Release v1.1.0 Enterprise Baseline
+- **审计基线**: CoolieBase-All-Next Release v1.1.0 Enterprise Baseline
 - **审计日期**: 2026-10-09
 - **审计员**: @compliance-auditor / 技术合规委员会
 - **归属规范**: CMMI 06_quality_assurance (PQA / CM) / `.agents/skills/compliance-auditor`

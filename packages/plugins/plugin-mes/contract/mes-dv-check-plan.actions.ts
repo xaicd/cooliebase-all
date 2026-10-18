@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-check-plan.validator"
 
 export const mesDvCheckPlanActionSchemas = {
-  "ruoyi.cmd.mes.mesDvCheckPlan.page": mesDvCheckPlanPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvCheckPlan.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvCheckPlan.create": mesDvCheckPlanCreateSchema,
-  "ruoyi.cmd.mes.mesDvCheckPlan.update": mesDvCheckPlanUpdateSchema,
-  "ruoyi.cmd.mes.mesDvCheckPlan.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckPlan.page": mesDvCheckPlanPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvCheckPlan.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvCheckPlan.create": mesDvCheckPlanCreateSchema,
+  "cooliebase.cmd.mes.mesDvCheckPlan.update": mesDvCheckPlanUpdateSchema,
+  "cooliebase.cmd.mes.mesDvCheckPlan.delete": z.object({ id: z.string() }),
   "mes.pageMesDvCheckPlan": mesDvCheckPlanPageQuerySchema,
   "mes.getMesDvCheckPlan": z.object({ id: z.string() }),
   "mes.createMesDvCheckPlan": mesDvCheckPlanCreateSchema,

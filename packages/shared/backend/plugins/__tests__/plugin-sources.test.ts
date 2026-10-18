@@ -10,7 +10,7 @@ afterEach(() => {
   for (const dir of tempDirs.splice(0)) fs.rmSync(dir, { recursive: true, force: true })
 })
 
-/** 造一个最小合法插件包（带 ruoyiPlugin 指针 + manifest）。 */
+/** 造一个最小合法插件包（带 cooliebasePlugin 指针 + manifest）。 */
 function makePlugin(root: string, dirName: string, pluginId: string) {
   const dir = path.join(root, dirName)
   fs.mkdirSync(dir, { recursive: true })
@@ -31,13 +31,13 @@ function makePlugin(root: string, dirName: string, pluginId: string) {
   )
   fs.writeFileSync(
     path.join(dir, "package.json"),
-    JSON.stringify({ name: `@test/${dirName}`, ruoyiPlugin: { manifest: "./plugin.manifest.json", worker: "./worker.js" } }),
+    JSON.stringify({ name: `@test/${dirName}`, cooliebasePlugin: { manifest: "./plugin.manifest.json", worker: "./worker.js" } }),
   )
   return dir
 }
 
 function tempRoot(): string {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-plugin-roots-"))
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-plugin-roots-"))
   tempDirs.push(dir)
   return dir
 }
@@ -47,22 +47,22 @@ describe("插件多来源发现（实例目录 + 仓内第一方）", () => {
     const instance = tempRoot()
     const firstParty = tempRoot()
     makePlugin(instance, "third-party", "vendor.third")
-    makePlugin(firstParty, "plugin-pay", "ruoyi.pay")
+    makePlugin(firstParty, "plugin-pay", "cooliebase.pay")
 
     const found = scanAllPluginPackages([{ dir: instance, reportSkipped: true }, { dir: firstParty, reportSkipped: false }])
-    expect(found.map((item) => item.manifest?.id).sort()).toEqual(["ruoyi.pay", "vendor.third"])
+    expect(found.map((item) => item.manifest?.id).sort()).toEqual(["cooliebase.pay", "vendor.third"])
   })
 
-  it("没有 ruoyiPlugin 指针的目录被自然跳过（不做路径硬编码排除）", () => {
+  it("没有 cooliebasePlugin 指针的目录被自然跳过（不做路径硬编码排除）", () => {
     const firstParty = tempRoot()
-    makePlugin(firstParty, "plugin-pay", "ruoyi.pay")
+    makePlugin(firstParty, "plugin-pay", "cooliebase.pay")
     // 模拟 packages/plugins/sdk 这类"不是插件"的目录
     fs.mkdirSync(path.join(firstParty, "sdk", "src"), { recursive: true })
     fs.writeFileSync(path.join(firstParty, "sdk", "package.json"), JSON.stringify({ name: "@test/sdk" }))
 
     // 第一方根: sdk 这类普通包**静默跳过**（不报成 rejected）
     const found = scanAllPluginPackages([{ dir: firstParty, reportSkipped: false }])
-    expect(found.map((item) => item.manifest?.id)).toEqual(["ruoyi.pay"])
+    expect(found.map((item) => item.manifest?.id)).toEqual(["cooliebase.pay"])
   })
 
   it("嵌套目录（examples/hello-world 形态）也能被发现", () => {

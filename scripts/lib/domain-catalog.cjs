@@ -53,9 +53,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.${domain.name}
-  commandSubject: ruoyi.cmd.${domain.name}.>
-  eventSubject: ruoyi.evt.${domain.name}.>
+  queueGroup: cooliebase.${domain.name}
+  commandSubject: cooliebase.cmd.${domain.name}.>
+  eventSubject: cooliebase.evt.${domain.name}.>
 invoke:
   colocated: sdk
   remote: rpc
@@ -209,11 +209,11 @@ function deriveCapabilities(domain, sources) {
 function toModuleManifest(domain, sources, labels = new Map()) {
   const methods = [...new Set(sources.facades.flatMap((surface) => surface.methods))]
   return {
-    $schema: "ruoyi-module-manifest/v1",
+    $schema: "cooliebase-module-manifest/v1",
     /** 解析主键：网关按它把 /modules/<domain>/<method> 路由到对应域。 */
     domain: domain.name,
     // `<org>.<name>` 命名习惯（与插件 id 一致）
-    id: `ruoyi.${domain.name}`,
+    id: `cooliebase.${domain.name}`,
     apiVersion: 1,
     displayName: labels.get(domain.name) || domain.name,
     kind: domain.kind,
@@ -238,9 +238,9 @@ function toModuleManifest(domain, sources, labels = new Map()) {
     },
     auth: { audience: domain.auth.audience, tenantPolicy: domain.auth.tenantPolicy },
     messaging: {
-      queueGroup: `ruoyi.${domain.name}`,
-      commandSubject: `ruoyi.cmd.${domain.name}.>`,
-      eventSubject: `ruoyi.evt.${domain.name}.>`,
+      queueGroup: `cooliebase.${domain.name}`,
+      commandSubject: `cooliebase.cmd.${domain.name}.>`,
+      eventSubject: `cooliebase.evt.${domain.name}.>`,
     },
     invoke: { colocated: "sdk", remote: "rpc", protocol: "nats-rr", serialization: "json" },
     upstream: { env: domain.upstreamEnv, protocol: "http", defaultPort: domain.defaultPort },

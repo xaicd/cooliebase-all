@@ -1,4 +1,4 @@
-// Auto-generated from ruoyi-vue-pro SQL
+// Auto-generated from cooliebase-vue-pro SQL
 // source sha256: 2dc660a101b0973095c8d2e3b618329639c3a2cda118a5184858b8044775fc56
 // 1441 menus extracted
 

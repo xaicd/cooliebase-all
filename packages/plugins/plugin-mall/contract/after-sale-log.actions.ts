@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/after-sale-log.validator"
 
 export const afterSaleLogActionSchemas = {
-  "ruoyi.cmd.mall.afterSaleLog.page": afterSaleLogPageQuerySchema,
-  "ruoyi.cmd.mall.afterSaleLog.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.afterSaleLog.create": afterSaleLogCreateSchema,
-  "ruoyi.cmd.mall.afterSaleLog.update": afterSaleLogUpdateSchema,
-  "ruoyi.cmd.mall.afterSaleLog.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.afterSaleLog.page": afterSaleLogPageQuerySchema,
+  "cooliebase.cmd.mall.afterSaleLog.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.afterSaleLog.create": afterSaleLogCreateSchema,
+  "cooliebase.cmd.mall.afterSaleLog.update": afterSaleLogUpdateSchema,
+  "cooliebase.cmd.mall.afterSaleLog.delete": z.object({ id: z.string() }),
   "mall.pageAfterSaleLog": afterSaleLogPageQuerySchema,
   "mall.getAfterSaleLog": z.object({ id: z.string() }),
   "mall.createAfterSaleLog": afterSaleLogCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-product-unit.validator"
 
 export const erpProductUnitActionSchemas = {
-  "ruoyi.cmd.erp.erpProductUnit.page": erpProductUnitPageQuerySchema,
-  "ruoyi.cmd.erp.erpProductUnit.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpProductUnit.create": erpProductUnitCreateSchema,
-  "ruoyi.cmd.erp.erpProductUnit.update": erpProductUnitUpdateSchema,
-  "ruoyi.cmd.erp.erpProductUnit.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProductUnit.page": erpProductUnitPageQuerySchema,
+  "cooliebase.cmd.erp.erpProductUnit.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProductUnit.create": erpProductUnitCreateSchema,
+  "cooliebase.cmd.erp.erpProductUnit.update": erpProductUnitUpdateSchema,
+  "cooliebase.cmd.erp.erpProductUnit.delete": z.object({ id: z.string() }),
   "erp.pageErpProductUnit": erpProductUnitPageQuerySchema,
   "erp.getErpProductUnit": z.object({ id: z.string() }),
   "erp.createErpProductUnit": erpProductUnitCreateSchema,

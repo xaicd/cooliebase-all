@@ -7,7 +7,7 @@ import type { PluginManifest } from "../types"
 
 const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
 const MERGED_ENTRY = path.join(EXAMPLE_DIR, "merged.js")
-const KEY = "ruoyi.hello-world"
+const KEY = "cooliebase.hello-world"
 
 const manifest = {
   id: KEY,
@@ -35,7 +35,7 @@ function resolve(overrides: Partial<Parameters<typeof resolvePluginRoute>[0]> = 
 
 describe("宿主挂载插件声明的 apiRoutes", () => {
   it("挂载路径按约定拼装", () => {
-    expect(pluginRoutePath(KEY, "/hello")).toBe("/api/v1/plugins/ruoyi.hello-world/api/hello")
+    expect(pluginRoutePath(KEY, "/hello")).toBe("/api/v1/plugins/cooliebase.hello-world/api/hello")
   })
 
   it("已声明 + 有 api.routes.register 能力 + merged 形态 -> 放行", () => {
@@ -90,7 +90,7 @@ describe("宿主挂载插件声明的 apiRoutes", () => {
 
     const result = await plugin.invokeRoute("hello", {
       method: "GET",
-      path: "/api/v1/plugins/ruoyi.hello-world/api/hello",
+      path: "/api/v1/plugins/cooliebase.hello-world/api/hello",
       query: { who: "test" },
       body: undefined,
       headers: {},

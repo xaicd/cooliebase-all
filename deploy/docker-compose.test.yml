@@ -1,5 +1,5 @@
 # ============================================================
-# ruoyi-all-next - TEST 环境（MySQL + Redis）
+# cooliebase-all-base - TEST 环境（MySQL + Redis）
 # 用途：QA 测试验证，模拟生产配置
 # 启动：docker compose -f deploy/docker-compose.test.yml up -d
 # ============================================================
@@ -14,7 +14,7 @@ services:
     environment:
       - NODE_ENV=production
       - DB_DRIVER=mysql
-      - DATABASE_URL=mysql://ruoyi:ruoyi123@mysql:3306/ruoyi_next
+      - DATABASE_URL=mysql://cooliebase:cooliebase123@mysql:3306/cooliebase_next
       - DB_POOL_SIZE=20
       - JWT_SECRET=${JWT_SECRET:-test-secret-change-me}
       - JWT_EXPIRES_IN=43200
@@ -37,14 +37,14 @@ services:
       - "3306:3306"
     environment:
       - MYSQL_ROOT_PASSWORD=root123
-      - MYSQL_DATABASE=ruoyi_next
-      - MYSQL_USER=ruoyi
-      - MYSQL_PASSWORD=ruoyi123
+      - MYSQL_DATABASE=cooliebase_next
+      - MYSQL_USER=cooliebase
+      - MYSQL_PASSWORD=cooliebase123
     command: --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci --default-time-zone=+08:00
     volumes:
       - mysql_data_test:/var/lib/mysql
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "ruoyi", "-pruoyi123"]
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "cooliebase", "-pcooliebase123"]
       interval: 10s
       timeout: 5s
       retries: 5

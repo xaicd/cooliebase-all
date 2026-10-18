@@ -9,7 +9,7 @@
  * 宿主把它们挂载到 /api/v1/admin/plugins/<pluginKey>/api<path>。
  * 路由声明 + 处理器都留在插件包内，所以插件目录是自包含的。
  */
-import { definePlugin } from "@ruoyi/plugin-sdk"
+import { definePlugin } from "@cooliebase/plugin-sdk"
 
 export default definePlugin({
   async setup(ctx) {

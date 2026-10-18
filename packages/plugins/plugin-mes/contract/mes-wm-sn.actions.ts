@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-sn.validator"
 
 export const mesWmSnActionSchemas = {
-  "ruoyi.cmd.mes.mesWmSn.page": mesWmSnPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmSn.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmSn.create": mesWmSnCreateSchema,
-  "ruoyi.cmd.mes.mesWmSn.update": mesWmSnUpdateSchema,
-  "ruoyi.cmd.mes.mesWmSn.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSn.page": mesWmSnPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmSn.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSn.create": mesWmSnCreateSchema,
+  "cooliebase.cmd.mes.mesWmSn.update": mesWmSnUpdateSchema,
+  "cooliebase.cmd.mes.mesWmSn.delete": z.object({ id: z.string() }),
   "mes.pageMesWmSn": mesWmSnPageQuerySchema,
   "mes.getMesWmSn": z.object({ id: z.string() }),
   "mes.createMesWmSn": mesWmSnCreateSchema,

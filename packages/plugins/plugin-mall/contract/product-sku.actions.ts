@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-sku.validator"
 
 export const productSkuActionSchemas = {
-  "ruoyi.cmd.mall.productSku.page": productSkuPageQuerySchema,
-  "ruoyi.cmd.mall.productSku.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productSku.create": productSkuCreateSchema,
-  "ruoyi.cmd.mall.productSku.update": productSkuUpdateSchema,
-  "ruoyi.cmd.mall.productSku.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productSku.page": productSkuPageQuerySchema,
+  "cooliebase.cmd.mall.productSku.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productSku.create": productSkuCreateSchema,
+  "cooliebase.cmd.mall.productSku.update": productSkuUpdateSchema,
+  "cooliebase.cmd.mall.productSku.delete": z.object({ id: z.string() }),
   "mall.pageProductSku": productSkuPageQuerySchema,
   "mall.getProductSku": z.object({ id: z.string() }),
   "mall.createProductSku": productSkuCreateSchema,

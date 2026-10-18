@@ -2,7 +2,7 @@ import { withCompanionMenuCatalogs, withCompanionPackageMenuIds } from "@/module
 import { getKyselyDb, hasRealDatabase } from "@/modules/shared/backend/lib/database"
 import { SEED_MENUS } from "@prisma/data"
 
-// 内存模式也必须具备与 RuoYi 初始化库一致的基础关联，不能只初始化菜单实体。
+// 内存模式也必须具备与 CoolieBase 初始化库一致的基础关联，不能只初始化菜单实体。
 const defaultMenuIds = withCompanionMenuCatalogs(SEED_MENUS).map((menu) => menu.id)
 const memoryUserRoles = new Map<string, string[]>([
   ["1", ["1"]], // admin → 超级管理员

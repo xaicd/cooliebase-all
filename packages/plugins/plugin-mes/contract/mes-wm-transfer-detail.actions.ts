@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-transfer-detail.validator"
 
 export const mesWmTransferDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmTransferDetail.page": mesWmTransferDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmTransferDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmTransferDetail.create": mesWmTransferDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmTransferDetail.update": mesWmTransferDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmTransferDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransferDetail.page": mesWmTransferDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmTransferDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransferDetail.create": mesWmTransferDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmTransferDetail.update": mesWmTransferDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmTransferDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmTransferDetail": mesWmTransferDetailPageQuerySchema,
   "mes.getMesWmTransferDetail": z.object({ id: z.string() }),
   "mes.createMesWmTransferDetail": mesWmTransferDetailCreateSchema,

@@ -66,7 +66,7 @@ export class PluginWorker {
     this.child = spawn(process.execPath, [this.workerPath], {
       cwd: this.cwd,
       stdio: ["pipe", "pipe", "pipe"],
-      env: { ...process.env, RUOYI_PLUGIN_KEY: this.pluginKey },
+      env: { ...process.env, COOLIEBASE_PLUGIN_KEY: this.pluginKey },
     }) as ChildProcessWithoutNullStreams
 
     this.child.stdout.setEncoding("utf8")

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-tag.validator"
 
 export const memberTagActionSchemas = {
-  "ruoyi.cmd.member.memberTag.page": memberTagPageQuerySchema,
-  "ruoyi.cmd.member.memberTag.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberTag.create": memberTagCreateSchema,
-  "ruoyi.cmd.member.memberTag.update": memberTagUpdateSchema,
-  "ruoyi.cmd.member.memberTag.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberTag.page": memberTagPageQuerySchema,
+  "cooliebase.cmd.member.memberTag.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberTag.create": memberTagCreateSchema,
+  "cooliebase.cmd.member.memberTag.update": memberTagUpdateSchema,
+  "cooliebase.cmd.member.memberTag.delete": z.object({ id: z.string() }),
   "member.pageMemberTag": memberTagPageQuerySchema,
   "member.getMemberTag": z.object({ id: z.string() }),
   "member.createMemberTag": memberTagCreateSchema,

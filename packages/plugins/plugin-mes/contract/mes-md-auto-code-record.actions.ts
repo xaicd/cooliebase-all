@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-auto-code-record.validator"
 
 export const mesMdAutoCodeRecordActionSchemas = {
-  "ruoyi.cmd.mes.mesMdAutoCodeRecord.page": mesMdAutoCodeRecordPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdAutoCodeRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdAutoCodeRecord.create": mesMdAutoCodeRecordCreateSchema,
-  "ruoyi.cmd.mes.mesMdAutoCodeRecord.update": mesMdAutoCodeRecordUpdateSchema,
-  "ruoyi.cmd.mes.mesMdAutoCodeRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdAutoCodeRecord.page": mesMdAutoCodeRecordPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdAutoCodeRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdAutoCodeRecord.create": mesMdAutoCodeRecordCreateSchema,
+  "cooliebase.cmd.mes.mesMdAutoCodeRecord.update": mesMdAutoCodeRecordUpdateSchema,
+  "cooliebase.cmd.mes.mesMdAutoCodeRecord.delete": z.object({ id: z.string() }),
   "mes.pageMesMdAutoCodeRecord": mesMdAutoCodeRecordPageQuerySchema,
   "mes.getMesMdAutoCodeRecord": z.object({ id: z.string() }),
   "mes.createMesMdAutoCodeRecord": mesMdAutoCodeRecordCreateSchema,

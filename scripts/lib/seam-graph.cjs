@@ -20,9 +20,9 @@ function domainDirOf(root, name) {
 
 const SEAM_GRAPH_REL = path.join("packages", "shared", "contract", "seam-graph.json").replace(/\\/g, "/")
 
-/** 插件 id 约定: 第一方插件 id = ruoyi.<域名>（见 scripts/scaffold-domain-plugin.cjs）。 */
+/** 插件 id 约定: 第一方插件 id = cooliebase.<域名>（见 scripts/scaffold-domain-plugin.cjs）。 */
 function pluginIdOf(name) {
-  return `ruoyi.${name}`
+  return `cooliebase.${name}`
 }
 
 /** 该域在 catalog 里的 kind（plugin / business / platform）。 */

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-transaction.validator"
 
 export const mesWmTransactionActionSchemas = {
-  "ruoyi.cmd.mes.mesWmTransaction.page": mesWmTransactionPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmTransaction.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmTransaction.create": mesWmTransactionCreateSchema,
-  "ruoyi.cmd.mes.mesWmTransaction.update": mesWmTransactionUpdateSchema,
-  "ruoyi.cmd.mes.mesWmTransaction.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransaction.page": mesWmTransactionPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmTransaction.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmTransaction.create": mesWmTransactionCreateSchema,
+  "cooliebase.cmd.mes.mesWmTransaction.update": mesWmTransactionUpdateSchema,
+  "cooliebase.cmd.mes.mesWmTransaction.delete": z.object({ id: z.string() }),
   "mes.pageMesWmTransaction": mesWmTransactionPageQuerySchema,
   "mes.getMesWmTransaction": z.object({ id: z.string() }),
   "mes.createMesWmTransaction": mesWmTransactionCreateSchema,

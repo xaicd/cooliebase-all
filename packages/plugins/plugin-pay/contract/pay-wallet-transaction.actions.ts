@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-wallet-transaction.validator"
 
 export const payWalletTransactionActionSchemas = {
-  "ruoyi.cmd.pay.payWalletTransaction.page": payWalletTransactionPageQuerySchema,
-  "ruoyi.cmd.pay.payWalletTransaction.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payWalletTransaction.create": payWalletTransactionCreateSchema,
-  "ruoyi.cmd.pay.payWalletTransaction.update": payWalletTransactionUpdateSchema,
-  "ruoyi.cmd.pay.payWalletTransaction.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payWalletTransaction.page": payWalletTransactionPageQuerySchema,
+  "cooliebase.cmd.pay.payWalletTransaction.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payWalletTransaction.create": payWalletTransactionCreateSchema,
+  "cooliebase.cmd.pay.payWalletTransaction.update": payWalletTransactionUpdateSchema,
+  "cooliebase.cmd.pay.payWalletTransaction.delete": z.object({ id: z.string() }),
   "pay.pagePayWalletTransaction": payWalletTransactionPageQuerySchema,
   "pay.getPayWalletTransaction": z.object({ id: z.string() }),
   "pay.createPayWalletTransaction": payWalletTransactionCreateSchema,

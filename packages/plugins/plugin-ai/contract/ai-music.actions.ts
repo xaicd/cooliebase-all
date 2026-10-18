@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-music.validator"
 
 export const aiMusicActionSchemas = {
-  "ruoyi.cmd.ai.aiMusic.page": aiMusicPageQuerySchema,
-  "ruoyi.cmd.ai.aiMusic.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiMusic.create": aiMusicCreateSchema,
-  "ruoyi.cmd.ai.aiMusic.update": aiMusicUpdateSchema,
-  "ruoyi.cmd.ai.aiMusic.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiMusic.page": aiMusicPageQuerySchema,
+  "cooliebase.cmd.ai.aiMusic.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiMusic.create": aiMusicCreateSchema,
+  "cooliebase.cmd.ai.aiMusic.update": aiMusicUpdateSchema,
+  "cooliebase.cmd.ai.aiMusic.delete": z.object({ id: z.string() }),
   "ai.pageAiMusic": aiMusicPageQuerySchema,
   "ai.getAiMusic": z.object({ id: z.string() }),
   "ai.createAiMusic": aiMusicCreateSchema,

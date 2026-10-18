@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-cal-plan-team.validator"
 
 export const mesCalPlanTeamActionSchemas = {
-  "ruoyi.cmd.mes.mesCalPlanTeam.page": mesCalPlanTeamPageQuerySchema,
-  "ruoyi.cmd.mes.mesCalPlanTeam.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesCalPlanTeam.create": mesCalPlanTeamCreateSchema,
-  "ruoyi.cmd.mes.mesCalPlanTeam.update": mesCalPlanTeamUpdateSchema,
-  "ruoyi.cmd.mes.mesCalPlanTeam.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlanTeam.page": mesCalPlanTeamPageQuerySchema,
+  "cooliebase.cmd.mes.mesCalPlanTeam.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlanTeam.create": mesCalPlanTeamCreateSchema,
+  "cooliebase.cmd.mes.mesCalPlanTeam.update": mesCalPlanTeamUpdateSchema,
+  "cooliebase.cmd.mes.mesCalPlanTeam.delete": z.object({ id: z.string() }),
   "mes.pageMesCalPlanTeam": mesCalPlanTeamPageQuerySchema,
   "mes.getMesCalPlanTeam": z.object({ id: z.string() }),
   "mes.createMesCalPlanTeam": mesCalPlanTeamCreateSchema,

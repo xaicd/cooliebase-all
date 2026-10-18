@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-stock-taking-task-result.validator"
 
 export const mesWmStockTakingTaskResultActionSchemas = {
-  "ruoyi.cmd.mes.mesWmStockTakingTaskResult.page": mesWmStockTakingTaskResultPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskResult.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmStockTakingTaskResult.create": mesWmStockTakingTaskResultCreateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskResult.update": mesWmStockTakingTaskResultUpdateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskResult.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTaskResult.page": mesWmStockTakingTaskResultPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskResult.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTaskResult.create": mesWmStockTakingTaskResultCreateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskResult.update": mesWmStockTakingTaskResultUpdateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskResult.delete": z.object({ id: z.string() }),
   "mes.pageMesWmStockTakingTaskResult": mesWmStockTakingTaskResultPageQuerySchema,
   "mes.getMesWmStockTakingTaskResult": z.object({ id: z.string() }),
   "mes.createMesWmStockTakingTaskResult": mesWmStockTakingTaskResultCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-process.validator"
 
 export const mesProProcessActionSchemas = {
-  "ruoyi.cmd.mes.mesProProcess.page": mesProProcessPageQuerySchema,
-  "ruoyi.cmd.mes.mesProProcess.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProProcess.create": mesProProcessCreateSchema,
-  "ruoyi.cmd.mes.mesProProcess.update": mesProProcessUpdateSchema,
-  "ruoyi.cmd.mes.mesProProcess.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProProcess.page": mesProProcessPageQuerySchema,
+  "cooliebase.cmd.mes.mesProProcess.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProProcess.create": mesProProcessCreateSchema,
+  "cooliebase.cmd.mes.mesProProcess.update": mesProProcessUpdateSchema,
+  "cooliebase.cmd.mes.mesProProcess.delete": z.object({ id: z.string() }),
   "mes.pageMesProProcess": mesProProcessPageQuerySchema,
   "mes.getMesProProcess": z.object({ id: z.string() }),
   "mes.createMesProProcess": mesProProcessCreateSchema,

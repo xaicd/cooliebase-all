@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/trade-config.validator"
 
 export const tradeConfigActionSchemas = {
-  "ruoyi.cmd.mall.tradeConfig.page": tradeConfigPageQuerySchema,
-  "ruoyi.cmd.mall.tradeConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.tradeConfig.create": tradeConfigCreateSchema,
-  "ruoyi.cmd.mall.tradeConfig.update": tradeConfigUpdateSchema,
-  "ruoyi.cmd.mall.tradeConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeConfig.page": tradeConfigPageQuerySchema,
+  "cooliebase.cmd.mall.tradeConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeConfig.create": tradeConfigCreateSchema,
+  "cooliebase.cmd.mall.tradeConfig.update": tradeConfigUpdateSchema,
+  "cooliebase.cmd.mall.tradeConfig.delete": z.object({ id: z.string() }),
   "mall.pageTradeConfig": tradeConfigPageQuerySchema,
   "mall.getTradeConfig": z.object({ id: z.string() }),
   "mall.createTradeConfig": tradeConfigCreateSchema,

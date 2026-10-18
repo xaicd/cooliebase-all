@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "bpm",
-  "id": "ruoyi.bpm",
+  "id": "cooliebase.bpm",
   "apiVersion": 1,
   "displayName": "流程中心",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.bpm",
-    "commandSubject": "ruoyi.cmd.bpm.>",
-    "eventSubject": "ruoyi.evt.bpm.>"
+    "queueGroup": "cooliebase.bpm",
+    "commandSubject": "cooliebase.cmd.bpm.>",
+    "eventSubject": "cooliebase.evt.bpm.>"
   },
   "invoke": {
     "colocated": "sdk",
@@ -46,7 +46,7 @@
     "serialization": "json"
   },
   "upstream": {
-    "env": "RUOYI_DOMAIN_BPM_UPSTREAM",
+    "env": "COOLIEBASE_DOMAIN_BPM_UPSTREAM",
     "protocol": "http",
     "defaultPort": 3213
   },

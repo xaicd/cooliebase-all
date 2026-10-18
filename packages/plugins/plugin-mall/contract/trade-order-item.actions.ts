@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/trade-order-item.validator"
 
 export const tradeOrderItemActionSchemas = {
-  "ruoyi.cmd.mall.tradeOrderItem.page": tradeOrderItemPageQuerySchema,
-  "ruoyi.cmd.mall.tradeOrderItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.tradeOrderItem.create": tradeOrderItemCreateSchema,
-  "ruoyi.cmd.mall.tradeOrderItem.update": tradeOrderItemUpdateSchema,
-  "ruoyi.cmd.mall.tradeOrderItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeOrderItem.page": tradeOrderItemPageQuerySchema,
+  "cooliebase.cmd.mall.tradeOrderItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeOrderItem.create": tradeOrderItemCreateSchema,
+  "cooliebase.cmd.mall.tradeOrderItem.update": tradeOrderItemUpdateSchema,
+  "cooliebase.cmd.mall.tradeOrderItem.delete": z.object({ id: z.string() }),
   "mall.pageTradeOrderItem": tradeOrderItemPageQuerySchema,
   "mall.getTradeOrderItem": z.object({ id: z.string() }),
   "mall.createTradeOrderItem": tradeOrderItemCreateSchema,

@@ -1,12 +1,12 @@
 /**
  * 域业务能力盘点（只报告，不设门禁）。
  *
- * 为什么需要：本仓是 **ruoyi-vue-pro（业务功能）+ jeecgboot 在线表单（低代码）
+ * 为什么需要：本仓是 **cooliebase-vue-pro（业务功能）+ jeecgboot 在线表单（低代码）
  * + paperclip（插件架构）** 的综合基座，但长期只在 `system` / `infra` 上验证 ——
  * 其余域"是否真正习得原框架的业务能力"**没有证据**。
  *
- * 而本该回答这个问题的工具链是坏的: `check-ruoyi-capability-matrix` /
- * `scan-ruoyi-domain-evidence` 等脚本从未进仓（原本属于父级 monorepo），
+ * 而本该回答这个问题的工具链是坏的: `check-cooliebase-capability-matrix` /
+ * `scan-cooliebase-domain-evidence` 等脚本从未进仓（原本属于父级 monorepo），
  * 且 `run-root-tsx.cjs` 在脚本缺失时**静默 exit 0** —— 于是门禁常年空转却报绿。
  *
  * 本脚本给出一份**可核对的事实**: 每个域实际有多少表/仓储/服务/校验器/路由/页面/权限码/测试。
@@ -191,7 +191,7 @@ function main() {
   console.log("")
   console.log(`  共 ${flagged.length} 个域${thinThreshold === null ? "" : `（每类都 < ${thinThreshold} 的"薄弱域"）`}`)
   console.log("  说明: 这只反映**代码规模**，不等于业务完整度 —— 但它能把'明显偏薄、值得逐一核对'的域挑出来，")
-  console.log("        再对照 ruoyi-vue-pro / jeecgboot 的模块清单逐项确认。")
+  console.log("        再对照 cooliebase-vue-pro / jeecgboot 的模块清单逐项确认。")
 }
 
 main()

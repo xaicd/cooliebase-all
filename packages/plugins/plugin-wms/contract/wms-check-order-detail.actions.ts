@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-check-order-detail.validator"
 
 export const wmsCheckOrderDetailActionSchemas = {
-  "ruoyi.cmd.wms.wmsCheckOrderDetail.page": wmsCheckOrderDetailPageQuerySchema,
-  "ruoyi.cmd.wms.wmsCheckOrderDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsCheckOrderDetail.create": wmsCheckOrderDetailCreateSchema,
-  "ruoyi.cmd.wms.wmsCheckOrderDetail.update": wmsCheckOrderDetailUpdateSchema,
-  "ruoyi.cmd.wms.wmsCheckOrderDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsCheckOrderDetail.page": wmsCheckOrderDetailPageQuerySchema,
+  "cooliebase.cmd.wms.wmsCheckOrderDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsCheckOrderDetail.create": wmsCheckOrderDetailCreateSchema,
+  "cooliebase.cmd.wms.wmsCheckOrderDetail.update": wmsCheckOrderDetailUpdateSchema,
+  "cooliebase.cmd.wms.wmsCheckOrderDetail.delete": z.object({ id: z.string() }),
 } as const

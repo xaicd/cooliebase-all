@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-stock-check.validator"
 
 export const erpStockCheckActionSchemas = {
-  "ruoyi.cmd.erp.erpStockCheck.page": erpStockCheckPageQuerySchema,
-  "ruoyi.cmd.erp.erpStockCheck.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpStockCheck.create": erpStockCheckCreateSchema,
-  "ruoyi.cmd.erp.erpStockCheck.update": erpStockCheckUpdateSchema,
-  "ruoyi.cmd.erp.erpStockCheck.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockCheck.page": erpStockCheckPageQuerySchema,
+  "cooliebase.cmd.erp.erpStockCheck.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockCheck.create": erpStockCheckCreateSchema,
+  "cooliebase.cmd.erp.erpStockCheck.update": erpStockCheckUpdateSchema,
+  "cooliebase.cmd.erp.erpStockCheck.delete": z.object({ id: z.string() }),
   "erp.pageErpStockCheck": erpStockCheckPageQuerySchema,
   "erp.getErpStockCheck": z.object({ id: z.string() }),
   "erp.createErpStockCheck": erpStockCheckCreateSchema,

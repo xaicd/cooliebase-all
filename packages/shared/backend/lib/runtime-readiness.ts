@@ -34,7 +34,7 @@ export async function checkRuntimeReadiness(): Promise<ReadinessResult> {
 export function getLivenessPayload() {
   // Liveness must not inspect configuration, network, or other dependencies.
   // An unready replica remains alive so its orchestrator can restart it safely.
-  const domain = process.env.RUOYI_PACK_DOMAIN?.trim()
+  const domain = process.env.COOLIEBASE_PACK_DOMAIN?.trim()
   return {
     success: true,
     data: {

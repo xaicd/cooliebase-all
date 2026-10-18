@@ -4,7 +4,7 @@
 
 ## 一、 通信三原则
 1. **同域业务调用**：直接调用本地 Service / Application Port；
-2. **跨域同步调用**：必须走 **Domain Facade** 或 `broker.call('ruoyi.cmd.<domain>.<method>')`，严禁直连对方数据库或 import Service；
+2. **跨域同步调用**：必须走 **Domain Facade** 或 `broker.call('cooliebase.cmd.<domain>.<method>')`，严禁直连对方数据库或 import Service；
 3. **跨域异步通知**：必须走 `broker.publishReliable()` 经 Outbox 发送领域事件。
 
 ## 二、 韧性治理策略 (Resilience)

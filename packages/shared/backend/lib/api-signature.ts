@@ -1,6 +1,6 @@
 import { createHmac } from "node:crypto"
 
-const DEFAULT_SECRET = process.env.RUOYI_API_SIGN_SECRET || "ruoyi-all-next-secure-sign-secret-2026"
+const DEFAULT_SECRET = process.env.COOLIEBASE_API_SIGN_SECRET || "cooliebase-all-base-secure-sign-secret-2026"
 const MAX_CLOCK_SKEW_MS = 5 * 60 * 1000 // 5 分钟有效时间窗口
 
 // 内存 Nonce 缓存（单机/开发模式，生产环境可通过 Redis 集中判重）

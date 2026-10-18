@@ -10,7 +10,7 @@ import { WORKER_LIMITS, type WorkerInitializeInput } from "../worker-protocol"
 const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
 const EXAMPLE_WORKER = path.join(EXAMPLE_DIR, "worker.js")
 
-function initInput(pluginKey = "ruoyi.hello-world"): WorkerInitializeInput {
+function initInput(pluginKey = "cooliebase.hello-world"): WorkerInitializeInput {
   return {
     manifest: { id: pluginKey },
     config: {},
@@ -26,7 +26,7 @@ afterEach(() => {
 
 /** 写一个"顽固" worker：只回应 initialize，其余一律不答（用于超时与停机阶梯）。 */
 function writeStubbornWorker(options: { ignoreSigterm?: boolean } = {}): { entry: string; dir: string } {
-  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-worker-"))
+  const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-worker-"))
   tempDirs.push(dir)
   const entry = path.join(dir, "stubborn.js")
   fs.writeFileSync(
@@ -66,7 +66,7 @@ function isAlive(pid: number): boolean {
 
 describe("PluginWorker", () => {
   it("能启动真实示例插件：initialize 成功、health 返回 ok、stop 干净退出", async () => {
-    const worker = new PluginWorker("ruoyi.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
+    const worker = new PluginWorker("cooliebase.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
     await worker.start(initInput())
     expect(worker.running).toBe(true)
 
@@ -133,11 +133,11 @@ describe("PluginWorkerManager", () => {
 
   it("停机阶梯：stop() 会让 worker 进程真正退出", async () => {
     const manager = new PluginWorkerManager()
-    const worker = await manager.start("ruoyi.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR, initInput())
+    const worker = await manager.start("cooliebase.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR, initInput())
     const pid = worker.diagnostics.pid
     expect(typeof pid).toBe("number")
 
-    await manager.stop("ruoyi.hello-world")
+    await manager.stop("cooliebase.hello-world")
 
     // 进程应已退出（停机阶梯走完），PID 不再存活
     await new Promise((resolve) => setTimeout(resolve, 100))
@@ -161,25 +161,25 @@ describe("PluginWorkerManager", () => {
  */
 describe("PluginWorker: isolated 路由转发 (invokeRoute)", () => {
   it("把 routeKey 派发到 worker 的 routes 处理器，并原样带回响应", async () => {
-    const worker = new PluginWorker("ruoyi.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
+    const worker = new PluginWorker("cooliebase.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
     await worker.start(initInput())
     try {
       const result = (await worker.request("invokeRoute", {
         routeKey: "hello",
         request: {
           method: "GET",
-          path: "/api/v1/plugins/ruoyi.hello-world/api/hello",
+          path: "/api/v1/plugins/cooliebase.hello-world/api/hello",
           query: { from: "test" },
           body: undefined,
           headers: {},
-          pluginKey: "ruoyi.hello-world",
+          pluginKey: "cooliebase.hello-world",
         },
       })) as { status: number; body: Record<string, unknown> }
 
       expect(result.status).toBe(200)
       expect(result.body.message).toContain("hello from plugin")
       // 处理器真的收到了请求上下文（不是被丢弃后返回固定值）
-      expect(result.body.pluginKey).toBe("ruoyi.hello-world")
+      expect(result.body.pluginKey).toBe("cooliebase.hello-world")
       expect(result.body.query).toEqual({ from: "test" })
     } finally {
       await worker.stop()
@@ -187,7 +187,7 @@ describe("PluginWorker: isolated 路由转发 (invokeRoute)", () => {
   })
 
   it("未声明的 routeKey -> methodNotFound（明确报错，不静默返回空）", async () => {
-    const worker = new PluginWorker("ruoyi.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
+    const worker = new PluginWorker("cooliebase.hello-world", EXAMPLE_WORKER, EXAMPLE_DIR)
     await worker.start(initInput())
     try {
       await expect(

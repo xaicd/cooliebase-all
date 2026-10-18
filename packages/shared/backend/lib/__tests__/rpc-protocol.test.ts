@@ -40,15 +40,15 @@ describe("module layers", () => {
 describe("rpc protocol and codec", () => {
   it("uses SDK in the same runtime and RPC when the domain is packed out", () => {
     expect(resolveInvokeMode("pay", {})).toBe("sdk")
-    expect(resolveInvokeMode("pay", { RUOYI_DOMAIN_PAY_UPSTREAM: "http://pay:3100" })).toBe("rpc")
-    expect(describeInvoke("mall", { RUOYI_PACK_DOMAIN: "pay" })).toEqual({
+    expect(resolveInvokeMode("pay", { COOLIEBASE_DOMAIN_PAY_UPSTREAM: "http://pay:3100" })).toBe("rpc")
+    expect(describeInvoke("mall", { COOLIEBASE_PACK_DOMAIN: "pay" })).toEqual({
       mode: "rpc",
       protocol: "nats-rr",
       serialization: "json",
       facadeRequired: true,
     })
-    expect(describeInvoke("pay", { RUOYI_PACK_DOMAIN: "pay" }).mode).toBe("sdk")
-    expect(describeInvoke("mall", { RUOYI_PACK_DOMAIN: "pay", RUOYI_RPC_PROTOCOL: "grpc" })).toEqual({
+    expect(describeInvoke("pay", { COOLIEBASE_PACK_DOMAIN: "pay" }).mode).toBe("sdk")
+    expect(describeInvoke("mall", { COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })).toEqual({
       mode: "rpc",
       protocol: "grpc",
       serialization: "protobuf",
@@ -91,8 +91,8 @@ describe("dual-mode broker invoke and facade", () => {
   })
 
   it("serializes remote calls through NATS request-reply", async () => {
-    natsSubscribe("ruoyi.cmd.mall.>", async (message) => ({ echo: message.data }), { queue: "ruoyi.mall" })
-    broker.start({ RUOYI_PACK_DOMAIN: "pay" })
+    natsSubscribe("cooliebase.cmd.mall.>", async (message) => ({ echo: message.data }), { queue: "cooliebase.mall" })
+    broker.start({ COOLIEBASE_PACK_DOMAIN: "pay" })
     broker.registerRemoteService("mall")
     const result = await broker.call("mall.ping", { n: 2 }, { caller: "pay.order" })
     expect(result.success).toBe(true)
@@ -118,7 +118,7 @@ describe("dual-mode broker invoke and facade", () => {
       const payload = decodeRpcPayload(data, "protobuf") as { n: number }
       return encodeRpcPayload({ echo: payload, method }, "protobuf")
     })
-    broker.start({ RUOYI_PACK_DOMAIN: "pay", RUOYI_RPC_PROTOCOL: "grpc" })
+    broker.start({ COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })
     broker.registerRemoteService("mall")
     const result = await broker.call("mall.ping", { n: 3 }, { caller: "pay.order" })
     expect(result.success).toBe(true)
@@ -179,10 +179,10 @@ describe("dual-mode broker invoke and facade", () => {
     broker.start({})
     const updated = await infraFacade.updateConfig({
       key: "sys.application.name",
-      value: "ruoyi-all-next-facade",
+      value: "cooliebase-all-base-facade",
     })
     expect(updated.success, updated.error).toBe(true)
-    expect(updated.data).toMatchObject({ key: "sys.application.name", value: "ruoyi-all-next-facade" })
+    expect(updated.data).toMatchObject({ key: "sys.application.name", value: "cooliebase-all-base-facade" })
   })
 
   it("routes system.getDictDataByType onto SystemDictService", async () => {
@@ -376,7 +376,7 @@ describe("dual-mode broker invoke and facade", () => {
   })
 
   it("uses HTTP RPC when BFF splits pay via upstream", async () => {
-    const payEnv = { RUOYI_PACK_DOMAIN: "pay", RUOYI_RPC_TOKEN: "secret" }
+    const payEnv = { COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_TOKEN: "secret" }
     const originalFetch = globalThis.fetch
     globalThis.fetch = (async (url: string | URL | Request, init?: RequestInit) => {
       expect(String(url)).toBe("http://pay.test:3214/api/internal/rpc")
@@ -395,8 +395,8 @@ describe("dual-mode broker invoke and facade", () => {
     try {
       const { payFacade } = await import("@/modules/pay/contract/pay.facade")
       broker.start({
-        RUOYI_DOMAIN_PAY_UPSTREAM: "http://pay.test:3214",
-        RUOYI_RPC_TOKEN: "secret",
+        COOLIEBASE_DOMAIN_PAY_UPSTREAM: "http://pay.test:3214",
+        COOLIEBASE_RPC_TOKEN: "secret",
       })
       const ping = await payFacade.ping({ n: 4 })
       expect(ping.success, ping.error).toBe(true)

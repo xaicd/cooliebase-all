@@ -1,4 +1,4 @@
-# RuoYi-All-Next 架构持续进化战略路线图 (2026-2027)
+# CoolieBase-All-Next 架构持续进化战略路线图 (2026-2027)
 # (Evolution Roadmap: AI-Native Software Foundry & NPC Workspace)
 
 > **发布日期**: 2026-10-09  
@@ -9,7 +9,7 @@
 
 ## 一、 顶层演进愿景
 
-`ruoyi-all-next` 已完成了第一阶段（17 原生域迁移、第一方插件解耦、SQLite 零配置、RFC 8615 机器发现面、安全管理员重构）。
+`cooliebase-all-base` 已完成了第一阶段（17 原生域迁移、第一方插件解耦、SQLite 零配置、RFC 8615 机器发现面、安全管理员重构）。
 下一阶段的核心使命是：**从“企业中后台全栈模板”升维为“全自动化、可自我演进、零假 Mock 的 AI 工业级软件交付工厂”**。
 
 任何演进任务必须满足三项不可动摇的底线：
@@ -18,7 +18,7 @@
 3. **No Artifact, No Done**：工单必须输出 5 选 1 物理工程资产并通过 `npm run check` 门禁。
 
 ```
-                     【RuoYi-All-Next 四维演进同心环】
+                     【CoolieBase-All-Next 四维演进同心环】
   
        ┌────────────────────────────────────────────────────────┐
        │ Ring 4: 微服务阶段 C 旗舰域拆分与可靠 Outbox 异步总线    │

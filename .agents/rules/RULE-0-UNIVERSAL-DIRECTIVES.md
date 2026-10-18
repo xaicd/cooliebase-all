@@ -22,7 +22,7 @@
 
 ## 6. SpaceX 级全链路测试验证与真实数据库驱动 (SpaceX-Grade Testing & Zero Fake Mock)
 - 代码变更必须跑通质量门禁（L1单测、L2集成、L3契约、L4 E2E）。
-- 100% 由真实本地数据库（SQLite `data/ruoyi.db`）或真实 PostgreSQL 支撑，**严禁前端伪造 Mock 数据**！
+- 100% 由真实本地数据库（SQLite `data/cooliebase.db`）或真实 PostgreSQL 支撑，**严禁前端伪造 Mock 数据**！
 
 ## 7. 本体域全息导航与 API 契约第一切入 (Ontology & API-Contract-First)
 - 任意需求必须先在本体域（实体网、Domain Facade、route manifest、权限码）中秒级定位目标域与影响半径，以 API 契约为探针执行穿透闭环；一切需求终局 100% 收敛于真实 API 支撑。

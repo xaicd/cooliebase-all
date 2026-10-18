@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/seckill-config.validator"
 
 export const seckillConfigActionSchemas = {
-  "ruoyi.cmd.mall.seckillConfig.page": seckillConfigPageQuerySchema,
-  "ruoyi.cmd.mall.seckillConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.seckillConfig.create": seckillConfigCreateSchema,
-  "ruoyi.cmd.mall.seckillConfig.update": seckillConfigUpdateSchema,
-  "ruoyi.cmd.mall.seckillConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillConfig.page": seckillConfigPageQuerySchema,
+  "cooliebase.cmd.mall.seckillConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillConfig.create": seckillConfigCreateSchema,
+  "cooliebase.cmd.mall.seckillConfig.update": seckillConfigUpdateSchema,
+  "cooliebase.cmd.mall.seckillConfig.delete": z.object({ id: z.string() }),
   "mall.pageSeckillConfig": seckillConfigPageQuerySchema,
   "mall.getSeckillConfig": z.object({ id: z.string() }),
   "mall.createSeckillConfig": seckillConfigCreateSchema,

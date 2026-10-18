@@ -105,7 +105,7 @@ export default function App() {
     <SafeAreaView style={styles.safe}>
       <StatusBar style="dark" />
       <ScrollView contentContainerStyle={styles.container}>
-        <Text style={[styles.title, { color: brand }]}>{appearance?.siteName ?? "RuoYi Portal"}</Text>
+        <Text style={[styles.title, { color: brand }]}>{appearance?.siteName ?? "Cooliebase Portal"}</Text>
 
         {!member ? (
           <View style={styles.card}>

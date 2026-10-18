@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-device-group.validator"
 
 export const iotDeviceGroupActionSchemas = {
-  "ruoyi.cmd.iot.iotDeviceGroup.page": iotDeviceGroupPageQuerySchema,
-  "ruoyi.cmd.iot.iotDeviceGroup.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDeviceGroup.create": iotDeviceGroupCreateSchema,
-  "ruoyi.cmd.iot.iotDeviceGroup.update": iotDeviceGroupUpdateSchema,
-  "ruoyi.cmd.iot.iotDeviceGroup.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceGroup.page": iotDeviceGroupPageQuerySchema,
+  "cooliebase.cmd.iot.iotDeviceGroup.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDeviceGroup.create": iotDeviceGroupCreateSchema,
+  "cooliebase.cmd.iot.iotDeviceGroup.update": iotDeviceGroupUpdateSchema,
+  "cooliebase.cmd.iot.iotDeviceGroup.delete": z.object({ id: z.string() }),
   "iot.pageIotDeviceGroup": iotDeviceGroupPageQuerySchema,
   "iot.getIotDeviceGroup": z.object({ id: z.string() }),
   "iot.createIotDeviceGroup": iotDeviceGroupCreateSchema,

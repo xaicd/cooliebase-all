@@ -7,7 +7,7 @@
  *
  * 三条安全边界（这是本文件存在的全部理由，缺一条都不该开）：
  *
- * 1. **只执行宿主信任的插件**。信任来自运营配置（RUOYI_TRUSTED_PLUGIN_KEYS），
+ * 1. **只执行宿主信任的插件**。信任来自运营配置（COOLIEBASE_TRUSTED_PLUGIN_KEYS），
  *    不能由 manifest 自封 —— 否则任何插件都能自带迁移。第三方插件仍走扩展表。
  *
  * 2. **严格隔离在插件自己的 schema**（plugin_<key>）。执行时 search_path 只指向该 schema，
@@ -25,7 +25,7 @@ import path from "node:path"
 
 import { Client } from "pg"
 
-import { ruoyiPrisma } from "../prisma"
+import { cooliebasePrisma } from "../prisma"
 
 /** 插件数据所在的 schema 名。只允许 [a-z0-9_]，避免注入与引号问题。 */
 export function pluginSchemaName(pluginKey: string): string {
@@ -65,11 +65,11 @@ export function assertMigrationSqlSafe(sql: string): void {
 
 /**
  * 宿主是否信任该插件（是否允许它自带迁移）。
- * 只认运营配置：`RUOYI_TRUSTED_PLUGIN_KEYS=vendor.plugin-a,vendor.plugin-b`。
+ * 只认运营配置：`COOLIEBASE_TRUSTED_PLUGIN_KEYS=vendor.plugin-a,vendor.plugin-b`。
  * 刻意**不接受** manifest 自封的信任声明 —— 否则任何插件都能给自己发许可。
  */
 export function trustedPluginKeys(env: NodeJS.ProcessEnv = process.env): string[] {
-  return (env.RUOYI_TRUSTED_PLUGIN_KEYS ?? "")
+  return (env.COOLIEBASE_TRUSTED_PLUGIN_KEYS ?? "")
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean)
@@ -118,7 +118,7 @@ export async function runPluginMigrations(input: {
     .sort()
   if (files.length === 0) return { ...empty, skippedReason: "迁移目录里没有 .sql 文件" }
 
-  const records = await ruoyiPrisma.pluginMigration.findMany({ where: { pluginKey: input.pluginKey } })
+  const records = await cooliebasePrisma.pluginMigration.findMany({ where: { pluginKey: input.pluginKey } })
   const done = new Set(records.map((record) => record.name))
 
   const applied: string[] = []
@@ -146,7 +146,7 @@ export async function runPluginMigrations(input: {
         const message = error instanceof Error ? error.message : String(error)
         throw new Error(`插件迁移 ${file} 执行失败（已回滚）：${message}`)
       }
-      await ruoyiPrisma.pluginMigration.create({
+      await cooliebasePrisma.pluginMigration.create({
         data: { pluginKey: input.pluginKey, name: file, schema },
       })
       applied.push(file)

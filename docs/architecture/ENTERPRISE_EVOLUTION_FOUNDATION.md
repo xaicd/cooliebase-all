@@ -1,6 +1,6 @@
-# ruoyi-all-next 企业级六大高阶能力基座与自演进体系大典
+# cooliebase-all-base 企业级六大高阶能力基座与自演进体系大典
 
-> **定位**：本文档定义了 `ruoyi-all-next` 顶级全栈模板的六大企业级演进基座（微服务治理、全链路追踪、接口风控、日志监控、数据分析、AI 智能报表）。
+> **定位**：本文档定义了 `cooliebase-all-base` 顶级全栈模板的六大企业级演进基座（微服务治理、全链路追踪、接口风控、日志监控、数据分析、AI 智能报表）。
 > **核心原则**：新孵化项目开箱即拥有全部六大能力，底层由 `shared` 与 `infra` 模块托管，业务开发无需重新造轮子，零 Token 冗余消耗！
 
 ---
@@ -48,7 +48,7 @@
 当为新业务（如 WMS/CRM/MES）开发接口或服务时：
 
 1. **自动继承微服务熔断与 RPC**：
-   - 跨域调用直接通过 `broker.call('ruoyi.cmd.pay.createOrder', params)`，自动享受超时重试与熔断降级。
+   - 跨域调用直接通过 `broker.call('cooliebase.cmd.pay.createOrder', params)`，自动享受超时重试与熔断降级。
 2. **自动注入全链路追踪与日志**：
    - `withAdminRoute` 自动从 HTTP 请求解析 `traceparent`，并在日志中自动打上 `[traceId]` 标签。
 3. **声明式接口风控**：

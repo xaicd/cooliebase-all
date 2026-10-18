@@ -1,10 +1,10 @@
 ---
-description: RuoYi-All-Next Architecture Rules & Invariants
+description: CoolieBase-All-Next Architecture Rules & Invariants
 globs: *
 alwaysApply: true
 ---
 
-# Cursor Rules for ruoyi-all-next
+# Cursor Rules for cooliebase-all-base
 
 All engineering rules and architectural standards are unified in `.agents/rules/` and `AGENTS.md`.
 

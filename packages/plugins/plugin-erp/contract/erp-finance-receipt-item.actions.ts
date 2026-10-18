@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-finance-receipt-item.validator"
 
 export const erpFinanceReceiptItemActionSchemas = {
-  "ruoyi.cmd.erp.erpFinanceReceiptItem.page": erpFinanceReceiptItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpFinanceReceiptItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpFinanceReceiptItem.create": erpFinanceReceiptItemCreateSchema,
-  "ruoyi.cmd.erp.erpFinanceReceiptItem.update": erpFinanceReceiptItemUpdateSchema,
-  "ruoyi.cmd.erp.erpFinanceReceiptItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinanceReceiptItem.page": erpFinanceReceiptItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpFinanceReceiptItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinanceReceiptItem.create": erpFinanceReceiptItemCreateSchema,
+  "cooliebase.cmd.erp.erpFinanceReceiptItem.update": erpFinanceReceiptItemUpdateSchema,
+  "cooliebase.cmd.erp.erpFinanceReceiptItem.delete": z.object({ id: z.string() }),
   "erp.pageErpFinanceReceiptItem": erpFinanceReceiptItemPageQuerySchema,
   "erp.getErpFinanceReceiptItem": z.object({ id: z.string() }),
   "erp.createErpFinanceReceiptItem": erpFinanceReceiptItemCreateSchema,

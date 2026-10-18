@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-favorite.validator"
 
 export const productFavoriteActionSchemas = {
-  "ruoyi.cmd.mall.productFavorite.page": productFavoritePageQuerySchema,
-  "ruoyi.cmd.mall.productFavorite.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productFavorite.create": productFavoriteCreateSchema,
-  "ruoyi.cmd.mall.productFavorite.update": productFavoriteUpdateSchema,
-  "ruoyi.cmd.mall.productFavorite.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productFavorite.page": productFavoritePageQuerySchema,
+  "cooliebase.cmd.mall.productFavorite.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productFavorite.create": productFavoriteCreateSchema,
+  "cooliebase.cmd.mall.productFavorite.update": productFavoriteUpdateSchema,
+  "cooliebase.cmd.mall.productFavorite.delete": z.object({ id: z.string() }),
   "mall.pageProductFavorite": productFavoritePageQuerySchema,
   "mall.getProductFavorite": z.object({ id: z.string() }),
   "mall.createProductFavorite": productFavoriteCreateSchema,

@@ -1,5 +1,5 @@
 /**
- * 从源框架（ruoyi-vue-pro / yudao）**导入表定义**，转成本仓的低代码元数据。
+ * 从源框架（cooliebase-vue-pro / yudao）**导入表定义**，转成本仓的低代码元数据。
  *
  * 为什么用工具而不是手抄：源框架一个模块动辄几十上百张表（mes 133、mall 49、hrm 50…），
  * 手抄既慢又必然抄错。而它的实体类里有**权威信息**: `@TableName` 给表名、
@@ -9,7 +9,7 @@
  *   npm run domain:new <域>        # 建表迁移 + codegen + 注册插件
  *
  * 用法:
- *   git clone --depth 1 --filter=blob:none --sparse https://github.com/YunaiV/ruoyi-vue-pro.git /tmp/yudao
+ *   git clone --depth 1 --filter=blob:none --sparse https://github.com/YunaiV/cooliebase-vue-pro.git /tmp/yudao
  *   cd /tmp/yudao && git sparse-checkout set --no-cone '/yudao-module-pay'
  *   npx tsx scripts/import-source-tables.ts --source /tmp/yudao --module pay --domain pay --write
  *

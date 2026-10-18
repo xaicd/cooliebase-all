@@ -49,7 +49,7 @@ flowchart LR
 
 ---
 
-## 4. 与 ruoyi-all-next 架构联动
+## 4. 与 cooliebase-all-base 架构联动
 
 1. **压测护栏联动**：
    - 生产环境压测基于真实流量护栏；

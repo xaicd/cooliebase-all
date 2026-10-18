@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "pay",
-  "id": "ruoyi.pay",
+  "id": "cooliebase.pay",
   "apiVersion": 1,
   "displayName": "支付中心",
   "kind": "plugin",
@@ -37,9 +37,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.pay",
-    "commandSubject": "ruoyi.cmd.pay.>",
-    "eventSubject": "ruoyi.evt.pay.>"
+    "queueGroup": "cooliebase.pay",
+    "commandSubject": "cooliebase.cmd.pay.>",
+    "eventSubject": "cooliebase.evt.pay.>"
   },
   "invoke": {
     "colocated": "sdk",
@@ -48,7 +48,7 @@
     "serialization": "json"
   },
   "upstream": {
-    "env": "RUOYI_DOMAIN_PAY_UPSTREAM",
+    "env": "COOLIEBASE_DOMAIN_PAY_UPSTREAM",
     "protocol": "http",
     "defaultPort": 3214
   },

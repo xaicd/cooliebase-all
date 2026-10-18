@@ -14,7 +14,7 @@ description: 表结构设计、迁移、多租户隔离、多数据库兼容。�
 - `AGENTS.md` §3.3 (数据库边界与 Kysely 仓储规范)
 - `AGENTS.md` §4.6 (事务与状态守卫规范)
 - `AGENTS.md` §6.1 (database-compatibility 治理规范)
-- `docs/architecture/ruoyi-all-next-database-compatibility.md`
+- `docs/architecture/cooliebase-all-base-database-compatibility.md`
 - Prisma Schema（PostgreSQL 为默认主源，兼顾 MySQL / 达梦 / Oracle）
 
 ## 3. 标准表结构六大审计字段 (强制包含)
@@ -48,7 +48,7 @@ deleted      BOOLEAN NOT NULL DEFAULT FALSE   -- 软删除标记 (0/1 或 false/
 
 ## 6. 全量初始化与最新 SQL 构建标准（唯一官方标准入口）
 - **唯一官方生成命令**：`npm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`）。
-- **职责**：提取 Prisma 纯净 DDL 并拓扑排序装配全域 Seed 数据，自动编译输出 `sql/init/ruoyi_all_next_v1.0.0_postgresql.sql`。
+- **职责**：提取 Prisma 纯净 DDL 并拓扑排序装配全域 Seed 数据，自动编译输出 `sql/init/cooliebase_all_next_v1.0.0_postgresql.sql`。
 - **严禁项**：严禁私自手写临时 scratch 脚本导出/篡改初始化 SQL，必须通过维护 `scripts/build-v1-init-sql.ts` 形成统一资产。
 
 ## 7. 绝对禁止项

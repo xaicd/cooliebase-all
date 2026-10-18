@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-arrival-notice.validator"
 
 export const mesWmArrivalNoticeActionSchemas = {
-  "ruoyi.cmd.mes.mesWmArrivalNotice.page": mesWmArrivalNoticePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmArrivalNotice.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmArrivalNotice.create": mesWmArrivalNoticeCreateSchema,
-  "ruoyi.cmd.mes.mesWmArrivalNotice.update": mesWmArrivalNoticeUpdateSchema,
-  "ruoyi.cmd.mes.mesWmArrivalNotice.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmArrivalNotice.page": mesWmArrivalNoticePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmArrivalNotice.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmArrivalNotice.create": mesWmArrivalNoticeCreateSchema,
+  "cooliebase.cmd.mes.mesWmArrivalNotice.update": mesWmArrivalNoticeUpdateSchema,
+  "cooliebase.cmd.mes.mesWmArrivalNotice.delete": z.object({ id: z.string() }),
   "mes.pageMesWmArrivalNotice": mesWmArrivalNoticePageQuerySchema,
   "mes.getMesWmArrivalNotice": z.object({ id: z.string() }),
   "mes.createMesWmArrivalNotice": mesWmArrivalNoticeCreateSchema,

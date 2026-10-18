@@ -3,7 +3,7 @@ import os from "node:os"
 import path from "node:path"
 import { afterAll, afterEach, beforeEach, describe, expect, it } from "vitest"
 
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 import { PluginRegistryService } from "../plugin-registry.service"
 import { PLUGIN_API_VERSION } from "../types"
@@ -22,7 +22,7 @@ function writePackage(root: string, dirName: string, pluginId: string): string {
     path.join(packageDir, "package.json"),
     JSON.stringify({
       name: `@itest/${dirName}`,
-      ruoyiPlugin: { manifest: "./plugin.manifest.json", worker: "./dist/worker.js" },
+      cooliebasePlugin: { manifest: "./plugin.manifest.json", worker: "./dist/worker.js" },
     }),
   )
   fs.writeFileSync(
@@ -59,16 +59,16 @@ describeWithDatabase("PluginRegistryService", () => {
   let root: string
 
   beforeEach(() => {
-    root = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-plugin-sync-"))
+    root = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-plugin-sync-"))
   })
 
   afterEach(async () => {
     fs.rmSync(root, { recursive: true, force: true })
-    await ruoyiPrisma.plugin.deleteMany({ where: { pluginKey: { startsWith: TEST_PREFIX } } })
+    await cooliebasePrisma.plugin.deleteMany({ where: { pluginKey: { startsWith: TEST_PREFIX } } })
   })
 
   afterAll(async () => {
-    await ruoyiPrisma.$disconnect()
+    await cooliebasePrisma.$disconnect()
   })
 
   it("合法包落库为 installed（不谎报 ready —— worker 运行时尚未落地）", async () => {

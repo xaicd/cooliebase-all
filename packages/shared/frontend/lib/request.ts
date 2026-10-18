@@ -52,13 +52,13 @@ class RequestClient {
 
   private getToken(): string | null {
     if (typeof window === "undefined") return null
-    return localStorage.getItem("ruoyi_token")
+    return localStorage.getItem("cooliebase_token")
   }
 
   private handleUnauthorized() {
     if (typeof window === "undefined") return
-    localStorage.removeItem("ruoyi_token")
-    localStorage.removeItem("ruoyi_user")
+    localStorage.removeItem("cooliebase_token")
+    localStorage.removeItem("cooliebase_user")
     const current = window.location.pathname
     const loginPath = apiPath("/login")
     if (current !== loginPath) {

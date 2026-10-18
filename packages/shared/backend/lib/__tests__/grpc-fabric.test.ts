@@ -4,8 +4,8 @@ import { decodeRpcPayload, encodeRpcPayload } from "../rpc-protocol"
 
 describe("in-house gRPC unary fabric", () => {
   it("maps domain methods to gRPC paths", () => {
-    expect(grpcMethodPath("pay", "createOrder")).toBe("/ruoyi.pay.v1.PayService/CreateOrder")
-    expect(parseGrpcPath("/ruoyi.pay.v1.PayService/CreateOrder")).toEqual({ domain: "pay", method: "createOrder" })
+    expect(grpcMethodPath("pay", "createOrder")).toBe("/cooliebase.pay.v1.PayService/CreateOrder")
+    expect(parseGrpcPath("/cooliebase.pay.v1.PayService/CreateOrder")).toEqual({ domain: "pay", method: "createOrder" })
     expect(grpcStatus().driver).toBe("in-house")
   })
 

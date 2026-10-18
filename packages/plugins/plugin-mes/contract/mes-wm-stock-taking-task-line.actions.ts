@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-stock-taking-task-line.validator"
 
 export const mesWmStockTakingTaskLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmStockTakingTaskLine.page": mesWmStockTakingTaskLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmStockTakingTaskLine.create": mesWmStockTakingTaskLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskLine.update": mesWmStockTakingTaskLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTaskLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTaskLine.page": mesWmStockTakingTaskLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTaskLine.create": mesWmStockTakingTaskLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskLine.update": mesWmStockTakingTaskLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTaskLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmStockTakingTaskLine": mesWmStockTakingTaskLinePageQuerySchema,
   "mes.getMesWmStockTakingTaskLine": z.object({ id: z.string() }),
   "mes.createMesWmStockTakingTaskLine": mesWmStockTakingTaskLineCreateSchema,

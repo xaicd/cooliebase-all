@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/delivery-express-template-free.validator"
 
 export const deliveryExpressTemplateFreeActionSchemas = {
-  "ruoyi.cmd.mall.deliveryExpressTemplateFree.page": deliveryExpressTemplateFreePageQuerySchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateFree.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.deliveryExpressTemplateFree.create": deliveryExpressTemplateFreeCreateSchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateFree.update": deliveryExpressTemplateFreeUpdateSchema,
-  "ruoyi.cmd.mall.deliveryExpressTemplateFree.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpressTemplateFree.page": deliveryExpressTemplateFreePageQuerySchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateFree.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpressTemplateFree.create": deliveryExpressTemplateFreeCreateSchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateFree.update": deliveryExpressTemplateFreeUpdateSchema,
+  "cooliebase.cmd.mall.deliveryExpressTemplateFree.delete": z.object({ id: z.string() }),
   "mall.pageDeliveryExpressTemplateFree": deliveryExpressTemplateFreePageQuerySchema,
   "mall.getDeliveryExpressTemplateFree": z.object({ id: z.string() }),
   "mall.createDeliveryExpressTemplateFree": deliveryExpressTemplateFreeCreateSchema,

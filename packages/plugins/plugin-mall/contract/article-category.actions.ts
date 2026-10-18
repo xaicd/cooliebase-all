@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/article-category.validator"
 
 export const articleCategoryActionSchemas = {
-  "ruoyi.cmd.mall.articleCategory.page": articleCategoryPageQuerySchema,
-  "ruoyi.cmd.mall.articleCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.articleCategory.create": articleCategoryCreateSchema,
-  "ruoyi.cmd.mall.articleCategory.update": articleCategoryUpdateSchema,
-  "ruoyi.cmd.mall.articleCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.articleCategory.page": articleCategoryPageQuerySchema,
+  "cooliebase.cmd.mall.articleCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.articleCategory.create": articleCategoryCreateSchema,
+  "cooliebase.cmd.mall.articleCategory.update": articleCategoryUpdateSchema,
+  "cooliebase.cmd.mall.articleCategory.delete": z.object({ id: z.string() }),
   "mall.pageArticleCategory": articleCategoryPageQuerySchema,
   "mall.getArticleCategory": z.object({ id: z.string() }),
   "mall.createArticleCategory": articleCategoryCreateSchema,

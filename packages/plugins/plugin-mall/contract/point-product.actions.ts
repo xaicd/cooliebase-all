@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/point-product.validator"
 
 export const pointProductActionSchemas = {
-  "ruoyi.cmd.mall.pointProduct.page": pointProductPageQuerySchema,
-  "ruoyi.cmd.mall.pointProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.pointProduct.create": pointProductCreateSchema,
-  "ruoyi.cmd.mall.pointProduct.update": pointProductUpdateSchema,
-  "ruoyi.cmd.mall.pointProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.pointProduct.page": pointProductPageQuerySchema,
+  "cooliebase.cmd.mall.pointProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.pointProduct.create": pointProductCreateSchema,
+  "cooliebase.cmd.mall.pointProduct.update": pointProductUpdateSchema,
+  "cooliebase.cmd.mall.pointProduct.delete": z.object({ id: z.string() }),
   "mall.pagePointProduct": pointProductPageQuerySchema,
   "mall.getPointProduct": z.object({ id: z.string() }),
   "mall.createPointProduct": pointProductCreateSchema,

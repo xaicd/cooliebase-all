@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.wms.v1;
+package cooliebase.wms.v1;
 
-option go_package = "ruoyi/all-next/gen/wms/v1;wmsv1";
+option go_package = "cooliebase/all-base/gen/wms/v1;wmsv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.wms.v1.WmsService/<Method>
+// gRPC path: /cooliebase.wms.v1.WmsService/<Method>
 
 message JsonReply {
   string json = 1;

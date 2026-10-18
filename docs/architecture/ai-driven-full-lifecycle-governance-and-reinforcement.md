@@ -1,7 +1,7 @@
-# RuoYi-All-Next AI-Driven 全生命周期工程规范与强化建设纲领
+# CoolieBase-All-Next AI-Driven 全生命周期工程规范与强化建设纲领
 # (AI-Driven Full-Lifecycle Governance & Reinforcement Blueprint)
 
-> **文档代号**: RUOYI-AI-DRIVEN-FULL-LIFECYCLE-20261006  
+> **文档代号**: COOLIEBASE-AI-DRIVEN-FULL-LIFECYCLE-20261006  
 > **适用范围**: 作为企业级重型业务开发模板 (Heavy Business Template) 的最高研发规范  
 > **审视视角**: 新型软件交付公司负责人 (CEO) × Palantir FDE 作战体系 × DeepSeek Harness (dsh) 插件自演进哲学 × CMMI 5 高成熟度度量
 
@@ -9,11 +9,11 @@
 
 ## 一、 全局全生命周期态势体检与差距分析 (Gap Analysis)
 
-经过对 `ruoyi-all-next` 现有规范与代码库的深度审计，系统在 6 大阶段已有基础底座，但在面向**重型业务 (Heavy Business) 与 AI-Native 自演进**时，仍存在显著的深水区盲区。必须进行针对性重锤强化：
+经过对 `cooliebase-all-base` 现有规范与代码库的深度审计，系统在 6 大阶段已有基础底座，但在面向**重型业务 (Heavy Business) 与 AI-Native 自演进**时，仍存在显著的深水区盲区。必须进行针对性重锤强化：
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
-│               RuoYi-All-Next 6 大阶段体检与强化全景图                   │
+│               CoolieBase-All-Next 6 大阶段体检与强化全景图                   │
 ├───────┬──────────────────────┬──────────────────────┬──────────────────┤
 │ 阶段  │ 现有规范资产         │ 存在的严重盲区与短板 │ 必须强化的硬核机制│
 ├───────┼──────────────────────┼──────────────────────┼──────────────────┤

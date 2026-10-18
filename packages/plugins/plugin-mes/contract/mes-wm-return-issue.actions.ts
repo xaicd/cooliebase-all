@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-issue.validator"
 
 export const mesWmReturnIssueActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnIssue.page": mesWmReturnIssuePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnIssue.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnIssue.create": mesWmReturnIssueCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnIssue.update": mesWmReturnIssueUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnIssue.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnIssue.page": mesWmReturnIssuePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnIssue.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnIssue.create": mesWmReturnIssueCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnIssue.update": mesWmReturnIssueUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnIssue.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnIssue": mesWmReturnIssuePageQuerySchema,
   "mes.getMesWmReturnIssue": z.object({ id: z.string() }),
   "mes.createMesWmReturnIssue": mesWmReturnIssueCreateSchema,

@@ -1,6 +1,6 @@
 {
   "generatedAt": "2026-08-02T09:32:48.055Z",
-  "target": "apps/ruoyi-all-next/src",
+  "target": "apps/cooliebase-all-base/src",
   "coverage": [
     {
       "key": "web",
@@ -14,16 +14,16 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/(admin)/admin/infra/api-logs/page.tsx",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts",
-        "apps/ruoyi-all-next/src/backend/constants/admin-menu.ts",
-        "apps/ruoyi-all-next/src/backend/constants/permissions.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-crypto.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-swagger.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-xss.ts"
+        "apps/cooliebase-all-base/src/app/(admin)/admin/infra/api-logs/page.tsx",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts",
+        "apps/cooliebase-all-base/src/backend/constants/admin-menu.ts",
+        "apps/cooliebase-all-base/src/backend/constants/permissions.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-crypto.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-swagger.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-xss.ts"
       ]
     },
     {
@@ -37,26 +37,26 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/api/admin/bpm/process-definitions/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/bpm/tasks/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/clues/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/customers/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/followups/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/orders/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/products/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/stock-adjustments/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/api-error-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/accounts/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/fans/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/messages/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/system/login-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/system/online-users/route.ts"
+        "apps/cooliebase-all-base/src/app/api/admin/bpm/process-definitions/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/bpm/tasks/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/clues/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/customers/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/followups/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/orders/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/products/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/stock-adjustments/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/api-error-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/accounts/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/fans/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/messages/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/system/login-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/system/online-users/route.ts"
       ]
     },
     {
@@ -70,11 +70,11 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/persistence-datasource.ts",
-        "apps/ruoyi-all-next/src/backend/lib/persistence-mapper.ts",
-        "apps/ruoyi-all-next/src/backend/lib/persistence-translate.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts"
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/persistence-datasource.ts",
+        "apps/cooliebase-all-base/src/backend/lib/persistence-mapper.ts",
+        "apps/cooliebase-all-base/src/backend/lib/persistence-translate.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts"
       ]
     },
     {
@@ -87,17 +87,17 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/(admin)/admin/infra/redis/page.tsx",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts",
-        "apps/ruoyi-all-next/src/backend/constants/admin-menu.ts",
-        "apps/ruoyi-all-next/src/backend/constants/permissions.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/cache-store.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-mq.ts",
-        "apps/ruoyi-all-next/src/backend/services/index.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-redis.service.ts",
-        "apps/ruoyi-all-next/src/backend/services/system-online-user.service.ts"
+        "apps/cooliebase-all-base/src/app/(admin)/admin/infra/redis/page.tsx",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts",
+        "apps/cooliebase-all-base/src/backend/constants/admin-menu.ts",
+        "apps/cooliebase-all-base/src/backend/constants/permissions.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/cache-store.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-mq.ts",
+        "apps/cooliebase-all-base/src/backend/services/index.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-redis.service.ts",
+        "apps/cooliebase-all-base/src/backend/services/system-online-user.service.ts"
       ]
     },
     {
@@ -112,22 +112,22 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/(admin)/admin/system/operate-logs/page.tsx",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/system/operate-logs/route.ts",
-        "apps/ruoyi-all-next/src/backend/constants/admin-menu.ts",
-        "apps/ruoyi-all-next/src/backend/constants/permissions.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/idempotent-lock-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/protection-idempotent.ts",
-        "apps/ruoyi-all-next/src/backend/lib/protection-lock.ts",
-        "apps/ruoyi-all-next/src/backend/lib/protection-signature.ts",
-        "apps/ruoyi-all-next/src/backend/services/index.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-job-center.service.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts",
-        "apps/ruoyi-all-next/src/backend/services/system-log-audit.test.ts",
-        "apps/ruoyi-all-next/src/backend/services/system-operate-log.service.ts"
+        "apps/cooliebase-all-base/src/app/(admin)/admin/system/operate-logs/page.tsx",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/system/operate-logs/route.ts",
+        "apps/cooliebase-all-base/src/backend/constants/admin-menu.ts",
+        "apps/cooliebase-all-base/src/backend/constants/permissions.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/idempotent-lock-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/protection-idempotent.ts",
+        "apps/cooliebase-all-base/src/backend/lib/protection-lock.ts",
+        "apps/cooliebase-all-base/src/backend/lib/protection-signature.ts",
+        "apps/cooliebase-all-base/src/backend/services/index.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-job-center.service.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts",
+        "apps/cooliebase-all-base/src/backend/services/system-log-audit.test.ts",
+        "apps/cooliebase-all-base/src/backend/services/system-operate-log.service.ts"
       ]
     },
     {
@@ -140,13 +140,13 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/(admin)/admin/infra/job-center/page.tsx",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts",
-        "apps/ruoyi-all-next/src/backend/constants/admin-menu.ts",
-        "apps/ruoyi-all-next/src/backend/services/__tests__/infra-services.test.ts",
-        "apps/ruoyi-all-next/src/backend/services/index.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-job-center.service.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts"
+        "apps/cooliebase-all-base/src/app/(admin)/admin/infra/job-center/page.tsx",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts",
+        "apps/cooliebase-all-base/src/backend/constants/admin-menu.ts",
+        "apps/cooliebase-all-base/src/backend/services/__tests__/infra-services.test.ts",
+        "apps/cooliebase-all-base/src/backend/services/index.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-job-center.service.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts"
       ]
     },
     {
@@ -160,8 +160,8 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-mq.ts"
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-mq.ts"
       ]
     },
     {
@@ -174,9 +174,9 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-websocket.ts"
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-websocket.ts"
       ]
     },
     {
@@ -190,11 +190,11 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-monitor.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-log-audit.test.ts",
-        "apps/ruoyi-all-next/src/backend/services/infra-redis.service.ts"
+        "apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-monitor.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-log-audit.test.ts",
+        "apps/cooliebase-all-base/src/backend/services/infra-redis.service.ts"
       ]
     },
     {
@@ -207,9 +207,9 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/persistence-translate.ts",
-        "apps/ruoyi-all-next/src/backend/lib/platform-excel-dict.ts"
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/persistence-translate.ts",
+        "apps/cooliebase-all-base/src/backend/lib/platform-excel-dict.ts"
       ]
     },
     {
@@ -222,8 +222,8 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/biz-tenant.ts"
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/biz-tenant.ts"
       ]
     },
     {
@@ -237,26 +237,26 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/api/admin/bpm/process-definitions/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/bpm/tasks/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/clues/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/customers/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/crm/followups/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/orders/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/products/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/erp/stock-adjustments/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/api-error-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/api-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-center/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/job-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/redis/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/infra/swagger/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/accounts/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/fans/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/mp/messages/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/system/login-logs/route.ts",
-        "apps/ruoyi-all-next/src/app/api/admin/system/online-users/route.ts"
+        "apps/cooliebase-all-base/src/app/api/admin/bpm/process-definitions/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/bpm/tasks/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/clues/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/customers/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/crm/followups/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/orders/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/products/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/erp/stock-adjustments/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/api-error-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/api-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-center/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/job-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/redis/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/infra/swagger/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/accounts/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/fans/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/mp/messages/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/system/login-logs/route.ts",
+        "apps/cooliebase-all-base/src/app/api/admin/system/online-users/route.ts"
       ]
     },
     {
@@ -269,14 +269,14 @@
       ],
       "missingSignals": [],
       "evidenceFiles": [
-        "apps/ruoyi-all-next/src/app/api/admin/infra/configs/route.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/starter-platform-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/__tests__/web-protection-lib.test.ts",
-        "apps/ruoyi-all-next/src/backend/lib/biz-ip-area.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-crypto.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-swagger.ts",
-        "apps/ruoyi-all-next/src/backend/lib/web-xss.ts",
-        "apps/ruoyi-all-next/src/backend/services/system-login-log.service.ts"
+        "apps/cooliebase-all-base/src/app/api/admin/infra/configs/route.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/starter-platform-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/__tests__/web-protection-lib.test.ts",
+        "apps/cooliebase-all-base/src/backend/lib/biz-ip-area.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-crypto.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-swagger.ts",
+        "apps/cooliebase-all-base/src/backend/lib/web-xss.ts",
+        "apps/cooliebase-all-base/src/backend/services/system-login-log.service.ts"
       ]
     }
   ]

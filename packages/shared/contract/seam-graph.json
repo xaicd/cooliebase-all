@@ -263,9 +263,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.online/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.online/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.online/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.online/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.online/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.online/api",
         "modulePages": "packages/plugins/plugin-online/frontend/pages"
       },
       "rolesComplete": true
@@ -304,9 +304,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.bpm/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.bpm/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.bpm/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.bpm/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.bpm/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.bpm/api",
         "frontendApi": "packages/plugins/plugin-bpm/frontend/api",
         "modulePages": "packages/plugins/plugin-bpm/frontend/pages"
       },
@@ -353,9 +353,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.pay/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.pay/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.pay/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.pay/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.pay/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.pay/api",
         "frontendApi": "packages/plugins/plugin-pay/frontend/api",
         "modulePages": "packages/plugins/plugin-pay/frontend/pages"
       },
@@ -387,9 +387,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.report/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.report/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.report/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.report/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.report/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.report/api",
         "frontendApi": "packages/plugins/plugin-report/frontend/api",
         "modulePages": "packages/plugins/plugin-report/frontend/pages"
       },
@@ -429,9 +429,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.mp/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.mp/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.mp/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.mp/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.mp/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.mp/api",
         "frontendApi": "packages/plugins/plugin-mp/frontend/api",
         "modulePages": "packages/plugins/plugin-mp/frontend/pages"
       },
@@ -512,9 +512,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.mall/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.mall/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.mall/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.mall/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.mall/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.mall/api",
         "frontendApi": "packages/plugins/plugin-mall/frontend/api",
         "modulePages": "packages/plugins/plugin-mall/frontend/pages"
       },
@@ -559,9 +559,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.member/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.member/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.member/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.member/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.member/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.member/api",
         "frontendApi": "packages/plugins/plugin-member/frontend/api",
         "modulePages": "packages/plugins/plugin-member/frontend/pages"
       },
@@ -614,9 +614,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.crm/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.crm/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.crm/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.crm/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.crm/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.crm/api",
         "frontendApi": "packages/plugins/plugin-crm/frontend/api",
         "modulePages": "packages/plugins/plugin-crm/frontend/pages"
       },
@@ -681,9 +681,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.erp/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.erp/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.erp/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.erp/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.erp/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.erp/api",
         "frontendApi": "packages/plugins/plugin-erp/frontend/api",
         "modulePages": "packages/plugins/plugin-erp/frontend/pages"
       },
@@ -734,9 +734,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.wms/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.wms/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.wms/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.wms/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.wms/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.wms/api",
         "frontendApi": "packages/plugins/plugin-wms/frontend/api",
         "modulePages": "packages/plugins/plugin-wms/frontend/pages"
       },
@@ -900,9 +900,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.mes/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.mes/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.mes/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.mes/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.mes/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.mes/api",
         "frontendApi": "packages/plugins/plugin-mes/frontend/api",
         "modulePages": "packages/plugins/plugin-mes/frontend/pages"
       },
@@ -952,9 +952,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.ai/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.ai/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.ai/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.ai/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.ai/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.ai/api",
         "frontendApi": "packages/plugins/plugin-ai/frontend/api",
         "modulePages": "packages/plugins/plugin-ai/frontend/pages"
       },
@@ -991,9 +991,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.aigw/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.aigw/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.aigw/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
         "frontendApi": "packages/plugins/plugin-aigw/frontend/api",
         "modulePages": "packages/plugins/plugin-aigw/frontend/pages"
       },
@@ -1041,9 +1041,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.iot/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.iot/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.iot/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.iot/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.iot/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.iot/api",
         "frontendApi": "packages/plugins/plugin-iot/frontend/api",
         "modulePages": "packages/plugins/plugin-iot/frontend/pages"
       },
@@ -1091,9 +1091,9 @@
         ]
       },
       "consumer": {
-        "adminApi": "src/app/api/v1/plugins/ruoyi.im/api",
-        "appApi": "src/app/api/v1/plugins/ruoyi.im/api",
-        "openApi": "src/app/api/v1/plugins/ruoyi.im/api",
+        "adminApi": "src/app/api/v1/plugins/cooliebase.im/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.im/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.im/api",
         "frontendApi": "packages/plugins/plugin-im/frontend/api",
         "modulePages": "packages/plugins/plugin-im/frontend/pages"
       },

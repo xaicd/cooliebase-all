@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-knowledge.validator"
 
 export const aiKnowledgeActionSchemas = {
-  "ruoyi.cmd.ai.aiKnowledge.page": aiKnowledgePageQuerySchema,
-  "ruoyi.cmd.ai.aiKnowledge.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiKnowledge.create": aiKnowledgeCreateSchema,
-  "ruoyi.cmd.ai.aiKnowledge.update": aiKnowledgeUpdateSchema,
-  "ruoyi.cmd.ai.aiKnowledge.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiKnowledge.page": aiKnowledgePageQuerySchema,
+  "cooliebase.cmd.ai.aiKnowledge.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiKnowledge.create": aiKnowledgeCreateSchema,
+  "cooliebase.cmd.ai.aiKnowledge.update": aiKnowledgeUpdateSchema,
+  "cooliebase.cmd.ai.aiKnowledge.delete": z.object({ id: z.string() }),
   "ai.pageAiKnowledge": aiKnowledgePageQuerySchema,
   "ai.getAiKnowledge": z.object({ id: z.string() }),
   "ai.createAiKnowledge": aiKnowledgeCreateSchema,

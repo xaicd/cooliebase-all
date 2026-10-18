@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/wms
 upstream:
-  env: RUOYI_DOMAIN_WMS_UPSTREAM
+  env: COOLIEBASE_DOMAIN_WMS_UPSTREAM
   protocol: http
   defaultPort: 3221
 auth:
@@ -25,9 +25,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.wms
-  commandSubject: ruoyi.cmd.wms.>
-  eventSubject: ruoyi.evt.wms.>
+  queueGroup: cooliebase.wms
+  commandSubject: cooliebase.cmd.wms.>
+  eventSubject: cooliebase.evt.wms.>
 invoke:
   colocated: sdk
   remote: rpc

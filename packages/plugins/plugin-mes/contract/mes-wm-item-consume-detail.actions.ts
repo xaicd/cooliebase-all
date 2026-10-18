@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-item-consume-detail.validator"
 
 export const mesWmItemConsumeDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmItemConsumeDetail.page": mesWmItemConsumeDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmItemConsumeDetail.create": mesWmItemConsumeDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeDetail.update": mesWmItemConsumeDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsumeDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsumeDetail.page": mesWmItemConsumeDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsumeDetail.create": mesWmItemConsumeDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeDetail.update": mesWmItemConsumeDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsumeDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmItemConsumeDetail": mesWmItemConsumeDetailPageQuerySchema,
   "mes.getMesWmItemConsumeDetail": z.object({ id: z.string() }),
   "mes.createMesWmItemConsumeDetail": mesWmItemConsumeDetailCreateSchema,

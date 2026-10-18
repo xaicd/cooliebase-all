@@ -52,5 +52,5 @@ export function parseActionName(action: string): { domain: string; method: strin
 }
 
 export function currentNodeID(env: NodeJS.Dict<string> = process.env): string {
-  return env.RUOYI_PACK_DOMAIN?.trim() || "all-next"
+  return env.COOLIEBASE_PACK_DOMAIN?.trim() || "all-next"
 }

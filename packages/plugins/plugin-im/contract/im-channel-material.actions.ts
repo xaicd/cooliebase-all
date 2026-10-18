@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-channel-material.validator"
 
 export const imChannelMaterialActionSchemas = {
-  "ruoyi.cmd.im.imChannelMaterial.page": imChannelMaterialPageQuerySchema,
-  "ruoyi.cmd.im.imChannelMaterial.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imChannelMaterial.create": imChannelMaterialCreateSchema,
-  "ruoyi.cmd.im.imChannelMaterial.update": imChannelMaterialUpdateSchema,
-  "ruoyi.cmd.im.imChannelMaterial.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imChannelMaterial.page": imChannelMaterialPageQuerySchema,
+  "cooliebase.cmd.im.imChannelMaterial.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imChannelMaterial.create": imChannelMaterialCreateSchema,
+  "cooliebase.cmd.im.imChannelMaterial.update": imChannelMaterialUpdateSchema,
+  "cooliebase.cmd.im.imChannelMaterial.delete": z.object({ id: z.string() }),
   "im.pageImChannelMaterial": imChannelMaterialPageQuerySchema,
   "im.getImChannelMaterial": z.object({ id: z.string() }),
   "im.createImChannelMaterial": imChannelMaterialCreateSchema,

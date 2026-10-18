@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://ruoyi-all-next/contract/ontology-mapping.schema.json",
+  "$id": "https://cooliebase-all-base/contract/ontology-mapping.schema.json",
   "title": "本体域 ↔ 老系统迁移映射契约",
   "description": "把 100+ 微服务老系统『如实数字化』映射进本体域的机器可读契约。定位=老系统的数字镜像+体检报告，不是重写计划书：默认原样映射(as-is/keep)，只对有经济价值处标注 optimize，问题只记录不强制动。每个 mapping 文件对应一个本体域(如 ecommerce)，聚合若干老服务的映射。",
   "type": "object",
@@ -89,7 +89,7 @@
             "additionalProperties": false,
             "properties": {
               "ontologyEntity": { "type": "string", "description": "本体域实体 typeName，如 Product/Order/Payment" },
-              "target": { "type": "string", "description": "映射目标：ruoyi 模块表/service 或老系统表名" },
+              "target": { "type": "string", "description": "映射目标：cooliebase 模块表/service 或老系统表名" },
               "fidelity": { "type": "string", "enum": ["as-is", "adapted", "gap"], "default": "as-is" },
               "note": { "type": "string" }
             }
@@ -97,7 +97,7 @@
         },
         "actionMap": {
           "type": "array",
-          "description": "本体域 action ↔ 老服务接口/ruoyi action 的映射",
+          "description": "本体域 action ↔ 老服务接口/cooliebase action 的映射",
           "items": {
             "type": "object",
             "required": ["ontologyAction", "target"],
@@ -112,7 +112,7 @@
         },
         "eventMap": {
           "type": "array",
-          "description": "事件映射。本体域事件多为状态机生命周期事件(XActivated/Completed...)，老系统/ruoyi 多为业务动词事件(OrderPaid/RefundApproved)；此处记录二者对应及派生关系",
+          "description": "事件映射。本体域事件多为状态机生命周期事件(XActivated/Completed...)，老系统/cooliebase 多为业务动词事件(OrderPaid/RefundApproved)；此处记录二者对应及派生关系",
           "items": {
             "type": "object",
             "required": ["semanticEvent"],

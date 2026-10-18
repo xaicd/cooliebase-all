@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-friend-request.validator"
 
 export const imFriendRequestActionSchemas = {
-  "ruoyi.cmd.im.imFriendRequest.page": imFriendRequestPageQuerySchema,
-  "ruoyi.cmd.im.imFriendRequest.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imFriendRequest.create": imFriendRequestCreateSchema,
-  "ruoyi.cmd.im.imFriendRequest.update": imFriendRequestUpdateSchema,
-  "ruoyi.cmd.im.imFriendRequest.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFriendRequest.page": imFriendRequestPageQuerySchema,
+  "cooliebase.cmd.im.imFriendRequest.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFriendRequest.create": imFriendRequestCreateSchema,
+  "cooliebase.cmd.im.imFriendRequest.update": imFriendRequestUpdateSchema,
+  "cooliebase.cmd.im.imFriendRequest.delete": z.object({ id: z.string() }),
   "im.pageImFriendRequest": imFriendRequestPageQuerySchema,
   "im.getImFriendRequest": z.object({ id: z.string() }),
   "im.createImFriendRequest": imFriendRequestCreateSchema,

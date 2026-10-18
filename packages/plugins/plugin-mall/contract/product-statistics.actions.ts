@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-statistics.validator"
 
 export const productStatisticsActionSchemas = {
-  "ruoyi.cmd.mall.productStatistics.page": productStatisticsPageQuerySchema,
-  "ruoyi.cmd.mall.productStatistics.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productStatistics.create": productStatisticsCreateSchema,
-  "ruoyi.cmd.mall.productStatistics.update": productStatisticsUpdateSchema,
-  "ruoyi.cmd.mall.productStatistics.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productStatistics.page": productStatisticsPageQuerySchema,
+  "cooliebase.cmd.mall.productStatistics.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productStatistics.create": productStatisticsCreateSchema,
+  "cooliebase.cmd.mall.productStatistics.update": productStatisticsUpdateSchema,
+  "cooliebase.cmd.mall.productStatistics.delete": z.object({ id: z.string() }),
   "mall.pageProductStatistics": productStatisticsPageQuerySchema,
   "mall.getProductStatistics": z.object({ id: z.string() }),
   "mall.createProductStatistics": productStatisticsCreateSchema,

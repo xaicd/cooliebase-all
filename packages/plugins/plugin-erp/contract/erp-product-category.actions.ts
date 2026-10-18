@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-product-category.validator"
 
 export const erpProductCategoryActionSchemas = {
-  "ruoyi.cmd.erp.erpProductCategory.page": erpProductCategoryPageQuerySchema,
-  "ruoyi.cmd.erp.erpProductCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpProductCategory.create": erpProductCategoryCreateSchema,
-  "ruoyi.cmd.erp.erpProductCategory.update": erpProductCategoryUpdateSchema,
-  "ruoyi.cmd.erp.erpProductCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProductCategory.page": erpProductCategoryPageQuerySchema,
+  "cooliebase.cmd.erp.erpProductCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProductCategory.create": erpProductCategoryCreateSchema,
+  "cooliebase.cmd.erp.erpProductCategory.update": erpProductCategoryUpdateSchema,
+  "cooliebase.cmd.erp.erpProductCategory.delete": z.object({ id: z.string() }),
   "erp.pageErpProductCategory": erpProductCategoryPageQuerySchema,
   "erp.getErpProductCategory": z.object({ id: z.string() }),
   "erp.createErpProductCategory": erpProductCategoryCreateSchema,

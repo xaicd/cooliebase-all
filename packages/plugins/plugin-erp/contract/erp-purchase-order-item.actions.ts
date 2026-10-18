@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-purchase-order-item.validator"
 
 export const erpPurchaseOrderItemActionSchemas = {
-  "ruoyi.cmd.erp.erpPurchaseOrderItem.page": erpPurchaseOrderItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpPurchaseOrderItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpPurchaseOrderItem.create": erpPurchaseOrderItemCreateSchema,
-  "ruoyi.cmd.erp.erpPurchaseOrderItem.update": erpPurchaseOrderItemUpdateSchema,
-  "ruoyi.cmd.erp.erpPurchaseOrderItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseOrderItem.page": erpPurchaseOrderItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpPurchaseOrderItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseOrderItem.create": erpPurchaseOrderItemCreateSchema,
+  "cooliebase.cmd.erp.erpPurchaseOrderItem.update": erpPurchaseOrderItemUpdateSchema,
+  "cooliebase.cmd.erp.erpPurchaseOrderItem.delete": z.object({ id: z.string() }),
   "erp.pageErpPurchaseOrderItem": erpPurchaseOrderItemPageQuerySchema,
   "erp.getErpPurchaseOrderItem": z.object({ id: z.string() }),
   "erp.createErpPurchaseOrderItem": erpPurchaseOrderItemCreateSchema,

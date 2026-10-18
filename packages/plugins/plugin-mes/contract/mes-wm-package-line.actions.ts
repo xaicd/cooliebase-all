@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-package-line.validator"
 
 export const mesWmPackageLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmPackageLine.page": mesWmPackageLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmPackageLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmPackageLine.create": mesWmPackageLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmPackageLine.update": mesWmPackageLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmPackageLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmPackageLine.page": mesWmPackageLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmPackageLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmPackageLine.create": mesWmPackageLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmPackageLine.update": mesWmPackageLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmPackageLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmPackageLine": mesWmPackageLinePageQuerySchema,
   "mes.getMesWmPackageLine": z.object({ id: z.string() }),
   "mes.createMesWmPackageLine": mesWmPackageLineCreateSchema,

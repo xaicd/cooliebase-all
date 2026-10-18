@@ -1,7 +1,7 @@
 # Requirements — 阶段 1：C 端用户模块 + 站点/主题可配置化（地基）
 
 > 阶段：**规划 (Planning)** · 目标状态 `PLAN_APPROVED`
-> 上位需求：给 ruoyi-all-next 补 C 端（用户端）能力，对标 WordPress「后台配置 → 前台呈现」。
+> 上位需求：给 cooliebase-all-base 补 C 端（用户端）能力，对标 WordPress「后台配置 → 前台呈现」。
 > 本阶段 = 4 阶段中的第 1 阶段（后端地基）。后续：阶段 2 后台外观设置页 / 阶段 3 clients/expo / 阶段 4 规范文档。
 
 ---
@@ -9,7 +9,7 @@
 ## 1. 背景与范围
 
 ### 1.1 现状（已代码核实）
-- **底座已就绪、可复用**：JWT 引擎 `issueJwt/verifyJwt` 已支持 `type:'app'` + `memberId/memberLevel`（`shared/backend/auth/jwt.ts`）；C 端守卫 `requireAppAuth/optionalAppAuth`、`requireAppLogin`（guards.ts / app-auth-guard.ts）；密码工具 `hashPassword/generateSalt/verifyPassword`（lib/crypto.ts）；Prisma 客户端 `ruoyiPrisma`（shared/backend/prisma.ts）；通用配置表 `Setting{key, value:Json}`（schema.prisma:424）；`withAdminRoute` 路由包装器（http/admin-route.ts）。
+- **底座已就绪、可复用**：JWT 引擎 `issueJwt/verifyJwt` 已支持 `type:'app'` + `memberId/memberLevel`（`shared/backend/auth/jwt.ts`）；C 端守卫 `requireAppAuth/optionalAppAuth`、`requireAppLogin`（guards.ts / app-auth-guard.ts）；密码工具 `hashPassword/generateSalt/verifyPassword`（lib/crypto.ts）；Prisma 客户端 `cooliebasePrisma`（shared/backend/prisma.ts）；通用配置表 `Setting{key, value:Json}`（schema.prisma:424）；`withAdminRoute` 路由包装器（http/admin-route.ts）。
 - **缺失（本阶段要补）**：member 无注册/登录/用户中心真实实现（现全是 mock）；Prisma **无 member 表**；无 C 端路由包装器 `withAppRoute`（只有 admin）；C 端 `/app/member/profile` 是 stub；无站点/主题配置的存储与 C 端读取 API；C 端客户端期望响应 `{code,data}` 而后端返回 `{success,data}`（契约不一致）。
 
 ### 1.2 本阶段范围（In Scope）
@@ -31,7 +31,7 @@
 - ❌ 不 mock：新 service 真实落库（Rule：真实数据驱动）。
 
 ### 1.5 🆕 关联需求：对话生成结果支持「多端」预览（B 端后台 + 多个 C 端渠道），跨仓横切
-> 来源：用户 steering（两条）。对话（Build 模式）生成 ruoyi-all-next 这类项目后，预览不能只给单一入口——需在**对话框中按渠道分别预览**，且**根据实际情况**决定展示哪些入口（只有后台→只出 B 端；含哪些 C 端渠道→出对应入口）。
+> 来源：用户 steering（两条）。对话（Build 模式）生成 cooliebase-all-base 这类项目后，预览不能只给单一入口——需在**对话框中按渠道分别预览**，且**根据实际情况**决定展示哪些入口（只有后台→只出 B 端；含哪些 C 端渠道→出对应入口）。
 
 **「C 端」= 多端概念，不是单一前台**（对齐仓库 `clients/` 现状 + 用户 steering）：
 - **B 端（管理后台）**：管理员运营后台。
@@ -40,7 +40,7 @@
   - **PC 端**（桌面：`clients/desktop-pc`（Tauri），或 PC Web 前台）；
   - **App 端**（移动：`clients/uniapp`（小程序/App）、`clients/flutter`、`clients/expo`）。
 
-- **R16（本仓侧 — 让各端有确定、可预览/可寻址的入口）**：ruoyi-all-next SHALL 让 B 端与各 C 端渠道有**确定入口**，供平台预览 UI 分别指向：
+- **R16（本仓侧 — 让各端有确定、可预览/可寻址的入口）**：cooliebase-all-base SHALL 让 B 端与各 C 端渠道有**确定入口**，供平台预览 UI 分别指向：
   - B 端：现有 `/login` → `/admin/*`。
   - C 端 Web/H5：Next 内 C 端路由组（如 `/portal`，含登录/首页/用户中心）——同一 dev server 可与 B 端一起预览（不同路径）。
   - C 端 PC/App（uniapp/flutter/expo/desktop-pc）：为**独立客户端包**，非本 Next 应用同源路由；其"预览"形态是**各自的运行/构建产物**（如 H5 build、Expo Web、Uniapp H5 预览），入口由各 client 的启动脚本/产物 URL 提供，遵循 `clients/README` 约定（启动先读 `/api/v1/open/meta/project-profile`）。
@@ -100,14 +100,14 @@
 ## 5. 非功能需求
 - **NFR1（安全）**：密码只存加盐哈希；登录失败不区分账号/密码；C 端 JWT 与 admin JWT 隔离（`type` 区分，已有）。
 - **NFR2（架构一致）**：遵循 `.kiro/steering/plugin-domain-structure.md`——service/repository/validators/route 分层，桥接约定；配置放 infra 模块。
-- **NFR3（真实数据）**：新 service 走 `ruoyiPrisma`/Repository，禁止 mock。
+- **NFR3（真实数据）**：新 service 走 `cooliebasePrisma`/Repository，禁止 mock。
 - **NFR4（测试）**：service 层单测（注册去重/登录成败/资料读写/配置读写默认值）。
 - **NFR5（零破坏）**：不改 admin 端登录与 member admin CRUD 现有行为。
-- **NFR6（🆕 SQLite 模板可运行预览 — 硬约束，已代码核实）**：ruoyi-all-next 作为模板被派生/预览时默认走**内置 SQLite**（`better-sqlite3` + `data/ruoyi.db`）。**关键事实**：SQLite 的建表**不来自 Prisma migration**（Prisma schema 是 PostgreSQL-only、196 处 `@db.VarChar`，且注释写明"运行时查询由 Kysely 完成，Prisma 不用于 runtime query"），而来自 **`scripts/bootstrap-sqlite.ts`** 手写的 `CREATE TABLE IF NOT EXISTS`（SQLite 原生类型 TEXT/INTEGER/DATETIME + 8 大审计底座字段）。因此本阶段：
+- **NFR6（🆕 SQLite 模板可运行预览 — 硬约束，已代码核实）**：cooliebase-all-base 作为模板被派生/预览时默认走**内置 SQLite**（`better-sqlite3` + `data/cooliebase.db`）。**关键事实**：SQLite 的建表**不来自 Prisma migration**（Prisma schema 是 PostgreSQL-only、196 处 `@db.VarChar`，且注释写明"运行时查询由 Kysely 完成，Prisma 不用于 runtime query"），而来自 **`scripts/bootstrap-sqlite.ts`** 手写的 `CREATE TABLE IF NOT EXISTS`（SQLite 原生类型 TEXT/INTEGER/DATETIME + 8 大审计底座字段）。因此本阶段：
   - **member 表必须加进 `scripts/bootstrap-sqlite.ts`**（新增 `CREATE TABLE IF NOT EXISTS member_user`，SQLite 原生类型 + 8 审计字段），否则 SQLite 预览下"表不存在"。同时在 `prisma/schema.prisma` 加对应 PG model 保持双库一致（PG 走 migration，SQLite 走 bootstrap）。
   - **appearance 配置存 `system_config` 表**（SQLite bootstrap 已有；`value` 列是 **TEXT**）——故 appearance 以 **JSON 字符串序列化**存入 `value`（不依赖 Prisma `Json` 类型，规避 SQLite 下 Json 不兼容），读取时反序列化。复用 infra `config.service.ts`/`config.repository.ts`（Kysely，运行时真源）。
   - **运行时用 Kysely**（非 Prisma）：新 member repository/service 必须走 `shared/backend/lib/database`（Kysely + datasource-manager），保证 SQLite/PG/MySQL 三库统一。
-  - 预览启动链路（`db:bootstrap:sqlite` → Next dev server + `data/ruoyi.db`）下,注册→登录→取 profile→读/写 appearance 全链路**真实可跑**,而非报"表不存在/方言不兼容/Json 不支持"。
+  - 预览启动链路（`db:bootstrap:sqlite` → Next dev server + `data/cooliebase.db`）下,注册→登录→取 profile→读/写 appearance 全链路**真实可跑**,而非报"表不存在/方言不兼容/Json 不支持"。
   - **验收挂钩**：见 A7（SQLite 端到端预览验收）。
 
 ---
@@ -121,7 +121,7 @@
 | A4 | 游客（无 token）可读 appearance，不可读 profile |
 | A5 | admin 端登录 / member admin CRUD 回归不破 |
 | A6 | service 层单测全绿；`tsc` / lint 无新增错误 |
-| A7 | 🆕 **SQLite 模板预览端到端**：以内置 SQLite（`data/ruoyi.db`）启动，注册→登录→取 profile→读/写 appearance 全链路真实跑通，无"表不存在/方言不兼容"错误（对齐 NFR6） |
+| A7 | 🆕 **SQLite 模板预览端到端**：以内置 SQLite（`data/cooliebase.db`）启动，注册→登录→取 profile→读/写 appearance 全链路真实跑通，无"表不存在/方言不兼容"错误（对齐 NFR6） |
 | A8 | 🆕 **C 端有可预览入口**：C 端存在一个明确、可访问的落地/登录页路径（如 `/portal`），供平台"C 端预览"指向（对齐 R16；平台侧多入口 UI 由主仓 spec 承接 R17） |
 | A9 | 🆕 **预览免输入登录**：预览环境下打开 `/portal` 登录页与 `/login`，账号密码已默认预填（demo/demo123、admin/admin123），点"登录"即进，无需手输（R18-R21）；生产环境不预填 |
 

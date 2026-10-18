@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-user-group.validator"
 
 export const bpmUserGroupActionSchemas = {
-  "ruoyi.cmd.bpm.bpmUserGroup.page": bpmUserGroupPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmUserGroup.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmUserGroup.create": bpmUserGroupCreateSchema,
-  "ruoyi.cmd.bpm.bpmUserGroup.update": bpmUserGroupUpdateSchema,
-  "ruoyi.cmd.bpm.bpmUserGroup.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmUserGroup.page": bpmUserGroupPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmUserGroup.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmUserGroup.create": bpmUserGroupCreateSchema,
+  "cooliebase.cmd.bpm.bpmUserGroup.update": bpmUserGroupUpdateSchema,
+  "cooliebase.cmd.bpm.bpmUserGroup.delete": z.object({ id: z.string() }),
   "bpm.pageBpmUserGroup": bpmUserGroupPageQuerySchema,
   "bpm.getBpmUserGroup": z.object({ id: z.string() }),
   "bpm.createBpmUserGroup": bpmUserGroupCreateSchema,

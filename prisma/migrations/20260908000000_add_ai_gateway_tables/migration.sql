@@ -129,8 +129,8 @@ ON CONFLICT ("id") DO NOTHING;
 -- Initial AI Access Tokens in SQL
 INSERT INTO "ai_access_token" ("id", "name", "key", "status", "remain_quota", "unlimited", "models", "group", "tenant_id", "created_by", "updated_by")
 VALUES
-  ('tok-default-001', '全平台默认开发者令牌', 'sk-ruoyi-developer-master', 'ACTIVE', 5000000, false, '[]'::jsonb, 'default', '1', 'admin', 'admin'),
-  ('tok-demo-002', '演示租户体验令牌', 'sk-ruoyi-demo-experience', 'ACTIVE', 500000, false, '["gpt-4o-mini", "qwen-plus", "deepseek-chat"]'::jsonb, 'vip', '1', 'admin', 'admin')
+  ('tok-default-001', '全平台默认开发者令牌', 'sk-cooliebase-developer-master', 'ACTIVE', 5000000, false, '[]'::jsonb, 'default', '1', 'admin', 'admin'),
+  ('tok-demo-002', '演示租户体验令牌', 'sk-cooliebase-demo-experience', 'ACTIVE', 500000, false, '["gpt-4o-mini", "qwen-plus", "deepseek-chat"]'::jsonb, 'vip', '1', 'admin', 'admin')
 ON CONFLICT ("id") DO NOTHING;
 
 -- Initial AI Model Catalog in SQL

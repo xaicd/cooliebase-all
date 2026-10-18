@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/brokerage-record.validator"
 
 export const brokerageRecordActionSchemas = {
-  "ruoyi.cmd.mall.brokerageRecord.page": brokerageRecordPageQuerySchema,
-  "ruoyi.cmd.mall.brokerageRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.brokerageRecord.create": brokerageRecordCreateSchema,
-  "ruoyi.cmd.mall.brokerageRecord.update": brokerageRecordUpdateSchema,
-  "ruoyi.cmd.mall.brokerageRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.brokerageRecord.page": brokerageRecordPageQuerySchema,
+  "cooliebase.cmd.mall.brokerageRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.brokerageRecord.create": brokerageRecordCreateSchema,
+  "cooliebase.cmd.mall.brokerageRecord.update": brokerageRecordUpdateSchema,
+  "cooliebase.cmd.mall.brokerageRecord.delete": z.object({ id: z.string() }),
   "mall.pageBrokerageRecord": brokerageRecordPageQuerySchema,
   "mall.getBrokerageRecord": z.object({ id: z.string() }),
   "mall.createBrokerageRecord": brokerageRecordCreateSchema,

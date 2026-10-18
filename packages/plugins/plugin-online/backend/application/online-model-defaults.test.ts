@@ -3,7 +3,7 @@ import { assertRuoyiSystemFieldsImmutable, createInitialOnlineInteraction, creat
 import { parseOnlineInteractionIR } from "./online-interaction.compiler"
 import { parseOnlineModelIR } from "./online-schema-plan.compiler"
 
-describe("RuoYi Online 默认业务字段", () => {
+describe("CoolieBase Online 默认业务字段", () => {
   it("创建标准模型，并生成全部只读系统字段交互", () => {
     const model = parseOnlineModelIR(createInitialOnlineModel())
     const interaction = parseOnlineInteractionIR(createInitialOnlineInteraction(model), model)

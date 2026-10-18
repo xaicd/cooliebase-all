@@ -96,7 +96,7 @@ for (const domain of domains) {
 }
 
 const goModPath = path.join(ROOT, "gen", "go", "go.mod")
-if (!fs.existsSync(goModPath) || !fs.readFileSync(goModPath, "utf8").includes("module ruoyi/all-next/gen")) {
+if (!fs.existsSync(goModPath) || !fs.readFileSync(goModPath, "utf8").includes("module cooliebase/all-base/gen")) {
   fail("missing gen/go/go.mod; run npm run domain:contracts")
 }
 

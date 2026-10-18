@@ -1,5 +1,5 @@
 -- Never rewrite an applied migration. This corrective migration completes the
--- RuoYi-derived catalog transition without deleting historical package rows.
+-- CoolieBase-derived catalog transition without deleting historical package rows.
 CREATE INDEX IF NOT EXISTS "system_tenant_package_menu_menu_id_idx"
   ON "system_tenant_package_menu"("menu_id");
 

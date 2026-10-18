@@ -3,7 +3,7 @@ import type {
   BpmTaskActionInput,
 } from "@/modules/bpm/backend/validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 type ProcessDefinitionItem = {
   id: string
@@ -46,7 +46,7 @@ export class BpmProcessService {
         }
       : undefined
 
-    const grouped = await ruoyiPrisma.approvalTask.groupBy({
+    const grouped = await cooliebasePrisma.approvalTask.groupBy({
       by: ["bizType"],
       where,
       _count: { _all: true },
@@ -97,7 +97,7 @@ export class BpmProcessService {
 
     const skip = (input.page - 1) * input.pageSize
     const [rows, total] = await Promise.all([
-      ruoyiPrisma.approvalTask.findMany({
+      cooliebasePrisma.approvalTask.findMany({
         where,
         skip,
         take: input.pageSize,
@@ -109,7 +109,7 @@ export class BpmProcessService {
           applicantName: true,
         },
       }),
-      ruoyiPrisma.approvalTask.count({ where }),
+      cooliebasePrisma.approvalTask.count({ where }),
     ])
 
     const items: TaskItem[] = rows.map((row) => ({
@@ -138,7 +138,7 @@ export class BpmProcessService {
   static async actionTask(input: BpmTaskActionInput) {
     domainLog.event("bpm.task.action", { taskId: input.taskId, action: input.action })
 
-    const exists = await ruoyiPrisma.approvalTask.findUnique({
+    const exists = await cooliebasePrisma.approvalTask.findUnique({
       where: { id: input.taskId },
       select: { id: true },
     })
@@ -147,7 +147,7 @@ export class BpmProcessService {
     }
 
     const nextStatus = input.action === "APPROVE" ? "APPROVED" : "REJECTED"
-    const task = await ruoyiPrisma.approvalTask.update({
+    const task = await cooliebasePrisma.approvalTask.update({
       where: { id: input.taskId },
       data: {
         status: nextStatus,

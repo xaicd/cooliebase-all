@@ -1,6 +1,6 @@
 import type { CreateSocialClientInput, SystemModulePageQueryInput, UpdateSocialClientInput } from "../validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 type SocialClientItem = {
   id: string
@@ -18,12 +18,12 @@ function parseItems(value: unknown): SocialClientItem[] {
 }
 
 async function load() {
-  const setting = await ruoyiPrisma.setting.findUnique({ where: { key: SETTING_KEY } })
+  const setting = await cooliebasePrisma.setting.findUnique({ where: { key: SETTING_KEY } })
   return parseItems(setting?.value)
 }
 
 async function save(items: SocialClientItem[]) {
-  await ruoyiPrisma.setting.upsert({
+  await cooliebasePrisma.setting.upsert({
     where: { key: SETTING_KEY },
     create: { key: SETTING_KEY, value: items },
     update: { value: items },

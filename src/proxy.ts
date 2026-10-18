@@ -5,23 +5,23 @@ import { getAdminRoutePolicy } from "@/shared/backend/lib/admin-route-policy"
 import { matchRemoteDomainUpstream } from "@/shared/backend/lib/domain-pack"
 
 const STATIC_UPSTREAMS: Record<string, string | undefined> = {
-  RUOYI_DOMAIN_SYSTEM_UPSTREAM: process.env.RUOYI_DOMAIN_SYSTEM_UPSTREAM,
-  RUOYI_DOMAIN_INFRA_UPSTREAM: process.env.RUOYI_DOMAIN_INFRA_UPSTREAM,
-  RUOYI_DOMAIN_ONLINE_UPSTREAM: process.env.RUOYI_DOMAIN_ONLINE_UPSTREAM,
-  RUOYI_DOMAIN_BPM_UPSTREAM: process.env.RUOYI_DOMAIN_BPM_UPSTREAM,
-  RUOYI_DOMAIN_PAY_UPSTREAM: process.env.RUOYI_DOMAIN_PAY_UPSTREAM,
-  RUOYI_DOMAIN_REPORT_UPSTREAM: process.env.RUOYI_DOMAIN_REPORT_UPSTREAM,
-  RUOYI_DOMAIN_MP_UPSTREAM: process.env.RUOYI_DOMAIN_MP_UPSTREAM,
-  RUOYI_DOMAIN_MALL_UPSTREAM: process.env.RUOYI_DOMAIN_MALL_UPSTREAM,
-  RUOYI_DOMAIN_MEMBER_UPSTREAM: process.env.RUOYI_DOMAIN_MEMBER_UPSTREAM,
-  RUOYI_DOMAIN_CRM_UPSTREAM: process.env.RUOYI_DOMAIN_CRM_UPSTREAM,
-  RUOYI_DOMAIN_ERP_UPSTREAM: process.env.RUOYI_DOMAIN_ERP_UPSTREAM,
-  RUOYI_DOMAIN_WMS_UPSTREAM: process.env.RUOYI_DOMAIN_WMS_UPSTREAM,
-  RUOYI_DOMAIN_MES_UPSTREAM: process.env.RUOYI_DOMAIN_MES_UPSTREAM,
-  RUOYI_DOMAIN_AI_UPSTREAM: process.env.RUOYI_DOMAIN_AI_UPSTREAM,
-  RUOYI_DOMAIN_IOT_UPSTREAM: process.env.RUOYI_DOMAIN_IOT_UPSTREAM,
-  RUOYI_DOMAIN_IM_UPSTREAM: process.env.RUOYI_DOMAIN_IM_UPSTREAM,
-  RUOYI_PACK_DOMAIN: process.env.RUOYI_PACK_DOMAIN,
+  COOLIEBASE_DOMAIN_SYSTEM_UPSTREAM: process.env.COOLIEBASE_DOMAIN_SYSTEM_UPSTREAM,
+  COOLIEBASE_DOMAIN_INFRA_UPSTREAM: process.env.COOLIEBASE_DOMAIN_INFRA_UPSTREAM,
+  COOLIEBASE_DOMAIN_ONLINE_UPSTREAM: process.env.COOLIEBASE_DOMAIN_ONLINE_UPSTREAM,
+  COOLIEBASE_DOMAIN_BPM_UPSTREAM: process.env.COOLIEBASE_DOMAIN_BPM_UPSTREAM,
+  COOLIEBASE_DOMAIN_PAY_UPSTREAM: process.env.COOLIEBASE_DOMAIN_PAY_UPSTREAM,
+  COOLIEBASE_DOMAIN_REPORT_UPSTREAM: process.env.COOLIEBASE_DOMAIN_REPORT_UPSTREAM,
+  COOLIEBASE_DOMAIN_MP_UPSTREAM: process.env.COOLIEBASE_DOMAIN_MP_UPSTREAM,
+  COOLIEBASE_DOMAIN_MALL_UPSTREAM: process.env.COOLIEBASE_DOMAIN_MALL_UPSTREAM,
+  COOLIEBASE_DOMAIN_MEMBER_UPSTREAM: process.env.COOLIEBASE_DOMAIN_MEMBER_UPSTREAM,
+  COOLIEBASE_DOMAIN_CRM_UPSTREAM: process.env.COOLIEBASE_DOMAIN_CRM_UPSTREAM,
+  COOLIEBASE_DOMAIN_ERP_UPSTREAM: process.env.COOLIEBASE_DOMAIN_ERP_UPSTREAM,
+  COOLIEBASE_DOMAIN_WMS_UPSTREAM: process.env.COOLIEBASE_DOMAIN_WMS_UPSTREAM,
+  COOLIEBASE_DOMAIN_MES_UPSTREAM: process.env.COOLIEBASE_DOMAIN_MES_UPSTREAM,
+  COOLIEBASE_DOMAIN_AI_UPSTREAM: process.env.COOLIEBASE_DOMAIN_AI_UPSTREAM,
+  COOLIEBASE_DOMAIN_IOT_UPSTREAM: process.env.COOLIEBASE_DOMAIN_IOT_UPSTREAM,
+  COOLIEBASE_DOMAIN_IM_UPSTREAM: process.env.COOLIEBASE_DOMAIN_IM_UPSTREAM,
+  COOLIEBASE_PACK_DOMAIN: process.env.COOLIEBASE_PACK_DOMAIN,
 }
 
 const HOP_BY_HOP = new Set(["connection", "keep-alive", "proxy-authenticate", "proxy-authorization", "te", "trailers", "transfer-encoding", "upgrade", "host", "content-length"])
@@ -35,7 +35,7 @@ function headersFrom(source: Headers): Headers {
 async function forwardDomainUpstream(request: NextRequest, match: { domain: string; baseUrl: string }) {
   const target = new URL(`${request.nextUrl.pathname}${request.nextUrl.search}`, match.baseUrl)
   const headers = headersFrom(request.headers)
-  headers.set("x-ruoyi-upstream-domain", match.domain)
+  headers.set("x-cooliebase-upstream-domain", match.domain)
   headers.set("x-forwarded-host", request.headers.get("host") ?? "")
   headers.set("x-forwarded-proto", request.nextUrl.protocol.replace(":", ""))
   const init: RequestInit = { method: request.method, headers, redirect: "manual" }
@@ -43,10 +43,10 @@ async function forwardDomainUpstream(request: NextRequest, match: { domain: stri
   try {
     const upstream = await fetch(target, init)
     const responseHeaders = headersFrom(upstream.headers)
-    responseHeaders.set("x-ruoyi-upstream-domain", match.domain)
+    responseHeaders.set("x-cooliebase-upstream-domain", match.domain)
     return new NextResponse(upstream.body, { status: upstream.status, headers: responseHeaders })
   } catch {
-    return NextResponse.json({ success: false, error: `domain upstream unavailable: ${match.domain}` }, { status: 502, headers: { "x-ruoyi-upstream-domain": match.domain } })
+    return NextResponse.json({ success: false, error: `domain upstream unavailable: ${match.domain}` }, { status: 502, headers: { "x-cooliebase-upstream-domain": match.domain } })
   }
 }
 

@@ -10,7 +10,7 @@ publicPrefix:
   - /api/v1/admin/mall
   - /api/v1/app/mall
 upstream:
-  env: RUOYI_DOMAIN_MALL_UPSTREAM
+  env: COOLIEBASE_DOMAIN_MALL_UPSTREAM
   protocol: http
   defaultPort: 3217
 auth:
@@ -26,9 +26,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.mall
-  commandSubject: ruoyi.cmd.mall.>
-  eventSubject: ruoyi.evt.mall.>
+  queueGroup: cooliebase.mall
+  commandSubject: cooliebase.cmd.mall.>
+  eventSubject: cooliebase.evt.mall.>
 invoke:
   colocated: sdk
   remote: rpc

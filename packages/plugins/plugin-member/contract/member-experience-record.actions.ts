@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-experience-record.validator"
 
 export const memberExperienceRecordActionSchemas = {
-  "ruoyi.cmd.member.memberExperienceRecord.page": memberExperienceRecordPageQuerySchema,
-  "ruoyi.cmd.member.memberExperienceRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberExperienceRecord.create": memberExperienceRecordCreateSchema,
-  "ruoyi.cmd.member.memberExperienceRecord.update": memberExperienceRecordUpdateSchema,
-  "ruoyi.cmd.member.memberExperienceRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberExperienceRecord.page": memberExperienceRecordPageQuerySchema,
+  "cooliebase.cmd.member.memberExperienceRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberExperienceRecord.create": memberExperienceRecordCreateSchema,
+  "cooliebase.cmd.member.memberExperienceRecord.update": memberExperienceRecordUpdateSchema,
+  "cooliebase.cmd.member.memberExperienceRecord.delete": z.object({ id: z.string() }),
   "member.pageMemberExperienceRecord": memberExperienceRecordPageQuerySchema,
   "member.getMemberExperienceRecord": z.object({ id: z.string() }),
   "member.createMemberExperienceRecord": memberExperienceRecordCreateSchema,

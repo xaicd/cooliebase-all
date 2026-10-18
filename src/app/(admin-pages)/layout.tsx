@@ -33,16 +33,16 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     // Read persisted state
-    const savedLock = localStorage.getItem("ruoyi_sidebar_locked")
+    const savedLock = localStorage.getItem("cooliebase_sidebar_locked")
     if (savedLock !== null) setIsLocked(savedLock === "true")
 
-    const savedFavorites = localStorage.getItem("ruoyi_favorite_menus")
+    const savedFavorites = localStorage.getItem("cooliebase_favorite_menus")
     if (savedFavorites) {
       try { setFavoriteIds(JSON.parse(savedFavorites)) } catch {}
     }
 
     // Auth guard
-    const token = localStorage.getItem("ruoyi_token")
+    const token = localStorage.getItem("cooliebase_token")
     if (!token) { window.location.href = "/login"; return }
 
     try {
@@ -50,21 +50,21 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
       if (parts.length === 3) {
         const payload = JSON.parse(atob(parts[1].replace(/-/g, "+").replace(/_/g, "/")))
         if (payload.exp && payload.exp * 1000 < Date.now()) {
-          localStorage.removeItem("ruoyi_token")
-          localStorage.removeItem("ruoyi_user")
+          localStorage.removeItem("cooliebase_token")
+          localStorage.removeItem("cooliebase_user")
           window.location.href = "/login?expired=1"
           return
         }
       }
     } catch {
-      localStorage.removeItem("ruoyi_token")
-      localStorage.removeItem("ruoyi_user")
+      localStorage.removeItem("cooliebase_token")
+      localStorage.removeItem("cooliebase_user")
       window.location.href = "/login"
       return
     }
 
     try {
-      const user = localStorage.getItem("ruoyi_user")
+      const user = localStorage.getItem("cooliebase_user")
       if (user) {
         const parsed = JSON.parse(user)
         setUsername(parsed.nickname || parsed.username || "admin")
@@ -97,7 +97,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   const toggleLock = () => {
     const nextState = !isLocked
     setIsLocked(nextState)
-    localStorage.setItem("ruoyi_sidebar_locked", String(nextState))
+    localStorage.setItem("cooliebase_sidebar_locked", String(nextState))
   }
 
   const toggleFavorite = (id: string, e: React.MouseEvent) => {
@@ -107,7 +107,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
       ? favoriteIds.filter((item) => item !== id)
       : [...favoriteIds, id]
     setFavoriteIds(nextFavorites)
-    localStorage.setItem("ruoyi_favorite_menus", JSON.stringify(nextFavorites))
+    localStorage.setItem("cooliebase_favorite_menus", JSON.stringify(nextFavorites))
   }
 
   // Flatten all navigable leaf menus for search and favorites
@@ -163,8 +163,8 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   }
 
   const handleLogout = () => {
-    localStorage.removeItem("ruoyi_token")
-    localStorage.removeItem("ruoyi_user")
+    localStorage.removeItem("cooliebase_token")
+    localStorage.removeItem("cooliebase_user")
     window.location.href = "/login"
   }
 

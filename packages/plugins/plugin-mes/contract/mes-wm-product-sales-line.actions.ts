@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-sales-line.validator"
 
 export const mesWmProductSalesLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductSalesLine.page": mesWmProductSalesLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductSalesLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductSalesLine.create": mesWmProductSalesLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductSalesLine.update": mesWmProductSalesLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductSalesLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductSalesLine.page": mesWmProductSalesLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductSalesLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductSalesLine.create": mesWmProductSalesLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductSalesLine.update": mesWmProductSalesLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductSalesLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductSalesLine": mesWmProductSalesLinePageQuerySchema,
   "mes.getMesWmProductSalesLine": z.object({ id: z.string() }),
   "mes.createMesWmProductSalesLine": mesWmProductSalesLineCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-stock-move.validator"
 
 export const erpStockMoveActionSchemas = {
-  "ruoyi.cmd.erp.erpStockMove.page": erpStockMovePageQuerySchema,
-  "ruoyi.cmd.erp.erpStockMove.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpStockMove.create": erpStockMoveCreateSchema,
-  "ruoyi.cmd.erp.erpStockMove.update": erpStockMoveUpdateSchema,
-  "ruoyi.cmd.erp.erpStockMove.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockMove.page": erpStockMovePageQuerySchema,
+  "cooliebase.cmd.erp.erpStockMove.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockMove.create": erpStockMoveCreateSchema,
+  "cooliebase.cmd.erp.erpStockMove.update": erpStockMoveUpdateSchema,
+  "cooliebase.cmd.erp.erpStockMove.delete": z.object({ id: z.string() }),
   "erp.pageErpStockMove": erpStockMovePageQuerySchema,
   "erp.getErpStockMove": z.object({ id: z.string() }),
   "erp.createErpStockMove": erpStockMoveCreateSchema,

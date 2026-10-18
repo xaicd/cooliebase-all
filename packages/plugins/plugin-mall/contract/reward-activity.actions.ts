@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/reward-activity.validator"
 
 export const rewardActivityActionSchemas = {
-  "ruoyi.cmd.mall.rewardActivity.page": rewardActivityPageQuerySchema,
-  "ruoyi.cmd.mall.rewardActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.rewardActivity.create": rewardActivityCreateSchema,
-  "ruoyi.cmd.mall.rewardActivity.update": rewardActivityUpdateSchema,
-  "ruoyi.cmd.mall.rewardActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.rewardActivity.page": rewardActivityPageQuerySchema,
+  "cooliebase.cmd.mall.rewardActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.rewardActivity.create": rewardActivityCreateSchema,
+  "cooliebase.cmd.mall.rewardActivity.update": rewardActivityUpdateSchema,
+  "cooliebase.cmd.mall.rewardActivity.delete": z.object({ id: z.string() }),
   "mall.pageRewardActivity": rewardActivityPageQuerySchema,
   "mall.getRewardActivity": z.object({ id: z.string() }),
   "mall.createRewardActivity": rewardActivityCreateSchema,

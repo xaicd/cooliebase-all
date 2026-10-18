@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bargain-record.validator"
 
 export const bargainRecordActionSchemas = {
-  "ruoyi.cmd.mall.bargainRecord.page": bargainRecordPageQuerySchema,
-  "ruoyi.cmd.mall.bargainRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.bargainRecord.create": bargainRecordCreateSchema,
-  "ruoyi.cmd.mall.bargainRecord.update": bargainRecordUpdateSchema,
-  "ruoyi.cmd.mall.bargainRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainRecord.page": bargainRecordPageQuerySchema,
+  "cooliebase.cmd.mall.bargainRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainRecord.create": bargainRecordCreateSchema,
+  "cooliebase.cmd.mall.bargainRecord.update": bargainRecordUpdateSchema,
+  "cooliebase.cmd.mall.bargainRecord.delete": z.object({ id: z.string() }),
   "mall.pageBargainRecord": bargainRecordPageQuerySchema,
   "mall.getBargainRecord": z.object({ id: z.string() }),
   "mall.createBargainRecord": bargainRecordCreateSchema,

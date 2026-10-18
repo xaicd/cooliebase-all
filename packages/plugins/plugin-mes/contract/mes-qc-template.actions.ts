@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-qc-template.validator"
 
 export const mesQcTemplateActionSchemas = {
-  "ruoyi.cmd.mes.mesQcTemplate.page": mesQcTemplatePageQuerySchema,
-  "ruoyi.cmd.mes.mesQcTemplate.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesQcTemplate.create": mesQcTemplateCreateSchema,
-  "ruoyi.cmd.mes.mesQcTemplate.update": mesQcTemplateUpdateSchema,
-  "ruoyi.cmd.mes.mesQcTemplate.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcTemplate.page": mesQcTemplatePageQuerySchema,
+  "cooliebase.cmd.mes.mesQcTemplate.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcTemplate.create": mesQcTemplateCreateSchema,
+  "cooliebase.cmd.mes.mesQcTemplate.update": mesQcTemplateUpdateSchema,
+  "cooliebase.cmd.mes.mesQcTemplate.delete": z.object({ id: z.string() }),
   "mes.pageMesQcTemplate": mesQcTemplatePageQuerySchema,
   "mes.getMesQcTemplate": z.object({ id: z.string() }),
   "mes.createMesQcTemplate": mesQcTemplateCreateSchema,

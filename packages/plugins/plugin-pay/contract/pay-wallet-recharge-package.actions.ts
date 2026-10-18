@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-wallet-recharge-package.validator"
 
 export const payWalletRechargePackageActionSchemas = {
-  "ruoyi.cmd.pay.payWalletRechargePackage.page": payWalletRechargePackagePageQuerySchema,
-  "ruoyi.cmd.pay.payWalletRechargePackage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payWalletRechargePackage.create": payWalletRechargePackageCreateSchema,
-  "ruoyi.cmd.pay.payWalletRechargePackage.update": payWalletRechargePackageUpdateSchema,
-  "ruoyi.cmd.pay.payWalletRechargePackage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payWalletRechargePackage.page": payWalletRechargePackagePageQuerySchema,
+  "cooliebase.cmd.pay.payWalletRechargePackage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payWalletRechargePackage.create": payWalletRechargePackageCreateSchema,
+  "cooliebase.cmd.pay.payWalletRechargePackage.update": payWalletRechargePackageUpdateSchema,
+  "cooliebase.cmd.pay.payWalletRechargePackage.delete": z.object({ id: z.string() }),
   "pay.pagePayWalletRechargePackage": payWalletRechargePackagePageQuerySchema,
   "pay.getPayWalletRechargePackage": z.object({ id: z.string() }),
   "pay.createPayWalletRechargePackage": payWalletRechargePackageCreateSchema,

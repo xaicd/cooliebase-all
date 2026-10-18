@@ -1,11 +1,11 @@
 {
-  "$schema": "ruoyi-plugin-manifest/v1",
-  "id": "ruoyi.pay",
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.pay",
   "apiVersion": 1,
   "version": "0.1.0",
   "displayName": "pay",
   "description": "pay 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
-  "author": "RuoYi All Next",
+  "author": "CoolieBase All Base",
   "categories": [
     "automation"
   ],
@@ -24,7 +24,7 @@
       "/api/v1/app/pay",
       "/api/v1/open/pay"
     ],
-    "upstreamEnv": "RUOYI_DOMAIN_PAY_UPSTREAM",
+    "upstreamEnv": "COOLIEBASE_DOMAIN_PAY_UPSTREAM",
     "defaultPort": 3214,
     "packable": true,
     "independentDatabase": false,

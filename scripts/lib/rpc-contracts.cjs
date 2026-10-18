@@ -128,13 +128,13 @@ function toProto(domain, spec, catalog) {
   }
   return `syntax = "proto3";
 
-package ruoyi.${domain}.v1;
+package cooliebase.${domain}.v1;
 
 option go_package = "${catalog.goModule}/${domain}/v1;${domain}v1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.${domain}.v1.${service}/<Method>
+// gRPC path: /cooliebase.${domain}.v1.${service}/<Method>
 
 message JsonReply {
   string json = 1;
@@ -174,7 +174,7 @@ function toGo(domain, spec, catalog) {
       .map((field) => `\t${pascal(field.name)} ${goType(field)} \`${goTag(field)}\``)
       .join("\n")
     structs.push(`type ${request} struct {\n${body}\n}`)
-    consts.push(`\t${pathName} = "/ruoyi.${domain}.v1.${service}/${rpc}"`)
+    consts.push(`\t${pathName} = "/cooliebase.${domain}.v1.${service}/${rpc}"`)
     iface.push(`\t${rpc}(ctx context.Context, in *${request}) (*JsonReply, error)`)
     methods.push(`func (c *Client) ${rpc}(ctx context.Context, in *${request}) (*JsonReply, error) {
 	raw, err := c.Invoke(ctx, ${pathName}, in)
@@ -215,7 +215,7 @@ ${methods.join("\n\n")}
 }
 
 function toGoMod() {
-  return `module ruoyi/all-next/gen
+  return `module cooliebase/all-base/gen
 
 go 1.22
 `
