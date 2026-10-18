@@ -1,6 +1,6 @@
 import type { CaptchaVerifyInput } from "@/modules/system/backend/validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 type CaptchaRecord = {
   code: string
@@ -19,7 +19,7 @@ export class SystemCaptchaService {
     const code = randomCode()
     const expiresAt = Date.now() + CAPTCHA_TTL_MS
 
-    await ruoyiPrisma.setting.upsert({
+    await cooliebasePrisma.setting.upsert({
       where: { key: `captcha:${captchaId}` },
       create: { key: `captcha:${captchaId}`, value: { code, expiresAt } },
       update: { value: { code, expiresAt } },
@@ -38,7 +38,7 @@ export class SystemCaptchaService {
   }
 
   static async verify(input: CaptchaVerifyInput) {
-    const row = await ruoyiPrisma.setting.findUnique({ where: { key: `captcha:${input.captchaId}` } })
+    const row = await cooliebasePrisma.setting.findUnique({ where: { key: `captcha:${input.captchaId}` } })
     const record = row?.value as CaptchaRecord | null
     const now = Date.now()
 
@@ -48,7 +48,7 @@ export class SystemCaptchaService {
     })
 
     if (!record || record.expiresAt < now) {
-      await ruoyiPrisma.setting.deleteMany({ where: { key: { startsWith: `captcha:${input.captchaId}` } } })
+      await cooliebasePrisma.setting.deleteMany({ where: { key: { startsWith: `captcha:${input.captchaId}` } } })
       throw new Error("验证码无效或已过期")
     }
 
@@ -56,7 +56,7 @@ export class SystemCaptchaService {
       throw new Error("验证码错误")
     }
 
-    await ruoyiPrisma.setting.deleteMany({ where: { key: { startsWith: `captcha:${input.captchaId}` } } })
+    await cooliebasePrisma.setting.deleteMany({ where: { key: { startsWith: `captcha:${input.captchaId}` } } })
     domainLog.audit("system.captcha.verify.success", {
       captchaId: input.captchaId,
     })

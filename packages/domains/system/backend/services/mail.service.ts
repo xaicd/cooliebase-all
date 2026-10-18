@@ -1,6 +1,6 @@
 import type { CreateMailAccountInput, SystemModulePageQueryInput } from "../validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 type MailAccountItem = {
   id: string
@@ -36,7 +36,7 @@ export class SystemMailService {
       hasKeyword: Boolean(input.keyword),
     })
 
-    const setting = await ruoyiPrisma.setting.findUnique({ where: { key: ACCOUNTS_SETTING_KEY } })
+    const setting = await cooliebasePrisma.setting.findUnique({ where: { key: ACCOUNTS_SETTING_KEY } })
     const items = parseItems<MailAccountItem>(setting?.value)
     const keyword = input.keyword?.trim().toLowerCase() ?? ""
     const filtered = keyword
@@ -53,7 +53,7 @@ export class SystemMailService {
   }
 
   static async createAccount(operatorId: string, input: CreateMailAccountInput) {
-    const setting = await ruoyiPrisma.setting.upsert({
+    const setting = await cooliebasePrisma.setting.upsert({
       where: { key: ACCOUNTS_SETTING_KEY },
       update: {},
       create: { key: ACCOUNTS_SETTING_KEY, value: [] },
@@ -67,7 +67,7 @@ export class SystemMailService {
     }
     const nextItems = [created, ...items]
 
-    await ruoyiPrisma.setting.update({
+    await cooliebasePrisma.setting.update({
       where: { key: ACCOUNTS_SETTING_KEY },
       data: { value: nextItems },
     })
@@ -87,7 +87,7 @@ export class SystemMailService {
       hasKeyword: Boolean(input.keyword),
     })
 
-    const setting = await ruoyiPrisma.setting.findUnique({ where: { key: LOGS_SETTING_KEY } })
+    const setting = await cooliebasePrisma.setting.findUnique({ where: { key: LOGS_SETTING_KEY } })
     const items = parseItems<MailLogItem>(setting?.value)
     const keyword = input.keyword?.trim().toLowerCase() ?? ""
     const filtered = keyword

@@ -25,7 +25,7 @@ import path from "node:path"
 
 import { Client } from "pg"
 
-import { ruoyiPrisma } from "../prisma"
+import { cooliebasePrisma } from "../prisma"
 
 /** 插件数据所在的 schema 名。只允许 [a-z0-9_]，避免注入与引号问题。 */
 export function pluginSchemaName(pluginKey: string): string {
@@ -118,7 +118,7 @@ export async function runPluginMigrations(input: {
     .sort()
   if (files.length === 0) return { ...empty, skippedReason: "迁移目录里没有 .sql 文件" }
 
-  const records = await ruoyiPrisma.pluginMigration.findMany({ where: { pluginKey: input.pluginKey } })
+  const records = await cooliebasePrisma.pluginMigration.findMany({ where: { pluginKey: input.pluginKey } })
   const done = new Set(records.map((record) => record.name))
 
   const applied: string[] = []
@@ -146,7 +146,7 @@ export async function runPluginMigrations(input: {
         const message = error instanceof Error ? error.message : String(error)
         throw new Error(`插件迁移 ${file} 执行失败（已回滚）：${message}`)
       }
-      await ruoyiPrisma.pluginMigration.create({
+      await cooliebasePrisma.pluginMigration.create({
         data: { pluginKey: input.pluginKey, name: file, schema },
       })
       applied.push(file)

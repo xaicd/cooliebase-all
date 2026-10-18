@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 import { BpmProcessService } from "../process.service"
 
 describe("BpmProcessService", () => {
@@ -8,7 +8,7 @@ describe("BpmProcessService", () => {
   })
 
   it("propagates database failures instead of falling back to mock definitions", async () => {
-    vi.spyOn(ruoyiPrisma.approvalTask, "groupBy").mockRejectedValueOnce(new Error("db unavailable"))
+    vi.spyOn(cooliebasePrisma.approvalTask, "groupBy").mockRejectedValueOnce(new Error("db unavailable"))
 
     await expect(
       BpmProcessService.listDefinitions({ page: 1, pageSize: 20, keyword: "" }),

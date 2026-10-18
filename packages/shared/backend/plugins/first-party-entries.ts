@@ -16,21 +16,21 @@
 type PluginEntryFactory = () => Promise<Record<string, unknown>>
 
 export const FIRST_PARTY_PLUGIN_ENTRIES: Record<string, PluginEntryFactory> = {
-  "ruoyi.pay": () => import("@/plugins/plugin-pay/plugin-entry"),
-  "ruoyi.report": () => import("@/plugins/plugin-report/plugin-entry"),
-  "ruoyi.bpm": () => import("@/plugins/plugin-bpm/plugin-entry"),
-  "ruoyi.mp": () => import("@/plugins/plugin-mp/plugin-entry"),
-  "ruoyi.member": () => import("@/plugins/plugin-member/plugin-entry"),
-  "ruoyi.iot": () => import("@/plugins/plugin-iot/plugin-entry"),
-  "ruoyi.erp": () => import("@/plugins/plugin-erp/plugin-entry"),
-  "ruoyi.im": () => import("@/plugins/plugin-im/plugin-entry"),
-  "ruoyi.aigw": () => import("@/plugins/plugin-aigw/plugin-entry"),
-  "ruoyi.ai": () => import("@/plugins/plugin-ai/plugin-entry"),
-  "ruoyi.crm": () => import("@/plugins/plugin-crm/plugin-entry"),
-  "ruoyi.wms": () => import("@/plugins/plugin-wms/plugin-entry"),
-  "ruoyi.online": () => import("@/plugins/plugin-online/plugin-entry"),
-  "ruoyi.mall": () => import("@/plugins/plugin-mall/plugin-entry"),
-  "ruoyi.mes": () => import("@/plugins/plugin-mes/plugin-entry"),
+  "cooliebase.pay": () => import("@/plugins/plugin-pay/plugin-entry"),
+  "cooliebase.report": () => import("@/plugins/plugin-report/plugin-entry"),
+  "cooliebase.bpm": () => import("@/plugins/plugin-bpm/plugin-entry"),
+  "cooliebase.mp": () => import("@/plugins/plugin-mp/plugin-entry"),
+  "cooliebase.member": () => import("@/plugins/plugin-member/plugin-entry"),
+  "cooliebase.iot": () => import("@/plugins/plugin-iot/plugin-entry"),
+  "cooliebase.erp": () => import("@/plugins/plugin-erp/plugin-entry"),
+  "cooliebase.im": () => import("@/plugins/plugin-im/plugin-entry"),
+  "cooliebase.aigw": () => import("@/plugins/plugin-aigw/plugin-entry"),
+  "cooliebase.ai": () => import("@/plugins/plugin-ai/plugin-entry"),
+  "cooliebase.crm": () => import("@/plugins/plugin-crm/plugin-entry"),
+  "cooliebase.wms": () => import("@/plugins/plugin-wms/plugin-entry"),
+  "cooliebase.online": () => import("@/plugins/plugin-online/plugin-entry"),
+  "cooliebase.mall": () => import("@/plugins/plugin-mall/plugin-entry"),
+  "cooliebase.mes": () => import("@/plugins/plugin-mes/plugin-entry"),
 }
 
 /** 取第一方插件入口工厂；不是第一方插件时返回 undefined（调用方回退到运行期 import）。 */

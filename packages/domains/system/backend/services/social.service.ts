@@ -1,6 +1,6 @@
 import type { CreateSocialUserInput, SystemModulePageQueryInput } from "../validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 
 type SocialUserItem = {
   id: string
@@ -28,7 +28,7 @@ export class SystemSocialService {
       hasKeyword: Boolean(input.keyword),
     })
 
-    const setting = await ruoyiPrisma.setting.findUnique({ where: { key: SETTING_KEY } })
+    const setting = await cooliebasePrisma.setting.findUnique({ where: { key: SETTING_KEY } })
     const items = parseItems<SocialUserItem>(setting?.value)
     const keyword = input.keyword?.trim().toLowerCase() ?? ""
     const filtered = keyword
@@ -50,7 +50,7 @@ export class SystemSocialService {
   }
 
   static async createUser(operatorId: string, input: CreateSocialUserInput) {
-    const setting = await ruoyiPrisma.setting.upsert({
+    const setting = await cooliebasePrisma.setting.upsert({
       where: { key: SETTING_KEY },
       update: {},
       create: { key: SETTING_KEY, value: [] },
@@ -65,7 +65,7 @@ export class SystemSocialService {
     }
     const nextItems = [created, ...items]
 
-    await ruoyiPrisma.setting.update({
+    await cooliebasePrisma.setting.update({
       where: { key: SETTING_KEY },
       data: { value: nextItems },
     })

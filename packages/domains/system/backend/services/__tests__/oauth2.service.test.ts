@@ -1,9 +1,9 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
 import { hashPasswordMD5 } from "@/modules/shared/backend/lib/crypto"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 import { SystemOauth2Service } from "../oauth2.service"
 
-// 本文件是 PostgreSQL 集成测试: 服务层直接经 ruoyiPrisma 落库, 依赖真实数据库。
+// 本文件是 PostgreSQL 集成测试: 服务层直接经 cooliebasePrisma 落库, 依赖真实数据库。
 // 未配置 DATABASE_URL 时跳过, 否则在默认本地环境下必然红灯(并非真实缺陷)。
 // 运行方式: DATABASE_URL=postgresql://<user>:<pass>@<host>:<port>/<db> npm test
 const describeWithDatabase = process.env.DATABASE_URL ? describe : describe.skip
@@ -11,12 +11,12 @@ const describeWithDatabase = process.env.DATABASE_URL ? describe : describe.skip
 describeWithDatabase("SystemOauth2Service", () => {
   afterEach(async () => {
     vi.restoreAllMocks()
-    await ruoyiPrisma.setting.deleteMany({ where: { key: { in: ["system.oauth2.clients", "system.oauth2.tokens"] } } })
-    await ruoyiPrisma.admin.deleteMany({ where: { username: { startsWith: "oauth2-test-" } } })
+    await cooliebasePrisma.setting.deleteMany({ where: { key: { in: ["system.oauth2.clients", "system.oauth2.tokens"] } } })
+    await cooliebasePrisma.admin.deleteMany({ where: { username: { startsWith: "oauth2-test-" } } })
   })
 
   it("opens tokens against persisted clients and admin credentials", async () => {
-    const admin = await ruoyiPrisma.admin.create({
+    const admin = await cooliebasePrisma.admin.create({
       data: {
         id: `oauth2-admin-${Date.now()}`,
         username: "oauth2-test-admin",
@@ -26,7 +26,7 @@ describeWithDatabase("SystemOauth2Service", () => {
       },
     })
 
-    await ruoyiPrisma.setting.upsert({
+    await cooliebasePrisma.setting.upsert({
       where: { key: "system.oauth2.clients" },
       create: {
         key: "system.oauth2.clients",
@@ -74,7 +74,7 @@ describeWithDatabase("SystemOauth2Service", () => {
   })
 
   it("lists persisted oauth2 clients from the database", async () => {
-    await ruoyiPrisma.setting.upsert({
+    await cooliebasePrisma.setting.upsert({
       where: { key: "system.oauth2.clients" },
       create: {
         key: "system.oauth2.clients",

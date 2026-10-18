@@ -14,7 +14,7 @@ import {
   resolveRemoteSerialization,
 } from "./rpc-protocol"
 
-export const RPC_TOKEN_HEADER = "x-ruoyi-rpc-token"
+export const RPC_TOKEN_HEADER = "x-cooliebase-rpc-token"
 
 export type RpcHttpEnvelope = {
   domain: string

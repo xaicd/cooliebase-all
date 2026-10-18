@@ -1,10 +1,10 @@
 import { afterEach, describe, expect, it } from "vitest"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 import { InfraApiLogService } from "../api-log.service"
 import { InfraConfigService } from "../config.service"
 import { InfraJobCenterService } from "../job-center.service"
 
-// 本文件是 PostgreSQL 集成测试: 服务层直接经 ruoyiPrisma 落库, 依赖真实数据库。
+// 本文件是 PostgreSQL 集成测试: 服务层直接经 cooliebasePrisma 落库, 依赖真实数据库。
 // 未配置 DATABASE_URL 时跳过, 否则在默认本地环境下必然红灯(并非真实缺陷)。
 // 运行方式: DATABASE_URL=postgresql://<user>:<pass>@<host>:<port>/<db> npm test
 const describeWithDatabase = process.env.DATABASE_URL ? describe : describe.skip
@@ -13,7 +13,7 @@ describeWithDatabase("infra services", () => {
   const createdKeys: string[] = []
 
   afterEach(async () => {
-    await ruoyiPrisma.setting.deleteMany({
+    await cooliebasePrisma.setting.deleteMany({
       where: { key: { in: createdKeys } },
     })
     createdKeys.length = 0
@@ -37,7 +37,7 @@ describeWithDatabase("infra services", () => {
   })
 
   it("reads persisted api logs from the database", async () => {
-    await ruoyiPrisma.setting.upsert({
+    await cooliebasePrisma.setting.upsert({
       where: { key: "infra.api-logs" },
       create: {
         key: "infra.api-logs",
@@ -75,7 +75,7 @@ describeWithDatabase("infra services", () => {
   })
 
   it("updates a persisted job state and returns the new state", async () => {
-    await ruoyiPrisma.setting.upsert({
+    await cooliebasePrisma.setting.upsert({
       where: { key: "infra.jobs" },
       create: {
         key: "infra.jobs",

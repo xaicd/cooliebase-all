@@ -1,5 +1,5 @@
 import { afterEach, describe, expect, it, vi } from "vitest"
-import { ruoyiPrisma } from "@/modules/shared/backend/prisma"
+import { cooliebasePrisma } from "@/modules/shared/backend/prisma"
 import { InfraTemplateEngineService } from "../template-engine.service"
 
 const { settingStore } = vi.hoisted(() => ({
@@ -7,7 +7,7 @@ const { settingStore } = vi.hoisted(() => ({
 }))
 
 vi.mock("@/modules/shared/backend/prisma", () => ({
-  ruoyiPrisma: {
+  cooliebasePrisma: {
     setting: {
       findUnique: async ({ where }: { where: { key: string } }) => settingStore.get(where.key) ?? null,
       findMany: async () => [...settingStore.values()],
@@ -26,7 +26,7 @@ vi.mock("@/modules/shared/backend/prisma", () => ({
 
 describe("InfraTemplateEngineService", () => {
   afterEach(async () => {
-    await ruoyiPrisma.setting.deleteMany({ where: { key: "infra.template-engine.templates" } })
+    await cooliebasePrisma.setting.deleteMany({ where: { key: "infra.template-engine.templates" } })
   })
 
   it("persists template records and renders previews", async () => {

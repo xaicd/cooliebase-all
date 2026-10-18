@@ -3,7 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg"
 
 declare global {
   // eslint-disable-next-line no-var
-  var __ruoyiAllNextPrisma__: PrismaClient | undefined
+  var __cooliebaseAllBasePrisma__: PrismaClient | undefined
 }
 
 function createClient(): PrismaClient {
@@ -18,12 +18,12 @@ function createClient(): PrismaClient {
   } catch (error) {
     // 构造失败属配置错误, 此处刻意不降级为空实现(mock): 静默返回空结果会把配置故障
     // 伪装成"没有数据", 比直接失败危险得多。
-    throw new Error(`[ruoyiPrisma] PrismaClient 构造失败: ${String(error)}`)
+    throw new Error(`[cooliebasePrisma] PrismaClient 构造失败: ${String(error)}`)
   }
 }
 
-export const ruoyiPrisma = globalThis.__ruoyiAllNextPrisma__ ?? createClient()
+export const cooliebasePrisma = globalThis.__cooliebaseAllBasePrisma__ ?? createClient()
 
 if (process.env.NODE_ENV !== "production") {
-  globalThis.__ruoyiAllNextPrisma__ = ruoyiPrisma
+  globalThis.__cooliebaseAllBasePrisma__ = cooliebasePrisma
 }

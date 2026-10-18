@@ -1,6 +1,6 @@
 /**
  * In-house gRPC unary fabric. No @grpc/grpc-js.
- * Paths: /ruoyi.<domain>.v1.<Domain>Service/<Method>
+ * Paths: /cooliebase.<domain>.v1.<Domain>Service/<Method>
  */
 import { withInvokeTimeout } from "./rpc-protocol"
 
@@ -16,11 +16,11 @@ export function resetGrpcFabric() {
 export function grpcMethodPath(domain: string, method: string): string {
   const service = `${domain.charAt(0).toUpperCase()}${domain.slice(1)}`
   const rpc = `${method.charAt(0).toUpperCase()}${method.slice(1)}`
-  return `/ruoyi.${domain}.v1.${service}Service/${rpc}`
+  return `/cooliebase.${domain}.v1.${service}Service/${rpc}`
 }
 
 export function parseGrpcPath(path: string): { domain: string; method: string } {
-  const matched = path.match(/^\/ruoyi\.([a-z][a-z0-9]*)\.v1\.[A-Z][A-Za-z0-9]*Service\/([A-Z][A-Za-z0-9]*)$/)
+  const matched = path.match(/^\/cooliebase\.([a-z][a-z0-9]*)\.v1\.[A-Z][A-Za-z0-9]*Service\/([A-Z][A-Za-z0-9]*)$/)
   if (!matched) throw new Error(`Invalid gRPC path: ${path}`)
   const rpc = matched[2]
   return { domain: matched[1], method: `${rpc.charAt(0).toLowerCase()}${rpc.slice(1)}` }

@@ -66,7 +66,7 @@ export function commandSubject(domain: string, method: string): string {
 
 export function eventSubject(type: string): string {
   const prefix = messagingCatalog().eventSubjectPrefix
-  const normalized = type.trim().replace(/^ruoyi\.evt\./, "")
+  const normalized = type.trim()
   return `${prefix}.${normalized}`
 }
 
@@ -76,7 +76,7 @@ export function eventTypeFromSubject(subject: string): string {
 }
 
 export function queueGroupFor(domain: string): string {
-  return `ruoyi.${domain}`
+  return `cooliebase.${domain}`
 }
 
 export function assertKnownDomain(domain: string): DomainCatalogEntry {

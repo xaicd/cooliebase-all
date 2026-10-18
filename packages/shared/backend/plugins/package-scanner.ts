@@ -14,18 +14,18 @@ import { parsePluginManifest } from "./manifest"
 import type { PluginManifest, PluginPackagePointer } from "./types"
 
 /** 插件包 package.json 中的入口指针键名。 */
-export const PLUGIN_POINTER_KEY = "ruoyiPlugin"
+export const PLUGIN_POINTER_KEY = "cooliebasePlugin"
 
 /** 仓内第一方插件根（Paperclip 的 packages/plugins/* 形态）。 */
 export function firstPartyPluginRoots(repoRoot: string = process.cwd()): string[] {
   return [path.join(repoRoot, "packages", "plugins")]
 }
 
-/** 插件目录：可用 RUOYI_PLUGIN_DIR 覆盖；默认落在仓库内的 .ruoyi/plugins（已 gitignore）。 */
+/** 插件目录：可用 COOLIEBASE_PLUGIN_DIR 覆盖；默认落在仓库内的 .cooliebase/plugins（已 gitignore）。 */
 export function resolvePluginDir(env: NodeJS.ProcessEnv = process.env): string {
-  const configured = env.RUOYI_PLUGIN_DIR?.trim()
+  const configured = env.COOLIEBASE_PLUGIN_DIR?.trim()
   if (configured) return path.resolve(configured)
-  return path.join(process.cwd(), ".ruoyi", "plugins")
+  return path.join(process.cwd(), ".cooliebase", "plugins")
 }
 
 export type DiscoveredPlugin = {
