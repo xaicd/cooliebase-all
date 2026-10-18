@@ -1,7 +1,7 @@
 {
   "version": 1,
   "description": "RPC action catalog. Source of truth for contract/actions.ts, domain facades, Go .proto files, and gen/go stubs.",
-  "goModule": "ruoyi/all-next/gen",
+  "goModule": "cooliebase/all-base/gen",
   "exposure": {
     "description": "system/infra are not a public microservice surface. Business domains may call public methods only. platform is for shared/online/report. Everything else is BFF-local.",
     "system": {

@@ -372,8 +372,8 @@
   "messaging": {
     "protocolVersion": "v1",
     "defaultTransport": "in-process",
-    "commandSubjectPrefix": "ruoyi.cmd",
-    "eventSubjectPrefix": "ruoyi.evt",
+    "commandSubjectPrefix": "cooliebase.cmd",
+    "eventSubjectPrefix": "cooliebase.evt",
     "headerKeys": {
       "contractVersion": "x-contract-version",
       "traceId": "x-trace-id",

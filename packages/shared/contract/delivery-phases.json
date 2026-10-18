@@ -1,5 +1,5 @@
 {
-  "$schema": "ruoyi.delivery.phases/v1",
+  "$schema": "cooliebase.delivery.phases/v1",
   "note": "AI-Driven 全环节交付清单。带 {domain} 的产物按特性收窄（--feature <名>）。每阶段挂 gate 编号与负责角色，证据写进 docs/features/<名>/evidence.json —— 对齐 CMMI 的 G0-G5 与『证据不可跨角色借用』。",
   "phases": [
     {

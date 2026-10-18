@@ -1,5 +1,5 @@
 {
-  "$schema": "ruoyi.load-baseline/v1",
+  "$schema": "cooliebase.load-baseline/v1",
   "note": "压测基线（**回归护栏，不是跑分**）。\n\n## 实测（standalone 产物、12 核、本机）\n  /healthz 26,877 rps   /login 30,769 rps   /api/v1/admin/system/users 31,634 rps\n对照实验（同一产物、同一台机，只换数据库）:\n  memory    /healthz 24,942  /login 29,529\n  postgres  /healthz 26,063  /login 30,785\n→ **数据库不是性能变量**；standalone 真实水平 ~25–30k rps（与手工测得 23k 三方吻合）。\n\n## 阈值为什么这么低\nminRps 设 5,000 —— 比实测低约 5–6 倍。它**不是**性能目标，是**回归护栏**:\n目的是拦住『某次改动把吞吐打成十分之一』，而不是追求排行榜。\n真实容量结论必须在生产环境用真实流量压 —— 本地压不出来，也不该假装压出来。",
   "targets": [
     {

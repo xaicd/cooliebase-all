@@ -1,5 +1,5 @@
 {
-  "$schema": "ruoyi.admin-pages/v1",
+  "$schema": "cooliebase.admin-pages/v1",
   "note": "admin 路由 → 页面实现的**声明**（真源）。由 scripts/generate-admin-pages.cjs 展开成「一个派发器 + 一张映射表」；页面实现在各域包里。手写页面（kind=unknown）保持为文件，静态路由优先于派发器。",
   "pages": [
     {
