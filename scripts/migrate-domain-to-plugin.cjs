@@ -36,7 +36,7 @@ const catalogPath = path.join(ROOT, "packages/shared/backend/constants/domain-ca
 const governanceCandidates = fs.existsSync(path.join(ROOT, "docs/architecture"))
   ? fs.readdirSync(path.join(ROOT, "docs/architecture")).filter((f) => f.endsWith("-domain-governance.md"))
   : []
-const governancePath = path.join(ROOT, "docs/architecture", governanceCandidates[0] ?? "cooliebase-all-base-domain-governance.md")
+const governancePath = path.join(ROOT, "docs/architecture", governanceCandidates[0] ?? "cooliebase-all-domain-governance.md")
 const entriesPath = path.join(ROOT, "packages/shared/backend/plugins/first-party-entries.ts")
 const tsconfigPath = path.join(ROOT, "tsconfig.json")
 const vitestPath = path.join(ROOT, "vitest.config.ts")

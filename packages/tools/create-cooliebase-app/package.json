@@ -1,7 +1,7 @@
 {
   "name": "create-cooliebase-app",
   "version": "1.0.0",
-  "description": "Zero-Git-History instant scaffolding CLI for cooliebase-all-base enterprise Next.js fullstack foundation",
+  "description": "Zero-Git-History instant scaffolding CLI for cooliebase-all enterprise Next.js fullstack foundation",
   "main": "bin/index.js",
   "bin": {
     "create-cooliebase-app": "bin/index.js"
@@ -18,14 +18,14 @@
     "cmmi",
     "sqlite"
   ],
-  "author": "cooliebase-all-base team",
+  "author": "cooliebase-all team",
   "license": "MIT",
   "engines": {
     "node": ">=20.0.0"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/xaicd/cooliebase-all-base.git",
+    "url": "https://github.com/xaicd/cooliebase-all.git",
     "directory": "packages/tools/create-cooliebase-app"
   }
 }

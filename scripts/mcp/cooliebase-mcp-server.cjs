@@ -34,7 +34,7 @@ function readPluginManifest(name) {
   }
 }
 
-const SERVER_NAME = "cooliebase-all-base"
+const SERVER_NAME = "cooliebase-all"
 const SERVER_VERSION = "1.0.0"
 const SUPPORTED_PROTOCOL_VERSIONS = ["2025-06-18", "2024-11-05"]
 const GATE_TIMEOUT_MS = 120000

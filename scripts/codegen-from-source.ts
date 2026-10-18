@@ -99,7 +99,7 @@ function main() {
   const targetDomains = domainArg ? [domainArg] : DOMAINS
   const report: Record<string, unknown> = {}
 
-  console.log("=== cooliebase-all-base 源仓库能力扫描 ===\n")
+  console.log("=== cooliebase-all 源仓库能力扫描 ===\n")
   for (const domain of targetDomains) {
     const controllers = scanControllers(domain)
     const views = scanViews(domain)

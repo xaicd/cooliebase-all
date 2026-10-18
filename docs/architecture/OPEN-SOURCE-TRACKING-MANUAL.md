@@ -9,7 +9,7 @@
 
 ## 一、 为什么必须建立开源持续追踪机制？
 
-`cooliebase-all-base` 的定位是 **现代全栈中后台企业级基座与 AI-Native 交付工厂**。本项目站在巨人的肩膀上，大量汲取了国内外顶尖开源项目的精髓。
+`cooliebase-all` 的定位是 **现代全栈中后台企业级基座与 AI-Native 交付工厂**。本项目站在巨人的肩膀上，大量汲取了国内外顶尖开源项目的精髓。
 
 然而，企业级软件工程最危险的隐患是：**“一次性搬迁后彻底闭门造车，与上游生态演进和安全补丁脱节”**。
 - 上游若依/芋道在成千上万企业生产环境中验证并修复的 **业务状态机边界 Bug、支付回调并发漏洞、并发库存超卖暗坑**，若不持续跟踪，本仓就会重新踩坑；
@@ -21,10 +21,10 @@
 
 ## 二、 四大开源技术谱系与基准雷达
 
-本仓在 [`docs/architecture/upstream-radar-catalog.json`](file:///host-workspace/xaicd/cooliebase-all-base/docs/architecture/upstream-radar-catalog.json) 中系统收录了四大技术谱系：
+本仓在 [`docs/architecture/upstream-radar-catalog.json`](file:///host-workspace/xaicd/cooliebase-all/docs/architecture/upstream-radar-catalog.json) 中系统收录了四大技术谱系：
 
 ```
-                      【cooliebase-all-base 开源追踪四大谱系】
+                      【cooliebase-all 开源追踪四大谱系】
 
  ┌────────────────────────────────────────────────────────────────────────┐
  │ 1. 业务模型与领域契约谱系 (Domain & Contract Upstreams)               │

@@ -166,6 +166,9 @@ importers:
 
   .:
     dependencies:
+      '@cooliebase/plugin-sdk':
+        specifier: workspace:*
+        version: link:packages/plugins/sdk
       '@prisma/adapter-pg':
         specifier: ^7.10.0
         version: 7.10.0
@@ -175,9 +178,6 @@ importers:
       '@puckeditor/core':
         specifier: 0.23.0
         version: 0.23.0(@floating-ui/dom@1.8.0)(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)(use-sync-external-store@1.7.0(react@19.3.0))
-      '@cooliebase/plugin-sdk':
-        specifier: workspace:*
-        version: link:packages/plugins/sdk
       better-sqlite3:
         specifier: ^12.11.1
         version: 12.11.1
@@ -212,6 +212,9 @@ importers:
         specifier: ^4.6.5
         version: 4.6.5
     devDependencies:
+      '@esbuild/darwin-arm64':
+        specifier: ^0.28.2
+        version: 0.28.2
       '@types/better-sqlite3':
         specifier: ^7.6.12
         version: 7.6.13
@@ -7243,8 +7246,7 @@ snapshots:
   '@esbuild/android-x64@0.28.2':
     optional: true
 
-  '@esbuild/darwin-arm64@0.28.2':
-    optional: true
+  '@esbuild/darwin-arm64@0.28.2': {}
 
   '@esbuild/darwin-x64@0.28.2':
     optional: true

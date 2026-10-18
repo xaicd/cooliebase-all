@@ -29,8 +29,8 @@ const AGENT_PROFILE_REL = path.join("packages", "shared", "contract", "agent-pro
 const HATCH_MANIFEST_REL = path.join("packages", "shared", "contract", "hatch-manifest.json")
 
 // 默认基准标识符 (对标 Yudao 的 GROUP_ID, ARTIFACT_ID, TITLE)
-const BASE_PROJECT_NAME = "cooliebase-all-base"
-const BASE_PROJECT_TITLE = "CoolieBase All Base"
+const BASE_PROJECT_NAME = "cooliebase-all"
+const BASE_PROJECT_TITLE = "CoolieBase All"
 const BASE_DB_NAME = "cooliebase_next"
 
 /**
@@ -88,8 +88,8 @@ const PROTECTED_DOCS = new Set([
  */
 function transformFileContent(content, targetName, targetTitle, targetDbName, targetPort) {
   return content
-    .replace(/cooliebase-all-base/g, targetName)
-    .replace(/CoolieBase All Base/g, targetTitle)
+    .replace(/cooliebase-all/g, targetName)
+    .replace(/CoolieBase All/g, targetTitle)
     .replace(/cooliebase_next/g, targetDbName)
     .replace(/PORT=3100/g, `PORT=${targetPort}`)
 }
@@ -830,7 +830,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     gitInit(["add", "-A"])
     gitInit([
       "-c", "user.email=hatch@local", "-c", "user.name=hatch",
-      "commit", "-q", "-m", "chore: 孵化自 cooliebase-all-base 基座\n\nCo-authored-by: CommandCodeBot <noreply@commandcode.ai>",
+      "commit", "-q", "-m", "chore: 孵化自 cooliebase-all 基座\n\nCo-authored-by: CommandCodeBot <noreply@commandcode.ai>",
     ])
     console.log("[reactor] 已 git init 并提交首个快照（任务痕迹与指纹需要它）")
   }

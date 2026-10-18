@@ -179,10 +179,10 @@ describe("dual-mode broker invoke and facade", () => {
     broker.start({})
     const updated = await infraFacade.updateConfig({
       key: "sys.application.name",
-      value: "cooliebase-all-base-facade",
+      value: "cooliebase-all-facade",
     })
     expect(updated.success, updated.error).toBe(true)
-    expect(updated.data).toMatchObject({ key: "sys.application.name", value: "cooliebase-all-base-facade" })
+    expect(updated.data).toMatchObject({ key: "sys.application.name", value: "cooliebase-all-facade" })
   })
 
   it("routes system.getDictDataByType onto SystemDictService", async () => {

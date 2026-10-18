@@ -2,7 +2,7 @@
 
 /**
  * create-cooliebase-app
- * Zero-Git-History instant scaffolding CLI for cooliebase-all-base.
+ * Zero-Git-History instant scaffolding CLI for cooliebase-all.
  *
  * Usage:
  *   npx create-cooliebase-app my-app
@@ -77,7 +77,7 @@ async function main() {
 
   if (isInteractive) {
     console.log(BANNER)
-    console.log("🚀 欢迎使用 cooliebase-all-base 极速创建向导！\n")
+    console.log("🚀 欢迎使用 cooliebase-all 极速创建向导！\n")
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
     target = await prompt(rl, "1. 目标工程目录名 (kebab-case)", "my-cooliebase-app")
     title = await prompt(rl, "2. 中文业务系统全称", "企业数字化智能业务中台")
@@ -114,7 +114,7 @@ async function main() {
   console.log("\n[1/4] 正在拉取干净代码骨架 (Zero-Git-History)...")
   let pullSuccess = false
   try {
-    const degitRes = spawnSync("npx", ["degit", "xaicd/cooliebase-all-base#main", targetDir, "--force"], {
+    const degitRes = spawnSync("npx", ["degit", "xaicd/cooliebase-all#main", targetDir, "--force"], {
       stdio: "inherit"
     })
     if (degitRes.status === 0) pullSuccess = true
@@ -123,7 +123,7 @@ async function main() {
   if (!pullSuccess) {
     console.log("ℹ️ degit 拉取失败，自动降级为 git shallow clone...")
     try {
-      execSync(`git clone --depth 1 https://github.com/xaicd/cooliebase-all-base.git "${targetDir}"`, {
+      execSync(`git clone --depth 1 https://github.com/xaicd/cooliebase-all.git "${targetDir}"`, {
         stdio: "inherit"
       })
       // 删除上游 Git 历史
@@ -157,7 +157,7 @@ async function main() {
   // 3. 自动建立独立的业务首提交
   console.log("\n[3/4] 正在初始化全新业务 Git 仓库...")
   try {
-    execSync("git init && git add -A && git commit -m \"chore: initialize business project from cooliebase-all-base base\"", {
+    execSync("git init && git add -A && git commit -m \"chore: initialize business project from cooliebase-all base\"", {
       cwd: targetDir,
       stdio: "ignore"
     })

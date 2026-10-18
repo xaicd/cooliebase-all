@@ -70,7 +70,7 @@ jobs:
               --exclude='./data/*.db-shm' \
               --exclude='./backups' \
               --exclude='./dist' \
-              -czf "dist/release-assets/cooliebase-all-base-${TAG}-skeleton.tar.gz" .
+              -czf "dist/release-assets/cooliebase-all-${TAG}-skeleton.tar.gz" .
 
           # 2. 导出 OpenAPI 契约规范与架构说明
           if [ -f "packages/shared/contract/seam-graph.json" ]; then

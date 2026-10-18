@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================
-REM cooliebase-all-base 一键启动脚本（Windows）
+REM cooliebase-all 一键启动脚本（Windows）
 REM 用法: scripts\quick-start.bat [mode]
 REM mode: local(默认) | docker
 REM ============================================================
@@ -13,7 +13,7 @@ if "%MODE%"=="" set MODE=local
 
 echo.
 echo   ======================================
-echo      cooliebase-all-base Quick Start
+echo      cooliebase-all Quick Start
 echo      Mode: %MODE%
 echo   ======================================
 echo.
@@ -52,10 +52,10 @@ REM 环境配置
 echo [STEP] 3/5 配置环境...
 if not exist ".env.local" (
   (
-    echo # cooliebase-all-base 本地开发配置
+    echo # cooliebase-all 本地开发配置
     echo DB_DRIVER=memory
     echo DATABASE_URL=file:./dev.db
-    echo JWT_SECRET=cooliebase-all-base-dev-secret-key-2026
+    echo JWT_SECRET=cooliebase-all-dev-secret-key-2026
     echo JWT_EXPIRES_IN=86400
   ) > .env.local
   echo [INFO] .env.local 已生成 ✓

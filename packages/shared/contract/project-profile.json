@@ -1,10 +1,10 @@
 {
-  "platformName": "CoolieBase All Base",
+  "platformName": "CoolieBase All",
   "shortName": "CoolieBase All",
-  "description": "CoolieBase All Base — 基于 Next.js 的企业级通用研发基座与能力复用平台。",
-  "copyright": "© 2026 CoolieBase All Base Team",
+  "description": "CoolieBase All — 基于 Next.js 的企业级通用研发基座与能力复用平台。",
+  "copyright": "© 2026 CoolieBase All Team",
   "version": "1.0.0",
-  "loginHeadline": "CoolieBase All Base 基座平台",
+  "loginHeadline": "CoolieBase All 基座平台",
   "loginTagline": "模块化单体与微服务平滑演进，开箱即用的全栈企业级研发基座。",
   "branding": {
     "mark": "RY",

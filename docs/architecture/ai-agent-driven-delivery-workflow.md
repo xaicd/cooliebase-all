@@ -9,7 +9,7 @@
 
 ## 一、 顶层定位：从“代码生成器”升维为“AI 原生商业软件交付工厂”
 
-`cooliebase-all-base` 不仅是一个包含 17 个域的企业中后台模板，更是供 AI Agent 独立施工、自主进化的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
+`cooliebase-all` 不仅是一个包含 17 个域的企业中后台模板，更是供 AI Agent 独立施工、自主进化的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
 
 为了彻底杜绝大模型在大型复杂代码库中常见的“顺拐贴补丁、口头说完成、生成假 Mock、堆砌样板代码”四大顽疾，本项目严格推行 **AI Agent Driven 闭环流水线**：
 
@@ -108,7 +108,7 @@
 
 吸收 Coolie 中最关键的认知提醒：**“没有自动同步这回事！仓库里的 Markdown 不会自动流入 Agent 的脑子，不要自欺欺人。”**
 
-在 `cooliebase-all-base` 中，Agent 的认知通道遵循以下 4 级可靠性阶梯：
+在 `cooliebase-all` 中，Agent 的认知通道遵循以下 4 级可靠性阶梯：
 
 ```
 【最高可靠性】 1. Assembly 分段强制注入 (.agents/context/ASSEMBLY.md)

@@ -177,7 +177,7 @@ backup_*.sql
 db_backup_*.sql
 
 ^cooliebase/**
-apps/cooliebase-all-base/
+apps/cooliebase-all/
 apps/cooliebase
 
 # 派生证据快照: 每次跑 check 都会变，作为缓存而非源

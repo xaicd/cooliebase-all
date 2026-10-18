@@ -1,4 +1,4 @@
-# cooliebase-all-base 当前进度与待办
+# cooliebase-all 当前进度与待办
 
 更新时间：2026-08-23
 
@@ -197,7 +197,7 @@
 
 ## 关键文件位置
 
-- 架构文档：docs/architecture/cooliebase-all-base-architecture.md
+- 架构文档：docs/architecture/cooliebase-all-architecture.md
 - 开发规范：AGENTS.md
 - Prisma Schema：prisma/schema.prisma
 - 数据库基础设施：packages/shared/backend/lib/database/
@@ -214,7 +214,7 @@
 
 读取以下文件了解上下文：
 1. docs/architecture/CURRENT-PROGRESS.md（本文件）
-2. docs/architecture/cooliebase-all-base-architecture.md
+2. docs/architecture/cooliebase-all-architecture.md
 3. AGENTS.md
 4. prisma/schema.prisma
 5. packages/shared/backend/lib/database/index.ts

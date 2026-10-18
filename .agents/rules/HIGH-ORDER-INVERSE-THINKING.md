@@ -1,7 +1,7 @@
 # HIGH-ORDER-INVERSE-THINKING.md
 # 高阶反向思维与 AI 自循环进化引擎 (Socratic Dialectic & Autopoietic Harness)
 
-> **生效范围**：所有通过 IDE、AI 编程助手（Claude Code、CommandCode、Antigravity、Cursor、Copilot）、工坊会话接入 `cooliebase-all-base` 重型业务模板的操作  
+> **生效范围**：所有通过 IDE、AI 编程助手（Claude Code、CommandCode、Antigravity、Cursor、Copilot）、工坊会话接入 `cooliebase-all` 重型业务模板的操作  
 > **核心定位**：**互搏思维不是攻防，是反问，是高阶哲学反问！** AI 助手必须彻底摒弃“就事论事贴补丁、无脑堆砌样板代码”的初级外包码农思维，为了一个产品目标，以苏格拉底式的持续自我反问打破平庸共识，自循环建设出一个远超人类想象的卓越产品。
 
 ---

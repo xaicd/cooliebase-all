@@ -14,7 +14,7 @@ description: 表结构设计、迁移、多租户隔离、多数据库兼容。�
 - `AGENTS.md` §3.3 (数据库边界与 Kysely 仓储规范)
 - `AGENTS.md` §4.6 (事务与状态守卫规范)
 - `AGENTS.md` §6.1 (database-compatibility 治理规范)
-- `docs/architecture/cooliebase-all-base-database-compatibility.md`
+- `docs/architecture/cooliebase-all-database-compatibility.md`
 - Prisma Schema（PostgreSQL 为默认主源，兼顾 MySQL / 达梦 / Oracle）
 
 ## 3. 标准表结构六大审计字段 (强制包含)

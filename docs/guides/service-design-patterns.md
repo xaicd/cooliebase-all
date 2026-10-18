@@ -1,4 +1,4 @@
-# cooliebase-all-base Service 设计模式规范
+# cooliebase-all Service 设计模式规范
 
 更新时间：2026-08-03
 
@@ -6,7 +6,7 @@
 
 ## 1. 适用范围
 
-1. 适用于 apps/cooliebase/cooliebase-all-base 下所有 Service 实现。
+1. 适用于 apps/cooliebase/cooliebase-all 下所有 Service 实现。
 2. 包含 packages/domains/<domain>/backend/services/** 与兼容门面 src/backend/services/**。
 3. Route、Page、Validator 不直接承载本规范中的模式职责。
 

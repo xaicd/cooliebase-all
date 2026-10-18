@@ -4,7 +4,7 @@ globs: *
 alwaysApply: true
 ---
 
-# Cursor Rules for cooliebase-all-base
+# Cursor Rules for cooliebase-all
 
 All engineering rules and architectural standards are unified in `.agents/rules/` and `AGENTS.md`.
 

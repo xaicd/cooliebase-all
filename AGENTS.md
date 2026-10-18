@@ -1,10 +1,10 @@
-<!-- rename/cooliebase-to-cooliebase active -->
+<!-- rename/cooliebase-all-base-to-cooliebase-all active -->
 
-# cooliebase-all-base 开发工作手册
+# cooliebase-all 开发工作手册
 
 更新时间：2026-09-02
 
-本文件是 cooliebase-all-base 的独立开发规范，覆盖架构边界、研发流程、测试门禁、运行部署与交付标准。当前仓库根目录即本项目，命令均在仓库根执行。
+本文件是 cooliebase-all 的独立开发规范，覆盖架构边界、研发流程、测试门禁、运行部署与交付标准。当前仓库根目录即本项目，命令均在仓库根执行。
 
 ---
 
@@ -31,14 +31,14 @@
 ## 1. 项目定位
 
 
-1. cooliebase-all-base 是基于 Next.js 的 CoolieBase 能力迁移与复用基座。
+1. cooliebase-all 是基于 Next.js 的 CoolieBase 能力迁移与复用基座。
 2. 目标是以模块化单体方式先完成全域能力吸收，再按域支持独立拆分。
 3. 当前阶段坚持“证据驱动迁移”：任何能力声明必须有扫描产物与代码落地。
 4. 本仓库同时是新业务项目与 DigitalStaff NPC 员工独立开发的底层模板（Workspace Bundle）。Agent Loop 留在 DigitalStaff；本仓按 DeepSeek Harness 思想做可组合、可追溯进化，见 §18。
 
 ## 2. 适用范围与边界
 
-1. 本规范作用于本仓库根目录（即 cooliebase-all-base）。
+1. 本规范作用于本仓库根目录（即 cooliebase-all）。
 2. all-next 当前阶段只允许建设 CoolieBase 原生域，不接收非原生扩展域。
 3. 原生域清单、规模证据、迁移阶段以扫描结果为准。权威运行时清单：`packages/shared/backend/constants/domain-catalog.json`。
 
@@ -147,7 +147,7 @@
 6. **前端双轨页面规范（强制）**：
    - `packages/domains/<domain>/frontend/pages/` 专用于 **Admin 运营管理端页面**；
 7. C 端与桌面壳必须落在仓库根 `clients/<channel>/`，一渠道一包；当前只保留 `expo`（其余渠道 h5/uniapp/flutter/desktop-pc 已按决策删除）。
-8. 独立客户端包内固定 `app/`、`shared/`、`modules/<domain>/`；域名与 `domain-catalog.json` 一致，禁止把新域堆进 `app`、`shared` 或根 `pages`。细则见 docs/architecture/cooliebase-all-base-client-channels.md。
+8. 独立客户端包内固定 `app/`、`shared/`、`modules/<domain>/`；域名与 `domain-catalog.json` 一致，禁止把新域堆进 `app`、`shared` 或根 `pages`。细则见 docs/architecture/cooliebase-all-client-channels.md。
 
 ### 3.3 可替换后端与微服务边界（强制）
 
@@ -335,8 +335,8 @@
 
 ## 6. 能力同步与治理门禁
 
-1. 能力状态必须对照 docs/architecture/cooliebase-all-base-capability-matrix.md。
-2. 域声明必须同步 docs/architecture/cooliebase-all-base-domain-governance.md。
+1. 能力状态必须对照 docs/architecture/cooliebase-all-capability-matrix.md。
+2. 域声明必须同步 docs/architecture/cooliebase-all-domain-governance.md。
 3. 未登记能力不得标记 DONE。
 4. PARTIAL 与 DONE 域必须带 TestRefs。
 5. 微服务阶段为 B/C 的域必须填写 SplitNote。
@@ -610,8 +610,8 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 ### 10.2 Docker 部署
 
-1. 一体镜像：docker build -t cooliebase-all-base .
-2. 域镜像：docker build -f Dockerfile.domain -t cooliebase-all-base-domain .
+1. 一体镜像：docker build -t cooliebase-all .
+2. 域镜像：docker build -f Dockerfile.domain -t cooliebase-all-domain .
 3. 生产编排：docker compose -f deploy/docker-compose.prod.yml up -d
 4. 开发编排：docker compose -f deploy/docker-compose.dev.yml up -d
 5. 拆分编排（BFF + 域）：npm run domain:up -- pay
@@ -646,21 +646,21 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 3. docs/architecture/cooliebase-native-capabilities-catalog.md
 4. docs/architecture/cooliebase-full-migration-board.md
 5. docs/architecture/system-core-implementation-checklist.md
-6. docs/architecture/cooliebase-all-base-capability-matrix.md
-7. docs/architecture/cooliebase-all-base-domain-governance.md
+6. docs/architecture/cooliebase-all-capability-matrix.md
+7. docs/architecture/cooliebase-all-domain-governance.md
 8. docs/guides/api-route-conventions.md
 9. docs/guides/tenant-catalog-bootstrap.md
 10. docs/guides/service-design-patterns.md
 11. scripts/quick-start.sh
 12. scripts/scaffold-feature.ts
-13. docs/architecture/cooliebase-all-base-domain-pack.md
-14. docs/architecture/cooliebase-all-base-messaging-constraints.md
-15. docs/architecture/cooliebase-all-base-microservice-governance.md
-16. docs/architecture/cooliebase-all-base-plugin-rpc.md
+13. docs/architecture/cooliebase-all-domain-pack.md
+14. docs/architecture/cooliebase-all-messaging-constraints.md
+15. docs/architecture/cooliebase-all-microservice-governance.md
+16. docs/architecture/cooliebase-all-plugin-rpc.md
 17. deploy/README.md
-18. docs/architecture/cooliebase-all-base-client-channels.md
+18. docs/architecture/cooliebase-all-client-channels.md
 19. docs/guides/project-profile-bootstrap.md
-20. docs/architecture/cooliebase-all-base-harness-evolution.md
+20. docs/architecture/cooliebase-all-harness-evolution.md
 
 ## 14. 代码生成器架构规范
 
@@ -748,7 +748,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 - 外部 AI 如果决定使用本底座，**根本不需要下载 500MB+ 的全量历史包**，可直接向用户建议或自动执行：
   ```bash
   # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-  npx degit xaicd/cooliebase-all-base#main my-app
+  npx degit xaicd/cooliebase-all#main my-app
 
   # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
   cd my-app && pnpm install
@@ -773,7 +773,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
   - `creator`：等同 standard（含 online/codegen）；
   - 产物写入 `packages/shared/contract/hatch-manifest.json`。Prisma 迁移仍为全量基座表。
 - **自动化工作流水线（全托管零配置）：**
-  1. **反应堆克隆与包名重塑**：自动将 `cooliebase-all-base` 转换为目标工程名，重塑 `package.json`（自动分配独立 `PORT=3200` 避开冲突）；
+  1. **反应堆克隆与包名重塑**：自动将 `cooliebase-all` 转换为目标工程名，重塑 `package.json`（自动分配独立 `PORT=3200` 避开冲突）；
   2. **二进制防损坏保护**：图片、字体、压缩包与数据库 dump 文件走二进制流白名单拷贝，绝不进行文本正则替换；
   3. **数据库物理隔离与全量就绪**：自动连接 PostgreSQL 服务，创建目标独立数据库（如 `agent_zqall`），并默认部署全量 27 项基准 SQL 迁移与 RBAC 菜单权限；
   4. **目标设计文档保护**：自动识别并完好保留目标目录下已有的业务规格文档（如 `应算通-*`、`*.md`），严禁覆盖用户既有设计；
@@ -781,7 +781,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 
 ### 17. 目录职责划分与基座/业务边界规范（Core Base vs Business Domain）
 
-为了保证业务工程（如 `agent-zqall`）与通用基座（`cooliebase-all-base`）之间既能**独立演进**，又能**通过版本化升级平滑同步底座能力与双向反哺功能**，严格执行以下目录与边界规范：
+为了保证业务工程（如 `agent-zqall`）与通用基座（`cooliebase-all`）之间既能**独立演进**，又能**通过版本化升级平滑同步底座能力与双向反哺功能**，严格执行以下目录与边界规范：
 
 #### 17.1 目录职责分类矩阵
 
@@ -851,7 +851,7 @@ npm run check
 2. **机器可读入口**：`packages/shared/contract/agent-profile.json`。域名真源仍是 `domain-catalog.json`。
 3. **提示分段**：`.agents/context/ASSEMBLY.md`。禁止把本文件整篇灌进每一次模型请求。
 4. **NPC 孵化**：只允许 `npm run project:create -- <目标路径>`；身份只改 `project-profile.json` 与 `public/branding/`。
-5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-base-harness-evolution.md`。
+5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-harness-evolution.md`。
 
 ### 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
 

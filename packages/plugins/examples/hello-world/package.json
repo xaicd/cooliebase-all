@@ -2,7 +2,7 @@
   "name": "@cooliebase/plugin-hello-world",
   "version": "0.1.0",
   "private": true,
-  "description": "Reference plugin: the minimal shape a cooliebase-all-base plugin package must have.",
+  "description": "Reference plugin: the minimal shape a cooliebase-all plugin package must have.",
   "type": "module",
   "cooliebasePlugin": {
     "manifest": "./plugin.manifest.json",

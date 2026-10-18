@@ -1,5 +1,5 @@
 # ============================================================
-# cooliebase-all-base - PROD 环境（Traefik + PostgreSQL + Redis）
+# cooliebase-all - PROD 环境（Traefik + PostgreSQL + Redis）
 # 用途：生产部署，自动 HTTPS、负载均衡、健康检查
 # 启动：docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up -d
 # ============================================================
@@ -43,7 +43,7 @@ services:
           cpus: "0.5"
 
   app:
-    image: ${REGISTRY:-registry.local}/cooliebase-all-base:${TAG:-latest}
+    image: ${REGISTRY:-registry.local}/cooliebase-all:${TAG:-latest}
     build:
       context: ..
       dockerfile: Dockerfile

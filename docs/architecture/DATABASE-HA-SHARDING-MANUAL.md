@@ -9,7 +9,7 @@
 
 ## 一、 支持的数据库类型与驱动支持全景
 
-`cooliebase-all-base` 采用三层兼容等级（Tier-A / Tier-B / Tier-C）与驱动抽象层，全面支持主流商业数据库与信创国产数据库：
+`cooliebase-all` 采用三层兼容等级（Tier-A / Tier-B / Tier-C）与驱动抽象层，全面支持主流商业数据库与信创国产数据库：
 
 ```
                       【数据库类型与兼容分级矩阵】
@@ -45,7 +45,7 @@
 
 ```
               ┌────────────────────────┐
-              │  cooliebase-all-base (App)  │
+              │  cooliebase-all (App)  │
               └───────────┬────────────┘
                           │ 读写分离 / VIP
            ┌──────────────┴──────────────┐
@@ -76,7 +76,7 @@ DB_REPLICAS="mysql://app_user:pass@192.168.1.102:3306/cooliebase_prod,mysql://ap
 
 ```
               ┌────────────────────────┐
-              │  cooliebase-all-base (App)  │
+              │  cooliebase-all (App)  │
               └───────────┬────────────┘
                           │
                    【Pgpool-II 代理层】
@@ -123,7 +123,7 @@ master_slave_sub_mode = 'stream'
 
 ```
               ┌────────────────────────┐
-              │  cooliebase-all-base (App)  │
+              │  cooliebase-all (App)  │
               └───────────┬────────────┘
                           │ (dm_svc.conf 服务名透明漂移)
            ┌──────────────┴──────────────┐
@@ -155,7 +155,7 @@ DATABASE_URL="dm://SYSDBA:SYSDBA001@COOLIEBASE_CLUSTER"
 
 ---
 
-## 三、 cooliebase-all-base 内置读写分离引擎使用指南
+## 三、 cooliebase-all 内置读写分离引擎使用指南
 
 底座已在 `packages/shared/backend/lib/database/read-write-router.ts` 内置了生产级读写分离引擎：
 

@@ -1,4 +1,4 @@
-# cooliebase-all-base
+# cooliebase-all
 
 > 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 17 个原生业务域、26 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
 
@@ -33,16 +33,16 @@
 
 外部 AI Agent 或开发者在下载/克隆全量代码库之前，可通过 GitHub Raw 或运行中服务的标准路径（如 `http://<host>:<port>/compat-manifest.json`）直接获取以下机器可读契约：
 
-- **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/wiki/index.md)
-- **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.well-known/agent.json)
-- **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/compat-manifest.json)
+- **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
+- **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
+- **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
   - 声明版本、17 域清单、26 技能目录、12 项 MCP 工具、8 层交付 Gate 与 Hatch 派生配置。
-- **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/agent-profile.json)
+- **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
-- **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/packages/shared/contract/seam-graph.json)
-- **17 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/packages/shared/backend/constants/domain-catalog.json)
-- **高阶反向思维工程铁律**: [HIGH-ORDER-INVERSE-THINKING.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
-- **统一规格包 (Spec) 与原型工程标准**: [FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md)
+- **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)
+- **17 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/backend/constants/domain-catalog.json)
+- **高阶反向思维工程铁律**: [HIGH-ORDER-INVERSE-THINKING.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
+- **统一规格包 (Spec) 与原型工程标准**: [FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md)
 
 ## 极速起步 (Quick Start for AI & Developers)
 
@@ -52,7 +52,7 @@
 
 ```bash
 # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-npx degit xaicd/cooliebase-all-base#main my-app
+npx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install
@@ -61,11 +61,11 @@ npm run dev
 ```
 
 > **补充**：若需更细粒度裁剪规格（如纯白板底座 `base`），亦可使用远程单行指令：  
-> `curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- my-app --profile base --title "我的新业务系统"`
+> `curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- my-app --profile base --title "我的新业务系统"`
 
 ### 场景 2：克隆底座并原地初始化为客户专属项目
 ```bash
-git clone https://github.com/xaicd/cooliebase-all-base.git my-business-app
+git clone https://github.com/xaicd/cooliebase-all.git my-business-app
 cd my-business-app && pnpm install
 npm run project:init               # 一键重构
 npm run db:bootstrap:sqlite        # 初始化数据库

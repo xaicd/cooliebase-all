@@ -4,7 +4,7 @@
 
 ## 一、 核心公理：系统内一切能力皆为 AI Agent 驱动设计
 在传统工业级软件中，系统由人类使用鼠标逐个页面点击、由外包码农手写搬砖代码、由人工手工维护配置与对账。
-而在 `cooliebase-all-base` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
+而在 `cooliebase-all` 体系中，**所有能力必须具备 100% 机器可读与 AI Agent 闭环驱动能力 (All Capabilities Must Be AI Agent Driven)**。严禁开发仅供人类单点手工使用、无法被 AI Agent 感知或编排的孤岛系统。
 
 ## 二、 7 层全栈 AI Agent 驱动闭环矩阵
 

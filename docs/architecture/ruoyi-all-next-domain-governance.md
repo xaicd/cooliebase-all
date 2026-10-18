@@ -1,4 +1,4 @@
-# cooliebase-all-base 域治理声明表
+# cooliebase-all 域治理声明表
 
 更新时间：2026-08-20
 

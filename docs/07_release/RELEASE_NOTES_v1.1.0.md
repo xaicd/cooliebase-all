@@ -11,10 +11,10 @@
 
 ### 1. 吸收业界顶流两大开源 Agent 项目 (47k★ ~ 60k★)
 - **Archify (`tt-a1i/archify`, 47,000+★, MIT)**:
-  - 引入可机器验证的架构图生成 Skill：[`.agents/skills/archify/SKILL.md`](file:///host-workspace/xaicd/cooliebase-all-base/.agents/skills/archify/SKILL.md)。
+  - 引入可机器验证的架构图生成 Skill：[`.agents/skills/archify/SKILL.md`](file:///host-workspace/xaicd/cooliebase-all/.agents/skills/archify/SKILL.md)。
   - 采用 `Validate-Preview-Deliver` 范式，以类型化 JSON Schema 消除 AI 架构幻觉，生成支持全链路请求路径追踪（Path Tracing）的独立交互式 HTML。
 - **Strix (`usestrix/strix`, 60,000+★, Apache-2.0)**:
-  - 引入多智能体自主红队渗透测试与漏洞确证 Skill：[`.agents/skills/strix-penetration-testing/SKILL.md`](file:///host-workspace/xaicd/cooliebase-all-base/.agents/skills/strix-penetration-testing/SKILL.md)。
+  - 引入多智能体自主红队渗透测试与漏洞确证 Skill：[`.agents/skills/strix-penetration-testing/SKILL.md`](file:///host-workspace/xaicd/cooliebase-all/.agents/skills/strix-penetration-testing/SKILL.md)。
   - 采用自主 AI 白帽黑客架构，在 Docker 沙箱中对跨租户越权、RBAC 旁路、CAS 乐观锁并发超卖与堆栈泄露生成真实可执行的 PoC（零假阳性）。
 
 ### 2. CMMI 01~09 全生命周期高阶 Agent 技能全覆盖 (全仓 36 个技能单一真源)
@@ -44,7 +44,7 @@
 
 | 文件名 | 文件大小 | SHA-256 校验和 |
 |---|---|---|
-| `cooliebase-all-base-v1.1.0-skeleton.tar.gz` | 6.92 MB | `d55e4ac4aab3dc518e9dcd931e3afb0641ee9d8fd8d2ba23a51042200e507395` |
+| `cooliebase-all-v1.1.0-skeleton.tar.gz` | 6.92 MB | `d55e4ac4aab3dc518e9dcd931e3afb0641ee9d8fd8d2ba23a51042200e507395` |
 | `seam-graph.json` | 50.8 KB | `36070ae731c77257dc74ecaec5f1862a966300d91903368bd569135e389f32f6` |
 | `compat-manifest.json` | 4.7 KB | `93dfe7787c6bc9e63438bec058ae81bba38373a3e023099c20dd91edfb630b32` |
 | `SHA256SUMS.txt` | 0.3 KB | *(包含上述制品完整指纹清单)* |

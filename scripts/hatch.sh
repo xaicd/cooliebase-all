@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # ==============================================================================
-# cooliebase-all-base 一键骨架派生孵化器 (Zero-Git-History Hatch CLI)
+# cooliebase-all 一键骨架派生孵化器 (Zero-Git-History Hatch CLI)
 #
 # 功能：
 # 1. 免下载全量 Git 历史 (Zero Git History): 通过 degit / shallow clone / tarball
@@ -9,7 +9,7 @@
 #    按需裁剪 (base / minimal / standard / vertical)；
 # 3. 自动化地基准备: 自动执行 git init 独立首提交与 SQLite 零配置本地库准备；
 # 4. 支持远程管道执行:
-#    curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- my-app --profile base
+#    curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- my-app --profile base
 # ==============================================================================
 
 set -eo pipefail
@@ -25,7 +25,7 @@ BANNER="
 function show_help() {
   echo "$BANNER"
   echo "用法:"
-  echo "  curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- <目标工程名或路径> [选项]"
+  echo "  curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <目标工程名或路径> [选项]"
   echo "  或本地运行: bash scripts/hatch.sh <目标工程名或路径> [选项]"
   echo ""
   echo "参数:"
@@ -132,7 +132,7 @@ done
 if [[ -z "$TARGET" ]]; then
   echo "$BANNER"
   echo "❌ 缺少目标工程路径！"
-  echo "示例: curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- my-app --profile base"
+  echo "示例: curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- my-app --profile base"
   echo "使用 --help 查看完整选项。"
   exit 1
 fi
@@ -186,11 +186,11 @@ trap 'rm -rf "$TMP_BASE"' EXIT
 
 DOWNLOAD_SUCCESS=false
 
-# 策略 1: 检查本地当前目录是否正是 cooliebase-all-base 基座
+# 策略 1: 检查本地当前目录是否正是 cooliebase-all 基座
 CURRENT_DIR=$(pwd)
 if [[ -f "$CURRENT_DIR/scripts/clone-project-base.cjs" && -f "$CURRENT_DIR/package.json" ]]; then
   CURRENT_PKG_NAME=$(node -e "try { console.log(require('./package.json').name) } catch(e){}" 2>/dev/null || echo "")
-  if [[ "$CURRENT_PKG_NAME" == "cooliebase-all-base" ]]; then
+  if [[ "$CURRENT_PKG_NAME" == "cooliebase-all" ]]; then
     echo "💡 检测到当前处于基座仓库中，直接执行就地克隆派生..."
     SOURCE_DIR="$CURRENT_DIR"
     DOWNLOAD_SUCCESS=true
@@ -201,11 +201,11 @@ fi
 if [[ "$DOWNLOAD_SUCCESS" = false ]]; then
   if command -v npx >/dev/null 2>&1; then
     echo "📦 [1/3] 正在使用 degit 极速拉取最新 commit 源码树 (0MB Git 历史)..."
-    if npx --yes degit gitee:xaicd/cooliebase-all-base#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
+    if npx --yes degit gitee:xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
       SOURCE_DIR="$TMP_BASE/repo"
       DOWNLOAD_SUCCESS=true
       echo "✅ Gitee degit 获取成功！"
-    elif npx --yes degit xaicd/cooliebase-all-base#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
+    elif npx --yes degit xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
       SOURCE_DIR="$TMP_BASE/repo"
       DOWNLOAD_SUCCESS=true
       echo "✅ GitHub degit 获取成功！"
@@ -217,12 +217,12 @@ fi
 if [[ "$DOWNLOAD_SUCCESS" = false ]]; then
   if command -v git >/dev/null 2>&1; then
     echo "📦 [2/3] degit 不可用，切换浅层 Shallow Clone (--depth 1)..."
-    if git clone --depth 1 -q https://gitee.com/xaicd/cooliebase-all-base.git "$TMP_BASE/repo" 2>/dev/null; then
+    if git clone --depth 1 -q https://gitee.com/xaicd/cooliebase-all.git "$TMP_BASE/repo" 2>/dev/null; then
       SOURCE_DIR="$TMP_BASE/repo"
       rm -rf "$SOURCE_DIR/.git"
       DOWNLOAD_SUCCESS=true
       echo "✅ Gitee Shallow Clone 获取成功！"
-    elif git clone --depth 1 -q https://github.com/xaicd/cooliebase-all-base.git "$TMP_BASE/repo" 2>/dev/null; then
+    elif git clone --depth 1 -q https://github.com/xaicd/cooliebase-all.git "$TMP_BASE/repo" 2>/dev/null; then
       SOURCE_DIR="$TMP_BASE/repo"
       rm -rf "$SOURCE_DIR/.git"
       DOWNLOAD_SUCCESS=true
@@ -235,7 +235,7 @@ fi
 if [[ "$DOWNLOAD_SUCCESS" = false ]]; then
   echo "📦 [3/3] 切换 GitHub Tarball 压缩包直接流式解包..."
   mkdir -p "$TMP_BASE/repo"
-  if curl -fsSL https://github.com/xaicd/cooliebase-all-base/archive/refs/heads/main.tar.gz | tar -xz -C "$TMP_BASE/repo" --strip-components=1; then
+  if curl -fsSL https://github.com/xaicd/cooliebase-all/archive/refs/heads/main.tar.gz | tar -xz -C "$TMP_BASE/repo" --strip-components=1; then
     SOURCE_DIR="$TMP_BASE/repo"
     DOWNLOAD_SUCCESS=true
     echo "✅ Tarball 获取成功！"
@@ -279,7 +279,7 @@ if [[ "$INIT_GIT" = true && ! -d "$TARGET_DIR/.git" ]]; then
     git config user.email "bot@local" 2>/dev/null || true
     git config user.name "HatchBot" 2>/dev/null || true
     git add -A
-    git commit -q -m "feat: 派生自 cooliebase-all-base 企业级底座 (profile: $PROFILE)"
+    git commit -q -m "feat: 派生自 cooliebase-all 企业级底座 (profile: $PROFILE)"
   )
 fi
 

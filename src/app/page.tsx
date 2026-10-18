@@ -30,11 +30,11 @@ export default function HomePage() {
   const [activeTab, setActiveTab] = useState<"quick-start" | "docker" | "domain">("quick-start")
   const [copied, setCopied] = useState(false)
 
-  const repoUrl = "https://github.com/xaicd/cooliebase-all-base"
-  const repoCloneUrl = "https://github.com/xaicd/cooliebase-all-base.git"
+  const repoUrl = "https://github.com/xaicd/cooliebase-all"
+  const repoCloneUrl = "https://github.com/xaicd/cooliebase-all.git"
 
   const commands = {
-    "quick-start": `git clone ${repoCloneUrl}\ncd cooliebase-all-base\nnpm install\nnpm run quick-start`,
+    "quick-start": `git clone ${repoCloneUrl}\ncd cooliebase-all\nnpm install\nnpm run quick-start`,
     "docker": `docker compose -f deploy/docker-compose.prod.yml up -d`,
     "domain": `# 独立提取并运行指定业务域 (如 pay 支付域)\nnpm run domain:up -- pay`
   }

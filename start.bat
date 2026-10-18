@@ -1,12 +1,12 @@
 @echo off
 setlocal enabledelayedexpansion
-title CoolieBase All Base - Start Manager
+title CoolieBase All - Start Manager
 
 cd /d "%~dp0"
 set "PATH=%~dp0node_modules\.bin;%PATH%"
 
 echo ================================================================
-echo          CoolieBase All Base - Developer Launcher
+echo          CoolieBase All - Developer Launcher
 echo ================================================================
 echo.
 
@@ -146,7 +146,7 @@ goto :end
 :memory
 echo [INFO] Starting in pure in-memory mode...
 set "DB_DRIVER=memory"
-set "DATABASE_URL=memory://cooliebase-all-base"
+set "DATABASE_URL=memory://cooliebase-all"
 set "REDIS_URL="
 call npm run dev
 goto :end

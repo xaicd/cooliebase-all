@@ -1,8 +1,8 @@
-# cooliebase-all-base 国际化多语言 (i18n) 开发与使用指南
+# cooliebase-all 国际化多语言 (i18n) 开发与使用指南
 
 更新时间：2026-10-09
 
-本指南说明 `cooliebase-all-base` 前端国际化与多语言引擎的架构设计、使用方式与扩展规范。
+本指南说明 `cooliebase-all` 前端国际化与多语言引擎的架构设计、使用方式与扩展规范。
 
 ---
 

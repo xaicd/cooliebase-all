@@ -166,7 +166,7 @@ check("Domain-Facade-Boundaries", () => {
   }
 });
 
-console.log("=== [cooliebase-all-base] AI-Driven 基座 Harness 自动化守卫扫描 ===");
+console.log("=== [cooliebase-all] AI-Driven 基座 Harness 自动化守卫扫描 ===");
 if (errors.length > 0) {
   console.error(`❌ 发现 ${errors.length} 项违规门禁:`);
   for (const err of errors) {

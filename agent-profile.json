@@ -3,7 +3,7 @@
   "kind": "workspace-bundle",
   "role": "business-project-template",
   "not": ["agent-runtime", "cordis-host", "llm-loop", "privileged-core-to-patch"],
-  "description": "CoolieBase All Base is the DigitalStaff NPC workspace template. Agent loop stays in DigitalStaff Native. This repo is the composable environment.",
+  "description": "CoolieBase All is the DigitalStaff NPC workspace template. Agent loop stays in DigitalStaff Native. This repo is the composable environment.",
   "harnessPartners": {
     "runtime": "DigitalStaff NativeCodingEngine",
     "runtimePath": "D:/workspace/cw/ai/DigitalStaff",

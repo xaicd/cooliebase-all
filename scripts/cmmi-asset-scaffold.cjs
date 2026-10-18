@@ -528,7 +528,7 @@ flowchart TD
         file: "docs/06_quality_assurance/gate-evidence-trace.json",
         title: "20 道质量门禁数字指纹记录",
         template: () => JSON.stringify({
-          schema: "https://schema.cooliebase-all-base.org/gate-evidence-trace-v1.json",
+          schema: "https://schema.cooliebase-all.org/gate-evidence-trace-v1.json",
           auditedAt: new Date().toISOString(),
           status: "PASSED",
           gatesCount: 20,
@@ -583,7 +583,7 @@ flowchart TD
         file: "docs/07_release/rollback-runbook.json",
         title: "生产秒级故障回滚演练 Runbook",
         template: () => JSON.stringify({
-          schema: "https://schema.cooliebase-all-base.org/rollback-runbook-v1.json",
+          schema: "https://schema.cooliebase-all.org/rollback-runbook-v1.json",
           updatedAt: new Date().toISOString(),
           maxRollbackTimeSeconds: 60,
           steps: [

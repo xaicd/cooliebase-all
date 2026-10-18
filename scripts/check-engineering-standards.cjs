@@ -19,7 +19,7 @@ const path = require("path")
 const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
 
 const BASELINE_REL = "docs/architecture/artifacts/engineering-standards-baseline.json"
-const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-base-domain-governance.md"
+const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-domain-governance.md"
 const SRC = "src"
 // 各域与 shared 已迁到 packages/（见 pnpm-workspace.yaml 与 AGENTS.md §3.2）。
 const DOMAINS = "packages/domains"

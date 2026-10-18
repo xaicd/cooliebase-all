@@ -80,7 +80,7 @@ description: 事故免责复盘与根因分析（Google SRE Blameless Postmortem
 
 ---
 
-## 4. 与 cooliebase-all-base 架构联动
+## 4. 与 cooliebase-all 架构联动
 
 1. **CAPA 闭环机制**：
    - 所有的代码修复动作必须伴随针对性的真实数据库集成测试（`test/integration/`）。

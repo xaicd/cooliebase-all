@@ -33,7 +33,7 @@ function main() {
   fs.mkdirSync(DIST_ASSETS, { recursive: true })
 
   // 1. 打包脱机骨架 Tarball
-  const skeletonTar = path.join(DIST_ASSETS, `cooliebase-all-base-${tag}-skeleton.tar.gz`)
+  const skeletonTar = path.join(DIST_ASSETS, `cooliebase-all-${tag}-skeleton.tar.gz`)
   console.log(`[1/3] 打包离线纯净工程骨架: ${path.basename(skeletonTar)}...`)
   const tarCmd = [
     "tar",

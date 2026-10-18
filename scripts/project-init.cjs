@@ -4,7 +4,7 @@
  * (对标并超越 cooliebase-vue-pro 的 ProjectReactor.java / projectRefactor.java)
  *
  * 核心用途：
- * 任何团队或开发者将 cooliebase-all-base 作为真实业务项目底座时，
+ * 任何团队或开发者将 cooliebase-all 作为真实业务项目底座时，
  * 能够一键完成「自定义英文工程名、中文业务系统名称、Git 远程仓库地址、数据库名与端口、品牌版权」的原地重构或派生克隆。
  *
  * 用法:
@@ -84,7 +84,7 @@ async function collectInteractive(opts) {
   if (opts.name && opts.title) return opts
 
   const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-  console.log("\n🚀 [cooliebase-all-base] 业务项目初始化向导 (Project Refactor Wizard)\n")
+  console.log("\n🚀 [cooliebase-all] 业务项目初始化向导 (Project Refactor Wizard)\n")
   console.log("准备将当前底座快速重构并适配至您的真实业务系统：\n")
 
   if (!opts.target && !opts.inPlace) {
@@ -124,7 +124,7 @@ function updateProjectProfile(targetDir, opts) {
   const profile = JSON.parse(fs.readFileSync(profileFile, "utf8"))
   profile.platformName = opts.title
   profile.shortName = opts.shortName || opts.title.slice(0, 4)
-  profile.description = `${opts.title} — 基于 cooliebase-all-base 高阶工程底座构建的企业级数字化业务中台。`
+  profile.description = `${opts.title} — 基于 cooliebase-all 高阶工程底座构建的企业级数字化业务中台。`
   profile.copyright = `© ${new Date().getFullYear()} ${opts.author || opts.shortName || "Business"} Team`
   profile.loginHeadline = opts.title
   profile.loginTagline = "模块化单体与微服务平滑演进，开箱即用的全栈企业级研发基座。"

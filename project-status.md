@@ -10,7 +10,7 @@
 | 项目/模块 | 当前生命周期状态 | 负责模型/Agent | 候选 Commit SHA | 交付物/门禁说明 | 下一阶段入口 |
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | **主平台 Coding 引擎 (`NativeCodingEngine`)** | `TEST_PASSED` | NativeEngine + Vitest | `f1abfd0d` | Google AI Studio 级预热引擎与提示词防呆已全量就绪 | 等待人工发布审批 (`RELEASE_APPROVED`) |
-| **顶级全栈模板 (`cooliebase-all-base`)** | `TEST_PASSED` | Kysely + TestingKit | `bc1eb2b` | 内置零配置 SQLite + 4层测试金字塔 + Playwright 探针 | 等待生产环境部署演进 |
+| **顶级全栈模板 (`cooliebase-all`)** | `TEST_PASSED` | Kysely + TestingKit | `bc1eb2b` | 内置零配置 SQLite + 4层测试金字塔 + Playwright 探针 | 等待生产环境部署演进 |
 | **多仓一键级联同步工作流 (`git:sync`)** | `TEST_PASSED` | GitSync Tooling | `f1abfd0d` | 子模块与主仓双远端（GitHub/Gitee）单命令原子同步通过 | 投入日常生产使用 |
 
 ---

@@ -1,4 +1,4 @@
-# cooliebase-all-base Harness 演进规范
+# cooliebase-all Harness 演进规范
 
 更新时间：2026-08-25
 
@@ -12,14 +12,14 @@ DeepSeek 的公式是 `Agent = Model + Harness`。落到本体系是三层，而
 |---|---|---|---|
 | **Model** | LLM | 推理与决策 | 不持有业务契约 |
 | **Harness / Runtime** | DigitalStaff NativeCodingEngine | Agent Loop、工具管道、Session 事件流、子 Agent、审批 | 不持有 CoolieBase 域模型 |
-| **Workspace Bundle** | **本仓库 cooliebase-all-base** | 域插件、契约缝、Skill、门禁、ProjectReactor 孵化 | 不是 Agent 运行时 |
+| **Workspace Bundle** | **本仓库 cooliebase-all** | 域插件、契约缝、Skill、门禁、ProjectReactor 孵化 | 不是 Agent 运行时 |
 
 DigitalStaff 已有独立分析：`D:\workspace\cw\ai\DigitalStaff\docs\design\deepseek_harness_analysis.md`。本文件只规定 **基座侧** 吸收什么、拒绝什么。
 
 NPC 员工开发独立项目时：
 
 ```
-NPC = Model + DigitalStaff Native Harness + cooliebase-all-base Workspace Bundle
+NPC = Model + DigitalStaff Native Harness + cooliebase-all Workspace Bundle
 孵化入口：npm run project:create -- <目标路径>
 ```
 

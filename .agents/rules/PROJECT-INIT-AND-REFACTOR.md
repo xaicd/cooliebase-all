@@ -1,6 +1,6 @@
 # PROJECT INITIALIZATION & REFACTOR RULES (项目初始化与重塑工程规范)
 
-本规范定义了将 `cooliebase-all-base` 作为业务项目底座时的重塑与初始化铁律。
+本规范定义了将 `cooliebase-all` 作为业务项目底座时的重塑与初始化铁律。
 
 ## 1. 原地重塑与派生克隆双模原则
 - **原地重构模式 (In-Place)**：开发者或 AI Agent 在当前目录直接工作时，运行 `npm run project:init` 或 `scripts/project-init.cjs`。自动更新 `packages/shared/contract/project-profile.json`、`package.json`、`.env`/`.env.local` 与 Git Remote。
@@ -24,7 +24,7 @@
 - **一键派生命令**：
   ```bash
   # 远程一键极速孵化（无需提前克隆仓库）
-  curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- <target-dir> --profile base --title "新系统标题"
+  curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <target-dir> --profile base --title "新系统标题"
   ```
 - **规格分级**：
   - `base` (默认推荐): 平台核心地基 (`shared` + `system` + `infra`)，体积 ~50MB，秒级编译，业务白板；
@@ -32,5 +32,5 @@
   - `standard`: 17 个全量原生业务域与客户端；
   - `vertical`: 地基 + `--bundle mall,crm` 等指定业务域。
 - **独立任务痕迹与指纹地基**：
-  - 骨架派生后自动执行 `git init` 并提交基线快照（`feat: 派生自 cooliebase-all-base`），为新工程提供独立的任务痕迹（`[T1]` commit）与交付指纹支持。
+  - 骨架派生后自动执行 `git init` 并提交基线快照（`feat: 派生自 cooliebase-all`），为新工程提供独立的任务痕迹（`[T1]` commit）与交付指纹支持。
 

@@ -4,7 +4,7 @@ import { overlayPackageName, overlayTenant, overlayUserNickname } from "../proje
 
 describe("projectProfile", () => {
   it("keeps the committed default identity valid", () => {
-    expect(projectProfileSchema.parse(projectProfile).platformName).toBe("CoolieBase All Base")
+    expect(projectProfileSchema.parse(projectProfile).platformName).toBe("CoolieBase All")
     expect(projectProfile.packages.map((item) => item.id).sort()).toEqual(["111", "113"])
   })
 

@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "displayName": "mp",
   "description": "mp 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
-  "author": "CoolieBase All Base",
+  "author": "CoolieBase All",
   "categories": [
     "automation"
   ],

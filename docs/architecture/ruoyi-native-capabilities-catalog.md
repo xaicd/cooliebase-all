@@ -52,7 +52,7 @@
 
 ## 4. all-next 升级方式（先学全，再升高）
 
-以下命令统一在 `apps/cooliebase/cooliebase-all-base` 目录执行。
+以下命令统一在 `apps/cooliebase/cooliebase-all` 目录执行。
 
 1. 每次迭代先运行一次全量扫描：npm run cooliebase:full:scan。
 2. 再运行深度证据扫描：npm run cooliebase:deep:scan，拉齐域级 Controller/Service/Mapper/DO/Enum 与页面/API 明细。
@@ -67,10 +67,10 @@
 2. 深度证据扫描脚本：scripts/scan-cooliebase-domain-evidence.ts
 3. mini 核心扫描脚本：scripts/scan-yudao-boot-mini-core.ts
 4. starter 覆盖扫描脚本：scripts/scan-all-next-starter-coverage.ts
-5. 扫描报告输出：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/
-6. 全域迁移作战板：apps/cooliebase/cooliebase-all-base/docs/architecture/cooliebase-full-migration-board.md
-7. mini 核心研究：apps/cooliebase/cooliebase-all-base/docs/architecture/yudao-boot-mini-core-foundation-study.md
-8. mini 迁移计划：apps/cooliebase/cooliebase-all-base/docs/architecture/yudao-boot-mini-to-all-next-migration-plan.md
-9. system/infra 任务拆解：apps/cooliebase/cooliebase-all-base/docs/architecture/yudao-mini-system-infra-task-breakdown.md
-10. 能力矩阵：docs/architecture/cooliebase-all-base-capability-matrix.md
-11. 域治理声明：docs/architecture/cooliebase-all-base-domain-governance.md
+5. 扫描报告输出：apps/cooliebase/cooliebase-all/docs/architecture/artifacts/
+6. 全域迁移作战板：apps/cooliebase/cooliebase-all/docs/architecture/cooliebase-full-migration-board.md
+7. mini 核心研究：apps/cooliebase/cooliebase-all/docs/architecture/yudao-boot-mini-core-foundation-study.md
+8. mini 迁移计划：apps/cooliebase/cooliebase-all/docs/architecture/yudao-boot-mini-to-all-next-migration-plan.md
+9. system/infra 任务拆解：apps/cooliebase/cooliebase-all/docs/architecture/yudao-mini-system-infra-task-breakdown.md
+10. 能力矩阵：docs/architecture/cooliebase-all-capability-matrix.md
+11. 域治理声明：docs/architecture/cooliebase-all-domain-governance.md

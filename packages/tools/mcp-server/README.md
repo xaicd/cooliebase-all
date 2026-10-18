@@ -1,6 +1,6 @@
 # @cooliebase/mcp-server
 
-Model Context Protocol (MCP) stdio server for **cooliebase-all-base** enterprise fullstack framework and DigitalStaff NPC.
+Model Context Protocol (MCP) stdio server for **cooliebase-all** enterprise fullstack framework and DigitalStaff NPC.
 
 ## 🚀 集成方式 (Integration)
 

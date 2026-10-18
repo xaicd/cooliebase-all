@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "displayName": "Hello World",
   "description": "最小参考插件：同时声明 worker（独立运行）与 merged（合并运行）两种入口，示范一个插件两种形态。",
-  "author": "CoolieBase All Base",
+  "author": "CoolieBase All",
   "categories": [
     "automation"
   ],

@@ -47,7 +47,7 @@
 3. 事件：`packages/shared/backend/lib/event-bus.ts`
 4. 目录：`packages/shared/backend/constants/domain-catalog.json` 的 `messaging` 段
 5. 每域声明：`packages/domains/<domain>/contract/route.manifest.yaml` 的 `messaging` 段
-6. Broker 与治理清单：`docs/architecture/cooliebase-all-base-microservice-governance.md`
+6. Broker 与治理清单：`docs/architecture/cooliebase-all-microservice-governance.md`
 7. 自研 NATS 语义：`packages/shared/backend/lib/nats-fabric.ts`、`nats-stream.ts`
 8. 可靠事件：`packages/shared/backend/lib/transactional-outbox.ts`、`outbox-store.ts`、`outbox-kysely-store.ts`
-9. 模块分层与 SDK/RPC 双模：`docs/architecture/cooliebase-all-base-plugin-rpc.md`
+9. 模块分层与 SDK/RPC 双模：`docs/architecture/cooliebase-all-plugin-rpc.md`

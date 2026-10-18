@@ -1,6 +1,6 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "$id": "https://cooliebase-all-base/contract/ontology-mapping.schema.json",
+  "$id": "https://cooliebase-all/contract/ontology-mapping.schema.json",
   "title": "本体域 ↔ 老系统迁移映射契约",
   "description": "把 100+ 微服务老系统『如实数字化』映射进本体域的机器可读契约。定位=老系统的数字镜像+体检报告，不是重写计划书：默认原样映射(as-is/keep)，只对有经济价值处标注 optimize，问题只记录不强制动。每个 mapping 文件对应一个本体域(如 ecommerce)，聚合若干老服务的映射。",
   "type": "object",

@@ -2,8 +2,8 @@
   "schema_version": "1.0",
   "diagram_type": "architecture",
   "meta": {
-    "title": "cooliebase-all-base 现代化分层与微服务双模演进架构全景",
-    "author": "Antigravity & cooliebase-all-base Core Team",
+    "title": "cooliebase-all 现代化分层与微服务双模演进架构全景",
+    "author": "Antigravity & cooliebase-all Core Team",
     "theme": "auto",
     "export": ["svg", "png"]
   },

@@ -1,7 +1,7 @@
 # Requirements — 阶段 1：C 端用户模块 + 站点/主题可配置化（地基）
 
 > 阶段：**规划 (Planning)** · 目标状态 `PLAN_APPROVED`
-> 上位需求：给 cooliebase-all-base 补 C 端（用户端）能力，对标 WordPress「后台配置 → 前台呈现」。
+> 上位需求：给 cooliebase-all 补 C 端（用户端）能力，对标 WordPress「后台配置 → 前台呈现」。
 > 本阶段 = 4 阶段中的第 1 阶段（后端地基）。后续：阶段 2 后台外观设置页 / 阶段 3 clients/expo / 阶段 4 规范文档。
 
 ---
@@ -31,7 +31,7 @@
 - ❌ 不 mock：新 service 真实落库（Rule：真实数据驱动）。
 
 ### 1.5 🆕 关联需求：对话生成结果支持「多端」预览（B 端后台 + 多个 C 端渠道），跨仓横切
-> 来源：用户 steering（两条）。对话（Build 模式）生成 cooliebase-all-base 这类项目后，预览不能只给单一入口——需在**对话框中按渠道分别预览**，且**根据实际情况**决定展示哪些入口（只有后台→只出 B 端；含哪些 C 端渠道→出对应入口）。
+> 来源：用户 steering（两条）。对话（Build 模式）生成 cooliebase-all 这类项目后，预览不能只给单一入口——需在**对话框中按渠道分别预览**，且**根据实际情况**决定展示哪些入口（只有后台→只出 B 端；含哪些 C 端渠道→出对应入口）。
 
 **「C 端」= 多端概念，不是单一前台**（对齐仓库 `clients/` 现状 + 用户 steering）：
 - **B 端（管理后台）**：管理员运营后台。
@@ -40,7 +40,7 @@
   - **PC 端**（桌面：`clients/desktop-pc`（Tauri），或 PC Web 前台）；
   - **App 端**（移动：`clients/uniapp`（小程序/App）、`clients/flutter`、`clients/expo`）。
 
-- **R16（本仓侧 — 让各端有确定、可预览/可寻址的入口）**：cooliebase-all-base SHALL 让 B 端与各 C 端渠道有**确定入口**，供平台预览 UI 分别指向：
+- **R16（本仓侧 — 让各端有确定、可预览/可寻址的入口）**：cooliebase-all SHALL 让 B 端与各 C 端渠道有**确定入口**，供平台预览 UI 分别指向：
   - B 端：现有 `/login` → `/admin/*`。
   - C 端 Web/H5：Next 内 C 端路由组（如 `/portal`，含登录/首页/用户中心）——同一 dev server 可与 B 端一起预览（不同路径）。
   - C 端 PC/App（uniapp/flutter/expo/desktop-pc）：为**独立客户端包**，非本 Next 应用同源路由；其"预览"形态是**各自的运行/构建产物**（如 H5 build、Expo Web、Uniapp H5 预览），入口由各 client 的启动脚本/产物 URL 提供，遵循 `clients/README` 约定（启动先读 `/api/v1/open/meta/project-profile`）。
@@ -103,7 +103,7 @@
 - **NFR3（真实数据）**：新 service 走 `cooliebasePrisma`/Repository，禁止 mock。
 - **NFR4（测试）**：service 层单测（注册去重/登录成败/资料读写/配置读写默认值）。
 - **NFR5（零破坏）**：不改 admin 端登录与 member admin CRUD 现有行为。
-- **NFR6（🆕 SQLite 模板可运行预览 — 硬约束，已代码核实）**：cooliebase-all-base 作为模板被派生/预览时默认走**内置 SQLite**（`better-sqlite3` + `data/cooliebase.db`）。**关键事实**：SQLite 的建表**不来自 Prisma migration**（Prisma schema 是 PostgreSQL-only、196 处 `@db.VarChar`，且注释写明"运行时查询由 Kysely 完成，Prisma 不用于 runtime query"），而来自 **`scripts/bootstrap-sqlite.ts`** 手写的 `CREATE TABLE IF NOT EXISTS`（SQLite 原生类型 TEXT/INTEGER/DATETIME + 8 大审计底座字段）。因此本阶段：
+- **NFR6（🆕 SQLite 模板可运行预览 — 硬约束，已代码核实）**：cooliebase-all 作为模板被派生/预览时默认走**内置 SQLite**（`better-sqlite3` + `data/cooliebase.db`）。**关键事实**：SQLite 的建表**不来自 Prisma migration**（Prisma schema 是 PostgreSQL-only、196 处 `@db.VarChar`，且注释写明"运行时查询由 Kysely 完成，Prisma 不用于 runtime query"），而来自 **`scripts/bootstrap-sqlite.ts`** 手写的 `CREATE TABLE IF NOT EXISTS`（SQLite 原生类型 TEXT/INTEGER/DATETIME + 8 大审计底座字段）。因此本阶段：
   - **member 表必须加进 `scripts/bootstrap-sqlite.ts`**（新增 `CREATE TABLE IF NOT EXISTS member_user`，SQLite 原生类型 + 8 审计字段），否则 SQLite 预览下"表不存在"。同时在 `prisma/schema.prisma` 加对应 PG model 保持双库一致（PG 走 migration，SQLite 走 bootstrap）。
   - **appearance 配置存 `system_config` 表**（SQLite bootstrap 已有；`value` 列是 **TEXT**）——故 appearance 以 **JSON 字符串序列化**存入 `value`（不依赖 Prisma `Json` 类型，规避 SQLite 下 Json 不兼容），读取时反序列化。复用 infra `config.service.ts`/`config.repository.ts`（Kysely，运行时真源）。
   - **运行时用 Kysely**（非 Prisma）：新 member repository/service 必须走 `shared/backend/lib/database`（Kysely + datasource-manager），保证 SQLite/PG/MySQL 三库统一。

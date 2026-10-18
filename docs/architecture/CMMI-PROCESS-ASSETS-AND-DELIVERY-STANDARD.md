@@ -14,7 +14,7 @@
 - ❌ **评审流于形式**：上线前夕为了应付评估，通宵伪造补录数百页评审记录与测试报告；
 - ❌ **资产无从追溯**：一个 Bug 出现，找不到当初是谁设计的、哪个需求引入的、测试用例为什么漏测。
 
-在 `cooliebase-all-base` 现代软件工程体系中，我们拒绝纸面形式主义，将 CMMI 的严肃性与现代 Git/AI-Native 的高效性深度融合：
+在 `cooliebase-all` 现代软件工程体系中，我们拒绝纸面形式主义，将 CMMI 的严肃性与现代 Git/AI-Native 的高效性深度融合：
 1. **文档即代码 (Docs-as-Code)**：所有过程文档、原型、设计稿与契约一律纳入 Git 统一配置管理；
 2. **No Artifact, No Done**：任何阶段（Gate）的结项必须具备物理可检验的工程交付物；
 3. **双向可追溯**：从用户需求 ➔ 设计规范 ➔ 原型 ➔ 代码 Commit ➔ 单元测试 ➔ 部署回滚 SOP，形成闭合链路。
@@ -76,7 +76,7 @@ CMMI 强调配置项（Configuration Items, CI）必须实行 **开发库 (Dynam
 项目根目录采用标准化七大工作产品（Work Products）分类存放体系：
 
 ```
-cooliebase-all-base / [基于底座衍生的客户商业项目]
+cooliebase-all / [基于底座衍生的客户商业项目]
 ├── docs/
 │   ├── 01_management/                  # 【1. 项目管理类工作产品 (PLAN / MC / DAR)】
 │   │   ├── project-charter.md          #    项目立项书与范围说明书
@@ -206,7 +206,7 @@ cooliebase-all-base / [基于底座衍生的客户商业项目]
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                   cooliebase-all-base 工程总矩阵              │
+│                   cooliebase-all 工程总矩阵              │
 └─────────────┬──────────────────────────────┬─────────────┘
               │                              │
      【纯文本源资产】 (Git Tracked)        【二进制分发资产】 (Release Assets)

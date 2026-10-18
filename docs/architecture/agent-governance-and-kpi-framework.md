@@ -2,7 +2,7 @@
 # (Enterprise Agent Governance & Quantifiable KPI Framework for Heavy Business)
 
 > **设计来源**: 深度吸收 Coolie 工坊控制面与 Palantir FDE 作战体系实战沉淀  
-> **模板使命**: 为基于 `cooliebase-all-base` 孵化的重型业务系统（ERP、MES、SCM、金融结算）提供原生的 AI 数字员工编制、调度、预算硬停与量化履约考核中枢。
+> **模板使命**: 为基于 `cooliebase-all` 孵化的重型业务系统（ERP、MES、SCM、金融结算）提供原生的 AI 数字员工编制、调度、预算硬停与量化履约考核中枢。
 
 ---
 
@@ -14,7 +14,7 @@
 3. **推诿风险**：职责划分不清，出了生产故障无法归因责任员工；
 4. **无法量化**：缺乏数据化 KPI，不知道数字员工到底替企业省了多少人效。
 
-Coolie 工坊跑通了完整的“6 大员工 × 7 工具池”实战闭环，其核心管理机制必须成为 `cooliebase-all-base` 的标准基础设施。
+Coolie 工坊跑通了完整的“6 大员工 × 7 工具池”实战闭环，其核心管理机制必须成为 `cooliebase-all` 的标准基础设施。
 
 ---
 
@@ -66,4 +66,4 @@ Coolie 工坊跑通了完整的“6 大员工 × 7 工具池”实战闭环，�
 
 ## 四、 总结与模板承诺
 
-`cooliebase-all-base` 在吸收 Coolie 工坊 Agent 治理精髓后，彻底跳出了初级 CRUD 框架的局限，成为**既能运行传统企业业务，又能高效驾驭、严格管局 AI 数字员工**的新一代智能体业务底座！
+`cooliebase-all` 在吸收 Coolie 工坊 Agent 治理精髓后，彻底跳出了初级 CRUD 框架的局限，成为**既能运行传统企业业务，又能高效驾驭、严格管局 AI 数字员工**的新一代智能体业务底座！

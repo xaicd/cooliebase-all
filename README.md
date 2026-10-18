@@ -1,6 +1,6 @@
-# cooliebase-all-base
+# cooliebase-all
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/xaicd/cooliebase-all-base/releases/tag/v1.1.0)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/xaicd/cooliebase-all/releases/tag/v1.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CMMI 01-09](https://img.shields.io/badge/CMMI-01~09%20Full--Lifecycle-green.svg)](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-36%20Native%20Skills-purple.svg)](.agents/skills/README.md)
@@ -38,7 +38,7 @@ flowchart TD
         M2["单体内存 SDK / 远程 RPC 双模切换"]
         M3["版本化 /api/v{n}/ 契约零破坏"]
     end
-    P1 --> Foundation["cooliebase-all-base: 工业级 AI 原生商业软件底座"]
+    P1 --> Foundation["cooliebase-all: 工业级 AI 原生商业软件底座"]
     P2 --> Foundation
     P3 --> Foundation
     P4 --> Foundation
@@ -80,7 +80,7 @@ flowchart TD
 npx create-cooliebase-app my-app
 
 # 方案 B: degit 骨架拉取 (10秒内完成，0MB 历史提交)
-npx degit xaicd/cooliebase-all-base#main my-app
+npx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "我的新业务系统"
 npm run dev
@@ -101,7 +101,7 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 ```json
 {
   "mcpServers": {
-    "cooliebase-all-base": {
+    "cooliebase-all": {
       "command": "npx",
       "args": ["-y", "@cooliebase/mcp-server"]
     }
@@ -136,7 +136,7 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 AI 施工时必须遵守严格的模块分层与物理边界，**严禁凭感觉放置文件**：
 
 ```
-cooliebase-all-base/
+cooliebase-all/
 ├── packages/
 │   ├── shared/                       # 核心基础 SDK (永远是 SDK，严禁当作微服务)
 │   │   ├── backend/constants/        # 权限码、菜单、domain-catalog.json 权威真源
@@ -236,11 +236,11 @@ cooliebase-all-base/
 - [CMMI 过程资产与交付标准手册](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
 - [CMMI 01~09 全生命周期顶级技能分配矩阵](.agents/skills/README.md)
 - [AI 全链路交付工厂与工单规范](docs/architecture/ai-agent-driven-delivery-workflow.md)
-- [架构总览与分层设计](docs/architecture/cooliebase-all-base-architecture.md)
+- [架构总览与分层设计](docs/architecture/cooliebase-all-architecture.md)
 - [高阶反向思维与 Harness 约束](.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
 - [开发工作手册 (Universal Directives)](AGENTS.md)
-- [多数据库兼容与方言隔离](docs/architecture/cooliebase-all-base-database-compatibility.md)
-- [多端渠道能力标准](docs/architecture/cooliebase-all-base-client-channels.md)
+- [多数据库兼容与方言隔离](docs/architecture/cooliebase-all-database-compatibility.md)
+- [多端渠道能力标准](docs/architecture/cooliebase-all-client-channels.md)
 - [i18n 国际化多语言使用指南](docs/guides/i18n-guide.md)
 - [业务项目身份初始化指南](docs/guides/project-profile-bootstrap.md)
 

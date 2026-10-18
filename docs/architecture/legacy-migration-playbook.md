@@ -1,6 +1,6 @@
 # 老系统迁移方法论（Legacy Migration Playbook）
 
-> **终局目标**：把一个 **100+ 微服务的老系统**（Spring Cloud / Node / Dubbo + MySQL / Redis / Kafka / Hazelcast）迁上 cooliebase-all-base 底座。
+> **终局目标**：把一个 **100+ 微服务的老系统**（Spring Cloud / Node / Dubbo + MySQL / Redis / Kafka / Hazelcast）迁上 cooliebase-all 底座。
 >
 > **核心定位（务必先读）**：本体域是老系统的**数字镜像 + 体检报告**，**不是重写计划书**。把现实系统的实体/接口/事件**如实数字化映射**进来，目的是**看清全局：有什么、缺什么、乱在哪**——然后**只对产生经济价值的地方动手**。绝大多数服务 `valueTag=keep`（照原样映射、不动代码）。
 

@@ -1,7 +1,7 @@
-# cooliebase-all-base 全域迁移作战板
+# cooliebase-all 全域迁移作战板
 
 - 生成时间: 2026-08-03T01:58:18.598Z
-- 证据来源: apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/cooliebase-domain-evidence-2026-08-03.json
+- 证据来源: apps/cooliebase/cooliebase-all/docs/architecture/artifacts/cooliebase-domain-evidence-2026-08-03.json
 - 覆盖域数: 15
 
 ## 阶段拆分

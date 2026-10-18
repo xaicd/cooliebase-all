@@ -128,7 +128,7 @@ const manifest = {
   version: "0.1.0",
   displayName: catalogEntry?.displayName ?? domainName,
   description: `${domainName} 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）`,
-  author: "CoolieBase All Base",
+  author: "CoolieBase All",
   categories: ["automation"],
   // 只用**插件 manifest 的白名单**（packages/shared/backend/plugins/types.ts 的
   // KNOWN_CAPABILITIES）。别抄注册表列表里那些 facade.invoke / rpc.serve / pack.independent ——
@@ -192,7 +192,7 @@ console.log("")
 console.log("  ⚠️  以下步骤本工具**不做**，需要显式完成（它们会牵动互相引用的登记与门禁）:")
 console.log("     1. catalog 里**保留**该域，但把 kind 改成 \"plugin\"，并在 layers.plugin.domains 登记")
 console.log("        （不要移除! 移除等于丢掉域级特征 —— broker 会拒收它的 subject，打包与治理也对不上。")
-console.log("         同时把 docs/architecture/cooliebase-all-base-domain-governance.md 的治理行改为插件语义）")
+console.log("         同时把 docs/architecture/cooliebase-all-domain-governance.md 的治理行改为插件语义）")
 console.log("     2. 把该域目录移到 packages/plugins/plugin-<domain>（宿主才发现得到）")
 console.log("        —— 搬完必须清干净旧目录: 残留会让路径解析器误判域还在原地（实测踩过反馈回路）")
 console.log("     3. 在 package.json 里加 cooliebasePlugin 指针与 @cooliebase/plugin-sdk 依赖")

@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
-title CoolieBase All Base - Create New Project
+title CoolieBase All - Create New Project
 
 cd /d "%~dp0"
 
 echo ================================================================
-echo       CoolieBase All Base - One-Click Project Generator
+echo       CoolieBase All - One-Click Project Generator
 echo ================================================================
 echo.
 

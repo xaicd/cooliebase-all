@@ -1,5 +1,5 @@
 # ============================================================
-# cooliebase-all-base - 模块化独立部署（BFF + 可选域服务）
+# cooliebase-all - 模块化独立部署（BFF + 可选域服务）
 # 页面始终由 BFF 提供；设置 COOLIEBASE_DOMAIN_<NAME>_UPSTREAM 后，对应 /api/v1/**/<domain> 由域进程承接。
 #
 # 一体（单进程，Facade=SDK）：
@@ -14,7 +14,7 @@
 name: cooliebase-domains
 services:
   bff:
-    image: ${REGISTRY:-registry.local}/cooliebase-all-base:${TAG:-latest}
+    image: ${REGISTRY:-registry.local}/cooliebase-all:${TAG:-latest}
     build:
       context: ..
       dockerfile: Dockerfile

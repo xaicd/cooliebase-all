@@ -1,10 +1,10 @@
-# cooliebase-all-base 全量能力同步矩阵（来自 cooliebase 目录）
+# cooliebase-all 全量能力同步矩阵（来自 cooliebase 目录）
 
 更新时间：2026-08-06
 
 ## 1. 目标与口径
 
-目标：cooliebase 目录下两套项目能力要完整迁移到 cooliebase-all-base，不做遗漏。
+目标：cooliebase 目录下两套项目能力要完整迁移到 cooliebase-all，不做遗漏。
 
 能力来源：
 
@@ -109,7 +109,7 @@
 1. `apps/cooliebase/yudao-ui-admin-vue3/src/views`
 2. `apps/cooliebase/yudao-ui-admin-vue3/src/api`
 
-## 4. cooliebase-all-base 能力同步清单
+## 4. cooliebase-all 能力同步清单
 
 状态说明：
 

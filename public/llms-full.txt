@@ -1,4 +1,4 @@
-# cooliebase-all-base: Complete Engineering Specification & Operational Manual
+# cooliebase-all: Complete Engineering Specification & Operational Manual
 # (For Long-Context LLMs & Autonomous Coding Agents)
 
 > Version: 2026.10-V1  
@@ -142,7 +142,7 @@
 
 ```bash
 # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-npx degit xaicd/cooliebase-all-base#main my-app
+npx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install

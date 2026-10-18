@@ -47,7 +47,7 @@ flowchart TD
 
 ---
 
-## 3. cooliebase-all-base 20 道自动化门禁审计清单
+## 3. cooliebase-all 20 道自动化门禁审计清单
 
 质量审计员在审查代码库时，必须执行全量门禁检查，并确保所有门禁状态为通过（Exit Code 0）：
 

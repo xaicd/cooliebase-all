@@ -1,4 +1,4 @@
-// cooliebase-all-base Prisma Schema
+// cooliebase-all Prisma Schema
 // 用途：schema 定义 + migration 管理
 // 运行时查询由 Kysely 完成，Prisma 不用于 runtime query
 
@@ -1138,7 +1138,7 @@ model AiChatMessage {
 // 域是可信/进程内/一方表; 插件是 capability-gated/独立 worker/通用扩展表。
 // 因此插件**不给每个插件开自己的表**, 而是统一落 plugin_state 的 scoped KV,
 // 且首个插件系统不允许任意第三方迁移（插件数据先走通用扩展表，scoped 到既有对象）
-// 与 docs/architecture/cooliebase-all-base-module-to-plugin-migration.md
+// 与 docs/architecture/cooliebase-all-module-to-plugin-migration.md
 // ============================================================
 
 /// 已安装插件(实例级)。对应 PLUGIN_SPEC §21.3 的 plugins

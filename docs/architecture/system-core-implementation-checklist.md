@@ -1,4 +1,4 @@
-# cooliebase-all-base system-core 实施清单（基于 CoolieBase 原生）
+# cooliebase-all system-core 实施清单（基于 CoolieBase 原生）
 
 更新时间：2026-08-02
 

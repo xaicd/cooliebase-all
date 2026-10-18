@@ -15,7 +15,7 @@ export function buildAdminSwaggerDoc(): SwaggerDoc {
   return {
     openapi: "3.0.3",
     info: {
-      title: "cooliebase-all-base admin api",
+      title: "cooliebase-all admin api",
       version: "0.1.0",
       description: "mini migration swagger baseline",
     },

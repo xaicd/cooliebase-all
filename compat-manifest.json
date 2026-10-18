@@ -3,7 +3,7 @@
   "kind": "compat-manifest",
   "description": "Machine-readable compatibility contract for this Workspace Bundle. Downstream projects hatched via `npm run project:create` and external agents (Claude Code / Cursor / Command Code / DSH / hermes) bind to what is declared here. Verified by scripts/check-compat-manifest.cjs in `npm run check`.",
   "framework": {
-    "name": "cooliebase-all-base",
+    "name": "cooliebase-all",
     "role": "workspace-bundle",
     "templateVersion": "1.2.0",
     "releasedAt": "2026-10-10",
@@ -53,8 +53,8 @@
       "packages/shared/contract/agent-profile.json"
     ],
     "hatch": {
-      "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
-      "degit": "npx degit xaicd/cooliebase-all-base#main <my-app>",
+      "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
+      "degit": "npx degit xaicd/cooliebase-all#main <my-app>",
       "inRepo": "npm run project:create -- <target-dir> --profile base"
     },
     "skills": {

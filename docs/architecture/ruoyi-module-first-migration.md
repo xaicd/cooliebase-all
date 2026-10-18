@@ -1,4 +1,4 @@
-# cooliebase-all-base Module-First 迁移策略
+# cooliebase-all Module-First 迁移策略
 
 更新时间：2026-08-02
 
@@ -10,7 +10,7 @@
 
 CoolieBase（Java）通常通过新增 module 承载新业务域，避免核心目录持续膨胀。
 
-cooliebase-all-base 对齐策略：
+cooliebase-all 对齐策略：
 
 1. 新业务域直接进入 `packages/domains/<domain>`。
 2. 顶层 `src/backend/*` 只保留过渡门面。

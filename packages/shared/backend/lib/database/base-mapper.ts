@@ -1,7 +1,7 @@
 /**
  * MyBatis-Plus 风格通用 BaseMapper 与 QueryWrapper
  * 
- * 为 cooliebase-all-base 提供 SpringBoot + MyBatis-Plus 级的开发体验：
+ * 为 cooliebase-all 提供 SpringBoot + MyBatis-Plus 级的开发体验：
  * 1. 链式条件构造器 QueryWrapper / LambdaQueryWrapper
  * 2. 泛型 BaseMapper：全套内置 selectById, selectList, selectPage, insert, updateById, deleteById
  * 3. 自动租户隔离、逻辑删除过滤、审计字段自填充

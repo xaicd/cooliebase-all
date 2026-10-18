@@ -18,8 +18,8 @@
 - **独立测试阶段**：TestingKit 4 层测试金字塔（L1-L4）独立客观验收，状态收敛为 `TEST_PASSED`；
 - **物理门禁防御**：`pnpm run api:guard` 保证 23 模块 RESTful 路由与常量字典 100% 对齐。
 
-### 3. Build 顶级全栈模板 (`cooliebase-all-base`)
-- **独立 Git Submodule 挂载**：`templates/cooliebase-all-base`；
+### 3. Build 顶级全栈模板 (`cooliebase-all`)
+- **独立 Git Submodule 挂载**：`templates/cooliebase-all`；
 - **零配置 SQLite 驱动**：秒级冷启动与种子数据注入；
 - **4 层测试金字塔与 Playwright 自动化 Agent 探针**。
 

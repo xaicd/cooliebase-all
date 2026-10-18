@@ -112,5 +112,5 @@ yudao-server 配置显示 mini 默认具备：
 ## 11. 对应产物
 
 1. 扫描脚本：scripts/scan-yudao-boot-mini-core.ts
-2. 扫描报告：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
-3. 扫描明细 JSON：apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.json
+2. 扫描报告：apps/cooliebase/cooliebase-all/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md
+3. 扫描明细 JSON：apps/cooliebase/cooliebase-all/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.json

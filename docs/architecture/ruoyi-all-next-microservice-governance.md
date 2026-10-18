@@ -14,7 +14,7 @@
 
 ## 2. 能力映射
 
-| Moleculer | NestJS NATS | cooliebase-all-base |
+| Moleculer | NestJS NATS | cooliebase-all |
 |---|---|---|
 | Node | microservice instance | `COOLIEBASE_PACK_DOMAIN` 或 `all-next` |
 | Service | handler module | `packages/domains/<domain>` |
@@ -35,7 +35,7 @@
 | generated actions | generated message patterns | 低代码模板 / codegen ZIP 输出 Facade + `*.rpc.ts` |
 
 权威清单：`packages/shared/backend/constants/microservice-governance.json`  
-分层与协议：`docs/architecture/cooliebase-all-base-plugin-rpc.md`  
+分层与协议：`docs/architecture/cooliebase-all-plugin-rpc.md`  
 门禁：`npm run microservice:check`
 
 ## 3. 调用约定

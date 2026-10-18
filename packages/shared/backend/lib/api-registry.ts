@@ -135,7 +135,7 @@ export const apiRegistry = {
     }
     return {
       openapi: "3.0.3",
-      info: { title: "cooliebase-all-base API", version: "1.0.0", description: "Versioned REST contract. All error responses use the shared error catalog." },
+      info: { title: "cooliebase-all API", version: "1.0.0", description: "Versioned REST contract. All error responses use the shared error catalog." },
       paths,
       components: {
         schemas: {

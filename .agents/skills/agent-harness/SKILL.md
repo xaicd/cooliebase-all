@@ -1,6 +1,6 @@
 ---
 name: agent-harness
-description: 将 cooliebase-all-base 作为 DigitalStaff NPC 工作区模板，并按 DeepSeek Harness 思想做可组合、可追溯进化。接到「新业务项目底座 / NPC 模板 / deepseek-harness / 智能进化」时启用。
+description: 将 cooliebase-all 作为 DigitalStaff NPC 工作区模板，并按 DeepSeek Harness 思想做可组合、可追溯进化。接到「新业务项目底座 / NPC 模板 / deepseek-harness / 智能进化」时启用。
 ---
 
 # Agent Harness 工作区进化规范
@@ -14,7 +14,7 @@ description: 将 cooliebase-all-base 作为 DigitalStaff NPC 工作区模板，�
 
 ## 2. 权威依据
 
-- `docs/architecture/cooliebase-all-base-harness-evolution.md`
+- `docs/architecture/cooliebase-all-harness-evolution.md`
 - `packages/shared/contract/agent-profile.json`
 - `.agents/context/ASSEMBLY.md`
 - `AGENTS.md` §16（ProjectReactor）、§17（基座/业务边界）

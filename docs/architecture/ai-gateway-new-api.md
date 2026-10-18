@@ -1,8 +1,8 @@
-# AI 网关（沉淀 new-api 能力到 cooliebase-all-base）
+# AI 网关（沉淀 new-api 能力到 cooliebase-all）
 
 > 日期：2026-08-23  
 > 范围：原生域 `ai`。**能力对齐** [new-api](https://github.com/QuantumNous/new-api)，**禁止拷贝其 AGPLv3 源码**。  
-> 目的：所有基于 cooliebase-all-base 的项目（含应算通）共用同一套模型路由、鉴权与用量出口。
+> 目的：所有基于 cooliebase-all 的项目（含应算通）共用同一套模型路由、鉴权与用量出口。
 
 ---
 
@@ -10,7 +10,7 @@
 
 后续业务项目都会调模型。若每个项目各接一套 new-api，会出现：密钥散落、计量口径不一、协议转换重复。
 
-把网关放进 cooliebase-all-base 的 **`ai` 原生域**：
+把网关放进 cooliebase-all 的 **`ai` 原生域**：
 
 - 后台：渠道 / 模型 / 令牌 / 用量（四字菜单）
 - 开放接口：OpenAI 兼容 `/api/v1/open/ai/v1/*`（Bearer 令牌，不走管理员 JWT）
@@ -49,7 +49,7 @@
 业务域 / Qoder / Trae / 自有应用
         │  Bearer sk-***  或  aiFacade.relayChatCompletion
         ▼
-cooliebase-all-base  ai 域网关
+cooliebase-all  ai 域网关
         │  验令牌 → 选渠道（优先级+权重）→ 失败换渠
         ▼
 上游（MoMA / 星辰 / 元景 / OpenAI 兼容 / 厂商 BYOM）
@@ -92,7 +92,7 @@ AiUsageLog  （应算通 meter 可订阅或拉取）
 
 ## 5. 与应算通的切分
 
-| 放 cooliebase-all-base `ai` | 放应算通业务域 |
+| 放 cooliebase-all `ai` | 放应算通业务域 |
 |---|---|
 | 上游渠道、协议转发、重试 | 企业额度池、坐席、双轨限额 |
 | 平台调用令牌 | 运营方案、货架资费、分账 |

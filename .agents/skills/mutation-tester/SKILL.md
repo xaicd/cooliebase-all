@@ -91,7 +91,7 @@ it('should atomically deduct balance and prevent overdraft', async () => {
 
 ## 5. 变异测试执行与验证命令
 
-在 cooliebase-all-base 中结合真实数据库执行变异与金字塔测试：
+在 cooliebase-all 中结合真实数据库执行变异与金字塔测试：
 
 ```bash
 # 1. 执行真实数据库集成测试矩阵

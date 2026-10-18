@@ -15,8 +15,8 @@ description: 需求与原型收敛。新功能、多端、业务项目初始化�
 - `AGENTS.md` §5 (Domain-First 研发流程六要素)
 - `AGENTS.md` §15 (用户对话与需求必须实时记录至 `docs/features/sprint-prod/{MMDD}.md`)
 - `docs/guides/project-profile-bootstrap.md` (品牌与项目元数据引导)
-- `docs/architecture/cooliebase-all-base-client-channels.md` (多端渠道标准)
-- `docs/architecture/cooliebase-all-base-capability-matrix.md` (能力矩阵权威清单)
+- `docs/architecture/cooliebase-all-client-channels.md` (多端渠道标准)
+- `docs/architecture/cooliebase-all-capability-matrix.md` (能力矩阵权威清单)
 
 ## 3. 标准需求收敛六要素模板
 

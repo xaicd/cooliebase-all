@@ -1,7 +1,7 @@
 # SPEC-AND-PROTOTYPE-STANDARD.md
 # 统一规格包 (Spec Bundle)、原型 (HTML/PNG) 与工程任务标准化管理规范
 
-> **生效对象**：所有在 `cooliebase-all-base` 基座上进行业务开发的工程师、架构师、产品经理、UI 设计师与 AI Agent  
+> **生效对象**：所有在 `cooliebase-all` 基座上进行业务开发的工程师、架构师、产品经理、UI 设计师与 AI Agent  
 > **核心宗旨**：打破「Feature 无法容纳 Bugfix 与重构」、「原型与代码脱节」以及「文档碎片化」的顽疾，依据 CMMI V2.0/V3.0 与 ISO/IEC/IEEE 29148 规范，推行 **统一规格驱动架构 (Unified Spec-Driven Architecture)** 与 **全息规格包 (Spec Bundle)**。
 
 ---
@@ -13,7 +13,7 @@
 - 重构（Refactor）对外不改变任何功能行为，也不是业务 Feature；
 - 性能调优或容量扩充是增量增强（Enhancement），而非全新 Feature。
 
-在系统工程规范（IEEE 830 / ISO 29148 / CMMI RDM 需求开发与管理）中，所有变更的本质统一收敛为 **Specification Change（规格演进）**。`cooliebase-all-base` 确立 **4 大核心规格类型 (Spec Types)**：
+在系统工程规范（IEEE 830 / ISO 29148 / CMMI RDM 需求开发与管理）中，所有变更的本质统一收敛为 **Specification Change（规格演进）**。`cooliebase-all` 确立 **4 大核心规格类型 (Spec Types)**：
 
 | 规格类型 (`type`) | 语义本质与发生场景 | 核心关注点与输入要素 | 任务与代码白名单重点 |
 |:---|:---|:---|:---|
@@ -149,7 +149,7 @@ npm run speckit:archive -- --name fix-cart-race-condition
 依据 CMMI V2.0/V3.0 过程改进模型要求：
 1. **组织级过程资产 (PAL)**：集中维护于 `docs/architecture/`、`.agents/rules/` 与 `.agents/skills/`，作为跨所有业务特性的统一制度与规范基线；
 2. **项目级工作产品 (Work Products)**：收敛在各规格全息包 `docs/features/<name>/` 中，通过物理文件追溯需求（RDM）、技术解方案（TS）、验证确认（VV）与配置管理（CM）；
-3. 详细规范请参阅 [`docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md`](file:///host-workspace/xaicd/cooliebase-all-base/docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)。
+3. 详细规范请参阅 [`docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md`](file:///host-workspace/xaicd/cooliebase-all/docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)。
 
 ---
 

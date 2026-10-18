@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "generatedNote": "首个样板：DigitalStaff 平台默认电商本体域 ecommerce ↔ cooliebase-all-base mall/pay 的如实映射。证明映射法可行，供 100+ 微服务迁移复制。mall/pay 现为模板骨架子集(as-is)，system/infra 标注为跨域公共底座(不属电商域)。事件映射体现二者形状差异：本体域=状态机生命周期事件，业务侧=动词事件，需从 action 状态迁移派生。",
+  "generatedNote": "首个样板：DigitalStaff 平台默认电商本体域 ecommerce ↔ cooliebase-all mall/pay 的如实映射。证明映射法可行，供 100+ 微服务迁移复制。mall/pay 现为模板骨架子集(as-is)，system/infra 标注为跨域公共底座(不属电商域)。事件映射体现二者形状差异：本体域=状态机生命周期事件，业务侧=动词事件，需从 action 状态迁移派生。",
   "ontologyDomain": {
     "id": "ecommerce",
     "displayName": "电商平台",

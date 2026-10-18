@@ -76,7 +76,7 @@ export function getDataSourceConfig(): DataSourceConfig {
   _currentConfig = {
     name: "primary",
     driver,
-    url: envUrl || "memory://cooliebase-all-base",
+    url: envUrl || "memory://cooliebase-all",
     tier,
     protocolFamily,
     poolSize,

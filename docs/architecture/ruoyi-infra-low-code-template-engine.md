@@ -1,10 +1,10 @@
-# cooliebase-all-base infra 低代码模板引擎方案
+# cooliebase-all infra 低代码模板引擎方案
 
 更新时间：2026-08-03
 
 ## 1. 目标
 
-把 yudao-boot-mini 的基础设施能力、低代码能力、模板引擎能力，收敛到 cooliebase-all-base 的 infra 模块中，形成可持续演进的“低代码平台底座”，而不是只保留一个表列表式 codegen 页面。
+把 yudao-boot-mini 的基础设施能力、低代码能力、模板引擎能力，收敛到 cooliebase-all 的 infra 模块中，形成可持续演进的“低代码平台底座”，而不是只保留一个表列表式 codegen 页面。
 
 ## 2. 设计原则
 
@@ -25,12 +25,12 @@
 5. 预览/下载：在真正落盘前可查看生成内容。
 6. 双模调用：生成 Service 可被 broker 调用；同进程 SDK，拆分后同一 Facade 切 RPC。跨域禁止直接 import 其他域 Service。
 
-## 4. cooliebase-all-base 的落位方式
+## 4. cooliebase-all 的落位方式
 
 ### 4.1 目录建议
 
 ```text
-apps/cooliebase/cooliebase-all-base/packages/domains/infra/
+apps/cooliebase/cooliebase-all/packages/domains/infra/
   backend/
     services/
       codegen.service.ts
@@ -171,7 +171,7 @@ apps/cooliebase/cooliebase-all-base/packages/domains/infra/
 - 菜单注册数据
 - SQL/DDL 片段
 
-## 8. 与 cooliebase-all-base 现有规范对齐
+## 8. 与 cooliebase-all 现有规范对齐
 
 1. 路由必须薄层，API route 只做鉴权、参数校验、调 service。
 2. service 必须是 DB-first，不允许回退 mock。
@@ -230,7 +230,7 @@ apps/cooliebase/cooliebase-all-base/packages/domains/infra/
 
 ## 11. 结论
 
-yudao-boot-mini 的 low-code / template engine 能力应该落在 cooliebase-all-base 的 infra 模块，而不是 system 模块或业务模块。
+yudao-boot-mini 的 low-code / template engine 能力应该落在 cooliebase-all 的 infra 模块，而不是 system 模块或业务模块。
 
 最合适的切入点是：
 

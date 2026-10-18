@@ -5,7 +5,7 @@ ROOT="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 cd "$ROOT"
 
 echo "================================================================"
-echo "      CoolieBase All Base - One-Click Project Generator (Linux/macOS)"
+echo "      CoolieBase All - One-Click Project Generator (Linux/macOS)"
 echo "================================================================"
 echo ""
 

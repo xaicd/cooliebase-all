@@ -117,7 +117,7 @@
 - 租户页：`cooliebase/yudao-ui-admin-vue3/src/views/system/tenant/index.vue`
 - 套餐页：`cooliebase/yudao-ui-admin-vue3/src/views/system/tenantPackage/index.vue`
 
-## 5. 对 cooliebase-all-base 的落地启示
+## 5. 对 cooliebase-all 的落地启示
 
 1. 先做“关系模型”再做页面：user-role、role-menu、tenant-package 是核心链。
 2. 权限缓存与失效策略要提前设计，否则后期性能和一致性会一起出问题。
@@ -129,7 +129,7 @@
 
 1. 深读 mapper + DO + 枚举（尤其数据权限与菜单类型约束）。
 2. 深读登录鉴权链路（用户登录、菜单路由装载、permission 指令）。
-3. 提炼 cooliebase-all-base 对应的数据模型与最小可运行骨架（system-core module）。
+3. 提炼 cooliebase-all 对应的数据模型与最小可运行骨架（system-core module）。
 
 ---
 

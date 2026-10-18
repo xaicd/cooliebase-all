@@ -1,4 +1,4 @@
-# cooliebase-all-base 部署指南
+# cooliebase-all 部署指南
 
 ## 环境说明
 
@@ -26,7 +26,7 @@ COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
 npm run domain:up -- pay
 ```
 
-详细约定见 `docs/architecture/cooliebase-all-base-domain-pack.md`。
+详细约定见 `docs/architecture/cooliebase-all-domain-pack.md`。
 
 ## 快速启动
 

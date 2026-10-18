@@ -1,10 +1,10 @@
-# cooliebase-all-base 基础架构蓝图（v0.1）
+# cooliebase-all 基础架构蓝图（v0.1）
 
 更新时间：2026-08-02
 
 ## 1. 目标
 
-建设一个可复用的企业级中后台基座 `cooliebase-all-base`，用于承载：
+建设一个可复用的企业级中后台基座 `cooliebase-all`，用于承载：
 
 1. 当前乡村振兴业务系统
 2. 后续新增的其他行业系统
@@ -27,10 +27,10 @@
 2. 落地到 Next.js + TypeScript + Prisma + RBAC 权限码体系
 3. 把“功能模块”沉淀成可复制模板，而不是复制业务代码
 
-## 3. cooliebase-all-base 分层
+## 3. cooliebase-all 分层
 
 ```text
-apps/cooliebase/cooliebase-all-base/
+apps/cooliebase/cooliebase-all/
   src/app/                    # Route 层（页面 + API 薄层）
   src/backend/services/       # 业务服务层（核心逻辑）
   src/backend/validators/     # 输入校验（Zod）
@@ -92,7 +92,7 @@ apps/cooliebase/cooliebase-all-base/
 
 ## 7. 与当前主仓库对接方式
 
-1. `cooliebase-all-base` 先作为独立应用骨架在 `apps/` 演进
+1. `cooliebase-all` 先作为独立应用骨架在 `apps/` 演进
 2. 逐步把可复用模块反哺到主仓库 `src/` 目录
 3. 统一保留一套 RBAC 权限码与日志规范，避免平行体系
 
@@ -121,21 +121,21 @@ apps/cooliebase/cooliebase-all-base/
 
 ### 10.1 多数据库与国产数据库兼容
 
-1. cooliebase-all-base 必须具备多数据库识别与分级策略。
+1. cooliebase-all 必须具备多数据库识别与分级策略。
 2. 国产数据库必须纳入标准识别：OceanBase、TiDB、openGauss、GaussDB、KingbaseES、DM8、神通、GBase。
-3. 详细规范见：docs/architecture/cooliebase-all-base-database-compatibility.md
+3. 详细规范见：docs/architecture/cooliebase-all-database-compatibility.md
 
 ### 10.2 通用 UI 框架治理
 
 1. 后台开发统一纳入 antd、element 等通用框架治理口径。
 2. 主应用通过 adapter + Token 保持一致体验。
-3. 详细规范见：docs/guides/cooliebase-all-base-ui-framework-governance.md
+3. 详细规范见：docs/guides/cooliebase-all-ui-framework-governance.md
 
 ### 10.3 微服务演进能力
 
 1. 架构需支持从模块化单体演进到 Spring Cloud 类似微服务模式。
 2. 所有核心域必须具备可拆分边界设计。
-3. 详细规范见：docs/architecture/cooliebase-all-base-microservice-evolution.md
+3. 详细规范见：docs/architecture/cooliebase-all-microservice-evolution.md
 
 ### 10.4 Agent Skill 制度
 

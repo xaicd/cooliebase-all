@@ -59,7 +59,7 @@ npm run domain:up -- pay
 
 ```bash
 # 一体
-docker build -t cooliebase-all-base .
+docker build -t cooliebase-all .
 
 # 拆出 pay
 docker build -f Dockerfile.domain --build-arg COOLIEBASE_PACK_DOMAIN=pay -t cooliebase-domain-pay .

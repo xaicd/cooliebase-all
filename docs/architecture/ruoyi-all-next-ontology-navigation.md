@@ -1,4 +1,4 @@
-# cooliebase-all-base 本体域导航总纲（Ontology Navigation）
+# cooliebase-all 本体域导航总纲（Ontology Navigation）
 
 > **这是本模板的唯一认知入口与全息导航中枢。** 任何 Agent / IDE 进入本仓库，先读这一页定位「改哪个模块、复用哪个工具、跑哪条预览、加载哪个 skill」，再按 `.agents/context/ASSEMBLY.md` 的 `order` 精准加载所需分段——**不要每次把整篇 `AGENTS.md` 塞进 system prompt**（省 token、防臆测）。
 >
@@ -20,7 +20,7 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 | `packages/domains/` | ⭐ **核心**。18 业务域 + 1 个跨切面 `shared` 模块（见 §2）。 |
 | `clients/` | 多端脚手架子工程：`expo/`(RN，Schema 驱动，可 web-export 预览)、`h5/`、`uniapp/`、`desktop-pc/`、`flutter/`。 |
 | `scripts/` | ~50 构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)。 |
-| `docs/` | `architecture/`(40+ 架构文档 + 本页) · `skills/cooliebase-all-base/`(SKILL 镜像) · `features/` · `guides/` · `operations/` · `spec(s)/`。 |
+| `docs/` | `architecture/`(40+ 架构文档 + 本页) · `skills/cooliebase-all/`(SKILL 镜像) · `features/` · `guides/` · `operations/` · `spec(s)/`。 |
 | `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `skills/`(16 个可执行 SKILL.md)。 |
 | `.kiro/` | `steering/`(`plugin-domain-structure.md` 权威模块布局、`coding-standards.md`、`feature-scaffold.md`、`ui-*`) + `specs/`。 |
 | `prisma/` | `schema.prisma`(含 `member_user.extra_fields Json?`) + migrations。 |

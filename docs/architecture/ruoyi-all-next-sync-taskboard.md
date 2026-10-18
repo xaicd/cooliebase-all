@@ -1,4 +1,4 @@
-# cooliebase-all-base 同步任务看板（执行版）
+# cooliebase-all 同步任务看板（执行版）
 
 更新时间：2026-08-06
 

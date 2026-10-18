@@ -1,6 +1,6 @@
 # create-cooliebase-app
 
-Zero-Git-History instant scaffolding CLI for **cooliebase-all-base** enterprise Next.js fullstack foundation.
+Zero-Git-History instant scaffolding CLI for **cooliebase-all** enterprise Next.js fullstack foundation.
 
 ## 🚀 极速起步 (Quick Start)
 

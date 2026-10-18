@@ -14,7 +14,7 @@ DigitalStaff Native / Cursor / 其他 Agent 应按下面顺序加载。`inject` 
 | -42 | multi-tenant-isolation | `.agents/rules/MULTI-TENANT-ISOLATION.md` | 无 | 涉及仓储层、数据访问与租户隔离时 |
 | -40 | high-order-prompts | `docs/architecture/universal-high-order-inverse-prompts.md` | 无 | 每次进入本仓库（高阶反向通用提示词库：实体溯源/多租户防线/两字交互/因果归因/插件反向传播） |
 | 0 | soul | `.agents/context/SOUL.md` | 无 | 每次进入本仓库 |
-| 40 | ontology-navigation | `docs/architecture/cooliebase-all-base-ontology-navigation.md` | 无 | 每次进入本仓库（导航总纲：定位模块/工具/预览/skills + 新应用派生 + 基座自进化） |
+| 40 | ontology-navigation | `docs/architecture/cooliebase-all-ontology-navigation.md` | 无 | 每次进入本仓库（导航总纲：定位模块/工具/预览/skills + 新应用派生 + 基座自进化） |
 | 50 | agent-profile | `packages/shared/contract/agent-profile.json` | 无 | 孵化、NPC、架构演进 |
 | 55 | seam-graph | `packages/shared/contract/seam-graph.json` | 无 | 发现域能力三角色（由 catalog 生成） |
 | 60 | domain-catalog | `packages/shared/backend/constants/domain-catalog.json` | 无 | 涉及域边界时 |

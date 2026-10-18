@@ -1,6 +1,6 @@
-# Claude Code Guidelines for cooliebase-all-base
+# Claude Code Guidelines for cooliebase-all
 
-This repository is `cooliebase-all-base`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, serving as a business project base and DigitalStaff NPC workspace template.
+This repository is `cooliebase-all`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, serving as a business project base and DigitalStaff NPC workspace template.
 
 ## Single Source of Truth for Rules
 All engineering rules and architectural standards are unified in `.agents/rules/` and `AGENTS.md`.

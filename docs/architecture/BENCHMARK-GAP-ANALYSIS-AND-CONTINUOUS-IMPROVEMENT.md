@@ -1,7 +1,7 @@
 # 对标顶级开源项目差距深度分析与持续改进演进大典
 # (Benchmark Gap Analysis & Continuous Evolution Strategy vs. Top-Tier Open-Source Projects)
 
-> **基准版本**: cooliebase-all-base v1.1.0 Enterprise Baseline  
+> **基准版本**: cooliebase-all v1.1.0 Enterprise Baseline  
 > **对比标杆矩阵**: Supabase (80k★), MedusaJS v2 (27k★), cooliebase-vue-pro (25k★), Directus (30k★), Refine (29k★), Strix (60k★)  
 > **核心战略**: 高阶反向思维 (High-Order Inverse Thinking) × 空间站级质量工程 (SpaceX-Grade Engineering) × 持续演进与雷达追踪 (Continuous Radar)  
 > **维护协议**: 纳入 CMMI 03_design 架构资产与 OpenWiki 知识库，随上游雷达与版本迭代持续更新。
@@ -17,11 +17,11 @@ quadrantChart
     title 开源项目综合能力象限 (架构纯洁度 vs. 企业级业务成熟度)
     x-axis 低企业业务覆盖 --> 高企业业务覆盖 (17+ 业务域)
     y-axis 传统架构/臃肿 --> 现代轻量/AI-Native
-    quadrant-1 终极目标 (cooliebase-all-base 演进目标)
+    quadrant-1 终极目标 (cooliebase-all 演进目标)
     quadrant-2 技术敏捷先锋 (Supabase, MedusaJS)
     quadrant-3 传统单体/早期框架
     quadrant-4 传统企业重型底座 (cooliebase-vue-pro)
-    "cooliebase-all-base (当前)": [0.72, 0.78]
+    "cooliebase-all (当前)": [0.72, 0.78]
     "cooliebase-vue-pro": [0.92, 0.42]
     "Supabase": [0.35, 0.90]
     "MedusaJS v2": [0.55, 0.85]
@@ -42,7 +42,7 @@ quadrantChart
 
 ## 二、 现状全景对比：我们的优势与差距
 
-经过近期的深度重构，`cooliebase-all-base` 在许多技术维度已经超越了传统标杆，但在业务支撑深度、可视化工具链和长流程编排上依然存在明显差距。
+经过近期的深度重构，`cooliebase-all` 在许多技术维度已经超越了传统标杆，但在业务支撑深度、可视化工具链和长流程编排上依然存在明显差距。
 
 ### 2.1 当前已具备的核心领先优势 (Our Strengths)
 1. **极致轻量与零配置冷启动**：
@@ -117,7 +117,7 @@ quadrantChart
 
 ```mermaid
 gantt
-    title cooliebase-all-base 顶级开源对标演进路线图
+    title cooliebase-all 顶级开源对标演进路线图
     dateFormat  YYYY-MM
     section Phase A 短期攻坚 (基座增强)
     数据权限 AST 拦截插件 (Data Scope)     :done, p1, 2026-10, 2026-11

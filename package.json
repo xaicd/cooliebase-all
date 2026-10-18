@@ -1,5 +1,5 @@
 {
-  "name": "next-all-base",
+  "name": "cooliebase-all",
   "private": true,
   "version": "1.2.0",
   "license": "MIT",
@@ -44,7 +44,7 @@
     "admin:routes:check": "node scripts/check-admin-route-protection.cjs && node scripts/generate-admin-route-manifest.cjs --check",
     "contracts:audit-logs:check": "tsx scripts/check-audit-log-contracts.ts",
     "audit-logs:retention": "tsx scripts/run-audit-log-retention.ts",
-    "init": "echo '[cooliebase-all-base] 本地最小启动无需基础设施初始化；如需接入仓库根初始化，请执行 npm run init:root'",
+    "init": "echo '[cooliebase-all] 本地最小启动无需基础设施初始化；如需接入仓库根初始化，请执行 npm run init:root'",
     "init:root": "node ./scripts/run-root-npm.cjs docker:dev:core && node ./scripts/run-root-npm.cjs db:init:force",
     "dev": "prisma generate && next dev -p 3200",
     "build": "prisma generate && next build",
@@ -180,6 +180,7 @@
     "load:test": "node scripts/load-test.cjs"
   },
   "dependencies": {
+    "@cooliebase/plugin-sdk": "workspace:*",
     "@prisma/adapter-pg": "^7.10.0",
     "@prisma/client": "^7.10.0",
     "@puckeditor/core": "0.23.0",
@@ -193,14 +194,14 @@
     "pg": "^8.13.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
-    "zod": "^4.6.5",
-    "@cooliebase/plugin-sdk": "workspace:*"
+    "zod": "^4.6.5"
   },
   "optionalDependencies": {
     "@aws-sdk/client-s3": "^3.1141.0",
     "ioredis": "^6.0.0"
   },
   "devDependencies": {
+    "@esbuild/darwin-arm64": "^0.28.2",
     "@types/better-sqlite3": "^7.6.12",
     "@types/crypto-js": "^4.2.2",
     "@types/node": "^24.19.0",

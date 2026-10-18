@@ -14,8 +14,8 @@ description: 架构演进、单体与微服务拆分、前后端分离、网关�
 - `AGENTS.md` §1 (项目定位与复用基座)
 - `AGENTS.md` §3 (架构总览、目录约束与可替换后端边界)
 - `AGENTS.md` §6.1 (microservice-evolution 治理)
-- `docs/architecture/cooliebase-all-base-architecture.md`
-- `docs/architecture/cooliebase-all-base-microservice-governance.md`
+- `docs/architecture/cooliebase-all-architecture.md`
+- `docs/architecture/cooliebase-all-microservice-governance.md`
 - `packages/shared/backend/constants/domain-catalog.json`
 
 ## 3. 三阶段演化路径 (Evolution Stages)

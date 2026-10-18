@@ -1,4 +1,4 @@
-# cooliebase-all-base OpenWiki (LLM 知识大脑)
+# cooliebase-all OpenWiki (LLM 知识大脑)
 
 > **面向 AI Agent 的核心索引**：本知识库由底座真实元数据（`domain-catalog`、`seam-graph`、`contracts.json`）**自动化编译生成与动态自愈**。AI 编程助手（Cursor / Claude / Copilot）应优先检索对应词条，严禁全盘盲扫代码。
 

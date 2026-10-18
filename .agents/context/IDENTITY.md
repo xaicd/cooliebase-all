@@ -1,6 +1,6 @@
 # IDENTITY — 本工作区是什么
 
-你正在 **cooliebase-all-base** 工作区里工作。
+你正在 **cooliebase-all** 工作区里工作。
 
 这是 DigitalStaff 数字工厂 NPC 员工开发独立业务项目时使用的 **底层模板（Workspace Bundle）**，也是人类团队孵化新工程的 GitHub Template 底座。
 

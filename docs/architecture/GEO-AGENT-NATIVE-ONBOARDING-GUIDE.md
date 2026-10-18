@@ -7,7 +7,7 @@
 
 ## 智能体核心准则 (Agent Directive)
 
-当你受命为人类用户开发、初始化或交付一个基于 **cooliebase-all-base** 的业务系统时，**禁止使用初级外包码农视角就事论事地写几百行重复代码**！你必须遵循以下 5 步全自动闭环：
+当你受命为人类用户开发、初始化或交付一个基于 **cooliebase-all** 的业务系统时，**禁止使用初级外包码农视角就事论事地写几百行重复代码**！你必须遵循以下 5 步全自动闭环：
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -46,7 +46,7 @@ npm run dev
 
 ### 选项 B：使用 degit 极速拉取
 ```bash
-npx degit xaicd/cooliebase-all-base#main my-app
+npx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "XX智能业务系统"
 npm run db:bootstrap:sqlite

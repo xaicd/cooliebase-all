@@ -1,4 +1,4 @@
-# cooliebase-all-base 多数据库与国产数据库兼容规范（v1.0）
+# cooliebase-all 多数据库与国产数据库兼容规范（v1.0）
 
 更新时间：2026-08-02
 
@@ -64,7 +64,7 @@
 
 ## 4.1 数据访问抽象层
 
-在 cooliebase-all-base 内强制分层：
+在 cooliebase-all 内强制分层：
 
 1. Domain Service：业务逻辑
 2. Repository Port：数据库无关接口

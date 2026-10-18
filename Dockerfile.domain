@@ -1,5 +1,5 @@
 # ============================================================
-# cooliebase-all-base 单域独立构建（API-only standalone）
+# cooliebase-all 单域独立构建（API-only standalone）
 # 用法：docker build -f Dockerfile.domain --build-arg COOLIEBASE_PACK_DOMAIN=pay -t cooliebase-domain-pay .
 # ============================================================
 
