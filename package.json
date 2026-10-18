@@ -12,7 +12,7 @@
     "llms": "llms.txt",
     "wellKnown": ".well-known/agent.json",
     "skills": ".agents/skills",
-    "mcp": "scripts/mcp/ruoyi-mcp-server.cjs"
+    "mcp": "scripts/mcp/cooliebase-mcp-server.cjs"
   },
   "scripts": {
     "surface:sync": "node scripts/sync-agent-surface.cjs",

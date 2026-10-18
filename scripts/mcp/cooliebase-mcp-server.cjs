@@ -1,5 +1,5 @@
 /**
- * ruoyi-all-next MCP server (stdio, zero-dependency).
+ * cooliebase MCP server (stdio, zero-dependency).
  *
  * Exposes this repository's code-framework knowledge to any external agent
  * (Claude Code / Cursor / Command Code / DSH / hermes). Read-only by design:
@@ -10,7 +10,7 @@
  *
  * Register with an MCP host:
  *   { "command": "node",
- *     "args": ["<repo>/scripts/mcp/ruoyi-mcp-server.cjs"] }
+ *     "args": ["<repo>/scripts/mcp/cooliebase-mcp-server.cjs"] }
  */
 
 const fs = require("fs")
@@ -80,7 +80,7 @@ function truncate(text, max) {
 
 const TOOLS = [
   {
-    name: "ruoyi_domain_list",
+    name: "cooliebase_domain_list",
     description:
       "List every RuoYi domain declared in the runtime source of truth (domain-catalog.json): kind, migration stage, default port, upstream env, public API prefixes and tenant policy. Use this first when locating which domain owns a capability.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -116,7 +116,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_domain_seam",
+    name: "cooliebase_domain_seam",
     description:
       "Return the capability seam (definition / provider / consumer) for one domain, including facade files, provider service methods, and page/API consumer paths. Use before calling into a domain to confirm the allowed integration point.",
     inputSchema: {
@@ -139,7 +139,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_action_lookup",
+    name: "cooliebase_action_lookup",
     description:
       "Look up RPC actions (method -> service / module / zod schema / fields) from rpc-actions.json. Filter by domain, or by exact/method substring to find which Service implements a capability and what its payload looks like.",
     inputSchema: {
@@ -172,7 +172,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_skills_list",
+    name: "cooliebase_skills_list",
     description:
       "List the repository's Agent Skills (progressive-disclosure SKILL.md set) with descriptions, plus the NPC L0-L8 layer -> skill mapping declared in agent-profile.json. Load a skill body from .agents/skills/<name>/SKILL.md when a task matches.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -186,7 +186,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_compat_info",
+    name: "cooliebase_compat_info",
     description:
       "Return the compatibility manifest: template version, toolchain versions, contract versions (domain catalog / RPC protocol / agent profile), the machine-readable consumption surface, and what downstream projects may rely on as frozen vs additive.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -195,7 +195,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_standards_report",
+    name: "cooliebase_standards_report",
     description:
       "Run the AGENTS.md engineering-standards gate and return a machine-readable report: per-rule mode (enforce / ratchet / report), pass state, frozen-debt counts, and the items that still need human judgement. Use this before changing backend or repository code to learn which conventions are machine-enforced.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -213,7 +213,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_evolution_backlog",
+    name: "cooliebase_evolution_backlog",
     description:
       "Return the evolution backlog: prioritised, evidence-linked work items aggregated from this repository's own gate artifacts (gate trace, standards report + frozen debt, per-domain test coverage, oversized files, TODO markers). Use this to answer 'what should I work on here?' instead of guessing; each item carries the exact command that verifies a fix.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -231,7 +231,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_gate_run",
+    name: "cooliebase_gate_run",
     description:
       "Run one whitelisted repository governance gate and return its exit code and output. Read-only checks only; nothing in this list mutates the repository. Allowed gates are listed in the 'gates' argument description.",
     inputSchema: {
@@ -271,7 +271,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_plugin_list",
+    name: "cooliebase_plugin_list",
     description:
       "List every first-party plugin on disk (packages/plugins/plugin-*): id, directory, declared API route count, the auth surfaces it declares (operator/company/public), capabilities, and the domain-level traits carried in its manifest. Use this to answer \"is this domain a plugin\" and \"where does its code live\" without guessing paths.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
@@ -307,7 +307,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_domain_resolve",
+    name: "cooliebase_domain_resolve",
     description:
       "Resolve a domain name to its real directory and plugin status. ALWAYS call this before building a path by hand: 15 of the business domains live under packages/plugins/plugin-<name>, not packages/domains/<name>, and hardcoding the old path usually fails SILENTLY (generated code lands in a directory the app never imports).",
     inputSchema: {
@@ -338,7 +338,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_codegen_targets",
+    name: "cooliebase_codegen_targets",
     description:
       "Return where the low-code code generator will write files for a domain (backend / frontend / contract dirs), resolved against the domain's REAL directory. Use before scaffolding or generating code: writing to a hardcoded packages/domains/<name> for a plugin domain produces code the application never imports.",
     inputSchema: {
@@ -355,7 +355,7 @@ const TOOLS = [
       if (!name) throw new Error("domain is required")
       const catalog = loadCatalog()
       if (!(catalog.domains || []).some((item) => item.name === name)) {
-        throw new Error(`unknown domain "${name}"; see ruoyi_domain_list`)
+        throw new Error(`unknown domain "${name}"; see cooliebase_domain_list`)
       }
       const sub = args.submodule ? `/${args.submodule}` : ""
       const base = domainDirOf(ROOT, name)
@@ -378,7 +378,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_delivery_status",
+    name: "cooliebase_delivery_status",
     description:
       "AI-driven delivery status across all phases (requirement / prototype / ui-design / architecture / development / testing / ops / operations / implementation): which artifacts exist, which are missing, and the Skill + gate command per phase. Use this to decide what to do next instead of re-reading AGENTS.md.",
     inputSchema: {
@@ -398,7 +398,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_spec_list",
+    name: "cooliebase_spec_list",
     description:
       "List all active and archived specifications (feature, bugfix, enhancement, refactor, security) across all domains, including name, domain, type, status, and physical paths. Read-only query tool.",
     inputSchema: {
@@ -416,7 +416,7 @@ const TOOLS = [
     },
   },
   {
-    name: "ruoyi_cmmi_list",
+    name: "cooliebase_cmmi_list",
     description:
       "Query CMMI 01~09 lifecycle phases, designated skills, supported asset types, and current deliverable asset status across docs/01~09. Read-only query tool.",
     inputSchema: {
@@ -621,7 +621,7 @@ function main() {
         try {
           handle(JSON.parse(line))
         } catch (error) {
-          process.stderr.write(`[ruoyi-mcp] invalid message: ${error.message}\n`)
+          process.stderr.write(`[cooliebase-mcp] invalid message: ${error.message}\n`)
         }
       }
       index = buffer.indexOf("\n")
