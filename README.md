@@ -248,5 +248,4 @@ cooliebase-all/
 
 ## 许可证
 
-本项目基于 [MIT License](LICENSE) 开源，Copyright (c) 2026 xaicd。  
-本项目自 CoolieBase-Vue-Pro 全量迁移而来，上游项目同为 MIT 协议。
+本项目基于 [MIT License](LICENSE) 开源，Copyright (c) 2026 xaicd。

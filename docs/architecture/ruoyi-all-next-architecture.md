@@ -4,7 +4,7 @@
 
 ## 1. 项目定位与核心愿景
 
-`cooliebase-all` 是基于 Next.js 16 (React 19) 的企业级全栈应用平台与业务系统底座，从 CoolieBase-Vue-Pro (Spring Boot) + yudao-ui-admin-vue3 全量迁移重构而来。
+`cooliebase-all` 是基于 Next.js 16 (React 19) 的企业级全栈应用平台与业务系统底座。
 其不仅是支持单体向微服务平滑演进的企业中后台底座，更是专为 **AI Coding Agent 与 DigitalStaff NPC** 构建的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
 
 ## 2. 技术栈与运行时环境
