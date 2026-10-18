@@ -3,10 +3,10 @@ import { domainLog } from "@/modules/shared/backend/lib/domain-log"
 type RedisKeyItem = { key: string; type: string; ttl: number; size: number }
 
 const MOCK_KEYS: RedisKeyItem[] = [
-  { key: "ruoyi:auth:token:1", type: "string", ttl: 86400, size: 256 },
-  { key: "ruoyi:cache:dict:system_user_sex", type: "hash", ttl: -1, size: 64 },
-  { key: "ruoyi:cache:config:sys.application.name", type: "string", ttl: -1, size: 32 },
-  { key: "ruoyi:rate:limit:127.0.0.1", type: "string", ttl: 60, size: 8 },
+  { key: "cooliebase:auth:token:1", type: "string", ttl: 86400, size: 256 },
+  { key: "cooliebase:cache:dict:system_user_sex", type: "hash", ttl: -1, size: 64 },
+  { key: "cooliebase:cache:config:sys.application.name", type: "string", ttl: -1, size: 32 },
+  { key: "cooliebase:rate:limit:127.0.0.1", type: "string", ttl: 60, size: 8 },
 ]
 
 export class RedisService {

@@ -71,7 +71,7 @@ export function generateAllCodegenOutputs(config: CodegenConfig, options?: Gener
       content: JSON.stringify({
         moduleName: config.moduleName,
         className: config.className,
-        rpcActions: [`ruoyi.cmd.${config.moduleName}.${toCamel(config.className)}.page`],
+        rpcActions: [`cooliebase.cmd.${config.moduleName}.${toCamel(config.className)}.page`],
       }, null, 2),
     },
   )

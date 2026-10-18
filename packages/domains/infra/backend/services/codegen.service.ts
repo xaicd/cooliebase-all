@@ -15,14 +15,14 @@ const DEFAULT_CODEGEN_TABLES: InfraCodegenItem[] = [
     id: "cg-001",
     tableName: "system_user",
     moduleName: "system",
-    author: "ruoyi",
+    author: "cooliebase",
     generatedAt: new Date().toISOString(),
   },
   {
     id: "cg-002",
     tableName: "infra_job",
     moduleName: "infra",
-    author: "ruoyi",
+    author: "cooliebase",
     generatedAt: new Date().toISOString(),
   },
 ]
