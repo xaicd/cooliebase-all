@@ -20,7 +20,7 @@ export const MallTradeOrderApi = {
     if (query?.status !== undefined) params.set("status", String(query.status))
     const qs = params.toString() ? `?${params.toString()}` : ""
     return request<{ items: MallTradeOrder[]; total: number }>({
-      url: `/api/v1/plugins/ruoyi.mall/api/admin/trade-order${qs}`,
+      url: `/api/v1/plugins/cooliebase.mall/api/admin/trade-order${qs}`,
       method: "GET",
       auth: true,
     })
@@ -28,7 +28,7 @@ export const MallTradeOrderApi = {
 
   get(id: number | string) {
     return request<MallTradeOrder>({
-      url: `/api/v1/plugins/ruoyi.mall/api/admin/trade-order/${id}`,
+      url: `/api/v1/plugins/cooliebase.mall/api/admin/trade-order/${id}`,
       method: "GET",
       auth: true,
     })
@@ -36,7 +36,7 @@ export const MallTradeOrderApi = {
 
   create(data: { no?: string; total_price: number; pay_price: number; product_count?: number; remark?: string }) {
     return request<MallTradeOrder>({
-      url: "/api/v1/plugins/ruoyi.mall/api/admin/trade-order",
+      url: "/api/v1/plugins/cooliebase.mall/api/admin/trade-order",
       method: "POST",
       data,
       auth: true,
