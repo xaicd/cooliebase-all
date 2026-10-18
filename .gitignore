@@ -22,6 +22,8 @@ node_modules/
 # production
 /build
 .next-cooliebase
+# legacy Next.js cache from before the ruoyi→cooliebase rename; safe to delete
+.next-ruoyi
 # misc
 .DS_Store
 *.pem
