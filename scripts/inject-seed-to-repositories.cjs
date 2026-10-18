@@ -102,8 +102,8 @@ function genMenus() {
     icon: m.icon || null,
     sort: m.sort,
     status: m.status,
-    // CoolieBase convention: visible=false in SQL means "shown", visible=true means "hidden"
-    // In our repo, visible=true means "shown" - so we negate
+    // Upstream SQL convention: visible=false means "shown", visible=true means "hidden".
+    // In our repo, visible=true means "shown" - so we negate.
     visible: !m.visible,
     keepAlive: m.keepAlive || false,
     createdAt: TS,
@@ -111,7 +111,7 @@ function genMenus() {
   }))
   
   const out = `// Auto-generated from seed-output/menus.seed.ts
-// ${rows.length} menus extracted from cooliebase-vue-pro SQL
+// ${rows.length} menus extracted from upstream seed SQL
 import type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"
 
 export const SEED_MENUS: SystemMenuRow[] = ${JSON.stringify(rows, null, 2)}
