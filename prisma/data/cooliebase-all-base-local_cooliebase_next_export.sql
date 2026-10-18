@@ -82,8 +82,8 @@ INSERT INTO "_prisma_migrations" ("id", "checksum", "finished_at", "migration_na
 INSERT INTO "_prisma_migrations" ("id", "checksum", "finished_at", "migration_name", "logs", "rolled_back_at", "started_at", "applied_steps_count") VALUES ('c28cd23f-820c-4b8d-8469-2ee747e0bb26', 'd20c849b0775a1ea8e359f0e49da7f642c7dc5a155b606610d4e25ae3a2794ec', '2026-08-24T06:50:31.940Z', '20260912000000_add_carrier_channels_seed', NULL, NULL, '2026-08-24T06:50:31.931Z', 1) ON CONFLICT DO NOTHING;
 
 -- Table data for: ai_access_token (2 rows)
-INSERT INTO "ai_access_token" ("id", "name", "key", "status", "remain_quota", "unlimited", "models", "ip_allowlist", "group", "expires_at", "tenant_id", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('tok-default-001', '全平台默认开发者令牌', 'sk-ruoyi-developer-master', 'ACTIVE', '5000000', FALSE, '[]', '[]', 'default', NULL, '1', 'admin', 'admin', '2026-08-23T12:55:09.817Z', '2026-08-23T12:55:09.817Z', FALSE) ON CONFLICT DO NOTHING;
-INSERT INTO "ai_access_token" ("id", "name", "key", "status", "remain_quota", "unlimited", "models", "ip_allowlist", "group", "expires_at", "tenant_id", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('tok-demo-002', '演示租户体验令牌', 'sk-ruoyi-demo-experience', 'ACTIVE', '500000', FALSE, '["gpt-4o-mini","qwen-plus","deepseek-chat"]', '[]', 'vip', NULL, '1', 'admin', 'admin', '2026-08-23T12:55:09.817Z', '2026-08-23T12:55:09.817Z', FALSE) ON CONFLICT DO NOTHING;
+INSERT INTO "ai_access_token" ("id", "name", "key", "status", "remain_quota", "unlimited", "models", "ip_allowlist", "group", "expires_at", "tenant_id", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('tok-default-001', '全平台默认开发者令牌', 'sk-cooliebase-developer-master', 'ACTIVE', '5000000', FALSE, '[]', '[]', 'default', NULL, '1', 'admin', 'admin', '2026-08-23T12:55:09.817Z', '2026-08-23T12:55:09.817Z', FALSE) ON CONFLICT DO NOTHING;
+INSERT INTO "ai_access_token" ("id", "name", "key", "status", "remain_quota", "unlimited", "models", "ip_allowlist", "group", "expires_at", "tenant_id", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('tok-demo-002', '演示租户体验令牌', 'sk-cooliebase-demo-experience', 'ACTIVE', '500000', FALSE, '["gpt-4o-mini","qwen-plus","deepseek-chat"]', '[]', 'vip', NULL, '1', 'admin', 'admin', '2026-08-23T12:55:09.817Z', '2026-08-23T12:55:09.817Z', FALSE) ON CONFLICT DO NOTHING;
 
 -- Table data for: ai_channel (7 rows)
 INSERT INTO "ai_channel" ("id", "name", "provider", "base_url", "api_key", "models", "model_map", "weight", "priority", "status", "auto_disable", "fail_count", "protocol", "tenant_id", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('ch-deepseek-001', 'DeepSeek 官方直连渠道', 'DEEPSEEK', 'https://api.deepseek.com/v1', 'sk-mock-deepseek-key', '["deepseek-chat","deepseek-reasoner","deepseek-coder"]', '{}', 100, 10, 'ACTIVE', TRUE, 0, 'openai', '1', 'admin', 'admin', '2026-08-23T12:55:09.817Z', '2026-08-23T12:55:09.817Z', FALSE) ON CONFLICT DO NOTHING;
@@ -1517,201 +1517,201 @@ INSERT INTO "infra_api_access_log" ("id", "user_id", "application_name", "reques
 
 -- Table data for: infra_api_error_log (5 rows)
 INSERT INTO "infra_api_error_log" ("id", "user_id", "application_name", "request_method", "request_url", "request_params", "exception_name", "exception_message", "exception_stack", "status", "user_ip", "created_at", "trace_id", "tenant_id", "user_agent", "error_code", "root_cause", "processed_at", "processed_by", "process_note") VALUES ('bdf0c170-73ee-4da1-98cf-004d94901037', NULL, 'cooliebase-all-base', 'POST', '/api/v1/admin/system/auth', '{"operation":"POST /api/v1/admin/system/auth"}', 'Error', '生产环境必须配置至少 32 字节且非默认值的 JWT_SECRET', 'Error: 生产环境必须配置至少 32 字节且非默认值的 JWT_SECRET
-    at o (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__0zyzqp7._.js:1:6038)
-    at D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__0zyzqp7._.js:1:6639
-    at Function.login (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__1rhbz4y._.js:1:19196)
+    at o (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__0zyzqp7._.js:1:6038)
+    at D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__0zyzqp7._.js:1:6639
+    at Function.login (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__1rhbz4y._.js:1:19196)
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:759
-    at async rW.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
-    at async rW.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28909)
-    at async Z (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:5349)
-    at async rW.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:1:129300)
-    at async J (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:6427)', 'PROCESSED', '::1', '2026-08-14T14:13:07.143Z', 'mst11k4w-uepdej', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '生产环境必须配置至少 32 字节且非默认值的 JWT_SECRET', '2026-08-14T14:43:16.382Z', 'ce1da053-71ff-456c-98ba-b321bdff03a9', 'smoke-test') ON CONFLICT DO NOTHING;
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:759
+    at async rW.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:23405)
+    at async rW.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:5:28909)
+    at async Z (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:5349)
+    at async rW.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.prod.js:1:129300)
+    at async J (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\server\chunks\[root-of-the-server]__1vgkxx3._.js:1:6427)', 'PROCESSED', '::1', '2026-08-14T14:13:07.143Z', 'mst11k4w-uepdej', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '生产环境必须配置至少 32 字节且非默认值的 JWT_SECRET', '2026-08-14T14:43:16.382Z', 'ce1da053-71ff-456c-98ba-b321bdff03a9', 'smoke-test') ON CONFLICT DO NOTHING;
 INSERT INTO "infra_api_error_log" ("id", "user_id", "application_name", "request_method", "request_url", "request_params", "exception_name", "exception_message", "exception_stack", "status", "user_ip", "created_at", "trace_id", "tenant_id", "user_agent", "error_code", "root_cause", "processed_at", "processed_by", "process_note") VALUES ('ab0a3ce5-77d6-48b6-9537-354c75026985', NULL, 'cooliebase-all-base', 'GET', '/api/v1/admin/online/definitions', '{"operation":"GET /api/v1/admin/online/definitions"}', 'error', 'relation "online_definition" does not exist', 'error: relation "online_definition" does not exist
-    at D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\pg\lib\client.js:652:17
+    at D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\pg\lib\client.js:652:17
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async PostgresConnection.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1476:28)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
-    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
-    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
-    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
-    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
-    at async module.exports.GET.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)
-    at PostgresConnection.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1483:213)
+    at async PostgresConnection.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1476:28)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
+    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
+    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
+    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
+    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
+    at async module.exports.GET.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)
+    at PostgresConnection.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1483:213)
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
-    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
-    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
-    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
-    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
-    at async module.exports.GET.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T01:42:24.376Z', 'mstpnzob-qjm6i5', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', '42P01', 'relation "online_definition" does not exist', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
+    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
+    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
+    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
+    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
+    at async module.exports.GET.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T01:42:24.376Z', 'mstpnzob-qjm6i5', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', '42P01', 'relation "online_definition" does not exist', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
 INSERT INTO "infra_api_error_log" ("id", "user_id", "application_name", "request_method", "request_url", "request_params", "exception_name", "exception_message", "exception_stack", "status", "user_ip", "created_at", "trace_id", "tenant_id", "user_agent", "error_code", "root_cause", "processed_at", "processed_by", "process_note") VALUES ('57d31646-c6ae-42b9-b066-30125525a287', NULL, 'cooliebase-all-base', 'GET', '/api/v1/admin/online/definitions', '{"operation":"GET /api/v1/admin/online/definitions"}', 'error', 'relation "online_definition" does not exist', 'error: relation "online_definition" does not exist
-    at D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\pg\lib\client.js:652:17
+    at D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\pg\lib\client.js:652:17
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async PostgresConnection.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1476:28)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
-    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
-    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
-    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
-    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
-    at async module.exports.GET.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)
-    at PostgresConnection.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1483:213)
+    at async PostgresConnection.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1476:28)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
+    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
+    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
+    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
+    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
+    at async module.exports.GET.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)
+    at PostgresConnection.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_1qdhk18._.js:1483:213)
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
-    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
-    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
-    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
-    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
-    at async module.exports.GET.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T01:42:24.457Z', 'mstpnzr5-sb392k', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', '42P01', 'relation "online_definition" does not exist', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15486:24
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async DefaultQueryExecutor.executeQuery (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:15485:28)
+    at async SelectQueryBuilderImpl.execute (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12654:24)
+    at async SelectQueryBuilderImpl.executeTakeFirst (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:12658:26)
+    at async KyselyOnlineDefinitionRepository.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23663:23)
+    at async OnlineDefinitionService.page (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:25382:22)
+    at async module.exports.GET.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__0wj3h31._.js:23481:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_aalr2._.js:24317:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_0b2a7wo._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T01:42:24.457Z', 'mstpnzr5-sb392k', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', '42P01', 'relation "online_definition" does not exist', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
 INSERT INTO "infra_api_error_log" ("id", "user_id", "application_name", "request_method", "request_url", "request_params", "exception_name", "exception_message", "exception_stack", "status", "user_ip", "created_at", "trace_id", "tenant_id", "user_agent", "error_code", "root_cause", "processed_at", "processed_by", "process_note") VALUES ('bb2e8e8d-58ff-4cec-a2cc-0cacb5e45d14', NULL, 'cooliebase-all-base', 'PUT', '/api/v1/admin/online/definitions/demo/draft', '{"operation":"PUT /api/v1/admin/online/definitions/demo/draft"}', 'Error', '字段 age 的 TEXT 控件不支持 integer 类型', 'Error: 字段 age 的 TEXT 控件不支持 integer 类型
-    at parseOnlineInteractionIR (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:2868:55)
-    at D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:1663:248
+    at parseOnlineInteractionIR (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:2868:55)
+    at D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:1663:248
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:1815:32
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async KyselyOnlineDefinitionRepository.updateDraft (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:1644:9)
-    at async OnlineDefinitionService.updateDraft (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:4229:22)
-    at async module.exports.PUT.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_1te7_f-._.js:26:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_d3e_7._.js:24225:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T15:22:31.968Z', 'msuiyohp-34y7za', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '字段 age 的 TEXT 控件不支持 integer 类型', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:1815:32
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async KyselyOnlineDefinitionRepository.updateDraft (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:1644:9)
+    at async OnlineDefinitionService.updateDraft (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:4229:22)
+    at async module.exports.PUT.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_1te7_f-._.js:26:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_d3e_7._.js:24225:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T15:22:31.968Z', 'msuiyohp-34y7za', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '字段 age 的 TEXT 控件不支持 integer 类型', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
 INSERT INTO "infra_api_error_log" ("id", "user_id", "application_name", "request_method", "request_url", "request_params", "exception_name", "exception_message", "exception_stack", "status", "user_ip", "created_at", "trace_id", "tenant_id", "user_agent", "error_code", "root_cause", "processed_at", "processed_by", "process_note") VALUES ('ffd3f237-6f1d-4395-b726-1db0f566c423', NULL, 'cooliebase-all-base', 'PUT', '/api/v1/admin/online/definitions/demo/draft', '{"operation":"PUT /api/v1/admin/online/definitions/demo/draft"}', 'Error', '字段 age 的 TEXT 控件不支持 integer 类型', 'Error: 字段 age 的 TEXT 控件不支持 integer 类型
-    at parseOnlineInteractionIR (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:2868:55)
-    at eval (file:///D:/workspace/zhuangyuan/ruoyi/cooliebase-all-base/.next-ruoyi/dev/server/chunks/src_0jq23fe._.js?id=%5Bproject%5D/src/modules/online/backend/adapters/persistence/online-definition.repository.ts+%5Bapp-route%5D+(ecmascript):674:248)
+    at parseOnlineInteractionIR (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:2868:55)
+    at eval (file:///D:/workspace/zhuangyuan/cooliebase/cooliebase-all-base/.next-cooliebase/dev/server/chunks/src_0jq23fe._.js?id=%5Bproject%5D/src/modules/online/backend/adapters/persistence/online-definition.repository.ts+%5Bapp-route%5D+(ecmascript):674:248)
     at process.processTicksAndRejections (node:internal/process/task_queues:104:5)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:1815:32
-    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
-    at async KyselyOnlineDefinitionRepository.updateDraft (file:///D:/workspace/zhuangyuan/ruoyi/cooliebase-all-base/.next-ruoyi/dev/server/chunks/src_0jq23fe._.js?id=%5Bproject%5D/src/modules/online/backend/adapters/persistence/online-definition.repository.ts+%5Bapp-route%5D+(ecmascript):655:9)
-    at async OnlineDefinitionService.updateDraft (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_0jq23fe._.js:4229:22)
-    at async module.exports.PUT.permission (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\src_1te7_f-._.js:26:15)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\[root-of-the-server]__1_d3e_7._.js:24225:28
-    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
-    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
-    at async responseGenerator (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4709:30)
-    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
-    at async handleResponse (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4781:32)
-    at async Module.handler (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\.next-ruoyi\dev\server\chunks\node_modules_next_1aeg0o8._.js:4901:9)
-    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
-    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
-    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
-    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
-    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
-    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
-    at async D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
-    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
-    at async DevServer.handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
-    at async invokeRender (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
-    at async handleRequest (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
-    at async requestHandlerImpl (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
-    at async Server.requestListener (D:\workspace\zhuangyuan\ruoyi\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T15:26:23.488Z', 'msuj3n4d-8nm7pa', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '字段 age 的 TEXT 控件不支持 integer 类型', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:1815:32
+    at async DefaultConnectionProvider.provideConnection (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_kysely_dist_154ci_i._.js:249:20)
+    at async KyselyOnlineDefinitionRepository.updateDraft (file:///D:/workspace/zhuangyuan/cooliebase/cooliebase-all-base/.next-cooliebase/dev/server/chunks/src_0jq23fe._.js?id=%5Bproject%5D/src/modules/online/backend/adapters/persistence/online-definition.repository.ts+%5Bapp-route%5D+(ecmascript):655:9)
+    at async OnlineDefinitionService.updateDraft (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_0jq23fe._.js:4229:22)
+    at async module.exports.PUT.permission (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\src_1te7_f-._.js:26:15)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\[root-of-the-server]__1_d3e_7._.js:24225:28
+    at async AppRouteRouteModule.do (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:42791)
+    at async AppRouteRouteModule.handle (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:5:50709)
+    at async responseGenerator (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4709:30)
+    at async AppRouteRouteModule.handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\compiled\next-server\app-route-turbo.runtime.dev.js:1:248823)
+    at async handleResponse (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4781:32)
+    at async Module.handler (D:\workspace\zhuangyuan\cooliebase-all-base\.next-cooliebase\dev\server\chunks\node_modules_next_1aeg0o8._.js:4901:9)
+    at async DevServer.renderToResponseWithComponentsImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1537:9)
+    at async DevServer.renderPageComponent (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1589:24)
+    at async DevServer.renderToResponseImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1639:32)
+    at async DevServer.pipeImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:1088:25)
+    at async NextNodeServer.handleCatchallRenderRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\next-server.js:338:17)
+    at async DevServer.handleRequestImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\base-server.js:979:17)
+    at async D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:426:20
+    at async Span.traceAsyncFn (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\trace\trace.js:164:20)
+    at async DevServer.handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\dev\next-dev-server.js:422:24)
+    at async invokeRender (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:306:21)
+    at async handleRequest (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:508:24)
+    at async requestHandlerImpl (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\router-server.js:565:13)
+    at async Server.requestListener (D:\workspace\zhuangyuan\cooliebase-all-base\node_modules\next\dist\server\lib\start-server.js:225:13)', 'UNPROCESSED', '::1', '2026-08-15T15:26:23.488Z', 'msuj3n4d-8nm7pa', NULL, 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/151.0.0.0 Safari/537.36 Edg/151.0.0.0', 'INTERNAL_ERROR', '字段 age 的 TEXT 控件不支持 integer 类型', NULL, NULL, NULL) ON CONFLICT DO NOTHING;
 
 -- Table data for: infra_data_source_config (1 rows)
-INSERT INTO "infra_data_source_config" ("id", "name", "driver", "url", "username", "encrypted_password", "remark", "created_at", "updated_at", "deleted", "tenant_id") VALUES ('82a3f645-30e9-449d-b39b-1d0a898fd8f6', '__smoke_pg_datasource__', 'postgresql', 'postgresql://127.0.0.1:5433/cooliebase_next', 'ruoyi', '469fcd55ad004595f4ca9091dbbe948d:08f3f18414706577b9222dccbffd59b6', 'temporary smoke test', '2026-08-13T12:59:35.811Z', '2026-08-13T12:59:36.418Z', TRUE, NULL) ON CONFLICT DO NOTHING;
+INSERT INTO "infra_data_source_config" ("id", "name", "driver", "url", "username", "encrypted_password", "remark", "created_at", "updated_at", "deleted", "tenant_id") VALUES ('82a3f645-30e9-449d-b39b-1d0a898fd8f6', '__smoke_pg_datasource__', 'postgresql', 'postgresql://127.0.0.1:5433/cooliebase_next', 'cooliebase', '469fcd55ad004595f4ca9091dbbe948d:08f3f18414706577b9222dccbffd59b6', 'temporary smoke test', '2026-08-13T12:59:35.811Z', '2026-08-13T12:59:36.418Z', TRUE, NULL) ON CONFLICT DO NOTHING;
 
 -- Table data for: online_definition (3 rows)
 INSERT INTO "online_definition" ("id", "tenant_id", "code", "name", "model_type", "status", "current_draft_revision_id", "published_release_id", "lock_version", "created_by", "updated_by", "created_at", "updated_at", "deleted") VALUES ('eaee2f8d-bb59-4c26-9e01-f3e73daceaf1', '1', 'user', '用户', 'SINGLE', 'DRAFT', 'b5aef5b6-6ac8-4dad-b25e-98381c286b0b', NULL, 2, 'ce1da053-71ff-456c-98ba-b321bdff03a9', 'ce1da053-71ff-456c-98ba-b321bdff03a9', '2026-08-15T04:27:15.114Z', '2026-08-15T06:19:47.095Z', FALSE) ON CONFLICT DO NOTHING;
@@ -7898,7 +7898,7 @@ INSERT INTO "system_role_menu" ("id", "role_id", "menu_id") VALUES ('652a554b-1c
 -- Table data for: system_tenant (3 rows)
 INSERT INTO "system_tenant" ("id", "name", "contact_name", "contact_phone", "domain", "package_id", "status", "expire_time", "created_at", "updated_at", "deleted", "tenant_code", "effective_at", "account_limit") VALUES ('f114fa7d-e101-4ffe-9095-ad982188af0f', 'cc_adm', '', '', NULL, '111', 'ACTIVE', NULL, '2026-08-13T15:05:22.981Z', '2026-08-13T15:05:22.981Z', FALSE, 'cc-adm', '2026-08-13T15:05:22.981Z', 1) ON CONFLICT DO NOTHING;
 INSERT INTO "system_tenant" ("id", "name", "contact_name", "contact_phone", "domain", "package_id", "status", "expire_time", "created_at", "updated_at", "deleted", "tenant_code", "effective_at", "account_limit") VALUES ('1', '默认租户', '管理员', '13800000001', NULL, '111', 'ACTIVE', '2030-12-31T15:59:59.000Z', '2025-12-31T16:00:00.000Z', '2025-12-31T16:00:00.000Z', FALSE, 'default', '2025-12-31T16:00:00.000Z', 999) ON CONFLICT DO NOTHING;
-INSERT INTO "system_tenant" ("id", "name", "contact_name", "contact_phone", "domain", "package_id", "status", "expire_time", "created_at", "updated_at", "deleted", "tenant_code", "effective_at", "account_limit") VALUES ('2', '演示租户', '张三', '13900000001', 'demo.ruoyi.local', '111', 'ACTIVE', '2027-06-30T15:59:59.000Z', '2026-02-28T16:00:00.000Z', '2025-12-31T16:00:00.000Z', FALSE, 'demo', '2026-02-28T16:00:00.000Z', 50) ON CONFLICT DO NOTHING;
+INSERT INTO "system_tenant" ("id", "name", "contact_name", "contact_phone", "domain", "package_id", "status", "expire_time", "created_at", "updated_at", "deleted", "tenant_code", "effective_at", "account_limit") VALUES ('2', '演示租户', '张三', '13900000001', 'demo.cooliebase.local', '111', 'ACTIVE', '2027-06-30T15:59:59.000Z', '2026-02-28T16:00:00.000Z', '2025-12-31T16:00:00.000Z', FALSE, 'demo', '2026-02-28T16:00:00.000Z', 50) ON CONFLICT DO NOTHING;
 
 -- Table data for: system_tenant_package (5 rows)
 INSERT INTO "system_tenant_package" ("id", "name", "status", "remark", "created_at", "updated_at", "deleted", "account_limit") VALUES ('111', '普通套餐', 'ACTIVE', '小功能', '2025-12-31T16:00:00.000Z', '2025-12-31T16:00:00.000Z', FALSE, NULL) ON CONFLICT DO NOTHING;
@@ -8212,9 +8212,9 @@ INSERT INTO "system_tenant_subscription" ("id", "tenant_id", "package_id", "effe
 INSERT INTO "system_tenant_subscription" ("id", "tenant_id", "package_id", "effective_at", "expire_at", "account_limit", "status", "change_type", "remark", "created_by", "created_at") VALUES ('initial-2', '2', '111', '2026-02-28T16:00:00.000Z', '2027-06-30T15:59:59.000Z', 50, 'ACTIVE', 'MIGRATION', '历史租户权益初始化', NULL, '2026-08-13T14:52:24.238Z') ON CONFLICT DO NOTHING;
 
 -- Table data for: system_user (4 rows)
-INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('332faeab-cb8d-4371-a3f3-ae06b25db205', 'cooliebase_local_operator', '本地开发管理员', '77094c8237358f831075eb37abd76ed9', '13800000001', 'admin@ruoyi.local', NULL, 'DISABLED', '100', '本地环境专用管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.095Z', FALSE, 'ce51297c3af216ee') ON CONFLICT DO NOTHING;
-INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('ce1da053-71ff-456c-98ba-b321bdff03a9', 'vps_adm', '本地开发管理员', 'd5a9671aa1a1c893ab42de0c6810dede', '13800000001', 'admin@ruoyi.local', NULL, 'ACTIVE', '100', '本地环境专用管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.109Z', FALSE, 'ce51297c3af216ee') ON CONFLICT DO NOTHING;
-INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('96163f61-9157-4140-b4c4-9cc75b7d0d02', 'roma_ops', '系统运维管理员', '9486c0e4d342d7b250ac3b27d3f211aa', '13800000001', 'admin@ruoyi.local', NULL, 'DISABLED', '100', '系统内置超级管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.095Z', FALSE, 'a1b2c3d4e5f6g7h8') ON CONFLICT DO NOTHING;
+INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('332faeab-cb8d-4371-a3f3-ae06b25db205', 'cooliebase_local_operator', '本地开发管理员', '77094c8237358f831075eb37abd76ed9', '13800000001', 'admin@cooliebase.local', NULL, 'DISABLED', '100', '本地环境专用管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.095Z', FALSE, 'ce51297c3af216ee') ON CONFLICT DO NOTHING;
+INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('ce1da053-71ff-456c-98ba-b321bdff03a9', 'vps_adm', '本地开发管理员', 'd5a9671aa1a1c893ab42de0c6810dede', '13800000001', 'admin@cooliebase.local', NULL, 'ACTIVE', '100', '本地环境专用管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.109Z', FALSE, 'ce51297c3af216ee') ON CONFLICT DO NOTHING;
+INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('96163f61-9157-4140-b4c4-9cc75b7d0d02', 'roma_ops', '系统运维管理员', '9486c0e4d342d7b250ac3b27d3f211aa', '13800000001', 'admin@cooliebase.local', NULL, 'DISABLED', '100', '系统内置超级管理员', NULL, NULL, '1', '2025-12-31T16:00:00.000Z', '2026-08-24T02:53:38.095Z', FALSE, 'a1b2c3d4e5f6g7h8') ON CONFLICT DO NOTHING;
 INSERT INTO "system_user" ("id", "username", "nickname", "password", "phone", "email", "avatar", "status", "dept_id", "remark", "login_ip", "login_date", "tenant_id", "created_at", "updated_at", "deleted", "salt") VALUES ('0599a7bc-1cf2-427c-a6db-57eaa0e5494b', 'cc_adm', 'cc_adm', 'b3ba2be2e2eae7b55232fa3e92d95944', NULL, NULL, NULL, 'ACTIVE', NULL, '租户创建时自动初始化的管理员', NULL, '2026-08-13T15:05:22.981Z', 'f114fa7d-e101-4ffe-9095-ad982188af0f', '2026-08-13T15:05:22.981Z', '2026-08-13T15:05:22.981Z', FALSE, '64945fd91ec5a727') ON CONFLICT DO NOTHING;
 
 -- Table data for: system_user_role (3 rows)
