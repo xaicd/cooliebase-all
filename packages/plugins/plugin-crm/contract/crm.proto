@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.crm.v1;
+package cooliebase.crm.v1;
 
-option go_package = "ruoyi/all-next/gen/crm/v1;crmv1";
+option go_package = "cooliebase/all-base/gen/crm/v1;crmv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.crm.v1.CrmService/<Method>
+// gRPC path: /cooliebase.crm.v1.CrmService/<Method>
 
 message JsonReply {
   string json = 1;

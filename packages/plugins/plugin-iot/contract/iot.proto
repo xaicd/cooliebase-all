@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.iot.v1;
+package cooliebase.iot.v1;
 
-option go_package = "ruoyi/all-next/gen/iot/v1;iotv1";
+option go_package = "cooliebase/all-base/gen/iot/v1;iotv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.iot.v1.IotService/<Method>
+// gRPC path: /cooliebase.iot.v1.IotService/<Method>
 
 message JsonReply {
   string json = 1;

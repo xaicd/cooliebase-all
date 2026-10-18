@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.pay.v1;
+package cooliebase.pay.v1;
 
-option go_package = "ruoyi/all-next/gen/pay/v1;payv1";
+option go_package = "cooliebase/all-base/gen/pay/v1;payv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.pay.v1.PayService/<Method>
+// gRPC path: /cooliebase.pay.v1.PayService/<Method>
 
 message JsonReply {
   string json = 1;

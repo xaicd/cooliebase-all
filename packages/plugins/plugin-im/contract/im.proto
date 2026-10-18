@@ -1,12 +1,12 @@
 syntax = "proto3";
 
-package ruoyi.im.v1;
+package cooliebase.im.v1;
 
-option go_package = "ruoyi/all-next/gen/im/v1;imv1";
+option go_package = "cooliebase/all-base/gen/im/v1;imv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
 // Do not hand-edit. Run: npm run domain:contracts
-// gRPC path: /ruoyi.im.v1.ImService/<Method>
+// gRPC path: /cooliebase.im.v1.ImService/<Method>
 
 message JsonReply {
   string json = 1;
