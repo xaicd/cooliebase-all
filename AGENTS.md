@@ -1,5 +1,3 @@
-<!-- rename/cooliebase-all-base-to-cooliebase-all active -->
-
 # cooliebase-all 开发工作手册
 
 更新时间：2026-09-02
