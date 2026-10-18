@@ -57,8 +57,6 @@ function buildTrace(status = "pass") {
       "skills:check",
       "compat:check",
       "standards:check",
-      "cooliebase:matrix:check",
-      "cooliebase:governance:check",
     ],
     sprintProd: latestSprintLog(),
     seamGraph: "packages/shared/contract/seam-graph.json",

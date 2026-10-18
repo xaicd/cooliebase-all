@@ -27,12 +27,12 @@ if (!fs.existsSync(targetScript)) {
   // 缺失的治理/扫描脚本**必须报错**，不能静默成功。
   //
   // 这些命令原本属于父级 monorepo（见上面的 parentRoot 查找），独立仓里没有它们。
-  // 此前这里 print("[SKIP] ...") + exit 0 —— 后果是 `npm run check` 里的
-  // `cooliebase:matrix:check` / `cooliebase:governance:check` 两道门禁**常年空转却报绿**，
-  // 而 `write-harness-trace` 还把"通过"记进证据链。这正是"能力是否习得无从判断"的直接原因。
+  // 此前这里 print("[SKIP] ...") + exit 0 —— 后果是 `npm run check` 里若干治理/扫描
+  // 门禁**常年空转却报绿**，而 `write-harness-trace` 还把"通过"记进证据链。
+  // 这正是"能力是否习得无从判断"的直接原因。
   //
-  // 若某个命令在当前仓确实不适用，应当从 package.json / check 链里**移除**，
-  // 而不是让它在运行时报一句 SKIP 就算过。
+  // 该问题已通过删除 package.json 中的孤儿 npm script 入口根治（本文件保留作为
+  // 兜底：若日后真有缺失脚本被引用，至少会爆出来，而不是静默绿牌）。
   console.error(`[MISSING] 脚本不存在: ${scriptRelPath}`)
   console.error("  这些治理/扫描脚本原本属于父级 monorepo，本仓没有。")
   console.error("  要么补齐脚本，要么把对应命令从 package.json / check 链里移除。")

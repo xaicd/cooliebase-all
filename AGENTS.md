@@ -341,22 +341,17 @@
 
 CI 前置检查：
 
-1. npm run cooliebase:matrix:check
-2. npm run cooliebase:governance:check
-3. npm run domain:check
-4. npm run microservice:check
-5. npm run harness:check
-6. npm run admin:routes:check
-7. npm run foundation:ontology:check
-8. npm run skills:check
-9. npm run compat:check
-10. npm run standards:check
-11. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
-12. 合并前建议执行 strict：
-	- npm run cooliebase:matrix:check:strict
-	- npm run cooliebase:governance:check:strict
+1. npm run domain:check
+2. npm run microservice:check
+3. npm run harness:check
+4. npm run admin:routes:check
+5. npm run foundation:ontology:check
+6. npm run skills:check
+7. npm run compat:check
+8. npm run standards:check
+9. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 
-一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 10 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 8 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
 
 注意：`gen/**` 被 `.gitignore` 排除，干净检出上 `domain:check` / `microservice:check` 依赖的 Go 桩须由 `contracts:sync` 先生成，故这两道门禁不可单独在干净检出上直接执行。
 
@@ -453,15 +448,6 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 ## 7. 扫描与迁移节奏（证据驱动）
 
-推荐每个批次都执行以下命令链：
-
-1. npm run cooliebase:full:scan
-2. npm run cooliebase:deep:scan
-3. npm run cooliebase:mini:scan
-4. npm run cooliebase:migration:board
-
-产物目录：docs/architecture/artifacts/
-
 迁移节奏：
 
 1. P0-Foundation：system + infra 先闭环
@@ -501,19 +487,14 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 ### 9.2 all-next 研发常用命令
 
-1. 能力扫描：npm run cooliebase:full:scan
-2. 证据扫描：npm run cooliebase:deep:scan
-3. mini 基座扫描：npm run cooliebase:mini:scan
-4. 迁移作战板：npm run cooliebase:migration:board
-5. 治理检查：npm run check
-6. strict 治理：npm run cooliebase:matrix:check:strict && npm run cooliebase:governance:check:strict
-7. 域独立打包：npm run domain:list && npm run domain:pack -- pay
-8. 一体运行：npm run dev（或 npm run runtime:all）
-9. 域独立运行：npm run domain:dev -- pay
-10. 拆分部署（BFF + pay，Facade RPC）：npm run runtime:split 或 npm run domain:up -- pay
-11. 域 RPC 契约：npm run domain:contracts（生成 TS Facade / proto / gen/go 桩）
-12. 微服务治理门禁：npm run microservice:check
-13. 全域初始化与最新 SQL 编译（唯一官方标准入口）：`npm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`，严禁编写临时 scratch 导出脚本！）
+1. 治理检查：npm run check
+2. 域独立打包：npm run domain:list && npm run domain:pack -- pay
+3. 一体运行：npm run dev（或 npm run runtime:all）
+4. 域独立运行：npm run domain:dev -- pay
+5. 拆分部署（BFF + pay，Facade RPC）：npm run runtime:split 或 npm run domain:up -- pay
+6. 域 RPC 契约：npm run domain:contracts（生成 TS Facade / proto / gen/go 桩）
+7. 微服务治理门禁：npm run microservice:check
+8. 全域初始化与最新 SQL 编译（唯一官方标准入口）：`npm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`，严禁编写临时 scratch 导出脚本！）
 
 本地命令面（package.json）：
 

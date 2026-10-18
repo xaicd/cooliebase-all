@@ -230,9 +230,9 @@ const RULES = [
     description:
       "every domain in domain-catalog.json must have a governance row (stage / Skill binding / TestRefs / SplitNote)",
     run() {
-      // 为什么需要这条: 本仓的 cooliebase:governance:check 在 standalone 项目里是空转
+      // 为什么需要这条: 历史上一条独立的 governance npm script 在 standalone 项目里是空转
       // ([SKIP] script omitted), 于是"新注册一个域但漏登记治理"没有任何门禁拦得住 ——
-      // aigw 就这么漂了很久。这里把它变成真检查。
+      // aigw 就这么漂了很久。入口已删, 但治理覆盖这条规则必须内化进 standards:check。
       // 文档名**跟着工程名改过**（孵化会重命名整个仓库的标识），写死会让衍生工程里
       // 这条规则永远报"文档缺失"。动态找: docs/architecture/*-domain-governance.md
       const archDir = abs("docs/architecture")
