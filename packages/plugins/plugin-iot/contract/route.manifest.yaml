@@ -25,9 +25,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.iot
-  commandSubject: ruoyi.cmd.iot.>
-  eventSubject: ruoyi.evt.iot.>
+  queueGroup: cooliebase.iot
+  commandSubject: cooliebase.cmd.iot.>
+  eventSubject: cooliebase.evt.iot.>
 invoke:
   colocated: sdk
   remote: rpc

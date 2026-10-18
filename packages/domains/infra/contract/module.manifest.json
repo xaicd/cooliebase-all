@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "infra",
-  "id": "ruoyi.infra",
+  "id": "cooliebase.infra",
   "apiVersion": 1,
   "displayName": "基础设施",
   "kind": "platform",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.infra",
-    "commandSubject": "ruoyi.cmd.infra.>",
-    "eventSubject": "ruoyi.evt.infra.>"
+    "queueGroup": "cooliebase.infra",
+    "commandSubject": "cooliebase.cmd.infra.>",
+    "eventSubject": "cooliebase.evt.infra.>"
   },
   "invoke": {
     "colocated": "sdk",

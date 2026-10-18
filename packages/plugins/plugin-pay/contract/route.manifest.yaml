@@ -27,9 +27,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.pay
-  commandSubject: ruoyi.cmd.pay.>
-  eventSubject: ruoyi.evt.pay.>
+  queueGroup: cooliebase.pay
+  commandSubject: cooliebase.cmd.pay.>
+  eventSubject: cooliebase.evt.pay.>
 invoke:
   colocated: sdk
   remote: rpc

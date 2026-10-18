@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "mes",
-  "id": "ruoyi.mes",
+  "id": "cooliebase.mes",
   "apiVersion": 1,
   "displayName": "制造中心",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.mes",
-    "commandSubject": "ruoyi.cmd.mes.>",
-    "eventSubject": "ruoyi.evt.mes.>"
+    "queueGroup": "cooliebase.mes",
+    "commandSubject": "cooliebase.cmd.mes.>",
+    "eventSubject": "cooliebase.evt.mes.>"
   },
   "invoke": {
     "colocated": "sdk",

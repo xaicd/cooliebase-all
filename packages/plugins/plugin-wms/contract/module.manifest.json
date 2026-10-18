@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "wms",
-  "id": "ruoyi.wms",
+  "id": "cooliebase.wms",
   "apiVersion": 1,
   "displayName": "仓储中心",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.wms",
-    "commandSubject": "ruoyi.cmd.wms.>",
-    "eventSubject": "ruoyi.evt.wms.>"
+    "queueGroup": "cooliebase.wms",
+    "commandSubject": "cooliebase.cmd.wms.>",
+    "eventSubject": "cooliebase.evt.wms.>"
   },
   "invoke": {
     "colocated": "sdk",

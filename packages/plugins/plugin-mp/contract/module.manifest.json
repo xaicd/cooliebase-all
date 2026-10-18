@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "mp",
-  "id": "ruoyi.mp",
+  "id": "cooliebase.mp",
   "apiVersion": 1,
   "displayName": "微信公号",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.mp",
-    "commandSubject": "ruoyi.cmd.mp.>",
-    "eventSubject": "ruoyi.evt.mp.>"
+    "queueGroup": "cooliebase.mp",
+    "commandSubject": "cooliebase.cmd.mp.>",
+    "eventSubject": "cooliebase.evt.mp.>"
   },
   "invoke": {
     "colocated": "sdk",

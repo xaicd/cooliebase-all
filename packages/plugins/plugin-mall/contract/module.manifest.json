@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "mall",
-  "id": "ruoyi.mall",
+  "id": "cooliebase.mall",
   "apiVersion": 1,
   "displayName": "mall",
   "kind": "plugin",
@@ -36,9 +36,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.mall",
-    "commandSubject": "ruoyi.cmd.mall.>",
-    "eventSubject": "ruoyi.evt.mall.>"
+    "queueGroup": "cooliebase.mall",
+    "commandSubject": "cooliebase.cmd.mall.>",
+    "eventSubject": "cooliebase.evt.mall.>"
   },
   "invoke": {
     "colocated": "sdk",

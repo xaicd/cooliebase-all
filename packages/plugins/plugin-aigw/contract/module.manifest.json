@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "aigw",
-  "id": "ruoyi.aigw",
+  "id": "cooliebase.aigw",
   "apiVersion": 1,
   "displayName": "aigw",
   "kind": "plugin",
@@ -36,9 +36,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.aigw",
-    "commandSubject": "ruoyi.cmd.aigw.>",
-    "eventSubject": "ruoyi.evt.aigw.>"
+    "queueGroup": "cooliebase.aigw",
+    "commandSubject": "cooliebase.cmd.aigw.>",
+    "eventSubject": "cooliebase.evt.aigw.>"
   },
   "invoke": {
     "colocated": "sdk",

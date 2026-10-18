@@ -25,9 +25,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.wms
-  commandSubject: ruoyi.cmd.wms.>
-  eventSubject: ruoyi.evt.wms.>
+  queueGroup: cooliebase.wms
+  commandSubject: cooliebase.cmd.wms.>
+  eventSubject: cooliebase.evt.wms.>
 invoke:
   colocated: sdk
   remote: rpc

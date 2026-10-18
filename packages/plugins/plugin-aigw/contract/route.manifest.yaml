@@ -26,9 +26,9 @@ rollout:
   mode: local
 messaging:
   transport: in-process
-  queueGroup: ruoyi.aigw
-  commandSubject: ruoyi.cmd.aigw.>
-  eventSubject: ruoyi.evt.aigw.>
+  queueGroup: cooliebase.aigw
+  commandSubject: cooliebase.cmd.aigw.>
+  eventSubject: cooliebase.evt.aigw.>
 invoke:
   colocated: sdk
   remote: rpc

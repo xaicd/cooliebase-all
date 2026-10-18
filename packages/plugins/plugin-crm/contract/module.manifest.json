@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "crm",
-  "id": "ruoyi.crm",
+  "id": "cooliebase.crm",
   "apiVersion": 1,
   "displayName": "客户中心",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.crm",
-    "commandSubject": "ruoyi.cmd.crm.>",
-    "eventSubject": "ruoyi.evt.crm.>"
+    "queueGroup": "cooliebase.crm",
+    "commandSubject": "cooliebase.cmd.crm.>",
+    "eventSubject": "cooliebase.evt.crm.>"
   },
   "invoke": {
     "colocated": "sdk",

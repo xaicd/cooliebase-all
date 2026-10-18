@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "system",
-  "id": "ruoyi.system",
+  "id": "cooliebase.system",
   "apiVersion": 1,
   "displayName": "系统管理",
   "kind": "platform",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.system",
-    "commandSubject": "ruoyi.cmd.system.>",
-    "eventSubject": "ruoyi.evt.system.>"
+    "queueGroup": "cooliebase.system",
+    "commandSubject": "cooliebase.cmd.system.>",
+    "eventSubject": "cooliebase.evt.system.>"
   },
   "invoke": {
     "colocated": "sdk",

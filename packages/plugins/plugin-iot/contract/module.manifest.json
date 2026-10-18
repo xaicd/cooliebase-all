@@ -1,7 +1,7 @@
 {
-  "$schema": "ruoyi-module-manifest/v1",
+  "$schema": "cooliebase-module-manifest/v1",
   "domain": "iot",
-  "id": "ruoyi.iot",
+  "id": "cooliebase.iot",
   "apiVersion": 1,
   "displayName": "物联中台",
   "kind": "plugin",
@@ -35,9 +35,9 @@
     "tenantPolicy": "required"
   },
   "messaging": {
-    "queueGroup": "ruoyi.iot",
-    "commandSubject": "ruoyi.cmd.iot.>",
-    "eventSubject": "ruoyi.evt.iot.>"
+    "queueGroup": "cooliebase.iot",
+    "commandSubject": "cooliebase.cmd.iot.>",
+    "eventSubject": "cooliebase.evt.iot.>"
   },
   "invoke": {
     "colocated": "sdk",
