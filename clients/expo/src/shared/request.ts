@@ -1,5 +1,5 @@
 /**
- * Expo 端**唯一**的请求封装（对标 yudao-mall-uniapp 的 `sheep/request`）。
+ * Expo 端**唯一**的请求封装，按请求/响应/拦截/重试四象限组织。
  *
  * 为什么要有它（而不是每次调用各拼 fetch）:
  *   1. **UI 反馈策略声明在 API 层** —— 调用点写 `custom: { loadingMsg: "登录中" }`，

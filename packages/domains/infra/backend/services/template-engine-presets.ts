@@ -81,7 +81,7 @@ function presetTemplate(record: Omit<InfraTemplateRecord, "id" | "updatedAt" | "
 }
 
 /**
- * yudao `src/main/resources/codegen` 在 Next/React 侧的基础模板包。
+ * Next/React 侧的低代码基础模板包。
  *
  * 这些模板故意保持“单文件、低魔法、强约束”的风格：
  * - API Route 保留薄层模式

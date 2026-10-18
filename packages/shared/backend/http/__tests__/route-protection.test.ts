@@ -1,5 +1,5 @@
 /**
- * 声明式路由防护（对齐 yudao-cloud 的 @RateLimiter / @Idempotent）。
+ * 声明式路由防护（限流 / 幂等）。
  *
  * 重点是**默认关闭**这条: `withAdminRoute` 服务于所有 admin 路由，
  * 加防护必须是路由作者显式声明的，不能有隐式行为变化。

@@ -19,12 +19,12 @@ export type AdminRouteOptions = {
   permission?: PermissionCode
   platformOnly?: boolean
   /**
-   * 声明式限流（对齐 yudao-cloud 的 `@RateLimiter`）—— 挂在路由上，不写在业务里。
+   * 声明式限流 —— 挂在路由上，不写在业务里。
    * **默认关闭**: 本包装器服务于所有 admin 路由，不能引入隐式行为变化。
    */
   rateLimit?: RouteRateLimitRule
   /**
-   * 声明式幂等（对齐 `@Idempotent`）—— 仅对写操作生效，依赖 `Idempotency-Key` 头。默认关闭。
+   * 声明式幂等 —— 仅对写操作生效，依赖 `Idempotency-Key` 头。默认关闭。
    */
   idempotent?: boolean
 }

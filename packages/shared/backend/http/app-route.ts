@@ -25,11 +25,11 @@ export type AppRouteOptions = {
   /** true = 允许游客（optionalAppAuth，无 token 也放行为 GUEST）；默认 false = 必须登录 */
   optional?: boolean
   /**
-   * 声明式限流（对齐 yudao-cloud 的 `@RateLimiter`）。**默认关闭**。
+   * 声明式限流。**默认关闭**。
    * C 端接口最容易被打，限流在这里尤其要紧。
    */
   rateLimit?: RouteRateLimitRule
-  /** 声明式幂等（对齐 `@Idempotent`）—— 仅对写操作生效，依赖 `Idempotency-Key` 头。默认关闭。 */
+  /** 声明式幂等 —— 仅对写操作生效，依赖 `Idempotency-Key` 头。默认关闭。 */
   idempotent?: boolean
 }
 
