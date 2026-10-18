@@ -1,3 +1,7 @@
+> ⚠️ **ARCHIVED 2026-10-18**: 此文档为 2026 Q3 上游对标研究快照。
+> 不再更新，所述上游项目（cooliebase-vue-pro / yudao-cloud / yudao-boot-mini 等）已不再作为本工程的事实来源。
+> 历史对照参考保留，新读者请参考 `docs/specs/` 与 `.agents/rules/`。
+
 # 上游架构参考：yudao-cloud 与 yudao-mall-uniapp
 
 本文记录从两个上游仓库学到的**架构范式**，并逐条映射到本仓的**具体差距**。

@@ -1,3 +1,7 @@
+> ⚠️ **ARCHIVED 2026-10-18**: 此文档为 2026 Q3 上游对标研究快照。
+> 不再更新，所述上游项目（cooliebase-vue-pro / yudao-cloud / yudao-boot-mini 等）已不再作为本工程的事实来源。
+> 历史对照参考保留，新读者请参考 `docs/specs/` 与 `.agents/rules/`。
+
 # yudao-boot-mini 核心基础设施全量复核
 
 更新时间：2026-08-02

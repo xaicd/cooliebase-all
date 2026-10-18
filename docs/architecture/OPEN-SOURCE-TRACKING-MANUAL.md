@@ -1,3 +1,5 @@
+> ⚠️ **2026-10-18 勘误**: 2026 Q3 之前流程文档中涉及的 `yudao-cloud` 条目已从 `docs/architecture/upstream-radar-catalog.json` 移除（Phase A3 重构）。本文档保留作为通用流程参考，但具体追踪对象列表请以最新 radar catalog 为准。
+
 # CoolieBase-All-Next 开源生态持续追踪、漏洞防御与技术吸收权威指南
 # (Open-Source Ecosystem Radar, Vulnerability Defense & Continuous Evolution Manual)
 
