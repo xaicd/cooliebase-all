@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 /**
  * project-init.cjs - CoolieBase-All-Next 业务项目初始化与重构引擎
- * (对标并超越 cooliebase-vue-pro 的 ProjectReactor.java / projectRefactor.java)
  *
  * 核心用途：
  * 任何团队或开发者将 cooliebase-all 作为真实业务项目底座时，

@@ -1,8 +1,8 @@
 /**
- * ProjectReactor Engine (对标并超越 Yudao ProjectReactor.java)
- * 
+ * ProjectReactor Engine
+ *
  * 功能：
- * 1. 深度借鉴 ProjectReactor 的核心设计：白名单二进制防损坏、长词优先有序替换、路径与包名重写；
+ * 1. 白名单二进制防损坏、长词优先有序替换、路径与包名重写；
  * 2. 融合 Node/Next.js 特性：自动隔离数据库名、PORT 端口分配、.env 自动生成；
  * 3. 极简全托管：自动连接 PostgreSQL 创建独立库 + 默认部署全量 SQL 基准与迁移！
  */
@@ -28,7 +28,7 @@ const RPC_ACTIONS_REL = path.join("packages", "shared", "backend", "constants", 
 const AGENT_PROFILE_REL = path.join("packages", "shared", "contract", "agent-profile.json")
 const HATCH_MANIFEST_REL = path.join("packages", "shared", "contract", "hatch-manifest.json")
 
-// 默认基准标识符 (对标 Yudao 的 GROUP_ID, ARTIFACT_ID, TITLE)
+// 默认基准标识符 (基准项目的英文名 / 短名 / 中文系统全称)
 const BASE_PROJECT_NAME = "cooliebase-all"
 const BASE_PROJECT_TITLE = "CoolieBase All"
 const BASE_DB_NAME = "cooliebase_next"
@@ -83,7 +83,7 @@ const PROTECTED_DOCS = new Set([
 ])
 
 /**
- * 文本内容重写器 (对标 ProjectReactor.replaceFileContent)
+ * 文本内容重写器
  * 严格执行“长词优先”替换原则，避免短词误伤
  */
 function transformFileContent(content, targetName, targetTitle, targetDbName, targetPort) {

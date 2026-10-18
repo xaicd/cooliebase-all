@@ -91,7 +91,7 @@ Skill 编写规范见 [skill-authoring/SKILL.md](./skill-authoring/SKILL.md)。
 | microservice-evolution/SKILL.md | A/B/C 拆分演进判定 |
 | plugin-authoring/SKILL.md | 可安装插件：包结构 / manifest / capability / worker 协议 |
 | agent-harness/SKILL.md | NPC 工作区模板与 Harness 思想进化 |
-| project-init/SKILL.md | 业务项目初始化与原地重构（对标 ProjectReactor.java） |
+| project-init/SKILL.md | 业务项目初始化与原地重构 |
 | mutation-tester/SKILL.md | CMMI 05 变异测试反假 Mock (Stryker/PIT/SpaceX) |
 | compliance-auditor/SKILL.md | CMMI 06 过程质量审计、FCA/PCA 配置审计 |
 | sre-slo-manager/SKILL.md | CMMI 08 Google SRE SLI/SLO 与多窗口燃烧率告警 |
