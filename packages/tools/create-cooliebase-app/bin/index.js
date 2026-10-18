@@ -1,13 +1,13 @@
 #!/usr/bin/env node
 
 /**
- * create-ruoyi-app
- * Zero-Git-History instant scaffolding CLI for ruoyi-all-next.
+ * create-cooliebase-app
+ * Zero-Git-History instant scaffolding CLI for cooliebase-all-base.
  *
  * Usage:
- *   npx create-ruoyi-app my-app
- *   npx create-ruoyi-app my-app --title "XX智慧管理平台" --profile base
- *   pnpm create ruoyi-app my-app
+ *   npx create-cooliebase-app my-app
+ *   npx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base
+ *   pnpm create cooliebase-app my-app
  */
 
 const fs = require("node:fs")
@@ -26,8 +26,8 @@ const BANNER = `
 function printHelp() {
   console.log(BANNER)
   console.log("用法:")
-  console.log("  npx create-ruoyi-app <工程名或路径> [选项]")
-  console.log("  pnpm create ruoyi-app <工程名或路径> [选项]\n")
+  console.log("  npx create-cooliebase-app <工程名或路径> [选项]")
+  console.log("  pnpm create cooliebase-app <工程名或路径> [选项]\n")
   console.log("选项:")
   console.log("  --title <text>     项目中文系统全称 (如: \"XX智慧能源管理中台\")")
   console.log("  --profile <name>   骨架规模: base (默认, 纯净底座), minimal (含AI/低代码), standard (全量17域)")
@@ -77,16 +77,16 @@ async function main() {
 
   if (isInteractive) {
     console.log(BANNER)
-    console.log("🚀 欢迎使用 ruoyi-all-next 极速创建向导！\n")
+    console.log("🚀 欢迎使用 cooliebase-all-base 极速创建向导！\n")
     const rl = readline.createInterface({ input: process.stdin, output: process.stdout })
-    target = await prompt(rl, "1. 目标工程目录名 (kebab-case)", "my-ruoyi-app")
+    target = await prompt(rl, "1. 目标工程目录名 (kebab-case)", "my-cooliebase-app")
     title = await prompt(rl, "2. 中文业务系统全称", "企业数字化智能业务中台")
     profile = await prompt(rl, "3. 骨架规模 (base / minimal / standard)", "base")
     const installAns = await prompt(rl, "4. 是否自动安装依赖 (y/N)", "N")
     if (installAns.toLowerCase() === "y") autoInstall = true
     rl.close()
   } else if (!target) {
-    target = "my-ruoyi-app"
+    target = "my-cooliebase-app"
   }
 
   if (!title) {
@@ -114,7 +114,7 @@ async function main() {
   console.log("\n[1/4] 正在拉取干净代码骨架 (Zero-Git-History)...")
   let pullSuccess = false
   try {
-    const degitRes = spawnSync("npx", ["degit", "xaicd/ruoyi-all-next#main", targetDir, "--force"], {
+    const degitRes = spawnSync("npx", ["degit", "xaicd/cooliebase-all-base#main", targetDir, "--force"], {
       stdio: "inherit"
     })
     if (degitRes.status === 0) pullSuccess = true
@@ -123,7 +123,7 @@ async function main() {
   if (!pullSuccess) {
     console.log("ℹ️ degit 拉取失败，自动降级为 git shallow clone...")
     try {
-      execSync(`git clone --depth 1 https://github.com/xaicd/ruoyi-all-next.git "${targetDir}"`, {
+      execSync(`git clone --depth 1 https://github.com/xaicd/cooliebase-all-base.git "${targetDir}"`, {
         stdio: "inherit"
       })
       // 删除上游 Git 历史
@@ -157,7 +157,7 @@ async function main() {
   // 3. 自动建立独立的业务首提交
   console.log("\n[3/4] 正在初始化全新业务 Git 仓库...")
   try {
-    execSync("git init && git add -A && git commit -m \"chore: initialize business project from ruoyi-all-next base\"", {
+    execSync("git init && git add -A && git commit -m \"chore: initialize business project from cooliebase-all-base base\"", {
       cwd: targetDir,
       stdio: "ignore"
     })

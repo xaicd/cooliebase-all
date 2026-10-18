@@ -215,7 +215,7 @@ ${methods.join("\n\n")}
 }
 
 function toGoMod() {
-  return `module ruoyi/all-next/gen
+  return `module cooliebase/all-base/gen
 
 go 1.22
 `
