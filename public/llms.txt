@@ -1,4 +1,4 @@
-# ruoyi-all-next
+# cooliebase-all-base
 
 > 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 17 个原生业务域、26 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
 
@@ -21,10 +21,10 @@
 - **OpenWiki (LLM-Wiki 知识大脑)**:
   - 内置 `wiki/` 动态互联百科（`npm run openwiki:sync`），由底层元数据与 324 份 Agent 契约全自动自愈同步，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
 - **真实数据库驱动 (Zero Fake Mock)**:
-  - 内置零配置本地 SQLite (`data/ruoyi.db`)，开发/预览无需安装外部容器，秒级开箱即用。
+  - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
 - **MCP 原生支持 (Model Context Protocol)**:
-  - 内置 `scripts/mcp/ruoyi-mcp-server.cjs`（提供 `ruoyi_domain_list`, `ruoyi_action_lookup`, `ruoyi_gate_run` 等 12+ 确定性工具），消除全库扫描 Token 浪费。
+  - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 12+ 确定性工具），消除全库扫描 Token 浪费。
 - **全自动项目重塑引擎 (ProjectReactor CLI)**:
   - 原地重塑: `npm run project:init`，一键重塑包名、中文系统标题、端口、Git Remote 与品牌版权。
   - 派生裁剪: 支持 `--profile minimal` / `standard`，自动剔除冗余业务域，并自动 `git init` 记录任务痕迹。
@@ -33,16 +33,16 @@
 
 外部 AI Agent 或开发者在下载/克隆全量代码库之前，可通过 GitHub Raw 或运行中服务的标准路径（如 `http://<host>:<port>/compat-manifest.json`）直接获取以下机器可读契约：
 
-- **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/wiki/index.md)
-- **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/.well-known/agent.json)
-- **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/compat-manifest.json)
+- **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/wiki/index.md)
+- **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.well-known/agent.json)
+- **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/compat-manifest.json)
   - 声明版本、17 域清单、26 技能目录、12 项 MCP 工具、8 层交付 Gate 与 Hatch 派生配置。
-- **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/agent-profile.json)
+- **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
-- **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/packages/shared/contract/seam-graph.json)
-- **17 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/packages/shared/backend/constants/domain-catalog.json)
-- **高阶反向思维工程铁律**: [HIGH-ORDER-INVERSE-THINKING.md](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
-- **统一规格包 (Spec) 与原型工程标准**: [FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md](https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md)
+- **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/packages/shared/contract/seam-graph.json)
+- **17 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/packages/shared/backend/constants/domain-catalog.json)
+- **高阶反向思维工程铁律**: [HIGH-ORDER-INVERSE-THINKING.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
+- **统一规格包 (Spec) 与原型工程标准**: [FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md](https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md)
 
 ## 极速起步 (Quick Start for AI & Developers)
 
@@ -52,7 +52,7 @@
 
 ```bash
 # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-npx degit xaicd/ruoyi-all-next#main my-app
+npx degit xaicd/cooliebase-all-base#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install
@@ -61,11 +61,11 @@ npm run dev
 ```
 
 > **补充**：若需更细粒度裁剪规格（如纯白板底座 `base`），亦可使用远程单行指令：  
-> `curl -fsSL https://raw.githubusercontent.com/xaicd/ruoyi-all-next/main/scripts/hatch.sh | bash -s -- my-app --profile base --title "我的新业务系统"`
+> `curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all-base/main/scripts/hatch.sh | bash -s -- my-app --profile base --title "我的新业务系统"`
 
 ### 场景 2：克隆底座并原地初始化为客户专属项目
 ```bash
-git clone https://github.com/xaicd/ruoyi-all-next.git my-business-app
+git clone https://github.com/xaicd/cooliebase-all-base.git my-business-app
 cd my-business-app && pnpm install
 npm run project:init               # 一键重构
 npm run db:bootstrap:sqlite        # 初始化数据库

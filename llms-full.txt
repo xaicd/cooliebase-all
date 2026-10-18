@@ -1,4 +1,4 @@
-# ruoyi-all-next: Complete Engineering Specification & Operational Manual
+# cooliebase-all-base: Complete Engineering Specification & Operational Manual
 # (For Long-Context LLMs & Autonomous Coding Agents)
 
 > Version: 2026.10-V1  
@@ -36,7 +36,7 @@
 ## 2. 物理目录结构与三层物理边界 (Architectural Seams)
 
 ```
-ruoyi-all-next/
+
 ├── packages/
 │   ├── shared/                       # 核心公共基座 SDK（永远是 SDK，严禁当作微服务）
 │   │   ├── backend/
@@ -72,12 +72,12 @@ ruoyi-all-next/
 ├── clients/expo/                     # 跨端移动应用渠道
 ├── docs/                             # 规范与过程资产（01_management~09_operations, specs/<domain>/<name>）
 ├── scripts/                          # 脚手架与门禁（scaffold, project-init, check, hatch, mcp）
-└── data/                             # 真实本地数据库存储（data/ruoyi.db）
+└── data/                             # 真实本地数据库存储（data/cooliebase.db）
 ```
 
 ### 🚨 跨域调用三原则（门禁强校验）：
 1. **严禁跨域直接 import**：禁止在业务域内直接 import 其它域的 Service、Repository 或 Prisma Model；
-2. **强制 Domain Facade / Broker**：跨域同步调用必须走 `createDomainFacade("<domain>")` 或 `broker.call("ruoyi.cmd.<domain>.<method>")`；
+2. **强制 Domain Facade / Broker**：跨域同步调用必须走 `createDomainFacade("<domain>")` 或 `broker.call("cooliebase.cmd.<domain>.<method>")`；
 3. **双模无缝切换**：单体运行时走内存 SDK 直接调用，微服务独立部署时自动切换为 RPC，对外契约完全等价。
 
 ---
@@ -114,7 +114,7 @@ ruoyi-all-next/
    - 租户上下文必须且只能来自 `getCurrentTenantId()`；
    - 严禁信任或依赖客户端透传的 `tenantId` 参数。
 3. **真实数据库驱动**：
-   - 默认支持 Tier-A 零配置 SQLite 本地数据库（`data/ruoyi.db`），同时原生支持 PostgreSQL 与 MySQL 生产部署；
+   - 默认支持 Tier-A 零配置 SQLite 本地数据库（`data/cooliebase.db`），同时原生支持 PostgreSQL 与 MySQL 生产部署；
    - 所有测试与业务流转必须经过真实数据库状态机持久化。
 4. **日志与审计规范**：
    - 严禁在生产路径中使用 `console.log`；
@@ -142,7 +142,7 @@ ruoyi-all-next/
 
 ```bash
 # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-npx degit xaicd/ruoyi-all-next#main my-app
+npx degit xaicd/cooliebase-all-base#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install
