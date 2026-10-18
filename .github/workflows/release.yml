@@ -61,7 +61,7 @@ jobs:
           tar --exclude='./.git' \
               --exclude='./node_modules' \
               --exclude='./.next' \
-              --exclude='./.next-ruoyi' \
+              --exclude='./.next-cooliebase' \
               --exclude='./*.tsbuildinfo' \
               --exclude='./.turbo' \
               --exclude='./.cache' \
@@ -70,7 +70,7 @@ jobs:
               --exclude='./data/*.db-shm' \
               --exclude='./backups' \
               --exclude='./dist' \
-              -czf "dist/release-assets/ruoyi-all-next-${TAG}-skeleton.tar.gz" .
+              -czf "dist/release-assets/cooliebase-all-base-${TAG}-skeleton.tar.gz" .
 
           # 2. 导出 OpenAPI 契约规范与架构说明
           if [ -f "packages/shared/contract/seam-graph.json" ]; then

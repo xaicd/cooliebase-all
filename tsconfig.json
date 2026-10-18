@@ -142,13 +142,13 @@
   },
   "include": [
     "next-env.d.ts",
-    ".next-ruoyi/types/**/*.ts",
-    ".next-ruoyi/dev/types/**/*.ts",
+    ".next-cooliebase/types/**/*.ts",
+    ".next-cooliebase/dev/types/**/*.ts",
     "next.config.mjs",
     "**/*.mts",
     "**/*.ts",
     "**/*.tsx",
-    ".next-ruoyi/dev/dev/types/**/*.ts"
+    ".next-cooliebase/dev/dev/types/**/*.ts"
   ],
   "exclude": [
     "**/__tests__/**",
@@ -156,6 +156,6 @@
     "**/*.test.tsx",
     "node_modules",
     "scripts",
-    ".next-ruoyi"
+    ".next-cooliebase"
   ]
 }

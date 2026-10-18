@@ -20,7 +20,7 @@ const fs = require('fs');
 const path = require('path');
 const { createHash, randomBytes, randomInt } = require('crypto');
 
-const DB_PATH = process.env.SQLITE_DB_PATH || path.resolve(process.cwd(), 'data/ruoyi.db');
+const DB_PATH = process.env.SQLITE_DB_PATH || path.resolve(process.cwd(), 'data/cooliebase.db');
 
 function md5(value) {
   return createHash('md5').update(value).digest('hex');

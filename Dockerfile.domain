@@ -1,9 +1,9 @@
 # ============================================================
-# ruoyi-all-next 单域独立构建（API-only standalone）
-# 用法：docker build -f Dockerfile.domain --build-arg RUOYI_PACK_DOMAIN=pay -t ruoyi-domain-pay .
+# cooliebase-all-base 单域独立构建（API-only standalone）
+# 用法：docker build -f Dockerfile.domain --build-arg COOLIEBASE_PACK_DOMAIN=pay -t cooliebase-domain-pay .
 # ============================================================
 
-ARG RUOYI_PACK_DOMAIN=pay
+ARG COOLIEBASE_PACK_DOMAIN=pay
 
 FROM node:24-alpine AS deps
 WORKDIR /app
@@ -25,15 +25,15 @@ COPY packages/plugins/examples/hello-world/package.json ./packages/plugins/examp
 # --frozen-lockfile: CI/镜像构建必须用锁文件，不允许隐式升级依赖。
 RUN corepack enable
 RUN pnpm install --frozen-lockfile
-# npm workspaces 会在 node_modules/@ruoyi 下建立指向 ../../packages/... 的符号链接。
+# npm workspaces 会在 node_modules/@cooliebase 下建立指向 ../../packages/... 的符号链接。
 # BuildKit 的 COPY 解析「落在被复制目录之外」的链接时会报
 # "evalSymlinksInScope: too many links"，导致下一阶段的 COPY --from=deps 失败。
 # 域构建不依赖这些插件包（plugin SDK 只给插件作者使用），故在 deps 层裁掉。
-RUN rm -rf node_modules/@ruoyi node_modules/.pnpm/node_modules/@ruoyi
+RUN rm -rf node_modules/@cooliebase node_modules/.pnpm/node_modules/@cooliebase
 
 FROM node:24-alpine AS packer
 WORKDIR /app
-ARG RUOYI_PACK_DOMAIN
+ARG COOLIEBASE_PACK_DOMAIN
 # 【未验证项·迁移到 pnpm 后的已知风险】与 Dockerfile 同理:
 # pnpm 的 node_modules 大量使用符号链接, BuildKit 跨阶段 COPY 解析这类链接会报
 # "evalSymlinksInScope: too many links"(npm 阶段已实测过该报错)。
@@ -41,14 +41,14 @@ ARG RUOYI_PACK_DOMAIN
 # 本条未实测(镜像构建卡在更早的 apk 阶段, 属环境网络问题), 故标注而非声称通过。
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN node scripts/pack-domain.cjs ${RUOYI_PACK_DOMAIN} --materialize
+RUN node scripts/pack-domain.cjs ${COOLIEBASE_PACK_DOMAIN} --materialize
 
 FROM node:24-alpine AS builder
 WORKDIR /app
-ARG RUOYI_PACK_DOMAIN
-ENV RUOYI_PACK_DOMAIN=${RUOYI_PACK_DOMAIN}
+ARG COOLIEBASE_PACK_DOMAIN
+ENV COOLIEBASE_PACK_DOMAIN=${COOLIEBASE_PACK_DOMAIN}
 ENV NEXT_TELEMETRY_DISABLED=1
-COPY --from=packer /app/dist/domain-packs/${RUOYI_PACK_DOMAIN} ./
+COPY --from=packer /app/dist/domain-packs/${COOLIEBASE_PACK_DOMAIN} ./
 # 打包产物把 node_modules 做成了符号链接（供本地 `domain:dev` 直接跑）。
 # 在镜像里这个链接要么自引用、要么指向不存在的路径，且 deps 阶段已提供真实
 # node_modules —— 必须先删掉，否则下一步 COPY 会遍历它并报
@@ -60,19 +60,19 @@ RUN npx next build
 
 FROM node:24-alpine AS runner
 WORKDIR /app
-ARG RUOYI_PACK_DOMAIN
+ARG COOLIEBASE_PACK_DOMAIN
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 ENV PORT=3100
 ENV HOSTNAME="0.0.0.0"
-ENV RUOYI_PACK_DOMAIN=${RUOYI_PACK_DOMAIN}
+ENV COOLIEBASE_PACK_DOMAIN=${COOLIEBASE_PACK_DOMAIN}
 
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
 COPY --from=builder /app/public ./public
-COPY --from=builder --chown=nextjs:nodejs /app/.next-ruoyi/standalone ./
-COPY --from=builder --chown=nextjs:nodejs /app/.next-ruoyi/static ./.next-ruoyi/static
+COPY --from=builder --chown=nextjs:nodejs /app/.next-cooliebase/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next-cooliebase/static ./.next-cooliebase/static
 COPY --from=builder /app/prisma ./prisma
 
 USER nextjs

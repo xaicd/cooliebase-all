@@ -7,7 +7,7 @@ cd "$ROOT"
 COMPOSE=(docker compose -f deploy/docker-compose.dev.yml)
 
 echo "================================================================"
-echo "         RuoYi All Next - Developer Launcher (Linux/macOS)      "
+echo "         CoolieBase All Base - Developer Launcher (Linux/macOS)      "
 echo "================================================================"
 echo ""
 
@@ -133,7 +133,7 @@ case "$MODE" in
     ;;
   memory)
     echo "[INFO] Starting in pure in-memory mode..."
-    DB_DRIVER=memory DATABASE_URL=memory://ruoyi-all-next REDIS_URL= exec npm run dev
+    DB_DRIVER=memory DATABASE_URL=memory://cooliebase-all-base REDIS_URL= exec npm run dev
     ;;
   check)
     echo "[STEP] Running governance and lint checks..."

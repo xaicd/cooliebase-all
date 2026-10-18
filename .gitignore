@@ -21,7 +21,7 @@ node_modules/
 
 # production
 /build
-.next-ruoyi
+.next-cooliebase
 # misc
 .DS_Store
 *.pem
@@ -158,8 +158,8 @@ melos_*.log
 .data/
 
 # 实例级插件目录（§6.2 Plugin 的安装位置，与 §6.1 Platform Module 的源码内声明面不同）
-# 默认 RUOYI_PLUGIN_DIR 落在此处；插件包是运行时装进来的，不入库
-.ruoyi/
+# 默认 COOLIEBASE_PLUGIN_DIR 落在此处；插件包是运行时装进来的，不入库
+.cooliebase/
 # 用户上传 & TTS 临时语音文件（运行时生成，禁止入库）
 public/uploads/
 public/sounds/
@@ -174,9 +174,9 @@ backups/
 backup_*.sql
 db_backup_*.sql
 
-ruoyi/**
-apps/ruoyi-all-next/
-apps/ruoyi
+^cooliebase/**
+apps/cooliebase-all-base/
+apps/cooliebase
 
 # 派生证据快照: 每次跑 check 都会变，作为缓存而非源
 /docs/architecture/artifacts/evolution-backlog.json

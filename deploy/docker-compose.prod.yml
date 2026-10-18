@@ -1,5 +1,5 @@
 # ============================================================
-# ruoyi-all-next - PROD 环境（Traefik + PostgreSQL + Redis）
+# cooliebase-all-base - PROD 环境（Traefik + PostgreSQL + Redis）
 # 用途：生产部署，自动 HTTPS、负载均衡、健康检查
 # 启动：docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up -d
 # ============================================================
@@ -15,7 +15,7 @@ services:
       - "--entrypoints.websecure.address=:443"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge=true"
       - "--certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web"
-      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@ruoyi.local}"
+      - "--certificatesresolvers.letsencrypt.acme.email=${ACME_EMAIL:-admin@cooliebase.local}"
       - "--certificatesresolvers.letsencrypt.acme.storage=/letsencrypt/acme.json"
       # HTTP → HTTPS 重定向
       - "--entrypoints.web.http.redirections.entrypoint.to=websecure"
@@ -29,7 +29,7 @@ services:
     labels:
       # Traefik Dashboard（可选）
       - "traefik.enable=true"
-      - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-ruoyi.local}`)"
+      - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN:-cooliebase.local}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.entrypoints=websecure"
       - "traefik.http.routers.dashboard.tls.certresolver=letsencrypt"
@@ -43,7 +43,7 @@ services:
           cpus: "0.5"
 
   app:
-    image: ${REGISTRY:-registry.local}/ruoyi-all-next:${TAG:-latest}
+    image: ${REGISTRY:-registry.local}/cooliebase-all-base:${TAG:-latest}
     build:
       context: ..
       dockerfile: Dockerfile
@@ -61,15 +61,15 @@ services:
     labels:
       - "traefik.enable=true"
       # HTTP Router
-      - "traefik.http.routers.ruoyi.rule=Host(`${DOMAIN:-ruoyi.local}`)"
-      - "traefik.http.routers.ruoyi.entrypoints=websecure"
-      - "traefik.http.routers.ruoyi.tls.certresolver=letsencrypt"
-      - "traefik.http.services.ruoyi.loadbalancer.server.port=3100"
+      - "traefik.http.routers.cooliebase.rule=Host(`${DOMAIN:-cooliebase.local}`)"
+      - "traefik.http.routers.cooliebase.entrypoints=websecure"
+      - "traefik.http.routers.cooliebase.tls.certresolver=letsencrypt"
+      - "traefik.http.services.cooliebase.loadbalancer.server.port=3100"
       # 仅向通过依赖检查的无认证 readiness endpoint 分流
-      - "traefik.http.services.ruoyi.loadbalancer.healthcheck.path=/readyz"
-      - "traefik.http.services.ruoyi.loadbalancer.healthcheck.interval=30s"
+      - "traefik.http.services.cooliebase.loadbalancer.healthcheck.path=/readyz"
+      - "traefik.http.services.cooliebase.loadbalancer.healthcheck.interval=30s"
       # 中间件
-      - "traefik.http.routers.ruoyi.middlewares=compress,ratelimit"
+      - "traefik.http.routers.cooliebase.middlewares=compress,ratelimit"
       - "traefik.http.middlewares.compress.compress=true"
       - "traefik.http.middlewares.ratelimit.ratelimit.average=100"
       - "traefik.http.middlewares.ratelimit.ratelimit.burst=50"
@@ -100,9 +100,9 @@ services:
     expose:
       - "5432"
     environment:
-      - POSTGRES_USER=${PG_USER:-ruoyi}
+      - POSTGRES_USER=${PG_USER:-cooliebase}
       - POSTGRES_PASSWORD=${PG_PASSWORD:?PG_PASSWORD is required}
-      - POSTGRES_DB=${PG_DB:-ruoyi_next}
+      - POSTGRES_DB=${PG_DB:-cooliebase_next}
     volumes:
       - pg_data_prod:/var/lib/postgresql/data
     command: >
@@ -115,7 +115,7 @@ services:
       -c log_min_duration_statement=1000
       -c timezone=Asia/Shanghai
     healthcheck:
-      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-ruoyi}"]
+      test: ["CMD-SHELL", "pg_isready -U ${PG_USER:-cooliebase}"]
       interval: 10s
       timeout: 5s
       retries: 5

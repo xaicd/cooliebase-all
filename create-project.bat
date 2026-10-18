@@ -1,11 +1,11 @@
 @echo off
 setlocal enabledelayedexpansion
-title RuoYi All Next - Create New Project
+title CoolieBase All Base - Create New Project
 
 cd /d "%~dp0"
 
 echo ================================================================
-echo       RuoYi All Next - One-Click Project Generator
+echo       CoolieBase All Base - One-Click Project Generator
 echo ================================================================
 echo.
 
