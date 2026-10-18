@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-config.validator"
 
 export const memberConfigActionSchemas = {
-  "ruoyi.cmd.member.memberConfig.page": memberConfigPageQuerySchema,
-  "ruoyi.cmd.member.memberConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberConfig.create": memberConfigCreateSchema,
-  "ruoyi.cmd.member.memberConfig.update": memberConfigUpdateSchema,
-  "ruoyi.cmd.member.memberConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberConfig.page": memberConfigPageQuerySchema,
+  "cooliebase.cmd.member.memberConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberConfig.create": memberConfigCreateSchema,
+  "cooliebase.cmd.member.memberConfig.update": memberConfigUpdateSchema,
+  "cooliebase.cmd.member.memberConfig.delete": z.object({ id: z.string() }),
   "member.pageMemberConfig": memberConfigPageQuerySchema,
   "member.getMemberConfig": z.object({ id: z.string() }),
   "member.createMemberConfig": memberConfigCreateSchema,

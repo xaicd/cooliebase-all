@@ -148,8 +148,8 @@ async function main() {
       )
     }
 
-    await client.query(`UPDATE "system_user" SET status = 'DISABLED', updated_at = $1 WHERE username IN ('admin', 'ruoyi_local_operator') AND username <> $2`, [new Date().toISOString(), bootstrapUsername])
-    await client.query(`DELETE FROM system_user_role AS ur USING "system_user" AS u WHERE ur.user_id = u.id AND u.username IN ('admin', 'ruoyi_local_operator') AND u.username <> $1`, [bootstrapUsername])
+    await client.query(`UPDATE "system_user" SET status = 'DISABLED', updated_at = $1 WHERE username IN ('admin', 'cooliebase_local_operator') AND username <> $2`, [new Date().toISOString(), bootstrapUsername])
+    await client.query(`DELETE FROM system_user_role AS ur USING "system_user" AS u WHERE ur.user_id = u.id AND u.username IN ('admin', 'cooliebase_local_operator') AND u.username <> $1`, [bootstrapUsername])
     const templateUser = SEED_USERS[0]
     const adminResult = await client.query<{ id: string }>(`INSERT INTO "system_user" (id, username, nickname, password, salt, phone, email, avatar, status, dept_id, remark, tenant_id, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'ACTIVE',$9,$10,$11,$12,$13,false) ON CONFLICT (username) DO UPDATE SET nickname = EXCLUDED.nickname, password = EXCLUDED.password, salt = EXCLUDED.salt, status = 'ACTIVE', deleted = false, updated_at = EXCLUDED.updated_at RETURNING id`, [randomUUID(), bootstrapUsername, projectProfile.bootstrapAdmin.nickname, passwordHash(bootstrapPassword, bootstrapSalt), bootstrapSalt, templateUser.phone, templateUser.email, templateUser.avatar, templateUser.deptId, "本地环境专用管理员", templateUser.tenantId, templateUser.createdAt, new Date().toISOString()])
     const adminId = adminResult.rows[0].id
@@ -176,7 +176,7 @@ async function main() {
       await client.query(`DELETE FROM system_tenant_package_menu WHERE package_id = $1`, [pkg.id])
       for (const menuId of tenantMenuScope.normalize(withCompanionPackageMenuIds(pkg.menuIds))) await client.query(`INSERT INTO system_tenant_package_menu (id, package_id, menu_id) VALUES ($1,$2,$3) ON CONFLICT (package_id, menu_id) DO NOTHING`, [randomUUID(), pkg.id, menuId])
     }
-    // Historical all-next draft packages were not sourced from RuoYi. Keep rows for audit,
+    // Historical all-next draft packages were not sourced from CoolieBase. Keep rows for audit,
     // but remove them from the catalog after the demo tenant is reassigned to package 111.
     // 库里可能还有**不是这次种子带来**的菜单 —— 例如按元数据生成的 `domain_rbac_menus`
     // 迁移（导入业务域时产出）。套餐只认静态种子，不补这一步的话，

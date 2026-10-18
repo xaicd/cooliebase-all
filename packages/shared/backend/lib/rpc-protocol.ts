@@ -66,7 +66,7 @@ export function decodeProtobufFrame(payload: unknown): unknown {
 }
 
 export function resolveRemoteProtocol(env: NodeJS.Dict<string> = process.env): RpcProtocol {
-  const raw = env.RUOYI_RPC_PROTOCOL?.trim()
+  const raw = env.COOLIEBASE_RPC_PROTOCOL?.trim()
   if (raw === "grpc" || raw === "nats-rr") {
     assertSupportedRemoteProtocol(raw)
     return raw

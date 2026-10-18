@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-notify-log.validator"
 
 export const payNotifyLogActionSchemas = {
-  "ruoyi.cmd.pay.payNotifyLog.page": payNotifyLogPageQuerySchema,
-  "ruoyi.cmd.pay.payNotifyLog.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payNotifyLog.create": payNotifyLogCreateSchema,
-  "ruoyi.cmd.pay.payNotifyLog.update": payNotifyLogUpdateSchema,
-  "ruoyi.cmd.pay.payNotifyLog.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payNotifyLog.page": payNotifyLogPageQuerySchema,
+  "cooliebase.cmd.pay.payNotifyLog.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payNotifyLog.create": payNotifyLogCreateSchema,
+  "cooliebase.cmd.pay.payNotifyLog.update": payNotifyLogUpdateSchema,
+  "cooliebase.cmd.pay.payNotifyLog.delete": z.object({ id: z.string() }),
   "pay.pagePayNotifyLog": payNotifyLogPageQuerySchema,
   "pay.getPayNotifyLog": z.object({ id: z.string() }),
   "pay.createPayNotifyLog": payNotifyLogCreateSchema,

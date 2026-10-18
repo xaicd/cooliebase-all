@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-app.validator"
 
 export const payAppActionSchemas = {
-  "ruoyi.cmd.pay.payApp.page": payAppPageQuerySchema,
-  "ruoyi.cmd.pay.payApp.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payApp.create": payAppCreateSchema,
-  "ruoyi.cmd.pay.payApp.update": payAppUpdateSchema,
-  "ruoyi.cmd.pay.payApp.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payApp.page": payAppPageQuerySchema,
+  "cooliebase.cmd.pay.payApp.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payApp.create": payAppCreateSchema,
+  "cooliebase.cmd.pay.payApp.update": payAppUpdateSchema,
+  "cooliebase.cmd.pay.payApp.delete": z.object({ id: z.string() }),
   "pay.pagePayApp": payAppPageQuerySchema,
   "pay.getPayApp": z.object({ id: z.string() }),
   "pay.createPayApp": payAppCreateSchema,

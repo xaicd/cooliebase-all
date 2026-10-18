@@ -5,7 +5,7 @@ import { Rate, Trend } from 'k6/metrics';
 /**
  * k6-load-benchmark.js
  * 
- * ruoyi-all-next 工业级容量压测基准场景 (基于 Grafana K6)
+ * cooliebase-all-base 工业级容量压测基准场景 (基于 Grafana K6)
  * 对标 AGENTS.md §3.3 / Google SRE 容量护栏 / load-baseline.json
  * 
  * 用法:

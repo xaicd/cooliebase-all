@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-machinery.validator"
 
 export const mesDvMachineryActionSchemas = {
-  "ruoyi.cmd.mes.mesDvMachinery.page": mesDvMachineryPageQuerySchema,
-  "ruoyi.cmd.mes.mesDvMachinery.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvMachinery.create": mesDvMachineryCreateSchema,
-  "ruoyi.cmd.mes.mesDvMachinery.update": mesDvMachineryUpdateSchema,
-  "ruoyi.cmd.mes.mesDvMachinery.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMachinery.page": mesDvMachineryPageQuerySchema,
+  "cooliebase.cmd.mes.mesDvMachinery.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMachinery.create": mesDvMachineryCreateSchema,
+  "cooliebase.cmd.mes.mesDvMachinery.update": mesDvMachineryUpdateSchema,
+  "cooliebase.cmd.mes.mesDvMachinery.delete": z.object({ id: z.string() }),
   "mes.pageMesDvMachinery": mesDvMachineryPageQuerySchema,
   "mes.getMesDvMachinery": z.object({ id: z.string() }),
   "mes.createMesDvMachinery": mesDvMachineryCreateSchema,

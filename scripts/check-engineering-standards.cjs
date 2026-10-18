@@ -19,7 +19,7 @@ const path = require("path")
 const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
 
 const BASELINE_REL = "docs/architecture/artifacts/engineering-standards-baseline.json"
-const GOVERNANCE_DOC = "docs/architecture/ruoyi-all-next-domain-governance.md"
+const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-base-domain-governance.md"
 const SRC = "src"
 // 各域与 shared 已迁到 packages/（见 pnpm-workspace.yaml 与 AGENTS.md §3.2）。
 const DOMAINS = "packages/domains"
@@ -230,7 +230,7 @@ const RULES = [
     description:
       "every domain in domain-catalog.json must have a governance row (stage / Skill binding / TestRefs / SplitNote)",
     run() {
-      // 为什么需要这条: 本仓的 ruoyi:governance:check 在 standalone 项目里是空转
+      // 为什么需要这条: 本仓的 cooliebase:governance:check 在 standalone 项目里是空转
       // ([SKIP] script omitted), 于是"新注册一个域但漏登记治理"没有任何门禁拦得住 ——
       // aigw 就这么漂了很久。这里把它变成真检查。
       // 文档名**跟着工程名改过**（孵化会重命名整个仓库的标识），写死会让衍生工程里
@@ -348,7 +348,7 @@ const RULES = [
       //   2) 缺父行: INSERT 引用了不存在/尚未插入的父行 (FK 违反)
       //      —— 实测抓到 aigw-seats 菜单未登记、3 个字典类型从未定义。
       // 第 2 类必须**按语句顺序**判定: 引用后面才插入的行同样会在真实执行时失败。
-      const sqlRel = "sql/init/ruoyi_all_next_v1.0.0_postgresql.sql"
+      const sqlRel = "sql/init/cooliebase_all_next_v1.0.0_postgresql.sql"
       const sqlFile = abs(sqlRel)
       if (!fs.existsSync(sqlFile)) return []
 
@@ -469,9 +469,9 @@ const RULES = [
     id: "base-native-domain-boundary",
     section: "AGENTS.md §2 / §17",
     mode: "enforce",
-    description: "the base repo only builds RuoYi native domains; custom/vertical business must live in a derived business project",
+    description: "the base repo only builds CoolieBase native domains; custom/vertical business must live in a derived business project",
     run() {
-      // 基座（本仓）= RuoYi 原生能力。**定制业务不得放进基座** ——
+      // 基座（本仓）= CoolieBase 原生能力。**定制业务不得放进基座** ——
       // 它属于由基座衍生出的业务工程（例如同源的 rome-all 那一脉），
       // 否则每次业务改动都要回改基座，基座也就不再是"可复用的底座"。
       // AGENTS §2 早就写了"不接收非原生扩展域"，但一直只靠人记 —— 这里把它变成机检。
@@ -495,7 +495,7 @@ const RULES = [
         .map((domain) => ({
           file: domain.name,
           detail:
-            "不在 AGENTS §2 的 RuoYi 原生域清单内 —— 定制业务应放在由基座衍生的业务工程，"
+            "不在 AGENTS §2 的 CoolieBase 原生域清单内 —— 定制业务应放在由基座衍生的业务工程，"
             + "而不是基座本身；确属原生能力则把它加进 AGENTS §2 与 NATIVE_DOMAINS",
         }))
     },

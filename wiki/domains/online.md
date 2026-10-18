@@ -1,7 +1,7 @@
 # 领域百科：online (第一方业务插件)
 
 > **唯一源码目录**：[`packages/plugins/plugin-online/`](../../packages/plugins/plugin-online)  
-> **演进阶段**：阶段 B | **独立部署默认端口**：3212 | **上游环境变量**：`RUOYI_DOMAIN_ONLINE_UPSTREAM`
+> **演进阶段**：阶段 B | **独立部署默认端口**：3212 | **上游环境变量**：`COOLIEBASE_DOMAIN_ONLINE_UPSTREAM`
 
 ---
 

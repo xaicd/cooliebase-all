@@ -34,7 +34,7 @@ function readPluginManifest(name) {
   }
 }
 
-const SERVER_NAME = "ruoyi-all-next"
+const SERVER_NAME = "cooliebase-all-base"
 const SERVER_VERSION = "1.0.0"
 const SUPPORTED_PROTOCOL_VERSIONS = ["2025-06-18", "2024-11-05"]
 const GATE_TIMEOUT_MS = 120000
@@ -82,7 +82,7 @@ const TOOLS = [
   {
     name: "cooliebase_domain_list",
     description:
-      "List every RuoYi domain declared in the runtime source of truth (domain-catalog.json): kind, migration stage, default port, upstream env, public API prefixes and tenant policy. Use this first when locating which domain owns a capability.",
+      "List every CoolieBase domain declared in the runtime source of truth (domain-catalog.json): kind, migration stage, default port, upstream env, public API prefixes and tenant policy. Use this first when locating which domain owns a capability.",
     inputSchema: { type: "object", properties: {}, additionalProperties: false },
     run() {
       const catalog = loadCatalog()

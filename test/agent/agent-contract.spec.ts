@@ -9,7 +9,7 @@
  *
  * 前置:
  *   pnpm dev 起服务（或 START_WEB_SERVER=1 让 playwright 自己起）
- *   RUOYI_AGENT_PASSWORD 设置管理员密码（默认 admin/admin123 由种子决定）
+ *   COOLIEBASE_AGENT_PASSWORD 设置管理员密码（默认 admin/admin123 由种子决定）
  *
  * 运行:
  *   pnpm test:agent
@@ -35,8 +35,8 @@ const registry = fs.existsSync(registryPath)
   ? (JSON.parse(fs.readFileSync(registryPath, 'utf8')) as { contracts: Contract[] })
   : { contracts: [] };
 
-const USERNAME = process.env.RUOYI_AGENT_USERNAME || process.env.ADMIN_BOOTSTRAP_USERNAME || 'supervip';
-const PASSWORD = process.env.RUOYI_AGENT_PASSWORD || process.env.ADMIN_BOOTSTRAP_PASSWORD || '';
+const USERNAME = process.env.COOLIEBASE_AGENT_USERNAME || process.env.ADMIN_BOOTSTRAP_USERNAME || 'supervip';
+const PASSWORD = process.env.COOLIEBASE_AGENT_PASSWORD || process.env.ADMIN_BOOTSTRAP_PASSWORD || '';
 
 async function login(page: import('@playwright/test').Page): Promise<boolean> {
   const response = await page.request.post('/api/v1/admin/system/auth', {
@@ -48,7 +48,7 @@ async function login(page: import('@playwright/test').Page): Promise<boolean> {
   if (!token) return false;
   // 让页面内的 fetch 也带上凭据（BFF 读同源 cookie / 同源注入）
   await page.context().addCookies([
-    { name: 'ruoyi_token', value: token, domain: 'localhost', path: '/', httpOnly: false, sameSite: 'Lax' as const },
+    { name: 'cooliebase_token', value: token, domain: 'localhost', path: '/', httpOnly: false, sameSite: 'Lax' as const },
   ]);
   return true;
 }
@@ -59,7 +59,7 @@ test.describe('L4 Agent: 契约驱动的端到端旅程', () => {
   for (const contract of registry.contracts) {
     test(`${contract.domain}.${contract.entity} — ${contract.businessName} 全链路`, async ({ page, request }) => {
       const authed = await login(page);
-      if (!authed) test.skip(true, `登录失败（RUOYI_AGENT_PASSWORD 是否与种子一致？契约: ${contract.__source}）`);
+      if (!authed) test.skip(true, `登录失败（COOLIEBASE_AGENT_PASSWORD 是否与种子一致？契约: ${contract.__source}）`);
 
       // 1) 打开页面并断言标题（标题文本来自契约，改元数据即改断言）
       await page.goto(contract.page.route);

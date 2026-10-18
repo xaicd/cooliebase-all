@@ -1,14 +1,14 @@
 /**
  * 与源框架的能力对账（只报告，不设门禁）。
  *
- * 背景：本仓 = **ruoyi-vue-pro（业务功能）+ jeecgboot 在线表单（低代码）+ paperclip（插件架构）**
+ * 背景：本仓 = **cooliebase-vue-pro（业务功能）+ jeecgboot 在线表单（低代码）+ paperclip（插件架构）**
  * 的综合基座，但长期只在 `system` / `infra` 上验证。其余域"是否真正习得原框架的业务能力"
  * 需要**拿源框架的模块清单逐项对账**，而不是靠感觉。
  *
  * 用法:
  *   # 1. 先把源框架克隆到本地（浅克隆即可）
  *   git clone --depth 1 --filter=blob:none --sparse \
- *     https://github.com/YunaiV/ruoyi-vue-pro.git /tmp/yudao
+ *     https://github.com/YunaiV/cooliebase-vue-pro.git /tmp/yudao
  *   cd /tmp/yudao && git sparse-checkout set --no-cone '/*.md' '/yudao-module-*'
  *
  *   # 2. 对账
@@ -31,7 +31,7 @@ const sourceRoot = arg("--source")
 const asJson = argv.includes("--json")
 
 if (!sourceRoot || !fs.existsSync(sourceRoot)) {
-  console.error("用法: node scripts/scan-source-parity.cjs --source <ruoyi-vue-pro 克隆路径> [--json]")
+  console.error("用法: node scripts/scan-source-parity.cjs --source <cooliebase-vue-pro 克隆路径> [--json]")
   console.error("  （克隆命令见本文件头部注释）")
   process.exit(2)
 }
@@ -126,7 +126,7 @@ function main() {
     return
   }
 
-  console.log("[source-parity] 与 ruoyi-vue-pro 的能力对账（只报告，不设门禁）")
+  console.log("[source-parity] 与 cooliebase-vue-pro 的能力对账（只报告，不设门禁）")
   console.log("")
   console.log("  源模块      源:表  源:Controller  本仓:表  本仓:服务  判定")
   for (const row of rows) {

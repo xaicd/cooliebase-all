@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-process-listener.validator"
 
 export const bpmProcessListenerActionSchemas = {
-  "ruoyi.cmd.bpm.bpmProcessListener.page": bpmProcessListenerPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmProcessListener.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmProcessListener.create": bpmProcessListenerCreateSchema,
-  "ruoyi.cmd.bpm.bpmProcessListener.update": bpmProcessListenerUpdateSchema,
-  "ruoyi.cmd.bpm.bpmProcessListener.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessListener.page": bpmProcessListenerPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmProcessListener.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessListener.create": bpmProcessListenerCreateSchema,
+  "cooliebase.cmd.bpm.bpmProcessListener.update": bpmProcessListenerUpdateSchema,
+  "cooliebase.cmd.bpm.bpmProcessListener.delete": z.object({ id: z.string() }),
   "bpm.pageBpmProcessListener": bpmProcessListenerPageQuerySchema,
   "bpm.getBpmProcessListener": z.object({ id: z.string() }),
   "bpm.createBpmProcessListener": bpmProcessListenerCreateSchema,

@@ -1,5 +1,5 @@
 /**
- * Minimal 5/6-field cron matcher. Supports Unix and Quartz `?` wildcards used by RuoYi jobs.
+ * Minimal 5/6-field cron matcher. Supports Unix and Quartz `?` wildcards used by CoolieBase jobs.
  */
 function fieldMatches(expr: string, value: number, min: number, max: number): boolean {
   if (expr === "*" || expr === "?") return true

@@ -1,7 +1,7 @@
 import type { OnlineInteractionIR } from "./online-interaction.compiler"
 import type { OnlineFieldIR, OnlineModelIR } from "./online-schema-plan.contract"
 
-export const RUOYI_SYSTEM_FIELD_LABELS: Record<string, string> = {
+export const COOLIEBASE_SYSTEM_FIELD_LABELS: Record<string, string> = {
   id: "主键", creator: "创建者", create_time: "创建时间", updater: "更新者", update_time: "更新时间", deleted: "是否删除", tenant_id: "租户编号",
 }
 
@@ -27,7 +27,7 @@ function widgetFor(field: OnlineFieldIR): string {
 
 function createSystemFieldInteractions(fields: OnlineFieldIR[]): Record<string, unknown>[] {
   return fields.map((field) => ({
-    code: field.code, label: RUOYI_SYSTEM_FIELD_LABELS[field.code] ?? field.code, widget: widgetFor(field),
+    code: field.code, label: COOLIEBASE_SYSTEM_FIELD_LABELS[field.code] ?? field.code, widget: widgetFor(field),
     query: { enabled: false }, visibility: { list: field.code !== "tenant_id" && field.code !== "deleted", form: false, detail: true },
     list: { sortable: false, summary: false }, form: { span: 12 }, detail: { formatter: field.type === "datetime" ? "DATETIME" : field.type === "boolean" ? "BOOLEAN" : "PLAIN" }, validation: { ruleKeys: [] }, readOnly: true,
   }))
@@ -47,7 +47,7 @@ export function mergeRuoyiSystemFields(model: OnlineModelIR): OnlineModelIR {
   const businessFields = model.fields.filter((field) => !standardByCode.has(field.code))
   for (const standard of standardFields) {
     const existing = model.fields.find((field) => field.code === standard.code)
-    if (existing && !sameField(existing, standard, false)) throw new Error(`字段 ${standard.code} 已被业务字段使用，无法补齐 RuoYi 系统字段`)
+    if (existing && !sameField(existing, standard, false)) throw new Error(`字段 ${standard.code} 已被业务字段使用，无法补齐 CoolieBase 系统字段`)
   }
   return { ...model, fields: [...businessFields, ...standardFields] }
 }
@@ -63,7 +63,7 @@ export function validateRuoyiSystemFields(model: OnlineModelIR): void {
   for (const field of model.fields) {
     if (!field.systemManaged) continue
     const standard = expected.get(field.code)
-    if (!standard || !sameField(field, standard)) throw new Error(`系统字段 ${field.code} 必须保持 RuoYi 标准定义`)
+    if (!standard || !sameField(field, standard)) throw new Error(`系统字段 ${field.code} 必须保持 CoolieBase 标准定义`)
   }
 }
 

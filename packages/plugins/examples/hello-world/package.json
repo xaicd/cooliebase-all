@@ -1,16 +1,16 @@
 {
-  "name": "@ruoyi/plugin-hello-world",
+  "name": "@cooliebase/plugin-hello-world",
   "version": "0.1.0",
   "private": true,
-  "description": "Reference plugin: the minimal shape a ruoyi-all-next plugin package must have.",
+  "description": "Reference plugin: the minimal shape a cooliebase-all-base plugin package must have.",
   "type": "module",
-  "ruoyiPlugin": {
+  "cooliebasePlugin": {
     "manifest": "./plugin.manifest.json",
     "worker": "./worker.js",
     "merged": "./merged.js"
   },
   "dependencies": {
-    "@ruoyi/plugin-sdk": "workspace:*"
+    "@cooliebase/plugin-sdk": "workspace:*"
   },
   "engines": {
     "node": ">=20.19.0"

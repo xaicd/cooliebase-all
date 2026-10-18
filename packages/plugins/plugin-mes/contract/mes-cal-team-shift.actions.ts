@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-cal-team-shift.validator"
 
 export const mesCalTeamShiftActionSchemas = {
-  "ruoyi.cmd.mes.mesCalTeamShift.page": mesCalTeamShiftPageQuerySchema,
-  "ruoyi.cmd.mes.mesCalTeamShift.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesCalTeamShift.create": mesCalTeamShiftCreateSchema,
-  "ruoyi.cmd.mes.mesCalTeamShift.update": mesCalTeamShiftUpdateSchema,
-  "ruoyi.cmd.mes.mesCalTeamShift.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalTeamShift.page": mesCalTeamShiftPageQuerySchema,
+  "cooliebase.cmd.mes.mesCalTeamShift.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalTeamShift.create": mesCalTeamShiftCreateSchema,
+  "cooliebase.cmd.mes.mesCalTeamShift.update": mesCalTeamShiftUpdateSchema,
+  "cooliebase.cmd.mes.mesCalTeamShift.delete": z.object({ id: z.string() }),
   "mes.pageMesCalTeamShift": mesCalTeamShiftPageQuerySchema,
   "mes.getMesCalTeamShift": z.object({ id: z.string() }),
   "mes.createMesCalTeamShift": mesCalTeamShiftCreateSchema,

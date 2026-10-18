@@ -72,7 +72,7 @@ flowchart LR
 
 ---
 
-## 4. 与 ruoyi-all-next 架构联动
+## 4. 与 cooliebase-all-base 架构联动
 
 1. **不可动摇的底线约束**：
    - 严禁引入带商业传染性许可的开源库（严禁 GPL/AGPL 运行时代码直接进入工程代码库，可参考 `UPSTREAM-NOTICE.md`）。

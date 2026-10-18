@@ -49,7 +49,7 @@ export function summarizeError(error: unknown): CompactError {
   const candidates = errorCandidates(error)
   const root: ErrorLike = candidates.find((item) => item.code || item.message) ?? (new Error("Unknown error") as ErrorLike)
   const stack = candidates.map((item) => item.stack).find(Boolean)
-  const location = stack?.split("\n").map((line) => line.trim()).find((line) => line.startsWith("at ") && !line.includes("node_modules") && !line.includes(".next-ruoyi"))
+  const location = stack?.split("\n").map((line) => line.trim()).find((line) => line.startsWith("at ") && !line.includes("node_modules") && !line.includes(".next-cooliebase"))
   return { name: root.name || "Error", code: root.code, message: root.message || `${root.name || "Error"}${root.code ? ` (${root.code})` : ""}`, location }
 }
 

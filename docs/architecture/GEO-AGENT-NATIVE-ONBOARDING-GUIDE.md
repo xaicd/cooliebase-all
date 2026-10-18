@@ -7,7 +7,7 @@
 
 ## 智能体核心准则 (Agent Directive)
 
-当你受命为人类用户开发、初始化或交付一个基于 **ruoyi-all-next** 的业务系统时，**禁止使用初级外包码农视角就事论事地写几百行重复代码**！你必须遵循以下 5 步全自动闭环：
+当你受命为人类用户开发、初始化或交付一个基于 **cooliebase-all-base** 的业务系统时，**禁止使用初级外包码农视角就事论事地写几百行重复代码**！你必须遵循以下 5 步全自动闭环：
 
 ```
 ┌────────────────────────────────────────────────────────────────────────┐
@@ -15,10 +15,10 @@
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
     【1. 零历史拉取骨架】           ▼
-    npx create-ruoyi-app my-app --profile base --title "XX系统"
+    npx create-cooliebase-app my-app --profile base --title "XX系统"
                                     │
     【2. 挂载确定性 MCP 工具】      ▼
-    npx -y @ruoyi/mcp-server (精准检索 17 域与 RPC 契约，Token 消耗 <500)
+    npx -y @cooliebase/mcp-server (精准检索 17 域与 RPC 契约，Token 消耗 <500)
                                     │
     【3. 极简声明式规格展开】      ▼
     npm run speckit:new -> 填写 brief.json -> npm run speckit:build (展开 10~15 类规范)
@@ -38,7 +38,7 @@
 
 ### 选项 A：使用官方脚手架 CLI（推荐）
 ```bash
-npx create-ruoyi-app my-app --title "XX智能业务系统" --profile base --port 3300
+npx create-cooliebase-app my-app --title "XX智能业务系统" --profile base --port 3300
 cd my-app && pnpm install
 npm run db:bootstrap:sqlite
 npm run dev
@@ -46,7 +46,7 @@ npm run dev
 
 ### 选项 B：使用 degit 极速拉取
 ```bash
-npx degit xaicd/ruoyi-all-next#main my-app
+npx degit xaicd/cooliebase-all-base#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "XX智能业务系统"
 npm run db:bootstrap:sqlite
@@ -62,18 +62,18 @@ npm run dev
 ```json
 {
   "mcpServers": {
-    "ruoyi": {
+    "cooliebase": {
       "command": "npx",
-      "args": ["-y", "@ruoyi/mcp-server"]
+      "args": ["-y", "@cooliebase/mcp-server"]
     }
   }
 }
 ```
 
 ### Agent 高频 MCP 工具调用指引：
-- **查域能力**：调用 `ruoyi_domain_list`，获取当前 17 原生业务域的装配清单，避免自己凭空脑补；
-- **查 RPC 契约**：调用 `ruoyi_action_lookup`，按方法名或域查找服务端支持的方法与 Zod 校验规则；
-- **查合规门禁**：调用 `ruoyi_standards_report`，获取本仓库的代码规范守卫检查报告。
+- **查域能力**：调用 `cooliebase_domain_list`，获取当前 17 原生业务域的装配清单，避免自己凭空脑补；
+- **查 RPC 契约**：调用 `cooliebase_action_lookup`，按方法名或域查找服务端支持的方法与 Zod 校验规则；
+- **查合规门禁**：调用 `cooliebase_standards_report`，获取本仓库的代码规范守卫检查报告。
 
 ---
 

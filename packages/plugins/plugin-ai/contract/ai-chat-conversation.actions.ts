@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-chat-conversation.validator"
 
 export const aiChatConversationActionSchemas = {
-  "ruoyi.cmd.ai.aiChatConversation.page": aiChatConversationPageQuerySchema,
-  "ruoyi.cmd.ai.aiChatConversation.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiChatConversation.create": aiChatConversationCreateSchema,
-  "ruoyi.cmd.ai.aiChatConversation.update": aiChatConversationUpdateSchema,
-  "ruoyi.cmd.ai.aiChatConversation.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiChatConversation.page": aiChatConversationPageQuerySchema,
+  "cooliebase.cmd.ai.aiChatConversation.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiChatConversation.create": aiChatConversationCreateSchema,
+  "cooliebase.cmd.ai.aiChatConversation.update": aiChatConversationUpdateSchema,
+  "cooliebase.cmd.ai.aiChatConversation.delete": z.object({ id: z.string() }),
   "ai.pageAiChatConversation": aiChatConversationPageQuerySchema,
   "ai.getAiChatConversation": z.object({ id: z.string() }),
   "ai.createAiChatConversation": aiChatConversationCreateSchema,

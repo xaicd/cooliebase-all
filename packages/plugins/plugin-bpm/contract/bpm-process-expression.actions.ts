@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-process-expression.validator"
 
 export const bpmProcessExpressionActionSchemas = {
-  "ruoyi.cmd.bpm.bpmProcessExpression.page": bpmProcessExpressionPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmProcessExpression.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmProcessExpression.create": bpmProcessExpressionCreateSchema,
-  "ruoyi.cmd.bpm.bpmProcessExpression.update": bpmProcessExpressionUpdateSchema,
-  "ruoyi.cmd.bpm.bpmProcessExpression.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessExpression.page": bpmProcessExpressionPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmProcessExpression.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessExpression.create": bpmProcessExpressionCreateSchema,
+  "cooliebase.cmd.bpm.bpmProcessExpression.update": bpmProcessExpressionUpdateSchema,
+  "cooliebase.cmd.bpm.bpmProcessExpression.delete": z.object({ id: z.string() }),
   "bpm.pageBpmProcessExpression": bpmProcessExpressionPageQuerySchema,
   "bpm.getBpmProcessExpression": z.object({ id: z.string() }),
   "bpm.createBpmProcessExpression": bpmProcessExpressionCreateSchema,

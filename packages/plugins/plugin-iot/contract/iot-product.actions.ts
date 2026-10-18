@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-product.validator"
 
 export const iotProductActionSchemas = {
-  "ruoyi.cmd.iot.iotProduct.page": iotProductPageQuerySchema,
-  "ruoyi.cmd.iot.iotProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotProduct.create": iotProductCreateSchema,
-  "ruoyi.cmd.iot.iotProduct.update": iotProductUpdateSchema,
-  "ruoyi.cmd.iot.iotProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotProduct.page": iotProductPageQuerySchema,
+  "cooliebase.cmd.iot.iotProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotProduct.create": iotProductCreateSchema,
+  "cooliebase.cmd.iot.iotProduct.update": iotProductUpdateSchema,
+  "cooliebase.cmd.iot.iotProduct.delete": z.object({ id: z.string() }),
   "iot.pageIotProduct": iotProductPageQuerySchema,
   "iot.getIotProduct": z.object({ id: z.string() }),
   "iot.createIotProduct": iotProductCreateSchema,

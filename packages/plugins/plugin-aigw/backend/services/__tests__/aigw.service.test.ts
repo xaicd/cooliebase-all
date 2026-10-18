@@ -12,7 +12,7 @@ describe("AIGW 模型中台网关域服务测试", () => {
 
   it("演示令牌 + mock 渠道可以转发对话", async () => {
     const result = await AigwRelayService.relayChatCompletion({
-      apiKey: "sk-ruoyi-demo-gateway",
+      apiKey: "sk-cooliebase-demo-gateway",
       model: "mock-chat",
       messages: [{ role: "user", content: "Hello Antigravity" }],
     })
@@ -46,7 +46,7 @@ describe("AIGW 模型中台网关域服务测试", () => {
     // （内存模式每次全新所以看不出来，真实库必现）。
     const tokenName = `单元测试临时令牌-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`
     const created = await AigwAccessTokenService.create({ name: tokenName })
-    expect(created.key).toMatch(/^sk-ruoyi-[0-9a-f]+$/)
+    expect(created.key).toMatch(/^sk-cooliebase-[0-9a-f]+$/)
 
     const list = await AigwAccessTokenService.page({ page: 1, pageSize: 20, keyword: tokenName })
     expect(list.items[0]?.key).toContain("...")

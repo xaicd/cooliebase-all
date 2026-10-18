@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-movement-order-detail.validator"
 
 export const wmsMovementOrderDetailActionSchemas = {
-  "ruoyi.cmd.wms.wmsMovementOrderDetail.page": wmsMovementOrderDetailPageQuerySchema,
-  "ruoyi.cmd.wms.wmsMovementOrderDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsMovementOrderDetail.create": wmsMovementOrderDetailCreateSchema,
-  "ruoyi.cmd.wms.wmsMovementOrderDetail.update": wmsMovementOrderDetailUpdateSchema,
-  "ruoyi.cmd.wms.wmsMovementOrderDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsMovementOrderDetail.page": wmsMovementOrderDetailPageQuerySchema,
+  "cooliebase.cmd.wms.wmsMovementOrderDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsMovementOrderDetail.create": wmsMovementOrderDetailCreateSchema,
+  "cooliebase.cmd.wms.wmsMovementOrderDetail.update": wmsMovementOrderDetailUpdateSchema,
+  "cooliebase.cmd.wms.wmsMovementOrderDetail.delete": z.object({ id: z.string() }),
 } as const

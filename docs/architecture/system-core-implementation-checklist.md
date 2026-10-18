@@ -1,10 +1,10 @@
-# ruoyi-all-next system-core 实施清单（基于 RuoYi 原生）
+# cooliebase-all-base system-core 实施清单（基于 CoolieBase 原生）
 
 更新时间：2026-08-02
 
 ## 1. 目标
 
-把 system 域从“学习结论”推进到“可运行闭环”，且严格限定在 RuoYi 原生能力范围内。
+把 system 域从“学习结论”推进到“可运行闭环”，且严格限定在 CoolieBase 原生能力范围内。
 
 ## 2. 数据模型必选项
 

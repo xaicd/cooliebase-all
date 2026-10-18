@@ -8,7 +8,7 @@ describe("web and protection libs", () => {
     const payload = JSON.stringify({ key: "system.site_name", value: "hello" })
     const timestamp = Date.now()
     const nonce = "nonce-1"
-    const secret = "ruoyi-signature-secret"
+    const secret = "cooliebase-signature-secret"
 
     const signature = buildApiSignature(payload, timestamp, nonce, secret)
     const headers = new Headers({
@@ -22,7 +22,7 @@ describe("web and protection libs", () => {
   })
 
   it("encrypts and decrypts payload", () => {
-    const plain = { key: "system.site_name", value: "RuoYi" }
+    const plain = { key: "system.site_name", value: "CoolieBase" }
     const encrypted = encryptApiPayload(plain, "api-crypto-secret")
     const restored = decryptApiPayload(encrypted, "api-crypto-secret")
     expect(restored).toEqual(plain)

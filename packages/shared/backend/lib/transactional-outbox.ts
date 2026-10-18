@@ -191,7 +191,7 @@ export function subscribeOutboxConsumer(opts: {
   mode?: "broadcast" | "emit"
 }) {
   const queue = opts.mode === "emit" ? (opts.subscriber.split(".")[0] || opts.subscriber) : undefined
-  return natsSubscribe("ruoyi.evt.>", async (message) => {
+  return natsSubscribe("cooliebase.evt.>", async (message) => {
     const event = message.data as OutboxConsumerEvent
     if (!event?.eventId || !eventMatches(event, opts.pattern)) return
     if (await inboxAlreadyProcessed(opts.subscriber, event.eventId)) return

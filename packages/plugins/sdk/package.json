@@ -1,7 +1,7 @@
 {
-  "name": "@ruoyi/plugin-sdk",
+  "name": "@cooliebase/plugin-sdk",
   "version": "0.1.0",
-  "description": "SDK for authoring ruoyi-all-next plugins: worker protocol framing and the definePlugin/runWorker entry.",
+  "description": "SDK for authoring cooliebase-all-base plugins: worker protocol framing and the definePlugin/runWorker entry.",
   "type": "module",
   "license": "MIT",
   "exports": {

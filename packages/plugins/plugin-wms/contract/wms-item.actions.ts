@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-item.validator"
 
 export const wmsItemActionSchemas = {
-  "ruoyi.cmd.wms.wmsItem.page": wmsItemPageQuerySchema,
-  "ruoyi.cmd.wms.wmsItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsItem.create": wmsItemCreateSchema,
-  "ruoyi.cmd.wms.wmsItem.update": wmsItemUpdateSchema,
-  "ruoyi.cmd.wms.wmsItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItem.page": wmsItemPageQuerySchema,
+  "cooliebase.cmd.wms.wmsItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItem.create": wmsItemCreateSchema,
+  "cooliebase.cmd.wms.wmsItem.update": wmsItemUpdateSchema,
+  "cooliebase.cmd.wms.wmsItem.delete": z.object({ id: z.string() }),
 } as const

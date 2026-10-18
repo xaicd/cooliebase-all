@@ -28,7 +28,7 @@ if (!fs.existsSync(targetScript)) {
   //
   // 这些命令原本属于父级 monorepo（见上面的 parentRoot 查找），独立仓里没有它们。
   // 此前这里 print("[SKIP] ...") + exit 0 —— 后果是 `npm run check` 里的
-  // `ruoyi:matrix:check` / `ruoyi:governance:check` 两道门禁**常年空转却报绿**，
+  // `cooliebase:matrix:check` / `cooliebase:governance:check` 两道门禁**常年空转却报绿**，
   // 而 `write-harness-trace` 还把"通过"记进证据链。这正是"能力是否习得无从判断"的直接原因。
   //
   // 若某个命令在当前仓确实不适用，应当从 package.json / check 链里**移除**，

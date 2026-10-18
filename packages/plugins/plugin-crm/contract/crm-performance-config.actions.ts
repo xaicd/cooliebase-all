@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-performance-config.validator"
 
 export const crmPerformanceConfigActionSchemas = {
-  "ruoyi.cmd.crm.crmPerformanceConfig.page": crmPerformanceConfigPageQuerySchema,
-  "ruoyi.cmd.crm.crmPerformanceConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmPerformanceConfig.create": crmPerformanceConfigCreateSchema,
-  "ruoyi.cmd.crm.crmPerformanceConfig.update": crmPerformanceConfigUpdateSchema,
-  "ruoyi.cmd.crm.crmPerformanceConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmPerformanceConfig.page": crmPerformanceConfigPageQuerySchema,
+  "cooliebase.cmd.crm.crmPerformanceConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmPerformanceConfig.create": crmPerformanceConfigCreateSchema,
+  "cooliebase.cmd.crm.crmPerformanceConfig.update": crmPerformanceConfigUpdateSchema,
+  "cooliebase.cmd.crm.crmPerformanceConfig.delete": z.object({ id: z.string() }),
   "crm.pageCrmPerformanceConfig": crmPerformanceConfigPageQuerySchema,
   "crm.getCrmPerformanceConfig": z.object({ id: z.string() }),
   "crm.createCrmPerformanceConfig": crmPerformanceConfigCreateSchema,

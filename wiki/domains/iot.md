@@ -1,7 +1,7 @@
 # 领域百科：iot (第一方业务插件)
 
 > **唯一源码目录**：[`packages/plugins/plugin-iot/`](../../packages/plugins/plugin-iot)  
-> **演进阶段**：阶段 B | **独立部署默认端口**：3224 | **上游环境变量**：`RUOYI_DOMAIN_IOT_UPSTREAM`
+> **演进阶段**：阶段 B | **独立部署默认端口**：3224 | **上游环境变量**：`COOLIEBASE_DOMAIN_IOT_UPSTREAM`
 
 ---
 

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-stock-taking-plan.validator"
 
 export const mesWmStockTakingPlanActionSchemas = {
-  "ruoyi.cmd.mes.mesWmStockTakingPlan.page": mesWmStockTakingPlanPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmStockTakingPlan.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmStockTakingPlan.create": mesWmStockTakingPlanCreateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingPlan.update": mesWmStockTakingPlanUpdateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingPlan.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingPlan.page": mesWmStockTakingPlanPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmStockTakingPlan.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingPlan.create": mesWmStockTakingPlanCreateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingPlan.update": mesWmStockTakingPlanUpdateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingPlan.delete": z.object({ id: z.string() }),
   "mes.pageMesWmStockTakingPlan": mesWmStockTakingPlanPageQuerySchema,
   "mes.getMesWmStockTakingPlan": z.object({ id: z.string() }),
   "mes.createMesWmStockTakingPlan": mesWmStockTakingPlanCreateSchema,

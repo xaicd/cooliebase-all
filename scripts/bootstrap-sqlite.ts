@@ -4,7 +4,7 @@
  * 适用于：
  * 1. 容器内秒级启动与极速预览（不需要外部 PostgreSQL/MySQL 容器）
  * 2. 自动化测试与 MVP 模式
- * 3. 单文件数据库 data/ruoyi.db 零配置开箱即用
+ * 3. 单文件数据库 data/cooliebase.db 零配置开箱即用
  * 4. 内置企业级 8 大标准审计底座字段 (tenant_id, created_by, created_at, updated_by, updated_at, deleted, deleted_at, remark)
  */
 
@@ -13,7 +13,7 @@ import fs from 'fs';
 import path from 'path';
 import { createHash, randomBytes, randomInt } from 'crypto';
 
-const DB_PATH = process.env.SQLITE_DB_PATH || path.resolve(process.cwd(), 'data/ruoyi.db');
+const DB_PATH = process.env.SQLITE_DB_PATH || path.resolve(process.cwd(), 'data/cooliebase.db');
 
 function md5(value: string) {
   return createHash('md5').update(value).digest('hex');

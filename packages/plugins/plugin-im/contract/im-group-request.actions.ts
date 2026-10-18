@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-group-request.validator"
 
 export const imGroupRequestActionSchemas = {
-  "ruoyi.cmd.im.imGroupRequest.page": imGroupRequestPageQuerySchema,
-  "ruoyi.cmd.im.imGroupRequest.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imGroupRequest.create": imGroupRequestCreateSchema,
-  "ruoyi.cmd.im.imGroupRequest.update": imGroupRequestUpdateSchema,
-  "ruoyi.cmd.im.imGroupRequest.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imGroupRequest.page": imGroupRequestPageQuerySchema,
+  "cooliebase.cmd.im.imGroupRequest.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imGroupRequest.create": imGroupRequestCreateSchema,
+  "cooliebase.cmd.im.imGroupRequest.update": imGroupRequestUpdateSchema,
+  "cooliebase.cmd.im.imGroupRequest.delete": z.object({ id: z.string() }),
   "im.pageImGroupRequest": imGroupRequestPageQuerySchema,
   "im.getImGroupRequest": z.object({ id: z.string() }),
   "im.createImGroupRequest": imGroupRequestCreateSchema,

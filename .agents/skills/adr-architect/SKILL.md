@@ -82,7 +82,7 @@ stateDiagram-v2
 
 ---
 
-## 4. 与 ruoyi-all-next 架构联动
+## 4. 与 cooliebase-all-base 架构联动
 
 1. **不可动摇的三大架构铁律联动**：
    - 跨域通信必须走 Domain Facade 或 RPC，严禁直接 import 其他域 Service 或 Repository。

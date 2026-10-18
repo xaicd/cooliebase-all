@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-follow-up-record.validator"
 
 export const crmFollowUpRecordActionSchemas = {
-  "ruoyi.cmd.crm.crmFollowUpRecord.page": crmFollowUpRecordPageQuerySchema,
-  "ruoyi.cmd.crm.crmFollowUpRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmFollowUpRecord.create": crmFollowUpRecordCreateSchema,
-  "ruoyi.cmd.crm.crmFollowUpRecord.update": crmFollowUpRecordUpdateSchema,
-  "ruoyi.cmd.crm.crmFollowUpRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmFollowUpRecord.page": crmFollowUpRecordPageQuerySchema,
+  "cooliebase.cmd.crm.crmFollowUpRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmFollowUpRecord.create": crmFollowUpRecordCreateSchema,
+  "cooliebase.cmd.crm.crmFollowUpRecord.update": crmFollowUpRecordUpdateSchema,
+  "cooliebase.cmd.crm.crmFollowUpRecord.delete": z.object({ id: z.string() }),
   "crm.pageCrmFollowUpRecord": crmFollowUpRecordPageQuerySchema,
   "crm.getCrmFollowUpRecord": z.object({ id: z.string() }),
   "crm.createCrmFollowUpRecord": crmFollowUpRecordCreateSchema,

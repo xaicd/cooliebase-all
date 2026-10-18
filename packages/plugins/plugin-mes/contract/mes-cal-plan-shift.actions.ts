@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-cal-plan-shift.validator"
 
 export const mesCalPlanShiftActionSchemas = {
-  "ruoyi.cmd.mes.mesCalPlanShift.page": mesCalPlanShiftPageQuerySchema,
-  "ruoyi.cmd.mes.mesCalPlanShift.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesCalPlanShift.create": mesCalPlanShiftCreateSchema,
-  "ruoyi.cmd.mes.mesCalPlanShift.update": mesCalPlanShiftUpdateSchema,
-  "ruoyi.cmd.mes.mesCalPlanShift.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlanShift.page": mesCalPlanShiftPageQuerySchema,
+  "cooliebase.cmd.mes.mesCalPlanShift.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesCalPlanShift.create": mesCalPlanShiftCreateSchema,
+  "cooliebase.cmd.mes.mesCalPlanShift.update": mesCalPlanShiftUpdateSchema,
+  "cooliebase.cmd.mes.mesCalPlanShift.delete": z.object({ id: z.string() }),
   "mes.pageMesCalPlanShift": mesCalPlanShiftPageQuerySchema,
   "mes.getMesCalPlanShift": z.object({ id: z.string() }),
   "mes.createMesCalPlanShift": mesCalPlanShiftCreateSchema,

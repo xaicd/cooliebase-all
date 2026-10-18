@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-contact.validator"
 
 export const crmContactActionSchemas = {
-  "ruoyi.cmd.crm.crmContact.page": crmContactPageQuerySchema,
-  "ruoyi.cmd.crm.crmContact.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmContact.create": crmContactCreateSchema,
-  "ruoyi.cmd.crm.crmContact.update": crmContactUpdateSchema,
-  "ruoyi.cmd.crm.crmContact.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContact.page": crmContactPageQuerySchema,
+  "cooliebase.cmd.crm.crmContact.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContact.create": crmContactCreateSchema,
+  "cooliebase.cmd.crm.crmContact.update": crmContactUpdateSchema,
+  "cooliebase.cmd.crm.crmContact.delete": z.object({ id: z.string() }),
   "crm.pageCrmContact": crmContactPageQuerySchema,
   "crm.getCrmContact": z.object({ id: z.string() }),
   "crm.createCrmContact": crmContactCreateSchema,

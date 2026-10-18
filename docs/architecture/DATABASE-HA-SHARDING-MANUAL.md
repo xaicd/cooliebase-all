@@ -1,4 +1,4 @@
-# RuoYi-All-Next 全数据库类型、高可用集群、读写分离与分库分表权威技术手册
+# CoolieBase-All-Next 全数据库类型、高可用集群、读写分离与分库分表权威技术手册
 # (Enterprise Database HA, Read-Write Splitting, Multi-DataSource & Sharding Architecture)
 
 > **版本**: 2026 Enterprise Edition  
@@ -9,7 +9,7 @@
 
 ## 一、 支持的数据库类型与驱动支持全景
 
-`ruoyi-all-next` 采用三层兼容等级（Tier-A / Tier-B / Tier-C）与驱动抽象层，全面支持主流商业数据库与信创国产数据库：
+`cooliebase-all-base` 采用三层兼容等级（Tier-A / Tier-B / Tier-C）与驱动抽象层，全面支持主流商业数据库与信创国产数据库：
 
 ```
                       【数据库类型与兼容分级矩阵】
@@ -45,7 +45,7 @@
 
 ```
               ┌────────────────────────┐
-              │  ruoyi-all-next (App)  │
+              │  cooliebase-all-base (App)  │
               └───────────┬────────────┘
                           │ 读写分离 / VIP
            ┌──────────────┴──────────────┐
@@ -62,8 +62,8 @@
 应用端既可以通过 VIP 接入，也可以由底座的 `ReplicaClusterManager` 进行直连智能路由：
 ```bash
 # 环境变量配置
-DATABASE_URL="mysql://app_user:pass@192.168.1.100:3306/ruoyi_prod"
-DB_REPLICAS="mysql://app_user:pass@192.168.1.102:3306/ruoyi_prod,mysql://app_user:pass@192.168.1.103:3306/ruoyi_prod"
+DATABASE_URL="mysql://app_user:pass@192.168.1.100:3306/cooliebase_prod"
+DB_REPLICAS="mysql://app_user:pass@192.168.1.102:3306/cooliebase_prod,mysql://app_user:pass@192.168.1.103:3306/cooliebase_prod"
 ```
 
 ---
@@ -76,7 +76,7 @@ DB_REPLICAS="mysql://app_user:pass@192.168.1.102:3306/ruoyi_prod,mysql://app_use
 
 ```
               ┌────────────────────────┐
-              │  ruoyi-all-next (App)  │
+              │  cooliebase-all-base (App)  │
               └───────────┬────────────┘
                           │
                    【Pgpool-II 代理层】
@@ -123,7 +123,7 @@ master_slave_sub_mode = 'stream'
 
 ```
               ┌────────────────────────┐
-              │  ruoyi-all-next (App)  │
+              │  cooliebase-all-base (App)  │
               └───────────┬────────────┘
                           │ (dm_svc.conf 服务名透明漂移)
            ┌──────────────┴──────────────┐
@@ -140,8 +140,8 @@ master_slave_sub_mode = 'stream'
 达梦原生驱动支持通过 `dm_svc.conf` 实现客户端级别的自动负载均衡与重连切换：
 ```ini
 # /etc/dm_svc.conf
-RUOYI_CLUSTER=(192.168.1.201:5236, 192.168.1.202:5236)
-[RUOYI_CLUSTER]
+COOLIEBASE_CLUSTER=(192.168.1.201:5236, 192.168.1.202:5236)
+[COOLIEBASE_CLUSTER]
 TIME_ZONE=(480)
 LOGIN_MODE=(1)                # 1: 仅连接 Primary 主库；0: 优先连接 Primary
 SWITCH_INTERVAL=(1000)        # 节点切换重试间隔 (ms)
@@ -150,12 +150,12 @@ EP_SELECTOR=(1)               # 1: 依次遍历连接
 ```
 在应用端连接串中直接使用服务名：
 ```bash
-DATABASE_URL="dm://SYSDBA:SYSDBA001@RUOYI_CLUSTER"
+DATABASE_URL="dm://SYSDBA:SYSDBA001@COOLIEBASE_CLUSTER"
 ```
 
 ---
 
-## 三、 ruoyi-all-next 内置读写分离引擎使用指南
+## 三、 cooliebase-all-base 内置读写分离引擎使用指南
 
 底座已在 `packages/shared/backend/lib/database/read-write-router.ts` 内置了生产级读写分离引擎：
 
@@ -178,13 +178,13 @@ replicaClusterManager.init({
   master: {
     name: "primary-master",
     driver: "mysql",
-    url: "mysql://root:root@10.0.0.1:3306/ruoyi",
+    url: "mysql://root:root@10.0.0.1:3306/cooliebase",
     tier: "A",
     protocolFamily: "mysql"
   },
   replicas: [
-    { name: "slave-1", url: "mysql://root:root@10.0.0.2:3306/ruoyi", weight: 2, isHealthy: true },
-    { name: "slave-2", url: "mysql://root:root@10.0.0.3:3306/ruoyi", weight: 1, isHealthy: true }
+    { name: "slave-1", url: "mysql://root:root@10.0.0.2:3306/cooliebase", weight: 2, isHealthy: true },
+    { name: "slave-2", url: "mysql://root:root@10.0.0.3:3306/cooliebase", weight: 1, isHealthy: true }
   ],
   loadBalancePolicy: "weighted" // 支持 round_robin / weighted / random
 })

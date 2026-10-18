@@ -215,7 +215,7 @@ export const AIGW_PACKAGE_MENU_IDS = [
   AIGW_CHATS_MENU_ID,
 ]
 
-// 历史遗留旧 RuoYi 模型中台树节点全量清除清单
+// 历史遗留旧 CoolieBase 模型中台树节点全量清除清单
 const LEGACY_PURGE_MENU_IDS = [
   "2758", "2759", "2760", "2783", "2792", "2796", "2798", "2915", "5000",
   "9000", "9001", "9002", "9003", "9004", "9005",

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-mainten-record-line.validator"
 
 export const mesDvMaintenRecordLineActionSchemas = {
-  "ruoyi.cmd.mes.mesDvMaintenRecordLine.page": mesDvMaintenRecordLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecordLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvMaintenRecordLine.create": mesDvMaintenRecordLineCreateSchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecordLine.update": mesDvMaintenRecordLineUpdateSchema,
-  "ruoyi.cmd.mes.mesDvMaintenRecordLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMaintenRecordLine.page": mesDvMaintenRecordLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecordLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvMaintenRecordLine.create": mesDvMaintenRecordLineCreateSchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecordLine.update": mesDvMaintenRecordLineUpdateSchema,
+  "cooliebase.cmd.mes.mesDvMaintenRecordLine.delete": z.object({ id: z.string() }),
   "mes.pageMesDvMaintenRecordLine": mesDvMaintenRecordLinePageQuerySchema,
   "mes.getMesDvMaintenRecordLine": z.object({ id: z.string() }),
   "mes.createMesDvMaintenRecordLine": mesDvMaintenRecordLineCreateSchema,

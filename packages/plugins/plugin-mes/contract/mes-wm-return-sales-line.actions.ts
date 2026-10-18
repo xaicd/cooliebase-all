@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-sales-line.validator"
 
 export const mesWmReturnSalesLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnSalesLine.page": mesWmReturnSalesLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnSalesLine.create": mesWmReturnSalesLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesLine.update": mesWmReturnSalesLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnSalesLine.page": mesWmReturnSalesLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnSalesLine.create": mesWmReturnSalesLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesLine.update": mesWmReturnSalesLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnSalesLine": mesWmReturnSalesLinePageQuerySchema,
   "mes.getMesWmReturnSalesLine": z.object({ id: z.string() }),
   "mes.createMesWmReturnSalesLine": mesWmReturnSalesLineCreateSchema,

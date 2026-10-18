@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-product-category.validator"
 
 export const iotProductCategoryActionSchemas = {
-  "ruoyi.cmd.iot.iotProductCategory.page": iotProductCategoryPageQuerySchema,
-  "ruoyi.cmd.iot.iotProductCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotProductCategory.create": iotProductCategoryCreateSchema,
-  "ruoyi.cmd.iot.iotProductCategory.update": iotProductCategoryUpdateSchema,
-  "ruoyi.cmd.iot.iotProductCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotProductCategory.page": iotProductCategoryPageQuerySchema,
+  "cooliebase.cmd.iot.iotProductCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotProductCategory.create": iotProductCategoryCreateSchema,
+  "cooliebase.cmd.iot.iotProductCategory.update": iotProductCategoryUpdateSchema,
+  "cooliebase.cmd.iot.iotProductCategory.delete": z.object({ id: z.string() }),
   "iot.pageIotProductCategory": iotProductCategoryPageQuerySchema,
   "iot.getIotProductCategory": z.object({ id: z.string() }),
   "iot.createIotProductCategory": iotProductCategoryCreateSchema,

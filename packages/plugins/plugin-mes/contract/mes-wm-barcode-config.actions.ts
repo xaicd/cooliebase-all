@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-barcode-config.validator"
 
 export const mesWmBarcodeConfigActionSchemas = {
-  "ruoyi.cmd.mes.mesWmBarcodeConfig.page": mesWmBarcodeConfigPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmBarcodeConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmBarcodeConfig.create": mesWmBarcodeConfigCreateSchema,
-  "ruoyi.cmd.mes.mesWmBarcodeConfig.update": mesWmBarcodeConfigUpdateSchema,
-  "ruoyi.cmd.mes.mesWmBarcodeConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmBarcodeConfig.page": mesWmBarcodeConfigPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmBarcodeConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmBarcodeConfig.create": mesWmBarcodeConfigCreateSchema,
+  "cooliebase.cmd.mes.mesWmBarcodeConfig.update": mesWmBarcodeConfigUpdateSchema,
+  "cooliebase.cmd.mes.mesWmBarcodeConfig.delete": z.object({ id: z.string() }),
   "mes.pageMesWmBarcodeConfig": mesWmBarcodeConfigPageQuerySchema,
   "mes.getMesWmBarcodeConfig": z.object({ id: z.string() }),
   "mes.createMesWmBarcodeConfig": mesWmBarcodeConfigCreateSchema,

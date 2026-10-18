@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-tool.validator"
 
 export const aiToolActionSchemas = {
-  "ruoyi.cmd.ai.aiTool.page": aiToolPageQuerySchema,
-  "ruoyi.cmd.ai.aiTool.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiTool.create": aiToolCreateSchema,
-  "ruoyi.cmd.ai.aiTool.update": aiToolUpdateSchema,
-  "ruoyi.cmd.ai.aiTool.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiTool.page": aiToolPageQuerySchema,
+  "cooliebase.cmd.ai.aiTool.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiTool.create": aiToolCreateSchema,
+  "cooliebase.cmd.ai.aiTool.update": aiToolUpdateSchema,
+  "cooliebase.cmd.ai.aiTool.delete": z.object({ id: z.string() }),
   "ai.pageAiTool": aiToolPageQuerySchema,
   "ai.getAiTool": z.object({ id: z.string() }),
   "ai.createAiTool": aiToolCreateSchema,

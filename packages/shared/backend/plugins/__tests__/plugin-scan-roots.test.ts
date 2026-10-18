@@ -9,7 +9,7 @@ import { pluginScanRoots } from "../plugin-registry.service"
  *
  * 曾经的 bug: `syncFromDisk` 显式传了 `[pluginDir]`，把 `scanAllPluginPackages`
  * 的默认第二根整个覆盖掉 —— 仓内 `packages/plugins/**` 永远扫不到。
- * 症状很隐蔽: 注册表列表里**看得到** ruoyi.pay（builtin 预置），但 manifestJson 为空，
+ * 症状很隐蔽: 注册表列表里**看得到** cooliebase.pay（builtin 预置），但 manifestJson 为空，
  * 挂载点报 "未找到插件"，而看列表的人以为一切正常。
  *
  * 所以这里钉死"根的数量与语义"，而不是钉死某个调用点的写法。

@@ -8,7 +8,7 @@
  * 为什么用静态 import: 仓内第一方插件是 TS, 宿主无法用运行期 import() 加载（Node 不认 TS）,
  * 而模板字符串动态 import 在 Turbopack 下也无法解析 —— 必须显式列出每条 import。
  */
-import { definePlugin } from "@ruoyi/plugin-sdk"
+import { definePlugin } from "@cooliebase/plugin-sdk"
 
 import * as route_admin_mes_cal_calendar__id_ from "@/modules/mes/routes/admin/mes-cal-calendar/[id]/route"
 import * as route_admin_mes_cal_calendar from "@/modules/mes/routes/admin/mes-cal-calendar/route"

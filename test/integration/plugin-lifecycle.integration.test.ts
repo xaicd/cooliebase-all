@@ -3,7 +3,7 @@
  *
  * 为什么单列这个文件：插件系统的单测（`packages/shared/backend/plugins/__tests__/`）
  * 只覆盖到协议与纯函数层面，"装一个插件进去它到底会不会变成 ready" 从来没被验证过 ——
- * 服务级测试用的是内存/桩，而 PluginRepository 直接走 ruoyiPrisma，没有内存回退。
+ * 服务级测试用的是内存/桩，而 PluginRepository 直接走 cooliebasePrisma，没有内存回退。
  *
  * 本文件补上这条链路：磁盘扫描 → manifest 校验 → 落库 → spawn worker → initialize
  * → 状态推进到 ready，以及 worker 起不来时是否**只影响它自己**。
@@ -18,17 +18,17 @@ import { pluginRegistryService } from "@/shared/backend/plugins/plugin-registry.
 import { pluginRuntimeManager } from "@/shared/backend/plugins/runtime-manager"
 import { listPluginCatalog } from "@/app/api/v1/admin/plugins/_lib/plugin-catalog"
 import { pluginSchemaName, runPluginMigrations } from "@/shared/backend/plugins/plugin-migrations"
-import { ruoyiPrisma } from "@/shared/backend/prisma"
+import { cooliebasePrisma } from "@/shared/backend/prisma"
 import { PluginRepository } from "@/shared/backend/plugins/plugin.repository"
 
 const HAS_DB = Boolean(process.env.DATABASE_URL?.trim())
 
-/** 插件目录必须落在仓库内：示例插件 `import "@ruoyi/plugin-sdk"` 要靠 node 逐级上溯到根 node_modules 才能解析。 */
+/** 插件目录必须落在仓库内：示例插件 `import "@cooliebase/plugin-sdk"` 要靠 node 逐级上溯到根 node_modules 才能解析。 */
 const REPO_ROOT = process.cwd()
-const PLUGIN_DIR = path.join(REPO_ROOT, ".ruoyi", "plugins-integration")
+const PLUGIN_DIR = path.join(REPO_ROOT, ".cooliebase", "plugins-integration")
 const EXAMPLE_SRC = path.join(REPO_ROOT, "packages/plugins/examples/hello-world")
 const GOOD_KEY = "itest.lifecycle.plugin"
-const BROKEN_KEY = "ruoyi.broken-worker"
+const BROKEN_KEY = "cooliebase.broken-worker"
 
 function copyDirRecursive(src: string, dst: string): void {
   fs.mkdirSync(dst, { recursive: true })
@@ -78,7 +78,7 @@ function writeBrokenPlugin(): string {
 
 /** 只清本测试用到的 key —— 不要动库里其它记录。 */
 async function purgeTestRecords(): Promise<void> {
-  await ruoyiPrisma.plugin.deleteMany({ where: { pluginKey: { in: [GOOD_KEY, BROKEN_KEY] } } })
+  await cooliebasePrisma.plugin.deleteMany({ where: { pluginKey: { in: [GOOD_KEY, BROKEN_KEY] } } })
 }
 
 describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 worker）", { timeout: 30000 }, () => {
@@ -143,7 +143,7 @@ describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 
     // 不是本用例的口径问题；修它要给 online 补生成式模块声明（会让它的手写 manifest 与生成物并存）。
     const builtin = catalog.filter((entry) => entry.kind === "builtin")
     expect(builtin.length).toBeGreaterThanOrEqual(16)
-    expect(builtin.map((entry) => entry.pluginKey)).toContain("ruoyi.system")
+    expect(builtin.map((entry) => entry.pluginKey)).toContain("cooliebase.system")
     // 内置插件随宿主发布，恒为 ready、恒为同进程
     for (const entry of builtin) {
       expect(entry.status).toBe("ready")
@@ -174,12 +174,12 @@ describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 
   })
 
   it("第一方插件自带迁移：表落在插件自己的 schema，宿主 public 里看不到，且幂等", async () => {
-    const pluginKey = "ruoyi.hello-world"
+    const pluginKey = "cooliebase.hello-world"
     const schema = pluginSchemaName(pluginKey)
 
     // 先清掉上一次的口径，保证断言确定
-    await ruoyiPrisma.pluginMigration.deleteMany({ where: { pluginKey } })
-    await ruoyiPrisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
+    await cooliebasePrisma.pluginMigration.deleteMany({ where: { pluginKey } })
+    await cooliebasePrisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
 
     // 1) 不信任 -> 跳过，并给出原因（第三方插件的路径）
     const untrusted = await runPluginMigrations({
@@ -196,13 +196,13 @@ describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 
     expect(first.schema).toBe(schema)
 
     // 关键断言: 落子在插件的 schema 里
-    const inPluginSchema = await ruoyiPrisma.$queryRawUnsafe<Array<{ n: bigint }>>(
+    const inPluginSchema = await cooliebasePrisma.$queryRawUnsafe<Array<{ n: bigint }>>(
       `SELECT count(*) AS n FROM information_schema.tables WHERE table_schema = '${schema}' AND table_name = 'hello_items'`,
     )
     expect(Number(inPluginSchema[0].n)).toBe(1)
 
     // 关键断言: 宿主 public 里**没有**这张表（隔离生效）
-    const inPublic = await ruoyiPrisma.$queryRawUnsafe<Array<{ n: bigint }>>(
+    const inPublic = await cooliebasePrisma.$queryRawUnsafe<Array<{ n: bigint }>>(
       `SELECT count(*) AS n FROM information_schema.tables WHERE table_schema = 'public' AND table_name = 'hello_items'`,
     )
     expect(Number(inPublic[0].n)).toBe(0)
@@ -215,8 +215,8 @@ describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 
     expect(second.skipped).toEqual(["001_init.sql"])
 
     // 收尾
-    await ruoyiPrisma.pluginMigration.deleteMany({ where: { pluginKey } })
-    await ruoyiPrisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
+    await cooliebasePrisma.pluginMigration.deleteMany({ where: { pluginKey } })
+    await cooliebasePrisma.$executeRawUnsafe(`DROP SCHEMA IF EXISTS "${schema}" CASCADE`)
   })
 
   it("插件包从磁盘移除 → 得到诚实处理（不谎报 ready）", async () => {
@@ -231,7 +231,7 @@ describe.skipIf(!HAS_DB)("插件安装 → ready 端到端（真实 PG + 真实 
     } else {
       // 已被逻辑删除：用原始查询确认行确实存在且 deleted=true，
       // 而不是把"查不到"（可能因为压根没落库）当成功
-      const raw = await ruoyiPrisma.plugin.findFirst({ where: { pluginKey: GOOD_KEY } })
+      const raw = await cooliebasePrisma.plugin.findFirst({ where: { pluginKey: GOOD_KEY } })
       expect(raw, "记录应存在（此前已成功安装）").toBeTruthy()
       expect(raw!.deleted).toBe(true)
       expect(raw!.status).toBe("error")

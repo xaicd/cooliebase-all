@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-scene-rule.validator"
 
 export const iotSceneRuleActionSchemas = {
-  "ruoyi.cmd.iot.iotSceneRule.page": iotSceneRulePageQuerySchema,
-  "ruoyi.cmd.iot.iotSceneRule.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotSceneRule.create": iotSceneRuleCreateSchema,
-  "ruoyi.cmd.iot.iotSceneRule.update": iotSceneRuleUpdateSchema,
-  "ruoyi.cmd.iot.iotSceneRule.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotSceneRule.page": iotSceneRulePageQuerySchema,
+  "cooliebase.cmd.iot.iotSceneRule.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotSceneRule.create": iotSceneRuleCreateSchema,
+  "cooliebase.cmd.iot.iotSceneRule.update": iotSceneRuleUpdateSchema,
+  "cooliebase.cmd.iot.iotSceneRule.delete": z.object({ id: z.string() }),
   "iot.pageIotSceneRule": iotSceneRulePageQuerySchema,
   "iot.getIotSceneRule": z.object({ id: z.string() }),
   "iot.createIotSceneRule": iotSceneRuleCreateSchema,

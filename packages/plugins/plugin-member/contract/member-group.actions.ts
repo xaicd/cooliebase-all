@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-group.validator"
 
 export const memberGroupActionSchemas = {
-  "ruoyi.cmd.member.memberGroup.page": memberGroupPageQuerySchema,
-  "ruoyi.cmd.member.memberGroup.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberGroup.create": memberGroupCreateSchema,
-  "ruoyi.cmd.member.memberGroup.update": memberGroupUpdateSchema,
-  "ruoyi.cmd.member.memberGroup.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberGroup.page": memberGroupPageQuerySchema,
+  "cooliebase.cmd.member.memberGroup.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberGroup.create": memberGroupCreateSchema,
+  "cooliebase.cmd.member.memberGroup.update": memberGroupUpdateSchema,
+  "cooliebase.cmd.member.memberGroup.delete": z.object({ id: z.string() }),
   "member.pageMemberGroup": memberGroupPageQuerySchema,
   "member.getMemberGroup": z.object({ id: z.string() }),
   "member.createMemberGroup": memberGroupCreateSchema,

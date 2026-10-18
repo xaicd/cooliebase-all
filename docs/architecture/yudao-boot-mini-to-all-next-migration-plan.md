@@ -4,7 +4,7 @@
 
 ## 1. 目标
 
-把 yudao-boot-mini 的核心基础设施能力完整复制到 ruoyi-all-next，并按 mini 的真实启用范围建立迁移顺序。
+把 yudao-boot-mini 的核心基础设施能力完整复制到 cooliebase-all-base，并按 mini 的真实启用范围建立迁移顺序。
 
 ## 2. 迁移原则
 
@@ -87,8 +87,8 @@ infra 复制优先级：
 
 ## 8. 当前已完成的证据
 
-1. [yudao-boot-mini 核心基础设施全量扫描](apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md)
-2. [yudao-boot-mini 核心基础设施全量复核](apps/ruoyi/ruoyi-all-next/docs/architecture/yudao-boot-mini-core-foundation-study.md)
-3. [ruoyi 全域迁移作战板](apps/ruoyi/ruoyi-all-next/docs/architecture/ruoyi-full-migration-board.md)
-4. [all-next starter 覆盖扫描](apps/ruoyi/ruoyi-all-next/docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.md)
-5. [system/infra 工程任务拆解](apps/ruoyi/ruoyi-all-next/docs/architecture/yudao-mini-system-infra-task-breakdown.md)
+1. [yudao-boot-mini 核心基础设施全量扫描](apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/yudao-boot-mini-core-scan-2026-08-02.md)
+2. [yudao-boot-mini 核心基础设施全量复核](apps/cooliebase/cooliebase-all-base/docs/architecture/yudao-boot-mini-core-foundation-study.md)
+3. [cooliebase 全域迁移作战板](apps/cooliebase/cooliebase-all-base/docs/architecture/cooliebase-full-migration-board.md)
+4. [all-next starter 覆盖扫描](apps/cooliebase/cooliebase-all-base/docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.md)
+5. [system/infra 工程任务拆解](apps/cooliebase/cooliebase-all-base/docs/architecture/yudao-mini-system-infra-task-breakdown.md)

@@ -9,7 +9,7 @@ export const runtime = "nodejs"
 const HEARTBEAT_FILE = path.join(/*turbopackIgnore: true*/ process.cwd(), "docs", "architecture", "artifacts", "agent-autopilot-heartbeat.json")
 
 function verifyInternalToken(request: Request): boolean {
-  const token = process.env.RUOYI_RPC_TOKEN || process.env.RUOYI_INTERNAL_TOKEN
+  const token = process.env.COOLIEBASE_RPC_TOKEN || process.env.COOLIEBASE_INTERNAL_TOKEN
   if (!token) return true // 开发/自测模式放行
   const auth = request.headers.get("authorization") || request.headers.get("x-internal-token") || ""
   const url = new URL(request.url)

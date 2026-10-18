@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-receivable.validator"
 
 export const crmReceivableActionSchemas = {
-  "ruoyi.cmd.crm.crmReceivable.page": crmReceivablePageQuerySchema,
-  "ruoyi.cmd.crm.crmReceivable.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmReceivable.create": crmReceivableCreateSchema,
-  "ruoyi.cmd.crm.crmReceivable.update": crmReceivableUpdateSchema,
-  "ruoyi.cmd.crm.crmReceivable.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmReceivable.page": crmReceivablePageQuerySchema,
+  "cooliebase.cmd.crm.crmReceivable.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmReceivable.create": crmReceivableCreateSchema,
+  "cooliebase.cmd.crm.crmReceivable.update": crmReceivableUpdateSchema,
+  "cooliebase.cmd.crm.crmReceivable.delete": z.object({ id: z.string() }),
   "crm.pageCrmReceivable": crmReceivablePageQuerySchema,
   "crm.getCrmReceivable": z.object({ id: z.string() }),
   "crm.createCrmReceivable": crmReceivableCreateSchema,

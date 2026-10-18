@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-account.validator"
 
 export const erpAccountActionSchemas = {
-  "ruoyi.cmd.erp.erpAccount.page": erpAccountPageQuerySchema,
-  "ruoyi.cmd.erp.erpAccount.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpAccount.create": erpAccountCreateSchema,
-  "ruoyi.cmd.erp.erpAccount.update": erpAccountUpdateSchema,
-  "ruoyi.cmd.erp.erpAccount.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpAccount.page": erpAccountPageQuerySchema,
+  "cooliebase.cmd.erp.erpAccount.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpAccount.create": erpAccountCreateSchema,
+  "cooliebase.cmd.erp.erpAccount.update": erpAccountUpdateSchema,
+  "cooliebase.cmd.erp.erpAccount.delete": z.object({ id: z.string() }),
   "erp.pageErpAccount": erpAccountPageQuerySchema,
   "erp.getErpAccount": z.object({ id: z.string() }),
   "erp.createErpAccount": erpAccountCreateSchema,

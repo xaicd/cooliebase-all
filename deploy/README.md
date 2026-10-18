@@ -1,4 +1,4 @@
-# ruoyi-all-next 部署指南
+# cooliebase-all-base 部署指南
 
 ## 环境说明
 
@@ -12,7 +12,7 @@
 
 ### 域独立部署
 
-页面仍走 BFF（`:3100`）。某个域设置 `RUOYI_DOMAIN_<NAME>_UPSTREAM` 后，对应 `/api/v1/**/<domain>` 由该域独立镜像承接。
+页面仍走 BFF（`:3100`）。某个域设置 `COOLIEBASE_DOMAIN_<NAME>_UPSTREAM` 后，对应 `/api/v1/**/<domain>` 由该域独立镜像承接。
 
 ```bash
 # 查看可打包域
@@ -20,13 +20,13 @@ npm run domain:list
 
 # 本地拆出 pay：BFF 3100 + pay 3214
 npm run domain:dev -- pay
-RUOYI_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
+COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
 
 # Compose 拆出 pay
 npm run domain:up -- pay
 ```
 
-详细约定见 `docs/architecture/ruoyi-all-next-domain-pack.md`。
+详细约定见 `docs/architecture/cooliebase-all-base-domain-pack.md`。
 
 ## 快速启动
 
@@ -84,7 +84,7 @@ docker compose -f deploy/docker-compose.prod.yml restart app
 docker compose -f deploy/docker-compose.prod.yml up -d --scale app=3
 
 # 数据库备份
-docker compose -f deploy/docker-compose.prod.yml exec postgres pg_dump -U ruoyi ruoyi_next > backup.sql
+docker compose -f deploy/docker-compose.prod.yml exec postgres pg_dump -U cooliebase cooliebase_next > backup.sql
 
 # 进入应用容器
 docker compose -f deploy/docker-compose.prod.yml exec app sh

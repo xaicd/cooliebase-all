@@ -9,7 +9,7 @@ import { beforeEach, describe, expect, it, vi } from "vitest"
  */
 
 const manifest = {
-  id: "ruoyi.pay",
+  id: "cooliebase.pay",
   version: "v1",
   capabilities: ["api.routes.register"],
   apiRoutes: [
@@ -21,7 +21,7 @@ const manifest = {
 
 vi.mock("@/modules/shared/backend/plugins/plugin.repository", () => ({
   PluginRepository: {
-    findByKey: vi.fn(async () => ({ pluginKey: "ruoyi.pay", manifestJson: manifest, status: "ready" })),
+    findByKey: vi.fn(async () => ({ pluginKey: "cooliebase.pay", manifestJson: manifest, status: "ready" })),
   },
 }))
 
@@ -34,7 +34,7 @@ vi.mock("@/modules/shared/backend/plugins/runtime-manager", () => ({
 
 const { GET, POST } = await import("@/app/api/v1/plugins/[pluginKey]/api/[...path]/route")
 
-const B = "http://localhost:3200/api/v1/plugins/ruoyi.pay/api"
+const B = "http://localhost:3200/api/v1/plugins/cooliebase.pay/api"
 
 describe("插件挂载点: 按声明鉴权", () => {
   beforeEach(() => vi.clearAllMocks())

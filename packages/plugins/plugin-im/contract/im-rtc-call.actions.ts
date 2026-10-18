@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-rtc-call.validator"
 
 export const imRtcCallActionSchemas = {
-  "ruoyi.cmd.im.imRtcCall.page": imRtcCallPageQuerySchema,
-  "ruoyi.cmd.im.imRtcCall.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imRtcCall.create": imRtcCallCreateSchema,
-  "ruoyi.cmd.im.imRtcCall.update": imRtcCallUpdateSchema,
-  "ruoyi.cmd.im.imRtcCall.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imRtcCall.page": imRtcCallPageQuerySchema,
+  "cooliebase.cmd.im.imRtcCall.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imRtcCall.create": imRtcCallCreateSchema,
+  "cooliebase.cmd.im.imRtcCall.update": imRtcCallUpdateSchema,
+  "cooliebase.cmd.im.imRtcCall.delete": z.object({ id: z.string() }),
   "im.pageImRtcCall": imRtcCallPageQuerySchema,
   "im.getImRtcCall": z.object({ id: z.string() }),
   "im.createImRtcCall": imRtcCallCreateSchema,

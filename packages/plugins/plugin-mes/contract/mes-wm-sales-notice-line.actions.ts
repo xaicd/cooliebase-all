@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-sales-notice-line.validator"
 
 export const mesWmSalesNoticeLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmSalesNoticeLine.page": mesWmSalesNoticeLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmSalesNoticeLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmSalesNoticeLine.create": mesWmSalesNoticeLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmSalesNoticeLine.update": mesWmSalesNoticeLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmSalesNoticeLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSalesNoticeLine.page": mesWmSalesNoticeLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmSalesNoticeLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSalesNoticeLine.create": mesWmSalesNoticeLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmSalesNoticeLine.update": mesWmSalesNoticeLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmSalesNoticeLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmSalesNoticeLine": mesWmSalesNoticeLinePageQuerySchema,
   "mes.getMesWmSalesNoticeLine": z.object({ id: z.string() }),
   "mes.createMesWmSalesNoticeLine": mesWmSalesNoticeLineCreateSchema,

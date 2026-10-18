@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-stock-out-item.validator"
 
 export const erpStockOutItemActionSchemas = {
-  "ruoyi.cmd.erp.erpStockOutItem.page": erpStockOutItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpStockOutItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpStockOutItem.create": erpStockOutItemCreateSchema,
-  "ruoyi.cmd.erp.erpStockOutItem.update": erpStockOutItemUpdateSchema,
-  "ruoyi.cmd.erp.erpStockOutItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockOutItem.page": erpStockOutItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpStockOutItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockOutItem.create": erpStockOutItemCreateSchema,
+  "cooliebase.cmd.erp.erpStockOutItem.update": erpStockOutItemUpdateSchema,
+  "cooliebase.cmd.erp.erpStockOutItem.delete": z.object({ id: z.string() }),
   "erp.pageErpStockOutItem": erpStockOutItemPageQuerySchema,
   "erp.getErpStockOutItem": z.object({ id: z.string() }),
   "erp.createErpStockOutItem": erpStockOutItemCreateSchema,

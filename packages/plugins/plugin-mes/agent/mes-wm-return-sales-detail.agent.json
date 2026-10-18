@@ -1,5 +1,5 @@
 {
-  "$schema": "ruoyi.agent.contract/v1",
+  "$schema": "cooliebase.agent.contract/v1",
   "domain": "mes",
   "entity": "MesWmReturnSalesDetail",
   "kebab": "mes-wm-return-sales-detail",
@@ -11,7 +11,7 @@
     "titleSelector": "[data-testid=\"mes-wm-return-sales-detail-title\"]"
   },
   "api": {
-    "pluginMount": "/api/v1/plugins/ruoyi.mes/api",
+    "pluginMount": "/api/v1/plugins/cooliebase.mes/api",
     "bffMount": "/api/v1/admin/mes",
     "resource": "mes-wm-return-sales-detail",
     "methods": {
@@ -46,8 +46,8 @@
       "http": "POST",
       "path": "/api/v1/admin/system/auth",
       "payload": {
-        "username": "$RUOYI_AGENT_USERNAME",
-        "password": "$RUOYI_AGENT_PASSWORD"
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
       }
     },
     "tokenField": "data.token",
@@ -163,7 +163,7 @@
     ]
   },
   "agentNative": {
-    "scheme": "ruoyi.agent.native/v1",
+    "scheme": "cooliebase.agent.native/v1",
     "scope": "mes-wm-return-sales-detail",
     "readiness": {
       "attribute": "data-agent-page-ready",

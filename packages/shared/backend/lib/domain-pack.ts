@@ -53,7 +53,7 @@ export function matchRemoteDomainUpstream(
   pathname: string,
   env: NodeJS.Dict<string> = process.env,
 ): DomainUpstreamMatch | undefined {
-  if (env.RUOYI_PACK_DOMAIN) return undefined
+  if (env.COOLIEBASE_PACK_DOMAIN) return undefined
   const matched = matchPathToDomain(pathname)
   if (!matched) return undefined
   const baseUrl = readUpstreamBaseUrl(matched.domain, env)

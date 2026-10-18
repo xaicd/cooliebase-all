@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/diy-template.validator"
 
 export const diyTemplateActionSchemas = {
-  "ruoyi.cmd.mall.diyTemplate.page": diyTemplatePageQuerySchema,
-  "ruoyi.cmd.mall.diyTemplate.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.diyTemplate.create": diyTemplateCreateSchema,
-  "ruoyi.cmd.mall.diyTemplate.update": diyTemplateUpdateSchema,
-  "ruoyi.cmd.mall.diyTemplate.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.diyTemplate.page": diyTemplatePageQuerySchema,
+  "cooliebase.cmd.mall.diyTemplate.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.diyTemplate.create": diyTemplateCreateSchema,
+  "cooliebase.cmd.mall.diyTemplate.update": diyTemplateUpdateSchema,
+  "cooliebase.cmd.mall.diyTemplate.delete": z.object({ id: z.string() }),
   "mall.pageDiyTemplate": diyTemplatePageQuerySchema,
   "mall.getDiyTemplate": z.object({ id: z.string() }),
   "mall.createDiyTemplate": diyTemplateCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-material-stock.validator"
 
 export const mesWmMaterialStockActionSchemas = {
-  "ruoyi.cmd.mes.mesWmMaterialStock.page": mesWmMaterialStockPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmMaterialStock.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmMaterialStock.create": mesWmMaterialStockCreateSchema,
-  "ruoyi.cmd.mes.mesWmMaterialStock.update": mesWmMaterialStockUpdateSchema,
-  "ruoyi.cmd.mes.mesWmMaterialStock.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMaterialStock.page": mesWmMaterialStockPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmMaterialStock.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMaterialStock.create": mesWmMaterialStockCreateSchema,
+  "cooliebase.cmd.mes.mesWmMaterialStock.update": mesWmMaterialStockUpdateSchema,
+  "cooliebase.cmd.mes.mesWmMaterialStock.delete": z.object({ id: z.string() }),
   "mes.pageMesWmMaterialStock": mesWmMaterialStockPageQuerySchema,
   "mes.getMesWmMaterialStock": z.object({ id: z.string() }),
   "mes.createMesWmMaterialStock": mesWmMaterialStockCreateSchema,

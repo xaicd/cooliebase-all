@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/seckill-activity.validator"
 
 export const seckillActivityActionSchemas = {
-  "ruoyi.cmd.mall.seckillActivity.page": seckillActivityPageQuerySchema,
-  "ruoyi.cmd.mall.seckillActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.seckillActivity.create": seckillActivityCreateSchema,
-  "ruoyi.cmd.mall.seckillActivity.update": seckillActivityUpdateSchema,
-  "ruoyi.cmd.mall.seckillActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillActivity.page": seckillActivityPageQuerySchema,
+  "cooliebase.cmd.mall.seckillActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillActivity.create": seckillActivityCreateSchema,
+  "cooliebase.cmd.mall.seckillActivity.update": seckillActivityUpdateSchema,
+  "cooliebase.cmd.mall.seckillActivity.delete": z.object({ id: z.string() }),
   "mall.pageSeckillActivity": seckillActivityPageQuerySchema,
   "mall.getSeckillActivity": z.object({ id: z.string() }),
   "mall.createSeckillActivity": seckillActivityCreateSchema,

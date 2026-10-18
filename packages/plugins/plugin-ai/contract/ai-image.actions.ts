@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-image.validator"
 
 export const aiImageActionSchemas = {
-  "ruoyi.cmd.ai.aiImage.page": aiImagePageQuerySchema,
-  "ruoyi.cmd.ai.aiImage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiImage.create": aiImageCreateSchema,
-  "ruoyi.cmd.ai.aiImage.update": aiImageUpdateSchema,
-  "ruoyi.cmd.ai.aiImage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiImage.page": aiImagePageQuerySchema,
+  "cooliebase.cmd.ai.aiImage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiImage.create": aiImageCreateSchema,
+  "cooliebase.cmd.ai.aiImage.update": aiImageUpdateSchema,
+  "cooliebase.cmd.ai.aiImage.delete": z.object({ id: z.string() }),
   "ai.pageAiImage": aiImagePageQuerySchema,
   "ai.getAiImage": z.object({ id: z.string() }),
   "ai.createAiImage": aiImageCreateSchema,

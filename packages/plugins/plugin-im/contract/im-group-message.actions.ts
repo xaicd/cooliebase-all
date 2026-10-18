@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-group-message.validator"
 
 export const imGroupMessageActionSchemas = {
-  "ruoyi.cmd.im.imGroupMessage.page": imGroupMessagePageQuerySchema,
-  "ruoyi.cmd.im.imGroupMessage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imGroupMessage.create": imGroupMessageCreateSchema,
-  "ruoyi.cmd.im.imGroupMessage.update": imGroupMessageUpdateSchema,
-  "ruoyi.cmd.im.imGroupMessage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imGroupMessage.page": imGroupMessagePageQuerySchema,
+  "cooliebase.cmd.im.imGroupMessage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imGroupMessage.create": imGroupMessageCreateSchema,
+  "cooliebase.cmd.im.imGroupMessage.update": imGroupMessageUpdateSchema,
+  "cooliebase.cmd.im.imGroupMessage.delete": z.object({ id: z.string() }),
   "im.pageImGroupMessage": imGroupMessagePageQuerySchema,
   "im.getImGroupMessage": z.object({ id: z.string() }),
   "im.createImGroupMessage": imGroupMessageCreateSchema,

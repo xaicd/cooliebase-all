@@ -1,6 +1,6 @@
-# Claude Code Guidelines for ruoyi-all-next
+# Claude Code Guidelines for cooliebase-all-base
 
-This repository is `ruoyi-all-next`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, serving as a business project base and DigitalStaff NPC workspace template.
+This repository is `cooliebase-all-base`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, serving as a business project base and DigitalStaff NPC workspace template.
 
 ## Single Source of Truth for Rules
 All engineering rules and architectural standards are unified in `.agents/rules/` and `AGENTS.md`.
@@ -20,7 +20,7 @@ All engineering rules and architectural standards are unified in `.agents/rules/
   - `npm run spec:build -- --name <name>`
   - `npm run spec:check -- --feature <name>`
   - `npm run spec:archive -- --name <name>`
-- **Bootstrap Local SQLite DB**: `npm run db:bootstrap:sqlite` (Creates `data/ruoyi.db` with standard 8 audit columns, boots supervip user, and generates secure password)
+- **Bootstrap Local SQLite DB**: `npm run db:bootstrap:sqlite` (Creates `data/cooliebase.db` with standard 8 audit columns, boots supervip user, and generates secure password)
 - **Start Dev Server**: `pnpm dev` (Runs on http://localhost:3200, credentials: `supervip` with password in `.env.local`)
 - **Project Refactor / Init**: `npm run project:init` (or `npm run project:refactor`)
 - **Login Smoke Test**: `npm run smoke:login`

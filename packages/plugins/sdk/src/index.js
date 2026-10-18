@@ -8,7 +8,7 @@
  * 避免给出"声明了但没人兑现"的 API。
  *
  * 用法：
- *   import { definePlugin, runWorker } from "@ruoyi/plugin-sdk"
+ *   import { definePlugin, runWorker } from "@cooliebase/plugin-sdk"
  *   const plugin = definePlugin({ setup(ctx) { ctx.logger.info("ready") } })
  *   runWorker(plugin)
  */

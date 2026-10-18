@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-qc-iqc-line.validator"
 
 export const mesQcIqcLineActionSchemas = {
-  "ruoyi.cmd.mes.mesQcIqcLine.page": mesQcIqcLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesQcIqcLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesQcIqcLine.create": mesQcIqcLineCreateSchema,
-  "ruoyi.cmd.mes.mesQcIqcLine.update": mesQcIqcLineUpdateSchema,
-  "ruoyi.cmd.mes.mesQcIqcLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcIqcLine.page": mesQcIqcLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesQcIqcLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcIqcLine.create": mesQcIqcLineCreateSchema,
+  "cooliebase.cmd.mes.mesQcIqcLine.update": mesQcIqcLineUpdateSchema,
+  "cooliebase.cmd.mes.mesQcIqcLine.delete": z.object({ id: z.string() }),
   "mes.pageMesQcIqcLine": mesQcIqcLinePageQuerySchema,
   "mes.getMesQcIqcLine": z.object({ id: z.string() }),
   "mes.createMesQcIqcLine": mesQcIqcLineCreateSchema,

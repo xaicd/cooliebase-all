@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-work-order.validator"
 
 export const mesProWorkOrderActionSchemas = {
-  "ruoyi.cmd.mes.mesProWorkOrder.page": mesProWorkOrderPageQuerySchema,
-  "ruoyi.cmd.mes.mesProWorkOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProWorkOrder.create": mesProWorkOrderCreateSchema,
-  "ruoyi.cmd.mes.mesProWorkOrder.update": mesProWorkOrderUpdateSchema,
-  "ruoyi.cmd.mes.mesProWorkOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkOrder.page": mesProWorkOrderPageQuerySchema,
+  "cooliebase.cmd.mes.mesProWorkOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProWorkOrder.create": mesProWorkOrderCreateSchema,
+  "cooliebase.cmd.mes.mesProWorkOrder.update": mesProWorkOrderUpdateSchema,
+  "cooliebase.cmd.mes.mesProWorkOrder.delete": z.object({ id: z.string() }),
   "mes.pageMesProWorkOrder": mesProWorkOrderPageQuerySchema,
   "mes.getMesProWorkOrder": z.object({ id: z.string() }),
   "mes.createMesProWorkOrder": mesProWorkOrderCreateSchema,

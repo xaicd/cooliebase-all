@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bargain-activity.validator"
 
 export const bargainActivityActionSchemas = {
-  "ruoyi.cmd.mall.bargainActivity.page": bargainActivityPageQuerySchema,
-  "ruoyi.cmd.mall.bargainActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.bargainActivity.create": bargainActivityCreateSchema,
-  "ruoyi.cmd.mall.bargainActivity.update": bargainActivityUpdateSchema,
-  "ruoyi.cmd.mall.bargainActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainActivity.page": bargainActivityPageQuerySchema,
+  "cooliebase.cmd.mall.bargainActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.bargainActivity.create": bargainActivityCreateSchema,
+  "cooliebase.cmd.mall.bargainActivity.update": bargainActivityUpdateSchema,
+  "cooliebase.cmd.mall.bargainActivity.delete": z.object({ id: z.string() }),
   "mall.pageBargainActivity": bargainActivityPageQuerySchema,
   "mall.getBargainActivity": z.object({ id: z.string() }),
   "mall.createBargainActivity": bargainActivityCreateSchema,

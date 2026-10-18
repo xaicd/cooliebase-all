@@ -22,7 +22,7 @@ paths:
       x-permission: infra:online-definition:query
     post:
       summary: Create an Online Definition with its initial Draft Revision
-      description: The optional initial Draft model and interaction configuration are validated as strict Online IR. RuoYi system fields and their read-only interactions are canonicalized by the server.
+      description: The optional initial Draft model and interaction configuration are validated as strict Online IR. CoolieBase system fields and their read-only interactions are canonicalized by the server.
       requestBody:
         required: true
         content:
@@ -56,7 +56,7 @@ paths:
       x-permission: infra:online-definition:update
   /api/v1/admin/online/definitions/{code}/normalize-system-fields:
     post:
-      summary: Add and lock missing RuoYi system fields on the current Draft Revision
+      summary: Add and lock missing CoolieBase system fields on the current Draft Revision
       requestBody:
         required: true
         content:
@@ -115,13 +115,13 @@ paths:
       x-permission: infra:online-definition:migrate
   /api/v1/admin/online/definitions/{code}/codegen/preview:
     post:
-      summary: Preview review-only shared RuoYi CRUD output from the current immutable Published Release
+      summary: Preview review-only shared CoolieBase CRUD output from the current immutable Published Release
       description: Only compatible SINGLE and GENERIC_RECORD releases are accepted. The output uses the same CodegenEngine templates and manifest as Infra Codegen and never writes server files.
       security: [{ bearerAuth: [] }]
       x-permission: infra:online-definition:generate
   /api/v1/admin/online/definitions/{code}/codegen/download:
     get:
-      summary: Download review-only shared RuoYi CRUD ZIP from the current immutable Published Release
+      summary: Download review-only shared CoolieBase CRUD ZIP from the current immutable Published Release
       description: The ZIP includes the shared codegen manifest and requires local review plus controlled injection; it does not apply DDL or write project files on the server.
       security: [{ bearerAuth: [] }]
       x-permission: infra:online-definition:generate

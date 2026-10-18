@@ -78,7 +78,7 @@ const tokens: AigwAccessTokenRecord[] = [
   {
     id: "tok-demo-001",
     name: "演示令牌",
-    key: "sk-ruoyi-demo-gateway",
+    key: "sk-cooliebase-demo-gateway",
     status: "ACTIVE",
     remainQuota: 1_000_000,
     unlimited: false,

@@ -27,12 +27,12 @@ const ROOT = path.resolve(__dirname, "..")
 const KEEP = process.argv.includes("--keep")
 const arg = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined }
 const BASE = arg("--base") || "http://localhost:3200"
-const DB = "ruoyi_loadtest"
+const DB = "cooliebase_loadtest"
 const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://ruoyi:ruoyi123@${PG_HOST}:5433/${DB}?schema=public`
+const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
 const PASSWORD = "LoadTest@123456"
 const SALT = "loadtest-salt"
-const CONTAINER = "ruoyi-dev-postgres-1"
+const CONTAINER = "cooliebase-dev-postgres-1"
 
 const BASELINE_REL = "packages/shared/contract/load-baseline.json"
 const RESULT_REL = "docs/architecture/artifacts/load-test-result.json"
@@ -57,7 +57,7 @@ function dockerExec(args) {
 
 const psql = (db, sql) => {
   const safeSql = sql.replace(/'/g, "'\\''")
-  return dockerExec(["exec", CONTAINER, "psql", "-U", "ruoyi", "-d", db, "-t", "-A", "-c", safeSql])
+  return dockerExec(["exec", CONTAINER, "psql", "-U", "cooliebase", "-d", db, "-t", "-A", "-c", safeSql])
 }
 const hasAb = spawnSync("ab", ["-V"], { encoding: "utf8" }).status === 0
 
@@ -167,14 +167,14 @@ async function main() {
     fs.writeFileSync(logFile, "")
     // **必须打生产产物**。dev 模式（Turbopack 按需编译）实测 /healthz 只有 598 rps，
     // 而 standalone 产物是 23,185 rps —— 差 39 倍。拿 dev 数字做容量基线是自欺。
-    const standalone = path.join(ROOT, ".next-ruoyi", "standalone", "server.js")
+    const standalone = path.join(ROOT, ".next-cooliebase", "standalone", "server.js")
     if (!fs.existsSync(standalone)) {
       console.log("[load] 没有生产产物，先构建（pnpm run build）…")
       const built = sh("pnpm", ["run", "build"])
       if (built.status !== 0) { console.log("[load] 构建失败:\n" + built.stdout + built.stderr); process.exit(1) }
     }
     app = spawn("node", [standalone], {
-      cwd: path.join(ROOT, ".next-ruoyi", "standalone"), stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
+      cwd: path.join(ROOT, ".next-cooliebase", "standalone"), stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
       env: { ...process.env, NODE_ENV: "production", HOSTNAME: "0.0.0.0", PORT: new globalThis.URL(BASE).port || "3200", DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
     })
     let ready = false

@@ -29,9 +29,9 @@ flowchart TD
    ```bash
    NODE_ENV=production
    PORT=3200
-   DATABASE_URL="file:./data/ruoyi-prod.db"
+   DATABASE_URL="file:./data/cooliebase-prod.db"
    JWT_SECRET="<生产随机强密钥-至少32位>"
-   RUOYI_RPC_TOKEN="<内部RPC通信鉴权令牌>"
+   COOLIEBASE_RPC_TOKEN="<内部RPC通信鉴权令牌>"
    TENANT_PLATFORM_USERNAMES="admin,platform_root"
    ```
 

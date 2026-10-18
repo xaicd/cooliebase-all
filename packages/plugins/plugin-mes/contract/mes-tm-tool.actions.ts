@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-tm-tool.validator"
 
 export const mesTmToolActionSchemas = {
-  "ruoyi.cmd.mes.mesTmTool.page": mesTmToolPageQuerySchema,
-  "ruoyi.cmd.mes.mesTmTool.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesTmTool.create": mesTmToolCreateSchema,
-  "ruoyi.cmd.mes.mesTmTool.update": mesTmToolUpdateSchema,
-  "ruoyi.cmd.mes.mesTmTool.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesTmTool.page": mesTmToolPageQuerySchema,
+  "cooliebase.cmd.mes.mesTmTool.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesTmTool.create": mesTmToolCreateSchema,
+  "cooliebase.cmd.mes.mesTmTool.update": mesTmToolUpdateSchema,
+  "cooliebase.cmd.mes.mesTmTool.delete": z.object({ id: z.string() }),
   "mes.pageMesTmTool": mesTmToolPageQuerySchema,
   "mes.getMesTmTool": z.object({ id: z.string() }),
   "mes.createMesTmTool": mesTmToolCreateSchema,

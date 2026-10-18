@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-channel-message.validator"
 
 export const imChannelMessageActionSchemas = {
-  "ruoyi.cmd.im.imChannelMessage.page": imChannelMessagePageQuerySchema,
-  "ruoyi.cmd.im.imChannelMessage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imChannelMessage.create": imChannelMessageCreateSchema,
-  "ruoyi.cmd.im.imChannelMessage.update": imChannelMessageUpdateSchema,
-  "ruoyi.cmd.im.imChannelMessage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imChannelMessage.page": imChannelMessagePageQuerySchema,
+  "cooliebase.cmd.im.imChannelMessage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imChannelMessage.create": imChannelMessageCreateSchema,
+  "cooliebase.cmd.im.imChannelMessage.update": imChannelMessageUpdateSchema,
+  "cooliebase.cmd.im.imChannelMessage.delete": z.object({ id: z.string() }),
   "im.pageImChannelMessage": imChannelMessagePageQuerySchema,
   "im.getImChannelMessage": z.object({ id: z.string() }),
   "im.createImChannelMessage": imChannelMessageCreateSchema,

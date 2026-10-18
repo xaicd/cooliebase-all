@@ -153,7 +153,7 @@ function main() {
   console.log(`    pnpm run domain:pack ${domain}   # 打包`)
   console.log(`    npx prisma migrate deploy    # 建表到目标库（库由部署决定）`)
   console.log(`    pnpm run dev                 # 运行；首次需 POST /api/v1/admin/plugins 登记插件`)
-  console.log(`\n✓ ${domain} 已生成并注册。接口面是插件挂载点 /api/v1/plugins/ruoyi.${domain}/api/**`)
+  console.log(`\n✓ ${domain} 已生成并注册。接口面是插件挂载点 /api/v1/plugins/cooliebase.${domain}/api/**`)
 }
 
 main()

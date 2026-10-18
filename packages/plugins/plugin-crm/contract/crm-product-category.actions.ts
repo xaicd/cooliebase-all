@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-product-category.validator"
 
 export const crmProductCategoryActionSchemas = {
-  "ruoyi.cmd.crm.crmProductCategory.page": crmProductCategoryPageQuerySchema,
-  "ruoyi.cmd.crm.crmProductCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmProductCategory.create": crmProductCategoryCreateSchema,
-  "ruoyi.cmd.crm.crmProductCategory.update": crmProductCategoryUpdateSchema,
-  "ruoyi.cmd.crm.crmProductCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmProductCategory.page": crmProductCategoryPageQuerySchema,
+  "cooliebase.cmd.crm.crmProductCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmProductCategory.create": crmProductCategoryCreateSchema,
+  "cooliebase.cmd.crm.crmProductCategory.update": crmProductCategoryUpdateSchema,
+  "cooliebase.cmd.crm.crmProductCategory.delete": z.object({ id: z.string() }),
   "crm.pageCrmProductCategory": crmProductCategoryPageQuerySchema,
   "crm.getCrmProductCategory": z.object({ id: z.string() }),
   "crm.createCrmProductCategory": crmProductCategoryCreateSchema,

@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-inventory-history.validator"
 
 export const wmsInventoryHistoryActionSchemas = {
-  "ruoyi.cmd.wms.wmsInventoryHistory.page": wmsInventoryHistoryPageQuerySchema,
-  "ruoyi.cmd.wms.wmsInventoryHistory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsInventoryHistory.create": wmsInventoryHistoryCreateSchema,
-  "ruoyi.cmd.wms.wmsInventoryHistory.update": wmsInventoryHistoryUpdateSchema,
-  "ruoyi.cmd.wms.wmsInventoryHistory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsInventoryHistory.page": wmsInventoryHistoryPageQuerySchema,
+  "cooliebase.cmd.wms.wmsInventoryHistory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsInventoryHistory.create": wmsInventoryHistoryCreateSchema,
+  "cooliebase.cmd.wms.wmsInventoryHistory.update": wmsInventoryHistoryUpdateSchema,
+  "cooliebase.cmd.wms.wmsInventoryHistory.delete": z.object({ id: z.string() }),
 } as const

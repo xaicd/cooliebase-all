@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-contact-business.validator"
 
 export const crmContactBusinessActionSchemas = {
-  "ruoyi.cmd.crm.crmContactBusiness.page": crmContactBusinessPageQuerySchema,
-  "ruoyi.cmd.crm.crmContactBusiness.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmContactBusiness.create": crmContactBusinessCreateSchema,
-  "ruoyi.cmd.crm.crmContactBusiness.update": crmContactBusinessUpdateSchema,
-  "ruoyi.cmd.crm.crmContactBusiness.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContactBusiness.page": crmContactBusinessPageQuerySchema,
+  "cooliebase.cmd.crm.crmContactBusiness.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmContactBusiness.create": crmContactBusinessCreateSchema,
+  "cooliebase.cmd.crm.crmContactBusiness.update": crmContactBusinessUpdateSchema,
+  "cooliebase.cmd.crm.crmContactBusiness.delete": z.object({ id: z.string() }),
   "crm.pageCrmContactBusiness": crmContactBusinessPageQuerySchema,
   "crm.getCrmContactBusiness": z.object({ id: z.string() }),
   "crm.createCrmContactBusiness": crmContactBusinessCreateSchema,

@@ -14,14 +14,14 @@
 
 ## 2. 能力映射
 
-| Moleculer | NestJS NATS | ruoyi-all-next |
+| Moleculer | NestJS NATS | cooliebase-all-base |
 |---|---|---|
-| Node | microservice instance | `RUOYI_PACK_DOMAIN` 或 `all-next` |
+| Node | microservice instance | `COOLIEBASE_PACK_DOMAIN` 或 `all-next` |
 | Service | handler module | `packages/domains/<domain>` |
 | ServiceBroker | ClientProxy + microservice | `broker` |
 | API Gateway | HTTP 应用 | Next Route + domain pack / upstream |
 | Transporter | `Transport.NATS` | 自研 `nats-fabric` / `nats-stream`（无 nats.io） |
-| `broker.call` / actions | `@MessagePattern` | `ruoyi.cmd.<domain>.<method>` |
+| `broker.call` / actions | `@MessagePattern` | `cooliebase.cmd.<domain>.<method>` |
 | `emit` / `broadcast` | `@EventPattern` + queue group | `eventBus.emit` / `broadcast` |
 | transactional outbox | at-least-once + inbox | `runUnitOfWork` / `broker.publishReliable` |
 | cacher | n/a | `broker.cacher` / `cache-store` |
@@ -35,7 +35,7 @@
 | generated actions | generated message patterns | 低代码模板 / codegen ZIP 输出 Facade + `*.rpc.ts` |
 
 权威清单：`packages/shared/backend/constants/microservice-governance.json`  
-分层与协议：`docs/architecture/ruoyi-all-next-plugin-rpc.md`  
+分层与协议：`docs/architecture/cooliebase-all-base-plugin-rpc.md`  
 门禁：`npm run microservice:check`
 
 ## 3. 调用约定

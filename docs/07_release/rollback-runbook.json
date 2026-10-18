@@ -10,7 +10,7 @@
       "step": 1,
       "name": "traffic_divert",
       "action": "Traefik 网关层流量旁路与降级",
-      "command": "traefik-cli weight --service ruoyi-next-prod --weight 0",
+      "command": "traefik-cli weight --service cooliebase-next-prod --weight 0",
       "description": "立即将外部流量切离故障集群，路由至稳定存量蓝绿节点或静态降级页",
       "rollbackVerification": "curl -I http://localhost/health | grep '200 OK'"
     },

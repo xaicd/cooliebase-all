@@ -1,11 +1,11 @@
 {
-  "$schema": "ruoyi-plugin-manifest/v1",
-  "id": "ruoyi.aigw",
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.aigw",
   "apiVersion": 1,
   "version": "0.1.0",
   "displayName": "aigw",
   "description": "aigw 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
-  "author": "RuoYi All Next",
+  "author": "CoolieBase All Base",
   "categories": [
     "automation"
   ],
@@ -23,7 +23,7 @@
       "/api/v1/admin/aigw",
       "/api/v1/open/aigw"
     ],
-    "upstreamEnv": "RUOYI_DOMAIN_AIGW_UPSTREAM",
+    "upstreamEnv": "COOLIEBASE_DOMAIN_AIGW_UPSTREAM",
     "defaultPort": 3226,
     "packable": true,
     "independentDatabase": false,

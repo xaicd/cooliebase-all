@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-dv-repair-line.validator"
 
 export const mesDvRepairLineActionSchemas = {
-  "ruoyi.cmd.mes.mesDvRepairLine.page": mesDvRepairLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesDvRepairLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesDvRepairLine.create": mesDvRepairLineCreateSchema,
-  "ruoyi.cmd.mes.mesDvRepairLine.update": mesDvRepairLineUpdateSchema,
-  "ruoyi.cmd.mes.mesDvRepairLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvRepairLine.page": mesDvRepairLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesDvRepairLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesDvRepairLine.create": mesDvRepairLineCreateSchema,
+  "cooliebase.cmd.mes.mesDvRepairLine.update": mesDvRepairLineUpdateSchema,
+  "cooliebase.cmd.mes.mesDvRepairLine.delete": z.object({ id: z.string() }),
   "mes.pageMesDvRepairLine": mesDvRepairLinePageQuerySchema,
   "mes.getMesDvRepairLine": z.object({ id: z.string() }),
   "mes.createMesDvRepairLine": mesDvRepairLineCreateSchema,

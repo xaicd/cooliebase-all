@@ -266,7 +266,7 @@ interface I18nContextType {
 
 const I18nContext = createContext<I18nContextType | null>(null)
 
-const LOCALE_STORAGE_KEY = "ruoyi_locale"
+const LOCALE_STORAGE_KEY = "cooliebase_locale"
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [locale, setLocaleState] = useState<LocaleCode>(DEFAULT_LOCALE)

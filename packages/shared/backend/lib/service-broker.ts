@@ -97,7 +97,7 @@ export function resetBroker() {
 function bindCommandResponders() {
   for (const service of listServices().filter((item) => item.local)) {
     const domain = service.name
-    natsSubscribe(`ruoyi.cmd.${domain}.>`, async (message) => {
+    natsSubscribe(`cooliebase.cmd.${domain}.>`, async (message) => {
       const method = message.subject.split(".").pop() ?? ""
       return invokeAction(domain, method, message.data)
     }, { queue: queueGroupFor(domain) })

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-category.validator"
 
 export const bpmCategoryActionSchemas = {
-  "ruoyi.cmd.bpm.bpmCategory.page": bpmCategoryPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmCategory.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmCategory.create": bpmCategoryCreateSchema,
-  "ruoyi.cmd.bpm.bpmCategory.update": bpmCategoryUpdateSchema,
-  "ruoyi.cmd.bpm.bpmCategory.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmCategory.page": bpmCategoryPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmCategory.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmCategory.create": bpmCategoryCreateSchema,
+  "cooliebase.cmd.bpm.bpmCategory.update": bpmCategoryUpdateSchema,
+  "cooliebase.cmd.bpm.bpmCategory.delete": z.object({ id: z.string() }),
   "bpm.pageBpmCategory": bpmCategoryPageQuerySchema,
   "bpm.getBpmCategory": z.object({ id: z.string() }),
   "bpm.createBpmCategory": bpmCategoryCreateSchema,

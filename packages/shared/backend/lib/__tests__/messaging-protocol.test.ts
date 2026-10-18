@@ -23,7 +23,7 @@ describe("messaging protocol constraints", () => {
       idempotencyKey: "idemp-1",
     })
     expect(envelope.subject).toBe(commandSubject("pay", "createOrder"))
-    expect(envelope.subject).toBe("ruoyi.cmd.pay.createOrder")
+    expect(envelope.subject).toBe("cooliebase.cmd.pay.createOrder")
     expect(envelope.queueGroup).toBe(queueGroupFor("pay"))
     expect(envelope.timeoutMs).toBe(5000)
     expect(encodeMessagingHeaders(envelope.headers)["x-idempotency-key"]).toBe("idemp-1")
@@ -49,10 +49,10 @@ describe("messaging protocol constraints", () => {
       traceId: "trace-2",
     })
     expect(envelope.subject).toBe(eventSubject("pay.order.paid"))
-    expect(envelope.subject).toBe("ruoyi.evt.pay.order.paid")
-    expect(matchSubject(envelope.subject, "ruoyi.evt.pay.>")).toBe(true)
+    expect(envelope.subject).toBe("cooliebase.evt.pay.order.paid")
+    expect(matchSubject(envelope.subject, "cooliebase.evt.pay.>")).toBe(true)
     expect(matchSubject(envelope.type, "pay.order.*")).toBe(true)
-    expect(matchSubject(envelope.subject, "ruoyi.evt.mall.>")).toBe(false)
+    expect(matchSubject(envelope.subject, "cooliebase.evt.mall.>")).toBe(false)
   })
 })
 
@@ -77,7 +77,7 @@ describe("service and event buses honor the protocol", () => {
       },
     })
     eventBus.subscribe({
-      pattern: "ruoyi.evt.pay.>",
+      pattern: "cooliebase.evt.pay.>",
       subscriber: "mall.nats",
       handler: async () => {
         seen.push("subject")
@@ -90,6 +90,6 @@ describe("service and event buses honor the protocol", () => {
     })
     expect(eventId).toMatch(/^evt-/)
     expect(seen).toEqual(["legacy", "subject"])
-    expect(eventBus.getEventLog(1)[0].subject).toBe("ruoyi.evt.pay.order.paid")
+    expect(eventBus.getEventLog(1)[0].subject).toBe("cooliebase.evt.pay.order.paid")
   })
 })

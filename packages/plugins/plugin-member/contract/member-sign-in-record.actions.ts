@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-sign-in-record.validator"
 
 export const memberSignInRecordActionSchemas = {
-  "ruoyi.cmd.member.memberSignInRecord.page": memberSignInRecordPageQuerySchema,
-  "ruoyi.cmd.member.memberSignInRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberSignInRecord.create": memberSignInRecordCreateSchema,
-  "ruoyi.cmd.member.memberSignInRecord.update": memberSignInRecordUpdateSchema,
-  "ruoyi.cmd.member.memberSignInRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberSignInRecord.page": memberSignInRecordPageQuerySchema,
+  "cooliebase.cmd.member.memberSignInRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberSignInRecord.create": memberSignInRecordCreateSchema,
+  "cooliebase.cmd.member.memberSignInRecord.update": memberSignInRecordUpdateSchema,
+  "cooliebase.cmd.member.memberSignInRecord.delete": z.object({ id: z.string() }),
   "member.pageMemberSignInRecord": memberSignInRecordPageQuerySchema,
   "member.getMemberSignInRecord": z.object({ id: z.string() }),
   "member.createMemberSignInRecord": memberSignInRecordCreateSchema,

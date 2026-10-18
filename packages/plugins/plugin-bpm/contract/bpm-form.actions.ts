@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-form.validator"
 
 export const bpmFormActionSchemas = {
-  "ruoyi.cmd.bpm.bpmForm.page": bpmFormPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmForm.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmForm.create": bpmFormCreateSchema,
-  "ruoyi.cmd.bpm.bpmForm.update": bpmFormUpdateSchema,
-  "ruoyi.cmd.bpm.bpmForm.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmForm.page": bpmFormPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmForm.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmForm.create": bpmFormCreateSchema,
+  "cooliebase.cmd.bpm.bpmForm.update": bpmFormUpdateSchema,
+  "cooliebase.cmd.bpm.bpmForm.delete": z.object({ id: z.string() }),
   "bpm.pageBpmForm": bpmFormPageQuerySchema,
   "bpm.getBpmForm": z.object({ id: z.string() }),
   "bpm.createBpmForm": bpmFormCreateSchema,

@@ -1,11 +1,11 @@
 {
-  "$schema": "ruoyi-plugin-manifest/v1",
-  "id": "ruoyi.mp",
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.mp",
   "apiVersion": 1,
   "version": "0.1.0",
   "displayName": "mp",
   "description": "mp 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
-  "author": "RuoYi All Next",
+  "author": "CoolieBase All Base",
   "categories": [
     "automation"
   ],
@@ -22,7 +22,7 @@
     "publicPrefixes": [
       "/api/v1/admin/mp"
     ],
-    "upstreamEnv": "RUOYI_DOMAIN_MP_UPSTREAM",
+    "upstreamEnv": "COOLIEBASE_DOMAIN_MP_UPSTREAM",
     "defaultPort": 3216,
     "packable": true,
     "independentDatabase": false,

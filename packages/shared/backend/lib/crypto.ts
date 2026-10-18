@@ -5,7 +5,7 @@ function md5(input: string): string {
 }
 
 /**
- * 双重 MD5 + Salt 密码加密（对标 RuoYi 原版）
+ * 双重 MD5 + Salt 密码加密（对标 CoolieBase 原版）
  * 算法: MD5(MD5(password) + salt)
  */
 export function hashPassword(password: string, salt: string): string {

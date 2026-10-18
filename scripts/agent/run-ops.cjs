@@ -12,9 +12,9 @@
  *   node scripts/agent/run-ops.cjs list                       # 列出可用动作
  *
  * 环境变量:
- *   RUOYI_AGENT_BASE_URL   默认 http://localhost:3200
- *   RUOYI_AGENT_USERNAME   默认 admin
- *   RUOYI_AGENT_PASSWORD   必填（不设则跳过鉴权，适合公开接口）
+ *   COOLIEBASE_AGENT_BASE_URL   默认 http://localhost:3200
+ *   COOLIEBASE_AGENT_USERNAME   默认 admin
+ *   COOLIEBASE_AGENT_PASSWORD   必填（不设则跳过鉴权，适合公开接口）
  */
 const fs = require("node:fs")
 const path = require("node:path")
@@ -22,9 +22,9 @@ const path = require("node:path")
 const ROOT = path.resolve(__dirname, "..", "..")
 const REGISTRY = path.join(ROOT, "docs", "agent", "contracts.json")
 
-const baseUrl = (process.env.RUOYI_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
-const username = process.env.RUOYI_AGENT_USERNAME || "admin"
-const password = process.env.RUOYI_AGENT_PASSWORD || ""
+const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
+const username = process.env.COOLIEBASE_AGENT_USERNAME || "admin"
+const password = process.env.COOLIEBASE_AGENT_PASSWORD || ""
 
 function loadRegistry() {
   if (!fs.existsSync(REGISTRY)) {
@@ -44,7 +44,7 @@ async function preflight() {
   } catch (error) {
     console.error(
       `[agent:ops] 连不上应用 ${baseUrl}\n` +
-        `  运营轨跑的是真实接口，需要应用在运行。先 \`npm run dev\`，或设置 RUOYI_AGENT_BASE_URL。\n` +
+        `  运营轨跑的是真实接口，需要应用在运行。先 \`npm run dev\`，或设置 COOLIEBASE_AGENT_BASE_URL。\n` +
         `  原始错误: ${error instanceof Error ? error.message : String(error)}`,
     )
     process.exit(2)

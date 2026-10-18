@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/mes
 upstream:
-  env: RUOYI_DOMAIN_MES_UPSTREAM
+  env: COOLIEBASE_DOMAIN_MES_UPSTREAM
   protocol: http
   defaultPort: 3222
 auth:

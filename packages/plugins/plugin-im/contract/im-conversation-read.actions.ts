@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-conversation-read.validator"
 
 export const imConversationReadActionSchemas = {
-  "ruoyi.cmd.im.imConversationRead.page": imConversationReadPageQuerySchema,
-  "ruoyi.cmd.im.imConversationRead.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imConversationRead.create": imConversationReadCreateSchema,
-  "ruoyi.cmd.im.imConversationRead.update": imConversationReadUpdateSchema,
-  "ruoyi.cmd.im.imConversationRead.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imConversationRead.page": imConversationReadPageQuerySchema,
+  "cooliebase.cmd.im.imConversationRead.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imConversationRead.create": imConversationReadCreateSchema,
+  "cooliebase.cmd.im.imConversationRead.update": imConversationReadUpdateSchema,
+  "cooliebase.cmd.im.imConversationRead.delete": z.object({ id: z.string() }),
   "im.pageImConversationRead": imConversationReadPageQuerySchema,
   "im.getImConversationRead": z.object({ id: z.string() }),
   "im.createImConversationRead": imConversationReadCreateSchema,

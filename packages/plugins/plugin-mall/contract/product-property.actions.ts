@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-property.validator"
 
 export const productPropertyActionSchemas = {
-  "ruoyi.cmd.mall.productProperty.page": productPropertyPageQuerySchema,
-  "ruoyi.cmd.mall.productProperty.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productProperty.create": productPropertyCreateSchema,
-  "ruoyi.cmd.mall.productProperty.update": productPropertyUpdateSchema,
-  "ruoyi.cmd.mall.productProperty.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productProperty.page": productPropertyPageQuerySchema,
+  "cooliebase.cmd.mall.productProperty.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productProperty.create": productPropertyCreateSchema,
+  "cooliebase.cmd.mall.productProperty.update": productPropertyUpdateSchema,
+  "cooliebase.cmd.mall.productProperty.delete": z.object({ id: z.string() }),
   "mall.pageProductProperty": productPropertyPageQuerySchema,
   "mall.getProductProperty": z.object({ id: z.string() }),
   "mall.createProductProperty": productPropertyCreateSchema,

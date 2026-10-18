@@ -1,10 +1,10 @@
-# ruoyi-all-next 架构总览
+# cooliebase-all-base 架构总览
 
 更新时间：2026-10-09
 
 ## 1. 项目定位与核心愿景
 
-`ruoyi-all-next` 是基于 Next.js 16 (React 19) 的企业级全栈应用平台与业务系统底座，从 RuoYi-Vue-Pro (Spring Boot) + yudao-ui-admin-vue3 全量迁移重构而来。
+`cooliebase-all-base` 是基于 Next.js 16 (React 19) 的企业级全栈应用平台与业务系统底座，从 CoolieBase-Vue-Pro (Spring Boot) + yudao-ui-admin-vue3 全量迁移重构而来。
 其不仅是支持单体向微服务平滑演进的企业中后台底座，更是专为 **AI Coding Agent 与 DigitalStaff NPC** 构建的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
 
 ## 2. 技术栈与运行时环境
@@ -24,7 +24,7 @@
 代码严格遵循 `packages/` 工作区与 BFF 分层组织，**严禁在 `src/` 下新建平铺业务模块**：
 
 ```
-ruoyi-all-next/
+cooliebase-all-base/
 ├── packages/
 │   ├── shared/                       # 核心公共基座 SDK（永远是 SDK，严禁当作微服务）
 │   │   ├── backend/
@@ -60,7 +60,7 @@ ruoyi-all-next/
 ├── clients/expo/                     # 跨端移动应用渠道
 ├── docs/                             # 架构方案、8 要素 Brief、交付资产规范
 ├── scripts/                          # 脚手架与门禁（scaffold, project-init, check, hatch）
-└── data/                             # 真实本地数据库存储（data/ruoyi.db）
+└── data/                             # 真实本地数据库存储（data/cooliebase.db）
 ```
 
 ## 4. 架构分层拓扑
@@ -118,7 +118,7 @@ ruoyi-all-next/
 ### 阶段 B：可拆分单体（第一方插件独立打包部署）
 - 每个插件域具备独立的 `plugin.manifest.json` 与 `contract/route.manifest.yaml`；
 - 通过 `npm run domain:pack <domain>` 产出 API-only 独立子服务容器；
-- BFF 反向代理通过 `RUOYI_DOMAIN_<DOMAIN>_UPSTREAM` 自动反代至独立进程；
+- BFF 反向代理通过 `COOLIEBASE_DOMAIN_<DOMAIN>_UPSTREAM` 自动反代至独立进程；
 - 对前端暴露的 API 契约与 DTO 100% 保持一致，调用方无感。
 
 ### 阶段 C：独立微服务（跨语言平滑迁移）

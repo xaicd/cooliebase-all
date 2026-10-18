@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-pro-feedback.validator"
 
 export const mesProFeedbackActionSchemas = {
-  "ruoyi.cmd.mes.mesProFeedback.page": mesProFeedbackPageQuerySchema,
-  "ruoyi.cmd.mes.mesProFeedback.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesProFeedback.create": mesProFeedbackCreateSchema,
-  "ruoyi.cmd.mes.mesProFeedback.update": mesProFeedbackUpdateSchema,
-  "ruoyi.cmd.mes.mesProFeedback.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProFeedback.page": mesProFeedbackPageQuerySchema,
+  "cooliebase.cmd.mes.mesProFeedback.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesProFeedback.create": mesProFeedbackCreateSchema,
+  "cooliebase.cmd.mes.mesProFeedback.update": mesProFeedbackUpdateSchema,
+  "cooliebase.cmd.mes.mesProFeedback.delete": z.object({ id: z.string() }),
   "mes.pageMesProFeedback": mesProFeedbackPageQuerySchema,
   "mes.getMesProFeedback": z.object({ id: z.string() }),
   "mes.createMesProFeedback": mesProFeedbackCreateSchema,

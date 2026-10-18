@@ -109,8 +109,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -332,8 +332,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -609,8 +609,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -904,8 +904,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -1199,8 +1199,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -1512,8 +1512,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -1753,8 +1753,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -2012,8 +2012,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -2262,8 +2262,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -2503,8 +2503,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -2771,8 +2771,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -3093,8 +3093,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -3298,8 +3298,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -3521,8 +3521,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -3816,8 +3816,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -4039,8 +4039,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -4262,8 +4262,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -4512,8 +4512,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -4951,8 +4951,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -5156,8 +5156,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -5424,8 +5424,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -5656,8 +5656,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -5870,8 +5870,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -6183,8 +6183,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -6415,8 +6415,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -6629,8 +6629,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -6825,8 +6825,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -7174,8 +7174,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -7514,8 +7514,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -7710,8 +7710,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -8041,8 +8041,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -8237,8 +8237,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -8469,8 +8469,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -8827,8 +8827,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -9050,8 +9050,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -9273,8 +9273,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -9532,8 +9532,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -9746,8 +9746,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -10077,8 +10077,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -10291,8 +10291,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -10541,8 +10541,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -10737,8 +10737,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -11014,8 +11014,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -11291,8 +11291,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -11523,8 +11523,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -11827,8 +11827,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -12095,8 +12095,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -12345,8 +12345,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -12613,8 +12613,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -12863,8 +12863,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -13149,8 +13149,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -13372,8 +13372,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -13568,8 +13568,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -13899,8 +13899,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -14176,8 +14176,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -14498,8 +14498,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -14775,8 +14775,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -15106,8 +15106,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -15383,8 +15383,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -15714,8 +15714,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -15991,8 +15991,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -16331,8 +16331,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -16608,8 +16608,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -16948,8 +16948,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -17225,8 +17225,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -17430,8 +17430,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -17671,8 +17671,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -17939,8 +17939,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -18189,8 +18189,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -18439,8 +18439,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -18680,8 +18680,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -18939,8 +18939,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -19189,8 +19189,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -19439,8 +19439,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -19689,8 +19689,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -19993,8 +19993,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -20252,8 +20252,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -20475,8 +20475,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -20716,8 +20716,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -20948,8 +20948,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -21171,8 +21171,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -21385,8 +21385,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -21626,8 +21626,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -21858,8 +21858,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -22126,8 +22126,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -22376,8 +22376,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -22662,8 +22662,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -22948,8 +22948,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -23225,8 +23225,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -23484,8 +23484,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -23734,8 +23734,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -24002,8 +24002,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -24252,8 +24252,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -24450,8 +24450,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -24636,8 +24636,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -24904,8 +24904,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -25163,8 +25163,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -25422,8 +25422,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -25645,8 +25645,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -25985,8 +25985,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -26190,8 +26190,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -26458,8 +26458,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -26744,8 +26744,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -26994,8 +26994,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -27235,8 +27235,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -27476,8 +27476,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -27771,8 +27771,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -27985,8 +27985,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -28388,8 +28388,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -28647,8 +28647,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -29077,8 +29077,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -29318,8 +29318,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -29604,8 +29604,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -29818,8 +29818,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -30068,8 +30068,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -30381,8 +30381,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -30595,8 +30595,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -30854,8 +30854,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -31140,8 +31140,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -31372,8 +31372,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -31712,8 +31712,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -31935,8 +31935,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -32203,8 +32203,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -32444,8 +32444,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -32793,8 +32793,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -33115,8 +33115,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -33473,8 +33473,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -33696,8 +33696,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -33901,8 +33901,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -34142,8 +34142,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -34356,8 +34356,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -34642,8 +34642,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -34865,8 +34865,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -35133,8 +35133,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -35356,8 +35356,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -35588,8 +35588,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -35838,8 +35838,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -36088,8 +36088,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -36320,8 +36320,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -36570,8 +36570,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -36793,8 +36793,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -36998,8 +36998,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -37221,8 +37221,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -37588,8 +37588,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -37784,8 +37784,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -37980,8 +37980,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -38185,8 +38185,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -38516,8 +38516,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -38892,8 +38892,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -39178,8 +39178,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -39482,8 +39482,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -39768,8 +39768,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -39991,8 +39991,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -40250,8 +40250,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -40563,8 +40563,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -41209,8 +41209,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -41621,8 +41621,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -41862,8 +41862,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -42148,8 +42148,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -42380,8 +42380,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -42594,8 +42594,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -42835,8 +42835,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -43040,8 +43040,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -43281,8 +43281,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -43531,8 +43531,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -43772,8 +43772,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -43986,8 +43986,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -44200,8 +44200,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -44387,8 +44387,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -44745,8 +44745,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -44950,8 +44950,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -45218,8 +45218,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -45450,8 +45450,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -45655,8 +45655,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -45869,8 +45869,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -46074,8 +46074,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -46306,8 +46306,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -46565,8 +46565,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -46770,8 +46770,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -46975,8 +46975,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -47207,8 +47207,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -47430,8 +47430,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -47698,8 +47698,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -47930,8 +47930,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -48162,8 +48162,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -48385,8 +48385,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -48689,8 +48689,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -48921,8 +48921,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -49162,8 +49162,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -49439,8 +49439,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -49653,8 +49653,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -49912,8 +49912,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -50270,8 +50270,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -50556,8 +50556,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -50869,8 +50869,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -51110,8 +51110,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -51333,8 +51333,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -51574,8 +51574,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -51815,8 +51815,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -52056,8 +52056,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -52423,8 +52423,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -52655,8 +52655,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -52923,8 +52923,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -53137,8 +53137,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -53351,8 +53351,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -53565,8 +53565,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -53788,8 +53788,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -54065,8 +54065,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -54306,8 +54306,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -54592,8 +54592,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -54986,8 +54986,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -55209,8 +55209,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -55450,8 +55450,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -55673,8 +55673,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -55950,8 +55950,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -56182,8 +56182,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -56414,8 +56414,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -56781,8 +56781,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -57085,8 +57085,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -57434,8 +57434,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -57648,8 +57648,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -57880,8 +57880,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -58094,8 +58094,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -58317,8 +58317,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -58558,8 +58558,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -58799,8 +58799,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -59031,8 +59031,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -59245,8 +59245,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -59693,8 +59693,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -59979,8 +59979,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -60391,8 +60391,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -60677,8 +60677,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -61107,8 +61107,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -61393,8 +61393,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -61787,8 +61787,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -62073,8 +62073,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -62296,8 +62296,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -62555,8 +62555,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -62805,8 +62805,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -63091,8 +63091,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -63323,8 +63323,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -63582,8 +63582,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -63823,8 +63823,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -64082,8 +64082,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -64332,8 +64332,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -64663,8 +64663,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -64913,8 +64913,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -65190,8 +65190,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -65422,8 +65422,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -65681,8 +65681,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -65940,8 +65940,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -66208,8 +66208,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -66485,8 +66485,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -66744,8 +66744,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -67021,8 +67021,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -67298,8 +67298,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -67557,8 +67557,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -67816,8 +67816,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -68066,8 +68066,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -68307,8 +68307,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -68575,8 +68575,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -68807,8 +68807,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -69048,8 +69048,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -69307,8 +69307,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -69593,8 +69593,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -69915,8 +69915,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -70156,8 +70156,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -70415,8 +70415,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -70692,8 +70692,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -70915,8 +70915,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -71165,8 +71165,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -71433,8 +71433,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -71701,8 +71701,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -71942,8 +71942,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -72201,8 +72201,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -72442,8 +72442,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -72737,8 +72737,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -73014,8 +73014,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -73291,8 +73291,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -73541,8 +73541,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -73818,8 +73818,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -74086,8 +74086,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -74336,8 +74336,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -74604,8 +74604,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -74863,8 +74863,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -75131,8 +75131,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -75408,8 +75408,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -75640,8 +75640,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -75908,8 +75908,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -76149,8 +76149,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -76372,8 +76372,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -76631,8 +76631,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -76863,8 +76863,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -77149,8 +77149,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -77435,8 +77435,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -77721,8 +77721,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -78052,8 +78052,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -78347,8 +78347,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -78606,8 +78606,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -78865,8 +78865,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -79106,8 +79106,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -79401,8 +79401,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -79633,8 +79633,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -79883,8 +79883,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -80214,8 +80214,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -80482,8 +80482,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -80849,8 +80849,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -81294,8 +81294,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -81544,8 +81544,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -81767,8 +81767,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -82080,8 +82080,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -82321,8 +82321,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -82553,8 +82553,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -82830,8 +82830,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -83098,8 +83098,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -83312,8 +83312,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -83598,8 +83598,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -83965,8 +83965,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -84233,8 +84233,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -84609,8 +84609,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -84976,8 +84976,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -85208,8 +85208,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -85521,8 +85521,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -85735,8 +85735,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -85976,8 +85976,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",
@@ -86203,8 +86203,8 @@
           "http": "POST",
           "path": "/api/v1/admin/system/auth",
           "payload": {
-            "username": "$RUOYI_AGENT_USERNAME",
-            "password": "$RUOYI_AGENT_PASSWORD"
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
           }
         },
         "tokenField": "data.token",

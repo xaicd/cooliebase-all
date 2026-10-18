@@ -39,7 +39,7 @@ function currentTenantId(): string | undefined {
   return undefined
 }
 
-// === 内存存储（对标 ruoyi-vue-pro 种子数据） ===
+// === 内存存储（对标 cooliebase-vue-pro 种子数据） ===
 const MEMORY_STORE: SystemDeptRow[] = [...SEED_DEPTS]
 
 let memoryIdSeq = 200

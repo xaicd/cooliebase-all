@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-workstation.validator"
 
 export const mesMdWorkstationActionSchemas = {
-  "ruoyi.cmd.mes.mesMdWorkstation.page": mesMdWorkstationPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdWorkstation.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdWorkstation.create": mesMdWorkstationCreateSchema,
-  "ruoyi.cmd.mes.mesMdWorkstation.update": mesMdWorkstationUpdateSchema,
-  "ruoyi.cmd.mes.mesMdWorkstation.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdWorkstation.page": mesMdWorkstationPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdWorkstation.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdWorkstation.create": mesMdWorkstationCreateSchema,
+  "cooliebase.cmd.mes.mesMdWorkstation.update": mesMdWorkstationUpdateSchema,
+  "cooliebase.cmd.mes.mesMdWorkstation.delete": z.object({ id: z.string() }),
   "mes.pageMesMdWorkstation": mesMdWorkstationPageQuerySchema,
   "mes.getMesMdWorkstation": z.object({ id: z.string() }),
   "mes.createMesMdWorkstation": mesMdWorkstationCreateSchema,

@@ -1,7 +1,7 @@
 # yudao-boot-mini 核心基础设施全量扫描
 
 - 生成时间: 2026-08-02T09:28:14.102Z
-- 目标仓: ruoyi/yudao-boot-mini
+- 目标仓: cooliebase/yudao-boot-mini
 
 ## Framework Starters
 
@@ -185,6 +185,6 @@
 
 ## 结论
 
-1. 该扫描专门针对 yudao-boot-mini，避免和 ruoyi-vue-pro 口径混淆。
+1. 该扫描专门针对 yudao-boot-mini，避免和 cooliebase-vue-pro 口径混淆。
 2. 核心能力主轴是 framework starters + system + infra。
 3. 迁移时应优先复刻 starter 能力，再映射 system/infra API。

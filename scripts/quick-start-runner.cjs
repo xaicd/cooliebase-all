@@ -1,5 +1,5 @@
 /**
- * ruoyi-all-next 跨平台快速启动脚本
+ * cooliebase-all-base 跨平台快速启动脚本
  * 用法: node scripts/quick-start-runner.cjs [mode]
  * mode: local(默认) | docker
  */
@@ -36,7 +36,7 @@ function fileExists(p) {
 
 console.log("")
 console.log("  ╔══════════════════════════════════════╗")
-console.log("  ║     ruoyi-all-next Quick Start       ║")
+console.log("  ║     cooliebase-all-base Quick Start       ║")
 console.log(`  ║     Mode: ${mode.padEnd(26)}║`)
 console.log("  ╚══════════════════════════════════════╝")
 console.log("")
@@ -75,10 +75,10 @@ if (!fileExists("node_modules")) {
 log("STEP", "3/5 配置环境...")
 if (!fileExists(".env.local")) {
   const envContent = [
-    "# ruoyi-all-next 本地开发配置（自动生成）",
+    "# cooliebase-all-base 本地开发配置（自动生成）",
     "DB_DRIVER=memory",
     "DATABASE_URL=file:./dev.db",
-    "JWT_SECRET=ruoyi-all-next-dev-secret-key-2026",
+    "JWT_SECRET=cooliebase-all-base-dev-secret-key-2026",
     "JWT_EXPIRES_IN=86400",
   ].join("\n")
   fs.writeFileSync(path.join(ROOT, ".env.local"), envContent)

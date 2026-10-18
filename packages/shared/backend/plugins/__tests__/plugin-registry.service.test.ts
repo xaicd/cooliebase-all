@@ -22,7 +22,7 @@ function writePackage(root: string, dirName: string, pluginId: string): string {
     path.join(packageDir, "package.json"),
     JSON.stringify({
       name: `@itest/${dirName}`,
-      ruoyiPlugin: { manifest: "./plugin.manifest.json", worker: "./dist/worker.js" },
+      cooliebasePlugin: { manifest: "./plugin.manifest.json", worker: "./dist/worker.js" },
     }),
   )
   fs.writeFileSync(
@@ -59,7 +59,7 @@ describeWithDatabase("PluginRegistryService", () => {
   let root: string
 
   beforeEach(() => {
-    root = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-plugin-sync-"))
+    root = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-plugin-sync-"))
   })
 
   afterEach(async () => {

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-misc-issue-line.validator"
 
 export const mesWmMiscIssueLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmMiscIssueLine.page": mesWmMiscIssueLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmMiscIssueLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmMiscIssueLine.create": mesWmMiscIssueLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmMiscIssueLine.update": mesWmMiscIssueLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmMiscIssueLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscIssueLine.page": mesWmMiscIssueLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmMiscIssueLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmMiscIssueLine.create": mesWmMiscIssueLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmMiscIssueLine.update": mesWmMiscIssueLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmMiscIssueLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmMiscIssueLine": mesWmMiscIssueLinePageQuerySchema,
   "mes.getMesWmMiscIssueLine": z.object({ id: z.string() }),
   "mes.createMesWmMiscIssueLine": mesWmMiscIssueLineCreateSchema,

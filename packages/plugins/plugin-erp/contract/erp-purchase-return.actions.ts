@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-purchase-return.validator"
 
 export const erpPurchaseReturnActionSchemas = {
-  "ruoyi.cmd.erp.erpPurchaseReturn.page": erpPurchaseReturnPageQuerySchema,
-  "ruoyi.cmd.erp.erpPurchaseReturn.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpPurchaseReturn.create": erpPurchaseReturnCreateSchema,
-  "ruoyi.cmd.erp.erpPurchaseReturn.update": erpPurchaseReturnUpdateSchema,
-  "ruoyi.cmd.erp.erpPurchaseReturn.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseReturn.page": erpPurchaseReturnPageQuerySchema,
+  "cooliebase.cmd.erp.erpPurchaseReturn.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseReturn.create": erpPurchaseReturnCreateSchema,
+  "cooliebase.cmd.erp.erpPurchaseReturn.update": erpPurchaseReturnUpdateSchema,
+  "cooliebase.cmd.erp.erpPurchaseReturn.delete": z.object({ id: z.string() }),
   "erp.pageErpPurchaseReturn": erpPurchaseReturnPageQuerySchema,
   "erp.getErpPurchaseReturn": z.object({ id: z.string() }),
   "erp.createErpPurchaseReturn": erpPurchaseReturnCreateSchema,

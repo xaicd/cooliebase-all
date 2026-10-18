@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/report
 upstream:
-  env: RUOYI_DOMAIN_REPORT_UPSTREAM
+  env: COOLIEBASE_DOMAIN_REPORT_UPSTREAM
   protocol: http
   defaultPort: 3215
 auth:

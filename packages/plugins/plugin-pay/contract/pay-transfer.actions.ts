@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-transfer.validator"
 
 export const payTransferActionSchemas = {
-  "ruoyi.cmd.pay.payTransfer.page": payTransferPageQuerySchema,
-  "ruoyi.cmd.pay.payTransfer.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payTransfer.create": payTransferCreateSchema,
-  "ruoyi.cmd.pay.payTransfer.update": payTransferUpdateSchema,
-  "ruoyi.cmd.pay.payTransfer.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payTransfer.page": payTransferPageQuerySchema,
+  "cooliebase.cmd.pay.payTransfer.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payTransfer.create": payTransferCreateSchema,
+  "cooliebase.cmd.pay.payTransfer.update": payTransferUpdateSchema,
+  "cooliebase.cmd.pay.payTransfer.delete": z.object({ id: z.string() }),
   "pay.pagePayTransfer": payTransferPageQuerySchema,
   "pay.getPayTransfer": z.object({ id: z.string() }),
   "pay.createPayTransfer": payTransferCreateSchema,

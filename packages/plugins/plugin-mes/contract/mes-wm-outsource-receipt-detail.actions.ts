@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-outsource-receipt-detail.validator"
 
 export const mesWmOutsourceReceiptDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptDetail.page": mesWmOutsourceReceiptDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptDetail.create": mesWmOutsourceReceiptDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptDetail.update": mesWmOutsourceReceiptDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceReceiptDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptDetail.page": mesWmOutsourceReceiptDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptDetail.create": mesWmOutsourceReceiptDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptDetail.update": mesWmOutsourceReceiptDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceReceiptDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmOutsourceReceiptDetail": mesWmOutsourceReceiptDetailPageQuerySchema,
   "mes.getMesWmOutsourceReceiptDetail": z.object({ id: z.string() }),
   "mes.createMesWmOutsourceReceiptDetail": mesWmOutsourceReceiptDetailCreateSchema,

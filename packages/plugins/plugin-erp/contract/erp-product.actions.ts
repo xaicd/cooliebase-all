@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-product.validator"
 
 export const erpProductActionSchemas = {
-  "ruoyi.cmd.erp.erpProduct.page": erpProductPageQuerySchema,
-  "ruoyi.cmd.erp.erpProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpProduct.create": erpProductCreateSchema,
-  "ruoyi.cmd.erp.erpProduct.update": erpProductUpdateSchema,
-  "ruoyi.cmd.erp.erpProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProduct.page": erpProductPageQuerySchema,
+  "cooliebase.cmd.erp.erpProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpProduct.create": erpProductCreateSchema,
+  "cooliebase.cmd.erp.erpProduct.update": erpProductUpdateSchema,
+  "cooliebase.cmd.erp.erpProduct.delete": z.object({ id: z.string() }),
   "erp.pageErpProduct": erpProductPageQuerySchema,
   "erp.getErpProduct": z.object({ id: z.string() }),
   "erp.createErpProduct": erpProductCreateSchema,

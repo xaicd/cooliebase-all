@@ -45,7 +45,7 @@ function walk(dir) {
   for (const entry of entries) {
     const full = path.join(dir, entry.name)
     if (entry.isDirectory()) {
-      if (entry.name === "node_modules" || entry.name === ".next-ruoyi") continue
+      if (entry.name === "node_modules" || entry.name === ".next-cooliebase") continue
       walk(full)
     } else if (entry.name.endsWith(".ts") || entry.name.endsWith(".tsx")) {
       let content = fs.readFileSync(full, "utf-8")

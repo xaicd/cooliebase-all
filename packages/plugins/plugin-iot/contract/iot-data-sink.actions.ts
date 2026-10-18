@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-data-sink.validator"
 
 export const iotDataSinkActionSchemas = {
-  "ruoyi.cmd.iot.iotDataSink.page": iotDataSinkPageQuerySchema,
-  "ruoyi.cmd.iot.iotDataSink.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotDataSink.create": iotDataSinkCreateSchema,
-  "ruoyi.cmd.iot.iotDataSink.update": iotDataSinkUpdateSchema,
-  "ruoyi.cmd.iot.iotDataSink.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDataSink.page": iotDataSinkPageQuerySchema,
+  "cooliebase.cmd.iot.iotDataSink.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotDataSink.create": iotDataSinkCreateSchema,
+  "cooliebase.cmd.iot.iotDataSink.update": iotDataSinkUpdateSchema,
+  "cooliebase.cmd.iot.iotDataSink.delete": z.object({ id: z.string() }),
   "iot.pageIotDataSink": iotDataSinkPageQuerySchema,
   "iot.getIotDataSink": z.object({ id: z.string() }),
   "iot.createIotDataSink": iotDataSinkCreateSchema,

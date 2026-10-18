@@ -1,16 +1,16 @@
-# ruoyi-all-next 全量能力同步矩阵（来自 ruoyi 目录）
+# cooliebase-all-base 全量能力同步矩阵（来自 cooliebase 目录）
 
 更新时间：2026-08-06
 
 ## 1. 目标与口径
 
-目标：ruoyi 目录下两套项目能力要完整迁移到 ruoyi-all-next，不做遗漏。
+目标：cooliebase 目录下两套项目能力要完整迁移到 cooliebase-all-base，不做遗漏。
 
 能力来源：
 
-1. 后端模块来源：`apps/ruoyi/ruoyi-vue-pro/yudao-module-*`
-2. 前端域来源：`apps/ruoyi/yudao-ui-admin-vue3/src/views/*` 与 `src/api/*`
-3. 功能定义来源：`apps/ruoyi/ruoyi-vue-pro/README.md`、`apps/ruoyi/yudao-ui-admin-vue3/README.md`
+1. 后端模块来源：`apps/cooliebase/cooliebase-vue-pro/yudao-module-*`
+2. 前端域来源：`apps/cooliebase/yudao-ui-admin-vue3/src/views/*` 与 `src/api/*`
+3. 功能定义来源：`apps/cooliebase/cooliebase-vue-pro/README.md`、`apps/cooliebase/yudao-ui-admin-vue3/README.md`
 
 同步判定标准（六要素）：
 
@@ -45,21 +45,21 @@
 
 模块证据路径：
 
-1. `apps/ruoyi/ruoyi-vue-pro/yudao-module-system`
-2. `apps/ruoyi/ruoyi-vue-pro/yudao-module-infra`
-3. `apps/ruoyi/ruoyi-vue-pro/yudao-module-bpm`
-4. `apps/ruoyi/ruoyi-vue-pro/yudao-module-pay`
-5. `apps/ruoyi/ruoyi-vue-pro/yudao-module-report`
-6. `apps/ruoyi/ruoyi-vue-pro/yudao-module-mp`
-7. `apps/ruoyi/ruoyi-vue-pro/yudao-module-mall`
-8. `apps/ruoyi/ruoyi-vue-pro/yudao-module-member`
-9. `apps/ruoyi/ruoyi-vue-pro/yudao-module-crm`
-10. `apps/ruoyi/ruoyi-vue-pro/yudao-module-erp`
-11. `apps/ruoyi/ruoyi-vue-pro/yudao-module-wms`
-12. `apps/ruoyi/ruoyi-vue-pro/yudao-module-mes`
-13. `apps/ruoyi/ruoyi-vue-pro/yudao-module-ai`
-14. `apps/ruoyi/ruoyi-vue-pro/yudao-module-iot`
-15. `apps/ruoyi/ruoyi-vue-pro/yudao-module-im`
+1. `apps/cooliebase/cooliebase-vue-pro/yudao-module-system`
+2. `apps/cooliebase/cooliebase-vue-pro/yudao-module-infra`
+3. `apps/cooliebase/cooliebase-vue-pro/yudao-module-bpm`
+4. `apps/cooliebase/cooliebase-vue-pro/yudao-module-pay`
+5. `apps/cooliebase/cooliebase-vue-pro/yudao-module-report`
+6. `apps/cooliebase/cooliebase-vue-pro/yudao-module-mp`
+7. `apps/cooliebase/cooliebase-vue-pro/yudao-module-mall`
+8. `apps/cooliebase/cooliebase-vue-pro/yudao-module-member`
+9. `apps/cooliebase/cooliebase-vue-pro/yudao-module-crm`
+10. `apps/cooliebase/cooliebase-vue-pro/yudao-module-erp`
+11. `apps/cooliebase/cooliebase-vue-pro/yudao-module-wms`
+12. `apps/cooliebase/cooliebase-vue-pro/yudao-module-mes`
+13. `apps/cooliebase/cooliebase-vue-pro/yudao-module-ai`
+14. `apps/cooliebase/cooliebase-vue-pro/yudao-module-iot`
+15. `apps/cooliebase/cooliebase-vue-pro/yudao-module-im`
 
 ## 3. 已识别域总览（前端）
 
@@ -106,10 +106,10 @@
 
 证据路径：
 
-1. `apps/ruoyi/yudao-ui-admin-vue3/src/views`
-2. `apps/ruoyi/yudao-ui-admin-vue3/src/api`
+1. `apps/cooliebase/yudao-ui-admin-vue3/src/views`
+2. `apps/cooliebase/yudao-ui-admin-vue3/src/api`
 
-## 4. ruoyi-all-next 能力同步清单
+## 4. cooliebase-all-base 能力同步清单
 
 状态说明：
 
@@ -179,6 +179,6 @@
 
 ## 7. 当前结论
 
-1. 你提的“ruoyi 目录能力都要同步”是正确方向。
+1. 你提的“cooliebase 目录能力都要同步”是正确方向。
 2. 已完成“全量域识别 + 同步矩阵”落盘。
 3. 下一步应先把 P0 的 system/infra 做成可运行闭环，再推进其它 13 个域。

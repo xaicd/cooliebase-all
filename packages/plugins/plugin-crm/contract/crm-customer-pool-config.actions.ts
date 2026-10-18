@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-customer-pool-config.validator"
 
 export const crmCustomerPoolConfigActionSchemas = {
-  "ruoyi.cmd.crm.crmCustomerPoolConfig.page": crmCustomerPoolConfigPageQuerySchema,
-  "ruoyi.cmd.crm.crmCustomerPoolConfig.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmCustomerPoolConfig.create": crmCustomerPoolConfigCreateSchema,
-  "ruoyi.cmd.crm.crmCustomerPoolConfig.update": crmCustomerPoolConfigUpdateSchema,
-  "ruoyi.cmd.crm.crmCustomerPoolConfig.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomerPoolConfig.page": crmCustomerPoolConfigPageQuerySchema,
+  "cooliebase.cmd.crm.crmCustomerPoolConfig.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomerPoolConfig.create": crmCustomerPoolConfigCreateSchema,
+  "cooliebase.cmd.crm.crmCustomerPoolConfig.update": crmCustomerPoolConfigUpdateSchema,
+  "cooliebase.cmd.crm.crmCustomerPoolConfig.delete": z.object({ id: z.string() }),
   "crm.pageCrmCustomerPoolConfig": crmCustomerPoolConfigPageQuerySchema,
   "crm.getCrmCustomerPoolConfig": z.object({ id: z.string() }),
   "crm.createCrmCustomerPoolConfig": crmCustomerPoolConfigCreateSchema,

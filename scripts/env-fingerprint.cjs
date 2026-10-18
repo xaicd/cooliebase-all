@@ -9,7 +9,7 @@
  * 指纹覆盖三样，缺一不可:
  *   1. **来源**: git commit + 是否脏（脏树意味着"测的不是提交里的东西"）
  *   2. **依赖**: pnpm-lock.yaml 的内容哈希（依赖漂了=同一份 commit 也不是同一个制品）
- *   3. **产物**: 构建输出（.next-ruoyi/standalone）的内容哈希 —— 这才是真正上线的东西
+ *   3. **产物**: 构建输出（.next-cooliebase/standalone）的内容哈希 —— 这才是真正上线的东西
  *
  * 用法:
  *   node scripts/env-fingerprint.cjs --write    # 测试通过后盖章
@@ -23,7 +23,7 @@ const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
 const ARTIFACT = path.join(ROOT, "docs", "architecture", "artifacts", "env-fingerprint.json")
-const BUILD_DIR = path.join(ROOT, ".next-ruoyi", "standalone")
+const BUILD_DIR = path.join(ROOT, ".next-cooliebase", "standalone")
 
 const git = (args) => {
   try {

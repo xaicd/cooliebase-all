@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-item-consume.validator"
 
 export const mesWmItemConsumeActionSchemas = {
-  "ruoyi.cmd.mes.mesWmItemConsume.page": mesWmItemConsumePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmItemConsume.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmItemConsume.create": mesWmItemConsumeCreateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsume.update": mesWmItemConsumeUpdateSchema,
-  "ruoyi.cmd.mes.mesWmItemConsume.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsume.page": mesWmItemConsumePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmItemConsume.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmItemConsume.create": mesWmItemConsumeCreateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsume.update": mesWmItemConsumeUpdateSchema,
+  "cooliebase.cmd.mes.mesWmItemConsume.delete": z.object({ id: z.string() }),
   "mes.pageMesWmItemConsume": mesWmItemConsumePageQuerySchema,
   "mes.getMesWmItemConsume": z.object({ id: z.string() }),
   "mes.createMesWmItemConsume": mesWmItemConsumeCreateSchema,

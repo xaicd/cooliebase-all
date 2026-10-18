@@ -85,7 +85,7 @@ if (!rpcProtocolSource.includes("resolveInvokeMode") || !rpcProtocolSource.inclu
 
 const grpcPath = path.join(ROOT, "packages", "shared", "backend", "lib", "grpc-fabric.ts")
 const grpcSource = fs.readFileSync(grpcPath, "utf8")
-if (!grpcSource.includes("grpcUnary") || !grpcSource.includes("/ruoyi.")) fail("grpc-fabric.ts must implement in-house unary paths")
+if (!grpcSource.includes("grpcUnary") || !grpcSource.includes("/cooliebase.")) fail("grpc-fabric.ts must implement in-house unary paths")
 
 const hasDomain = (name) => domainCatalog.domains.some((item) => item.name === name)
 

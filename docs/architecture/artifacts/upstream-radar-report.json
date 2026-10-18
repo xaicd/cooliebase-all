@@ -11,7 +11,7 @@
   "projects": [
     {
       "id": "yudao-cloud",
-      "name": "yudao-cloud / ruoyi-vue-pro",
+      "name": "yudao-cloud / cooliebase-vue-pro",
       "category": "domain_contract",
       "organization": "芋道源码 (Yunai)",
       "repository": "https://gitee.com/zhijiantianya/yudao-cloud.git",
@@ -28,11 +28,11 @@
       "status": "SYNCED"
     },
     {
-      "id": "ruoyi-vue",
-      "name": "RuoYi-Vue",
+      "id": "cooliebase-vue",
+      "name": "CoolieBase-Vue",
       "category": "domain_contract",
       "organization": "若依官方 (Yangzheart)",
-      "repository": "https://gitee.com/y_project/RuoYi-Vue.git",
+      "repository": "https://gitee.com/y_project/CoolieBase-Vue.git",
       "localVersion": "N/A (架构参考/无直接依赖)",
       "focusAreas": [
         "RBAC 权限码命名体系 (system:user:query/edit)",

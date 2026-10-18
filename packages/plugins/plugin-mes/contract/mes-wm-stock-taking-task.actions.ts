@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-stock-taking-task.validator"
 
 export const mesWmStockTakingTaskActionSchemas = {
-  "ruoyi.cmd.mes.mesWmStockTakingTask.page": mesWmStockTakingTaskPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTask.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmStockTakingTask.create": mesWmStockTakingTaskCreateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTask.update": mesWmStockTakingTaskUpdateSchema,
-  "ruoyi.cmd.mes.mesWmStockTakingTask.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTask.page": mesWmStockTakingTaskPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTask.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmStockTakingTask.create": mesWmStockTakingTaskCreateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTask.update": mesWmStockTakingTaskUpdateSchema,
+  "cooliebase.cmd.mes.mesWmStockTakingTask.delete": z.object({ id: z.string() }),
   "mes.pageMesWmStockTakingTask": mesWmStockTakingTaskPageQuerySchema,
   "mes.getMesWmStockTakingTask": z.object({ id: z.string() }),
   "mes.createMesWmStockTakingTask": mesWmStockTakingTaskCreateSchema,

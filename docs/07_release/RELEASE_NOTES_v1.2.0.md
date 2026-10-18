@@ -1,6 +1,6 @@
 # 版本发布说明书 (Release Notes: v1.2.0)
 
-- **受控编号**: `RUOYI-REL-2026-v1.2.0`
+- **受控编号**: `COOLIEBASE-REL-2026-v1.2.0`
 - **基线版本**: `v1.2.0` (Git Tag: `v1.2.0`)
 - **发布日期**: 2026-10-10
 - **密级标识**: 内部公开 (Public Internal)
@@ -28,8 +28,8 @@
   - 彻底终结单 Agent 长会话上下文污染与“自圆其说”代码自辩偏见（Cognitive Bias）；
   - 每个执行步骤分配在独立的 Fresh Session 中运行（`@wf-planner`、`@wf-architect`、`@wf-coder`、`@wf-tester`、`@wf-reviewer`、`@wf-security`）。
 - **统一真源与双轨生态兼容**：
-  - 工作流配方物理单一真源存放在 [`.agents/workflows/`](file:///host-workspace/xaicd/ruoyi-all-next/.agents/workflows)；
-  - 根目录设立符号链接 [`.kiro/workflows`](file:///host-workspace/xaicd/ruoyi-all-next/.kiro/workflows) 桥接，兼顾 Kiro IDE 原生 `/workflow run` 与 Antigravity / DeepSeek Harness / CLI 通用驱动；
+  - 工作流配方物理单一真源存放在 [`.agents/workflows/`](file:///host-workspace/xaicd/cooliebase-all-base/.agents/workflows)；
+  - 根目录设立符号链接 [`.kiro/workflows`](file:///host-workspace/xaicd/cooliebase-all-base/.kiro/workflows) 桥接，兼顾 Kiro IDE 原生 `/workflow run` 与 Antigravity / DeepSeek Harness / CLI 通用驱动；
   - 内置 4 套企业级生产配方：`feature-delivery`、`bugfix`、`architecture-refactor`、`security-patch`，全量具备严格的 `dependsOn` 有向无环图（DAG）拓扑约束。
 
 ### 2. 工业级多智能体工作流执行引擎 CLI (`scripts/workflow-engine.ts`)
@@ -60,7 +60,7 @@
 
 | 文件名 | 文件大小 | SHA-256 校验和 |
 |---|---|---|
-| `ruoyi-all-next-v1.2.0-skeleton.tar.gz` | 7.03 MB | `4ac97aafaf73d9c36e291ac77f377c40706e76f596c3e97e12bdf4a5af1998f8` |
+| `cooliebase-all-base-v1.2.0-skeleton.tar.gz` | 7.03 MB | `4ac97aafaf73d9c36e291ac77f377c40706e76f596c3e97e12bdf4a5af1998f8` |
 | `seam-graph.json` | 50.8 KB | `36070ae731c77257dc74ecaec5f1862a966300d91903368bd569135e389f32f6` |
 | `compat-manifest.json` | 4.7 KB | `a3a6cee678a56ac6b9df6578fdadc009191581ca2852d2cb80b28c5f327609fd` |
 | `SHA256SUMS.txt` | 0.3 KB | *(包含上述制品完整指纹清单)* |

@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/bpm
 upstream:
-  env: RUOYI_DOMAIN_BPM_UPSTREAM
+  env: COOLIEBASE_DOMAIN_BPM_UPSTREAM
   protocol: http
   defaultPort: 3213
 auth:

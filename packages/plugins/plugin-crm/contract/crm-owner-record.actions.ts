@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-owner-record.validator"
 
 export const crmOwnerRecordActionSchemas = {
-  "ruoyi.cmd.crm.crmOwnerRecord.page": crmOwnerRecordPageQuerySchema,
-  "ruoyi.cmd.crm.crmOwnerRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmOwnerRecord.create": crmOwnerRecordCreateSchema,
-  "ruoyi.cmd.crm.crmOwnerRecord.update": crmOwnerRecordUpdateSchema,
-  "ruoyi.cmd.crm.crmOwnerRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmOwnerRecord.page": crmOwnerRecordPageQuerySchema,
+  "cooliebase.cmd.crm.crmOwnerRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmOwnerRecord.create": crmOwnerRecordCreateSchema,
+  "cooliebase.cmd.crm.crmOwnerRecord.update": crmOwnerRecordUpdateSchema,
+  "cooliebase.cmd.crm.crmOwnerRecord.delete": z.object({ id: z.string() }),
   "crm.pageCrmOwnerRecord": crmOwnerRecordPageQuerySchema,
   "crm.getCrmOwnerRecord": z.object({ id: z.string() }),
   "crm.createCrmOwnerRecord": crmOwnerRecordCreateSchema,

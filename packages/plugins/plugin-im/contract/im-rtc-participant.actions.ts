@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-rtc-participant.validator"
 
 export const imRtcParticipantActionSchemas = {
-  "ruoyi.cmd.im.imRtcParticipant.page": imRtcParticipantPageQuerySchema,
-  "ruoyi.cmd.im.imRtcParticipant.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imRtcParticipant.create": imRtcParticipantCreateSchema,
-  "ruoyi.cmd.im.imRtcParticipant.update": imRtcParticipantUpdateSchema,
-  "ruoyi.cmd.im.imRtcParticipant.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imRtcParticipant.page": imRtcParticipantPageQuerySchema,
+  "cooliebase.cmd.im.imRtcParticipant.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imRtcParticipant.create": imRtcParticipantCreateSchema,
+  "cooliebase.cmd.im.imRtcParticipant.update": imRtcParticipantUpdateSchema,
+  "cooliebase.cmd.im.imRtcParticipant.delete": z.object({ id: z.string() }),
   "im.pageImRtcParticipant": imRtcParticipantPageQuerySchema,
   "im.getImRtcParticipant": z.object({ id: z.string() }),
   "im.createImRtcParticipant": imRtcParticipantCreateSchema,

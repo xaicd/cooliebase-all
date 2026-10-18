@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-sales-notice.validator"
 
 export const mesWmSalesNoticeActionSchemas = {
-  "ruoyi.cmd.mes.mesWmSalesNotice.page": mesWmSalesNoticePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmSalesNotice.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmSalesNotice.create": mesWmSalesNoticeCreateSchema,
-  "ruoyi.cmd.mes.mesWmSalesNotice.update": mesWmSalesNoticeUpdateSchema,
-  "ruoyi.cmd.mes.mesWmSalesNotice.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSalesNotice.page": mesWmSalesNoticePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmSalesNotice.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmSalesNotice.create": mesWmSalesNoticeCreateSchema,
+  "cooliebase.cmd.mes.mesWmSalesNotice.update": mesWmSalesNoticeUpdateSchema,
+  "cooliebase.cmd.mes.mesWmSalesNotice.delete": z.object({ id: z.string() }),
   "mes.pageMesWmSalesNotice": mesWmSalesNoticePageQuerySchema,
   "mes.getMesWmSalesNotice": z.object({ id: z.string() }),
   "mes.createMesWmSalesNotice": mesWmSalesNoticeCreateSchema,

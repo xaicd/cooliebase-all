@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-purchase-in-item.validator"
 
 export const erpPurchaseInItemActionSchemas = {
-  "ruoyi.cmd.erp.erpPurchaseInItem.page": erpPurchaseInItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpPurchaseInItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpPurchaseInItem.create": erpPurchaseInItemCreateSchema,
-  "ruoyi.cmd.erp.erpPurchaseInItem.update": erpPurchaseInItemUpdateSchema,
-  "ruoyi.cmd.erp.erpPurchaseInItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseInItem.page": erpPurchaseInItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpPurchaseInItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpPurchaseInItem.create": erpPurchaseInItemCreateSchema,
+  "cooliebase.cmd.erp.erpPurchaseInItem.update": erpPurchaseInItemUpdateSchema,
+  "cooliebase.cmd.erp.erpPurchaseInItem.delete": z.object({ id: z.string() }),
   "erp.pageErpPurchaseInItem": erpPurchaseInItemPageQuerySchema,
   "erp.getErpPurchaseInItem": z.object({ id: z.string() }),
   "erp.createErpPurchaseInItem": erpPurchaseInItemCreateSchema,

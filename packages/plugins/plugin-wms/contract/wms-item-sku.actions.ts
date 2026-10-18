@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-item-sku.validator"
 
 export const wmsItemSkuActionSchemas = {
-  "ruoyi.cmd.wms.wmsItemSku.page": wmsItemSkuPageQuerySchema,
-  "ruoyi.cmd.wms.wmsItemSku.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsItemSku.create": wmsItemSkuCreateSchema,
-  "ruoyi.cmd.wms.wmsItemSku.update": wmsItemSkuUpdateSchema,
-  "ruoyi.cmd.wms.wmsItemSku.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemSku.page": wmsItemSkuPageQuerySchema,
+  "cooliebase.cmd.wms.wmsItemSku.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsItemSku.create": wmsItemSkuCreateSchema,
+  "cooliebase.cmd.wms.wmsItemSku.update": wmsItemSkuUpdateSchema,
+  "cooliebase.cmd.wms.wmsItemSku.delete": z.object({ id: z.string() }),
 } as const

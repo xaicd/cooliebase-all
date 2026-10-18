@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-customer.validator"
 
 export const crmCustomerActionSchemas = {
-  "ruoyi.cmd.crm.crmCustomer.page": crmCustomerPageQuerySchema,
-  "ruoyi.cmd.crm.crmCustomer.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmCustomer.create": crmCustomerCreateSchema,
-  "ruoyi.cmd.crm.crmCustomer.update": crmCustomerUpdateSchema,
-  "ruoyi.cmd.crm.crmCustomer.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomer.page": crmCustomerPageQuerySchema,
+  "cooliebase.cmd.crm.crmCustomer.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmCustomer.create": crmCustomerCreateSchema,
+  "cooliebase.cmd.crm.crmCustomer.update": crmCustomerUpdateSchema,
+  "cooliebase.cmd.crm.crmCustomer.delete": z.object({ id: z.string() }),
   "crm.pageCrmCustomer": crmCustomerPageQuerySchema,
   "crm.getCrmCustomer": z.object({ id: z.string() }),
   "crm.createCrmCustomer": crmCustomerCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/seckill-product.validator"
 
 export const seckillProductActionSchemas = {
-  "ruoyi.cmd.mall.seckillProduct.page": seckillProductPageQuerySchema,
-  "ruoyi.cmd.mall.seckillProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.seckillProduct.create": seckillProductCreateSchema,
-  "ruoyi.cmd.mall.seckillProduct.update": seckillProductUpdateSchema,
-  "ruoyi.cmd.mall.seckillProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillProduct.page": seckillProductPageQuerySchema,
+  "cooliebase.cmd.mall.seckillProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.seckillProduct.create": seckillProductCreateSchema,
+  "cooliebase.cmd.mall.seckillProduct.update": seckillProductUpdateSchema,
+  "cooliebase.cmd.mall.seckillProduct.delete": z.object({ id: z.string() }),
   "mall.pageSeckillProduct": seckillProductPageQuerySchema,
   "mall.getSeckillProduct": z.object({ id: z.string() }),
   "mall.createSeckillProduct": seckillProductCreateSchema,

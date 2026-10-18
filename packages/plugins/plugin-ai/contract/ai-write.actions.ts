@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-write.validator"
 
 export const aiWriteActionSchemas = {
-  "ruoyi.cmd.ai.aiWrite.page": aiWritePageQuerySchema,
-  "ruoyi.cmd.ai.aiWrite.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiWrite.create": aiWriteCreateSchema,
-  "ruoyi.cmd.ai.aiWrite.update": aiWriteUpdateSchema,
-  "ruoyi.cmd.ai.aiWrite.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiWrite.page": aiWritePageQuerySchema,
+  "cooliebase.cmd.ai.aiWrite.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiWrite.create": aiWriteCreateSchema,
+  "cooliebase.cmd.ai.aiWrite.update": aiWriteUpdateSchema,
+  "cooliebase.cmd.ai.aiWrite.delete": z.object({ id: z.string() }),
   "ai.pageAiWrite": aiWritePageQuerySchema,
   "ai.getAiWrite": z.object({ id: z.string() }),
   "ai.createAiWrite": aiWriteCreateSchema,

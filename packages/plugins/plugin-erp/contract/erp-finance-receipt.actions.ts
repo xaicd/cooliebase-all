@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-finance-receipt.validator"
 
 export const erpFinanceReceiptActionSchemas = {
-  "ruoyi.cmd.erp.erpFinanceReceipt.page": erpFinanceReceiptPageQuerySchema,
-  "ruoyi.cmd.erp.erpFinanceReceipt.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpFinanceReceipt.create": erpFinanceReceiptCreateSchema,
-  "ruoyi.cmd.erp.erpFinanceReceipt.update": erpFinanceReceiptUpdateSchema,
-  "ruoyi.cmd.erp.erpFinanceReceipt.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinanceReceipt.page": erpFinanceReceiptPageQuerySchema,
+  "cooliebase.cmd.erp.erpFinanceReceipt.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinanceReceipt.create": erpFinanceReceiptCreateSchema,
+  "cooliebase.cmd.erp.erpFinanceReceipt.update": erpFinanceReceiptUpdateSchema,
+  "cooliebase.cmd.erp.erpFinanceReceipt.delete": z.object({ id: z.string() }),
   "erp.pageErpFinanceReceipt": erpFinanceReceiptPageQuerySchema,
   "erp.getErpFinanceReceipt": z.object({ id: z.string() }),
   "erp.createErpFinanceReceipt": erpFinanceReceiptCreateSchema,

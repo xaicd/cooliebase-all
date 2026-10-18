@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/product-comment.validator"
 
 export const productCommentActionSchemas = {
-  "ruoyi.cmd.mall.productComment.page": productCommentPageQuerySchema,
-  "ruoyi.cmd.mall.productComment.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.productComment.create": productCommentCreateSchema,
-  "ruoyi.cmd.mall.productComment.update": productCommentUpdateSchema,
-  "ruoyi.cmd.mall.productComment.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productComment.page": productCommentPageQuerySchema,
+  "cooliebase.cmd.mall.productComment.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.productComment.create": productCommentCreateSchema,
+  "cooliebase.cmd.mall.productComment.update": productCommentUpdateSchema,
+  "cooliebase.cmd.mall.productComment.delete": z.object({ id: z.string() }),
   "mall.pageProductComment": productCommentPageQuerySchema,
   "mall.getProductComment": z.object({ id: z.string() }),
   "mall.createProductComment": productCommentCreateSchema,

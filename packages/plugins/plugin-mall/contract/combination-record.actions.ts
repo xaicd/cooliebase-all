@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/combination-record.validator"
 
 export const combinationRecordActionSchemas = {
-  "ruoyi.cmd.mall.combinationRecord.page": combinationRecordPageQuerySchema,
-  "ruoyi.cmd.mall.combinationRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.combinationRecord.create": combinationRecordCreateSchema,
-  "ruoyi.cmd.mall.combinationRecord.update": combinationRecordUpdateSchema,
-  "ruoyi.cmd.mall.combinationRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationRecord.page": combinationRecordPageQuerySchema,
+  "cooliebase.cmd.mall.combinationRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationRecord.create": combinationRecordCreateSchema,
+  "cooliebase.cmd.mall.combinationRecord.update": combinationRecordUpdateSchema,
+  "cooliebase.cmd.mall.combinationRecord.delete": z.object({ id: z.string() }),
   "mall.pageCombinationRecord": combinationRecordPageQuerySchema,
   "mall.getCombinationRecord": z.object({ id: z.string() }),
   "mall.createCombinationRecord": combinationRecordCreateSchema,

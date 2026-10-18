@@ -4,7 +4,7 @@ import { assertMigrationSqlSafe, isTrustedPlugin, pluginSchemaName } from "../pl
 
 describe("插件自带迁移：安全护栏", () => {
   it("schema 名对插件 key 做安全归一（只留 [a-z0-9_]）", () => {
-    expect(pluginSchemaName("ruoyi.hello-world")).toBe("plugin_ruoyi_hello_world")
+    expect(pluginSchemaName("cooliebase.hello-world")).toBe("plugin_cooliebase_hello_world")
     expect(pluginSchemaName("Vendor/Evil;DROP")).toBe("plugin_vendor_evil_drop")
     // 长度收紧，避免超出 Postgres 标识符上限
     expect(pluginSchemaName("a".repeat(200)).length).toBeLessThanOrEqual(60)
@@ -42,8 +42,8 @@ describe("插件自带迁移：安全护栏", () => {
   })
 
   it("信任只认运营配置，manifest 不能自封", () => {
-    expect(isTrustedPlugin("vendor.a", { RUOYI_TRUSTED_PLUGIN_KEYS: "vendor.a,vendor.b" } as never)).toBe(true)
-    expect(isTrustedPlugin("vendor.c", { RUOYI_TRUSTED_PLUGIN_KEYS: "vendor.a,vendor.b" } as never)).toBe(false)
+    expect(isTrustedPlugin("vendor.a", { COOLIEBASE_TRUSTED_PLUGIN_KEYS: "vendor.a,vendor.b" } as never)).toBe(true)
+    expect(isTrustedPlugin("vendor.c", { COOLIEBASE_TRUSTED_PLUGIN_KEYS: "vendor.a,vendor.b" } as never)).toBe(false)
     expect(isTrustedPlugin("vendor.a", {} as never)).toBe(false)
   })
 })

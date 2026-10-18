@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ke-fu-message.validator"
 
 export const keFuMessageActionSchemas = {
-  "ruoyi.cmd.mall.keFuMessage.page": keFuMessagePageQuerySchema,
-  "ruoyi.cmd.mall.keFuMessage.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.keFuMessage.create": keFuMessageCreateSchema,
-  "ruoyi.cmd.mall.keFuMessage.update": keFuMessageUpdateSchema,
-  "ruoyi.cmd.mall.keFuMessage.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.keFuMessage.page": keFuMessagePageQuerySchema,
+  "cooliebase.cmd.mall.keFuMessage.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.keFuMessage.create": keFuMessageCreateSchema,
+  "cooliebase.cmd.mall.keFuMessage.update": keFuMessageUpdateSchema,
+  "cooliebase.cmd.mall.keFuMessage.delete": z.object({ id: z.string() }),
   "mall.pageKeFuMessage": keFuMessagePageQuerySchema,
   "mall.getKeFuMessage": z.object({ id: z.string() }),
   "mall.createKeFuMessage": keFuMessageCreateSchema,

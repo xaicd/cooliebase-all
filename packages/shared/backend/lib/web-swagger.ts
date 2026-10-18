@@ -15,7 +15,7 @@ export function buildAdminSwaggerDoc(): SwaggerDoc {
   return {
     openapi: "3.0.3",
     info: {
-      title: "ruoyi-all-next admin api",
+      title: "cooliebase-all-base admin api",
       version: "0.1.0",
       description: "mini migration swagger baseline",
     },

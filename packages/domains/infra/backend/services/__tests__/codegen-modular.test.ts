@@ -57,7 +57,7 @@ describe("Modular Codegen Engine with Templates", () => {
 
     // 6. Contract Actions
     const actions = outputs.find((o) => o.path.endsWith("contract/wms-warehouse.actions.ts"))
-    expect(actions?.content).toContain("ruoyi.cmd.wms.wmsWarehouse.page")
+    expect(actions?.content).toContain("cooliebase.cmd.wms.wmsWarehouse.page")
     expect(actions).toBeDefined()
     expect(actions?.content).toContain("wmsWarehouseActionSchemas")
 

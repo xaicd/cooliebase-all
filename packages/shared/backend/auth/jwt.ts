@@ -2,7 +2,7 @@ import { createHmac, randomUUID, timingSafeEqual } from "node:crypto"
 import { AuthenticationError, type AuthEndpoint } from "./context"
 import { isAdminSessionRevoked } from "./session-registry"
 
-const DEVELOPMENT_SECRET = "ruoyi-all-next-dev-secret-key-2026"
+const DEVELOPMENT_SECRET = "cooliebase-all-base-dev-secret-key-2026"
 const MAX_EXPIRES_IN_SECONDS = 24 * 60 * 60
 
 type JwtHeader = { alg: "HS256"; typ: "JWT" }

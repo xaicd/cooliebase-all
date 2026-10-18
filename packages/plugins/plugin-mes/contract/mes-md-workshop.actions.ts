@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-workshop.validator"
 
 export const mesMdWorkshopActionSchemas = {
-  "ruoyi.cmd.mes.mesMdWorkshop.page": mesMdWorkshopPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdWorkshop.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdWorkshop.create": mesMdWorkshopCreateSchema,
-  "ruoyi.cmd.mes.mesMdWorkshop.update": mesMdWorkshopUpdateSchema,
-  "ruoyi.cmd.mes.mesMdWorkshop.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdWorkshop.page": mesMdWorkshopPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdWorkshop.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdWorkshop.create": mesMdWorkshopCreateSchema,
+  "cooliebase.cmd.mes.mesMdWorkshop.update": mesMdWorkshopUpdateSchema,
+  "cooliebase.cmd.mes.mesMdWorkshop.delete": z.object({ id: z.string() }),
   "mes.pageMesMdWorkshop": mesMdWorkshopPageQuerySchema,
   "mes.getMesMdWorkshop": z.object({ id: z.string() }),
   "mes.createMesMdWorkshop": mesMdWorkshopCreateSchema,

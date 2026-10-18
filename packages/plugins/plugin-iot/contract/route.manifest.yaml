@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/iot
 upstream:
-  env: RUOYI_DOMAIN_IOT_UPSTREAM
+  env: COOLIEBASE_DOMAIN_IOT_UPSTREAM
   protocol: http
   defaultPort: 3224
 auth:

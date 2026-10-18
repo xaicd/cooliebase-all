@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/delivery-express.validator"
 
 export const deliveryExpressActionSchemas = {
-  "ruoyi.cmd.mall.deliveryExpress.page": deliveryExpressPageQuerySchema,
-  "ruoyi.cmd.mall.deliveryExpress.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.deliveryExpress.create": deliveryExpressCreateSchema,
-  "ruoyi.cmd.mall.deliveryExpress.update": deliveryExpressUpdateSchema,
-  "ruoyi.cmd.mall.deliveryExpress.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpress.page": deliveryExpressPageQuerySchema,
+  "cooliebase.cmd.mall.deliveryExpress.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryExpress.create": deliveryExpressCreateSchema,
+  "cooliebase.cmd.mall.deliveryExpress.update": deliveryExpressUpdateSchema,
+  "cooliebase.cmd.mall.deliveryExpress.delete": z.object({ id: z.string() }),
   "mall.pageDeliveryExpress": deliveryExpressPageQuerySchema,
   "mall.getDeliveryExpress": z.object({ id: z.string() }),
   "mall.createDeliveryExpress": deliveryExpressCreateSchema,

@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-check-order.validator"
 
 export const wmsCheckOrderActionSchemas = {
-  "ruoyi.cmd.wms.wmsCheckOrder.page": wmsCheckOrderPageQuerySchema,
-  "ruoyi.cmd.wms.wmsCheckOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsCheckOrder.create": wmsCheckOrderCreateSchema,
-  "ruoyi.cmd.wms.wmsCheckOrder.update": wmsCheckOrderUpdateSchema,
-  "ruoyi.cmd.wms.wmsCheckOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsCheckOrder.page": wmsCheckOrderPageQuerySchema,
+  "cooliebase.cmd.wms.wmsCheckOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsCheckOrder.create": wmsCheckOrderCreateSchema,
+  "cooliebase.cmd.wms.wmsCheckOrder.update": wmsCheckOrderUpdateSchema,
+  "cooliebase.cmd.wms.wmsCheckOrder.delete": z.object({ id: z.string() }),
 } as const

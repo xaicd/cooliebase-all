@@ -6,7 +6,7 @@
 
 ## 目的
 
-本档案保留 Online 低代码引擎的功能学习结论，为 `ruoyi-all-next` 后续设计、排期和评审提供依据。目标是实现安全的在线数据模型设计、Puck 页面设计、浏览器真实 Online Test 和从 Published Release 生成代码，而不是实现可执行脚本或任意数据库操作平台。
+本档案保留 Online 低代码引擎的功能学习结论，为 `cooliebase-all-base` 后续设计、排期和评审提供依据。目标是实现安全的在线数据模型设计、Puck 页面设计、浏览器真实 Online Test 和从 Published Release 生成代码，而不是实现可执行脚本或任意数据库操作平台。
 
 ## 当前实现状态
 

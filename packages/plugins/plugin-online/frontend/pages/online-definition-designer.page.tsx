@@ -190,12 +190,12 @@ export default function OnlineDefinitionDesignerPage({ code }: { code: string })
     if (!detail?.publishedReleaseId) return
     setBusy(true); setMessage("")
     try {
-      const token = localStorage.getItem("ruoyi_token")
+      const token = localStorage.getItem("cooliebase_token")
       const response = await fetch(`${endpoint}/${detail.code}/codegen/download`, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
       if (!response.ok) { const body = await response.json().catch(() => null); setMessageTone("error"); setMessage(body?.error ?? "代码生成失败：当前发布版本可能包含尚未受共享模板支持的配置"); return }
       const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement("a")
       link.href = url; link.download = `online-${detail.code}-release-${detail.currentRelease?.schemaRevision ?? 0}.zip`; link.click(); URL.revokeObjectURL(url)
-      setMessageTone("success"); setMessage("已下载共享 RuoYi CRUD 模板 ZIP，请审阅后受控注入")
+      setMessageTone("success"); setMessage("已下载共享 CoolieBase CRUD 模板 ZIP，请审阅后受控注入")
     } finally { setBusy(false) }
   }
   const normalizeSystemFields = () => runLifecycle("/normalize-system-fields", "系统字段已补齐")

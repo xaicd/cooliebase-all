@@ -14,8 +14,8 @@ description: 架构演进、单体与微服务拆分、前后端分离、网关�
 - `AGENTS.md` §1 (项目定位与复用基座)
 - `AGENTS.md` §3 (架构总览、目录约束与可替换后端边界)
 - `AGENTS.md` §6.1 (microservice-evolution 治理)
-- `docs/architecture/ruoyi-all-next-architecture.md`
-- `docs/architecture/ruoyi-all-next-microservice-governance.md`
+- `docs/architecture/cooliebase-all-base-architecture.md`
+- `docs/architecture/cooliebase-all-base-microservice-governance.md`
 - `packages/shared/backend/constants/domain-catalog.json`
 
 ## 3. 三阶段演化路径 (Evolution Stages)
@@ -41,7 +41,7 @@ const dictData = await systemPublicFacade.getDictDataByType("sys_user_sex")
 ```
 
 - **单体模式（In-Process）**：Facade 直接调用本进程对应 Service 实例，零网络损耗。
-- **微服务模式（Remote RPC）**：Facade 自动切入 `broker.call('ruoyi.cmd.system.getDictDataByType', payload)`，通过 HTTP/NATS 发送至远程服务。
+- **微服务模式（Remote RPC）**：Facade 自动切入 `broker.call('cooliebase.cmd.system.getDictDataByType', payload)`，通过 HTTP/NATS 发送至远程服务。
 
 ## 5. 可靠事件总线 (Outbox + Inbox 模式)
 - 跨域异步解耦禁止依赖单机内存 EventEmitter（防止进程重启丢失事件）。
@@ -50,4 +50,4 @@ const dictData = await systemPublicFacade.getDictDataByType("sys_user_sex")
 ## 6. 绝对禁止项
 - 禁止任何业务域直接 import 另一个业务域的 Service 或 Repository。
 - 禁止未经流量和数据边界论证，盲目为了“微服务”而将系统碎片化。
-- 禁止使用用户前端 JWT 令牌作为微服务之间的内部调用凭证（必须走 `RUOYI_RPC_TOKEN`）。
+- 禁止使用用户前端 JWT 令牌作为微服务之间的内部调用凭证（必须走 `COOLIEBASE_RPC_TOKEN`）。

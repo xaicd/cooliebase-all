@@ -15,7 +15,7 @@
 
 ## 保留策略
 
-通过 `RUOYI_INFRA_AUDIT_LOG_RETENTION_DAYS` 配置保留天数，默认 180，允许范围 30–3650。保留策略只删除截止日期之前的四类审计记录，不删除业务数据。
+通过 `COOLIEBASE_INFRA_AUDIT_LOG_RETENTION_DAYS` 配置保留天数，默认 180，允许范围 30–3650。保留策略只删除截止日期之前的四类审计记录，不删除业务数据。
 
 接口：`POST /api/v1/admin/infra/audit-log-retention`。
 

@@ -42,11 +42,11 @@ function runBackup() {
   // 1. 优先尝试从正在运行的 Docker 容器执行 pg_dump
   try {
     const containers = execSync("docker ps --filter \"status=running\" --format \"{{.Names}}\"", { stdio: ["pipe", "pipe", "ignore"], encoding: "utf8" })
-    const candidateList = containers.split("\n").map((s) => s.trim()).filter((name) => name.includes("postgres") || name.includes("ruoyi"))
+    const candidateList = containers.split("\n").map((s) => s.trim()).filter((name) => name.includes("postgres") || name.includes("cooliebase"))
     for (const containerName of candidateList) {
       try {
         console.log(`[BACKUP] Attempting backup from active container: ${containerName}`)
-        execSync(`docker exec -t ${containerName} pg_dump -U postgres -d ruoyi_next > "${outFile}"`, { stdio: ["pipe", "pipe", "ignore"], shell: true })
+        execSync(`docker exec -t ${containerName} pg_dump -U postgres -d cooliebase_next > "${outFile}"`, { stdio: ["pipe", "pipe", "ignore"], shell: true })
         if (fs.existsSync(outFile) && fs.statSync(outFile).size > 100) {
           console.log(`[OK] PostgreSQL database successfully backed up to: backups/db_backup_${stamp}.sql (${fs.statSync(outFile).size} bytes)`)
           cleanOldBackups(10)
@@ -60,7 +60,7 @@ function runBackup() {
   const ports = [5433, 5432]
   for (const port of ports) {
     try {
-      execSync(`pg_dump -h localhost -p ${port} -U postgres -d ruoyi_next -f "${outFile}"`, {
+      execSync(`pg_dump -h localhost -p ${port} -U postgres -d cooliebase_next -f "${outFile}"`, {
         stdio: ["pipe", "pipe", "ignore"],
         env: { ...process.env, PGPASSWORD: process.env.PGPASSWORD || "postgres" },
       })

@@ -26,7 +26,7 @@
 
 ### US-001: 作为系统架构师
 - **优先级**: `P0`
-- **内容**: 吸收 archify 技能规范至 .agents/skills/archify/，生成全域架构拓扑 docs/03_design/diagrams/ruoyi-architecture.arch.json 与可交互 HTML。
+- **内容**: 吸收 archify 技能规范至 .agents/skills/archify/，生成全域架构拓扑 docs/03_design/diagrams/cooliebase-architecture.arch.json 与可交互 HTML。
 
 ### US-002: 作为系统架构师
 - **优先级**: `P0`
@@ -44,7 +44,7 @@
 ## 5. 验收标准 (Acceptance Criteria)
 
 1. **THE system SHALL** 验证：`npm run check` exit=0，20 道门禁全部通过
-2. **THE system SHALL** 验证：docs/03_design/diagrams/ruoyi-architecture.arch.html 浏览器可交互加载并展示 17 领域拓扑
+2. **THE system SHALL** 验证：docs/03_design/diagrams/cooliebase-architecture.arch.html 浏览器可交互加载并展示 17 领域拓扑
 3. **THE system SHALL** 验证：`npm run skills:check` 验证 36 项技能规范且无重复目录
 
 ## 6. 约束与边界 (Constraints & Non-Goals)

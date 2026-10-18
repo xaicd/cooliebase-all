@@ -1,7 +1,7 @@
 /**
  * 源仓库能力扫描器。
  *
- * 它只读取 ruoyi-vue-pro / yudao-ui-admin-vue3 的 Controller 与视图目录，生成
+ * 它只读取 cooliebase-vue-pro / yudao-ui-admin-vue3 的 Controller 与视图目录，生成
  * 迁移审计报告；不生成或写入应用代码。CRUD 代码请使用 /admin/infra/codegen 的
  * 预览 + ZIP 下载流程，并通过 manifest 驱动的本地注入器审阅后落盘。
  *
@@ -15,7 +15,7 @@ import { fileURLToPath } from "url"
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const ROOT = path.resolve(__dirname, "..")
-const SOURCE_BACKEND = path.resolve(ROOT, "../ruoyi-vue-pro")
+const SOURCE_BACKEND = path.resolve(ROOT, "../cooliebase-vue-pro")
 const SOURCE_FRONTEND = path.resolve(ROOT, "../yudao-ui-admin-vue3")
 const DOMAINS = ["system", "infra", "bpm", "pay", "report", "mp", "mall", "member", "crm", "erp", "wms", "mes", "ai", "iot", "im"]
 
@@ -99,7 +99,7 @@ function main() {
   const targetDomains = domainArg ? [domainArg] : DOMAINS
   const report: Record<string, unknown> = {}
 
-  console.log("=== ruoyi-all-next 源仓库能力扫描 ===\n")
+  console.log("=== cooliebase-all-base 源仓库能力扫描 ===\n")
   for (const domain of targetDomains) {
     const controllers = scanControllers(domain)
     const views = scanViews(domain)

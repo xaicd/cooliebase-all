@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-workflow.validator"
 
 export const aiWorkflowActionSchemas = {
-  "ruoyi.cmd.ai.aiWorkflow.page": aiWorkflowPageQuerySchema,
-  "ruoyi.cmd.ai.aiWorkflow.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiWorkflow.create": aiWorkflowCreateSchema,
-  "ruoyi.cmd.ai.aiWorkflow.update": aiWorkflowUpdateSchema,
-  "ruoyi.cmd.ai.aiWorkflow.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiWorkflow.page": aiWorkflowPageQuerySchema,
+  "cooliebase.cmd.ai.aiWorkflow.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiWorkflow.create": aiWorkflowCreateSchema,
+  "cooliebase.cmd.ai.aiWorkflow.update": aiWorkflowUpdateSchema,
+  "cooliebase.cmd.ai.aiWorkflow.delete": z.object({ id: z.string() }),
   "ai.pageAiWorkflow": aiWorkflowPageQuerySchema,
   "ai.getAiWorkflow": z.object({ id: z.string() }),
   "ai.createAiWorkflow": aiWorkflowCreateSchema,

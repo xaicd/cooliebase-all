@@ -16,7 +16,7 @@ import {
 
 export type { SystemMenuRow, CreateMenuData, UpdateMenuData }
 
-// === 内存存储（由 RuoYi 原始 SQL 全量生成 + Online 扩展 + AIGW 模型中台 + AI 应用） ===
+// === 内存存储（由 CoolieBase 原始 SQL 全量生成 + Online 扩展 + AIGW 模型中台 + AI 应用） ===
 const MEMORY_STORE: SystemMenuRow[] = withCompanionMenuCatalogs(SEED_MENUS)
 
 let memoryIdSeq = 5000

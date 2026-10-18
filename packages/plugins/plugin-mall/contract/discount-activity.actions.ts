@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/discount-activity.validator"
 
 export const discountActivityActionSchemas = {
-  "ruoyi.cmd.mall.discountActivity.page": discountActivityPageQuerySchema,
-  "ruoyi.cmd.mall.discountActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.discountActivity.create": discountActivityCreateSchema,
-  "ruoyi.cmd.mall.discountActivity.update": discountActivityUpdateSchema,
-  "ruoyi.cmd.mall.discountActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.discountActivity.page": discountActivityPageQuerySchema,
+  "cooliebase.cmd.mall.discountActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.discountActivity.create": discountActivityCreateSchema,
+  "cooliebase.cmd.mall.discountActivity.update": discountActivityUpdateSchema,
+  "cooliebase.cmd.mall.discountActivity.delete": z.object({ id: z.string() }),
   "mall.pageDiscountActivity": discountActivityPageQuerySchema,
   "mall.getDiscountActivity": z.object({ id: z.string() }),
   "mall.createDiscountActivity": discountActivityCreateSchema,

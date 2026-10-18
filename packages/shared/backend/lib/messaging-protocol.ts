@@ -55,7 +55,7 @@ export function messagingCatalog() {
 }
 
 export function resolveMessagingTransport(env: NodeJS.Dict<string> = process.env): MessagingTransport {
-  const raw = env.RUOYI_MESSAGING_TRANSPORT?.trim()
+  const raw = env.COOLIEBASE_MESSAGING_TRANSPORT?.trim()
   if (raw === "nats" || raw === "in-process") return raw
   return messagingCatalog().defaultTransport
 }

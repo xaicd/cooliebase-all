@@ -1,6 +1,6 @@
 # 老系统迁移方法论（Legacy Migration Playbook）
 
-> **终局目标**：把一个 **100+ 微服务的老系统**（Spring Cloud / Node / Dubbo + MySQL / Redis / Kafka / Hazelcast）迁上 ruoyi-all-next 底座。
+> **终局目标**：把一个 **100+ 微服务的老系统**（Spring Cloud / Node / Dubbo + MySQL / Redis / Kafka / Hazelcast）迁上 cooliebase-all-base 底座。
 >
 > **核心定位（务必先读）**：本体域是老系统的**数字镜像 + 体检报告**，**不是重写计划书**。把现实系统的实体/接口/事件**如实数字化映射**进来，目的是**看清全局：有什么、缺什么、乱在哪**——然后**只对产生经济价值的地方动手**。绝大多数服务 `valueTag=keep`（照原样映射、不动代码）。
 
@@ -11,13 +11,13 @@
 100+ 服务迁移的真正难点不是写代码，是**认知与对账**：哪个服务对应什么业务语义、边界怎么切、和目标差多少、怎么分批。本体域（DigitalStaff 平台 `ontology` 的种子域，如 `ecommerce` 17 实体/24 action）提供一个**稳定的语义坐标系**：每个老服务往本体域上一贴，就知道它是什么、缺什么。
 
 - **映射真源**：`packages/shared/contract/ontology-mapping.schema.json`（契约 schema）+ `packages/shared/contract/mappings/<domain>.mapping.json`（每个本体域一个实例）。
-- **首个样板**：`mappings/ecommerce.mapping.json`（ecommerce ↔ ruoyi mall/pay，已结构校验通过）。
+- **首个样板**：`mappings/ecommerce.mapping.json`（ecommerce ↔ cooliebase mall/pay，已结构校验通过）。
 
 ---
 
 ## 2. 中间件锚点（老系统中间件 → 底座可切换驱动）
 
-老系统的中间件**不重搭**，映射到 ruoyi 底座既有的可切换抽象（见导航总纲 §5），换环境只改 env：
+老系统的中间件**不重搭**，映射到 cooliebase 底座既有的可切换抽象（见导航总纲 §5），换环境只改 env：
 
 | 老系统中间件 | 底座锚点 | env 开关 | 说明 |
 |---|---|---|---|

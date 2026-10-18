@@ -10,7 +10,7 @@ publicPrefix:
   - /api/v1/admin/member
   - /api/v1/app/member
 upstream:
-  env: RUOYI_DOMAIN_MEMBER_UPSTREAM
+  env: COOLIEBASE_DOMAIN_MEMBER_UPSTREAM
   protocol: http
   defaultPort: 3218
 auth:

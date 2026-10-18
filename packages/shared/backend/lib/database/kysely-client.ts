@@ -55,7 +55,7 @@ async function createSqliteDialect(url: string) {
   const path = await import("path")
   const fs = await import("fs")
 
-  let dbPath = (url || "file:./data/ruoyi.db").replace(/^file:/, "")
+  let dbPath = (url || "file:./data/cooliebase.db").replace(/^file:/, "")
   if (!dbPath || dbPath === ":memory:") {
     dbPath = ":memory:"
   } else {

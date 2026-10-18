@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-tm-tool-type.validator"
 
 export const mesTmToolTypeActionSchemas = {
-  "ruoyi.cmd.mes.mesTmToolType.page": mesTmToolTypePageQuerySchema,
-  "ruoyi.cmd.mes.mesTmToolType.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesTmToolType.create": mesTmToolTypeCreateSchema,
-  "ruoyi.cmd.mes.mesTmToolType.update": mesTmToolTypeUpdateSchema,
-  "ruoyi.cmd.mes.mesTmToolType.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesTmToolType.page": mesTmToolTypePageQuerySchema,
+  "cooliebase.cmd.mes.mesTmToolType.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesTmToolType.create": mesTmToolTypeCreateSchema,
+  "cooliebase.cmd.mes.mesTmToolType.update": mesTmToolTypeUpdateSchema,
+  "cooliebase.cmd.mes.mesTmToolType.delete": z.object({ id: z.string() }),
   "mes.pageMesTmToolType": mesTmToolTypePageQuerySchema,
   "mes.getMesTmToolType": z.object({ id: z.string() }),
   "mes.createMesTmToolType": mesTmToolTypeCreateSchema,

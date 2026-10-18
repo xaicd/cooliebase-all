@@ -7,9 +7,9 @@ import {
 } from "../backend/validators/wms-receipt-order.validator"
 
 export const wmsReceiptOrderActionSchemas = {
-  "ruoyi.cmd.wms.wmsReceiptOrder.page": wmsReceiptOrderPageQuerySchema,
-  "ruoyi.cmd.wms.wmsReceiptOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.wms.wmsReceiptOrder.create": wmsReceiptOrderCreateSchema,
-  "ruoyi.cmd.wms.wmsReceiptOrder.update": wmsReceiptOrderUpdateSchema,
-  "ruoyi.cmd.wms.wmsReceiptOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsReceiptOrder.page": wmsReceiptOrderPageQuerySchema,
+  "cooliebase.cmd.wms.wmsReceiptOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.wms.wmsReceiptOrder.create": wmsReceiptOrderCreateSchema,
+  "cooliebase.cmd.wms.wmsReceiptOrder.update": wmsReceiptOrderUpdateSchema,
+  "cooliebase.cmd.wms.wmsReceiptOrder.delete": z.object({ id: z.string() }),
 } as const

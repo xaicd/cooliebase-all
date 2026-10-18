@@ -14,7 +14,7 @@
 - ❌ **评审流于形式**：上线前夕为了应付评估，通宵伪造补录数百页评审记录与测试报告；
 - ❌ **资产无从追溯**：一个 Bug 出现，找不到当初是谁设计的、哪个需求引入的、测试用例为什么漏测。
 
-在 `ruoyi-all-next` 现代软件工程体系中，我们拒绝纸面形式主义，将 CMMI 的严肃性与现代 Git/AI-Native 的高效性深度融合：
+在 `cooliebase-all-base` 现代软件工程体系中，我们拒绝纸面形式主义，将 CMMI 的严肃性与现代 Git/AI-Native 的高效性深度融合：
 1. **文档即代码 (Docs-as-Code)**：所有过程文档、原型、设计稿与契约一律纳入 Git 统一配置管理；
 2. **No Artifact, No Done**：任何阶段（Gate）的结项必须具备物理可检验的工程交付物；
 3. **双向可追溯**：从用户需求 ➔ 设计规范 ➔ 原型 ➔ 代码 Commit ➔ 单元测试 ➔ 部署回滚 SOP，形成闭合链路。
@@ -76,7 +76,7 @@ CMMI 强调配置项（Configuration Items, CI）必须实行 **开发库 (Dynam
 项目根目录采用标准化七大工作产品（Work Products）分类存放体系：
 
 ```
-ruoyi-all-next / [基于底座衍生的客户商业项目]
+cooliebase-all-base / [基于底座衍生的客户商业项目]
 ├── docs/
 │   ├── 01_management/                  # 【1. 项目管理类工作产品 (PLAN / MC / DAR)】
 │   │   ├── project-charter.md          #    项目立项书与范围说明书
@@ -154,7 +154,7 @@ ruoyi-all-next / [基于底座衍生的客户商业项目]
 |---|---|---|---|
 | **01_management** | • `docs/01_management/project-charter.md`<br/>• `docs/01_management/risk-register.md` | v1.1.0 项目立项书（范围/架构/RACI）、工程技术风险台账（AST租户隔离/并发超卖） | 未立项定制决策前，`dar-decision-records/` 保持留空 |
 | **02_requirements** | • 业务规格位于 `docs/features/ecommerce/brief.json`<br/>• 全域契约位于 `packages/domains/*/contract/` | 真实工程特性规格与 324 份跨端/RPC 契约（`collect-contracts.cjs` 核验通过） | 规范目录 `02_requirements/` 保持清爽留空，不造假需求 |
-| **03_design** | • `docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md`<br/>• `docs/03_design/adr/ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md`<br/>• `docs/03_design/diagrams/ruoyi-architecture.arch.json`<br/>• `docs/03_design/database-design-erd.md` | 真实架构决策（Kysely AST 透明租户隔离、15 第一方插件解耦）、真实 17 领域 Archify 拓扑、8 大底座审计字段 ERD | 100% 真实设计资产在位 |
+| **03_design** | • `docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md`<br/>• `docs/03_design/adr/ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md`<br/>• `docs/03_design/diagrams/cooliebase-architecture.arch.json`<br/>• `docs/03_design/database-design-erd.md` | 真实架构决策（Kysely AST 透明租户隔离、15 第一方插件解耦）、真实 17 领域 Archify 拓扑、8 大底座审计字段 ERD | 100% 真实设计资产在位 |
 | **05_verification** | • `docs/05_verification/test-summary-report.md` | 14 个测试套件实测报告（55 passed / 6 skipped，真实 SQLite WAL 事务，耗时 21s） | 未运行真实 Stryker 工具前，`mutation/` 保持留空，不编造成绩 |
 | **06_quality_assurance** | • `docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md`<br/>• `docs/06_quality_assurance/gate-evidence-trace.json` | 20 道自动化门禁真实执行记录（Exit Code 0）、真实 Git Commit 溯源、依赖锁定审查 | 100% 真实审计资产在位 |
 | **07_release** | • `docs/07_release/RELEASE_NOTES_v1.1.0.md`<br/>• `docs/07_release/system-deployment-sop.md`<br/>• `docs/07_release/rollback-runbook.json` | v1.1.0 正式发布说明、真实生产构建与启动 SOP、标准回滚自动化预案 | 100% 真实发布资产在位 |
@@ -206,7 +206,7 @@ ruoyi-all-next / [基于底座衍生的客户商业项目]
 
 ```
 ┌──────────────────────────────────────────────────────────┐
-│                   ruoyi-all-next 工程总矩阵              │
+│                   cooliebase-all-base 工程总矩阵              │
 └─────────────┬──────────────────────────────┬─────────────┘
               │                              │
      【纯文本源资产】 (Git Tracked)        【二进制分发资产】 (Release Assets)
@@ -228,7 +228,7 @@ ruoyi-all-next / [基于底座衍生的客户商业项目]
    - 全球开发者、跨国企业与 Cursor/Claude/Cline Agent 默认调用的首选下载点；
    - 深度集成 GitHub Actions 流水线（`.github/workflows/release.yml`），打 Tag 即自动构建发布并生成 Release Notes。
 2. **Gitee Releases（国内极速直连与政企客户）**：
-   - RuoYi 是 Gitee 最顶级的现象级开源项目（数十万 Star），拥有极其庞大的国内企业开发者群体；
+   - CoolieBase 是 Gitee 最顶级的现象级开源项目（数十万 Star），拥有极其庞大的国内企业开发者群体；
    - 国内开发者与政企内网访问 GitHub 经常出现网络断流、404、5KB/s 龟速。通过 Gitee Releases 分发 APK、SQL 离线包与骨架压缩包，国内用户**百兆光纤免翻墙极速下载**，体验质感直接拉满！
 
 ### 2. 自动化发布流水线联动 (Release Pipeline)

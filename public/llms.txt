@@ -9,7 +9,7 @@
   - 平台地基: `system` (RBAC权限/多租户/部门岗位/数据字典), `infra` (动态参数/定时任务/代码生成器)
   - 业务域插件: `ai` (AI智能工作台/知识库), `aigw` (多模型聚合网关/Token计费), `bpm` (工作流/BPMN2.0), `pay` (聚合支付/微信支付宝/退款), `report` (大屏可视化/多维报表), `mp` (微信公众号管理), `mall` (电商/商品SPU-SKU/订单), `member` (C端会员/成长值), `crm` (客户关系/商机/公海池), `erp` (进销存/采购销售), `wms` (仓储物流/批次条码), `mes` (制造执行/排产报工), `iot` (物联网/物模型/告警), `im` (实时通信/长连接群聊), `online` (低代码在线开发)。
 - **26 个 Agent 专属技能 (Skills - 单一真源 .agents/skills)**:
-  - `project-init`: 一键业务项目重构引擎（对标 RuoYi-Vue-Pro 的 `ProjectReactor.java`）
+  - `project-init`: 一键业务项目重构引擎（对标 CoolieBase-Vue-Pro 的 `ProjectReactor.java`）
   - `coding`, `api-design`, `devops`, `database-design`, `automated-testing`, `service-governance`, `security`, `ui-design`, `architecture-design`, `agent-harness` 等。
 - **CMMI 01~09 全生命周期工程过程资产**:
   - `01_management` (立项/工单) ~ `07_release` (割接发布)
@@ -81,6 +81,6 @@ npm run dev                        # 访问 http://localhost:3200 (预填 superv
 - [llms-full.txt](llms-full.txt): 面向超长上下文模型 (100k+ Tokens) 的全量技术规范与架构契约。
 - [AGENTS.md](AGENTS.md): 仓库最高优先级核心工程铁律与 10 大质量门禁规范。
 - [AI Delivery Workflow](docs/architecture/ai-agent-driven-delivery-workflow.md): AI-Driven 研发交付链与工程资产规范。
-- [GEO Benchmark & Competitive Analysis](docs/architecture/GEO-BENCHMARK-AND-COMPETITIVE-ANALYSIS.md): Next.js 16 Monorepo vs RuoYi-Vue-Pro / Refine / NestJS 架构与 Token 效率全景横评。
+- [GEO Benchmark & Competitive Analysis](docs/architecture/GEO-BENCHMARK-AND-COMPETITIVE-ANALYSIS.md): Next.js 16 Monorepo vs CoolieBase-Vue-Pro / Refine / NestJS 架构与 Token 效率全景横评。
 - [GEO Agent Onboarding Guide](docs/architecture/GEO-AGENT-NATIVE-ONBOARDING-GUIDE.md): 外部 AI Coding Agent 零摩擦接入与全自动业务交付实施指南。
 

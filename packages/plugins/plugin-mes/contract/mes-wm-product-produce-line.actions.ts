@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-produce-line.validator"
 
 export const mesWmProductProduceLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductProduceLine.page": mesWmProductProduceLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductProduceLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductProduceLine.create": mesWmProductProduceLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductProduceLine.update": mesWmProductProduceLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductProduceLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductProduceLine.page": mesWmProductProduceLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductProduceLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductProduceLine.create": mesWmProductProduceLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductProduceLine.update": mesWmProductProduceLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductProduceLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductProduceLine": mesWmProductProduceLinePageQuerySchema,
   "mes.getMesWmProductProduceLine": z.object({ id: z.string() }),
   "mes.createMesWmProductProduceLine": mesWmProductProduceLineCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/point-activity.validator"
 
 export const pointActivityActionSchemas = {
-  "ruoyi.cmd.mall.pointActivity.page": pointActivityPageQuerySchema,
-  "ruoyi.cmd.mall.pointActivity.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.pointActivity.create": pointActivityCreateSchema,
-  "ruoyi.cmd.mall.pointActivity.update": pointActivityUpdateSchema,
-  "ruoyi.cmd.mall.pointActivity.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.pointActivity.page": pointActivityPageQuerySchema,
+  "cooliebase.cmd.mall.pointActivity.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.pointActivity.create": pointActivityCreateSchema,
+  "cooliebase.cmd.mall.pointActivity.update": pointActivityUpdateSchema,
+  "cooliebase.cmd.mall.pointActivity.delete": z.object({ id: z.string() }),
   "mall.pagePointActivity": pointActivityPageQuerySchema,
   "mall.getPointActivity": z.object({ id: z.string() }),
   "mall.createPointActivity": pointActivityCreateSchema,

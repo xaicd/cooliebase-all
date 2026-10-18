@@ -119,7 +119,7 @@ export default function InfraTemplateEnginePage() {
   const [form, setForm] = useState<TemplateRecord>(createDraft())
   const [keyword, setKeyword] = useState("")
   const [optionsText, setOptionsText] = useState("{}")
-  const [previewVariablesText, setPreviewVariablesText] = useState('{"name":"ruoyi","code":"demo-template"}')
+  const [previewVariablesText, setPreviewVariablesText] = useState('{"name":"cooliebase","code":"demo-template"}')
   const [previewResult, setPreviewResult] = useState("")
   const [scaffoldResult, setScaffoldResult] = useState<TemplateScaffoldResponse | null>(null)
   const [loading, setLoading] = useState(false)

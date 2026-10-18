@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/trade-statistics.validator"
 
 export const tradeStatisticsActionSchemas = {
-  "ruoyi.cmd.mall.tradeStatistics.page": tradeStatisticsPageQuerySchema,
-  "ruoyi.cmd.mall.tradeStatistics.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.tradeStatistics.create": tradeStatisticsCreateSchema,
-  "ruoyi.cmd.mall.tradeStatistics.update": tradeStatisticsUpdateSchema,
-  "ruoyi.cmd.mall.tradeStatistics.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeStatistics.page": tradeStatisticsPageQuerySchema,
+  "cooliebase.cmd.mall.tradeStatistics.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.tradeStatistics.create": tradeStatisticsCreateSchema,
+  "cooliebase.cmd.mall.tradeStatistics.update": tradeStatisticsUpdateSchema,
+  "cooliebase.cmd.mall.tradeStatistics.delete": z.object({ id: z.string() }),
   "mall.pageTradeStatistics": tradeStatisticsPageQuerySchema,
   "mall.getTradeStatistics": z.object({ id: z.string() }),
   "mall.createTradeStatistics": tradeStatisticsCreateSchema,

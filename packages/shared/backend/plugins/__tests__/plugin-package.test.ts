@@ -28,7 +28,7 @@ function writePluginPackage(
       : options.pointer
   fs.writeFileSync(
     path.join(packageDir, "package.json"),
-    JSON.stringify({ name: options.packageName ?? `@test/${dirName}`, ...(pointer === null ? {} : { ruoyiPlugin: pointer }) }, null, 2),
+    JSON.stringify({ name: options.packageName ?? `@test/${dirName}`, ...(pointer === null ? {} : { cooliebasePlugin: pointer }) }, null, 2),
   )
 
   if (options.manifest !== null) {
@@ -138,7 +138,7 @@ describe("插件包扫描", () => {
   let root: string
 
   beforeEach(() => {
-    root = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-plugins-"))
+    root = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-plugins-"))
   })
   afterEach(() => {
     fs.rmSync(root, { recursive: true, force: true })
@@ -156,11 +156,11 @@ describe("插件包扫描", () => {
     expect(found[0].manifest?.id).toBe("test.good")
   })
 
-  it("缺少 ruoyiPlugin 指针的包被拒", () => {
+  it("缺少 cooliebasePlugin 指针的包被拒", () => {
     writePluginPackage(root, "nopointer", { pointer: null })
     const found = scanPluginPackages(root)
     expect(found[0].manifest).toBeUndefined()
-    expect(found[0].errors.join()).toContain("缺少合法的 ruoyiPlugin 指针")
+    expect(found[0].errors.join()).toContain("缺少合法的 cooliebasePlugin 指针")
   })
 
   it("worker 入口文件不存在被拒（否则安装成功但启动必失败）", () => {

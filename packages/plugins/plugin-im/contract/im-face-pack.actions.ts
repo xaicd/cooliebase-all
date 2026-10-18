@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/im-face-pack.validator"
 
 export const imFacePackActionSchemas = {
-  "ruoyi.cmd.im.imFacePack.page": imFacePackPageQuerySchema,
-  "ruoyi.cmd.im.imFacePack.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.im.imFacePack.create": imFacePackCreateSchema,
-  "ruoyi.cmd.im.imFacePack.update": imFacePackUpdateSchema,
-  "ruoyi.cmd.im.imFacePack.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFacePack.page": imFacePackPageQuerySchema,
+  "cooliebase.cmd.im.imFacePack.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.im.imFacePack.create": imFacePackCreateSchema,
+  "cooliebase.cmd.im.imFacePack.update": imFacePackUpdateSchema,
+  "cooliebase.cmd.im.imFacePack.delete": z.object({ id: z.string() }),
   "im.pageImFacePack": imFacePackPageQuerySchema,
   "im.getImFacePack": z.object({ id: z.string() }),
   "im.createImFacePack": imFacePackCreateSchema,

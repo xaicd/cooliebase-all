@@ -1,4 +1,4 @@
-# ruoyi-all-next 当前进度与待办
+# cooliebase-all-base 当前进度与待办
 
 更新时间：2026-08-23
 
@@ -54,7 +54,7 @@
 11. ✅ Auth 认证链路：JWT + 双重 MD5+Salt 密码
 12. ✅ Docker 部署方案：4 环境 + Traefik
 13. ✅ 前端完整 Admin Layout：
-    - RuoYi 风格二级折叠侧边栏
+    - CoolieBase 风格二级折叠侧边栏
     - 7 个菜单分组（系统管理/认证安全/消息通知/基础设施/支付中心/CRM/系统监控）
     - 顶栏面包屑 + 用户头像 + 退出
     - 侧边栏折叠/展开
@@ -75,7 +75,7 @@
 ## 当前问题
 
 1. typescript.ignoreBuildErrors=true 需最终关闭
-2. 密码加密已改为双重 MD5 + Salt（对标 RuoYi 原版）
+2. 密码加密已改为双重 MD5 + Salt（对标 CoolieBase 原版）
 3. 非 system/infra/pay 域的 Service 仍为旧骨架，待后续按模式补全
 4. 侧边栏 Logo 和用户信息待接入真实 auth state
 
@@ -102,7 +102,7 @@
 
 ## 下一步待办（按优先级）
 
-### P1：关联关系功能（对标 RuoYi 原版）
+### P1：关联关系功能（对标 CoolieBase 原版）
 - ✅ 角色 → 菜单分配（Tree 勾选弹窗 + API）已完成
 - ✅ 用户 → 角色分配（多选 Checkbox）已完成
 - ✅ 用户 → 部门选择（下拉选择）已完成
@@ -110,11 +110,11 @@
 - ✅ 角色 → 数据权限配置（dataScope 下拉选择 ALL/DEPT/DEPT_AND_CHILD/SELF）已完成
 
 ### P0-HOTFIX：种子数据对齐原版
-- ✅ 从 ruoyi-vue-pro/sql 提取完整种子数据（scripts/seed-output/）
+- ✅ 从 cooliebase-vue-pro/sql 提取完整种子数据（scripts/seed-output/）
 - ✅ 生成 seed-data 模块（packages/shared/backend/seed-data/）
 - ✅ Post Repository MEMORY_STORE 已接入种子数据（4 条）
 - ✅ Dept Repository MEMORY_STORE 已接入种子数据（16 条）
-- ✅ Menu Repository MEMORY_STORE 已接入由 RuoYi SQL 全量生成的种子数据（1441 条）
+- ✅ Menu Repository MEMORY_STORE 已接入由 CoolieBase SQL 全量生成的种子数据（1441 条）
 - ✅ DictType Repository MEMORY_STORE 已接入种子数据（208 条）
 - ✅ DictData Repository MEMORY_STORE 已接入种子数据（1036 条）
 - ✅ Role Repository MEMORY_STORE 已接入种子数据（5 条：超管/普通/CRM/租户/测试）
@@ -150,7 +150,7 @@
 - TODO 表单设计器（Formily 或自研）
 
 ### P5：类型修复
-- ✅ .next-ruoyi/ 和 __tests__/ 已从 tsconfig exclude
+- ✅ .next-cooliebase/ 和 __tests__/ 已从 tsconfig exclude
 - ✅ **571 → 71 errors（-88%）** 脚本自动化修复
 - ✅ Build-blocking export 命名冲突已修复
 - ✅ 140+ Service CRUD stubs 补全 + body 引用修复
@@ -197,7 +197,7 @@
 
 ## 关键文件位置
 
-- 架构文档：docs/architecture/ruoyi-all-next-architecture.md
+- 架构文档：docs/architecture/cooliebase-all-base-architecture.md
 - 开发规范：AGENTS.md
 - Prisma Schema：prisma/schema.prisma
 - 数据库基础设施：packages/shared/backend/lib/database/
@@ -214,7 +214,7 @@
 
 读取以下文件了解上下文：
 1. docs/architecture/CURRENT-PROGRESS.md（本文件）
-2. docs/architecture/ruoyi-all-next-architecture.md
+2. docs/architecture/cooliebase-all-base-architecture.md
 3. AGENTS.md
 4. prisma/schema.prisma
 5. packages/shared/backend/lib/database/index.ts

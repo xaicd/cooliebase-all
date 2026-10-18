@@ -1,16 +1,16 @@
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "RuoYi-All-Next Upstream Radar Catalog",
+  "title": "CoolieBase-All-Next Upstream Radar Catalog",
   "description": "持续跟进与学习的开源项目基准清单、技术谱系与漏洞审计雷达",
   "updatedAt": "2026-10-09",
   "projects": [
     {
       "id": "yudao-cloud",
-      "name": "yudao-cloud / ruoyi-vue-pro",
+      "name": "yudao-cloud / cooliebase-vue-pro",
       "organization": "芋道源码 (Yunai)",
       "category": "domain_contract",
       "repository": "https://gitee.com/zhijiantianya/yudao-cloud.git",
-      "mirror": "https://github.com/YunaiV/ruoyi-vue-pro.git",
+      "mirror": "https://github.com/YunaiV/cooliebase-vue-pro.git",
       "baselineBranch": "master",
       "trackingModules": [
         "yudao-module-bpm",
@@ -31,16 +31,16 @@
       "cveWatch": "Spring Cloud、Fastjson2、MyBatis-Plus 历史反序列化与鉴权绕过补丁"
     },
     {
-      "id": "ruoyi-vue",
-      "name": "RuoYi-Vue",
+      "id": "cooliebase-vue",
+      "name": "CoolieBase-Vue",
       "organization": "若依官方 (Yangzheart)",
       "category": "domain_contract",
-      "repository": "https://gitee.com/y_project/RuoYi-Vue.git",
+      "repository": "https://gitee.com/y_project/CoolieBase-Vue.git",
       "baselineBranch": "master",
       "trackingModules": [
-        "ruoyi-admin",
-        "ruoyi-framework",
-        "ruoyi-system"
+        "cooliebase-admin",
+        "cooliebase-framework",
+        "cooliebase-system"
       ],
       "focusAreas": [
         "RBAC 权限码命名体系 (system:user:query/edit)",

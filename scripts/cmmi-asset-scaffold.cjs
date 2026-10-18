@@ -316,7 +316,7 @@ flowchart TD
         title: "系统总体架构概要设计说明书 (HLD)",
         template: (opts) => `# 系统总体架构概要设计说明书 (High-Level Design - HLD)
 
-- **系统名称**: ${opts.title || "RuoYi-All-Next Architecture"}
+- **系统名称**: ${opts.title || "CoolieBase-All-Next Architecture"}
 - **基线版本**: ${opts.version || "v1.1.0"}
 - **归属规范**: CMMI 03_design (TS) / .agents/skills/architecture-design
 
@@ -385,7 +385,7 @@ flowchart TD
 每个第一方插件位于 \`packages/plugins/plugin-<domain>/\`，必须包含:
 1. \`plugin.manifest.json\`: 插件声明、能力白名单与路由声明
 2. \`plugin-entry.ts\`: 静态导入导出入口
-3. \`package.json\`: 包含 \`ruoyiPlugin\` 指针与 \`@ruoyi/plugin-sdk\`
+3. \`package.json\`: 包含 \`cooliebasePlugin\` 指针与 \`@cooliebase/plugin-sdk\`
 4. \`contract/\`: Domain Facade 抽象契约
 `
       },
@@ -511,7 +511,7 @@ flowchart TD
         title: "功能与物理配置审计总结报告 (FCA/PCA)",
         template: (opts) => `# 功能与物理配置审计总结报告 (FCA / PCA Compliance Audit Report)
 
-- **审计基线**: RuoYi-All-Next Release ${opts.version || "v1.1.0"}
+- **审计基线**: CoolieBase-All-Next Release ${opts.version || "v1.1.0"}
 - **审计日期**: ${new Date().toISOString().split("T")[0]}
 - **审计员**: @compliance-auditor
 - **归属规范**: CMMI 06_quality_assurance (PQA / CM) / .agents/skills/compliance-auditor
@@ -528,7 +528,7 @@ flowchart TD
         file: "docs/06_quality_assurance/gate-evidence-trace.json",
         title: "20 道质量门禁数字指纹记录",
         template: () => JSON.stringify({
-          schema: "https://schema.ruoyi-all-next.org/gate-evidence-trace-v1.json",
+          schema: "https://schema.cooliebase-all-base.org/gate-evidence-trace-v1.json",
           auditedAt: new Date().toISOString(),
           status: "PASSED",
           gatesCount: 20,
@@ -583,11 +583,11 @@ flowchart TD
         file: "docs/07_release/rollback-runbook.json",
         title: "生产秒级故障回滚演练 Runbook",
         template: () => JSON.stringify({
-          schema: "https://schema.ruoyi-all-next.org/rollback-runbook-v1.json",
+          schema: "https://schema.cooliebase-all-base.org/rollback-runbook-v1.json",
           updatedAt: new Date().toISOString(),
           maxRollbackTimeSeconds: 60,
           steps: [
-            { step: 1, action: "traffic_drain", command: "host-exec docker stop ruoyi-next-blue" },
+            { step: 1, action: "traffic_drain", command: "host-exec docker stop cooliebase-next-blue" },
             { step: 2, action: "traffic_switch", command: "host-exec traefik switch-upstream green" },
             { step: 3, action: "db_downgrade", command: "npx prisma migrate diff --from db --to migration-target" }
           ]

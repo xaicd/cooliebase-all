@@ -1,7 +1,7 @@
 # 领域百科：im (第一方业务插件)
 
 > **唯一源码目录**：[`packages/plugins/plugin-im/`](../../packages/plugins/plugin-im)  
-> **演进阶段**：阶段 B | **独立部署默认端口**：3225 | **上游环境变量**：`RUOYI_DOMAIN_IM_UPSTREAM`
+> **演进阶段**：阶段 B | **独立部署默认端口**：3225 | **上游环境变量**：`COOLIEBASE_DOMAIN_IM_UPSTREAM`
 
 ---
 

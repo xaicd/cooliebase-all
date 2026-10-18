@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/delivery-pick-up-store.validator"
 
 export const deliveryPickUpStoreActionSchemas = {
-  "ruoyi.cmd.mall.deliveryPickUpStore.page": deliveryPickUpStorePageQuerySchema,
-  "ruoyi.cmd.mall.deliveryPickUpStore.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.deliveryPickUpStore.create": deliveryPickUpStoreCreateSchema,
-  "ruoyi.cmd.mall.deliveryPickUpStore.update": deliveryPickUpStoreUpdateSchema,
-  "ruoyi.cmd.mall.deliveryPickUpStore.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryPickUpStore.page": deliveryPickUpStorePageQuerySchema,
+  "cooliebase.cmd.mall.deliveryPickUpStore.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.deliveryPickUpStore.create": deliveryPickUpStoreCreateSchema,
+  "cooliebase.cmd.mall.deliveryPickUpStore.update": deliveryPickUpStoreUpdateSchema,
+  "cooliebase.cmd.mall.deliveryPickUpStore.delete": z.object({ id: z.string() }),
   "mall.pageDeliveryPickUpStore": deliveryPickUpStorePageQuerySchema,
   "mall.getDeliveryPickUpStore": z.object({ id: z.string() }),
   "mall.createDeliveryPickUpStore": deliveryPickUpStoreCreateSchema,

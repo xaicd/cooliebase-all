@@ -29,7 +29,7 @@ export class AigwAccessTokenService {
   static async create(input: AigwAccessTokenWriteInput) {
     const all = await AigwAccessTokenRepository.findAll()
     if (all.some((item) => item.name === input.name)) throw new Error("令牌名称已存在")
-    const key = `sk-ruoyi-${randomBytes(12).toString("hex")}`
+    const key = `sk-cooliebase-${randomBytes(12).toString("hex")}`
     const record = await AigwAccessTokenRepository.create({
       name: input.name,
       key,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/iot-thing-model.validator"
 
 export const iotThingModelActionSchemas = {
-  "ruoyi.cmd.iot.iotThingModel.page": iotThingModelPageQuerySchema,
-  "ruoyi.cmd.iot.iotThingModel.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.iot.iotThingModel.create": iotThingModelCreateSchema,
-  "ruoyi.cmd.iot.iotThingModel.update": iotThingModelUpdateSchema,
-  "ruoyi.cmd.iot.iotThingModel.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotThingModel.page": iotThingModelPageQuerySchema,
+  "cooliebase.cmd.iot.iotThingModel.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.iot.iotThingModel.create": iotThingModelCreateSchema,
+  "cooliebase.cmd.iot.iotThingModel.update": iotThingModelUpdateSchema,
+  "cooliebase.cmd.iot.iotThingModel.delete": z.object({ id: z.string() }),
   "iot.pageIotThingModel": iotThingModelPageQuerySchema,
   "iot.getIotThingModel": z.object({ id: z.string() }),
   "iot.createIotThingModel": iotThingModelCreateSchema,

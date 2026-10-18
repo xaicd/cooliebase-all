@@ -18,8 +18,8 @@
 | 通道 | 对标 Nest | Subject | 投递 | 阶段 A/B | 阶段 C |
 |---|---|---|---|---|---|
 | 浏览器 HTTP | Controller | `/api/v{n}/...` | 请求/响应 | Next Route / 域独立镜像 | 不变，只换 upstream |
-| 跨域同步命令 | `@MessagePattern` | `ruoyi.cmd.<domain>.<method>` | 请求/响应，Queue Group=`ruoyi.<domain>` | 自研 fabric inbox | 同一套 subject，可换传输实现 |
-| 跨域异步事件 | `@EventPattern` | `ruoyi.evt.<domain>.<entity>.<action>` | pub-sub + 自研 stream ack | 同库同事务 outbox（Kysely / 内存事务） | 跨库拆分仍属阶段 C |
+| 跨域同步命令 | `@MessagePattern` | `cooliebase.cmd.<domain>.<method>` | 请求/响应，Queue Group=`cooliebase.<domain>` | 自研 fabric inbox | 同一套 subject，可换传输实现 |
+| 跨域异步事件 | `@EventPattern` | `cooliebase.evt.<domain>.<entity>.<action>` | pub-sub + 自研 stream ack | 同库同事务 outbox（Kysely / 内存事务） | 跨库拆分仍属阶段 C |
 | 同域内部 | Provider 私有调用 | 无 | 进程内 import | 允许 | 允许 |
 
 强制规则：
@@ -29,7 +29,7 @@
 3. 写命令默认不重试；有 `idempotencyKey` 或安全读方法才允许重试。
 4. Header 必须携带：`x-trace-id`、`x-source-domain`、`x-contract-version`；租户开启时还要 `x-tenant-id`。
 5. 不信任客户端伪造的身份 header；域服务独立做权限与 tenant 校验。
-6. `RUOYI_MESSAGING_TRANSPORT` 只表示语义配置；总线是自研 fabric，不连接 nats.io。
+6. `COOLIEBASE_MESSAGING_TRANSPORT` 只表示语义配置；总线是自研 fabric，不连接 nats.io。
 7. 资金、库存、审批等可靠跨域流程必须走 `runUnitOfWork` / `broker.publishReliable` + `subscribeReliable`（inbox 按 consumer+eventId 去重）。`emit` / `broadcast` 只是尽力投递。
 8. `runUnitOfWork` 与业务写共用同一 store 事务：有真实库时为 Kysely transaction（表 `infra_message_outbox` / `infra_message_inbox`）；无真实库时为可回滚内存事务。跨库拆分仍属阶段 C。
 
@@ -47,7 +47,7 @@
 3. 事件：`packages/shared/backend/lib/event-bus.ts`
 4. 目录：`packages/shared/backend/constants/domain-catalog.json` 的 `messaging` 段
 5. 每域声明：`packages/domains/<domain>/contract/route.manifest.yaml` 的 `messaging` 段
-6. Broker 与治理清单：`docs/architecture/ruoyi-all-next-microservice-governance.md`
+6. Broker 与治理清单：`docs/architecture/cooliebase-all-base-microservice-governance.md`
 7. 自研 NATS 语义：`packages/shared/backend/lib/nats-fabric.ts`、`nats-stream.ts`
 8. 可靠事件：`packages/shared/backend/lib/transactional-outbox.ts`、`outbox-store.ts`、`outbox-kysely-store.ts`
-9. 模块分层与 SDK/RPC 双模：`docs/architecture/ruoyi-all-next-plugin-rpc.md`
+9. 模块分层与 SDK/RPC 双模：`docs/architecture/cooliebase-all-base-plugin-rpc.md`

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-product.validator"
 
 export const crmProductActionSchemas = {
-  "ruoyi.cmd.crm.crmProduct.page": crmProductPageQuerySchema,
-  "ruoyi.cmd.crm.crmProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmProduct.create": crmProductCreateSchema,
-  "ruoyi.cmd.crm.crmProduct.update": crmProductUpdateSchema,
-  "ruoyi.cmd.crm.crmProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmProduct.page": crmProductPageQuerySchema,
+  "cooliebase.cmd.crm.crmProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmProduct.create": crmProductCreateSchema,
+  "cooliebase.cmd.crm.crmProduct.update": crmProductUpdateSchema,
+  "cooliebase.cmd.crm.crmProduct.delete": z.object({ id: z.string() }),
   "crm.pageCrmProduct": crmProductPageQuerySchema,
   "crm.getCrmProduct": z.object({ id: z.string() }),
   "crm.createCrmProduct": crmProductCreateSchema,

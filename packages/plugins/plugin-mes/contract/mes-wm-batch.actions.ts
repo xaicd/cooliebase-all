@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-batch.validator"
 
 export const mesWmBatchActionSchemas = {
-  "ruoyi.cmd.mes.mesWmBatch.page": mesWmBatchPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmBatch.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmBatch.create": mesWmBatchCreateSchema,
-  "ruoyi.cmd.mes.mesWmBatch.update": mesWmBatchUpdateSchema,
-  "ruoyi.cmd.mes.mesWmBatch.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmBatch.page": mesWmBatchPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmBatch.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmBatch.create": mesWmBatchCreateSchema,
+  "cooliebase.cmd.mes.mesWmBatch.update": mesWmBatchUpdateSchema,
+  "cooliebase.cmd.mes.mesWmBatch.delete": z.object({ id: z.string() }),
   "mes.pageMesWmBatch": mesWmBatchPageQuerySchema,
   "mes.getMesWmBatch": z.object({ id: z.string() }),
   "mes.createMesWmBatch": mesWmBatchCreateSchema,

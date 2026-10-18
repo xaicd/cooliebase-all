@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-auto-reply.validator"
 
 export const mpAutoReplyActionSchemas = {
-  "ruoyi.cmd.mp.mpAutoReply.page": mpAutoReplyPageQuerySchema,
-  "ruoyi.cmd.mp.mpAutoReply.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpAutoReply.create": mpAutoReplyCreateSchema,
-  "ruoyi.cmd.mp.mpAutoReply.update": mpAutoReplyUpdateSchema,
-  "ruoyi.cmd.mp.mpAutoReply.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpAutoReply.page": mpAutoReplyPageQuerySchema,
+  "cooliebase.cmd.mp.mpAutoReply.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpAutoReply.create": mpAutoReplyCreateSchema,
+  "cooliebase.cmd.mp.mpAutoReply.update": mpAutoReplyUpdateSchema,
+  "cooliebase.cmd.mp.mpAutoReply.delete": z.object({ id: z.string() }),
   "mp.pageMpAutoReply": mpAutoReplyPageQuerySchema,
   "mp.getMpAutoReply": z.object({ id: z.string() }),
   "mp.createMpAutoReply": mpAutoReplyCreateSchema,

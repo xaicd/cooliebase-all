@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-menu.validator"
 
 export const mpMenuActionSchemas = {
-  "ruoyi.cmd.mp.mpMenu.page": mpMenuPageQuerySchema,
-  "ruoyi.cmd.mp.mpMenu.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpMenu.create": mpMenuCreateSchema,
-  "ruoyi.cmd.mp.mpMenu.update": mpMenuUpdateSchema,
-  "ruoyi.cmd.mp.mpMenu.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMenu.page": mpMenuPageQuerySchema,
+  "cooliebase.cmd.mp.mpMenu.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMenu.create": mpMenuCreateSchema,
+  "cooliebase.cmd.mp.mpMenu.update": mpMenuUpdateSchema,
+  "cooliebase.cmd.mp.mpMenu.delete": z.object({ id: z.string() }),
   "mp.pageMpMenu": mpMenuPageQuerySchema,
   "mp.getMpMenu": z.object({ id: z.string() }),
   "mp.createMpMenu": mpMenuCreateSchema,

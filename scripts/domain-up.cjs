@@ -14,7 +14,7 @@ const env = { ...process.env }
 const profiles = []
 
 if (!allInOne) {
-  env.RUOYI_RPC_TOKEN = env.RUOYI_RPC_TOKEN || "dev-rpc-token"
+  env.COOLIEBASE_RPC_TOKEN = env.COOLIEBASE_RPC_TOKEN || "dev-rpc-token"
   for (const name of names) {
     const domain = getDomain(name)
     env[domain.upstreamEnv] = env[domain.upstreamEnv] || `http://${domain.name}:3100`

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-message-template.validator"
 
 export const mpMessageTemplateActionSchemas = {
-  "ruoyi.cmd.mp.mpMessageTemplate.page": mpMessageTemplatePageQuerySchema,
-  "ruoyi.cmd.mp.mpMessageTemplate.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpMessageTemplate.create": mpMessageTemplateCreateSchema,
-  "ruoyi.cmd.mp.mpMessageTemplate.update": mpMessageTemplateUpdateSchema,
-  "ruoyi.cmd.mp.mpMessageTemplate.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMessageTemplate.page": mpMessageTemplatePageQuerySchema,
+  "cooliebase.cmd.mp.mpMessageTemplate.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMessageTemplate.create": mpMessageTemplateCreateSchema,
+  "cooliebase.cmd.mp.mpMessageTemplate.update": mpMessageTemplateUpdateSchema,
+  "cooliebase.cmd.mp.mpMessageTemplate.delete": z.object({ id: z.string() }),
   "mp.pageMpMessageTemplate": mpMessageTemplatePageQuerySchema,
   "mp.getMpMessageTemplate": z.object({ id: z.string() }),
   "mp.createMpMessageTemplate": mpMessageTemplateCreateSchema,

@@ -1,6 +1,6 @@
-# ruoyi-all-next
+# cooliebase-all-base
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/xaicd/ruoyi-all-next/releases/tag/v1.1.0)
+[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/xaicd/cooliebase-all-base/releases/tag/v1.1.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CMMI 01-09](https://img.shields.io/badge/CMMI-01~09%20Full--Lifecycle-green.svg)](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
 [![Agent Skills](https://img.shields.io/badge/Agent%20Skills-36%20Native%20Skills-purple.svg)](.agents/skills/README.md)
@@ -38,7 +38,7 @@ flowchart TD
         M2["单体内存 SDK / 远程 RPC 双模切换"]
         M3["版本化 /api/v{n}/ 契约零破坏"]
     end
-    P1 --> Foundation["ruoyi-all-next: 工业级 AI 原生商业软件底座"]
+    P1 --> Foundation["cooliebase-all-base: 工业级 AI 原生商业软件底座"]
     P2 --> Foundation
     P3 --> Foundation
     P4 --> Foundation
@@ -77,10 +77,10 @@ flowchart TD
 
 ```bash
 # 方案 A: 官方专属 CLI 极速派生 (推荐，自动完成初始化与本地库创建)
-npx create-ruoyi-app my-app
+npx create-cooliebase-app my-app
 
 # 方案 B: degit 骨架拉取 (10秒内完成，0MB 历史提交)
-npx degit xaicd/ruoyi-all-next#main my-app
+npx degit xaicd/cooliebase-all-base#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "我的新业务系统"
 npm run dev
@@ -89,7 +89,7 @@ npm run dev
 > **自动化完成的核心事项**：
 > - ⚡ **秒级骨架派生**：彻底规避几百兆历史提交与 packfile 下载；
 > - 🏷️ **业务身份重构**：`project:init` 自动重构包名、中文标题、版权声明与运行时配置；
-> - 🗄️ **真实本地数据库自动就绪**：基于真实本地 SQLite 驱动（`data/ruoyi.db`），零外部重型依赖即可立即运行全部业务；
+> - 🗄️ **真实本地数据库自动就绪**：基于真实本地 SQLite 驱动（`data/cooliebase.db`），零外部重型依赖即可立即运行全部业务；
 > - 🌐 **原生四国语言 (i18n)**：开箱即用支持 🇨🇳 中文 (`zh-CN`)、🇺🇸 英文 (`en-US`)、🇯🇵 日文 (`ja-JP`)、🇰🇷 韩文 (`ko-KR`)；
 > - 🔐 **零默认凭据体系 (Zero Default Credentials)**：严禁使用任何静态默认凭证；系统初始化时通过密码学安全伪随机发生器（CSPRNG）在隔离环境动态生成高熵引导凭证并持久化注入本地环境变量，天然免疫凭证撞库；
 > - 🛡️ **SpaceX 级全链路门禁**：执行 `npm run check` 自动核验 20 道工程质量门禁，立享 100% 绿灯护栏。
@@ -101,14 +101,14 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 ```json
 {
   "mcpServers": {
-    "ruoyi-all-next": {
+    "cooliebase-all-base": {
       "command": "npx",
-      "args": ["-y", "@ruoyi/mcp-server"]
+      "args": ["-y", "@cooliebase/mcp-server"]
     }
   }
 }
 ```
-*(在本地工作区内开发时，亦可直接执行 `node scripts/mcp/ruoyi-mcp-server.cjs` 启动 stdio 通道)*
+*(在本地工作区内开发时，亦可直接执行 `node scripts/mcp/cooliebase-mcp-server.cjs` 启动 stdio 通道)*
 
 ---
 
@@ -136,7 +136,7 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 AI 施工时必须遵守严格的模块分层与物理边界，**严禁凭感觉放置文件**：
 
 ```
-ruoyi-all-next/
+cooliebase-all-base/
 ├── packages/
 │   ├── shared/                       # 核心基础 SDK (永远是 SDK，严禁当作微服务)
 │   │   ├── backend/constants/        # 权限码、菜单、domain-catalog.json 权威真源
@@ -164,7 +164,7 @@ ruoyi-all-next/
 
 ### 🚨 跨域调用三原则（门禁强校验）：
 1. **严禁跨域直接 import**：禁止在业务域内直接 import 其它域的 Service、Repository 或 Prisma Model；
-2. **强制 Domain Facade / Broker**：跨域同步调用必须走 `createDomainFacade("<domain>")` 或 `broker.call("ruoyi.cmd.<domain>.<method>")`；
+2. **强制 Domain Facade / Broker**：跨域同步调用必须走 `createDomainFacade("<domain>")` 或 `broker.call("cooliebase.cmd.<domain>.<method>")`；
 3. **双模无缝切换**：单体运行时走内存 SDK 直接调用，微服务独立部署时自动切换为 RPC，对外契约完全等价。
 
 ---
@@ -236,11 +236,11 @@ ruoyi-all-next/
 - [CMMI 过程资产与交付标准手册](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
 - [CMMI 01~09 全生命周期顶级技能分配矩阵](.agents/skills/README.md)
 - [AI 全链路交付工厂与工单规范](docs/architecture/ai-agent-driven-delivery-workflow.md)
-- [架构总览与分层设计](docs/architecture/ruoyi-all-next-architecture.md)
+- [架构总览与分层设计](docs/architecture/cooliebase-all-base-architecture.md)
 - [高阶反向思维与 Harness 约束](.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
 - [开发工作手册 (Universal Directives)](AGENTS.md)
-- [多数据库兼容与方言隔离](docs/architecture/ruoyi-all-next-database-compatibility.md)
-- [多端渠道能力标准](docs/architecture/ruoyi-all-next-client-channels.md)
+- [多数据库兼容与方言隔离](docs/architecture/cooliebase-all-base-database-compatibility.md)
+- [多端渠道能力标准](docs/architecture/cooliebase-all-base-client-channels.md)
 - [i18n 国际化多语言使用指南](docs/guides/i18n-guide.md)
 - [业务项目身份初始化指南](docs/guides/project-profile-bootstrap.md)
 
@@ -249,4 +249,4 @@ ruoyi-all-next/
 ## 许可证
 
 本项目基于 [MIT License](LICENSE) 开源，Copyright (c) 2026 xaicd。  
-本项目自 RuoYi-Vue-Pro 全量迁移而来，上游项目同为 MIT 协议。
+本项目自 CoolieBase-Vue-Pro 全量迁移而来，上游项目同为 MIT 协议。

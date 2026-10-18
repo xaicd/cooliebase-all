@@ -47,7 +47,7 @@ flowchart TD
 
 ---
 
-## 3. 针对 ruoyi-all-next 核心工程底座的 4 大防御靶标
+## 3. 针对 cooliebase-all-base 核心工程底座的 4 大防御靶标
 
 Strix 在对本系统进行红队演练时，重点检验以下 4 项不可动摇的工程铁律：
 

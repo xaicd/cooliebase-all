@@ -56,7 +56,7 @@ $$\text{期初余额} + \text{借方净变动} - \text{贷方净变动} = \text{
 
 ---
 
-## 4. 与 ruoyi-all-next 架构联动
+## 4. 与 cooliebase-all-base 架构联动
 
 1. **领域边界与契约隔离**：
    - 对账 Agent 属于 `09_operations` 运营域与 `pay` 支付域的协同编排。

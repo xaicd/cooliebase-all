@@ -36,11 +36,11 @@
 
 ## System / Infra 当前资源级授权阻塞项（2026-08-14）
 - **OAuth2 public contract**：`/api/v1/admin/system/oauth2/open/token` 与 `/user/info` 保持仅平台管理员可调用并标记 deprecated，不能加入匿名 allowlist。当前 Settings JSON 存储含明文 client secret/token、低熵 token、无撤销/轮换；在独立实现 CSPRNG、hash-only storage、refresh rotation、scope/client binding、Bearer userinfo、限流和审计前，不得创建 `/api/v1/open/oauth2/*`。
-- **在线用户**：当前是进程内 mock，schema 没有 session/revocation store，无法跨副本列举会话或真正强制下线。暂不将伪 CRUD 视为可用能力；需先建立持久 session/token-revocation port、补齐本地 RuoYi 权限/菜单证据，再提供只读列表和显式 force-logout action。
-- **页面构建、IP 区域**：尚无已验证的本地 RuoYi 按钮权限或资源契约，维持 Proxy 认证并标记 blocker；禁止按路径名称猜测 permission 后批量包装。
+- **在线用户**：当前是进程内 mock，schema 没有 session/revocation store，无法跨副本列举会话或真正强制下线。暂不将伪 CRUD 视为可用能力；需先建立持久 session/token-revocation port、补齐本地 CoolieBase 权限/菜单证据，再提供只读列表和显式 force-logout action。
+- **页面构建、IP 区域**：尚无已验证的本地 CoolieBase 按钮权限或资源契约，维持 Proxy 认证并标记 blocker；禁止按路径名称猜测 permission 后批量包装。
 - **用户资料**：已收敛为当前认证管理员的 `GET/PUT /api/v1/admin/system/user-profile`；移除了按任意 ID 读写的 route 和伪 CRUD。密码修改仍须在会话/令牌失效策略确定后单独开放。
 - **审计日志与短信 callback 占位**：登录/操作日志 API 已收敛为已授权只读查询；移除了未授权的伪写操作。无行为的 `sms-callback/[id]` 501 占位 route 已移除。真实持久化、tenant 范围和导出实现仍是后续 blocker。
-- **OAuth2 管理读权限**：已与本地 RuoYi SQL 种子同步为 `system:oauth2-client:query` 与 `system:oauth2-token:page`；后台页面统一调用 `/api/v1/admin/...`。
+- **OAuth2 管理读权限**：已与本地 CoolieBase SQL 种子同步为 `system:oauth2-client:query` 与 `system:oauth2-token:page`；后台页面统一调用 `/api/v1/admin/...`。
 
 ## P1：首轮无状态扩容
 - Redis 承接缓存、全局限流、幂等、分布式锁和配置通知；验证请求落到不同副本时结果一致。

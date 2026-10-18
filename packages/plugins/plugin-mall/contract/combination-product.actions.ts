@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/combination-product.validator"
 
 export const combinationProductActionSchemas = {
-  "ruoyi.cmd.mall.combinationProduct.page": combinationProductPageQuerySchema,
-  "ruoyi.cmd.mall.combinationProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.combinationProduct.create": combinationProductCreateSchema,
-  "ruoyi.cmd.mall.combinationProduct.update": combinationProductUpdateSchema,
-  "ruoyi.cmd.mall.combinationProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationProduct.page": combinationProductPageQuerySchema,
+  "cooliebase.cmd.mall.combinationProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.combinationProduct.create": combinationProductCreateSchema,
+  "cooliebase.cmd.mall.combinationProduct.update": combinationProductUpdateSchema,
+  "cooliebase.cmd.mall.combinationProduct.delete": z.object({ id: z.string() }),
   "mall.pageCombinationProduct": combinationProductPageQuerySchema,
   "mall.getCombinationProduct": z.object({ id: z.string() }),
   "mall.createCombinationProduct": combinationProductCreateSchema,

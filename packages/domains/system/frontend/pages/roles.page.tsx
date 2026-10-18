@@ -133,7 +133,7 @@ export default function SystemRolesPage() {
       />
 
       {showForm && <RoleFormDialog role={editing} onSubmit={handleSubmit} onClose={() => setShowForm(false)} />}
-      {showMenuAssign && assigningRole && <MenuAssignDialog key={`${assigningRole.id}-ruoyi-menu-permissions-v2`} role={assigningRole} onClose={() => setShowMenuAssign(false)} />}
+      {showMenuAssign && assigningRole && <MenuAssignDialog key={`${assigningRole.id}-cooliebase-menu-permissions-v2`} role={assigningRole} onClose={() => setShowMenuAssign(false)} />}
     </div>
   )
 }

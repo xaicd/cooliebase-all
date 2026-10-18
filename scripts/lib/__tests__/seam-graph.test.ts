@@ -37,7 +37,7 @@ describe("seam-graph", () => {
     expect(entry!.provider.servicesDir).toBe(`packages/plugins/plugin-${name}/backend/services`)
     expect(entry!.provider.methods).toEqual(rpc.domains[name].actions.map((item) => item.method))
     // 插件化后 API 消费面是宿主的插件挂载点，不再是 Next 目录
-    expect(entry!.consumer.adminApi).toBe(`src/app/api/v1/plugins/ruoyi.${name}/api`)
+    expect(entry!.consumer.adminApi).toBe(`src/app/api/v1/plugins/cooliebase.${name}/api`)
     expect(SEAM_GRAPH_REL).toBe("packages/shared/contract/seam-graph.json")
   })
 

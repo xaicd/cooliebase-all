@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS member_user (
 ```ts
 // SiteAppearance（zod，全字段带默认值）
 {
-  siteName: string,        // 默认 "RuoYi Next 商城"
+  siteName: string,        // 默认 "CoolieBase Next 商城"
   logoUrl: string,         // 默认内置 logo
   faviconUrl: string,
   primaryColor: string,    // 默认 "#4f46e5"（hex）

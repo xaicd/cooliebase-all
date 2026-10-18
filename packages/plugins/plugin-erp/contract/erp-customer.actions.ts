@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-customer.validator"
 
 export const erpCustomerActionSchemas = {
-  "ruoyi.cmd.erp.erpCustomer.page": erpCustomerPageQuerySchema,
-  "ruoyi.cmd.erp.erpCustomer.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpCustomer.create": erpCustomerCreateSchema,
-  "ruoyi.cmd.erp.erpCustomer.update": erpCustomerUpdateSchema,
-  "ruoyi.cmd.erp.erpCustomer.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpCustomer.page": erpCustomerPageQuerySchema,
+  "cooliebase.cmd.erp.erpCustomer.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpCustomer.create": erpCustomerCreateSchema,
+  "cooliebase.cmd.erp.erpCustomer.update": erpCustomerUpdateSchema,
+  "cooliebase.cmd.erp.erpCustomer.delete": z.object({ id: z.string() }),
   "erp.pageErpCustomer": erpCustomerPageQuerySchema,
   "erp.getErpCustomer": z.object({ id: z.string() }),
   "erp.createErpCustomer": erpCustomerCreateSchema,

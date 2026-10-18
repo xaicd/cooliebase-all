@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-material.validator"
 
 export const mpMaterialActionSchemas = {
-  "ruoyi.cmd.mp.mpMaterial.page": mpMaterialPageQuerySchema,
-  "ruoyi.cmd.mp.mpMaterial.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpMaterial.create": mpMaterialCreateSchema,
-  "ruoyi.cmd.mp.mpMaterial.update": mpMaterialUpdateSchema,
-  "ruoyi.cmd.mp.mpMaterial.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMaterial.page": mpMaterialPageQuerySchema,
+  "cooliebase.cmd.mp.mpMaterial.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpMaterial.create": mpMaterialCreateSchema,
+  "cooliebase.cmd.mp.mpMaterial.update": mpMaterialUpdateSchema,
+  "cooliebase.cmd.mp.mpMaterial.delete": z.object({ id: z.string() }),
   "mp.pageMpMaterial": mpMaterialPageQuerySchema,
   "mp.getMpMaterial": z.object({ id: z.string() }),
   "mp.createMpMaterial": mpMaterialCreateSchema,

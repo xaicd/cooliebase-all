@@ -47,12 +47,12 @@ export const configCenter = {
    * 获取配置值
    *
    * @example
-   * const dbUrl = configCenter.get("shared", "DATABASE_URL", "postgresql://localhost:5432/ruoyi")
+   * const dbUrl = configCenter.get("shared", "DATABASE_URL", "postgresql://localhost:5432/cooliebase")
    * const payTimeout = configCenter.get("pay", "CHANNEL_TIMEOUT_MS", 5000)
    */
   get<T extends ConfigValue = string>(namespace: ConfigNamespace, key: string, defaultValue: T): T {
-    // 优先从环境变量读取：格式 RUOYI_{NAMESPACE}_{KEY}
-    const envKey = `RUOYI_${namespace.toUpperCase()}_${key.toUpperCase().replace(/[.-]/g, "_")}`
+    // 优先从环境变量读取：格式 COOLIEBASE_{NAMESPACE}_{KEY}
+    const envKey = `COOLIEBASE_${namespace.toUpperCase()}_${key.toUpperCase().replace(/[.-]/g, "_")}`
     const envValue = process.env[envKey]
     if (envValue !== undefined) {
       // 尝试类型转换

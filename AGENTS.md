@@ -1,10 +1,10 @@
-<!-- rename/ruoyi-to-cooliebase active -->
+<!-- rename/cooliebase-to-cooliebase active -->
 
-# ruoyi-all-next 开发工作手册
+# cooliebase-all-base 开发工作手册
 
 更新时间：2026-09-02
 
-本文件是 ruoyi-all-next 的独立开发规范，覆盖架构边界、研发流程、测试门禁、运行部署与交付标准。当前仓库根目录即本项目，命令均在仓库根执行。
+本文件是 cooliebase-all-base 的独立开发规范，覆盖架构边界、研发流程、测试门禁、运行部署与交付标准。当前仓库根目录即本项目，命令均在仓库根执行。
 
 ---
 
@@ -31,15 +31,15 @@
 ## 1. 项目定位
 
 
-1. ruoyi-all-next 是基于 Next.js 的 RuoYi 能力迁移与复用基座。
+1. cooliebase-all-base 是基于 Next.js 的 CoolieBase 能力迁移与复用基座。
 2. 目标是以模块化单体方式先完成全域能力吸收，再按域支持独立拆分。
 3. 当前阶段坚持“证据驱动迁移”：任何能力声明必须有扫描产物与代码落地。
 4. 本仓库同时是新业务项目与 DigitalStaff NPC 员工独立开发的底层模板（Workspace Bundle）。Agent Loop 留在 DigitalStaff；本仓按 DeepSeek Harness 思想做可组合、可追溯进化，见 §18。
 
 ## 2. 适用范围与边界
 
-1. 本规范作用于本仓库根目录（即 ruoyi-all-next）。
-2. all-next 当前阶段只允许建设 RuoYi 原生域，不接收非原生扩展域。
+1. 本规范作用于本仓库根目录（即 cooliebase-all-base）。
+2. all-next 当前阶段只允许建设 CoolieBase 原生域，不接收非原生扩展域。
 3. 原生域清单、规模证据、迁移阶段以扫描结果为准。权威运行时清单：`packages/shared/backend/constants/domain-catalog.json`。
 
 原生域（15）：
@@ -103,9 +103,9 @@
 
 域→插件的迁移是**已落地的常态**，不是实验。要点：
 
-1. **插件身份**：`id = ruoyi.<域名>`；目录 `packages/plugins/plugin-<域名>`；
+1. **插件身份**：`id = cooliebase.<域名>`；目录 `packages/plugins/plugin-<域名>`；
    manifest 为 `plugin.manifest.json`，入口 `plugin-entry.ts`；`package.json` 需带
-   `ruoyiPlugin` 指针与 `@ruoyi/plugin-sdk` 依赖。
+   `cooliebasePlugin` 指针与 `@cooliebase/plugin-sdk` 依赖。
 2. **插件仍保留域级特征**：manifest 的 `domain` 段携带 `publicPrefixes` / `defaultPort` /
    `upstreamEnv` / `packable` / `auth` / `resilience`。**不要**把已插件化的域从
    `domain-catalog.json` 移除 —— 移除等于丢域级特征（broker 会拒收它的 subject、
@@ -147,13 +147,13 @@
 6. **前端双轨页面规范（强制）**：
    - `packages/domains/<domain>/frontend/pages/` 专用于 **Admin 运营管理端页面**；
 7. C 端与桌面壳必须落在仓库根 `clients/<channel>/`，一渠道一包；当前只保留 `expo`（其余渠道 h5/uniapp/flutter/desktop-pc 已按决策删除）。
-8. 独立客户端包内固定 `app/`、`shared/`、`modules/<domain>/`；域名与 `domain-catalog.json` 一致，禁止把新域堆进 `app`、`shared` 或根 `pages`。细则见 docs/architecture/ruoyi-all-next-client-channels.md。
+8. 独立客户端包内固定 `app/`、`shared/`、`modules/<domain>/`；域名与 `domain-catalog.json` 一致，禁止把新域堆进 `app`、`shared` 或根 `pages`。细则见 docs/architecture/cooliebase-all-base-client-channels.md。
 
 ### 3.3 可替换后端与微服务边界（强制）
 
 1. 对外 HTTP API 必须保持版本化的 `/api/v{n}/` 契约；React 页面只能依赖前端 API Port 与版本化 DTO，禁止依赖 Next Service、Repository、Prisma/Kysely 类型或本地路由实现。
 2. 每个可拆分域必须拥有版本化 API Contract、route manifest、application port 与 adapter 边界；Contract 是 TypeScript、Go 及其他实现共享的权威协议，数据库表结构不是浏览器 DTO 的来源。
-3. 同域业务调用可使用本地 application port；跨域同步必须走 Domain Facade / `broker.call()` / `serviceBus.call()`（subject=`ruoyi.cmd.<domain>.<method>`），禁止直接 import 其他域 Service 或 Repository。`system` / `infra` **不对业务域整体开放**：业务域只允许调公开面（数据字典 `getDictDataByType`、登录用户信息 `getPermissionInfoByUser`）。其余后台 CRUD 是 BFF 同域 HTTP，不承诺跨域 RPC。`shared` 鉴权走平台面 `resolveTenantEntitlement`。同进程打包时 Facade 走 SDK 内存调用（不序列化）；跨服务独立部署时同一 Facade 切到 RPC，由 `POST /api/internal/rpc` 承载（生产需 `RUOYI_RPC_TOKEN`）。默认远程协议是自研 NATS request-reply + JSON；`RUOYI_RPC_PROTOCOL=grpc` 时走自研 gRPC unary + protobuf frame（无 `@grpc/grpc-js`）。不采用 Dubbo/Thrift 作为默认真源。`shared` 是核心基础 SDK，不是微服务。跨域异步必须走 `broker.emit|broadcast`（subject=`ruoyi.evt.<domain>.<entity>.<action>`）。同步调用必须经过 registry、timeout、retry、bulkhead、circuitBreaker；写命令重试必须带 idempotency。可靠跨域事件必须走 `broker.publishReliable()` / `runUnitOfWork()` + consumer inbox，禁止只靠内存 emit/broadcast。同库同事务 outbox 走 Kysely（无真实库时为可回滚内存事务）；跨库拆分仍属阶段 C。服务间总线使用自研 NATS 语义（inbox / queue group / stream ack），禁止引入 Moleculer、NestJS 或 nats.io 运行时。
+3. 同域业务调用可使用本地 application port；跨域同步必须走 Domain Facade / `broker.call()` / `serviceBus.call()`（subject=`cooliebase.cmd.<domain>.<method>`），禁止直接 import 其他域 Service 或 Repository。`system` / `infra` **不对业务域整体开放**：业务域只允许调公开面（数据字典 `getDictDataByType`、登录用户信息 `getPermissionInfoByUser`）。其余后台 CRUD 是 BFF 同域 HTTP，不承诺跨域 RPC。`shared` 鉴权走平台面 `resolveTenantEntitlement`。同进程打包时 Facade 走 SDK 内存调用（不序列化）；跨服务独立部署时同一 Facade 切到 RPC，由 `POST /api/internal/rpc` 承载（生产需 `COOLIEBASE_RPC_TOKEN`）。默认远程协议是自研 NATS request-reply + JSON；`COOLIEBASE_RPC_PROTOCOL=grpc` 时走自研 gRPC unary + protobuf frame（无 `@grpc/grpc-js`）。不采用 Dubbo/Thrift 作为默认真源。`shared` 是核心基础 SDK，不是微服务。跨域异步必须走 `broker.emit|broadcast`（subject=`cooliebase.evt.<domain>.<entity>.<action>`）。同步调用必须经过 registry、timeout、retry、bulkhead、circuitBreaker；写命令重试必须带 idempotency。可靠跨域事件必须走 `broker.publishReliable()` / `runUnitOfWork()` + consumer inbox，禁止只靠内存 emit/broadcast。同库同事务 outbox 走 Kysely（无真实库时为可回滚内存事务）；跨库拆分仍属阶段 C。服务间总线使用自研 NATS 语义（inbox / queue group / stream ack），禁止引入 Moleculer、NestJS 或 nats.io 运行时。
 4. Next.js Route 在阶段 A/B 是 BFF adapter，不是领域真源；迁移某域到 Go 时，只允许替换该域 upstream adapter / manifest 路由，浏览器 API 路径、DTO、权限、tenant scope 和错误契约不得变化。
 5. 新 Go 服务必须验证受信任的服务身份、传递 trace、tenant 与 actor context；禁止信任调用方伪造的 tenant、user 或 permission header。服务间认证、健康/readiness、指标和契约兼容检查是上线前置条件。
 6. 以域为独立扩展单元，支持独立构建、部署、水平扩缩、配置和迁移所有权；不得承诺无边界的“无限扩展”，容量目标须由 SLO、压测和资源预算确定。
@@ -335,16 +335,16 @@
 
 ## 6. 能力同步与治理门禁
 
-1. 能力状态必须对照 docs/architecture/ruoyi-all-next-capability-matrix.md。
-2. 域声明必须同步 docs/architecture/ruoyi-all-next-domain-governance.md。
+1. 能力状态必须对照 docs/architecture/cooliebase-all-base-capability-matrix.md。
+2. 域声明必须同步 docs/architecture/cooliebase-all-base-domain-governance.md。
 3. 未登记能力不得标记 DONE。
 4. PARTIAL 与 DONE 域必须带 TestRefs。
 5. 微服务阶段为 B/C 的域必须填写 SplitNote。
 
 CI 前置检查：
 
-1. npm run ruoyi:matrix:check
-2. npm run ruoyi:governance:check
+1. npm run cooliebase:matrix:check
+2. npm run cooliebase:governance:check
 3. npm run domain:check
 4. npm run microservice:check
 5. npm run harness:check
@@ -355,8 +355,8 @@ CI 前置检查：
 10. npm run standards:check
 11. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 12. 合并前建议执行 strict：
-	- npm run ruoyi:matrix:check:strict
-	- npm run ruoyi:governance:check:strict
+	- npm run cooliebase:matrix:check:strict
+	- npm run cooliebase:governance:check:strict
 
 一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 10 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
 
@@ -389,7 +389,7 @@ npm run check                 # 门禁产出证据 + 轨迹
         ↑ scripts/build-evolution-backlog.cjs 聚合：
           门禁轨迹状态 / standards report 项与冻结欠债 /
           各域测试覆盖（§8）/ 超 200 行文件（§11.2）/ TODO 标记（§12）
-        ↓ 外部 Agent 读取（MCP 工具 ruoyi_evolution_backlog）
+        ↓ 外部 Agent 读取（MCP 工具 cooliebase_evolution_backlog）
         修复 → 再跑 npm run check 验证
 ```
 
@@ -457,10 +457,10 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 推荐每个批次都执行以下命令链：
 
-1. npm run ruoyi:full:scan
-2. npm run ruoyi:deep:scan
-3. npm run ruoyi:mini:scan
-4. npm run ruoyi:migration:board
+1. npm run cooliebase:full:scan
+2. npm run cooliebase:deep:scan
+3. npm run cooliebase:mini:scan
+4. npm run cooliebase:migration:board
 
 产物目录：docs/architecture/artifacts/
 
@@ -503,12 +503,12 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 ### 9.2 all-next 研发常用命令
 
-1. 能力扫描：npm run ruoyi:full:scan
-2. 证据扫描：npm run ruoyi:deep:scan
-3. mini 基座扫描：npm run ruoyi:mini:scan
-4. 迁移作战板：npm run ruoyi:migration:board
+1. 能力扫描：npm run cooliebase:full:scan
+2. 证据扫描：npm run cooliebase:deep:scan
+3. mini 基座扫描：npm run cooliebase:mini:scan
+4. 迁移作战板：npm run cooliebase:migration:board
 5. 治理检查：npm run check
-6. strict 治理：npm run ruoyi:matrix:check:strict && npm run ruoyi:governance:check:strict
+6. strict 治理：npm run cooliebase:matrix:check:strict && npm run cooliebase:governance:check:strict
 7. 域独立打包：npm run domain:list && npm run domain:pack -- pay
 8. 一体运行：npm run dev（或 npm run runtime:all）
 9. 域独立运行：npm run domain:dev -- pay
@@ -545,7 +545,7 @@ npm run verify:real-db                             # 真实库验证（改过仓
 
 **内存模式全绿 ≠ 真实库正确** —— 内存回退不校验任何数据库约束。改过仓储、迁移、
 多租户或 codegen 模板后，必须再跑 `npm run verify:real-db`
-（一键: 起库 → 重建独立验证库 `ruoyi_verify` → 迁移 → 种子 → 全量测试 → 停库；
+（一键: 起库 → 重建独立验证库 `cooliebase_verify` → 迁移 → 种子 → 全量测试 → 停库；
 `--keep` 保留现场、`--reuse` 复用库）。它会**显式设置 `DATABASE_URL`** ——
 shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试会悄悄跑到另一个库上。
 
@@ -606,12 +606,12 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 1. npm run lint
 2. npm test
 3. npm run build
-4. npm run start  # 运行 `.next-ruoyi/standalone/server.js`，验证生产构建
+4. npm run start  # 运行 `.next-cooliebase/standalone/server.js`，验证生产构建
 
 ### 10.2 Docker 部署
 
-1. 一体镜像：docker build -t ruoyi-all-next .
-2. 域镜像：docker build -f Dockerfile.domain -t ruoyi-all-next-domain .
+1. 一体镜像：docker build -t cooliebase-all-base .
+2. 域镜像：docker build -f Dockerfile.domain -t cooliebase-all-base-domain .
 3. 生产编排：docker compose -f deploy/docker-compose.prod.yml up -d
 4. 开发编排：docker compose -f deploy/docker-compose.dev.yml up -d
 5. 拆分编排（BFF + 域）：npm run domain:up -- pay
@@ -643,24 +643,24 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. README.md
 2. packages/domains/README.md
-3. docs/architecture/ruoyi-native-capabilities-catalog.md
-4. docs/architecture/ruoyi-full-migration-board.md
+3. docs/architecture/cooliebase-native-capabilities-catalog.md
+4. docs/architecture/cooliebase-full-migration-board.md
 5. docs/architecture/system-core-implementation-checklist.md
-6. docs/architecture/ruoyi-all-next-capability-matrix.md
-7. docs/architecture/ruoyi-all-next-domain-governance.md
+6. docs/architecture/cooliebase-all-base-capability-matrix.md
+7. docs/architecture/cooliebase-all-base-domain-governance.md
 8. docs/guides/api-route-conventions.md
 9. docs/guides/tenant-catalog-bootstrap.md
 10. docs/guides/service-design-patterns.md
 11. scripts/quick-start.sh
 12. scripts/scaffold-feature.ts
-13. docs/architecture/ruoyi-all-next-domain-pack.md
-14. docs/architecture/ruoyi-all-next-messaging-constraints.md
-15. docs/architecture/ruoyi-all-next-microservice-governance.md
-16. docs/architecture/ruoyi-all-next-plugin-rpc.md
+13. docs/architecture/cooliebase-all-base-domain-pack.md
+14. docs/architecture/cooliebase-all-base-messaging-constraints.md
+15. docs/architecture/cooliebase-all-base-microservice-governance.md
+16. docs/architecture/cooliebase-all-base-plugin-rpc.md
 17. deploy/README.md
-18. docs/architecture/ruoyi-all-next-client-channels.md
+18. docs/architecture/cooliebase-all-base-client-channels.md
 19. docs/guides/project-profile-bootstrap.md
-20. docs/architecture/ruoyi-all-next-harness-evolution.md
+20. docs/architecture/cooliebase-all-base-harness-evolution.md
 
 ## 14. 代码生成器架构规范
 
@@ -702,7 +702,7 @@ src/app/
 3. 插件 API 统一由 `/api/v1/plugins/[pluginKey]/api/*` 挂载分发，页面由 `admin-pages.json` 声明注册。
 4. 类型与组件 import 使用 `@/plugins/plugin-{domain}/...` 或 `@/domains/{domain}/...` 前缀，禁止相对路径跨层。
 
-### 14.4 前端模板规范（对标 RuoYi Vue3）
+### 14.4 前端模板规范（对标 CoolieBase Vue3）
 
 | 模板 | 职责 | 对标 Vue3 |
 |---|---|---|
@@ -748,14 +748,14 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 - 外部 AI 如果决定使用本底座，**根本不需要下载 500MB+ 的全量历史包**，可直接向用户建议或自动执行：
   ```bash
   # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-  npx degit xaicd/ruoyi-all-next#main my-app
+  npx degit xaicd/cooliebase-all-base#main my-app
 
   # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
   cd my-app && pnpm install
   npm run project:init -- --name "my-app" --title "我的新业务系统"
   npm run dev
   ```
-  > `project:init` 会自动完成：品牌身份重构、`.env` 配置、SQLite `data/ruoyi.db` 真实单文件库生成（预置平台管理员 `supervip` 账号与安全随机密码，彻底剔除 `admin` 运营商关键字与弱口令）、契约图谱重新编译对齐。
+  > `project:init` 会自动完成：品牌身份重构、`.env` 配置、SQLite `data/cooliebase.db` 真实单文件库生成（预置平台管理员 `supervip` 账号与安全随机密码，彻底剔除 `admin` 运营商关键字与弱口令）、契约图谱重新编译对齐。
 
 **本地已克隆环境下的衍生创建机制：**
 - 当 `DigitalStaff` AI NPC 员工或开发者已在底座仓库内时，统一调用：
@@ -773,7 +773,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
   - `creator`：等同 standard（含 online/codegen）；
   - 产物写入 `packages/shared/contract/hatch-manifest.json`。Prisma 迁移仍为全量基座表。
 - **自动化工作流水线（全托管零配置）：**
-  1. **反应堆克隆与包名重塑**：自动将 `ruoyi-all-next` 转换为目标工程名，重塑 `package.json`（自动分配独立 `PORT=3200` 避开冲突）；
+  1. **反应堆克隆与包名重塑**：自动将 `cooliebase-all-base` 转换为目标工程名，重塑 `package.json`（自动分配独立 `PORT=3200` 避开冲突）；
   2. **二进制防损坏保护**：图片、字体、压缩包与数据库 dump 文件走二进制流白名单拷贝，绝不进行文本正则替换；
   3. **数据库物理隔离与全量就绪**：自动连接 PostgreSQL 服务，创建目标独立数据库（如 `agent_zqall`），并默认部署全量 27 项基准 SQL 迁移与 RBAC 菜单权限；
   4. **目标设计文档保护**：自动识别并完好保留目标目录下已有的业务规格文档（如 `应算通-*`、`*.md`），严禁覆盖用户既有设计；
@@ -781,7 +781,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 
 ### 17. 目录职责划分与基座/业务边界规范（Core Base vs Business Domain）
 
-为了保证业务工程（如 `agent-zqall`）与通用基座（`ruoyi-all-next`）之间既能**独立演进**，又能**通过版本化升级平滑同步底座能力与双向反哺功能**，严格执行以下目录与边界规范：
+为了保证业务工程（如 `agent-zqall`）与通用基座（`cooliebase-all-base`）之间既能**独立演进**，又能**通过版本化升级平滑同步底座能力与双向反哺功能**，严格执行以下目录与边界规范：
 
 #### 17.1 目录职责分类矩阵
 
@@ -802,7 +802,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 
 #### 17.3 基座只建原生域，**定制业务不得进基座**（强制）
 
-基座（本仓）= RuoYi 原生能力。**定制业务属于由基座衍生出的业务工程**（例如同源的
+基座（本仓）= CoolieBase 原生能力。**定制业务属于由基座衍生出的业务工程**（例如同源的
 `rome-all` 那一脉），不属于基座 —— 否则每改一次业务都要回改基座，基座就不再是
 「可复用的底座」。
 
@@ -851,7 +851,7 @@ npm run check
 2. **机器可读入口**：`packages/shared/contract/agent-profile.json`。域名真源仍是 `domain-catalog.json`。
 3. **提示分段**：`.agents/context/ASSEMBLY.md`。禁止把本文件整篇灌进每一次模型请求。
 4. **NPC 孵化**：只允许 `npm run project:create -- <目标路径>`；身份只改 `project-profile.json` 与 `public/branding/`。
-5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/ruoyi-all-next-harness-evolution.md`。
+5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-base-harness-evolution.md`。
 
 ### 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
 
@@ -981,7 +981,7 @@ npm run check
      - `08_sre`: `sre-slo-manager`, `postmortem-analyzer`（SLO/SLI 矩阵、5-Whys 免责复盘、Strix 渗透演练）
      - `09_operations`: `financial-reconciliation-agent`（日常资金轧差平账、AI 数字员工台账、健康巡检）
    - **CLI 标准作业**: 统一通过 `npm run cmmi:asset new -- --phase <01~09> --type <type>` 展开，`npm run cmmi:asset list` 盘点，`npm run cmmi:asset:check` 合规巡检；
-   - **MCP 机器可读**: 提供 `ruoyi_cmmi_list` 工具，外部智能体（Claude Code/Cursor/DSH）可秒级查询 9 大阶段规范与资产状态；
+   - **MCP 机器可读**: 提供 `cooliebase_cmmi_list` 工具，外部智能体（Claude Code/Cursor/DSH）可秒级查询 9 大阶段规范与资产状态；
    - **三存三不存与反造假**: 文本、Schema 契约与测试脚本入 Git；事故复盘、资金对账与渗透演练必须带 `--real` 真实凭证，未发生时保留 `.gitkeep` 严格留空，坚守零假 Demo 铁律！
 
 <!-- BEGIN:nextjs-agent-rules -->

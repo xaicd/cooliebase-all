@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/crm
 upstream:
-  env: RUOYI_DOMAIN_CRM_UPSTREAM
+  env: COOLIEBASE_DOMAIN_CRM_UPSTREAM
   protocol: http
   defaultPort: 3219
 auth:

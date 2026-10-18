@@ -1,11 +1,11 @@
 {
-  "$schema": "ruoyi-plugin-manifest/v1",
-  "id": "ruoyi.wms",
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.wms",
   "apiVersion": 1,
   "version": "0.1.0",
   "displayName": "wms",
   "description": "wms 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
-  "author": "RuoYi All Next",
+  "author": "CoolieBase All Base",
   "categories": [
     "automation"
   ],
@@ -22,7 +22,7 @@
     "publicPrefixes": [
       "/api/v1/admin/wms"
     ],
-    "upstreamEnv": "RUOYI_DOMAIN_WMS_UPSTREAM",
+    "upstreamEnv": "COOLIEBASE_DOMAIN_WMS_UPSTREAM",
     "defaultPort": 3221,
     "packable": true,
     "independentDatabase": false,

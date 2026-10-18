@@ -1,15 +1,15 @@
 ---
 name: project-init
-description: 业务项目初始化与原地重构技能。对标并超越 ruoyi-vue-pro 的 ProjectReactor.java，用于将 ruoyi-all-next 底座一键重构为客户专属的商业项目（自定义项目名称、中文系统全称、Git 远程仓库地址、数据库名与端口、版权声明）。接到「项目初始化 / 重命名项目 / 重构底座 / projectRefactor / 初始化新项目」时启用。
+description: 业务项目初始化与原地重构技能。对标并超越 cooliebase-vue-pro 的 ProjectReactor.java，用于将 cooliebase-all-base 底座一键重构为客户专属的商业项目（自定义项目名称、中文系统全称、Git 远程仓库地址、数据库名与端口、版权声明）。接到「项目初始化 / 重命名项目 / 重构底座 / projectRefactor / 初始化新项目」时启用。
 ---
 
 # 业务项目初始化与重构技能 (Project Refactor & Init Skill)
 
 ## 1. 何时启用
 
-- 用户需要把 `ruoyi-all-next` 底座作为新业务项目的起点。
+- 用户需要把 `cooliebase-all-base` 底座作为新业务项目的起点。
 - 用户要求重命名项目、修改中英文系统名称、绑定新 Git 仓库地址。
-- 用户提到类似 ruoyi-vue-pro 中的 `ProjectReactor.java` / `projectRefactor.java` 需求。
+- 用户提到类似 cooliebase-vue-pro 中的 `ProjectReactor.java` / `projectRefactor.java` 需求。
 - 需要将底座从模板状态快速迁移为专属业务工程。
 
 ## 2. 核心执行机制

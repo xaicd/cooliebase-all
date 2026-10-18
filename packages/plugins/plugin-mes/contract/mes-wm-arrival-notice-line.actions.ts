@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-arrival-notice-line.validator"
 
 export const mesWmArrivalNoticeLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmArrivalNoticeLine.page": mesWmArrivalNoticeLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmArrivalNoticeLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmArrivalNoticeLine.create": mesWmArrivalNoticeLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmArrivalNoticeLine.update": mesWmArrivalNoticeLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmArrivalNoticeLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmArrivalNoticeLine.page": mesWmArrivalNoticeLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmArrivalNoticeLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmArrivalNoticeLine.create": mesWmArrivalNoticeLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmArrivalNoticeLine.update": mesWmArrivalNoticeLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmArrivalNoticeLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmArrivalNoticeLine": mesWmArrivalNoticeLinePageQuerySchema,
   "mes.getMesWmArrivalNoticeLine": z.object({ id: z.string() }),
   "mes.createMesWmArrivalNoticeLine": mesWmArrivalNoticeLineCreateSchema,

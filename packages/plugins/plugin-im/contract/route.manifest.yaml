@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/im
 upstream:
-  env: RUOYI_DOMAIN_IM_UPSTREAM
+  env: COOLIEBASE_DOMAIN_IM_UPSTREAM
   protocol: http
   defaultPort: 3225
 auth:

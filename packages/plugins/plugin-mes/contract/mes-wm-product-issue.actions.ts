@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-product-issue.validator"
 
 export const mesWmProductIssueActionSchemas = {
-  "ruoyi.cmd.mes.mesWmProductIssue.page": mesWmProductIssuePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmProductIssue.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmProductIssue.create": mesWmProductIssueCreateSchema,
-  "ruoyi.cmd.mes.mesWmProductIssue.update": mesWmProductIssueUpdateSchema,
-  "ruoyi.cmd.mes.mesWmProductIssue.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductIssue.page": mesWmProductIssuePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmProductIssue.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmProductIssue.create": mesWmProductIssueCreateSchema,
+  "cooliebase.cmd.mes.mesWmProductIssue.update": mesWmProductIssueUpdateSchema,
+  "cooliebase.cmd.mes.mesWmProductIssue.delete": z.object({ id: z.string() }),
   "mes.pageMesWmProductIssue": mesWmProductIssuePageQuerySchema,
   "mes.getMesWmProductIssue": z.object({ id: z.string() }),
   "mes.createMesWmProductIssue": mesWmProductIssueCreateSchema,

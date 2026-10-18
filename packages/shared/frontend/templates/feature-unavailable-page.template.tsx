@@ -2,7 +2,7 @@
 
 type Props = { title: string; description: string }
 
-/** Prevent unfinished RuoYi menu entries from masquerading as empty, working pages. */
+/** Prevent unfinished CoolieBase menu entries from masquerading as empty, working pages. */
 export function FeatureUnavailablePage({ title, description }: Props) {
   return (
     <div className="space-y-4">

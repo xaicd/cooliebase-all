@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-vendor.validator"
 
 export const mesMdVendorActionSchemas = {
-  "ruoyi.cmd.mes.mesMdVendor.page": mesMdVendorPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdVendor.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdVendor.create": mesMdVendorCreateSchema,
-  "ruoyi.cmd.mes.mesMdVendor.update": mesMdVendorUpdateSchema,
-  "ruoyi.cmd.mes.mesMdVendor.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdVendor.page": mesMdVendorPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdVendor.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdVendor.create": mesMdVendorCreateSchema,
+  "cooliebase.cmd.mes.mesMdVendor.update": mesMdVendorUpdateSchema,
+  "cooliebase.cmd.mes.mesMdVendor.delete": z.object({ id: z.string() }),
   "mes.pageMesMdVendor": mesMdVendorPageQuerySchema,
   "mes.getMesMdVendor": z.object({ id: z.string() }),
   "mes.createMesMdVendor": mesMdVendorCreateSchema,

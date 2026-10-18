@@ -9,7 +9,7 @@ implementation: local-ts
 publicPrefix:
   - /api/v1/admin/wms
 upstream:
-  env: RUOYI_DOMAIN_WMS_UPSTREAM
+  env: COOLIEBASE_DOMAIN_WMS_UPSTREAM
   protocol: http
   defaultPort: 3221
 auth:

@@ -1,7 +1,7 @@
 -- 删除 system_tenant_package_ai_* 三张表。
 --
 -- 依据（AGENTS §17.3「基座只建原生域，定制业务不得进基座」）:
---   1. 它们是**定制业务**（租户套餐里的 AI 配额/坐席/资费），不属于 RuoYi 原生能力；
+--   1. 它们是**定制业务**（租户套餐里的 AI 配额/坐席/资费），不属于 CoolieBase 原生能力；
 --   2. **概念声明了但从未实现** —— 三张表只在
 --      packages/shared/backend/lib/database/schema.ts 有类型声明，
 --      全仓没有任何代码查询/写入它们（`node scripts/report-table-inventory.cjs` 可复现）;

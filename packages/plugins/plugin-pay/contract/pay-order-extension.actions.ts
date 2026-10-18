@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-order-extension.validator"
 
 export const payOrderExtensionActionSchemas = {
-  "ruoyi.cmd.pay.payOrderExtension.page": payOrderExtensionPageQuerySchema,
-  "ruoyi.cmd.pay.payOrderExtension.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payOrderExtension.create": payOrderExtensionCreateSchema,
-  "ruoyi.cmd.pay.payOrderExtension.update": payOrderExtensionUpdateSchema,
-  "ruoyi.cmd.pay.payOrderExtension.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payOrderExtension.page": payOrderExtensionPageQuerySchema,
+  "cooliebase.cmd.pay.payOrderExtension.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payOrderExtension.create": payOrderExtensionCreateSchema,
+  "cooliebase.cmd.pay.payOrderExtension.update": payOrderExtensionUpdateSchema,
+  "cooliebase.cmd.pay.payOrderExtension.delete": z.object({ id: z.string() }),
   "pay.pagePayOrderExtension": payOrderExtensionPageQuerySchema,
   "pay.getPayOrderExtension": z.object({ id: z.string() }),
   "pay.createPayOrderExtension": payOrderExtensionCreateSchema,

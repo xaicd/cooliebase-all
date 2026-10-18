@@ -4,7 +4,7 @@
  * 刻意保持最小 —— 新作者应当能照着它写出自己的第一个插件。
  * 注意 stdout 只走协议，诊断信息一律写 stderr（宿主只从 stdout 解析 JSON-RPC）。
  */
-import { definePlugin, runWorker } from "@ruoyi/plugin-sdk"
+import { definePlugin, runWorker } from "@cooliebase/plugin-sdk"
 
 const plugin = definePlugin({
   async setup(ctx) {

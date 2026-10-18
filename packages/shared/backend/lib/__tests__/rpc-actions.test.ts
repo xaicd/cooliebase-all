@@ -12,8 +12,8 @@ describe("rpc action contracts", () => {
   })
 
   it("keeps gRPC paths aligned with generated proto and Go stubs", () => {
-    expect(grpcMethodPath("pay", "createOrder")).toBe("/ruoyi.pay.v1.PayService/CreateOrder")
-    expect(grpcMethodPath("mall", "issueCoupon")).toBe("/ruoyi.mall.v1.MallService/IssueCoupon")
+    expect(grpcMethodPath("pay", "createOrder")).toBe("/cooliebase.pay.v1.PayService/CreateOrder")
+    expect(grpcMethodPath("mall", "issueCoupon")).toBe("/cooliebase.mall.v1.MallService/IssueCoupon")
     expect(rpcActions.domains.pay.actions.map((item) => item.method)).toEqual([
       "ping",
       "listOrders",
@@ -191,12 +191,12 @@ describe("rpc action contracts", () => {
       "generateCodegenArchive",
       "listCodegenCatalog",
     ])
-    expect(grpcMethodPath("system", "getDictDataByType")).toBe("/ruoyi.system.v1.SystemService/GetDictDataByType")
-    expect(grpcMethodPath("system", "resolveTenantEntitlement")).toBe("/ruoyi.system.v1.SystemService/ResolveTenantEntitlement")
+    expect(grpcMethodPath("system", "getDictDataByType")).toBe("/cooliebase.system.v1.SystemService/GetDictDataByType")
+    expect(grpcMethodPath("system", "resolveTenantEntitlement")).toBe("/cooliebase.system.v1.SystemService/ResolveTenantEntitlement")
     expect(rpcActions.exposure.system.public).toEqual(["getDictDataByType", "getPermissionInfoByUser"])
     expect(rpcActions.exposure.infra.public).toEqual([])
     const goStub = readFileSync(path.resolve(process.cwd(), "gen/go/pay/v1/service.go"), "utf8")
-    expect(goStub).toContain('CreateOrderPath = "/ruoyi.pay.v1.PayService/CreateOrder"')
+    expect(goStub).toContain('CreateOrderPath = "/cooliebase.pay.v1.PayService/CreateOrder"')
     expect(goStub).toContain("type PayService interface")
     expect(goStub).toContain("func (c *Client) CreateOrder")
   })

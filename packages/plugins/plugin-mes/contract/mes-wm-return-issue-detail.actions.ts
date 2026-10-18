@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-issue-detail.validator"
 
 export const mesWmReturnIssueDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnIssueDetail.page": mesWmReturnIssueDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnIssueDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnIssueDetail.create": mesWmReturnIssueDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnIssueDetail.update": mesWmReturnIssueDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnIssueDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnIssueDetail.page": mesWmReturnIssueDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnIssueDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnIssueDetail.create": mesWmReturnIssueDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnIssueDetail.update": mesWmReturnIssueDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnIssueDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnIssueDetail": mesWmReturnIssueDetailPageQuerySchema,
   "mes.getMesWmReturnIssueDetail": z.object({ id: z.string() }),
   "mes.createMesWmReturnIssueDetail": mesWmReturnIssueDetailCreateSchema,

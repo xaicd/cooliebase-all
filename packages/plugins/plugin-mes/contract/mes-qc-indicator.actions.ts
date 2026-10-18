@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-qc-indicator.validator"
 
 export const mesQcIndicatorActionSchemas = {
-  "ruoyi.cmd.mes.mesQcIndicator.page": mesQcIndicatorPageQuerySchema,
-  "ruoyi.cmd.mes.mesQcIndicator.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesQcIndicator.create": mesQcIndicatorCreateSchema,
-  "ruoyi.cmd.mes.mesQcIndicator.update": mesQcIndicatorUpdateSchema,
-  "ruoyi.cmd.mes.mesQcIndicator.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcIndicator.page": mesQcIndicatorPageQuerySchema,
+  "cooliebase.cmd.mes.mesQcIndicator.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesQcIndicator.create": mesQcIndicatorCreateSchema,
+  "cooliebase.cmd.mes.mesQcIndicator.update": mesQcIndicatorUpdateSchema,
+  "cooliebase.cmd.mes.mesQcIndicator.delete": z.object({ id: z.string() }),
   "mes.pageMesQcIndicator": mesQcIndicatorPageQuerySchema,
   "mes.getMesQcIndicator": z.object({ id: z.string() }),
   "mes.createMesQcIndicator": mesQcIndicatorCreateSchema,

@@ -1,7 +1,7 @@
 /**
  * scripts/guard-high-order-invariants.cjs
  *
- * RuoYi-All-Next AI-Driven 基座 Harness 自动化守卫脚本
+ * CoolieBase-All-Next AI-Driven 基座 Harness 自动化守卫脚本
  * 深度吸收 DeepSeek Harness (dsh) 与 Palantir 体系精髓：
  * 1. 高阶反向思维规则挂载与装配检查 (.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
  * 2. 反假 Mock 与反空壳测试断言扫描 (SpaceX-Grade Anti-Fake Testing)
@@ -166,7 +166,7 @@ check("Domain-Facade-Boundaries", () => {
   }
 });
 
-console.log("=== [ruoyi-all-next] AI-Driven 基座 Harness 自动化守卫扫描 ===");
+console.log("=== [cooliebase-all-base] AI-Driven 基座 Harness 自动化守卫扫描 ===");
 if (errors.length > 0) {
   console.error(`❌ 发现 ${errors.length} 项违规门禁:`);
   for (const err of errors) {

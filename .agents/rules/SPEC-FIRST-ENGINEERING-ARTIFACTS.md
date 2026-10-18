@@ -1,10 +1,10 @@
 # SPEC-FIRST-ENGINEERING-ARTIFACTS.md
 # 0-1 软件工程交付资产与 Spec-First 实体产物硬规矩
 
-> **生效对象**：所有接入 `ruoyi-all-next` 重型业务模板的 AI Agent、IDE 编程助手（Antigravity、Claude Code、Cursor、Copilot）及数字员工  
+> **生效对象**：所有接入 `cooliebase-all-base` 重型业务模板的 AI Agent、IDE 编程助手（Antigravity、Claude Code、Cursor、Copilot）及数字员工  
 > **制定背景**：吸收 Coolie 核心工程教训——「CMMI 是项目交付过程管理，是这个项目从 0-1 的建设交付过程产物、文档、代码；不是项目上线运行后系统内容产物！」「任务、过程如果没有有效高质量的工程产物出现，还不如 Spec 驱动的结果！」  
 > **核心宗旨**：彻底消灭大模型自动生成的套话废文档与形式主义假交付，全面推行 **`No Artifact, No Done`** 结项铁律。  
-> **配套标准**：项目级与组织级 CMMI 过程资产目录划分与物理归档规范，详见 [docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md](file:///host-workspace/xaicd/ruoyi-all-next/docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)。
+> **配套标准**：项目级与组织级 CMMI 过程资产目录划分与物理归档规范，详见 [docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md](file:///host-workspace/xaicd/cooliebase-all-base/docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)。
 
 ---
 
@@ -33,7 +33,7 @@
 
 ## 二、 G1-G5 标准工程交付资产标准
 
-在 `ruoyi-all-next` 体系中，阶段性交付与结项必须产出以下 5 类合法实体工程资产：
+在 `cooliebase-all-base` 体系中，阶段性交付与结项必须产出以下 5 类合法实体工程资产：
 
 ### 1. G1 需求与规格基线 (Requirements Baseline)
 * **《软件需求规格说明书 (SRS)》**：

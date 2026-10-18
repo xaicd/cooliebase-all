@@ -18,7 +18,7 @@
 1. 一体：`npm run dev` / `npm run build` / `npm run runtime:all`
 2. 按域生成 API-only 打包目录 `dist/domain-packs/<domain>`
 3. 按域独立 `next dev` / `next build` / Docker 镜像
-4. BFF 通过 `RUOYI_DOMAIN_<DOMAIN>_UPSTREAM` 把该域 API 反代到独立进程
+4. BFF 通过 `COOLIEBASE_DOMAIN_<DOMAIN>_UPSTREAM` 把该域 API 反代到独立进程
 5. 跨域 Facade：一体 SDK；拆分后 `POST {upstream}/api/internal/rpc`
 6. Compose profile 按域启停，参考域为 `pay`
 
@@ -41,28 +41,28 @@ npm run domain:pack -- --all
 npm run domain:list
 npm run domain:pack -- pay --materialize
 npm run domain:dev -- pay
-RUOYI_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
+COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
 npm run runtime:split
 npm run domain:up -- pay
 ```
 
 ## 4. 切流约定
 
-1. 不设 `RUOYI_PACK_DOMAIN`、也不设任何 `RUOYI_DOMAIN_*_UPSTREAM` → 一体，全部 Facade 为 SDK。
-2. BFF 设置 `RUOYI_DOMAIN_PAY_UPSTREAM` 后：浏览器 `/api/v1/**/pay` 反代到 pay 进程；`payFacade.*` 走 RPC。
-3. 域进程必须设置 `RUOYI_PACK_DOMAIN=<domain>`，只本地执行本域 action。
-4. 域进程回呼其它仍在 BFF 的域时，设置 `RUOYI_RPC_GATEWAY=http://<bff>`。
-5. 生产跨进程 RPC 必须设置 `RUOYI_RPC_TOKEN`；浏览器契约不变。
+1. 不设 `COOLIEBASE_PACK_DOMAIN`、也不设任何 `COOLIEBASE_DOMAIN_*_UPSTREAM` → 一体，全部 Facade 为 SDK。
+2. BFF 设置 `COOLIEBASE_DOMAIN_PAY_UPSTREAM` 后：浏览器 `/api/v1/**/pay` 反代到 pay 进程；`payFacade.*` 走 RPC。
+3. 域进程必须设置 `COOLIEBASE_PACK_DOMAIN=<domain>`，只本地执行本域 action。
+4. 域进程回呼其它仍在 BFF 的域时，设置 `COOLIEBASE_RPC_GATEWAY=http://<bff>`。
+5. 生产跨进程 RPC 必须设置 `COOLIEBASE_RPC_TOKEN`；浏览器契约不变。
 6. RPC 契约仍由 `npm run domain:contracts` 生成，禁止手改。
 
 ## 5. 镜像
 
 ```bash
 # 一体
-docker build -t ruoyi-all-next .
+docker build -t cooliebase-all-base .
 
 # 拆出 pay
-docker build -f Dockerfile.domain --build-arg RUOYI_PACK_DOMAIN=pay -t ruoyi-domain-pay .
+docker build -f Dockerfile.domain --build-arg COOLIEBASE_PACK_DOMAIN=pay -t cooliebase-domain-pay .
 ```
 
 健康检查走匿名 `/healthz` 与 `/readyz`。liveness 会声明 `runtime=monolith|domain`。

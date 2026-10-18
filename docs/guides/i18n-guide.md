@@ -1,8 +1,8 @@
-# ruoyi-all-next 国际化多语言 (i18n) 开发与使用指南
+# cooliebase-all-base 国际化多语言 (i18n) 开发与使用指南
 
 更新时间：2026-10-09
 
-本指南说明 `ruoyi-all-next` 前端国际化与多语言引擎的架构设计、使用方式与扩展规范。
+本指南说明 `cooliebase-all-base` 前端国际化与多语言引擎的架构设计、使用方式与扩展规范。
 
 ---
 
@@ -18,7 +18,7 @@
 2. **零外部依赖 (Zero External Dependencies)**：
    - 基于纯原生 React 19 Context 与 Hook 封装，不引入 `react-i18next` 或 `next-intl` 等庞大重量级外部库，极致压缩包体积（<10KB）。
 3. **响应式与自动检测**：
-   - 首选读取用户持久化配置（`localStorage.getItem("ruoyi_locale")`）；
+   - 首选读取用户持久化配置（`localStorage.getItem("cooliebase_locale")`）；
    - 若未设置，自动根据客户端浏览器语言环境（`navigator.language`）智能匹配；
    - 切换语言时，自动同步更新 HTML 根标签属性（`<html lang="...">`）与 `localStorage`。
 4. **三级平滑降级机制 (Robust Fallback Chain)**：

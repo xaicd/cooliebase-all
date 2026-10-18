@@ -5,7 +5,7 @@
  * 把 AGENTS §6.1/§22 的「三阶段 + 四类契约」从**散文**变成**可查询的状态**:
  * 逐阶段检查产物是否落地，输出「还缺什么」。
  * agent 要能自己判断进度并催下一步，而不是读一遍 AGENTS 再猜 —— 经 MCP
- * （ruoyi_delivery_status）暴露出去。
+ * （cooliebase_delivery_status）暴露出去。
  *
  * 用法:
  *   node scripts/check-delivery.cjs                  # 全部阶段
@@ -22,7 +22,7 @@ const only = process.argv.includes("--phase") ? process.argv[process.argv.indexO
 const feature = process.argv.includes("--feature")
   ? process.argv[process.argv.indexOf("--feature") + 1]
   : (process.argv.includes("--spec") ? process.argv[process.argv.indexOf("--spec") + 1] : null)
-const SKIP = new Set(["node_modules", ".git", ".next", ".next-ruoyi", "dist", "coverage"])
+const SKIP = new Set(["node_modules", ".git", ".next", ".next-cooliebase", "dist", "coverage"])
 
 /**
  * glob 展开。`**` 的语义是**零个或多个目录** ——

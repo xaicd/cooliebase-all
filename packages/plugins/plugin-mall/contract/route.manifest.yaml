@@ -10,7 +10,7 @@ publicPrefix:
   - /api/v1/admin/mall
   - /api/v1/app/mall
 upstream:
-  env: RUOYI_DOMAIN_MALL_UPSTREAM
+  env: COOLIEBASE_DOMAIN_MALL_UPSTREAM
   protocol: http
   defaultPort: 3217
 auth:

@@ -180,9 +180,9 @@ async function main() {
   const initDir = resolve(__dirname, "../sql/init")
   if (!existsSync(initDir)) mkdirSync(initDir, { recursive: true })
 
-  const finalSql = `-- ==============================================================================\n-- ruoyi-all-next 第一版权威全量初始化 SQL (V1.0.0 PostgreSQL)\n-- 生成时间: ${new Date().toISOString()}\n-- 包含: 全 15 域完整 DDL + 工整 4 字符系统菜单 + 平台超管 + 完整业务种子数据\n-- ==============================================================================\n\n` + ddl + seedSql
+  const finalSql = `-- ==============================================================================\n-- cooliebase-all-base 第一版权威全量初始化 SQL (V1.0.0 PostgreSQL)\n-- 生成时间: ${new Date().toISOString()}\n-- 包含: 全 15 域完整 DDL + 工整 4 字符系统菜单 + 平台超管 + 完整业务种子数据\n-- ==============================================================================\n\n` + ddl + seedSql
 
-  const targetPath = resolve(initDir, "ruoyi_all_next_v1.0.0_postgresql.sql")
+  const targetPath = resolve(initDir, "cooliebase_all_next_v1.0.0_postgresql.sql")
   writeFileSync(targetPath, finalSql, "utf-8")
   console.log(`[BUILD-V1-INIT] Successfully generated: ${targetPath}`)
 }

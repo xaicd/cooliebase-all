@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-outsource-issue-line.validator"
 
 export const mesWmOutsourceIssueLineActionSchemas = {
-  "ruoyi.cmd.mes.mesWmOutsourceIssueLine.page": mesWmOutsourceIssueLinePageQuerySchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueLine.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmOutsourceIssueLine.create": mesWmOutsourceIssueLineCreateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueLine.update": mesWmOutsourceIssueLineUpdateSchema,
-  "ruoyi.cmd.mes.mesWmOutsourceIssueLine.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceIssueLine.page": mesWmOutsourceIssueLinePageQuerySchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueLine.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmOutsourceIssueLine.create": mesWmOutsourceIssueLineCreateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueLine.update": mesWmOutsourceIssueLineUpdateSchema,
+  "cooliebase.cmd.mes.mesWmOutsourceIssueLine.delete": z.object({ id: z.string() }),
   "mes.pageMesWmOutsourceIssueLine": mesWmOutsourceIssueLinePageQuerySchema,
   "mes.getMesWmOutsourceIssueLine": z.object({ id: z.string() }),
   "mes.createMesWmOutsourceIssueLine": mesWmOutsourceIssueLineCreateSchema,

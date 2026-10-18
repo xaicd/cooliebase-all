@@ -4,7 +4,7 @@ set -euo pipefail
 SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 APP_ROOT="$(cd -- "$SCRIPT_DIR/.." && pwd)"
 PORT="${PORT:-3100}"
-SERVER_LOG="${TMPDIR:-/tmp}/ruoyi-all-next-health-start.log"
+SERVER_LOG="${TMPDIR:-/tmp}/cooliebase-all-base-health-start.log"
 
 START_PID=""
 

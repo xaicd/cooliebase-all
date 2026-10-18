@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-finance-payment-item.validator"
 
 export const erpFinancePaymentItemActionSchemas = {
-  "ruoyi.cmd.erp.erpFinancePaymentItem.page": erpFinancePaymentItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpFinancePaymentItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpFinancePaymentItem.create": erpFinancePaymentItemCreateSchema,
-  "ruoyi.cmd.erp.erpFinancePaymentItem.update": erpFinancePaymentItemUpdateSchema,
-  "ruoyi.cmd.erp.erpFinancePaymentItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinancePaymentItem.page": erpFinancePaymentItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpFinancePaymentItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpFinancePaymentItem.create": erpFinancePaymentItemCreateSchema,
+  "cooliebase.cmd.erp.erpFinancePaymentItem.update": erpFinancePaymentItemUpdateSchema,
+  "cooliebase.cmd.erp.erpFinancePaymentItem.delete": z.object({ id: z.string() }),
   "erp.pageErpFinancePaymentItem": erpFinancePaymentItemPageQuerySchema,
   "erp.getErpFinancePaymentItem": z.object({ id: z.string() }),
   "erp.createErpFinancePaymentItem": erpFinancePaymentItemCreateSchema,

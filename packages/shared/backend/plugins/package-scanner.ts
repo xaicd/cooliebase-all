@@ -4,7 +4,7 @@
  * 部署模型：插件包放在一个**实例级目录**下，宿主扫描它；宿主源码树不含插件代码。
  * 开发期的第一方插件另放 `packages/plugins/*`（见 packages/plugins/examples/hello-world）。
  *
- * 安全要点：`ruoyiPlugin.manifest` 指针**来自插件包自己**，因此解析后必须确认
+ * 安全要点：`cooliebasePlugin.manifest` 指针**来自插件包自己**，因此解析后必须确认
  * 仍落在该插件包目录内 —— 否则一个恶意包可以用 `../../` 让宿主读取任意文件。
  */
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs"
@@ -136,7 +136,7 @@ export function scanPluginPackage(packageDir: string): DiscoveredPlugin | undefi
  * —— 这与 Paperclip 把第一方插件放在 `packages/plugins/*` 是同一做法；
  * 实例目录留给运行时装入的第三方插件。
  *
- * 识别方式是"目录里的 package.json 有没有 ruoyiPlugin 指针"，不做路径硬编码排除 ——
+ * 识别方式是"目录里的 package.json 有没有 cooliebasePlugin 指针"，不做路径硬编码排除 ——
  * 因此 packages/plugins/sdk 这类没有指针的目录会被自然跳过。
  */
 export type PluginScanRoot = {

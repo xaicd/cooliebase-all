@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mp-tag.validator"
 
 export const mpTagActionSchemas = {
-  "ruoyi.cmd.mp.mpTag.page": mpTagPageQuerySchema,
-  "ruoyi.cmd.mp.mpTag.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mp.mpTag.create": mpTagCreateSchema,
-  "ruoyi.cmd.mp.mpTag.update": mpTagUpdateSchema,
-  "ruoyi.cmd.mp.mpTag.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpTag.page": mpTagPageQuerySchema,
+  "cooliebase.cmd.mp.mpTag.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mp.mpTag.create": mpTagCreateSchema,
+  "cooliebase.cmd.mp.mpTag.update": mpTagUpdateSchema,
+  "cooliebase.cmd.mp.mpTag.delete": z.object({ id: z.string() }),
   "mp.pageMpTag": mpTagPageQuerySchema,
   "mp.getMpTag": z.object({ id: z.string() }),
   "mp.createMpTag": mpTagCreateSchema,

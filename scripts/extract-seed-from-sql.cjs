@@ -1,5 +1,5 @@
 /**
- * 从 ruoyi-vue-pro SQL 文件提取种子数据，输出为 TypeScript 内存格式
+ * 从 cooliebase-vue-pro SQL 文件提取种子数据，输出为 TypeScript 内存格式
  *
  * 提取表：
  * - system_menu（菜单树）
@@ -16,7 +16,7 @@ const crypto = require("crypto")
 const fs = require("fs")
 const path = require("path")
 
-const SQL_FILE = path.resolve(__dirname, "../../ruoyi-vue-pro/sql/mysql/ruoyi-vue-pro.sql")
+const SQL_FILE = path.resolve(__dirname, "../../cooliebase-vue-pro/sql/mysql/cooliebase-vue-pro.sql")
 const OUTPUT_DIR = path.resolve(__dirname, "seed-output")
 const RUNTIME_DATA_DIR = path.resolve(__dirname, "../prisma/data")
 const SOURCE_HASH = crypto.createHash("sha256").update(fs.readFileSync(SQL_FILE)).digest("hex")
@@ -122,8 +122,8 @@ function extractMenus() {
     }))
   console.log(`[MENU] 有效菜单 ${output.length} 条（不截断）`)
 
-  fs.writeFileSync(path.join(OUTPUT_DIR, "menus.seed.ts"), `// Auto-generated from ruoyi-vue-pro SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} menus extracted\n\nexport const SEED_MENUS = ${JSON.stringify(output, null, 2)}\n`)
-  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "menus.seed-data.ts"), `// Auto-generated from ../../ruoyi-vue-pro/sql/mysql/ruoyi-vue-pro.sql\n// source sha256: ${SOURCE_HASH}\n// ${output.length} active RuoYi menus; do not edit manually.\nimport type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"\n\nexport const SEED_MENUS: SystemMenuRow[] = ${JSON.stringify(output.map((menu) => ({ ...menu, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" })), null, 2)}\n`)
+  fs.writeFileSync(path.join(OUTPUT_DIR, "menus.seed.ts"), `// Auto-generated from cooliebase-vue-pro SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} menus extracted\n\nexport const SEED_MENUS = ${JSON.stringify(output, null, 2)}\n`)
+  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "menus.seed-data.ts"), `// Auto-generated from ../../cooliebase-vue-pro/sql/mysql/cooliebase-vue-pro.sql\n// source sha256: ${SOURCE_HASH}\n// ${output.length} active CoolieBase menus; do not edit manually.\nimport type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"\n\nexport const SEED_MENUS: SystemMenuRow[] = ${JSON.stringify(output.map((menu) => ({ ...menu, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" })), null, 2)}\n`)
   console.log(`[MENU] 写入完整运行时菜单 prisma/data/menus.seed-data.ts`)
 }
 
@@ -140,9 +140,9 @@ function extractTenantPackages() {
       createdAt: "2026-01-01T00:00:00.000Z",
       updatedAt: "2026-01-01T00:00:00.000Z",
     }))
-  fs.writeFileSync(path.join(OUTPUT_DIR, "tenant-packages.seed.ts"), `// Auto-generated from ruoyi-vue-pro SQL\n// source sha256: ${SOURCE_HASH}\n\nexport const SEED_TENANT_PACKAGES = ${JSON.stringify(output, null, 2)}\n`)
-  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "tenant-packages.seed-data.ts"), `// Auto-generated from ../../ruoyi-vue-pro/sql/mysql/ruoyi-vue-pro.sql\n// source sha256: ${SOURCE_HASH}\n// RuoYi package menu_ids are expanded into system_tenant_package_menu at seed time.\n\nexport type TenantPackageSeed = { id: string; name: string; status: "ACTIVE" | "DISABLED"; menuIds: string[]; remark: string | null; createdAt: string; updatedAt: string }\n\nexport const SEED_TENANT_PACKAGES: TenantPackageSeed[] = ${JSON.stringify(output, null, 2)}\n`)
-  console.log(`[TENANT_PACKAGE] 写入 ${output.length} 个 RuoYi 默认套餐`)
+  fs.writeFileSync(path.join(OUTPUT_DIR, "tenant-packages.seed.ts"), `// Auto-generated from cooliebase-vue-pro SQL\n// source sha256: ${SOURCE_HASH}\n\nexport const SEED_TENANT_PACKAGES = ${JSON.stringify(output, null, 2)}\n`)
+  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "tenant-packages.seed-data.ts"), `// Auto-generated from ../../cooliebase-vue-pro/sql/mysql/cooliebase-vue-pro.sql\n// source sha256: ${SOURCE_HASH}\n// CoolieBase package menu_ids are expanded into system_tenant_package_menu at seed time.\n\nexport type TenantPackageSeed = { id: string; name: string; status: "ACTIVE" | "DISABLED"; menuIds: string[]; remark: string | null; createdAt: string; updatedAt: string }\n\nexport const SEED_TENANT_PACKAGES: TenantPackageSeed[] = ${JSON.stringify(output, null, 2)}\n`)
+  console.log(`[TENANT_PACKAGE] 写入 ${output.length} 个 CoolieBase 默认套餐`)
 }
 
 // === 提取字典类型 ===
@@ -229,7 +229,7 @@ function extractPosts() {
 }
 
 // === Main ===
-console.log("=== 从 ruoyi-vue-pro SQL 提取种子数据 ===\n")
+console.log("=== 从 cooliebase-vue-pro SQL 提取种子数据 ===\n")
 extractMenus()
 extractTenantPackages()
 extractDictTypes()

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-stock-record.validator"
 
 export const erpStockRecordActionSchemas = {
-  "ruoyi.cmd.erp.erpStockRecord.page": erpStockRecordPageQuerySchema,
-  "ruoyi.cmd.erp.erpStockRecord.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpStockRecord.create": erpStockRecordCreateSchema,
-  "ruoyi.cmd.erp.erpStockRecord.update": erpStockRecordUpdateSchema,
-  "ruoyi.cmd.erp.erpStockRecord.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockRecord.page": erpStockRecordPageQuerySchema,
+  "cooliebase.cmd.erp.erpStockRecord.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpStockRecord.create": erpStockRecordCreateSchema,
+  "cooliebase.cmd.erp.erpStockRecord.update": erpStockRecordUpdateSchema,
+  "cooliebase.cmd.erp.erpStockRecord.delete": z.object({ id: z.string() }),
   "erp.pageErpStockRecord": erpStockRecordPageQuerySchema,
   "erp.getErpStockRecord": z.object({ id: z.string() }),
   "erp.createErpStockRecord": erpStockRecordCreateSchema,

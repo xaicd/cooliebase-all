@@ -46,7 +46,7 @@
     "serialization": "json"
   },
   "upstream": {
-    "env": "RUOYI_DOMAIN_ERP_UPSTREAM",
+    "env": "COOLIEBASE_DOMAIN_ERP_UPSTREAM",
     "protocol": "http",
     "defaultPort": 3220
   },

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/bpm-process-definition-info.validator"
 
 export const bpmProcessDefinitionInfoActionSchemas = {
-  "ruoyi.cmd.bpm.bpmProcessDefinitionInfo.page": bpmProcessDefinitionInfoPageQuerySchema,
-  "ruoyi.cmd.bpm.bpmProcessDefinitionInfo.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.bpm.bpmProcessDefinitionInfo.create": bpmProcessDefinitionInfoCreateSchema,
-  "ruoyi.cmd.bpm.bpmProcessDefinitionInfo.update": bpmProcessDefinitionInfoUpdateSchema,
-  "ruoyi.cmd.bpm.bpmProcessDefinitionInfo.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessDefinitionInfo.page": bpmProcessDefinitionInfoPageQuerySchema,
+  "cooliebase.cmd.bpm.bpmProcessDefinitionInfo.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.bpm.bpmProcessDefinitionInfo.create": bpmProcessDefinitionInfoCreateSchema,
+  "cooliebase.cmd.bpm.bpmProcessDefinitionInfo.update": bpmProcessDefinitionInfoUpdateSchema,
+  "cooliebase.cmd.bpm.bpmProcessDefinitionInfo.delete": z.object({ id: z.string() }),
   "bpm.pageBpmProcessDefinitionInfo": bpmProcessDefinitionInfoPageQuerySchema,
   "bpm.getBpmProcessDefinitionInfo": z.object({ id: z.string() }),
   "bpm.createBpmProcessDefinitionInfo": bpmProcessDefinitionInfoCreateSchema,

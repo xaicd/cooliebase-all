@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-md-item.validator"
 
 export const mesMdItemActionSchemas = {
-  "ruoyi.cmd.mes.mesMdItem.page": mesMdItemPageQuerySchema,
-  "ruoyi.cmd.mes.mesMdItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesMdItem.create": mesMdItemCreateSchema,
-  "ruoyi.cmd.mes.mesMdItem.update": mesMdItemUpdateSchema,
-  "ruoyi.cmd.mes.mesMdItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdItem.page": mesMdItemPageQuerySchema,
+  "cooliebase.cmd.mes.mesMdItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesMdItem.create": mesMdItemCreateSchema,
+  "cooliebase.cmd.mes.mesMdItem.update": mesMdItemUpdateSchema,
+  "cooliebase.cmd.mes.mesMdItem.delete": z.object({ id: z.string() }),
   "mes.pageMesMdItem": mesMdItemPageQuerySchema,
   "mes.getMesMdItem": z.object({ id: z.string() }),
   "mes.createMesMdItem": mesMdItemCreateSchema,

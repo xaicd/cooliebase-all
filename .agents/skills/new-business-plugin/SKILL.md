@@ -129,7 +129,7 @@ node scripts/migrate-domain-to-plugin.cjs <域> --write
 ```
 
 它做 0~7 步：搬路由处理器进域内 → 生成 manifest+入口 → 移入 `packages/plugins/plugin-<域>`
-→ `ruoyiPlugin` 指针 → 静态入口表 → **catalog 登记为 `kind=plugin`** →
+→ `cooliebasePlugin` 指针 → 静态入口表 → **catalog 登记为 `kind=plugin`** →
 `rpc-actions` / `hatch-manifest` / `compat-manifest` / 治理行 → tsconfig+vitest 别名 →
 删 Next 转发文件。
 
@@ -155,7 +155,7 @@ pnpm run dev                      # 运行（或 ./start.sh app）
 ```
 
 预览：登录 → 侧边栏进入新域页面；接口面是**插件挂载点**
-`/api/v1/plugins/ruoyi.<域>/api/**`（**不是** `/api/v1/admin/<域>/...`，后者本就 404）。
+`/api/v1/plugins/cooliebase.<域>/api/**`（**不是** `/api/v1/admin/<域>/...`，后者本就 404）。
 
 **新域第一次要登记插件**（宿主只挂载已登记的）：`POST /api/v1/admin/plugins`。
 
@@ -209,7 +209,7 @@ pnpm test:agent                                # L4: 契约驱动的浏览器端
 
 1. 手写重复 CRUD / 重复 DDL —— 用元数据 + 生成器，先检索已有工具。
 2. 写死路径（`packages/domains/...`）—— 用共享解析器；写死的后果通常**不是报错，而是静默失效**。
-3. 把定制业务放进**基座**（基座只建 RuoYi 原生域）。
+3. 把定制业务放进**基座**（基座只建 CoolieBase 原生域）。
 4. 生成物手改 —— 一律让生成器重建。
 5. 跳过 `npm run check`。
 

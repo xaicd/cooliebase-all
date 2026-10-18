@@ -40,7 +40,7 @@ function copyDir(from, to) {
     filter: (source) => {
       const relative = path.relative(from, source).replace(/\\/g, "/")
       if (!relative) return true
-      return !relative.split("/").some((segment) => segment === "node_modules" || segment === ".next-ruoyi" || segment === "__tests__")
+      return !relative.split("/").some((segment) => segment === "node_modules" || segment === ".next-cooliebase" || segment === "__tests__")
     },
   })
 }
@@ -92,7 +92,7 @@ function expandModuleClosure(seedModules) {
 function walkSourceFiles(dir) {
   const out = []
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
-    if (entry.name === "node_modules" || entry.name === "__tests__" || entry.name === ".next-ruoyi") continue
+    if (entry.name === "node_modules" || entry.name === "__tests__" || entry.name === ".next-cooliebase") continue
     const full = path.join(dir, entry.name)
     if (entry.isDirectory()) out.push(...walkSourceFiles(full))
     else if (/\.tsx?$/.test(entry.name)) out.push(full)
@@ -147,26 +147,26 @@ function materialize(plan, outDir) {
 
   fs.writeFileSync(
     path.join(outDir, "src", "app", "page.tsx"),
-    `export default function DomainRuntimePage() {\n  return <main>ruoyi domain runtime: ${plan.domain}</main>\n}\n`,
+    `export default function DomainRuntimePage() {\n  return <main>cooliebase domain runtime: ${plan.domain}</main>\n}\n`,
   )
   copied.push("src/app/page.tsx")
 
   const packageJsonPath = path.join(outDir, "package.json")
   if (fs.existsSync(packageJsonPath)) {
     const pkg = JSON.parse(fs.readFileSync(packageJsonPath, "utf8"))
-    pkg.name = `ruoyi-domain-${plan.domain}`
+    pkg.name = `cooliebase-domain-${plan.domain}`
     pkg.private = true
     pkg.scripts = {
       ...pkg.scripts,
       dev: `next dev -p ${plan.defaultPort}`,
-      start: "node .next-ruoyi/standalone/server.js",
+      start: "node .next-cooliebase/standalone/server.js",
     }
     fs.writeFileSync(packageJsonPath, `${JSON.stringify(pkg, null, 2)}\n`)
   }
 
   fs.writeFileSync(
     path.join(outDir, ".env.domain"),
-    `RUOYI_PACK_DOMAIN=${plan.domain}\nPORT=${plan.defaultPort}\n`,
+    `COOLIEBASE_PACK_DOMAIN=${plan.domain}\nPORT=${plan.defaultPort}\n`,
   )
   fs.writeFileSync(
     path.join(outDir, "domain-pack.json"),
@@ -195,7 +195,7 @@ function runNext(plan, outDir, mode) {
     shell: true,
     env: {
       ...process.env,
-      RUOYI_PACK_DOMAIN: plan.domain,
+      COOLIEBASE_PACK_DOMAIN: plan.domain,
       PORT: String(plan.defaultPort),
     },
   })

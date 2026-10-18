@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/discount-product.validator"
 
 export const discountProductActionSchemas = {
-  "ruoyi.cmd.mall.discountProduct.page": discountProductPageQuerySchema,
-  "ruoyi.cmd.mall.discountProduct.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mall.discountProduct.create": discountProductCreateSchema,
-  "ruoyi.cmd.mall.discountProduct.update": discountProductUpdateSchema,
-  "ruoyi.cmd.mall.discountProduct.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.discountProduct.page": discountProductPageQuerySchema,
+  "cooliebase.cmd.mall.discountProduct.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mall.discountProduct.create": discountProductCreateSchema,
+  "cooliebase.cmd.mall.discountProduct.update": discountProductUpdateSchema,
+  "cooliebase.cmd.mall.discountProduct.delete": z.object({ id: z.string() }),
   "mall.pageDiscountProduct": discountProductPageQuerySchema,
   "mall.getDiscountProduct": z.object({ id: z.string() }),
   "mall.createDiscountProduct": discountProductCreateSchema,

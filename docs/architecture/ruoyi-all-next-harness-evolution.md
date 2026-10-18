@@ -1,4 +1,4 @@
-# ruoyi-all-next Harness 演进规范
+# cooliebase-all-base Harness 演进规范
 
 更新时间：2026-08-25
 
@@ -11,15 +11,15 @@ DeepSeek 的公式是 `Agent = Model + Harness`。落到本体系是三层，而
 | 层 | 谁 | 职责 | 不是什么 |
 |---|---|---|---|
 | **Model** | LLM | 推理与决策 | 不持有业务契约 |
-| **Harness / Runtime** | DigitalStaff NativeCodingEngine | Agent Loop、工具管道、Session 事件流、子 Agent、审批 | 不持有 RuoYi 域模型 |
-| **Workspace Bundle** | **本仓库 ruoyi-all-next** | 域插件、契约缝、Skill、门禁、ProjectReactor 孵化 | 不是 Agent 运行时 |
+| **Harness / Runtime** | DigitalStaff NativeCodingEngine | Agent Loop、工具管道、Session 事件流、子 Agent、审批 | 不持有 CoolieBase 域模型 |
+| **Workspace Bundle** | **本仓库 cooliebase-all-base** | 域插件、契约缝、Skill、门禁、ProjectReactor 孵化 | 不是 Agent 运行时 |
 
 DigitalStaff 已有独立分析：`D:\workspace\cw\ai\DigitalStaff\docs\design\deepseek_harness_analysis.md`。本文件只规定 **基座侧** 吸收什么、拒绝什么。
 
 NPC 员工开发独立项目时：
 
 ```
-NPC = Model + DigitalStaff Native Harness + ruoyi-all-next Workspace Bundle
+NPC = Model + DigitalStaff Native Harness + cooliebase-all-base Workspace Bundle
 孵化入口：npm run project:create -- <目标路径>
 ```
 
@@ -129,7 +129,7 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 | L8 | 测试 | automated-testing |
 | 业务开发 | 全链路 | product-requirements → new-feature |
 
-机器真源：`agent-profile.json` 的 `npc.layers`。DigitalStaff 只读此表，禁止把 Crush 技能名写进 ruoyi 工作区。
+机器真源：`agent-profile.json` 的 `npc.layers`。DigitalStaff 只读此表，禁止把 Crush 技能名写进 cooliebase 工作区。
 
 ## 8. 后期进化批次（证据驱动，未落地不得标 DONE）
 

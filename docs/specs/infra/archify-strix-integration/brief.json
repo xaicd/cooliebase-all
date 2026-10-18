@@ -17,7 +17,7 @@
   "stories": [
     {
       "priority": "P0",
-      "text": "吸收 archify 技能规范至 .agents/skills/archify/，生成全域架构拓扑 docs/03_design/diagrams/ruoyi-architecture.arch.json 与可交互 HTML。"
+      "text": "吸收 archify 技能规范至 .agents/skills/archify/，生成全域架构拓扑 docs/03_design/diagrams/cooliebase-architecture.arch.json 与可交互 HTML。"
     },
     {
       "priority": "P0",
@@ -35,7 +35,7 @@
   ],
   "acceptance": [
     { "check": "`npm run check` exit=0，20 道门禁全部通过" },
-    { "check": "docs/03_design/diagrams/ruoyi-architecture.arch.html 浏览器可交互加载并展示 17 领域拓扑" },
+    { "check": "docs/03_design/diagrams/cooliebase-architecture.arch.html 浏览器可交互加载并展示 17 领域拓扑" },
     { "check": "`npm run skills:check` 验证 36 项技能规范且无重复目录" }
   ],
   "nonGoals": [
@@ -52,7 +52,7 @@
     }
   ],
   "ui": [
-    "Archify 交互式单文件 HTML 架构图（docs/03_design/diagrams/ruoyi-architecture.arch.html），支持点击节点高亮链路、按领域过滤与组件拖拽"
+    "Archify 交互式单文件 HTML 架构图（docs/03_design/diagrams/cooliebase-architecture.arch.html），支持点击节点高亮链路、按领域过滤与组件拖拽"
   ],
   "ops": [
     "门禁链：npm run check 验证门禁合规与 OpenWiki 百科同步",

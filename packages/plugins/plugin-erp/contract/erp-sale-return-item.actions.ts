@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-sale-return-item.validator"
 
 export const erpSaleReturnItemActionSchemas = {
-  "ruoyi.cmd.erp.erpSaleReturnItem.page": erpSaleReturnItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpSaleReturnItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpSaleReturnItem.create": erpSaleReturnItemCreateSchema,
-  "ruoyi.cmd.erp.erpSaleReturnItem.update": erpSaleReturnItemUpdateSchema,
-  "ruoyi.cmd.erp.erpSaleReturnItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleReturnItem.page": erpSaleReturnItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpSaleReturnItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleReturnItem.create": erpSaleReturnItemCreateSchema,
+  "cooliebase.cmd.erp.erpSaleReturnItem.update": erpSaleReturnItemUpdateSchema,
+  "cooliebase.cmd.erp.erpSaleReturnItem.delete": z.object({ id: z.string() }),
   "erp.pageErpSaleReturnItem": erpSaleReturnItemPageQuerySchema,
   "erp.getErpSaleReturnItem": z.object({ id: z.string() }),
   "erp.createErpSaleReturnItem": erpSaleReturnItemCreateSchema,

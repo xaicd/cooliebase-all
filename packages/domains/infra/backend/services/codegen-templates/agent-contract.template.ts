@@ -74,7 +74,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
 
     // ---- 鉴权（自动化前置）----
     auth: {
-      login: { http: "POST", path: "/api/v1/admin/system/auth", payload: { username: "$RUOYI_AGENT_USERNAME", password: "$RUOYI_AGENT_PASSWORD" } },
+      login: { http: "POST", path: "/api/v1/admin/system/auth", payload: { username: "$COOLIEBASE_AGENT_USERNAME", password: "$COOLIEBASE_AGENT_PASSWORD" } },
       tokenField: "data.token",
       header: "Authorization",
       scheme: "Bearer",

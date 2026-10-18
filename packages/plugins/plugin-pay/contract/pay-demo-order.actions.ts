@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/pay-demo-order.validator"
 
 export const payDemoOrderActionSchemas = {
-  "ruoyi.cmd.pay.payDemoOrder.page": payDemoOrderPageQuerySchema,
-  "ruoyi.cmd.pay.payDemoOrder.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.pay.payDemoOrder.create": payDemoOrderCreateSchema,
-  "ruoyi.cmd.pay.payDemoOrder.update": payDemoOrderUpdateSchema,
-  "ruoyi.cmd.pay.payDemoOrder.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payDemoOrder.page": payDemoOrderPageQuerySchema,
+  "cooliebase.cmd.pay.payDemoOrder.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.pay.payDemoOrder.create": payDemoOrderCreateSchema,
+  "cooliebase.cmd.pay.payDemoOrder.update": payDemoOrderUpdateSchema,
+  "cooliebase.cmd.pay.payDemoOrder.delete": z.object({ id: z.string() }),
   "pay.pagePayDemoOrder": payDemoOrderPageQuerySchema,
   "pay.getPayDemoOrder": z.object({ id: z.string() }),
   "pay.createPayDemoOrder": payDemoOrderCreateSchema,

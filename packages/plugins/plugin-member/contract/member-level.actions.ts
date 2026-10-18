@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/member-level.validator"
 
 export const memberLevelActionSchemas = {
-  "ruoyi.cmd.member.memberLevel.page": memberLevelPageQuerySchema,
-  "ruoyi.cmd.member.memberLevel.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.member.memberLevel.create": memberLevelCreateSchema,
-  "ruoyi.cmd.member.memberLevel.update": memberLevelUpdateSchema,
-  "ruoyi.cmd.member.memberLevel.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberLevel.page": memberLevelPageQuerySchema,
+  "cooliebase.cmd.member.memberLevel.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.member.memberLevel.create": memberLevelCreateSchema,
+  "cooliebase.cmd.member.memberLevel.update": memberLevelUpdateSchema,
+  "cooliebase.cmd.member.memberLevel.delete": z.object({ id: z.string() }),
   "member.pageMemberLevel": memberLevelPageQuerySchema,
   "member.getMemberLevel": z.object({ id: z.string() }),
   "member.createMemberLevel": memberLevelCreateSchema,

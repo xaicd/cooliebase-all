@@ -7,7 +7,7 @@
  *
  * 三条安全边界（这是本文件存在的全部理由，缺一条都不该开）：
  *
- * 1. **只执行宿主信任的插件**。信任来自运营配置（RUOYI_TRUSTED_PLUGIN_KEYS），
+ * 1. **只执行宿主信任的插件**。信任来自运营配置（COOLIEBASE_TRUSTED_PLUGIN_KEYS），
  *    不能由 manifest 自封 —— 否则任何插件都能自带迁移。第三方插件仍走扩展表。
  *
  * 2. **严格隔离在插件自己的 schema**（plugin_<key>）。执行时 search_path 只指向该 schema，
@@ -65,11 +65,11 @@ export function assertMigrationSqlSafe(sql: string): void {
 
 /**
  * 宿主是否信任该插件（是否允许它自带迁移）。
- * 只认运营配置：`RUOYI_TRUSTED_PLUGIN_KEYS=vendor.plugin-a,vendor.plugin-b`。
+ * 只认运营配置：`COOLIEBASE_TRUSTED_PLUGIN_KEYS=vendor.plugin-a,vendor.plugin-b`。
  * 刻意**不接受** manifest 自封的信任声明 —— 否则任何插件都能给自己发许可。
  */
 export function trustedPluginKeys(env: NodeJS.ProcessEnv = process.env): string[] {
-  return (env.RUOYI_TRUSTED_PLUGIN_KEYS ?? "")
+  return (env.COOLIEBASE_TRUSTED_PLUGIN_KEYS ?? "")
     .split(",")
     .map((item) => item.trim())
     .filter(Boolean)

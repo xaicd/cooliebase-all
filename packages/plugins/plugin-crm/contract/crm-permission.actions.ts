@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/crm-permission.validator"
 
 export const crmPermissionActionSchemas = {
-  "ruoyi.cmd.crm.crmPermission.page": crmPermissionPageQuerySchema,
-  "ruoyi.cmd.crm.crmPermission.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.crm.crmPermission.create": crmPermissionCreateSchema,
-  "ruoyi.cmd.crm.crmPermission.update": crmPermissionUpdateSchema,
-  "ruoyi.cmd.crm.crmPermission.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmPermission.page": crmPermissionPageQuerySchema,
+  "cooliebase.cmd.crm.crmPermission.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.crm.crmPermission.create": crmPermissionCreateSchema,
+  "cooliebase.cmd.crm.crmPermission.update": crmPermissionUpdateSchema,
+  "cooliebase.cmd.crm.crmPermission.delete": z.object({ id: z.string() }),
   "crm.pageCrmPermission": crmPermissionPageQuerySchema,
   "crm.getCrmPermission": z.object({ id: z.string() }),
   "crm.createCrmPermission": crmPermissionCreateSchema,

@@ -16,7 +16,7 @@
 即**声明式 HTTP 接口**，不是自研协议。
 
 > 与本仓的关系：本仓按 AGENTS §3.3 **有意不同** —— 自研 NATS request-reply + JSON
-> （`RUOYI_RPC_PROTOCOL=grpc` 时走自研 gRPC unary），并明确不采用 Dubbo/Thrift。
+> （`COOLIEBASE_RPC_PROTOCOL=grpc` 时走自研 gRPC unary），并明确不采用 Dubbo/Thrift。
 > 所以这里**不学协议**，只学**契约的组织方式**。
 
 ### 1.2 契约是**代码**，放在提供方的 `-api` 模块

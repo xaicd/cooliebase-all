@@ -14,7 +14,7 @@
    - 规范目录 `docs/02_requirements/` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
    - 架构决策记录：`docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md`、`ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md`
-   - 交互式架构图谱：`docs/03_design/diagrams/ruoyi-architecture.arch.json` / `.arch.html` (archify 技能)
+   - 交互式架构图谱：`docs/03_design/diagrams/cooliebase-architecture.arch.json` / `.arch.html` (archify 技能)
    - 数据库底座与8大审计字段：`docs/03_design/database-design-erd.md`
 4. **04_features / 04_implementation (构造与编码)**：
    - 第一方业务插件隔离：`packages/plugins/plugin-*/` (15 个业务域)

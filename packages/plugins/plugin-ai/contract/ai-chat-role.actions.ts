@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/ai-chat-role.validator"
 
 export const aiChatRoleActionSchemas = {
-  "ruoyi.cmd.ai.aiChatRole.page": aiChatRolePageQuerySchema,
-  "ruoyi.cmd.ai.aiChatRole.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.ai.aiChatRole.create": aiChatRoleCreateSchema,
-  "ruoyi.cmd.ai.aiChatRole.update": aiChatRoleUpdateSchema,
-  "ruoyi.cmd.ai.aiChatRole.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiChatRole.page": aiChatRolePageQuerySchema,
+  "cooliebase.cmd.ai.aiChatRole.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.ai.aiChatRole.create": aiChatRoleCreateSchema,
+  "cooliebase.cmd.ai.aiChatRole.update": aiChatRoleUpdateSchema,
+  "cooliebase.cmd.ai.aiChatRole.delete": z.object({ id: z.string() }),
   "ai.pageAiChatRole": aiChatRolePageQuerySchema,
   "ai.getAiChatRole": z.object({ id: z.string() }),
   "ai.createAiChatRole": aiChatRoleCreateSchema,

@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/erp-sale-order-item.validator"
 
 export const erpSaleOrderItemActionSchemas = {
-  "ruoyi.cmd.erp.erpSaleOrderItem.page": erpSaleOrderItemPageQuerySchema,
-  "ruoyi.cmd.erp.erpSaleOrderItem.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.erp.erpSaleOrderItem.create": erpSaleOrderItemCreateSchema,
-  "ruoyi.cmd.erp.erpSaleOrderItem.update": erpSaleOrderItemUpdateSchema,
-  "ruoyi.cmd.erp.erpSaleOrderItem.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleOrderItem.page": erpSaleOrderItemPageQuerySchema,
+  "cooliebase.cmd.erp.erpSaleOrderItem.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.erp.erpSaleOrderItem.create": erpSaleOrderItemCreateSchema,
+  "cooliebase.cmd.erp.erpSaleOrderItem.update": erpSaleOrderItemUpdateSchema,
+  "cooliebase.cmd.erp.erpSaleOrderItem.delete": z.object({ id: z.string() }),
   "erp.pageErpSaleOrderItem": erpSaleOrderItemPageQuerySchema,
   "erp.getErpSaleOrderItem": z.object({ id: z.string() }),
   "erp.createErpSaleOrderItem": erpSaleOrderItemCreateSchema,

@@ -17,7 +17,7 @@ afterEach(() => {
   for (const dir of tempDirs.splice(0)) fs.rmSync(dir, { recursive: true, force: true })
 })
 
-function initInput(pluginKey = "ruoyi.hello-world"): WorkerInitializeInput {
+function initInput(pluginKey = "cooliebase.hello-world"): WorkerInitializeInput {
   return {
     manifest: { id: pluginKey },
     config: {},
@@ -28,7 +28,7 @@ function initInput(pluginKey = "ruoyi.hello-world"): WorkerInitializeInput {
 
 describe("插件双形态：一个插件，两种运行方式", () => {
   it("合并形态（in-process）：加载模块、直接调用 handler、health 正常", async () => {
-    const plugin = new MergedPlugin("ruoyi.hello-world", MERGED_ENTRY, EXAMPLE_DIR)
+    const plugin = new MergedPlugin("cooliebase.hello-world", MERGED_ENTRY, EXAMPLE_DIR)
     await plugin.start(initInput())
     expect(plugin.running).toBe(true)
 
@@ -69,7 +69,7 @@ describe("插件双形态：一个插件，两种运行方式", () => {
   })
 
   it("setup 抛错时 start 拒绝且不留下半启动状态", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-merged-"))
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-merged-"))
     tempDirs.push(dir)
     const entry = path.join(dir, "bad.mjs")
     fs.writeFileSync(
@@ -83,7 +83,7 @@ describe("插件双形态：一个插件，两种运行方式", () => {
   })
 
   it("导出形状不对时明确报错（必须导出插件对象）", async () => {
-    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "ruoyi-merged-"))
+    const dir = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-merged-"))
     tempDirs.push(dir)
     const entry = path.join(dir, "not-plugin.mjs")
     fs.writeFileSync(entry, `export default "just a string"\n`)

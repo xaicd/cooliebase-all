@@ -7,11 +7,11 @@ import {
 } from "../backend/validators/mes-wm-return-sales-detail.validator"
 
 export const mesWmReturnSalesDetailActionSchemas = {
-  "ruoyi.cmd.mes.mesWmReturnSalesDetail.page": mesWmReturnSalesDetailPageQuerySchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesDetail.get": z.object({ id: z.string() }),
-  "ruoyi.cmd.mes.mesWmReturnSalesDetail.create": mesWmReturnSalesDetailCreateSchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesDetail.update": mesWmReturnSalesDetailUpdateSchema,
-  "ruoyi.cmd.mes.mesWmReturnSalesDetail.delete": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnSalesDetail.page": mesWmReturnSalesDetailPageQuerySchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesDetail.get": z.object({ id: z.string() }),
+  "cooliebase.cmd.mes.mesWmReturnSalesDetail.create": mesWmReturnSalesDetailCreateSchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesDetail.update": mesWmReturnSalesDetailUpdateSchema,
+  "cooliebase.cmd.mes.mesWmReturnSalesDetail.delete": z.object({ id: z.string() }),
   "mes.pageMesWmReturnSalesDetail": mesWmReturnSalesDetailPageQuerySchema,
   "mes.getMesWmReturnSalesDetail": z.object({ id: z.string() }),
   "mes.createMesWmReturnSalesDetail": mesWmReturnSalesDetailCreateSchema,
