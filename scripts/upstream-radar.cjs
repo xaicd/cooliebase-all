@@ -135,7 +135,7 @@ function main() {
     "",
     "## 二、 持续吸收与升级同步机制 (Continuous Evolution Protocol)",
     "",
-    "1. **业务状态机与契约对账**：定期从 `yudao-cloud` 与 `CoolieBase-Vue` 对齐 17 域实体模型与 4 态流转（如 Pay 支付退款流、Mall 库存扣减原子锁、CRM 认领）；",
+    "1. **业务状态机与契约对账**：定期审视行业开源 17 域实体模型与 4 态流转，发现可吸收契约模式时单向借鉴；",
     "2. **信创数据库内核演进**：持续跟进达梦 DM8/DM9 `dmdb` 驱动发布与数据守护 (Data Watch) 稳定性，保持 Tier-C 驱动无缝适配；",
     "3. **运行时框架安全加固**：紧密跟踪 Next.js Server Actions CSRF/SSRF 安全公告与 React 19 升级基准；",
     "4. **分布式总线与分片规范**：吸收 ShardingSphere 事务强一致读主规则与 NATS.io JetStream 消费端 Inbox 幂等去重。"

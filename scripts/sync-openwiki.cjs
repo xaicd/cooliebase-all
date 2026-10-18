@@ -432,7 +432,7 @@ await runUnitOfWork(async (uow) => {
 ## 一、 对标全球顶尖项目矩阵
 1. **Supabase (80k★)**: 极致的本地开发体验、Realtime CDC 变更广播、原生 pgvector 向量检索；
 2. **MedusaJS v2 (27k★)**: TypeScript 原生可逆 DAG 工作流 (@medusajs/workflows-sdk) 与补偿长事务 (Saga)；
-3. **cooliebase-vue-pro (25k★)**: 17 领域工业级模型、Flowable BPMN 2.0 审批流设计器、严密的 @DataPermission 部门数据范围；
+3. **yudao 系开源中后台模板 (25k★ 综合)**: 17 领域工业级模型聚合、Flowable BPMN 2.0 审批流设计器思路、严密的 @DataPermission 部门数据范围抽象；
 4. **Directus (30k★) / Refine (29k★)**: 可视化 Low-Code 表单设计、TanStack Table v8 结合虚拟滚动支撑十万级数据；
 5. **Strix (60k★)**: 多智能体自主红队渗透测试平台与真实 PoC 验证。
 

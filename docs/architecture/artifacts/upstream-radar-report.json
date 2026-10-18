@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-10-09T15:58:27.818Z",
-  "totalTrackedProjects": 8,
+  "generatedAt": "2026-10-18T14:38:12.884Z",
+  "totalTrackedProjects": 6,
   "securityVulnerabilities": {
     "critical": 0,
     "high": 0,
@@ -9,39 +9,6 @@
     "total": 0
   },
   "projects": [
-    {
-      "id": "yudao-cloud",
-      "name": "yudao-cloud / cooliebase-vue-pro",
-      "category": "domain_contract",
-      "organization": "芋道源码 (Yunai)",
-      "repository": "https://gitee.com/zhijiantianya/yudao-cloud.git",
-      "localVersion": "N/A (架构参考/无直接依赖)",
-      "focusAreas": [
-        "业务状态机规范与 4 态流转",
-        "微信/支付宝原生支付回调幂等与退款状态机",
-        "BPM 审批流定义与任务指派逻辑",
-        "商城 SPU/SKU 多级规格防超卖原子扣减",
-        "CRM 线索转化与公海池认领不变量",
-        "多租户数据隔离安全防护"
-      ],
-      "cveWatch": "Spring Cloud、Fastjson2、MyBatis-Plus 历史反序列化与鉴权绕过补丁",
-      "status": "SYNCED"
-    },
-    {
-      "id": "cooliebase-vue",
-      "name": "CoolieBase-Vue",
-      "category": "domain_contract",
-      "organization": "若依官方 (Yangzheart)",
-      "repository": "https://gitee.com/y_project/CoolieBase-Vue.git",
-      "localVersion": "N/A (架构参考/无直接依赖)",
-      "focusAreas": [
-        "RBAC 权限码命名体系 (system:user:query/edit)",
-        "系统字典 (DictData / DictType) 缓存与加载机制",
-        "登录日志与操作日志不可变审计字段 (sys_oper_log / sys_logininfor)"
-      ],
-      "cveWatch": "Spring Security 与 JWT 续期漏洞、路径穿越防御",
-      "status": "SYNCED"
-    },
     {
       "id": "nextjs",
       "name": "Next.js",

@@ -2,53 +2,8 @@
   "$schema": "http://json-schema.org/draft-07/schema#",
   "title": "CoolieBase-All-Next Upstream Radar Catalog",
   "description": "持续跟进与学习的开源项目基准清单、技术谱系与漏洞审计雷达",
-  "updatedAt": "2026-10-09",
+  "updatedAt": "2026-10-18",
   "projects": [
-    {
-      "id": "yudao-cloud",
-      "name": "yudao-cloud / cooliebase-vue-pro",
-      "organization": "芋道源码 (Yunai)",
-      "category": "domain_contract",
-      "repository": "https://gitee.com/zhijiantianya/yudao-cloud.git",
-      "mirror": "https://github.com/YunaiV/cooliebase-vue-pro.git",
-      "baselineBranch": "master",
-      "trackingModules": [
-        "yudao-module-bpm",
-        "yudao-module-pay",
-        "yudao-module-mall",
-        "yudao-module-crm",
-        "yudao-module-system",
-        "yudao-module-infra"
-      ],
-      "focusAreas": [
-        "业务状态机规范与 4 态流转",
-        "微信/支付宝原生支付回调幂等与退款状态机",
-        "BPM 审批流定义与任务指派逻辑",
-        "商城 SPU/SKU 多级规格防超卖原子扣减",
-        "CRM 线索转化与公海池认领不变量",
-        "多租户数据隔离安全防护"
-      ],
-      "cveWatch": "Spring Cloud、Fastjson2、MyBatis-Plus 历史反序列化与鉴权绕过补丁"
-    },
-    {
-      "id": "cooliebase-vue",
-      "name": "CoolieBase-Vue",
-      "organization": "若依官方 (Yangzheart)",
-      "category": "domain_contract",
-      "repository": "https://gitee.com/y_project/CoolieBase-Vue.git",
-      "baselineBranch": "master",
-      "trackingModules": [
-        "cooliebase-admin",
-        "cooliebase-framework",
-        "cooliebase-system"
-      ],
-      "focusAreas": [
-        "RBAC 权限码命名体系 (system:user:query/edit)",
-        "系统字典 (DictData / DictType) 缓存与加载机制",
-        "登录日志与操作日志不可变审计字段 (sys_oper_log / sys_logininfor)"
-      ],
-      "cveWatch": "Spring Security 与 JWT 续期漏洞、路径穿越防御"
-    },
     {
       "id": "nextjs",
       "name": "Next.js",
