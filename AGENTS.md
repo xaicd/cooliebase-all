@@ -1,3 +1,5 @@
+<!-- rename/ruoyi-to-cooliebase active -->
+
 # ruoyi-all-next 开发工作手册
 
 更新时间：2026-09-02
