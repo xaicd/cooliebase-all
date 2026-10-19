@@ -56,6 +56,20 @@ describe("Agent 契约域级覆盖门禁", () => {
     expect(runGate().status).toBe(0)
   })
 
+  it("★ 反向 3：零覆盖但**未写明原因** → 必须失败（「待补」不能含糊下去）", () => {
+    // 把 report 域唯一的契约临时移走 → 它变成零覆盖，但它不在 ZERO_COVERAGE_REASONS 里。
+    const backup = `${REPORT_CONTRACT}.probe-backup-reason`
+    fs.renameSync(REPORT_CONTRACT, backup)
+    try {
+      const result = runGate()
+      expect(result.status).toBe(1)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/未写明原因/)
+    } finally {
+      fs.renameSync(backup, REPORT_CONTRACT)
+    }
+    expect(runGate().status).toBe(0)
+  })
+
   it("★ 反向 2：某已知零覆盖域被补齐 → 应 PASS 并提示收紧基线", () => {
     fs.mkdirSync(ONLINE_AGENT_DIR, { recursive: true })
     fs.writeFileSync(ONLINE_PROBE, "{}\n")

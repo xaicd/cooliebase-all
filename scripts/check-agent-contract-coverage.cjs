@@ -32,6 +32,20 @@ const BASELINE_REL = "docs/architecture/artifacts/agent-contract-coverage-baseli
 const CATALOG_REL = "packages/shared/backend/constants/domain-catalog.json"
 const PLATFORM_DOMAINS = new Set(["system", "infra"])
 
+/**
+ * 已知零覆盖域的**原因**（必须写明 —— 否则"待补"会一直含糊下去）。
+ * 这些不是"还没做"，而是**没有真源可产出**：契约必须来自 `CodegenConfig`（表元数据），
+ * 而下面两个域没有这份元数据；手写 businessName / 权限码 / 字段就是**编造**。
+ */
+const ZERO_COVERAGE_REASONS = {
+  online:
+    "低代码运行时域：实体由用户在运行时定义（online_definition），页面是设计器/运行器，"
+    + "**不存在静态 CRUD 实体**，因此没有可驱动的 CodegenConfig；其 API 由 contract/openapi.yaml 描述。",
+  aigw:
+    "网关域：有真实 service/repository/validators 与 AIGW_ACTION_SCHEMAS，但**没有表元数据（CodegenConfig）**，"
+    + "无法驱动契约模板；手写业务名/权限码/字段即编造，故不生成。",
+}
+
 const asJson = process.argv.includes("--json")
 const auditOnly = process.argv.includes("--audit")
 const writeBaseline = process.argv.includes("--write-baseline")
@@ -80,6 +94,9 @@ if (writeBaseline) {
           + "某域补齐契约后跑 --write-baseline 收紧；新增零覆盖域会被门禁拦下。",
         updatedAt: new Date().toISOString().split("T")[0],
         knownZeroCoverageDomains: zeroCoverage,
+        reasons: Object.fromEntries(
+          zeroCoverage.map((domain) => [domain, ZERO_COVERAGE_REASONS[domain] ?? "（未写明原因）"]),
+        ),
         snapshot: report.map((item) => `${item.domain}: ${item.contracts} 契约 / ${item.pages} 页面`),
       },
       null,
@@ -124,6 +141,17 @@ const known = new Set(baseline.knownZeroCoverageDomains || [])
 
 const added = zeroCoverage.filter((domain) => !known.has(domain))
 const fixed = [...known].filter((domain) => !zeroCoverage.includes(domain))
+
+const undocumented = zeroCoverage.filter((domain) => !ZERO_COVERAGE_REASONS[domain])
+if (undocumented.length > 0) {
+  for (const domain of undocumented) {
+    console.error(`[agent-contract-coverage] ✗ 域 "${domain}" 零覆盖但**未写明原因**`)
+  }
+  fail(
+    `❌ ${undocumented.length} 个零覆盖域缺少原因说明`
+    + "\n  「待补」会一直含糊下去 —— 请在 ZERO_COVERAGE_REASONS 里写清缺的是哪份真源。",
+  )
+}
 
 if (added.length > 0) {
   for (const domain of added) console.error(`[agent-contract-coverage] ✗ 域 "${domain}" 一份契约都没有（Agent 面上等于不存在）`)

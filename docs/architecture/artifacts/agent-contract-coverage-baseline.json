@@ -5,6 +5,10 @@
     "online",
     "aigw"
   ],
+  "reasons": {
+    "online": "低代码运行时域：实体由用户在运行时定义（online_definition），页面是设计器/运行器，**不存在静态 CRUD 实体**，因此没有可驱动的 CodegenConfig；其 API 由 contract/openapi.yaml 描述。",
+    "aigw": "网关域：有真实 service/repository/validators 与 AIGW_ACTION_SCHEMAS，但**没有表元数据（CodegenConfig）**，无法驱动契约模板；手写业务名/权限码/字段即编造，故不生成。"
+  },
   "snapshot": [
     "system: 1 契约 / 31 页面",
     "infra: 1 契约 / 20 页面",
