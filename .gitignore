@@ -195,3 +195,6 @@ apps/cooliebase
 docs/features/**/prototypes/axure/resources/
 docs/specs/**/prototypes/axure/resources/
 
+# Python 编译产物（.kiro/steering/ui-ux-pro-max 的脚本会生成）—— 机器相关字节码不入库
+__pycache__/
+*.pyc

@@ -153,6 +153,13 @@ const ASSET_REGISTRY = {
         title: "软件需求规格说明书 (SRS - EARS 5态句式)",
         template: (opts) => `# 软件需求规格说明书 (Software Requirements Specification - SRS)
 
+> **本基座刻意不产出这份文档，这是决策而非遗漏。**
+> 本仓的需求真源是**分散且可追溯**的：\`docs/specs/<域>/<名>/brief.json\`（活跃规格）
+> 与 \`docs/features/sprint-prod/*.md\`（需求日志）。再落一份单体 SRS 就是**第二真源**，
+> 必然与规格漂移（§25 单一真源）；而只给空骨架又违反「骨架不算完成」。
+> **何时才该真的写**：由本基座孵化出的**交付型业务工程**（有甲方/合同、需要一份基线需求签字）——
+> 那时才把 brief 汇总为 SRS。基座自身不需要。
+
 - **规格标识**: SRS-${opts.version || "v1.1.0"}
 - **基线日期**: ${new Date().toISOString().split("T")[0]}
 - **需求句式规范**: IEEE 29148 / EARS (Easy Approach to Requirements Syntax)
@@ -227,6 +234,10 @@ const ASSET_REGISTRY = {
         file: "docs/02_requirements/user-requirements.md",
         title: "用户原始需求说明书 (URS)",
         template: (opts) => `# 用户原始需求说明书 (User Requirements Specification - URS)
+
+> **同 SRS：本基座刻意不产出，这是决策而非遗漏。**
+> 用户原始输入的记录真源在 \`docs/features/sprint-prod/<MMDD>.md\`（AGENTS §15 要求逐条记录原始输入）。
+> 需要向甲方交付的 URS 属于**孵化出的业务工程**，不属于基座。
 
 - **编制日期**: ${new Date().toISOString().split("T")[0]}
 - **归属规范**: CMMI 02_requirements (RDM) / .agents/skills/product-requirements

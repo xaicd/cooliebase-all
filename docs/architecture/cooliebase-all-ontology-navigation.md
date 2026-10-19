@@ -16,13 +16,15 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 
 | 路径 | 职责 |
 |---|---|
-| `src/app/` | Next App Router。路由组：`(admin-pages)/`(B 端后台)、`(portal-pages)/`(C 端门户)、`(cpc-pages)/`；`api/v1/...`(路由处理器，`admin/*` 写、`open/*` 公开读)；`login/`、`healthz/`、`readyz/`。 |
-| `packages/domains/` | ⭐ **核心**。18 业务域 + 1 个跨切面 `shared` 模块（见 §2）。 |
-| `clients/` | 多端脚手架子工程：`expo/`(RN，Schema 驱动，可 web-export 预览)、`h5/`、`uniapp/`、`desktop-pc/`、`flutter/`。 |
-| `scripts/` | ~50 构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)。 |
-| `docs/` | `architecture/`(40+ 架构文档 + 本页) · `skills/cooliebase-all/`(SKILL 镜像) · `features/` · `guides/` · `operations/` · `spec(s)/`。 |
-| `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `skills/`(16 个可执行 SKILL.md)。 |
-| `.kiro/` | `steering/`(`plugin-domain-structure.md` 权威模块布局、`coding-standards.md`、`feature-scaffold.md`、`ui-*`) + `specs/`。 |
+| `src/app/` | Next App Router。路由组：`(admin-pages)/`(B 端后台)、`(portal-pages)/`(C 端门户)；`api/v1/...`(路由处理器，`admin/*` 写、`open/*` 公开读)；`login/`、`healthz/`、`readyz/`。**`src/` 下只允许 `app/` 与 `proxy.ts`**（§3.2）。 |
+| `packages/domains/` | 平台地基 `system` / `infra`（2 个，**永不插件化**）。 |
+| `packages/plugins/` | ⭐ **15 个第一方业务插件**（`plugin-<域>`）；业务域代码一律在这里，**不要写 `packages/domains/<域>`**（见 §2）。 |
+| `packages/shared/` | 核心基础 SDK（**不是域**）：鉴权、总线、Kysely 引擎、契约基座。 |
+| `clients/` | 多端脚手架子工程：**当前只保留 `expo/`**（RN，Schema 驱动，可 web-export 预览）。h5/uniapp/flutter/desktop-pc 已按决策删除。 |
+| `scripts/` | 103 个构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)、`check-*.cjs`(门禁)。 |
+| `docs/` | `01_management`~`09_operations`(**CMMI 全生命周期过程资产**) · `architecture/`(架构文档 + 本页) · `features/`(需求与施工日志) · `guides/` · `specs/<域>/<名>/`(规格真源) · `agent/`。**`docs/skills/` 被禁止**（技能唯一真源是 `.agents/skills/<name>/SKILL.md`，§25）。 |
+| `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `rules/` + `workflows/` + `commands/` + `skills/`(**38 个可执行 SKILL.md**，唯一真源)。 |
+| `.kiro/` | `steering/`(`plugin-domain-structure.md` 权威模块布局、`feature-scaffold.md` 指针、`ui-ux-pro-max/` 技能) + `specs/`(本仓历史规划规格)。 **注**：曾混入另一业务项目（乡村振兴平台）的 `coding-standards.md` / `ui-development-standards.md`，因描述 `src/backend`、`src/frontend` 老结构（违反 §3.2）且属定制业务（违反 §17.3）已移除。 |
 | `prisma/` | `schema.prisma`(含 `member_user.extra_fields Json?`) + migrations。 |
 | `sql/` `deploy/` `test/` `public/` | init SQL · docker-compose(local/dev) · 测试根(`test/{unit,integration,e2e,agent}`) · 静态资源。 |
 | 根文件 | `AGENTS.md` · `README.md` · `CURRENT.md` · `project-status.md` · `.env.example` · `next.config.mjs` · `vitest.config.ts` · `playwright.config.ts`。 |
@@ -150,7 +152,9 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev
 
 ---
 
-## 7. Skills 索引（`.agents/skills/`，16 个可执行 SKILL.md）
+## 7. Skills 索引（`.agents/skills/` 共 **38 个**可执行 SKILL.md；下列为**最常用的 16 个**）
+
+> 完整清单见 `.agents/skills/README.md`；此处只列高频项，避免索引本身变成需要维护的第二真源。
 
 任务匹配时经 `loadSkill` 按需加载（**勿一次全塞**）：`agent-harness` · `api-design` · `architecture-design` · `automated-testing` · `coding` · `database-compatibility` · `database-design` · `devops` · `microservice-evolution` · `new-feature` · `product-requirements` · `security` · `service-governance` · `skill-authoring` · `ui-design` · `ui-framework-governance`。（`.agents/skills/` 为全仓唯一真源）
 
