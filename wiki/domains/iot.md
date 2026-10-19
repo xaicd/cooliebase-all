@@ -64,7 +64,7 @@
 
 1. **代码物理路径**：
    - 业务逻辑一律放于 `packages/plugins/plugin-iot/backend/services/`；
-   - 仓储数据访问放于 `packages/plugins/plugin-iot/backend/repositories/`；
-   - 契约接口放于 `packages/plugins/plugin-iot/contract/`。
+   - 仓储数据访问一律放于 `packages/plugins/plugin-iot/backend/repositories/`；
+   - 契约接口一律放于 `packages/plugins/plugin-iot/contract/`；
 2. **租户隔离**：
    - 表设计若含 `tenant_id`，查询与写入自动由 Kysely `tenantIsolationPlugin` 拦截，无需人肉拼写 `WHERE tenant_id = ?`。

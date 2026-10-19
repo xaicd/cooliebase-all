@@ -107,7 +107,7 @@ broker.start({ COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })
 
 1. 分层与协议策略：`packages/shared/backend/constants/domain-catalog.json`
 2. 双模与 codec：`packages/shared/backend/lib/rpc-protocol.ts`
-3. Facade：`packages/shared/backend/lib/rpc-facade.ts`；参考域 `packages/domains/pay/contract/pay.facade.ts`
+3. Facade：`packages/shared/backend/lib/rpc-facade.ts`；参考域 `packages/plugins/plugin-pay/contract/pay.facade.ts`
 4. 远程 adapter：`packages/shared/backend/lib/rpc-transport.ts`
 5. 自研 gRPC unary：`packages/shared/backend/lib/grpc-fabric.ts`
 6. 契约 action schema：`packages/domains/<domain>/contract/actions.ts`（由 `rpc-actions.json` 生成）

@@ -30,7 +30,7 @@
 
 ## P0：扩容前阻断项
 1. **Route 鉴权闭环**：为所有 admin Route 使用统一 wrapper，manifest 声明 permission/platform/public 策略；无 token=401、缺权=403。禁止通过 message 字符串判断权限错误。
-2. **支付回调闭环**：`src/app/api/v1/open/pay/notify/route.ts` 仍是 TODO。实现渠道验签、时间窗、持久化 nonce/event ID 去重、订单状态机事务与审计；重复回调命中不同副本只能处理一次。
+2. **支付回调闭环**：支付回调（现位于插件路由 `packages/plugins/plugin-pay/routes/open/notify/route.ts`）。实现渠道验签、时间窗、持久化 nonce/event ID 去重、订单状态机事务与审计；重复回调命中不同副本只能处理一次。
 3. **持久化 fail-fast**：`datasource-manager.ts` 的 memory 回退仅限显式开发/测试。生产无 DB 配置或迁移不匹配必须 readiness 失败，绝不可对外接流量。
 4. **健康检查修复**：新增匿名 `/healthz`（进程存活）与 `/readyz`（DB/必要依赖就绪）。Traefik 当前配置的 `/api/v1/admin/system/auth/info` 不存在且不应使用鉴权业务接口；`scripts/health-check.sh` 仍调用旧 `/api/admin/...` 路径。
 

@@ -181,6 +181,16 @@ function buildDomainMds() {
     const facades = seam?.definition?.facades || [];
     const isPlatform = d.kind === "platform";
     const baseDir = isPlatform ? `packages/domains/${d.name}` : `packages/plugins/plugin-${d.name}`;
+    // 只列出**真实存在**的目录：否则生成物会断言一个不存在的路径
+    // （实测 `plugin-online` 没有 `backend/repositories/`，而此前的生成器对每个插件都硬写这一行）。
+    const pathLines = [
+      ["业务逻辑", `backend/services/`],
+      ["仓储数据访问", `backend/repositories/`],
+      ["契约接口", `contract/`],
+    ]
+      .filter(([, rel]) => fs.existsSync(path.join(ROOT, baseDir, rel)))
+      .map(([label, rel]) => `   - ${label}一律放于 \`${baseDir}/${rel}\`；`)
+      .join("\n");
 
     let entityTable = "";
     if (contracts.length > 0) {
@@ -250,9 +260,7 @@ ${entityTable}
 ## 四、 研发指引与注意事项
 
 1. **代码物理路径**：
-   - 业务逻辑一律放于 \`${baseDir}/backend/services/\`；
-   - 仓储数据访问放于 \`${baseDir}/backend/repositories/\`；
-   - 契约接口放于 \`${baseDir}/contract/\`。
+${pathLines}
 2. **租户隔离**：
    - 表设计若含 \`tenant_id\`，查询与写入自动由 Kysely \`tenantIsolationPlugin\` 拦截，无需人肉拼写 \`WHERE tenant_id = ?\`。
 `;
@@ -732,19 +740,19 @@ function buildCmmiMds() {
    - 风险登记册与缓解预案：\`docs/01_management/risk-register.md\`
    - 决策记录目录：\`docs/01_management/dar-decision-records/\` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
-   - 真实特性规格包：\`docs/features/ecommerce/brief.json\` (商城最小闭环)
-   - 全域跨端契约：\`packages/domains/*/contract/\` (${AGENT_CONTRACT_COUNT} 份契约)
+   - 已归档的真实规格包：\`docs/specs/archive/2026-Q4/shop/ecommerce/\` (商城最小闭环)
+   - 全域跨端契约：\`packages/plugins/plugin-*/contract/\` 与 \`packages/domains/*/contract/\`（${AGENT_CONTRACT_COUNT} 份 Agent 契约）
    - 规范目录 \`docs/02_requirements/\` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
    - 架构决策记录：\`docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md\`、\`ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md\`
    - 交互式架构图谱：\`docs/03_design/diagrams/cooliebase-architecture.arch.json\` / \`.arch.html\` (archify 技能)
    - 数据库底座与8大审计字段：\`docs/03_design/database-design-erd.md\`
-4. **04_features / 04_implementation (构造与编码)**：
+4. **04_implementation (构造与编码)**：
    - 第一方业务插件隔离：\`packages/plugins/plugin-*/\` (15 个业务域)
-   - 泛型 BaseMapper/QueryWrapper 引擎：\`packages/shared/backend/database/\`
+   - 泛型 BaseMapper/QueryWrapper 引擎：\`packages/shared/backend/lib/database/\`
    - 极简 Brief 声明驱动：\`docs/specs/<domain>/<name>/brief.json\` 与 1 Task = 1 Commit
 5. **05_verification (验证与打假)**：
-   - 真实测试执行总结：\`docs/05_verification/test-summary-report.md\` (14 个测试套件，55 passed / 6 skipped，100% 真实 SQLite WAL)
+   - 真实测试执行总结：\`docs/05_verification/test-summary-report.md\`（**由 \`npm run test:summary\` 生成；数字以该文件为准，此处不写死**）
    - 变异测试目录：\`docs/05_verification/mutation/\` (保持留空待实际 Stryker 工具集成)
 6. **06_quality_assurance (质量与配置审计)**：
    - 功能与物理配置审计：\`docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md\` (compliance-auditor 技能)

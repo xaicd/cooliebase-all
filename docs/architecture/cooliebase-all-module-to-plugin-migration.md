@@ -121,8 +121,8 @@ core platform modules → built-in first-party plugins → installed plugins。
 
 | 件 | 位置 |
 |---|---|
-| 静态注册表索引（生成物） | `src/app/api/v1/admin/plugins/_lib/plugin-registry.generated.ts` |
-| 注册表与路由解析 | `src/app/api/v1/admin/plugins/_lib/plugin-registry.ts` |
+| 静态注册表索引（生成物） | `packages/shared/backend/plugins/plugin-registry.service.ts` 与 `first-party-entries.ts`（静态入口登记） |
+| 注册表与路由解析 | 挂载点 `/api/v1/plugins/<pluginId>/api/**`（见 `packages/shared/backend/plugins/route-mount.ts`） |
 | 网关 | `GET /api/v1/admin/plugins`；`GET`、`POST` `/api/v1/admin/plugins/<domain>[/<method>]` |
 
 **为什么注册表住在 `src/app`（组合根）而不是 `modules/shared`**：初版实现的分层错误，已修正。

@@ -45,7 +45,7 @@ import { defineStateMachine } from "@/shared/backend/lib/state-machine"
 **测什么**: 单测 mock 的是 **Facade 端口**（测决策逻辑）；Facade 背后的真实条件更新
 由**那个域自己的库级测试**覆盖 —— 不要在这里再 mock 一遍数据库。
 
-参考实现: `docs/features/ecommerce/tasks.md` 的 T10（`shop-order-ops.ts` + 3 条测试）。
+参考实现: `docs/specs/archive/2026-Q4/shop/ecommerce/tasks.md` 的 T10（`shop-order-ops.ts` + 3 条测试）。
 
 ## 1. 何时启用
 
@@ -216,5 +216,5 @@ pnpm test:agent                                # L4: 契约驱动的浏览器端
 ## 11. 权威文档
 
 `AGENTS.md`（§3.2 目录与插件、§9.5 表定义真源、§14 代码生成、§17 基座边界、§19 零浪费）、
-`docs/architecture/artifacts/source-parity-report.md`（与源框架的能力对账）、
+`npm run domains:parity -- --source <上游克隆路径>`（与源框架的能力对账；**只输出到 stdout、不落盘**，且需要先克隆上游仓库 —— 此前这里写的是一个**并不存在**的产物路径 `docs/architecture/artifacts/source-parity-report.md`）、
 `npm run domains:capabilities`（按域盘点）。

@@ -67,7 +67,7 @@ flowchart LR
 #### 3. 决策决议与跟进行动 (Action Items)
 - **决议**：采用方案 A。
 - **风险与缓解**：复杂网状流程开发周期可能超期 -> 引入分阶段交付，首期仅支持串并行审批。
-- **过程资产归档**：成果提交至 `docs/01_management/dar/` 并关联 ADR 决策记录。
+- **过程资产归档**：成果提交至 `docs/01_management/dar-decision-records/` 并关联 ADR 决策记录。
 ```
 
 ---
@@ -78,7 +78,7 @@ flowchart LR
    - 严禁引入带商业传染性许可的开源库（严禁 GPL/AGPL 运行时代码直接进入工程代码库，可参考 `UPSTREAM-NOTICE.md`）。
    - 必须复用工程底座能力：多租户隔离、8 大审计底座字段、Domain Facade 跨域解耦。
 2. **过程资产落位**：
-   - 决策分析报告统一归档于 `docs/01_management/dar/DAR-<YYYYMMDD>-<TOPIC>.md`。
+   - 决策分析报告统一归档于 `docs/01_management/dar-decision-records/DAR-<YYYYMMDD>-<TOPIC>.md`。
    - 架构级决策需同步触发 `adr-architect` 生成对应 ADR 记录。
 
 ---

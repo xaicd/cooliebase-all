@@ -183,6 +183,7 @@
 | 16. **压测**（容量护栏） | `npm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5 |
 | 17. **变异测试**（断言杀伤力） | `npm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
 | 18. **文档命令真实性** | `npm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
+| 19. **生成物路径真实性** | `npm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
 
 要点（都是实测踩出来的）:
 
@@ -944,7 +945,7 @@ npm run check
 1. **四类契约族统一理论**：
    ① **API 契约**：`Command`/`Query`/`Event`/`Stream`（开发工种，详见 §21）；
    ② **数据契约 (Data Contract)**：Source/Transform/Sink Schema + 增量水位 + 幂等主键 + 质量规则 + 血缘 + 业务平账对账单（数据同步/ETL/数仓/BI/持续运营工种，落位 `report` 域与 `docs/09_operations/02_data_ops/`）；
-   ③ **流程契约 (Process Contract)**：状态机/BPMN/DAG + 事件/定时/API/人工四类触发器 + 补偿回滚路径 + 租户审批流治理（运营编排/审批流/工单工种，落位 `bpm` 域与 `docs/09_operations/01_biz_ops/`）；
+   ③ **流程契约 (Process Contract)**：状态机/BPMN/DAG + 事件/定时/API/人工四类触发器 + 补偿回滚路径 + 租户审批流治理（运营编排/审批流/工单工种，落位 `bpm` 域；其过程资产经 `cmmi:asset new --phase 09` 落 `docs/09_operations/`，现为 `01_financial_reconciliation` 与 `02_data_ops`）；
    ④ **预案契约 (Runbook Contract)**：变更步骤 + 校验点 + 回滚脚本 + 演练记录 + SRE 全栈保障（涵盖 IaaS/PaaS/应用三层指标、APM 链路穿透、业务日志脱敏、分布式定时任务排他锁治理与无指责复盘，落位 `docs/08_sre/` 与 `.agents/skills/devops/SKILL.md`）。
 2. **IT 全工种工作内容矩阵**：产品（需求契约，`product-requirements.SKILL.md`）、设计（设计契约，`ui-design.SKILL.md`/组件复用）、开发（API 契约/5 步穿透）、数据（数据契约/管道 DSL + 指标语义层，`database-design.SKILL.md`）、测试（测试契约/4 层金字塔，`automated-testing.SKILL.md`）、运维（预案契约/Runbook + 灰度回滚，`devops.SKILL.md`）、运营编排（流程契约/状态机 + HITL 人工节点）、安全（安全基线/威胁建模，`security.SKILL.md`）；每族明确契约真源、执行范式与低代码/开源工具优先清单。
 3. **数据同步/ETL 五大铁律**：① 严禁一次性搬运脚本入库；② 必须幂等可重放（按主键/版本 upsert）；③ 必须断点续传（checkpoint/增量水位）；④ 血缘自动登记本体域；⑤ 对账报告即验收（行数/空值/唯一性对账通过才算交付）。工具决策顺序：内置管道 DSL ➔ 开源成熟方案（SeaTunnel/DataX 批量、Flink CDC 实时）➔ 才允许自写代码。

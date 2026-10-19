@@ -26,16 +26,16 @@
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  4. 日志监控与审计追溯 (Structured Logging & Audit Center)                  │
 │     ├── 结构化 JSON 语义日志：`domain-log.ts` (关联 TraceId)                │
-│     ├── 操作与合规审计：`audit-log.ts`, `packages/domains/monitor/`               │
-│     └── 审计归档与保留策略：`scripts/run-audit-log-retention.ts`             │
+│     ├── 操作与合规审计：`packages/shared/backend/lib/audit-log.ts`（审计能力落在 `infra`—— **不存在 `monitor` 域**） │
+│     └── 审计归档与保留策略：`packages/domains/infra/backend/services/audit-log-retention.service.ts` │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  5. 数据分析与运营大盘 (Data Analytics Engine)                              │
-│     ├── 统一数据分析引擎：`packages/domains/report/`                              │
+│     ├── 统一数据分析引擎：`packages/plugins/plugin-report/`                       │
 │     ├── 多维指标聚合：租户业务统计、活跃度大盘、交易/工单趋势分析            │
 │     └── 动态报表设计器：支持拖拽配置图表与 SQL 数据集绑定                    │
 ├─────────────────────────────────────────────────────────────────────────────┤
 │  6. AI 智能报表与数据洞察 (AI Intelligent NL-to-Chart BI)                   │
-│     ├── 自然语言转 SQL/DSL (ChatBI)：`packages/domains/ai/`                       │
+│     ├── 自然语言转 SQL/DSL (ChatBI)：`packages/plugins/plugin-ai/`                │
 │     ├── 智能图表自动渲染：折线图、柱状图、饼图、漏斗图自适应生成             │
 │     └── AI 业务洞察与异常诊断：自动提取指标波动原因并输出摘要研报            │
 └─────────────────────────────────────────────────────────────────────────────┘

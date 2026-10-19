@@ -27,4 +27,4 @@ packages/shared/
 模板约束：
 
 1. 通用页面模板放 `packages/shared/frontend/templates`。
-2. `src/frontend/templates` 仅保留兼容 re-export。
+2. 历史写法 `src/frontend/templates`（**已不存在**，`src/` 下只允许 `app/` 与 `proxy.ts`，见 AGENTS §3.2）不得再引用。

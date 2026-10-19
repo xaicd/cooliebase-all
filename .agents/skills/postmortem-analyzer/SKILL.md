@@ -32,7 +32,7 @@ description: 事故免责复盘与根因分析（Google SRE Blameless Postmortem
 
 ## 3. 标准免责复盘报告模版
 
-文件存放位置：`docs/08_sre/postmortem/POSTMORTEM-<YYYYMMDD>-<INCIDENT-NAME>.md`。
+文件存放位置：`docs/08_sre/06_incidents_postmortem/POSTMORTEM-<YYYYMMDD>-<INCIDENT-NAME>.md`。
 
 ```markdown
 # 事故复盘报告: [2026-09-20] 营销优惠券并发超发故障
@@ -86,7 +86,7 @@ description: 事故免责复盘与根因分析（Google SRE Blameless Postmortem
    - 所有的代码修复动作必须伴随针对性的真实数据库集成测试（`test/integration/`）。
    - 验证命令：`npm run test:matrix` 与 `npm run check`。
 2. **知识资产沉淀**：
-   - 复盘产物归档于 `docs/08_sre/postmortem/`，并同步更新 OpenWiki 故障案例库。
+   - 复盘产物归档于 `docs/08_sre/06_incidents_postmortem/`，并同步更新 OpenWiki 故障案例库。
 
 ---
 

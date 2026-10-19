@@ -109,7 +109,8 @@
       "version:check",
       "llms:check",
       "sbom:check",
-      "docs:commands:check"
+      "docs:commands:check",
+      "gen:paths:check"
     ]
   },
   "compatibility": {

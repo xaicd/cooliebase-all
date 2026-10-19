@@ -107,16 +107,16 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 **加字段两条互补路径**：
 
 **(a) 零 DDL JSON 路径（默认、跨库、预览安全）** —— 字段值存实体 `extra_fields` JSON 列；页面布局是 `PageSchema` JSON 存 `system_config`（键 `page.schema.<entity>`）。
-- 代码：`packages/domains/online/backend/services/page-schema.service.ts`（`PageSchemaService.get/update/addField`，`hasRealDatabase()?Kysely:内存兜底`）；校验 `.../validators/page-schema.validators.ts`（`pageSchemaSchema`/`fieldDefSchema`/`FieldDef`）。加字段 = 往 `fields[]` 追加，不 ALTER TABLE。
+- 代码：`packages/plugins/plugin-online/backend/services/page-schema.service.ts`（`PageSchemaService.get/update/addField`，`hasRealDatabase()?Kysely:内存兜底`）；校验 `.../validators/page-schema.validators.ts`（`pageSchemaSchema`/`fieldDefSchema`/`FieldDef`）。加字段 = 往 `fields[]` 追加，不 ALTER TABLE。
 
-**(b) "加字段就真加列"（真 DDL）** —— `packages/domains/online/backend/adapters/persistence/schema-ddl.ts`：
+**(b) "加字段就真加列"（真 DDL）** —— `packages/plugins/plugin-online/backend/adapters/persistence/schema-ddl.ts`：
 - 流程：`PageSchemaService.update()` 校验后调 `ensureColumns(entity, fields)` → 逐字段 `ensureColumn`（先 `listColumns(table)` 幂等检查，再 `sql.raw("ALTER TABLE ... ADD COLUMN ...")`）。
 - 方言：`columnType()` 按 `getProtocolFamily()` 把 `FieldDef.type`(text/number/boolean/date/select/image...) 映射到 sqlite/postgresql/mysql/sqlserver/proprietary(达梦/Oracle) 的列类型；`listColumns()` 分别用 `pragma_table_info`/`information_schema.columns`/`USER_TAB_COLUMNS`。
 - 安全：`assertSafeIdentifier()` 白名单 `^[a-zA-Z][a-zA-Z0-9_]{0,39}$` 防注入。
 - 预览兜底：纯内存(`hasRealDatabase()===false`)时 `ensureColumns` 抛错被 `update` 捕获、记 `online.pageSchema.ddlSkipped` 并仍持久化 JSON schema —— **预览不因缺库而挂**。
 
 **Schema 渲染器（一份 PageSchema → 多端渲染）**：
-- Portal Web：`packages/domains/member/frontend/components/SchemaFieldRenderer.tsx`（导出 `SchemaForm`/`SchemaDetailView`），被 `portal-profile.page.tsx` 消费。
+- Portal Web：`packages/plugins/plugin-member/frontend/components/SchemaFieldRenderer.tsx`（导出 `SchemaForm`/`SchemaDetailView`），被 `portal-profile.page.tsx` 消费。
 - Expo(RN)：`clients/expo/src/SchemaFieldRenderer.tsx`（同 `SchemaForm`/`SchemaDetailView` 接口），拉 `open/meta/page-schema/member_user`。online 加个字段，移动端表单**零改代码**多出该字段。
 
 **外观配置（WordPress 式后台配置→C 端渲染）**：`packages/domains/infra/backend/services/appearance.service.ts`（`AppearanceService.get/update/getPublic`，`SiteAppearance` JSON 存 `system_config` 键 `site.appearance`）；校验 `appearance.validators.ts`（`siteAppearanceSchema`/`DEFAULT_APPEARANCE`）；API `api/v1/admin/infra/appearance`(写) + `api/v1/open/meta/appearance`(公开读)。

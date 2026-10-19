@@ -60,5 +60,6 @@
 ## 5. 合规与校验手段 (Compliance & Verification)
 
 - **门禁验证**：`npm run domain:check` 严格扫描禁止在业务模块中手写绕过 `BaseMapper` 的 raw SQL；
-- **测试守卫**：`test/matrix/tenant-isolation.test.ts` 执行交叉并发攻击测试；
+- **测试守卫**：`packages/shared/backend/lib/database/__tests__/tenant-isolation-plugin.test.ts`
+  与 `test/integration/sqlite-rbac.integration.test.ts` 执行租户越权与交叉并发攻击测试；
 - **红队渗透**：Strix 多智能体安全渗透测试（`strix-penetration-testing`）主动注入伪造 `tenant_id` Payload，验证 100% 阻断。
