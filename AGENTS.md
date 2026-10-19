@@ -570,14 +570,15 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 **本地跑 `vitest` 不要设 `DATABASE_URL`，也不要设非 memory 的 `DB_DRIVER`。**
 
 ```bash
-env -u DATABASE_URL -u DB_DRIVER npx vitest run    # 353 通过 / 0 失败
+env -u DATABASE_URL -u DB_DRIVER npx vitest run    # 全量绿（数量会变，不写死）
 npm run verify:real-db                             # 真实库验证（改过仓储/迁移/多租户后必跑）
 ```
 
 **内存模式全绿 ≠ 真实库正确** —— 内存回退不校验任何数据库约束。改过仓储、迁移、
 多租户或 codegen 模板后，必须再跑 `npm run verify:real-db`
-（一键: 起库 → 重建独立验证库 `cooliebase_verify` → 迁移 → 种子 → 全量测试 → 停库；
-`--keep` 保留现场、`--reuse` 复用库）。它会**显式设置 `DATABASE_URL`** ——
+（一键: **自起嵌入式 Postgres**（零容器）→ 重建独立验证库 `cooliebase_verify` → 迁移 →
+种子 → 全量测试 → 删库并关实例；`--keep` 保留现场、`--reuse` 复用库。
+若已存在真实库，设 `DATABASE_URL` 即可直接复用、不起嵌入式实例）。它会**显式设置 `DATABASE_URL`** ——
 shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试会悄悄跑到另一个库上。
 
 原因（实测，不是理论）：仓储用 `hasRealDatabase()`（= `driver !== "memory"`）决定
