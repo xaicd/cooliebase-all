@@ -107,7 +107,8 @@
       "deps:audit",
       "clients:build:check",
       "version:check",
-      "llms:check"
+      "llms:check",
+      "sbom:check"
     ]
   },
   "compatibility": {

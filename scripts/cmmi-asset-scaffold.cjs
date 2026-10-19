@@ -390,25 +390,14 @@ flowchart TD
 `
       },
       "sbom": {
-        file: "docs/04_implementation/software-bill-of-materials.md",
-        title: "软件物料清单 SBOM 与依赖准入基线",
-        template: (opts) => `# 软件物料清单 (Software Bill of Materials - SBOM)
-
-- **生成日期**: ${new Date().toISOString().split("T")[0]}
-- **版本基线**: ${opts.version || "v1.1.0"}
-- **包管理器**: pnpm workspaces (pnpm-lock.yaml)
-- **归属规范**: CMMI 04_implementation (TS / CM)
-
----
-
-## 1. 核心底座依赖清单与开源许可证核验
-- Next.js 16.x (MIT)
-- React 19.x (MIT)
-- Kysely 0.29.x (MIT)
-- Prisma 7.x (Apache 2.0)
-- SQLite3 / Better-SQLite3 (MIT)
-`
-      }
+        // 本资产是**生成物**，不能手写。内容必须来自 `pnpm-lock.yaml`（包与版本）
+        // 与已安装依赖的 `license` 字段。
+        //
+        // 此前这里是一段手写的散文清单（"Next.js 16.x (MIT)" 之类）—— 那不是物料清单，
+        // 是号称清单的便签；生成它反而**比留空更糟**：`cmmi:asset:check` 会把它算成
+        // "真实资产"，而内容与锁文件毫无关系。
+        generator: "sbom:generate",
+      },
     }
   },
 
@@ -784,6 +773,14 @@ function handleNew(opts) {
   if (!typeDef) {
     console.error(`[cmmi-asset] Phase ${phase} 下未知资产类型: ${type}（可选: ${Object.keys(phaseDef.types).join(", ")}）`)
     process.exit(2)
+  }
+
+  if (typeDef.generator) {
+    // 生成物不接受手写：直接指向真正的生成命令，并以非 0 退出（不能"看似成功但什么都没做"）。
+    console.error(`[cmmi-asset] Phase ${phase} 的 "${type}" 是**生成物**，不能手写。`)
+    console.error(`  请运行: npm run ${typeDef.generator}`)
+    console.error("  原因: 其内容必须由真源（锁文件 + 已安装依赖的 license 字段）派生，手写版无法保真。")
+    process.exit(1)
   }
 
   const targetRel = typeof typeDef.file === "function" ? typeDef.file(opts) : typeDef.file

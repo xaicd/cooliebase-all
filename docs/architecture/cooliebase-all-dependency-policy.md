@@ -130,6 +130,28 @@ runtime 层合计 6 条。）
 为一条**未使用的代码路径**新增 override 惯例去改 Prisma 的依赖解析，收益不抵风险。
 正解是等 Prisma 上游升级其 mysql2 依赖，或本仓不再需要 MySQL 支持时移除。
 
+## 3.1 物料清单与许可证事实（`npm run sbom:check`）
+
+SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安装依赖的真实
+`license` 字段派生，产物为 `docs/04_implementation/sbom.json` 与同名 `.md`，**禁止手写**。
+漂移由 `npm run sbom:check` 判定（已接入 `npm run check`）。
+
+实测快照（607 包：host 391 / client 216）：
+
+| 事项 | 事实 |
+|---|---|
+| `LGPL-3.0-or-later` | `@img/sharp-libvips-darwin-arm64@1.3.4`（1 个）—— sharp 的图像处理原生库 |
+| `MPL-2.0` | `lightningcss` 及其平台二进制（4 个）—— Tailwind/PostCSS 链路 |
+| `UNKNOWN` | 110 个（18.1%），**全部是其他平台的可选二进制**（`@esbuild/linux-x64` 等）。它们在本机不安装，故读不到 `license` 字段 —— 这是读取口径的限制，不是锁文件缺信息 |
+
+判定口径：`sbom:check` 只比较**包名 + 版本**，**不比较许可证列** —— 许可证来自安装树、
+是环境相关的，纳入漂移判定会让门禁"换个平台就红"，那不是门禁该有的性质。
+
+> **LGPL / MPL 属弱著佐权**：以依赖形式使用且未修改源码时通常可接受，
+> 但**分发时必须随附其许可证文本**；一旦**修改其源码或静态链接**，就会触发开源义务。
+> 本项目当前为未修改的依赖引用，风险可控；上述前提若变化，**需重新评审**。
+> 这类事实应当在选型阶段就可见，而不是等法务问起。
+
 ## 4. 禁止项
 
 1. **禁止手改基线**：基线是生成物，只能由 `npm run deps:audit:baseline` 产出；手改即制造漂移，

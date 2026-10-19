@@ -368,7 +368,21 @@ CI 前置检查：
 | `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `npm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
-当前规则：§3.2 顶层目录约束（enforce）、§3.2/§14.3 禁止平铺 `modules/<domain>/services`（enforce）、§4.7 对象单例 Repository/Service 双导出（enforce，类与 `MEMORY_*`/`SEED_*` 常量不在范围内）、§4.5 后端禁 `console.*`（ratchet，日志实现与 codegen 模板豁免）、§4.8 业务仓储租户作用域（report）、§9.5 表定义覆盖（enforce，已知欠债在规则内显式列出）、§2/§17 基座原生域边界（enforce，已知越界在规则内显式列出）。
+当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `npm run standards:check --audit` 列出；下面这份是 2026-10-19 的**快照**（共 11 条）：
+
+| 规则 | 模式 | 约束 |
+|---|---|---|
+| `src-top-level-layout` | enforce | §3.2 顶层目录约束 |
+| `no-flat-domain-services` | enforce | §3.2/§14.3 禁止平铺 `modules/<domain>/services` |
+| `repository-service-dual-export` | enforce | §4.7 对象单例 Repository/Service 双导出 |
+| `backend-no-console` | enforce | §4.5 后端禁 `console.*`（日志实现与 codegen 模板豁免） |
+| `business-repository-tenant-scope` | report | §4.8 业务仓储租户作用域 |
+| `domain-governance-coverage` | enforce | 域治理覆盖 |
+| `table-definition-coverage` | enforce | §9.5 表定义覆盖（已知欠债在规则内显式列出） |
+| `base-native-domain-boundary` | enforce | §2/§17 基座原生域边界（已知越界在规则内显式列出） |
+| `no-vacuous-test-assertions` | enforce | 禁止字面恒真断言（如 `expect(true).toBe(true)`） |
+| `facade-method-dispatch-mapped` | ratchet | Facade 方法派发映射 |
+| `init-sql-seed-columns` | ratchet | 初始化 SQL 种子列 |
 
 判定要点：规则必须贴合条款本意，误报会逼出无意义豁免。`§4.7` 只约束对象单例模式（`export const XxxRepository = {...}` 需配 `export const xxxRepository`），`export class XxxService` 这类单一标识符由消费端一致以 PascalCase 引用，不属于条款范围。新增规则前必须先在真实代码库跑 `--audit`，确认当前符合度再决定 enforce / ratchet / report。
 

@@ -26,10 +26,10 @@ const fs = require("fs")
 const path = require("path")
 const { spawnSync } = require("child_process")
 const { ROOT } = require("./lib/domain-catalog.cjs")
+// 锁文件窄解析器已提取为共享 lib —— 依赖分层与 SBOM 用的是同一份真源。
+const { LOCKFILE_REL, hostReachablePackageNames } = require("./lib/pnpm-lock.cjs")
 
 const BASELINE_REL = "docs/architecture/artifacts/deps-audit-baseline.json"
-// 分层的真源：依赖图在锁文件里，离线可解析且确定。
-const LOCKFILE_REL = "pnpm-lock.yaml"
 // pnpm audit 要联网查通告库，给足时间。
 const AUDIT_TIMEOUT_MS = 180000
 
@@ -75,115 +75,13 @@ function runAudit() {
   }
 }
 
-/**
- * 分层：**从锁文件离线推导**「本仓依赖图可达的包名集合」。
- *
- * 为什么不从 `pnpm audit` 的 `findings[].paths` 推导（曾这么做过，是个缺陷）：
- * pnpm **对多父级包会截断 `paths` 列表**（人类可读输出里就写着 "Found 8 paths" 却只列 3 条）。
- * `braces` 恰好有两个父级（tailwindcss→chokidar 与 react-native→…→micromatch），
- * 截断发生时只剩 expo 那条 → 被误标成 client-toolchain，同一状态连跑三次得到 5/5/6。
- * 判据不该建立在一个"采样式"字段上，故改用依赖图的真源：pnpm-lock.yaml。
- *
- * 解析策略刻意做得极窄，只认三个缩进层（不追求解析完整 YAML）：
- *   importers:  项目键 2 空格 / 依赖段键 4 空格 / 包名 6 空格
- *   snapshots:  快照键 2 空格 / 依赖段键 4 空格 / `name: version` 6 空格
- * 认不出的行一律忽略（不猜）。锁文件缺失或推导出空集合时 **fail-loud** ——
- * 否则会退化成"全部 client-toolchain"这种看起来正常、实际全错的答案。
- */
-function packageNameOfSnapshot(key) {
-  // 快照键形如 `@scope/name@1.2.3(peer@4.5.6)`：先去 peer 后缀，再按最后一个 @ 切版本。
-  const withoutPeers = key.replace(/\(.*$/, "")
-  const at = withoutPeers.lastIndexOf("@")
-  return at > 0 ? withoutPeers.slice(0, at) : withoutPeers
-}
-
-const DEP_SECTION_KEYS = new Set(["dependencies", "devDependencies", "optionalDependencies"])
-
-function hostReachablePackageNames() {
-  const full = path.join(ROOT, LOCKFILE_REL)
-  if (!fs.existsSync(full)) {
-    fail(`lockfile missing: ${LOCKFILE_REL}; cannot derive tiers deterministically`)
+const HOST_REACHABLE = (() => {
+  try {
+    return hostReachablePackageNames(ROOT)
+  } catch (error) {
+    fail(error.message)
   }
-  const raw = fs.readFileSync(full, "utf8")
-  // 多文档 YAML：第一份是 pnpm 自身的 packageManagerDependencies 段，真正的 workspace 锁在最后一份。
-  const documents = raw.split(/^---\s*$/m)
-  const doc = documents[documents.length - 1]
-  if (!doc || !/^importers:/m.test(doc)) {
-    fail(`${LOCKFILE_REL}: could not locate the workspace document (multi-document split failed)`)
-  }
-
-  const declaredByProject = new Map()
-  const edgesByName = new Map()
-  const unquote = (value) => value.replace(/^['"]|['"]$/g, "")
-
-  let section = null
-  let project = null
-  let snapshotName = null
-  let inDependencySection = false
-
-  for (const line of doc.split("\n")) {
-    if (!line.trim()) continue
-    const indent = line.length - line.trimStart().length
-    const text = line.trim()
-
-    if (indent === 0) {
-      section = text === "importers:" || text === "snapshots:" ? text.replace(":", "") : null
-      project = null
-      snapshotName = null
-      inDependencySection = false
-      continue
-    }
-    if (!section) continue
-
-    if (section === "importers") {
-      if (indent === 2 && text.endsWith(":")) {
-        project = unquote(text.slice(0, -1))
-        inDependencySection = false
-      } else if (indent === 4 && text.endsWith(":")) {
-        inDependencySection = DEP_SECTION_KEYS.has(text.slice(0, -1))
-      } else if (indent === 6 && inDependencySection && project) {
-        const name = unquote(text.split(":")[0])
-        if (!name) continue
-        if (!declaredByProject.has(project)) declaredByProject.set(project, new Set())
-        declaredByProject.get(project).add(name)
-      }
-      continue
-    }
-
-    if (indent === 2 && text.endsWith(":")) {
-      snapshotName = packageNameOfSnapshot(unquote(text.slice(0, -1)))
-      inDependencySection = false
-      if (snapshotName && !edgesByName.has(snapshotName)) edgesByName.set(snapshotName, new Set())
-    } else if (indent === 4 && text.endsWith(":")) {
-      inDependencySection = DEP_SECTION_KEYS.has(text.slice(0, -1))
-    } else if (indent === 6 && inDependencySection && snapshotName) {
-      const name = unquote(text.split(":")[0])
-      if (name) edgesByName.get(snapshotName).add(name)
-    }
-  }
-
-  // host = 本仓自己的项目（根 `.` 与 packages/**）；clients/** 属客户端，不计入。
-  const roots = []
-  for (const [name, declared] of declaredByProject) {
-    if (name === "." || name.startsWith("packages/")) roots.push(...declared)
-  }
-
-  const reachable = new Set()
-  const queue = [...roots]
-  while (queue.length > 0) {
-    const name = queue.pop()
-    if (reachable.has(name)) continue
-    reachable.add(name)
-    for (const dep of edgesByName.get(name) || []) if (!reachable.has(dep)) queue.push(dep)
-  }
-
-  if (reachable.size === 0) {
-    fail(`${LOCKFILE_REL}: derived an empty host-reachable set — refusing to label everything client-toolchain`)
-  }
-  return reachable
-}
-
-const HOST_REACHABLE = hostReachablePackageNames()
+})()
 
 /** 分层改为纯查表：包名在 host 可达集合内即 runtime。确定性来自锁文件，不再依赖采样字段。 */
 function tierOf(advisory) {
