@@ -93,6 +93,7 @@
 | B4 | 规范机检化 | enforce / ratchet / report 三模式 | ✅ | `npm run standards:check` |
 | B5 | 依赖 CVE 棘轮 | 只拦新增；无补丁项入台账 | ✅ | `npm run deps:audit` |
 | B6 | 客户端构建门禁 | 导出产物存在 + 零污染 + 裁剪跳过 | ✅ | `npm run clients:build:check` |
+| B7 | 版本策略机检 | 模板版本两处同步；最新 tag 有发布说明；解耦须有据 | ✅ | `npm run version:check`（含两条反向对照） |
 
 ### WS-C Agent 消费面
 
