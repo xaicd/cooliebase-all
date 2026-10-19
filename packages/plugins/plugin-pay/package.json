@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",
-    "next": "^16.3.6",
+    "next": "^16.4.2",
     "react": "19.3.0",
     "zod": "^4.6.5"
   }
