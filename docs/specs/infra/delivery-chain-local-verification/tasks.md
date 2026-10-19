@@ -76,6 +76,11 @@
   - 文件白名单: `AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md`
   - 验收要求: 必须携带提交标识 `[T6]` 并附带真实测试验证
 
+- [ ] **T7**: `verify:real-db` 改用同一 helper（本机零容器跑真实库验证），保持 --keep/--reuse 语义与「只重建 cooliebase_verify」的安全边界
+  - 归属: `T6`
+  - 文件白名单: `scripts/verify-real-db.cjs, test/unit/generated-route-crud.test.ts`
+  - 验收要求: 必须携带提交标识 `[T7]` 并附带真实测试验证
+
 
 ## 3. CMMI 双向追溯与 Git 提交核实矩阵 (RTM & Git Trace)
 
@@ -94,10 +99,11 @@
 | T4 | T3 | `load:test` 复用同一 helper，并在输出标注『本机数字≠容量』 | scripts/load-test.cjs, scripts/lib/ephemeral-pg.cjs | 未开始 |
 | T5 | T4 | 反向对照测试（起不来必须 fail-loud、清理后端口释放、外部 URL 优先）+ 本机实跑三条命令并记录证据 | test/unit/ephemeral-pg.test.ts, docs/specs/infra/delivery-chain-local-verification/evidence.json | 未开始 |
 | T6 | T5 | 回写 AGENTS/计划 R3,G7/日志 | AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md | 未开始 |
+| T7 | T6 | `verify:real-db` 改用同一 helper（本机零容器跑真实库验证），保持 --keep/--reuse 语义与「只重建 cooliebase_verify」的安全边界 | scripts/verify-real-db.cjs, test/unit/generated-route-crud.test.ts | 未开始 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
-T1 → T2 → T3 → T4 → T5 → T6
+T1 → T2 → T3 → T4 → T5 → T6 → T7
 
 ## 5. 阶段状态基线 (Phase Baseline)
 

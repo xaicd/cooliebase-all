@@ -216,8 +216,17 @@
         "docs/01_management/project-plan.md",
         "docs/features/sprint-prod/1019.md"
       ]
+    },
+    {
+      "id": "T7",
+      "parent": "T6",
+      "title": "`verify:real-db` 改用同一 helper（本机零容器跑真实库验证），保持 --keep/--reuse 语义与「只重建 cooliebase_verify」的安全边界",
+      "files": [
+        "scripts/verify-real-db.cjs",
+        "test/unit/generated-route-crud.test.ts"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7",
   "windowMinutes": 30
 }

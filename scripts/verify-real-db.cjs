@@ -22,35 +22,14 @@ const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
 const VERIFY_DB = "cooliebase_verify" // 只有这个名字允许被本脚本重建
-const DB_USER = process.env.VERIFY_DB_USER || "cooliebase"
-const DB_PASSWORD = process.env.VERIFY_DB_PASSWORD || "cooliebase123"
-const DB_PORT = process.env.VERIFY_DB_PORT || "5433"
-const PG_HOST = process.env.PGHOST || (require("node:fs").existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-
-/** 跨平台同步等待（不用 sleep —— Unix-only，且不该靠外部命令计时）。 */
-function waitMs(ms) {
-  Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, ms)
-}
+const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")
+let endpoint = null
 
 const argv = process.argv.slice(2)
 const keep = argv.includes("--keep")
 const reuse = argv.includes("--reuse")
 
-const hasDocker = spawnSync("which", ["docker"]).status === 0
-const hasHostExec = spawnSync("which", ["host-exec"]).status === 0
-
 function run(command, args, options = {}) {
-  if (command === "docker" && !hasDocker && hasHostExec) {
-    const cmd = args.map((a) => `'${String(a).replace(/'/g, "'\\''")}'`).join(" ")
-    const result = spawnSync("host-exec", [`docker ${cmd}`], {
-      cwd: ROOT,
-      stdio: options.capture ? "pipe" : "inherit",
-      encoding: "utf8",
-      env: { ...process.env, ...options.env },
-    })
-    if (options.capture) return (result.stdout || "").trim()
-    return result.status
-  }
   const result = spawnSync(command, args, {
     cwd: ROOT,
     stdio: options.capture ? "pipe" : "inherit",
@@ -66,55 +45,28 @@ function fail(message) {
   process.exit(2)
 }
 
-const COMPOSE_FILE = "deploy/docker-compose.dev.yml"
-
-/**
- * 找到 compose 起的 postgres 容器名。
- * 用 compose 自己查询而不是 `docker ps --filter ancestor` —— 后者实测会漏
- * （容器刚起、或镜像名前缀不匹配时返回空，然后误报"找不到容器"）。
- */
-function findContainer() {
-  const id = run("docker", ["compose", "-f", COMPOSE_FILE, "ps", "-q", "postgres"], { capture: true })
-  if (!id) return null
-  const name = run("docker", ["inspect", "--format", "{{.Name}}", id], { capture: true })
-  return name ? name.replace(/^\//, "") : null
-}
-
-function waitHealthy(container, attempts = 20) {
-  for (let index = 0; index < attempts; index++) {
-    const status = run("docker", ["inspect", "--format", "{{.State.Health.Status}}", container], { capture: true })
-    if (status === "healthy") return true
-    waitMs(2000)
-  }
-  return false
-}
-
-function psql(container, database, sql) {
-  return run("docker", ["exec", container, "psql", "-U", DB_USER, "-d", database, "-tAc", sql], { capture: true })
-}
-
-function main() {
-  console.log("[verify:real-db] 启动 postgres …")
-  if (hasDocker) {
-    if (run("pnpm", ["run", "db:up"]) !== 0) fail("db:up 失败：请确认 Docker 在运行")
-  } else if (hasHostExec) {
-    if (run("docker", ["compose", "-f", COMPOSE_FILE, "up", "-d", "postgres"]) !== 0) fail("db:up 失败：请确认 Docker 在运行")
+async function main() {
+  console.log("[verify:real-db] 解析数据库端点（外部 DATABASE_URL 优先，否则嵌入式 Postgres）…")
+  try {
+    endpoint = await resolveDatabaseEndpoint()
+    console.log(`[verify:real-db] 数据库来源: ${endpoint.source}${endpoint.port ? ` :${endpoint.port}` : ""}`)
+  } catch (error) {
+    fail(`起数据库失败: ${String(error?.message ?? error).split("\n")[0]}`)
   }
 
-  const container = findContainer()
-  if (!container) fail("找不到运行中的 postgres 容器")
-  if (!waitHealthy(container)) fail("postgres 未在预期时间内变为 healthy")
-
-  const exists = psql(container, "postgres", `SELECT 1 FROM pg_database WHERE datname='${VERIFY_DB}'`).includes("1")
+  const existsResult = await query(endpoint.url, "SELECT 1 FROM pg_database WHERE datname=$1", [VERIFY_DB])
+  const exists = (existsResult.rowCount ?? 0) > 0
   if (!reuse || !exists) {
     // 只允许重建本脚本自己的验证库 —— 名字不符就拒绝，绝不误伤开发库。
     if (VERIFY_DB !== "cooliebase_verify") fail(`拒绝重建非验证库: ${VERIFY_DB}`)
     console.log(`[verify:real-db] ${exists ? "重建" : "创建"}验证库 ${VERIFY_DB}…`)
-    psql(container, "postgres", `DROP DATABASE IF EXISTS ${VERIFY_DB} WITH (FORCE);`)
-    psql(container, "postgres", `CREATE DATABASE ${VERIFY_DB} OWNER ${DB_USER}`)
+    await query(endpoint.url, `DROP DATABASE IF EXISTS "${VERIFY_DB}" WITH (FORCE)`)
+    await query(endpoint.url, `CREATE DATABASE "${VERIFY_DB}"`)
+  } else {
+    console.log(`[verify:real-db] 复用已有验证库 ${VERIFY_DB}`)
   }
 
-  const databaseUrl = `postgresql://${DB_USER}:${DB_PASSWORD}@${PG_HOST}:${DB_PORT}/${VERIFY_DB}?schema=public`
+  const databaseUrl = withDatabase(endpoint.url, VERIFY_DB)
   // 必须**显式**传: shell 里若已存在 DATABASE_URL，其优先级高于 .env，
   // 会让迁移与测试悄悄跑到另一个库上（本仓踩过）。
   const env = { DATABASE_URL: databaseUrl, DB_DRIVER: "postgresql" }
@@ -122,8 +74,12 @@ function main() {
   console.log("[verify:real-db] 应用迁移 …")
   if (run("pnpm", ["run", "db:migrate"], { env }) !== 0) fail("迁移失败")
 
-  const tables = psql(container, VERIFY_DB, "select count(*) from information_schema.tables where table_schema='public'")
-  console.log(`[verify:real-db] 表数: ${tables}`)
+  try {
+    const tableCount = await query(databaseUrl, "select count(*)::int as n from information_schema.tables where table_schema='public'")
+    console.log(`[verify:real-db] 表数: ${tableCount.rows?.[0]?.n ?? "?"}`)
+  } catch (error) {
+    fail(`查询表数失败: ${String(error?.message ?? error)}`)
+  }
 
   // 必须种子: 一部分测试依赖字典项/绑定租户的账号（rpc-protocol、member-auth 等），
   // 不种子就会把"环境缺数据"混进真实缺口里，报告就失去判读价值。
@@ -147,14 +103,15 @@ function main() {
   const status = run("npx", ["vitest", "run", ...vitestArgs], { env })
 
   if (!keep) {
-    console.log("\n[verify:real-db] 收尾: 停止 postgres …")
-    if (hasDocker) {
-      run("pnpm", ["run", "db:down"])
-    } else if (hasHostExec) {
-      run("docker", ["compose", "-f", COMPOSE_FILE, "stop", "postgres"])
+    console.log("\n[verify:real-db] 收尾: 删除验证库并关闭数据库 …")
+    try {
+      await query(endpoint.url, `DROP DATABASE IF EXISTS "${VERIFY_DB}" WITH (FORCE)`)
+    } catch (error) {
+      console.warn(`  ! 删除验证库失败: ${String(error?.message ?? error).split("\n")[0]}`)
     }
+    await endpoint.close()
   } else {
-    console.log(`\n[verify:real-db] 保留: 容器 ${container} / 库 ${VERIFY_DB}`)
+    console.log(`\n[verify:real-db] 保留: 库 ${VERIFY_DB}（服务留在 ${endpoint.url.replace(/:[^:@/]+@/, ":***@")}）`)
   }
 
   console.log(`
@@ -169,4 +126,12 @@ function main() {
   process.exit(status === 0 ? 0 : 1)
 }
 
-main()
+main().catch(async (error) => {
+  console.error(`\n[verify:real-db] 异常: ${error?.stack ?? error}`)
+  // 崩溃时也必须关库 —— 否则会留下嵌入式 Postgres 进程与临时 dataDir（实测踩过）
+  if (endpoint) {
+    try { await query(endpoint.url, `DROP DATABASE IF EXISTS "${VERIFY_DB}" WITH (FORCE)`) } catch { /* 忽略 */ }
+    await endpoint.close().catch(() => undefined)
+  }
+  process.exit(2)
+})

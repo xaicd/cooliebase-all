@@ -47,13 +47,61 @@ const itemModules = import.meta.glob("../../packages/{plugins/plugin-*,domains/*
 const domainBase = (domain: string) =>
   ["system", "infra"].includes(domain) ? `packages/domains/${domain}` : `packages/plugins/plugin-${domain}`
 
-function firstWritableColumn(domain: string, resource: string): string | null {
+function payloadTarget(domain: string, resource: string): { table: string; column: string } | null {
   const file = path.join(ROOT, domainBase(domain), "backend", "repositories", `${resource}.repository.ts`)
   if (!fs.existsSync(file)) return null
-  const match = fs.readFileSync(file, "utf8").match(/const WRITABLE_COLUMNS = \[([^\]]*)\]/)
-  if (!match) return null
-  const columns = match[1].split(",").map((item) => item.trim().replace(/^["']|["']$/g, "")).filter(Boolean)
-  return columns[0] ?? null
+  const text = fs.readFileSync(file, "utf8")
+  const columnsMatch = text.match(/const WRITABLE_COLUMNS = \[([^\]]*)\]/)
+  const tableMatch = text.match(/const TABLE_NAME = "([^"]+)"/)
+  if (!columnsMatch || !tableMatch) return null
+  const columns = columnsMatch[1].split(",").map((item) => item.trim().replace(/^["']|["']$/g, "")).filter(Boolean)
+  if (columns.length === 0) return null
+  return { table: tableMatch[1], column: columns[0] }
+}
+
+/**
+ * 生成**类型匹配**的写入值。
+ *
+ * 为什么需要：通用 payload 用字符串 `"probe"` 写所有列，在内存回退下永远能过，
+ * 但在**真实库**上会被类型系统拒绝 —— 实测两个资源的首列是整数列，报
+ * `invalid input syntax for type integer: "probe"`。这正是 `verify:real-db` 才能暴露的缺陷。
+ *
+ * 类型真源是**运行时数据库**（这些表来自低代码元数据，不在 prisma/schema.prisma 里）：
+ * 有真实连接时查 `information_schema.columns`；内存模式没有类型系统，退回字符串即可。
+ */
+function valueForType(dataType: string | null, variant: "create" | "update"): unknown {
+  const base = variant === "create" ? 1 : 2
+  const suffix = variant === "create" ? "probe" : "probe-updated"
+  switch ((dataType ?? "").toLowerCase()) {
+    case "integer": case "bigint": case "smallint": case "numeric": case "decimal":
+    case "real": case "double precision": case "int": case "int4": case "int8":
+      return base
+    case "boolean": case "bool":
+      return variant === "create"
+    case "timestamp with time zone": case "timestamp without time zone": case "timestamp": case "date":
+      return variant === "create" ? "2026-01-01T00:00:00.000Z" : "2026-01-02T00:00:00.000Z"
+    default:
+      return suffix
+  }
+}
+
+async function columnDataType(table: string, column: string): Promise<string | null> {
+  const url = process.env.DATABASE_URL
+  if (!url) return null // 内存模式：没有类型系统
+  const { Client } = require("pg")
+  const client = new Client({ connectionString: url })
+  try {
+    await client.connect()
+    const result = await client.query(
+      "SELECT data_type FROM information_schema.columns WHERE table_name = $1 AND column_name = $2 LIMIT 1",
+      [table, column],
+    )
+    return result.rows?.[0]?.data_type ?? null
+  } catch {
+    return null
+  } finally {
+    await client.end().catch(() => undefined)
+  }
 }
 
 function findModule(modules: Record<string, () => Promise<unknown>>, domain: string, resource: string, suffix: string) {
@@ -74,7 +122,11 @@ describe("批量补齐的 47 个资源：真实路由 CRUD", () => {
 
     for (const [domain, resource] of RESOURCES) {
       const key = `${domain}/${resource}`
-      const column = firstWritableColumn(domain, resource)
+      const target = payloadTarget(domain, resource)
+      const column = target?.column ?? null
+      const dataType = target ? await columnDataType(target.table, target.column) : null
+      const createValue = valueForType(dataType, "create")
+      const updateValue = valueForType(dataType, "update")
       const collectionKey = findModule(collectionModules, domain, resource, "route.ts")
       const itemKey = findModule(itemModules, domain, resource, "[id]/route.ts")
 
@@ -94,10 +146,15 @@ describe("批量补齐的 47 个资源：真实路由 CRUD", () => {
             new Request(base, {
               method: "POST",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({ [column]: "probe" }),
+              body: JSON.stringify({ [column]: createValue }),
             }),
           )
-          if (created.status !== 201) throw new Error(`POST 返回 ${created.status}`)
+          if (created.status !== 201) {
+            // 把**响应错误原文**带出来：真实库下 400 往往是约束/类型问题，
+            // 只说"返回 400"无法判断是路由错还是 payload 不合法。
+            const body = await created.text()
+            throw new Error(`POST 返回 ${created.status}: ${body.slice(0, 160)}`)
+          }
           const createdBody = (await created.json()) as { success: boolean; data: { id: string } }
           if (!createdBody.success) throw new Error("POST success=false")
           const id = String(createdBody.data?.id ?? "")
@@ -115,7 +172,7 @@ describe("批量补齐的 47 个资源：真实路由 CRUD", () => {
             new Request(`${base}/${id}`, {
               method: "PUT",
               headers: { "content-type": "application/json" },
-              body: JSON.stringify({ [column]: "probe-updated" }),
+              body: JSON.stringify({ [column]: updateValue }),
             }),
             ctx(id),
           )
@@ -123,8 +180,8 @@ describe("批量补齐的 47 个资源：真实路由 CRUD", () => {
 
           const afterUpdate = await item.GET(new Request(`${base}/${id}`), ctx(id))
           const afterBody = (await afterUpdate.json()) as { data: Record<string, unknown> }
-          if (String(afterBody.data?.[column]) !== "probe-updated") {
-            throw new Error(`更新未落库：${column}=${String(afterBody.data?.[column])}`)
+          if (String(afterBody.data?.[column]) !== String(updateValue)) {
+            throw new Error(`更新未落库：${column}=${String(afterBody.data?.[column])}（期望 ${String(updateValue)}，列类型 ${dataType ?? "memory"}）`)
           }
 
           const deleted = await item.DELETE(new Request(`${base}/${id}`, { method: "DELETE" }), ctx(id))
