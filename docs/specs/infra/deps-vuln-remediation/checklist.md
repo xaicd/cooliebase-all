@@ -22,7 +22,8 @@
 
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
 - [ ] `npm run check` exit=0
-- [ ] `npm run deps:audit -- --prod` exit=0（生产树漏洞数 = 0）
-- [ ] `npm run deps:audit`（全树 ratchet）exit=0，且产出与 `docs/architecture/artifacts/deps-audit-baseline.json` 一致；人为新增一条不存在的漏洞版本后必须被拦下
+- [ ] `npm run deps:audit`（全树棘轮）exit=0：与 `docs/architecture/artifacts/deps-audit-baseline.json` 逐条比对，不新增漏洞
+- [ ] 生产运行时层（根 importer ∈ {'.','packages/**'}）新增漏洞 = 0（enforce）。绝对值当前**不为 0** 且经实测确认不可达 0：mysql2 被报实例来自 prisma@7.10.0 传递、braces/sprintf-js/node-forge 的 Patched versions 为空——三者均入已接受风险台账，故本规格不设「绝对值 = 0」为门禁条件（挂一个永远红的门禁等于制造假失败）
+- [ ] 人为注入一条基线外的新增漏洞后，`npm run deps:audit` 必须失败（证明门禁会 fire，未验证的机制等于不存在）
 - [ ] `npm run security:scan` exit=0（既有运行时 12 项不回退）
-- [ ] `pnpm why next`/`pnpm why mysql2` 显示生产路径实际解析到 >=16.3.8 / >=3.23.1
+- [ ] `pnpm why next` 显示 1 个版本（16.4.2），旧 16.3.6 不再被任何 workspace 引用

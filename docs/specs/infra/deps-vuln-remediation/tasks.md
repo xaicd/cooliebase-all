@@ -46,14 +46,14 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 实现依赖 CVE 门禁脚本（prod enforce + 全树 ratchet + --write-baseline）
+- [ ] **T1**: S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像
   - 归属: `main`
-  - 文件白名单: `scripts/check-deps-audit.cjs`
+  - 文件白名单: `package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: S1 生产树止血：next 升至 >=16.3.8、mysql2 升至 >=3.23.1
+- [ ] **T2**: 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline）
   - 归属: `T1`
-  - 文件白名单: `package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json`
+  - 文件白名单: `scripts/check-deps-audit.cjs`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
 - [ ] **T3**: 由门禁脚本产出基线（此时残留即 dev 树欠债）
@@ -93,8 +93,8 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 实现依赖 CVE 门禁脚本（prod enforce + 全树 ratchet + --write-baseline） | scripts/check-deps-audit.cjs | 未开始 |
-| T2 | T1 | S1 生产树止血：next 升至 >=16.3.8、mysql2 升至 >=3.23.1 | package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json | 未开始 |
+| T1 | main | S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像 | package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json | 未开始 |
+| T2 | T1 | 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline） | scripts/check-deps-audit.cjs | 未开始 |
 | T3 | T2 | 由门禁脚本产出基线（此时残留即 dev 树欠债） | docs/architecture/artifacts/deps-audit-baseline.json | 未开始 |
 | T4 | T3 | 门禁接线：npm script + check 链 + 轨迹证据 | package.json, scripts/write-harness-trace.cjs | 未开始 |
 | T5 | T4 | 门禁正反向测试（证明会 fire） | test/unit/deps-audit-gate.test.ts | 未开始 |

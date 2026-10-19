@@ -5,8 +5,8 @@
   "type": "security",
   "status": "PLAN_APPROVED",
   "stories": 5,
-  "acceptance": 5,
+  "acceptance": 6,
   "invariants": 2,
   "tasks": 7,
-  "updatedAt": "2026-10-19T03:09:51.660Z"
+  "updatedAt": "2026-10-19T03:20:46.204Z"
 }
