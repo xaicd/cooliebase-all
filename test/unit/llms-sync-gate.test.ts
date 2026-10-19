@@ -71,6 +71,23 @@ describe("llms.txt 事实同步门禁", () => {
     )
   })
 
+  it("★ 反向 6：AGENTS.md 引用了不存在的章节号 → 必须失败", () => {
+    // 章节号只有"存在/不存在"两种状态 —— 零误报。
+    // 实测曾有 1 处断裂：`§11.2`，而 §11 下并没有子小节（它是列表第 2 条）。
+    const target = path.join(ROOT, "AGENTS.md")
+    const original = fs.readFileSync(target, "utf8")
+    try {
+      fs.writeFileSync(target, `${original}
+\n引用一个不存在的章节 §99.99。\n`)
+      const result = runGate()
+      expect(result.status).toBe(1)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/§99\.99/)
+    } finally {
+      fs.writeFileSync(target, original)
+      if (fs.readFileSync(target, "utf8") !== original) throw new Error("AGENTS.md 未逐字还原")
+    }
+  })
+
   it("★ 反向 5：Agent 契约份数（README.md）写错 → 必须失败", () => {
     // 「324 份机器可读契约」曾全线滞后（真值 326）。份数随开发变化，写死必然漂移 ——
     // 这条断言就是为了让它在漂移的那一刻变红，而不是等人工发现。

@@ -188,6 +188,12 @@
 | 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
 | 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
 
+
+> **本表列的是「人工决策点」，不是门禁清单。** `npm run check` 当前包含 34 个 npm 步骤，
+> 完整清单以 `package.json` 的 `check` 脚本为**唯一真源** —— 在这里复制一份清单必然腐坏
+> （实测有 13 个组成门禁未在本表出现，它们都只是 `check` 的内部步骤，不需要单独决策）。
+> 判断标准：**「什么时候跑、跑完看什么、失败怎么办」三者之一需要人判断**的，才进本表。
+
 要点（都是实测踩出来的）:
 
 1. **规格包是两半**: 规划链在 `docs/specs/<域>/<名>/`（按域垂直隔离，含切图 `assets/` 与 HTML 原型 `prototypes/`，割接后归档；向下兼容 `docs/features/`，详见 `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`），**实现在域目录**（`packages/plugins/plugin-<域>/` 等）。
@@ -409,7 +415,7 @@ npm run check                 # 门禁产出证据 + 轨迹
   └─ docs/architecture/artifacts/evolution-backlog.json
         ↑ scripts/build-evolution-backlog.cjs 聚合：
           门禁轨迹状态 / standards report 项与冻结欠债 /
-          各域测试覆盖（§8）/ 超 200 行文件（§11.2）/ TODO 标记（§12）
+          各域测试覆盖（§8）/ 超 200 行文件（§11 第 2 条）/ TODO 标记（§12）
         ↓ 外部 Agent 读取（MCP 工具 cooliebase_evolution_backlog）
         修复 → 再跑 npm run check 验证
 ```

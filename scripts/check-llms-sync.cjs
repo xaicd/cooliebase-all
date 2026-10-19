@@ -163,6 +163,28 @@ for (const rel of FILES) {
   contents.set(rel, fs.existsSync(full) ? fs.readFileSync(full, "utf8") : null)
 }
 
+/**
+ * 自引用章节号自洽：文档里写 `§3.2` 时，**必须真的存在 `3.2` 这个标题**。
+ * 零误报 —— 章节号只有"存在/不存在"两种状态。实测 AGENTS.md 曾有 1 处断裂（`§11.2`，
+ * 而 §11 下没有子小节，它是列表第 2 条）。
+ */
+function sectionRefProblems(file, text) {
+  const headings = new Set()
+  for (const line of text.split("\n")) {
+    const match = line.match(/^#{1,4}\s+(\d+(?:\.\d+)*)[.\s]/)
+    if (match) headings.add(match[1])
+  }
+  const out = []
+  const seen = new Set()
+  for (const match of text.matchAll(/§\s*(\d+(?:\.\d+)*)/g)) {
+    const ref = match[1]
+    if (seen.has(ref)) continue
+    seen.add(ref)
+    if (!headings.has(ref)) out.push(`${file}: 引用了不存在的章节 §${ref}（该文只有 ${headings.size} 个带编号的标题）`)
+  }
+  return out
+}
+
 const problems = []
 const results = []
 
@@ -198,6 +220,14 @@ for (const assertion of ASSERTIONS) {
     }
   }
   results.push({ id: assertion.id, expected: assertion.expected, total, hitsByFile: Object.fromEntries(hitsByFile) })
+}
+
+// 自引用章节号（仅对含编号标题的文档有意义；README/llms.txt 也可受益）
+for (const rel of FILES) {
+  const text = contents.get(rel)
+  if (!text) continue
+  if (!/^#{1,4}\s+\d/m.test(text)) continue
+  problems.push(...sectionRefProblems(rel, text))
 }
 
 // profile 清单：只要 llms.txt 提到 --profile，就必须把 5 个 profile 全部列出
