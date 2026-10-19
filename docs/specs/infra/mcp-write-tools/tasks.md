@@ -63,12 +63,12 @@
 
 - [ ] **T4**: 正反向测试与不落盘断言
   - 归属: `T2`
-  - 文件白名单: `scripts/mcp/__tests__/ruoyi-mcp-server.test.ts`
+  - 文件白名单: `scripts/mcp/__tests__/cooliebase-mcp-server.test.ts`
   - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
 
 - [ ] **T5**: 规范同步登记（交付链与 harness 演进规范）
   - 归属: `main`
-  - 文件白名单: `AGENTS.md, docs/architecture/cooliebase-all-harness-evolution.md, docs/architecture/ruoyi-all-next-harness-evolution.md`
+  - 文件白名单: `AGENTS.md, docs/architecture/cooliebase-all-harness-evolution.md`
   - 验收要求: 必须携带提交标识 `[T5]` 并附带真实测试验证
 
 
@@ -86,8 +86,8 @@
 | T1 | main | 定义写类工具边界与统一返回契约 | docs/specs/infra/mcp-write-tools/ | 未开始 |
 | T2 | T1 | 实现 scaffold_plan / codegen_preview / table_migration_plan 三个工具 | scripts/mcp/cooliebase-mcp-server.cjs | 未开始 |
 | T3 | T2 | 同步 compat-manifest additive 策略与交叉校验 | packages/shared/contract/compat-manifest.json | 未开始 |
-| T4 | T2 | 正反向测试与不落盘断言 | scripts/mcp/__tests__/ruoyi-mcp-server.test.ts | 未开始 |
-| T5 | main | 规范同步登记（交付链与 harness 演进规范） | AGENTS.md, docs/architecture/cooliebase-all-harness-evolution.md, docs/architecture/ruoyi-all-next-harness-evolution.md | 未开始 |
+| T4 | T2 | 正反向测试与不落盘断言 | scripts/mcp/__tests__/cooliebase-mcp-server.test.ts | 未开始 |
+| T5 | main | 规范同步登记（交付链与 harness 演进规范） | AGENTS.md, docs/architecture/cooliebase-all-harness-evolution.md | 未开始 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 

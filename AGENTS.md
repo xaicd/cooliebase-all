@@ -333,7 +333,7 @@
 
 ## 6. 能力同步与治理门禁
 
-1. 能力状态必须对照 docs/architecture/cooliebase-all-capability-matrix.md。
+1. 能力状态必须对照 docs/architecture/archive/upstream-2026-Q3/ruoyi-all-next-capability-matrix.md（**已归档**：上游调研产物，不再反映当前真源）。
 2. 域声明必须同步 docs/architecture/cooliebase-all-domain-governance.md。
 3. 未登记能力不得标记 DONE。
 4. PARTIAL 与 DONE 域必须带 TestRefs。
@@ -626,10 +626,10 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. README.md
 2. packages/domains/README.md
-3. docs/architecture/cooliebase-native-capabilities-catalog.md
+3. docs/architecture/archive/upstream-2026-Q3/ruoyi-native-capabilities-catalog.md（已归档）
 4. docs/architecture/cooliebase-full-migration-board.md
 5. docs/architecture/system-core-implementation-checklist.md
-6. docs/architecture/cooliebase-all-capability-matrix.md
+6. docs/architecture/archive/upstream-2026-Q3/ruoyi-all-next-capability-matrix.md（已归档）
 7. docs/architecture/cooliebase-all-domain-governance.md
 8. docs/guides/api-route-conventions.md
 9. docs/guides/tenant-catalog-bootstrap.md

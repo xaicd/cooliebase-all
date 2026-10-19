@@ -182,13 +182,20 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
    插件域上猜错路径是**静默失效**，不是报错。
 4. **落盘命令写在 `manualSteps` 里**，由人执行；MCP 不承担提交与推送。
 
-回归保护：`scripts/mcp/__tests__/ruoyi-mcp-server.test.ts` 的「★ 零落盘」用例用工作区快照
+回归保护：`scripts/mcp/__tests__/cooliebase-mcp-server.test.ts` 的「★ 零落盘」用例用工作区快照
 delta 断言"调用全部工具后无变化"。该用例**必须保持为本 describe 的第一个 it**，且快照需带
 `--ignored=matching` —— 否则断言会假通过（实测：注入写文件探针后依然全绿）。
 
-> 遗留：本仓仍有若干 active 文档沿用上游文件名前缀（`ruoyi-all-next-*`、
-> `ruoyi-full-migration-board.md`、`sql/init/ruoyi_all_next_*.sql`、
-> `scripts/mcp/__tests__/ruoyi-mcp-server.test.ts` 等）。`AGENTS.md §13` 已按去品牌后的
-> 名字书写，故这些引用当前是**断的**。修法是**改文件名去迁就文档**，不是反过来把文档改回
-> 上游名（本文件即按此处理）。归档目录 `docs/architecture/archive/upstream-2026-Q3/`
-> 与历史 release notes 属上游研究存档，保留原名不改。
+> 去品牌改名（2026-10-19 已完成）：本仓 active 文件曾大面积沿用上游文件名前缀，而
+> `AGENTS.md §13` 按去品牌名书写，故引用是**断的**。修法统一为**改文件名去迁就文档**，
+> 不是反过来把文档改回上游名。已处理：`ruoyi-all-next-*`（12 份 → `cooliebase-all-*`）、
+> `ruoyi-full-migration-board.md`、`ruoyi-module-first-migration.md`、
+> `docs/03_design/diagrams/ruoyi-architecture.arch.*`、`sql/init/ruoyi_all_next_*.sql`、
+> `scripts/mcp/__tests__/ruoyi-mcp-server.test.ts`。
+> 归档目录 `docs/architecture/archive/upstream-2026-Q3/` 与历史 release notes 属上游研究存档，
+> **保留原名不改**（两者被引用时按归档路径引用并标注「已归档」）。
+>
+> 顺带修好一个**静默失效**：`sql/init/` 那份 SQL 长期叫上游名，而生成器
+> （`build-v1-init-sql.ts`）与门禁规则（`standards:check` 的 `init-sql-seed-columns`）都已按去品牌名
+> 读写 —— 规则里 `if (!fs.existsSync(sqlFile)) return []` 于是一直**空转**，门禁却是绿的。
+> 改名后该规则恢复生效（已用注入坏 INSERT 的反向对照验证会真的失败）。
