@@ -12,14 +12,14 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.25.0",
-    "@expo/metro-runtime": "~56.0.21",
-    "expo": "~56.0.0",
-    "expo-asset": "~56.0.25",
-    "expo-constants": "~56.0.27",
-    "expo-status-bar": "~56.0.4",
+    "@expo/metro-runtime": "~57.0.17",
+    "expo": "~57.0.0",
+    "expo-asset": "~57.0.20",
+    "expo-constants": "~57.0.22",
+    "expo-status-bar": "~57.0.1",
     "react": "19.2.3",
     "react-dom": "19.2.3",
-    "react-native": "0.85.3",
+    "react-native": "0.86.3",
     "react-native-web": "~0.21.4"
   },
   "devDependencies": {

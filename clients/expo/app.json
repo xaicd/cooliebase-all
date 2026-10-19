@@ -14,7 +14,8 @@
       "apiBase": "http://localhost:3000"
     },
     "plugins": [
-      "expo-asset"
+      "expo-asset",
+      "expo-status-bar"
     ]
   }
 }
