@@ -12,10 +12,10 @@
 ## 快速开始
 ```bash
 cd clients/expo
-npm install
-npm run web        # 开发：浏览器预览（Expo Web dev server）
-npm run export:web # 产出可托管的静态站点 dist/（供预览抽屉/静态服务器）
-npm run start      # 移动：Expo Go 扫码真机预览
+pnpm install
+pnpm run web        # 开发：浏览器预览（Expo Web dev server）
+pnpm run export:web # 产出可托管的静态站点 dist/（供预览抽屉/静态服务器）
+pnpm run start      # 移动：Expo Go 扫码真机预览
 ```
 后端地址：默认 `app.json > extra.apiBase`，可用 `EXPO_PUBLIC_API_BASE` 覆盖：
 ```bash

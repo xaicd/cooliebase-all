@@ -65,7 +65,7 @@ try {
 // Step 2: 安装依赖
 log("STEP", "2/5 安装依赖...")
 if (!fileExists("node_modules")) {
-  run("npm install --legacy-peer-deps")
+  run("pnpm install")
   log("INFO", "依赖安装完成 ✓")
 } else {
   log("INFO", "依赖已存在 ✓")

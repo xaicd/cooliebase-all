@@ -21,8 +21,8 @@ description: 容器化编排、Traefik 网关、SSL 证书自动签发轮换、�
 # 1. 依赖安装阶段
 FROM node:24-alpine AS deps
 WORKDIR /app
-COPY package*.json ./
-RUN npm ci
+COPY package.json pnpm-lock.yaml ./
+RUN pnpm install --frozen-lockfile
 
 # 2. 源码构建阶段
 FROM node:24-alpine AS builder

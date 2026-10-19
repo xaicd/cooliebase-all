@@ -76,7 +76,7 @@ log_info "Node.js $(node -v) ✓"
 # Step 2: 安装依赖
 log_step "2/5 安装依赖..."
 if [ ! -d "node_modules" ]; then
-  npm install --legacy-peer-deps
+  pnpm install
   log_info "依赖安装完成 ✓"
 else
   log_info "依赖已存在，跳过安装 ✓"

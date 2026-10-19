@@ -42,7 +42,7 @@ echo [INFO] Node.js 已安装 ✓
 REM 安装依赖
 echo [STEP] 2/5 安装依赖...
 if not exist "node_modules" (
-  call npm install --legacy-peer-deps
+  call pnpm install
   echo [INFO] 依赖安装完成 ✓
 ) else (
   echo [INFO] 依赖已存在，跳过 ✓

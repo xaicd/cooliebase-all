@@ -46,8 +46,8 @@ echo "[health-check] App root: $APP_ROOT"
 cd "$APP_ROOT"
 
 if [[ ! -d "$APP_ROOT/node_modules" ]]; then
-  echo "[health-check] 依赖缺失，先执行 npm install"
-  npm install
+  echo "[health-check] 依赖缺失，先执行 pnpm install"
+  pnpm install
 fi
 
 echo "[health-check] 1/4 构建检查"

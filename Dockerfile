@@ -15,7 +15,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml .npmrc ./
 # 构建就不再单点依赖一次外部下载。
 RUN apk add --no-cache python3 make g++
 # npm workspaces 要求各成员的 package.json 在 install 时已存在，
-# 否则 npm ci 会因 workspace glob 指向不存在的目录而失败。
+# 否则 pnpm install --frozen-lockfile 会因 workspace glob 指向不存在的目录而失败。
 # 只拷 package.json（源码与 node_modules 由 .dockerignore / 后续 COPY 处理）。
 COPY packages/plugins/sdk/package.json ./packages/plugins/sdk/package.json
 COPY packages/plugins/examples/hello-world/package.json ./packages/plugins/examples/hello-world/package.json

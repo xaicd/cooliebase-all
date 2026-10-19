@@ -87,7 +87,7 @@ echo.
 call npm run dev
 if %errorlevel% neq 0 (
     echo.
-    echo [TIP] If dependencies are missing, run: npm install
+    echo [TIP] If dependencies are missing, run: pnpm install
 )
 echo.
 echo [INFO] Server process ended.
