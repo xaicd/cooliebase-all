@@ -128,6 +128,46 @@ const RULES = [
     },
   },
   {
+    id: "no-vacuous-test-assertions",
+    section: "AGENTS.md §8 / RSK-007",
+    mode: "enforce",
+    description:
+      "tests must not assert literal tautologies (expect(true).toBe(true) etc.) — 一条不可能失败的断言不是测试",
+    run() {
+      // 实测动机（RSK-007）：本仓出现过"断言看起来在跑、实际恒真"的假绿，
+      // 例如 MCP「零落盘」用例因基线被前序用例污染而恒真、SQL 规则读不到文件而 return []。
+      // 这条只拦**字面恒真**这一最明确、零误报的子集；更深的结构性空转要靠反向对照。
+      const testFilePattern = /\.(test|spec)\.(ts|tsx|mjs|js)$/
+      const files = [
+        ...walk("test", (name) => testFilePattern.test(name)),
+        ...walk(DOMAINS, (name) => testFilePattern.test(name)),
+        ...walk(PLUGINS, (name) => testFilePattern.test(name)),
+        ...walk("scripts", (name) => testFilePattern.test(name)),
+      ]
+      const patterns = [
+        /expect\(\s*(true|false|-?\d+|'[^']*'|"[^"]*")\s*\)\s*\.\s*(?:toBe|toEqual|toStrictEqual)\(\s*\1\s*\)/g,
+        /expect\(\s*(?:true|1)\s*\)\s*\.\s*toBeTruthy\(\s*\)/g,
+        /expect\(\s*(?:false|0|''|"")\s*\)\s*\.\s*toBeFalsy\(\s*\)/g,
+      ]
+      const violations = []
+      for (const file of files) {
+        const source = fs.readFileSync(file, "utf8")
+        for (const pattern of patterns) {
+          pattern.lastIndex = 0
+          let match
+          while ((match = pattern.exec(source)) !== null) {
+            const line = source.slice(0, match.index).split("\n").length
+            violations.push({
+              file: toRel(file),
+              detail: `literal tautology at line ${line}: ${match[0].replace(/\s+/g, " ").trim()}`,
+            })
+          }
+        }
+      }
+      return violations
+    },
+  },
+  {
     id: "backend-no-console",
     section: "AGENTS.md §4.5",
     mode: "enforce",
