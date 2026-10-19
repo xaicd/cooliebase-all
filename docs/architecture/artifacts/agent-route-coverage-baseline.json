@@ -1,9 +1,8 @@
 {
   "note": "Agent 契约声明了资源、但后端没有任何路由的既有欠债（棘轮基线）。补齐路由后重跑 --write-baseline 收紧；新增条目会被门禁拦下。",
   "updatedAt": "2026-10-19",
-  "methodsChecked": 1390,
+  "methodsChecked": 1395,
   "missingResources": [
-    "ai/ai-model",
     "bpm/bpm-process-definition-info",
     "crm/crm-business-product",
     "crm/crm-business-status-type",
