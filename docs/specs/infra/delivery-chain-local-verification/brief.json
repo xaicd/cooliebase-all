@@ -194,7 +194,8 @@
       "parent": "T3",
       "title": "`load:test` 复用同一 helper，并在输出标注『本机数字≠容量』",
       "files": [
-        "scripts/load-test.cjs"
+        "scripts/load-test.cjs",
+        "scripts/lib/ephemeral-pg.cjs"
       ]
     },
     {

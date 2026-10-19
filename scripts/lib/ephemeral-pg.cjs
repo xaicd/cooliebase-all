@@ -17,6 +17,9 @@
  *   · `persistent: false` 时 `stop()` 会**连带删除 dataDir** —— 这正是我们想要的「零残留」；
  *   · 端口冲突：先探测空闲端口；真正的监听端口以 `<dataDir>/postmaster.pid` 为准（参考实现的经验）；
  *   · 失败信息必须带最近若干行 Postgres 日志，否则只剩 exit code，无从排查。
+ *   · **`process.exitCode` 在这条路径上不可靠**：`embedded-postgres` 导入时会注册
+ *     `AsyncExitHook`，事件循环结束时会把退出码重置为 0。实测「压测 0/3 通过却 exit 0」。
+ *     凡加载本 helper 的脚本，**失败必须用显式 `process.exit(code)`**。
  *
  * 参考实现：本地 fork `workspace/xaicd/coolie`（上游 paperclipai/paperclip）`server/src/index.ts:545`。
  */

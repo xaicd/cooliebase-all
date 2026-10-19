@@ -28,11 +28,11 @@ const KEEP = process.argv.includes("--keep")
 const arg = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined }
 const BASE = arg("--base") || "http://localhost:3200"
 const DB = "cooliebase_loadtest"
-const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
+const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")
+let endpoint = null
+let URL = null
 const PASSWORD = "LoadTest@123456"
 const SALT = "loadtest-salt"
-const CONTAINER = "cooliebase-dev-postgres-1"
 
 const BASELINE_REL = "packages/shared/contract/load-baseline.json"
 const RESULT_REL = "docs/architecture/artifacts/load-test-result.json"
@@ -42,23 +42,6 @@ const sh = (cmd, args, env = {}) => spawnSync(cmd, args, { cwd: ROOT, encoding: 
 const hasDocker = spawnSync("which", ["docker"]).status === 0
 const hasHostExec = spawnSync("which", ["host-exec"]).status === 0
 
-function dockerExec(args) {
-  if (hasDocker) {
-    const r = spawnSync("docker", args, { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  if (hasHostExec) {
-    const cmd = args.map((a) => `'${String(a).replace(/'/g, "'\\''")}'`).join(" ")
-    const r = spawnSync("host-exec", [`docker ${cmd}`], { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  return { ok: false, out: "neither docker nor host-exec found" }
-}
-
-const psql = (db, sql) => {
-  const safeSql = sql.replace(/'/g, "'\\''")
-  return dockerExec(["exec", CONTAINER, "psql", "-U", "cooliebase", "-d", db, "-t", "-A", "-c", safeSql])
-}
 const hasAb = spawnSync("ab", ["-V"], { encoding: "utf8" }).status === 0
 
 /** 内置 Node runner: 固定并发打 N 个请求，统计 rps / p95 / 失败率。 */
@@ -117,16 +100,23 @@ function runAb(target) {
 }
 
 let app = null
-let startedPostgres = false
 let envLocalBackup = null
+let exitCode = 0
 const cleanup = async () => {
   if (KEEP) { console.log(`\n[load] --keep: 服务留在 ${BASE}`); return }
-  if (app) app.kill("SIGTERM")
+  if (app?.pid) {
+    // 杀整个进程组：只 kill 包装进程会留下孤儿（冒烟那边实测泄漏过 next-server）
+    try { process.kill(-app.pid, "SIGTERM") } catch { try { app.kill("SIGTERM") } catch { /* 已退出 */ } }
+    await new Promise((r) => setTimeout(r, 500))
+    try { process.kill(-app.pid, "SIGKILL") } catch { /* 已退出 */ }
+  }
   const envLocal = path.join(ROOT, ".env.local")
   if (envLocalBackup === null) fs.rmSync(envLocal, { force: true })
   else fs.writeFileSync(envLocal, envLocalBackup)
-  psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE);`)
-  if (startedPostgres) sh("pnpm", ["run", "db:down"])
+  if (endpoint) {
+    try { await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`) } catch { /* 已不可达 */ }
+    await endpoint.close()
+  }
 }
 
 async function main() {
@@ -148,14 +138,16 @@ async function main() {
   }
 
   if (!arg("--base")) {
-    const isHealthy = () => dockerExec(["inspect", "--format={{.State.Health.Status}}", CONTAINER]).out.trim() === "healthy"
-    if (!isHealthy()) { startedPostgres = true; sh("pnpm", ["run", "db:up"]) }
-    for (let i = 0; i < 20; i += 1) {
-      if (isHealthy()) break
-      await new Promise((r) => setTimeout(r, 3000))
+    try {
+      endpoint = await resolveDatabaseEndpoint()
+      URL = withDatabase(endpoint.url, DB)
+      console.log(`[load] 数据库: ${endpoint.source}${endpoint.port ? ` :${endpoint.port}` : ""}`)
+    } catch (error) {
+      console.log(`[load] 起数据库失败: ${String(error?.message ?? error).split("\n")[0]}`)
+      process.exit(1)
     }
-    psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE);`)
-    psql("postgres", `CREATE DATABASE ${DB}`)
+    await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
+    await query(endpoint.url, `CREATE DATABASE "${DB}"`)
     sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL })
     sh("npx", ["tsx", "scripts/seed-postgresql.ts"], { DATABASE_URL: URL, DB_DRIVER: "postgresql", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT })
     sh("npx", ["tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL })
@@ -174,7 +166,9 @@ async function main() {
       if (built.status !== 0) { console.log("[load] 构建失败:\n" + built.stdout + built.stderr); process.exit(1) }
     }
     app = spawn("node", [standalone], {
-      cwd: path.join(ROOT, ".next-cooliebase", "standalone"), stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
+      cwd: path.join(ROOT, ".next-cooliebase", "standalone"),
+      detached: true,
+      stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
       env: { ...process.env, NODE_ENV: "production", HOSTNAME: "0.0.0.0", PORT: new globalThis.URL(BASE).port || "3200", DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
     })
     let ready = false
@@ -219,10 +213,17 @@ async function main() {
   }
   fs.mkdirSync(path.dirname(path.join(ROOT, RESULT_REL)), { recursive: true })
   fs.writeFileSync(path.join(ROOT, RESULT_REL), JSON.stringify(out, null, 2) + "\n")
+  console.log(
+    "[load] ⚠ 本机压测只作**回归护栏**：单机 CPU/磁盘/网络与生产不同，"
+    + "这里的 rps/p95 **不代表容量**；真实容量须在生产用真实流量压。",
+  )
   console.log(`\n[load] ${results.length - failed.length}/${results.length} 通过 —— 结果落盘 ${RESULT_REL}`)
-  process.exitCode = failed.length === 0 ? 0 : 1
+  exitCode = failed.length === 0 ? 0 : 1
 }
 
 main()
-  .catch((error) => { console.error(`  ✗ 压测异常: ${error.message}`); process.exitCode = 1 })
-  .finally(cleanup)
+  .catch((error) => { console.error(`  ✗ 压测异常: ${error.message}`); exitCode = 1 })
+  // **必须用显式 process.exit(code)**：本脚本加载了 `embedded-postgres`，它会注册
+  // AsyncExitHook，在事件循环结束时**把 process.exitCode 重置为 0** ——
+  // 实测：0/3 通过却退出 0（假绿）。
+  .finally(async () => { await cleanup(); process.exit(exitCode) })
