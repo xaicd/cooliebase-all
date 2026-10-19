@@ -13,8 +13,10 @@ describe("AiModelService", () => {
         // 这里按同样规则取前 20 个字符（否则真实库报 value too long）。
         status: "测试AI 模型 DO默认模型： 为开启，",
         model_key: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
-        input_ratio: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
-        output_ratio: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
+        // 物理列是 `double precision`（元数据此前误标 varchar）：按数字生成
+        input_ratio: 1.5,
+        // 物理列是 `double precision`（元数据此前误标 varchar）：按数字生成
+        output_ratio: 1.5,
         provider: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
         created_at: new Date().toISOString(),
         updated_at: new Date().toISOString(),

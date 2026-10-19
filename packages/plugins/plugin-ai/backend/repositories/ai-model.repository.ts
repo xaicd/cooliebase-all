@@ -20,8 +20,8 @@ import {
 } from "@/modules/shared/backend/lib/database"
 
 const TABLE_NAME = "ai_model"
-const TABLE_COLUMNS = ["id","key_id","name","model","platform","type","sort","status","temperature","max_tokens","max_contexts","tenant_id","created_by","created_at","updated_by","updated_at","deleted"] as const
-const WRITABLE_COLUMNS = ["key_id","name","model","platform","type","sort","status","temperature","max_tokens","max_contexts"] as const
+const TABLE_COLUMNS = ["id","key_id","name","model_key","provider","model","platform","type","description","input_ratio","output_ratio","sort","status","temperature","max_tokens","max_contexts","tenant_id","created_by","created_at","updated_by","updated_at","deleted"] as const
+const WRITABLE_COLUMNS = ["key_id","name","model_key","provider","model","platform","type","description","input_ratio","output_ratio","sort","status","temperature","max_tokens","max_contexts"] as const
 const FILTERS = [{"name":"key_id","operator":"="},{"name":"name","operator":"LIKE"},{"name":"type","operator":"="},{"name":"status","operator":"="}] as Array<{ name: string; operator: DynamicQueryOperator }>
 const ORDER_COLUMN = "sort"
 const HAS_TENANT = true

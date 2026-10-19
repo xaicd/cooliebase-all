@@ -25,6 +25,10 @@ function toMetaType(dataType: string): { type: string; tsType: string } {
   if (dataType === "boolean") return { type: "boolean", tsType: "boolean" }
   if (dataType.startsWith("timestamp")) return { type: "timestamp", tsType: "string" }
   if (dataType === "numeric" || dataType.startsWith("numeric")) return { type: "decimal", tsType: "number" }
+  // `double precision` / `real` 曾落到默认分支被当成 varchar —— 于是元数据说字符串、
+  // 物理列是浮点，生成的值写进去真实库直接 `invalid input syntax for type double precision`
+  // （实测 ai_model.input_ratio / output_ratio）。内存回退不校验类型，所以只有真实库暴露。
+  if (dataType === "double precision" || dataType === "real") return { type: "decimal", tsType: "number" }
   if (dataType === "text") return { type: "text", tsType: "string" }
   return { type: "varchar", tsType: "string" }
 }

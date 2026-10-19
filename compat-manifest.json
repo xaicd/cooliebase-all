@@ -113,7 +113,8 @@
       "gen:paths:check",
       "agent:selectors:check",
       "agent:routes:check",
-      "agent:coverage:check"
+      "agent:coverage:check",
+      "repo:columns:check"
     ]
   },
   "compatibility": {

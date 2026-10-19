@@ -1571,16 +1571,16 @@ export const AI_TABLES: CodegenConfig[] = [
         },
         {
           "name": "input_ratio",
-          "type": "varchar",
-          "tsType": "string",
+          "type": "decimal",
+          "tsType": "number",
           "nullable": false,
           "comment": "表里已有、元数据此前未登记",
           "nullableInferred": true
         },
         {
           "name": "output_ratio",
-          "type": "varchar",
-          "tsType": "string",
+          "type": "decimal",
+          "tsType": "number",
           "nullable": false,
           "comment": "表里已有、元数据此前未登记",
           "nullableInferred": true

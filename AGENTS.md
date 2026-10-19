@@ -187,6 +187,7 @@
 | 20. **契约选择器一致性** | `npm run agent:selectors:check` | 每份 `*.agent.json` 声明的 `page.route` 与 `page.titleSelector`，在真实页面里必须成立（无头探针靠它定位）。路由经**页面注册表**解析，不做文件名猜测 |
 | 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
 | 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
+| 23. **生成物列覆盖** | `npm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
 
 
 > **本表列的是「人工决策点」，不是门禁清单。** `npm run check` 当前包含 34 个 npm 步骤，
