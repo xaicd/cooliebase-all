@@ -90,4 +90,52 @@ describe("依赖 CVE 门禁（棘轮）", () => {
     expect(restored.status).toBe(0)
     expect(fs.existsSync(stashedAbs)).toBe(false)
   }, 300_000)
+
+  it("★ 分层确定性 + 锚点正确性（修前同一状态连跑为 5/5/6，且把 postcss 标错）", () => {
+    /**
+     * 两次断言合并在同一次多次运行里 —— 每次 `--audit` 都要联网查通告库，分开写要重复付代价。
+     *
+     * 缺陷背景：分层原先取自 `pnpm audit` 的 findings[].paths，而 pnpm **对多父级包会截断
+     * 该列表**（braces 有两个父级，截断时只剩 expo 那条）→ 同一状态连跑三次得 5/5/6。
+     * 现改为从 pnpm-lock.yaml 离线推导，故这里断言"逐条结果必须完全一致"，而**不只是总数**：
+     * 只看总数正是当初没看出是哪条在翻的原因。
+     */
+    const runs = [0, 1, 2].map(() => JSON.parse(runGate(["--audit"]).stdout))
+
+    const fingerprint = (report: any) =>
+      (report.advisories || [])
+        .map((entry: any) => `${entry.key}=${entry.tier}`)
+        .sort()
+        .join("\n")
+
+    expect(runs[0].advisories.length).toBeGreaterThan(0)
+    expect(fingerprint(runs[1])).toBe(fingerprint(runs[0]))
+    expect(fingerprint(runs[2])).toBe(fingerprint(runs[0]))
+    expect(runs[1].totals.runtime).toBe(runs[0].totals.runtime)
+    // 判据必须来自锁文件；回退到审计输出的采样字段就是退回那个缺陷
+    expect(runs[0].tierSource).toBe("pnpm-lock.yaml")
+
+    // 锚点：用真实答案反向校验解析器不是乱解析。key 形如 `<包名>@GHSA-xxxx`。
+    const tierByPackage = new Map<string, string>(
+      runs[0].advisories.map((entry: any) => [String(entry.key).replace(/@GHSA-.*$/, ""), entry.tier]),
+    )
+    const expectRuntime = ["braces", "mysql2", "deepmerge-ts", "postcss-selector-parser", "postcss", "source-map-js"]
+    const expectClient = ["tar", "@xmldom/xmldom", "shell-quote", "node-forge", "sprintf-js", "uuid", "image-size"]
+
+    // 通告会随升级消失（vitest 就是这样消失的），故缺席即跳过；但用"至少命中几条"防止整条用例空转。
+    let checkedRuntime = 0
+    let checkedClient = 0
+    for (const name of expectRuntime) {
+      if (!tierByPackage.has(name)) continue
+      checkedRuntime++
+      expect(tierByPackage.get(name), `${name} 应在 host 依赖图内`).toBe("runtime")
+    }
+    for (const name of expectClient) {
+      if (!tierByPackage.has(name)) continue
+      checkedClient++
+      expect(tierByPackage.get(name), `${name} 应只在客户端工具链内`).toBe("client-toolchain")
+    }
+    expect(checkedRuntime, "锚点整组缺席说明用例已失效").toBeGreaterThanOrEqual(2)
+    expect(checkedClient, "锚点整组缺席说明用例已失效").toBeGreaterThanOrEqual(2)
+  }, 300_000)
 })
