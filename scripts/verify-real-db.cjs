@@ -112,7 +112,11 @@ async function main() {
   const extraArgs = argv.filter((a) => !["--keep", "--reuse"].includes(a))
   const vitestArgs = extraArgs.length > 0 ? extraArgs : ["test/unit", "test/integration"]
   console.log(`[verify:real-db] 跑测试（真实库）: ${vitestArgs.join(" ")}…\n`)
-  const status = run("npx", ["vitest", "run", ...vitestArgs], { env })
+  // **必须串行文件执行**：真实库模式下所有测试文件共享**同一个数据库**，
+  // 而"对整张表断言"的测试（如 transactional-outbox 断言 `listOutbox()` 为空/为 1）
+  // 会被并行文件插入的行破坏 —— 实测该文件单独跑 6/6 通过，混跑才失败。
+  // 验证入口要的是**可信**，不是快：宁可慢，也不要随机的红。
+  const status = run("npx", ["vitest", "run", "--no-file-parallelism", ...vitestArgs], { env })
 
   if (!keep) {
     console.log("\n[verify:real-db] 收尾: 删除验证库并关闭数据库 …")
