@@ -178,9 +178,9 @@
 | 11. 实施 | `npm run runbook -- --feature <名> --check/--dry-run/--run` | 割接 + **失败自动回滚** + **实测**耗时 |
 | 12. 归档防污染 | `npm run speckit:archive -- --name <名>` | 移动至 `docs/specs/archive/<YYYY-Qx>/<域>/<名>/`，保持活跃区清爽 |
 | 13. 运营 | `npm run agent:ops -- <域>.<实体> health/seed-sample/purge-sample` | 接口体检 + 造数/清数 |
-| 14. 冒烟（**平台可用性**） | `npm run smoke:login` | 建库→迁移→种子→登记插件→起服务→**登录 200**→受保护接口 200。自管理环境，跑完清场 |
-| 15. **渗透** | `npm run security:scan` | 12 项: 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5 |
-| 16. **压测**（容量护栏） | `npm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5 |
+| 14. 冒烟（**平台可用性**） | `npm run smoke:login` | 建库→迁移→种子→登记插件→起服务→**登录 200**→受保护接口 200。自管理环境，跑完清场。**本机零容器可跑**（嵌入式 Postgres；外部 `DATABASE_URL` 优先） |
+| 15. **渗透** | `npm run security:scan` | 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5；**本机零容器可跑** |
+| 16. **压测**（容量护栏） | `npm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5；**本机零容器可跑**，但 rps **不代表容量**（受机器负载影响，实测 1.8k–2.8k vs 基线 26.9k） |
 | 17. **变异测试**（断言杀伤力） | `npm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
 | 18. **文档命令真实性** | `npm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
 | 19. **生成物路径真实性** | `npm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
@@ -200,7 +200,10 @@
    规格目录里**不该**有业务代码 —— 打包/拆分部署/边界门禁都按**域**工作。
 2. **定制业务不回写基座**（§17.3）。基座只建原生域；`shop`/`points` 这类落在**衍生工程**。
 3. **骨架不算完成**: 检查器认得出「还有 N 处 待填」，不会假绿。
-4. **测试空转度只审计、不拦截**：`npm run vacuity:audit`（report-only，退出码恒 0）。
+4. **加载 `embedded-postgres` 的脚本不能用 `process.exitCode` 表达失败**：
+   该包导入时注册 `AsyncExitHook`，事件循环结束会把退出码**重置为 0**（实测：压测 0/3 通过却 exit 0）。
+   失败必须用显式 `process.exit(code)`。见 `scripts/lib/ephemeral-pg.cjs` 顶部说明。
+5. **测试空转度只审计、不拦截**：`npm run vacuity:audit`（report-only，退出码恒 0）。
    实测三个启发式（`toBeDefined()` 计数 / 全弱断言块 / 条件内断言）在本仓**全部 100% 误报** ——
    弱断言单独出现通常是**正确**的（`expect(id).toBeDefined()` 确实在断言『不是 undefined』）。
    设为门禁只会逼出无意义豁免，故只报告。真实基线：850 个测试块中字面量断言 0 处、全弱断言 2 处（人工判读均合法）。
