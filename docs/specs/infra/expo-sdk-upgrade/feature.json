@@ -1,0 +1,12 @@
+{
+  "name": "expo-sdk-upgrade",
+  "domain": "infra",
+  "title": "Expo 客户端 SDK 逐级升级（52→54→55→56→57→58）以消除构建工具链 CVE",
+  "type": "enhancement",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 4,
+  "invariants": 2,
+  "tasks": 6,
+  "updatedAt": "2026-10-19T04:56:29.994Z"
+}

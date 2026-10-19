@@ -1,0 +1,204 @@
+{
+  "name": "expo-sdk-upgrade",
+  "domain": "infra",
+  "title": "Expo 客户端 SDK 逐级升级（52→54→55→56→57→58）以消除构建工具链 CVE",
+  "type": "enhancement",
+  "goal": "把 `clients/expo` 的 Expo SDK 从 52 逐级升到 58，消掉经 `@expo/cli` / `react-devtools-core` 进来的客户端构建工具链已知漏洞（当前 33 条 client-toolchain 中的绝大部分）；每级一次原子提交、失败即回滚该级。",
+  "baselineMetric": "升前现状（实测）：`pnpm audit` 43 条 = runtime 10 + client-toolchain 33（critical 2 / high 30 / moderate 11）。客户端 expo ~52 + react-native 0.76.5 + React 18.3.1。",
+  "targetMetric": "预期：client-toolchain 大幅下降（间接证据：SDK 58 的 @expo/cli 已不再直接依赖 tar/xmldom/postcss/image-size/uuid/shell-quote）。**目标数值以升级后 `pnpm run deps:audit --audit` 实测为准**，不预先编数。",
+  "roles": [
+    {
+      "role": "基座维护者",
+      "can": "在不牺牲可验证性的前提下把客户端构建链升级到受支持版本"
+    },
+    {
+      "role": "发布/SRE 工程师",
+      "can": "每一级升级都有构建与门禁证据，而不是一次性赌一个大版本跳跃"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "逐级升级：54 → 55 → 56 → 57 → 58，每级跑 `clients:build:check` + 全量 `check` + 全量测试，通过才提交"
+    },
+    {
+      "priority": "P0",
+      "text": "每级用 `deps:audit --audit` 实测漏洞消减并刷新基线；数值以实测为准"
+    },
+    {
+      "priority": "P0",
+      "text": "任一级失败即 `git checkout` 回滚该级改动，不带病前进（仓库必须始终保持绿态）"
+    },
+    {
+      "priority": "P1",
+      "text": "完成后更新依赖治理台账 §3.2 / §3.2.1 的实测结论"
+    }
+  ],
+  "constraints": [
+    "必须逐级推进，禁止直接跳 58（跨 6 级失败时无法定位是哪一级引入的破坏）。",
+    "每级提交前必须全绿：`clients:build:check`、`npm run check`、全量测试。",
+    "失败即回滚该级：宁可停在较低版本，也不留下半升级的半坏状态。",
+    "不得为了让门禁通过而放宽任何判据（含 deps:audit 基线、构建门禁的产物断言）。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0"
+    },
+    {
+      "check": "`npm run clients:build:check` exit=0（每级都要）"
+    },
+    {
+      "check": "全量 `npx vitest run` 0 failed（每级都要）"
+    },
+    {
+      "check": "`npm run deps:audit --audit` 实测消减被记录，基线经复核后刷新"
+    }
+  ],
+  "nonGoals": [
+    "不做 iOS/Android 原生构建（需 Xcode/Android SDK，超出本仓可验证范围）",
+    "不重构客户端业务代码（除非某级升级明确要求且改动最小）",
+    "不引入 EAS Build 等云端服务"
+  ],
+  "architecture": "每级操作：① 调整 `clients/expo/package.json` 中 expo 与 expo-* 子包、react-native、react 到该 SDK 要求版本（优先用 Expo 自身的版本对齐能力，避免手抄版本号）；② `pnpm install` 更新锁文件；③ 跑 `clients:build:check`（web 导出，验证客户端仍可打包）；④ 跑 `npm run check` 与全量测试；⑤ `deps:audit --audit` 记录漏洞消减，复核后刷新基线；⑥ 全绿则一次原子提交，否则 `git checkout` 回滚该级。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "不涉及数据库表；真源为 clients/expo/package.json 与 pnpm-lock.yaml"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "每级可回滚",
+      "how": "每级只改 package.json 与锁文件，提交前必须具备全绿证据；失败直接 git checkout 回退，不保留中间态"
+    },
+    {
+      "name": "可验证性优先",
+      "how": "每级都必须通过客户端构建门禁 —— 该门禁正是本升级的前置条件，缺它不做升级"
+    }
+  ],
+  "ui": [
+    "不改动客户端页面与交互"
+  ],
+  "ops": [
+    "无新增门禁；沿用既有 `clients:build:check` 与 `npm run check`"
+  ],
+  "risks": [
+    {
+      "risk": "某级升级引入客户端破坏性 API 变更，构建或运行失败",
+      "mitigation": "每级单独提交 + 构建门禁 + 失败即回滚；不跳过级次"
+    },
+    {
+      "risk": "expo export 在 CI（linux）表现与本机不同",
+      "mitigation": "构建门禁只断言退出码与产物存在，不断言字节；失败时打印日志尾部"
+    },
+    {
+      "risk": "升级后漏洞未如间接证据预期般下降",
+      "mitigation": "以实测为准，若未下降则如实记录并更新台账，不粉饰"
+    }
+  ],
+  "screens": [
+    {
+      "name": "无 UI 变更",
+      "wireframe": "不涉及"
+    }
+  ],
+  "interactions": [
+    "不涉及"
+  ],
+  "states": [
+    "加载中：不涉及。",
+    "空数据：不涉及。",
+    "出错：回滚该级并记录原因。",
+    "成功：该级全绿并提交。"
+  ],
+  "candidates": [
+    {
+      "name": "逐级升级（54→58）",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "低：每级可回滚，失败可定位"
+    },
+    {
+      "name": "直接跳到 SDK 58",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "高：跨 6 级，失败时无法定位原因"
+    },
+    {
+      "name": "pnpm.overrides 强改跨大版本传递依赖",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "高：无构建验证前等于赌博（门禁落地后可作为兜底手段再评估）"
+    }
+  ],
+  "benchmarks": [
+    "Expo 官方升级指南（逐 SDK 升级、每步跑应用验证）"
+  ],
+  "scan": [
+    "本次实测：SDK 58 的 @expo/cli 直接依赖中已无 tar/xmldom/postcss/image-size/uuid/shell-quote",
+    "本次实测：客户端 web 导出当前可用（5.3s），构建门禁已落地"
+  ],
+  "licenseConclusion": "仅升级既有依赖版本，无新增第三方依赖，无合规风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "升级到 Expo SDK 54",
+      "files": [
+        "clients/expo/package.json",
+        "pnpm-lock.yaml",
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "升级到 Expo SDK 55",
+      "files": [
+        "clients/expo/package.json",
+        "pnpm-lock.yaml",
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "升级到 Expo SDK 56",
+      "files": [
+        "clients/expo/package.json",
+        "pnpm-lock.yaml",
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "升级到 Expo SDK 57",
+      "files": [
+        "clients/expo/package.json",
+        "pnpm-lock.yaml",
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "升级到 Expo SDK 58 并做最终实测",
+      "files": [
+        "clients/expo/package.json",
+        "pnpm-lock.yaml",
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T6",
+      "parent": "T5",
+      "title": "更新依赖治理台账的实测结论",
+      "files": [
+        "docs/architecture/cooliebase-all-dependency-policy.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6",
+  "windowMinutes": 15
+}
