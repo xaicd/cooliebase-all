@@ -1,0 +1,172 @@
+{
+  "name": "delivery-chain-local-verification",
+  "domain": "infra",
+  "title": "交付链三件套本地可验证（smoke/security/load）",
+  "type": "enhancement",
+  "goal": "让 `smoke:login` / `security:scan` / `load:test` 三件套在**本机自管理**跑通（当前只能在 CI），从而真正验证交付链而不是把它长期列为「受阻」。",
+  "baselineMetric": "本机三件套**从未跑通**。实测：容器 `cooliebase-dev-postgres-1` 已发布 `0.0.0.0:5433->5432/tcp`，但 macOS 侧 `localhost:5433` **不可达**（colima 为 Linux VM，端口未转发到宿主机）；仓库无 `host-exec` 兜底；三个脚本又把端口 **5433 写死**（仅 `PGHOST` 可配）。→ G7 只能在 CI 验证。",
+  "targetMetric": "三条命令在本机各自 exit=0，且**真实完成**：`smoke:login` 登录 200 + 受保护接口 200；`security:scan` 12 项全过（含两个阴性对照）；`load:test` 产出 rps/p95/失败率并对阈值。跑完**零残留**（进程/端口/临时库）；数据库不可达时**显式失败**，不得把 SKIP 当 PASS。",
+  "roles": [
+    {
+      "role": "开发/SRE",
+      "can": "在提交前本机跑完交付链三件套，而不是等 CI 反馈"
+    },
+    {
+      "role": "发布负责人",
+      "can": "确认「本地验过」与「CI 验过」是同一套检查，而不是两套口径"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为开发者，我在本机执行 `npm run smoke:login` 就能完成建库→迁移→种子→起服务→登录→受保护接口，无需手工起容器或改环境变量。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为开发者，当本机数据库不可达时，命令必须**大声失败**并说明缺什么（colima 未起 / 隧道端口占用），而不是静默跳过。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为 SRE，我要求三件套共用同一套「数据库端点解析」逻辑，避免三个脚本各写一份 5433。"
+    }
+  ],
+  "constraints": [
+    "不得改变 CI 行为：CI 中 `localhost:5433` 本就可达，应走「直接连接」分支而非隧道。",
+    "不得把「跳过」当「通过」：任何不可达/未就绪都必须非 0 退出并给出可执行指引。",
+    "不得引入常驻依赖：隧道随命令生命周期建立与销毁，命令结束不得残留进程或占用端口。",
+    "不改变三件套的检查内容（登录链路/12 项渗透/压测阈值），本次只解决「连不上库」。"
+  ],
+  "acceptance": [
+    {
+      "check": "本机 `npm run smoke:login` exit=0，且输出含登录 200 与受保护接口 200"
+    },
+    {
+      "check": "本机 `npm run security:scan` exit=0，12 项全过（两个阴性对照必须仍然会失败）"
+    },
+    {
+      "check": "本机 `npm run load:test` exit=0，产出 rps/p95/失败率并对阈值"
+    },
+    {
+      "check": "三条命令结束后：隧道端口无监听、无残留 next/node 进程、临时库已清理"
+    },
+    {
+      "check": "反向对照：数据库不可达时三条命令**必须非 0 退出**（不得 skip 成 0）"
+    },
+    {
+      "check": "`npm run check` exit=0 且全量测试 0 failed"
+    }
+  ],
+  "nonGoals": [
+    "不调整压测阈值，也不新增渗透检查项（阈值与检查集的变更应有独立规格）",
+    "不改造 docker compose / 不引入 docker-in-docker",
+    "不把三件套并入 `npm run check`（它们依赖真实库与起服务，属发布期检查）",
+    "不承诺跨平台（Windows/WSL）一致体验，本次只覆盖当前开发机形态（macOS + colima）"
+  ],
+  "architecture": "选定方案 A：**脚本内置「数据库端点解析 + 自管理 SSH 隧道」**。解析顺序：① `localhost:5433` 可达 → 直接连接；② 否则若 `colima` 在运行且 `colima ssh-config` 可用 → 建立 `ssh -F <config> -N -L 127.0.0.1:<空闲端口>:127.0.0.1:5433 colima`，把 PGHOST/PGPORT 指向隧道；③ 都不满足 → fail-loud 并给出修复指引。三件套改从 `scripts/lib/pg-endpoint.cjs` 取端点（消除 5433 硬编码），隧道在进程退出时关闭并**轮询确认端口释放**。实测该隧道 1 秒内可用。",
+  "entities": [],
+  "invariants": [
+    {
+      "name": "检查集不可被静默降级",
+      "how": "不可达必须非 0 退出；SKIP 只能由显式环境开关触发，且输出必须可见"
+    },
+    {
+      "name": "无残留",
+      "how": "隧道进程与临时数据库在 finally 中清理，并轮询验证端口释放"
+    }
+  ],
+  "ui": [],
+  "ops": [
+    "三件套的命令行输出必须打印「本次用的是直连还是隧道、隧道端口是多少」",
+    "失败信息必须可直接执行：例如提示 `colima start` 或「端口 X 被占用，换一个」"
+  ],
+  "risks": [
+    {
+      "risk": "colima 未运行或 ssh 不可用 → 隧道建不起来",
+      "mitigation": "fail-loud 并给指引；CI 走直连分支不受影响"
+    },
+    {
+      "risk": "隧道端口冲突或清理不彻底 → 下次运行被占用",
+      "mitigation": "动态选空闲端口；finally 中 kill 并轮询验证端口释放"
+    },
+    {
+      "risk": "改造把三件套的检查逻辑一并改坏（此前有过批量改动伤及单域的先例）",
+      "mitigation": "只替换端点解析与进程管理；检查项、阈值、断言保持逐字不变，并用前后输出对照验证"
+    }
+  ],
+  "screens": [],
+  "interactions": [],
+  "states": [],
+  "candidates": [
+    {
+      "name": "A. 自管理 SSH 隧道（选定）",
+      "type": "自研（复用 colima 自带 ssh-config）",
+      "license": "N/A",
+      "risk": "依赖 ssh 与 colima 的 ssh-config；已实测隧道 1 秒可用"
+    },
+    {
+      "name": "B. 应用与数据库都放进容器",
+      "type": "docker compose",
+      "risk": "改动大；宿主机仍需访问应用端口，同样受端口转发问题影响；与「本地开发热更」冲突"
+    },
+    {
+      "name": "C. 本机改用 SQLite 回退",
+      "type": "自研",
+      "risk": "不验证 PostgreSQL 路径，与 CI 口径不同；看似通过实则换了被测对象"
+    }
+  ],
+  "benchmarks": [
+    "AGENTS §3.4 第 14~16 步（冒烟/渗透/压测）与 §10.3 发布门禁"
+  ],
+  "scan": [
+    "基线实测：容器已发布 5433，但宿主机不可达；colima ssh-config 存在且隧道可用"
+  ],
+  "licenseConclusion": "无新增第三方依赖；复用 colima 自带 ssh-config 与本机 ssh。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "抽出数据库端点解析 helper（直连/隧道/失败三态，支持 PGHOST+PGPORT）",
+      "files": [
+        "scripts/lib/pg-endpoint.cjs"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "三件套改用 helper，移除硬编码 5433",
+      "files": [
+        "scripts/smoke-login.cjs",
+        "scripts/security-scan.cjs",
+        "scripts/load-test.cjs"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "反向对照：不可达必须 fail-loud；隧道必须被清理且端口释放",
+      "files": [
+        "test/unit/pg-endpoint.test.ts"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "本机实跑三件套，记录真实 exit code 与输出（含 rps/p95、12 项渗透结果）",
+      "files": [
+        "docs/specs/infra/delivery-chain-local-verification/evidence.json"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "回写状态：AGENTS §3.4、项目计划 R3/G7、sprint 日志",
+      "files": [
+        "AGENTS.md",
+        "docs/01_management/project-plan.md",
+        "docs/features/sprint-prod/1019.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4 → T5",
+  "windowMinutes": 30
+}
