@@ -41,8 +41,11 @@
 `runtime` 是全体子集，故门禁只实现「全树不新增」一条规则：它严格强于「runtime 层不新增」。
 分层只用于**展示影响半径**，不参与判定。
 
-当前总量：**43** 条（critical 2 / high 30 / moderate 11）= **runtime 10 + client-toolchain 33**，
+当前总量：**9** 条（critical 1 / high 5 / moderate 3）= **runtime 6 + client-toolchain 3**，
 由基线逐条记录，**总数、逐包与逐层计数均可复现**。
+
+> 2026-10-19 客户端 SDK 逐级升级（52 → 54 → 55 → 56 → 57 → 58）后的实测结果：
+> **43 → 9 条**，共消掉 34 条（client-toolchain 33 → 3）。逐级账见 §3.2.1。
 
 > 分层判据的历史（2026-10-19 已修）：原先取自 `pnpm audit` 的 `findings[].paths`，而 pnpm
 > **对多父级包会截断该列表**（人类可读输出里写着「Found 8 paths」却只列 3 条）。
@@ -66,77 +69,62 @@
 | 包 | 条数 | 严重度 | 处置 |
 |---|---|---|---|
 | `braces` | 1 | high | `Patched versions` 为空。两个父级链（`pnpm why braces` 实测）：`tailwindcss → chokidar`（根 devDependency）与 `react-native → babel-jest → micromatch`。待上游发版，或改用其它解析/监听链。 |
-| `node-forge` | 1 | high | `Patched versions` 为空（`<=1.4.0`）。`clients/expo` 工具链传递依赖。 |
-| `sprintf-js` | 1 | moderate | `Patched versions` 为空（`<=1.1.3`）。同上。 |
+| `node-forge` | 1 | high | `Patched versions` 为空（`<=1.4.0`）。客户端工具链传递依赖。 |
 
-这三条**不得**伪造成已修复；只能等上游，或移除对应依赖。
+这两条**不得**伪造成已修复；只能等上游发版或移除对应依赖。
 
-### 3.2 阻塞在上游大版本（Expo 客户端构建工具链，33 条）
+（`sprintf-js` 原也在此列，随 2026-10-19 的 Expo SDK 逐级升级**已消失**，不再需要接受风险。）
+
+### 3.2 客户端工具链残留（Expo SDK 升级后，3 条）
 
 | 包 | 条数 | 严重度 | 传递来源 |
 |---|---|---|---|
-| `@xmldom/xmldom` | 15 | high/moderate | `clients/expo → @expo/cli` |
-| `tar` | 12 | **critical**/high/moderate | 同上 |
-| `image-size` | 2 | high | 同上 |
-| `shell-quote` | 1 | **critical** | `react-native → react-devtools-core` |
-| `uuid` | 1 | moderate | `@expo/cli` |
-| `node-forge` / `sprintf-js` | 各 1 | high/moderate | 见 §3.1（同时无补丁） |
+| `shell-quote` | 1 | **critical** | `react-native → react-devtools-core`（开发调试工具，不进 app bundle） |
+| `uuid` | 1 | moderate | 客户端工具链传递依赖 |
+| `node-forge` | 1 | high | 见 §3.1（同时无补丁） |
 
-（`postcss` 4 条原列于此，经锁文件推导**改判为 `runtime`** —— 它有 6 条 host 根链，详见 §3.3。）
+2026-10-19 已把 Expo SDK 从 52 **逐级升到 58**（实测 43 → 9 条）：原先列于本节的
+`tar`(12) / `@xmldom/xmldom`(15) / `postcss`(4) / `image-size`(2) / `sprintf-js`(1)
+**全部随升级消失**。本节原为「阻塞在上游大版本，37 条」，现只剩上述 3 条，
+且都不再依赖"升 SDK"来解。
 
-**为什么接受**：这些全部是**客户端构建/调试工具链**依赖，不进 app bundle，也不在本仓服务端运行时路径上；
-要修只能二选一 ——
+`shell-quote` 的 critical 仍属**开发调试链**（`react-devtools-core`），不进客户端产物；
+`node-forge` 无补丁版本，见 §3.1。
 
-1. 升 `expo` SDK 大版本（会连带 react-native 与 React 一起动，属对客户端应用的破坏性变更）；
-2. 用 `pnpm.overrides` 强改跨大版本的传递依赖（`tar` 6→7、`@xmldom/xmldom` 0.7→0.9、
-   `uuid` 7→11、`image-size` 1→2 …）。
+#### 3.2.1 逐级升级执行结果（2026-10-19，已落地）
 
-**正解**：走第 1 条 —— 作为独立事项排期升级 Expo SDK，并为其补一条能被验证的客户端构建门禁。
-在**没有任何 Expo 构建门禁**的情况下强推第 2 条，等于用不可验证的风险换数字好看，
-所以本次**刻意不做**（宁可如实记录，也不假装做完）。
+前置门禁先落地（`npm run clients:build:check`，见 `docs/specs/infra/client-build-gate/`），
+随后按 `docs/specs/infra/expo-sdk-upgrade/` 逐级执行：**每级一次原子提交**，每级都跑
+构建门禁 + 全量 `check` + 全量测试（436 files / 816 tests）。
 
-#### 3.2.1 升级路径评估（2026-10-19，前置门禁已落地）
+| 级别 | 漏洞总数 | runtime / client | 本级主要变更 |
+|---|---|---|---|
+| 起点 SDK 52 | 43 | 10 / 33 | — |
+| → 54 | 16 | 10 / 6 | react 18.3.1 → 19.1.0、RN 0.76.5 → 0.81.5 |
+| → 55 | 10 | 6 / 4 | react 19.2.0、RN 0.83.10 |
+| → 56 | 9 | 6 / 3 | react 19.2.3、RN 0.85.3 |
+| → 57 | 9 | 6 / 3 | RN 0.86.3（本级无进一步消减，如实记录） |
+| **→ 58（终）** | **9** | **6 / 3** | react 19.3.0（与根应用一致）、RN 0.88.0 |
 
-**前置条件已满足**：仓内此前对客户端构建是**零验证**（CI 无任何 expo 步骤、根 package.json
-无 expo 脚本）。现已新增 `npm run clients:build:check` 并入 `npm run check`：
-实测 Expo web 导出约 5.3s，断言退出码 + `index.html` + 至少一个 bundle，产物落临时目录并清理，
-且 `clients/**` 缺席时跳过而非失败。依据：`docs/specs/infra/client-build-gate/`。
-**从此 SDK 升级具备客观信号**——"升完还能不能打包"有了可执行的判定。
+**实测结论：43 → 9 条，共消掉 34 条**（client-toolchain 33 → 3）；
+severity：critical 2 → 1、high 30 → 5、moderate 11 → 3。
+无补丁可用项 3 → 2（`sprintf-js` 随升级消失，剩 `braces` / `node-forge`）。
 
-**升级跨度**：本仓 `expo ~52.0.0` + `react-native 0.76.5` + `react 18.3.1`；可用 SDK 已到 **58**
-（`latest 58.0.14`），即跨 **6 个大版本**，连带 react-native 与 React 的大版本跃迁。
-
-**实测证据（升级很可能确实消掉大部分）**：查询上游声明可得 ——
-`expo@58.0.14` 依赖 `@expo/cli@^58.1.11`，而该 CLI 的直接依赖中，
-本台账 §3.2 列出的被报包 **`tar` / `@xmldom/xmldom` / `postcss` / `image-size` / `uuid` /
-`shell-quote` 都已不再是它的直接依赖**，只剩 `node-forge@^1.4.0`
-（而 node-forge 本就没有补丁版本，见 §3.1）。
-即预期可消掉 tar 12 + @xmldom/xmldom 15 + image-size 2 + uuid 1 等一大批；
-`node-forge` / `sprintf-js`（无补丁）与 `braces`（走 tailwindcss 链，与 expo 无关）不受影响。
-
-> ⚠️ 以上是**间接证据**（依据上游 `@expo/cli` 的依赖声明推导），**不是**"装完实测"的结论。
-> 真实结论必须由升级后的 `npm run deps:audit --audit` 给出，本台账不接受推测当证据。
-
-**风险面**：客户端规模很小（15 个源文件、约 960 行），改动面可控；但跨 6 个 SDK 大版本仍可能
-撞上 `expo-*` 子包与 react-native 的破坏性 API 变更。
-
-**建议路径（分阶段，每步可验证）**：**不建议直接跳到 58** —— 一次跨 6 级，失败时无法定位是哪一级
-引入的破坏。改为逐级推进：
-
-1. 先升到 SDK 54，跑 `npm run clients:build:check` + 全量 `npm run check` + 测试；
-2. 逐级推进 55 → 56 → 57 → 58，**每级一次原子提交**；
-3. 每级用 `npm run deps:audit --audit` 实测漏洞消减，并在确认后刷新基线；
-4. 任一级失败即回滚该级，不带病前进（对齐"宁可失败，也不静默产出坏工程"）。
+> 与升级前那次**间接预判**相比：`tar` / `@xmldom/xmldom` / `postcss` / `image-size` /
+> `sprintf-js` 确实全部消失（与预判一致）；但 **`shell-quote` 与 `uuid` 仍在**，
+> 未如预判般随升级消失 —— 这正是「间接证据不能当结论」的实例，最终数字只能以实测为准。
 
 ### 3.3 阻塞在第三方包（本仓依赖图内）
 
 | 包 | 条数 | 严重度 | 阻塞原因 |
 |---|---|---|---|
 | `mysql2` | 2 | high/moderate | 被报实例是 `prisma@7.10.0` 的**传递依赖** 3.15.3，不是本仓直接依赖。本仓用 PostgreSQL/SQLite，MySQL 路径完全未使用。 |
-| `postcss` | 4 | high/moderate | 构建期传递依赖；`pnpm why -r` 实测 **6 条 host 根链**（next / autoprefixer / postcss-import / tailwindcss 均在 `cooliebase-all` 之下），故属 runtime。 |
 | `deepmerge-ts` | 1 | high | 构建期传递依赖；跨大版本（7→8）。 |
 | `postcss-selector-parser` | 1 | moderate | 构建期传递依赖；跨大版本（6→7）。 |
 | `source-map-js` | 1 | high | 构建期传递依赖（Next 工具链）。 |
+
+（`postcss` 4 条原列于此，随 2026-10-19 的 Expo SDK 逐级升级**已消失**。加上 §3.1 的 `braces` 1 条，
+runtime 层合计 6 条。）
 
 `mysql2` 未采用 `pnpm.overrides` 强升：该依赖只因 Prisma 的多库支持被引入，
 为一条**未使用的代码路径**新增 override 惯例去改 Prisma 的依赖解析，收益不抵风险。
