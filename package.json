@@ -171,7 +171,8 @@
     "admin:pages:check": "node scripts/generate-admin-pages.cjs --check",
     "security:scan": "node scripts/security-scan.cjs",
     "load:test": "node scripts/load-test.cjs",
-    "version:check": "node scripts/check-version-consistency.cjs"
+    "version:check": "node scripts/check-version-consistency.cjs",
+    "mutation:gate": "node scripts/mutation-gate.cjs --self-check && node scripts/mutation-gate.cjs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

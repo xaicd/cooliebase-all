@@ -139,7 +139,7 @@
 | E2 | 真实库验证 | 一键起库→迁移→种子→全量测试→清场 | ✅ | `npm run verify:real-db` |
 | E3 | 防假测试 | 关键断言须有**会失败**的反向对照 | 🟡 | 已加 `no-vacuous-test-assertions`（enforce + 反向对照测试）；结构性空转仍需逐项对照 |
 | E4 | 全量测试绿 | 0 failed | ✅ | 2026-10-19（816 passed） |
-| E5 | 变异测试 | 突变体杀灭率达标并作为门禁 | ❓ | 有 skill，是否有可执行门禁待核验 |
+| E5 | 变异测试 | 突变体杀灭率达标并作为门禁 | ✅ | `npm run mutation:gate`：3/3 killed；存活即失败（独立 CI job） |
 
 ### WS-F 供应链安全
 

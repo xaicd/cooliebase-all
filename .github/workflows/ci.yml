@@ -101,3 +101,20 @@ jobs:
       - name: 失败时输出压测结果
         if: failure()
         run: cat docs/architecture/artifacts/load-test-result.json 2>/dev/null || true
+
+  # 变异测试: 证明关键断言**有杀伤力**（会临时改写源码再还原，故独立 job）
+  mutation:
+    runs-on: ubuntu-latest
+    needs: gates
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 变异测试门禁（mutant 必须被杀死）
+        run: pnpm run mutation:gate
