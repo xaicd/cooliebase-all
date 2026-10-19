@@ -1,0 +1,12 @@
+{
+  "name": "mcp-write-tools",
+  "domain": "infra",
+  "title": "低代码 MCP 写类工具（B1 二期）：scaffold.plan / codegen.preview",
+  "type": "enhancement",
+  "status": "PLAN_APPROVED",
+  "stories": 5,
+  "acceptance": 4,
+  "invariants": 2,
+  "tasks": 5,
+  "updatedAt": "2026-10-19T02:46:56.726Z"
+}

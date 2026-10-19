@@ -1,0 +1,184 @@
+{
+  "name": "mcp-write-tools",
+  "domain": "infra",
+  "title": "低代码 MCP 写类工具（B1 二期）：scaffold.plan / codegen.preview",
+  "type": "enhancement",
+  "goal": "把 MCP 消费面从 14 个只读工具扩展到含 plan/preview 语义的写类工具，使外部 Agent（Claude Code / Cursor / DSH / hermes）无需记忆 npm 命令顺序即可自行规划域脚手架与低代码生成；落盘仍是显式的人工/后续批次动作。",
+  "baselineMetric": "MCP 工具 14 个，全部只读或只跑白名单门禁（compat-manifest additive 明写只收 read-only 工具）。写动作 domain:new / speckit:new|build / tables:migration / codegen-inject 仅存在于 package.json npm scripts，需人工记住命令与先后顺序。B1 一期代码内自注『写类工具（codegen.preview / scaffold.plan）需耦合 codegen service，留待 B1 二期』。",
+  "targetMetric": "新增 3 个 plan/preview 工具（cooliebase_scaffold_plan / cooliebase_codegen_preview / cooliebase_table_migration_plan），自动落盘工具 0 个；每个工具返回 { plannedWrites, followUpGates, manualSteps } 三段结构化结果；每条工具各配 1 条正向 + 1 条反向测试，并含『调用后 git status 无变化』的不落盘断言。",
+  "roles": [
+    {
+      "role": "外部 Agent（驱动者）",
+      "can": "通过 MCP 自行获取域脚手架与低代码生成的完整落盘计划及后续门禁命令，不再依赖记忆或猜测命令顺序"
+    },
+    {
+      "role": "基座维护者",
+      "can": "确信新增工具不会自行改仓、不会自判通过，写盘动作与门禁执行仍显式可控"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "只做 plan/preview：新增工具一律不落盘，落盘仍由 npm scripts 显式执行"
+    },
+    {
+      "priority": "P0",
+      "text": "实现 scaffold.plan（薄封装 create-business-domain.ts 的 dry-run 路径）与 codegen.preview（复用 cooliebase_codegen_targets 的域目录解析 + inject-codegen-output.cjs --dry-run）"
+    },
+    {
+      "priority": "P0",
+      "text": "实现 tables.migration.plan（薄封装 generate-table-migration.ts，且强制不传 --write）"
+    },
+    {
+      "priority": "P1",
+      "text": "同步 compat-manifest 的 additive 策略与 compat:check 交叉校验，确保工具清单与服务无第二真源"
+    },
+    {
+      "priority": "P1",
+      "text": "在 AGENTS.md §3.4 交付链与 harness 演进规范中登记本批次，避免工具落地后无人知晓"
+    }
+  ],
+  "constraints": [
+    "零落盘：新增工具一律 plan/preview 语义，禁止写盘；--write 仍由显式命令或后续独立批次承担。",
+    "不得绕过 npm run check：工具只返回『应跑哪条门禁』，绝不自判通过（维持 AGENTS.md §3 明确不引入第 5 条）。",
+    "零破坏性变更：既有 14 个只读工具的名称、入参、返回结构不变；compat-manifest 的 frozen 项不动。",
+    "复用优先：薄封装既有 scripts/lib 与脚本，禁止重写领域逻辑（延续 B1 一期做法）。",
+    "工具白名单限定 catalog 已登记域，禁止对任意路径或未登记域生成计划（沿用 cooliebase_gate_run 的白名单先例）。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0"
+    },
+    {
+      "check": "`npm run compat:check` exit=0（工具清单与 MCP 服务交叉校验一致）"
+    },
+    {
+      "check": "每条新工具正反向测试通过：正常调用返回完整 plannedWrites/followUpGates/manualSteps；对未登记域或越权路径调用被拒"
+    },
+    {
+      "check": "不落盘断言通过：调用全部新工具后 `git status --porcelain` 输出为空"
+    }
+  ],
+  "nonGoals": [
+    "不实现自动落盘（--write）工具，落盘通道本次不开放给 MCP",
+    "不把 Agent Loop / Cordis 引入本仓（维持 agent-profile.json.forbidden 与 harness 演进规范 §3）",
+    "不打包 Skill Pack（属 B2 独立批次）",
+    "不改 speckit 的 enhancement 骨架模板：该模板文案偏性能/容量优化，本规格按『能力增量』语义填写，偏离处在 brief 与 sprint-prod 记录中显式说明"
+  ],
+  "architecture": "在 scripts/mcp/cooliebase-mcp-server.cjs 的 tools 注册表新增 3 个工具；逐一薄封装既有入口：scaffold.plan 复用 scripts/create-business-domain.ts 的 dry-run（默认即 dry-run，--write 才落盘）；codegen.preview 复用 cooliebase_codegen_targets 已有的域目录解析（scripts/lib/domain-catalog.cjs 的 domainDirOf）叠加 inject-codegen-output.cjs --dry-run；tables.migration.plan 复用 scripts/generate-table-migration.ts 并显式拒绝 --write 入参。统一返回契约 { plannedWrites: string[], followUpGates: string[], manualSteps: string[] }。延续 B1 一期零依赖 stdio 实现，不 import Next 侧或 codegen service 运行时代码。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "本次不涉及数据库表；MCP 工具清单真源为 packages/shared/contract/compat-manifest.json"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "不落盘不变量",
+      "how": "所有新增工具走 dry-run 分支；测试断言调用后 git status 无变化，且工具签名不接受 write 类入参"
+    },
+    {
+      "name": "白名单域不变量",
+      "how": "域名一律经 scripts/lib/domain-catalog.cjs 解析并校验 catalog 登记状态，未登记域直接拒绝而非兜底生成"
+    }
+  ],
+  "ui": [
+    "不涉及 UI 调整（MCP 为无头消费面）"
+  ],
+  "ops": [
+    "MCP 协议冒烟沿用 B1 一期方式：initialize / tools/list / tools/call / 未知名工具 -32602 / 未知方法 -32601 / 通知不应答"
+  ],
+  "risks": [
+    {
+      "risk": "写类工具被误当作落盘通道使用，导致 Agent 绕过人工确认改仓",
+      "mitigation": "结构化返回计划而非执行；签名不收 write 入参；测试显式断言 git status 不变"
+    },
+    {
+      "risk": "compat-manifest 与 MCP 服务出现第二真源（工具清单不一致）",
+      "mitigation": "compat:check 交叉校验，并配负向测试（人为制造漂移须被拦下）"
+    }
+  ],
+  "screens": [
+    {
+      "name": "无头消费面",
+      "wireframe": "不涉及"
+    }
+  ],
+  "interactions": [
+    "保持既有交互不变：工具调用仍为 MCP stdio 请求-应答，不引入流式或后台任务语义"
+  ],
+  "states": [
+    "加载中：不涉及（stdio 同步应答）。",
+    "空数据：计划为空时返回空 plannedWrites 并说明原因，不报错。",
+    "出错：未登记域/越权路径返回明确错误码与原因，不静默兜底。",
+    "成功：返回 plannedWrites + followUpGates + manualSteps 三段结构。"
+  ],
+  "candidates": [
+    {
+      "name": "薄封装既有 dry-run 脚本入口",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "低"
+    },
+    {
+      "name": "直接 import codegen service 复用逻辑",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "高：会把 Next 侧运行时依赖引入零依赖 stdio MCP 服务，破坏 B1 一期边界"
+    }
+  ],
+  "benchmarks": [
+    "DSH 插件的 scoped tools 设计（工具按角色/权限收窄）",
+    "hermes-agent 的 mcp_serve.py（MCP 面与技能/记忆并列作为对外供给形态）"
+  ],
+  "scan": [
+    "docs/features/sprint-prod/0918.md 的 B0–B4 批次规划与 B1 未完成项",
+    "scripts/mcp/cooliebase-mcp-server.cjs 现有工具注册表与 GATES 白名单先例"
+  ],
+  "licenseConclusion": "无新增第三方依赖，延续 B1 一期零依赖 stdio 实现，无合规风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "定义写类工具边界与统一返回契约",
+      "files": [
+        "docs/specs/infra/mcp-write-tools/"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "实现 scaffold_plan / codegen_preview / table_migration_plan 三个工具",
+      "files": [
+        "scripts/mcp/cooliebase-mcp-server.cjs"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "同步 compat-manifest additive 策略与交叉校验",
+      "files": [
+        "packages/shared/contract/compat-manifest.json"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T2",
+      "title": "正反向测试与不落盘断言",
+      "files": [
+        "scripts/mcp/__tests__/ruoyi-mcp-server.test.ts"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "main",
+      "title": "规范同步登记（交付链与 harness 演进规范）",
+      "files": [
+        "AGENTS.md",
+        "docs/architecture/ruoyi-all-next-harness-evolution.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → {T3, T4} → T5",
+  "windowMinutes": 10
+}
