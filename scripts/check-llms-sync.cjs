@@ -51,6 +51,25 @@ const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"))
 const mcpToolCount = (compat.consumptionSurface?.mcp?.tools || []).length
 const gateCount = (compat.consumptionSurface?.gates || []).length
 const domainCount = (catalog.domains || []).length
+const agentContractCount = (() => {
+  // Agent 契约的**真源是文件本身**（`packages/**/agent/*.agent.json`），不是任何文档里的数字。
+  const found = []
+  const walk = (dir) => {
+    if (!fs.existsSync(dir)) return
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      const full = path.join(dir, entry.name)
+      if (entry.isDirectory()) {
+        if (entry.name === "node_modules" || entry.name.startsWith(".")) continue
+        walk(full)
+      } else if (entry.name.endsWith(".agent.json")) {
+        found.push(full)
+      }
+    }
+  }
+  walk(path.join(ROOT, "packages"))
+  return found.length
+})()
+
 const skillCount = countFiles(path.join(ROOT, ".agents", "skills"), (full, entry) => {
   if (!entry.isDirectory()) return false
   return fs.existsSync(path.join(full, "SKILL.md"))
@@ -74,6 +93,7 @@ for (const [label, value] of [
   ["门禁数", gateCount],
   ["原生域数", domainCount],
   ["技能数", skillCount],
+  ["Agent 契约数", agentContractCount],
 ]) {
   if (!Number.isInteger(value) || value <= 0) fail(`真源异常：${label} = ${value}（拒绝在真源不可信时判定同步）`)
 }
@@ -108,6 +128,14 @@ const ASSERTIONS = [
     expected: domainCount,
     label: "原生域数",
     requiredIn: ["llms.txt"],
+  },
+  {
+    id: "agent-contract-count",
+    // 「324 份机器可读契约」—— 实测已漂到 326（文档全线滞后）。
+    pattern: /(\d+)\s*(?:份|个)\s*(?:Agent\s*)?(?:机器可读\s*)?(?:强类型\s*)?(?:跨端\s*)?契约/g,
+    expected: agentContractCount,
+    label: "Agent 契约数",
+    requiredIn: ["AGENTS.md", "README.md"],
   },
   {
     id: "skill-count-agent",
@@ -182,7 +210,7 @@ if (llmsText && /--profile/.test(llmsText)) {
   results.push({ id: "profile-list", expected: profiles.join("/"), hits: profiles.length - missing.length, hitsInCanonical: profiles.length - missing.length })
 }
 
-const truth = { mcpToolCount, gateCount, domainCount, skillCount, profiles }
+const truth = { mcpToolCount, gateCount, domainCount, skillCount, agentContractCount, profiles }
 
 if (problems.length > 0) {
   if (asJson) {
@@ -198,6 +226,6 @@ if (asJson) {
 } else {
   console.log(
     `[llms:check] PASS: llms.txt / llms-full.txt 与真源一致`
-    + `（MCP ${mcpToolCount} 工具 / ${gateCount} 门禁 / ${domainCount} 域 / ${skillCount} 技能 / ${profiles.length} profile）`,
+    + `（MCP ${mcpToolCount} 工具 / ${gateCount} 门禁 / ${domainCount} 域 / ${skillCount} 技能 / ${agentContractCount} 契约 / ${profiles.length} profile）`,
   )
 }

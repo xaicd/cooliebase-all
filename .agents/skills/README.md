@@ -25,7 +25,7 @@ Skill 编写规范见 [skill-authoring/SKILL.md](./skill-authoring/SKILL.md)。
 | **03_design** | UI 与多端设计 | ui-design、ui-framework-governance、frontend-design、canvas-design、theme-factory、brand-guidelines | 响应式后台原型、页面模板、设计 Token | 杂乱拼凑 UI |
 | **04_implementation** | 编码实现与插件化 | coding、new-feature、new-business-plugin、plugin-authoring、mcp-builder | 第一方业务插件、BaseMapper CRUD、RPC 路由 | 跳过 Validator 直调 |
 | **05_verification** | 变异测试与反假Mock | automated-testing、mutation-tester、webapp-testing | 变异杀灭报告(MSI>=85%)、真实数据库测试矩阵 | 假 Mock、空断言绿牌 |
-| **06_quality_assurance** | 质量门禁与配置审计 | compliance-auditor | 20道门禁0债务通过、FCA/PCA 审计单、RTM | 门禁未跑通声明完工 |
+| **06_quality_assurance** | 质量门禁与配置审计 | compliance-auditor | 全量门禁 0 债务通过、FCA/PCA 审计单、RTM | 门禁未跑通声明完工 |
 | **07_release** | 容器交付与网关发布 | devops | Traefik 网关配置、Docker 镜像、自动回滚预案 | 手改生产容器与配置 |
 | **08_sre** | 可靠性与事故复盘 | sre-slo-manager、postmortem-analyzer、service-governance、security、strix-penetration-testing | SLI/SLO矩阵、多燃烧率告警、免责5-Whys复盘、自主红队 PoC 渗透报告 | 盲目裸跑发版、事故甩锅 |
 | **09_operations** | 持续运营与对账平账 | financial-reconciliation-agent | 三方对账单、长短款平账凭据、轧差流水 | 账实不符/违规提现抹账 |

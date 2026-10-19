@@ -71,6 +71,22 @@ describe("llms.txt 事实同步门禁", () => {
     )
   })
 
+  it("★ 反向 5：Agent 契约份数（README.md）写错 → 必须失败", () => {
+    // 「324 份机器可读契约」曾全线滞后（真值 326）。份数随开发变化，写死必然漂移 ——
+    // 这条断言就是为了让它在漂移的那一刻变红，而不是等人工发现。
+    const target = path.join(ROOT, "README.md")
+    const original = fs.readFileSync(target, "utf8")
+    try {
+      fs.writeFileSync(target, original.replace(/(\d+) 份机器可读/, "999 份机器可读"))
+      const result = runGate()
+      expect(result.status).toBe(1)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/Agent 契约数/)
+    } finally {
+      fs.writeFileSync(target, original)
+      if (fs.readFileSync(target, "utf8") !== original) throw new Error("README.md 未逐字还原")
+    }
+  })
+
   it("★ 反向 4：AGENTS.md 的裸写法「N 个技能」写错 → 必须失败", () => {
     // AGENTS.md 用的是裸写法「共 38 个技能」，与 llms.txt 的「N 个 Agent 专属技能」不同，
     // 由独立断言 skill-count-bare 覆盖 —— 这条锁住它，避免将来只剩 llms.txt 被检。

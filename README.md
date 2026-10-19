@@ -9,7 +9,7 @@
 
 > 🤖 **AI-Agent-First 架构宣言与机器契约 (For Autonomous AI Agents & DigitalStaff NPCs)**:  
 > 本工程是专为自主 AI Coding Agent（Cursor、Windsurf、Claude Code、Devin、Coolie、DigitalStaff NPC 等）构建的 **AI 原生商业软件工程工作区底座 (Enterprise AI-Native Workspace Bundle)**。  
-> **核心铁律 0 (Zero Token Waste)**：业务开发强制采用 **Schema / DSL 极简声明式驱动**（上下文压缩至 <500 Tokens），由通用底层引擎自动展开。以 CMMI 01~09 全生命周期工程规范、36 大工业级原生技能、324 份机器可读契约与真实数据库驱动验证为基石，彻底终结传统大模型“临场手写低质 CRUD、伪造假 Mock、文档口径漂移”的痛点！
+> **核心铁律 0 (Zero Token Waste)**：业务开发强制采用 **Schema / DSL 极简声明式驱动**（上下文压缩至 <500 Tokens），由通用底层引擎自动展开。以 CMMI 01~09 全生命周期工程规范、36 大工业级原生技能、326 份机器可读契约与真实数据库驱动验证为基石，彻底终结传统大模型“临场手写低质 CRUD、伪造假 Mock、文档口径漂移”的痛点！
 
 ---
 
@@ -29,7 +29,7 @@ flowchart TD
         D3["Kysely AST 多租户行级物理穿透防线"]
     end
     subgraph P3 ["3. OpenWiki 全息本体知识库 (RFC 8615)"]
-        W1["324 份机器可读强类型契约"]
+        W1["326 份机器可读强类型契约"]
         W2["17 领域全息 Seam 图谱动态编译"]
         W3["上下文 Token 消耗直降 80%"]
     end
@@ -62,8 +62,8 @@ flowchart TD
 - **Kysely AST 租户行级物理穿透防线**：在 SQL AST 编译层自动挂载租户上下文，杜绝跨租户数据泄露。
 
 ### 3. OpenWiki 动态全息本体知识库与机器契约 (RFC 8615 & LLM-Wiki)
-- 自动提取 17 领域元数据、跨域 Seam 图谱与 324 份机器可读契约，编译生成 30 篇高内聚动态维基百科（[`wiki/`](wiki/index.md)）；
-- 挂载 `openwiki:sync` 与 `openwiki:check` 进入全仓 20 道自动化门禁，消除文档口径打架，AI 进场 Token 消耗直降 80%。
+- 自动提取 17 领域元数据、跨域 Seam 图谱与 326 份机器可读契约，编译生成 30 篇高内聚动态维基百科（[`wiki/`](wiki/index.md)）；
+- 挂载 `openwiki:sync` 与 `openwiki:check` 进入全仓自动化门禁，消除文档口径打架，AI 进场 Token 消耗直降 80%。
 
 ### 4. 高可拔插第一方插件架构与微服务平滑演进 (Dual-Mode Evolution)
 - 平台地基（`system`、`infra`）与 15 个业务域（`mall`、`pay`、`crm`、`erp`、`bpm`、`wms`、`mes` 等）采用第一方插件化彻底物理隔离；

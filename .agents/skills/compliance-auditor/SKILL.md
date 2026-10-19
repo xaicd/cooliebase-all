@@ -47,7 +47,7 @@ flowchart TD
 
 ---
 
-## 3. cooliebase-all 20 道自动化门禁审计清单
+## 3. cooliebase-all 自动化门禁审计清单（清单以 `package.json` 的 `check` 为准）
 
 质量审计员在审查代码库时，必须执行全量门禁检查，并确保所有门禁状态为通过（Exit Code 0）：
 
@@ -79,7 +79,7 @@ flowchart TD
 ## 4. 终极审计执行命令
 
 ```bash
-# 1. 运行 20 道质量门禁总检 (必须 0 错误)
+# 1. 运行全量质量门禁总检 (必须 0 错误)
 npm run check
 
 # 2. 运行全链路真实数据库测试矩阵 (必须 100% 通过)
@@ -96,7 +96,7 @@ npm run fingerprint:verify
 
 ## 5. 检查清单与门禁
 
-- [ ] `npm run check` 的 20 道门禁是否全部通过且退出码为 0？
+- [ ] `npm run check` 全量门禁是否全部通过且退出码为 0？
 - [ ] 真实数据库集成测试（`npm run test:matrix`）是否 100% 通过（0 跳过）？
 - [ ] `brief.json` 中的验收准则与测试用例是否形成了 1:1 双向追溯（RTM）？
 - [ ] 代码库中是否存在任何 `.env` 敏感凭据、未跟踪的大文件或临时目录？

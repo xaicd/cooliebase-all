@@ -22,7 +22,7 @@ flowchart TD
 
     subgraph PCA_Audit ["PCA 物理配置审计"]
         P1["pnpm-lock.yaml 依赖锁定 (Frozen)"] --> PCA_Pass["PCA 审核通过"]
-        P2["20 道自动化质量门禁 (Exit 0)"] --> PCA_Pass
+        P2["全量自动化质量门禁 (Exit 0)"] --> PCA_Pass
         P3["Git 数字指纹验证 (Fingerprint Verified)"] --> PCA_Pass
     end
 
@@ -35,7 +35,7 @@ flowchart TD
 
 | 审计核查项目 | 验证准则与依据 | 抽样/全检证据 | 审计判定 |
 |---|---|---|---|
-| **1. 契约无漂移性 (Contracts)** | 前后端 DTO 与 OpenAPI 3.1 接口契约是否完全同步 | `npm run contracts:sync` 退出码 0，前后端与 RPC 动作严格对齐（324 份契约一致） | **通过 (PASS)** |
+| **1. 契约无漂移性 (Contracts)** | 前后端 DTO 与 OpenAPI 3.1 接口契约是否完全同步 | `npm run contracts:sync` 退出码 0，前后端与 RPC 动作严格对齐（326 份契约一致） | **通过 (PASS)** |
 | **2. 真实数据库测试充分性** | 是否消灭假 Mock，100% 依托真实嵌入式 SQLite WAL 事务运行 | `npm run test:matrix` 执行 14 个测试套件（55 passed / 6 skipped），0 失败，0 报错 | **通过 (PASS)** |
 | **3. 安全渗透基线合规** | 针对未授权、Token伪造、租户越权、栈信息泄露的基线扫描 | `scripts/security-scan.cjs` 扫描 19 项安全检查，全部通过 (0 failed) | **通过 (PASS)** |
 | **4. 路由与权限保护覆盖** | 管理端与第一方插件路由鉴权策略是否覆盖 | `npm run admin:routes:check` 验证 91 条管理路由全部纳入鉴权守护 | **通过 (PASS)** |
@@ -53,34 +53,23 @@ flowchart TD
 
 ---
 
-## 4. 20 道自动化门禁全量执行证据链 (The 20 Quality Gates)
+## 4. 自动化门禁全量执行证据链
 
-质量审计员在基线发布前执行了 `npm run check` 全量门禁套件：
+> **本表不再逐条硬编码。** 门禁清单随开发变化，写死必然过期 —— 本文件此前列的「20 道」
+> 实测已缺 `version:check`、`llms:check`、`sbom:check`、`deps:audit`、`clients:build:check`、
+> `workflow:check`、`cmmi:asset:check` 等，**并混入了 `contracts:sync`、`test:matrix`、
+> `fingerprint:verify` 等非门禁命令**。一份会过期的门禁清单，会让审计看起来成立、实际不可回验。
 
-| 门禁编号 | 门禁命令 | 审计目标与防守底线 | 退出码 | 状态 |
-|---|---|---|---|---|
-| 01 | `npm run domain:manifests:check` | 验证各领域 manifest 契约合法性 | 0 | PASSED |
-| 02 | `npm run contracts:sync` | 校验前后端及 RPC 契约定义同步无漂移 | 0 | PASSED |
-| 03 | `npm run rpc:actions:check` | 校验跨域 RPC 动作定义合规 | 0 | PASSED |
-| 04 | `npm run domain:loaders:check` | 校验第一方业务插件与领域加载器 | 0 | PASSED |
-| 05 | `npm run domain:check` | 领域边界分层守卫（禁止跨域非法 import） | 0 | PASSED |
-| 06 | `npm run microservice:check` | 微服务/拆分单体架构调用面隔离检查 | 0 | PASSED |
-| 07 | `npm run harness:check` | DeepSeek Harness 环境组合基线守卫 | 0 | PASSED |
-| 08 | `npm run admin:routes:check` | 管理后台 Route 与 BFF 映射完整性 | 0 | PASSED |
-| 09 | `npm run admin:pages:check` | 管理后台 Page 双轨页面规范与模板守卫 | 0 | PASSED |
-| 10 | `npm run foundation:ontology:check` | 本体域实体元数据与权限码全息索引核验 | 0 | PASSED |
-| 11 | `npm run skills:check` | Agent Skills 唯一真源与格式规范校验 | 0 | PASSED |
-| 12 | `npm run compat:check` | 客户端与下游契约兼容性清单校验 | 0 | PASSED |
-| 13 | `npm run surface:check` | 对外消费暴露面合规审查 | 0 | PASSED |
-| 14 | `npm run openwiki:check` | OpenWiki 百科全景文档动态同步校验 | 0 | PASSED |
-| 15 | `npm run standards:check` | 架构与代码编码通用规范静态扫描 | 0 | PASSED |
-| 16 | `npm run agent:native:check` | Agent Native 协议运行时接口健康检查 | 0 | PASSED |
-| 17 | `npm run agent:contracts:check` | Agent 契约模型与元数据完整性 | 0 | PASSED |
-| 18 | `npm run agent:page-schemas:check` | 极简 DSL / Schema 驱动页面完整性 | 0 | PASSED |
-| 19 | `npm run handwritten:check` | 杜绝手写低质重复样板代码审查 | 0 | PASSED |
-| 20 | `npm run specs:health` | 业务需求规格健康度与追溯性体检 | 0 | PASSED |
+**权威来源（均可复跑）**：
 
----
+| 用途 | 真源 |
+|---|---|
+| 门禁**清单**（唯一真源） | `package.json` 的 `check` 脚本 |
+| 门禁**执行轨迹**（每次 check 自动生成） | `docs/architecture/artifacts/harness-trace-latest.json` |
+| 契约层声明的门禁子集 | `packages/shared/contract/compat-manifest.json` → `consumptionSurface.gates` |
+
+**本次审计口径**：执行 `npm run check` 全量套件，要求**退出码为 0**；
+并把执行轨迹写入 `harness-trace-latest.json` 供复核。
 
 ## 5. 审计裁定与发布签署 (Audit Sign-Off)
 

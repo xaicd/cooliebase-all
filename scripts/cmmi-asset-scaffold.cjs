@@ -50,7 +50,7 @@ const ASSET_REGISTRY = {
 |---|---|---|
 | 技术委员会 / 架构师 | @architect-team | 审核 ADR、跨域契约与技术路线决策 |
 | 业务域开发工程师 | @domain-leads | 负责业务逻辑实现与真实测试 |
-| 质量合规审计员 (PPQA) | @qa-compliance | 负责 20 道门禁审计与配置基线签发 |
+| 质量合规审计员 (PPQA) | @qa-compliance | 负责全量静态门禁审计与配置基线签发（清单以 \`package.json\` 的 \`check\` 为准） |
 `
       },
       "risk": {
@@ -119,7 +119,7 @@ const ASSET_REGISTRY = {
 | 阶段 | 周期 | 核心交付成果 | 验收门禁 | 负责人 |
 |---|---|---|---|---|
 | M1: 需求与原型 | Sprint 1 | 5态 EARS SRS、HTML 可交互原型 | Gate 1 (需求就绪) | @po |
-| M2: 架构与契约 | Sprint 2 | ADR、ERD、324 份跨端契约 | Gate 2 (契约冻结) | @architect |
+| M2: 架构与契约 | Sprint 2 | ADR、ERD、326 份跨端契约 | Gate 2 (契约冻结) | @architect |
 | M3: 插件与编码 | Sprint 3 | 第一方插件代码、状态机、无假Mock | Gate 3 (全绿单测) | @leads |
 | M4: 验证与审计 | Sprint 4 | 真实库测试、FCA/PCA 双基石审计 | Gate 4 (质量放行) | @qa |
 | M5: 割接与上线 | Sprint 5 | 生产部署 SOP、秒级回滚 Runbook | Gate 5 (生产发布) | @devops |
@@ -280,7 +280,7 @@ const ASSET_REGISTRY = {
         title: "数据库底座设计与 8 大审计字段规范",
         template: () => `# 数据库底座设计与 8 大审计字段规范 (Database Design & ERD)
 
-- **基线版本**: v1.1.0 Enterprise Baseline
+- **基线版本**: ${opts.version || "v1.1.0"} Enterprise Baseline
 - **归属规范**: CMMI 03_design (TS) / .agents/skills/database-design
 
 ---
@@ -352,7 +352,8 @@ flowchart TD
 
 ## 1. 接口设计通用准则
 - 路径风格: Microsoft REST Guidelines 规范 (/api/v1/{domain}/{entity})
-- 响应形状: 统一封装结构 \`{ code: 0, data: T, msg: "success" }\`
+- 响应形状: \`{ success: true, data: T }\` / 失败 \`{ success: false, error: "..." }\`
+  （**实测自真实路由**；此前的 \`{ code, data, msg }\` 是错误的）
 - 租户上下文: 统一由网关注入，严禁前端伪造
 `
       }
@@ -429,7 +430,8 @@ flowchart TD
 ## 1. 四层金字塔测试策略
 - **L1 单元测试**: 领域实体状态机、验证器、无副作用纯函数 (100% 覆盖)
 - **L2 集成测试**: 基于真实 SQLite/Postgres 的 Repository 事务与 CAS 锁 (100% 真实库)
-- **L3 契约测试**: 324 份跨端 API/RPC 接口契约一致性探针
+- **L3 契约测试**: 跨端 API/RPC 接口契约一致性探针（真实清单见 \`packages/**/__tests__/*rpc*\` 等；
+  **不要写死份数** —— 此前的「324 份」实为 Agent 契约数且已过时）
 - **L4 E2E 旅程**: Playwright 浏览器关键端到端路径
 `
       },
@@ -502,7 +504,7 @@ flowchart TD
 ---
 
 ## 1. 过程审计频次与检查单标准
-- 门禁自动化审计: 每次 Git Commit 自动触发 20 道门禁
+- 门禁自动化审计: 每次提交触发 \`npm run check\` 全量静态门禁（**步数以 \`package.json\` 为准，勿写死数字**）
 - 物理配置审计: 发版前由 PPQA 审计员核验 pnpm-lock 与指纹
 `
       },
@@ -521,12 +523,12 @@ flowchart TD
 
 ## 1. 审计双基石核验 (FCA & PCA)
 - FCA (功能配置审计): 真实测试矩阵全绿、契约同步零漂移；
-- PCA (物理配置审计): 锁文件确定性 (pnpm-lock.yaml)、20 道门禁 Exit Code 0、Git 数字指纹验证。
+- PCA (物理配置审计): 锁文件确定性 (pnpm-lock.yaml)、\`npm run check\` 全量 Exit Code 0、Git 数字指纹验证。
 `
       },
       "gate-trace": {
         file: "docs/06_quality_assurance/gate-evidence-trace.json",
-        title: "20 道质量门禁数字指纹记录",
+        title: "全量静态门禁数字指纹记录",
         template: () => JSON.stringify({
           schema: "https://schema.cooliebase-all.org/gate-evidence-trace-v1.json",
           auditedAt: new Date().toISOString(),

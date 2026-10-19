@@ -53,7 +53,7 @@ flowchart LR
 | **03** | `docs/03_design/` | TS (技术解决方案) | MADR 架构决策、8 大审计底座列、Archify 拓扑建模、OpenAPI 契约 | `adr`, `erd`, `archify`, `hld`, `api-spec` | **`adr-architect`**<br/>`archify`<br/>`database-design`<br/>`api-design` | **G2 门禁**: 继承 8 大审计列；MADR 格式；交互式 Mermaid/Archify 拓扑 |
 | **04** | `docs/04_implementation/` | TS (构造与编码) | 第一方插件架构实现蓝图、代码审查红线清单、软件物料清单 (SBOM) | `code-review`, `plugin-blueprint`, `sbom` | **`coding`**<br/>`plugin-authoring`<br/>`new-feature`<br/>`new-business-plugin` | **G3 门禁**: 跨域经由 Facade/Broker；0 编译报错；WBS 任务 100% 勾选 |
 | **05** | `docs/05_verification/` | VV (验证与确认) | 真实测试套件执行大盘、测试计划、变异测试打假、同行评审纪要 | `test-plan`, `test-summary`, `mutation-report`, `peer-review` | **`automated-testing`**<br/>**`mutation-tester`**<br/>`webapp-testing` | **G4 门禁**: 真实数据库测试 100% 通过；变异测试需真实运行带 `--real` |
-| **06** | `docs/06_quality_assurance/` | PQA / CM (质保与配置) | 功能配置审计 (FCA)、物理配置审计 (PCA)、20 道门禁数字指纹记录 | `qa-plan`, `audit`, `gate-trace` | **`compliance-auditor`** | **G4_QA 门禁**: `npm run check` 20 道门禁 Exit Code 严格为 0 |
+| **06** | `docs/06_quality_assurance/` | PQA / CM (质保与配置) | 功能配置审计 (FCA)、物理配置审计 (PCA)、全量静态门禁数字指纹记录 | `qa-plan`, `audit`, `gate-trace` | **`compliance-auditor`** | **G4_QA 门禁**: `npm run check` 20 道门禁 Exit Code 严格为 0 |
 | **07** | `docs/07_release/` | TRANS (转型与发布) | 6 步零停机割接 SOP、秒级自动回滚 Runbook、版本发布说明 | `deployment-sop`, `release-notes`, `rollback-runbook`, `user-manual` | **`devops`** | **G5 门禁**: 割接 SOP 闭环验证；秒级回滚 Runbook 可执行可演练 |
 | **08** | `docs/08_sre/` | SCON / CAM / SRE | 服务等级目标 (SLO/SLI)、多活容灾预案、5-Whys 免责复盘、红队渗透 | `slo-matrix`, `postmortem`, `dr-plan`, `strix-report` | **`sre-slo-manager`**<br/>**`postmortem-analyzer`**<br/>`strix-penetration-testing` | **G6_SRE 门禁**: 单机吞吐 >=5,000 RPS；事故复盘与渗透必须带 `--real` |
 | **09** | `docs/09_operations/` | CMMI-SVC / BizOps / DataOps | 日常资金轧差对账平账、AI 数字员工运营台账、系统日常健康巡检 | `reconciliation`, `agent-ops-ledger`, `inspection-report` | **`financial-reconciliation-agent`**<br/>`new-business-plugin` | **G7_OPS 门禁**: 复式记账借贷恒等平衡；真实对账单必须带 `--real` |
@@ -154,7 +154,7 @@ flowchart LR
 | 准则 | 详细要求 | 负面反例 (严惩) |
 |---|---|---|
 | **存代码化过程资产** | 规格、ADR、ERD、SOP 一律使用标准 Markdown / JSON 纳入 Git 版本控制 | ❌ 严禁把需求与评审写在外部孤立 Word/Excel 里与代码割裂 |
-| **存机器可读契约与指纹** | 324 份跨端契约、Page Schema、20 道门禁数字指纹记录必须与代码同生同灭 | ❌ 严禁脱离代码的人工手写离线契约 |
+| **存机器可读契约与指纹** | 跨端契约、Page Schema、全量静态门禁数字指纹记录必须与代码同生同灭 | ❌ 严禁脱离代码的人工手写离线契约 |
 | **存真实测试与审计证据** | 100% 真实数据库测试结果、FCA/PCA 审计单、真实压测护栏记录 | ❌ 严禁伪造测试报告与假变异得分 |
 | **不存未经发生的假数据** | 未发生线上事故或流水时，`08_sre/postmortem` 与 `09_operations` 保持 `.gitkeep` 留空 | ❌ 严禁在模板底座中伪造虚假故障（如“超发优惠券 5,000 元”） |
 | **不存形式主义手工假评审** | 评审必须基于真实代码变更与质量门禁退出码，严禁纸面签字应付评估 | ❌ 严禁上线前补录虚假评审签字 |

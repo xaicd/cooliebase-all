@@ -620,7 +620,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
 
                 <div className="p-3 bg-slate-950/80 rounded-xl border border-slate-800/80">
                   <div className="text-[10px] font-mono text-slate-400">质量门禁总线</div>
-                  <div className="text-base font-bold font-mono text-cyan-400 mt-0.5">20 道门禁</div>
+                  <div className="text-base font-bold font-mono text-cyan-400 mt-0.5">全量门禁</div>
                   <div className="text-[10px] text-cyan-400 font-mono mt-0.5">Exit Code 0 (全绿)</div>
                 </div>
 

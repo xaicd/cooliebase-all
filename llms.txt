@@ -19,7 +19,7 @@
   - 按域垂直隔离于 `docs/specs/<domain>/<name>/`（支持 `feature`, `bugfix`, `enhancement`, `refactor` 四态）
   - 机器输入只需 <500 Token `brief.json`，自动展开 7 类规范文档与 G0~G7 质量门禁。
 - **OpenWiki (LLM-Wiki 知识大脑)**:
-  - 内置 `wiki/` 动态互联百科（`npm run openwiki:sync`），由底层元数据与 324 份 Agent 契约全自动自愈同步，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
+  - 内置 `wiki/` 动态互联百科（`npm run openwiki:sync`），由底层元数据与 326 份 Agent 契约全自动自愈同步，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
 - **真实数据库驱动 (Zero Fake Mock)**:
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
