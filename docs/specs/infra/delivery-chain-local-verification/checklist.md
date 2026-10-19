@@ -1,4 +1,4 @@
-# Quality Checklist & Acceptance Gate: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
+# Quality Checklist & Acceptance Gate: 交付链三件套用嵌入式真实 Postgres（embedded-postgres）本地验证
 
 > **Spec-Kit 质量验收与门禁自检清单 (Verification Checklist)**
 > 所属领域：`infra` | 规格标识：`delivery-chain-local-verification` | 阶段：`PLAN_APPROVED`
@@ -23,7 +23,7 @@
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
 - [ ] 本机无 docker 运行时，`npm run smoke:login` exit=0，输出含登录 200 与受保护接口 200
 - [ ] 本机无 docker 运行时，`npm run security:scan` exit=0，12 项全过且两个阴性对照仍会失败
-- [ ] PGlite 上的迁移与真实 Postgres 一致（`prisma migrate deploy` 全部应用，已在 spike 中验证）
-- [ ] 命令结束后：PGlite 端口无监听、无残留 node 进程、临时数据已删除
-- [ ] 反向对照：把 PGlite 启动禁用后，两条命令**必须非 0 退出**（不得回退成内存模式并报绿）
-- [ ] `npm run check` exit=0，全量测试 0 failed
+- [ ] 嵌入式 Postgres 的版本与 CI 使用的 PostgreSQL 主版本一致（避免两套语义）
+- [ ] 命令结束后：postgres 进程已退出、端口无监听、临时 dataDir 已删除
+- [ ] 反向对照：禁用嵌入式 Postgres 后，命令必须非 0 退出（不得回退内存模式并报绿）
+- [ ] `npm run check` exit=0，全量测试 0 failed；`npm run deps:audit` 不新增高危

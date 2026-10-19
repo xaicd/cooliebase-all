@@ -1,4 +1,4 @@
-# Technical Architecture & Implementation Plan: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
+# Technical Architecture & Implementation Plan: 交付链三件套用嵌入式真实 Postgres（embedded-postgres）本地验证
 
 > **Spec-Kit 架构与技术实施方案 (ADD: Architecture & Design Document)**
 > 上游真源：`spec.md` (或 `requirements.md`)。技术方案严格支撑需求，严禁反向变更业务目标。
@@ -14,7 +14,7 @@
 
 ## 2. 领域架构边界与调用拓扑 (Architecture Topology & Flows)
 
-PGlite（`@electric-sql/pglite`）+ `@electric-sql/pglite-socket` 把嵌入式 Postgres 暴露为**标准 Postgres wire 协议**的 TCP 服务：`pglite-server --db=memory:// --port=<空闲端口> --host=127.0.0.1`。脚本据此构造 `DATABASE_URL=postgresql://postgres@127.0.0.1:<端口>/postgres?sslmode=disable`（`sslmode=disable` 是必需的：不带时 Prisma 报 P1001 连不上）。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 无 docker 依赖要求 → 起 PGlite；③ 起不来 → fail-loud。冒烟与渗透共用 `scripts/lib/ephemeral-pg.cjs`，进程与数据在 finally 中清理并轮询确认端口释放。
+使用 `embedded-postgres`（Node，封装 zonky 的 Postgres 二进制）：`new EmbeddedPostgres({ databaseDir: <临时目录>, port: <空闲端口>, user, password, persistent: false })` → `initialise()` → `start()` → `createDatabase()` → 让 `DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:<port>/<db>` 指向它 → 跑迁移/种子/起应用 → `stop()` 并在 finally 删除临时 dataDir。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 否则起嵌入式 Postgres；③ 起不来 → fail-loud。两个实测/调研得出的必需细节：**pnpm 必须 approve build scripts**（否则二进制缺符号链接）、**版本精确锁 beta**。冒烟与渗透共用 `scripts/lib/ephemeral-pg.cjs`；`load:test` 复用同一 helper（真实多连接），但在输出里标注「本机数字≠容量」。
 
 ### 核心业务时序图 (Archify Mermaid Flow)
 ```mermaid
@@ -61,7 +61,8 @@ sequenceDiagram
 
 ## 6. 技术风险评估与缓解策略 (Technical Risks & Mitigations)
 
-- **风险**: PGlite 与真实 Postgres 的差异导致某些迁移或查询行为不一致 -> **缓释策略**: 已实测全部迁移可在 PGlite 上应用；发现不兼容时 fail-loud，并在文档标出仅限 CI 的项
-- **风险**: 把 PGlite 用于压测，得出误导性容量数字 -> **缓释策略**: 明确列为 nonGoal：load:test 继续要求真实 Postgres，并在脚本文档里写明原因
-- **风险**: 改动波及检查逻辑（此前批量改动伤及单域的先例） -> **缓释策略**: 只替换「数据库端点获取 + 进程生命周期」；登录断言/12 项清单/阴性对照逐字不动，并用改前改后输出对照
-- **风险**: 新增依赖影响供应链门禁 -> **缓释策略**: `@electric-sql/pglite` 与 `pglite-socket` 当前已在锁文件中（Prisma 的传递依赖，0.4.3/0.1.3）；提升为直接 devDependency，跑 `deps:audit` 复核
+- **风险**: beta 版本（18.4.0-beta.17）不稳定 -> **缓释策略**: 精确锁版本；T1 必须先做 spike 证明 initialise/start/迁移可用，失败则回退 PGlite 并说明
+- **风险**: pnpm 未批准 build scripts → 二进制缺符号链接，服务起不来 -> **缓释策略**: 在 pnpm-workspace.yaml 的 allowBuilds 登记；启动失败时给出明确指引
+- **风险**: 二进制体积与平台差异 -> **缓释策略**: 仅装当前平台的包；CI 若已有 PG 走 DATABASE_URL 直连，不下载
+- **风险**: 误把本机压测数字当容量 -> **缓释策略**: load:test 输出显式标注『本机 ≠ 容量』，阈值仅作回归护栏
+- **风险**: 改动波及检查逻辑 -> **缓释策略**: 只替换端点获取与进程生命周期；断言/清单逐字不动，用改前改后输出对照

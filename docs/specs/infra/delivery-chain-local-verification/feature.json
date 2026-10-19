@@ -1,12 +1,12 @@
 {
   "name": "delivery-chain-local-verification",
   "domain": "infra",
-  "title": "交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖",
+  "title": "交付链三件套用嵌入式真实 Postgres（embedded-postgres）本地验证",
   "type": "enhancement",
   "status": "PLAN_APPROVED",
   "stories": 3,
   "acceptance": 6,
   "invariants": 2,
-  "tasks": 5,
-  "updatedAt": "2026-10-19T12:23:42.991Z"
+  "tasks": 6,
+  "updatedAt": "2026-10-19T12:25:59.152Z"
 }
