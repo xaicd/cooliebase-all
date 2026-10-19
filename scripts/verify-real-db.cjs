@@ -76,7 +76,12 @@ async function main() {
   const databaseUrl = withDatabase(endpoint.url, VERIFY_DB)
   // 必须**显式**传: shell 里若已存在 DATABASE_URL，其优先级高于 .env，
   // 会让迁移与测试悄悄跑到另一个库上（本仓踩过）。
-  const env = { DATABASE_URL: databaseUrl, DB_DRIVER: "postgresql" }
+  // `NODE_ENV` 也必须**显式钉住**，理由同 `DATABASE_URL`：外部 shell 若设了
+  // `NODE_ENV=production`（CI 与不少本地环境都会），业务代码会走生产分支 ——
+  // 实测 `member-auth.service.test.ts` 因此报「生产环境必须配置至少 32 字节且非默认值的
+  // JWT_SECRET」，看起来像产品缺陷，其实是**环境泄漏**造成的假失败。
+  // 验证入口跑的是"测试"，就该是 test。
+  const env = { DATABASE_URL: databaseUrl, DB_DRIVER: "postgresql", NODE_ENV: "test" }
 
   console.log("[verify:real-db] 应用迁移 …")
   if (run("pnpm", ["run", "db:migrate"], { env }) !== 0) fail("迁移失败")
