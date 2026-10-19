@@ -55,6 +55,13 @@ function main() {
     console.log(`[client-build] SKIP: ${CLIENT_REL} 不存在（裁剪过的工程不含客户端），本门禁不适用`)
     process.exit(0)
   }
+  // 裁剪过的工程可能**留下空壳目录**（`clients/expo/` 只剩 node_modules，
+  // package.json 已被裁掉）—— 只看目录存在会误判"有客户端"，
+  // 实测 `--profile base` 产物因此让本门禁去跑 expo export 并失败。
+  if (!fs.existsSync(path.join(client, "package.json"))) {
+    console.log(`[client-build] SKIP: ${CLIENT_REL}/package.json 不存在（裁剪过的工程不含客户端）`)
+    process.exit(0)
+  }
   if (!fs.existsSync(path.join(client, "node_modules"))) {
     console.log(`[client-build] SKIP: ${CLIENT_REL}/node_modules 不存在（未安装客户端依赖）`)
     process.exit(0)

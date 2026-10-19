@@ -157,11 +157,18 @@ function resolveHatchPlan(catalog, options = {}) {
   let includeClients = true
 
   if (profile === "base") {
-    // 新工程的**默认**形态: 只要平台地基（system + infra）。
-    // 目标是把"起一个工程"做到最轻 —— 加载、运行、预览都快，定制扩展也快；
-    // 需要什么能力再按 --profile / --bundle 逐步加进来。
-    // 为此，平台伴生域（online/ai/aigw）对 system/infra 的依赖已改为**按需动态加载**。
-    selected = unique([...platform])
+    // 新工程的**默认**形态：平台地基（system + infra）+ **平台伴生域**。
+    //
+    // 为什么必须带伴生域（实测）：平台地基对它们存在**静态依赖**——
+    //   · `src/app/api/v1/open/meta/page-schema/[entity]/route.ts` 静态 import
+    //     `@/modules/online/backend/services/page-schema.service`；
+    //   · `packages/domains/infra/.../codegen-templates/service.template.ts` 静态 import
+    //     `onlinePlatformFacade`。
+    // 早前这里注释写的是"已改为按需动态加载"，但它只对 `codegen-table.service.ts`
+    // 这类动态 import 成立，上述两处仍是静态的 —— 于是 `--profile base` 产物
+    // **`npm run build` 直接失败**（实测：module-not-found on online）。
+    // 结论：`base` 与 `minimal` 目前等价。要真正区分，需先把上述两处改为惰性加载。
+    selected = unique([...platform, ...companions])
     includeClients = false
   } else if (profile === "minimal") {
     selected = unique([...platform, ...companions])

@@ -89,6 +89,20 @@ describe("hatch-profile", () => {
     expect(shouldSkipRelPath("docs/architecture/archive/upstream-2026-Q3/README.md", plan)).toBe(true)
   })
 
+  it("★ base 必须包含平台伴生域（地基对它们有静态依赖，裁掉会让产物构建失败）", () => {
+    const base = resolveHatchPlan(catalog, { profile: "base" })
+    const minimal = resolveHatchPlan(catalog, { profile: "minimal" })
+
+    // 实测：裁掉 online 后，`src/app/api/v1/open/meta/page-schema/[entity]/route.ts`
+    // 与 infra 的 codegen 模板仍静态 import 它，`npm run build` 直接 module-not-found。
+    for (const companion of PLATFORM_COMPANIONS) {
+      expect(base.domains, `base 缺少伴生域 ${companion}`).toContain(companion)
+    }
+    // 目前 base 与 minimal 等价；若将来把上述两处改为惰性加载，可再放开这条断言。
+    expect(base.domains.slice().sort()).toEqual(minimal.domains.slice().sort())
+    expect(base.includeClients).toBe(false)
+  })
+
   it("prunes catalog and rpc-actions to the selected domains", () => {
     const plan = resolveHatchPlan(catalog, { profile: "minimal" })
     const nextCatalog = pruneCatalog(catalog, plan)
