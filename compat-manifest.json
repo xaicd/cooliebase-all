@@ -71,6 +71,7 @@
       "tools": [
         "cooliebase_action_lookup",
         "cooliebase_cmmi_list",
+        "cooliebase_codegen_preview",
         "cooliebase_codegen_targets",
         "cooliebase_compat_info",
         "cooliebase_delivery_status",
@@ -80,11 +81,13 @@
         "cooliebase_evolution_backlog",
         "cooliebase_gate_run",
         "cooliebase_plugin_list",
+        "cooliebase_scaffold_plan",
         "cooliebase_skills_list",
         "cooliebase_spec_list",
-        "cooliebase_standards_report"
+        "cooliebase_standards_report",
+        "cooliebase_table_migration_plan"
       ],
-      "count": 14
+      "count": 17
     },
     "evolution": {
       "traceArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
@@ -117,7 +120,7 @@
       "new domains (append to catalog layers and domains)",
       "new actions and new permission codes",
       "new skills under .agents/skills",
-      "new read-only MCP tools",
+      "new MCP tools that are read-only or plan/preview only (never writing to the repository)",
       "new gates wired into npm run check"
     ],
     "breaking": [
