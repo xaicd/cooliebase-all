@@ -20,7 +20,7 @@
 const fs = require("node:fs")
 const path = require("node:path")
 const readline = require("node:readline")
-const { execSync, spawnSync } = require("node:child_process")
+const { execFileSync, execSync, spawnSync } = require("node:child_process")
 
 const ROOT = path.resolve(__dirname, "..")
 const PROJECT_PROFILE_PATH = path.join(ROOT, "packages", "shared", "contract", "project-profile.json")
@@ -40,6 +40,10 @@ function parseArgs(args) {
     port: 3200,
     author: null,
     profile: "standard",
+    // vertical profile 需要；此前 project-init 完全不认 --bundle，
+    // 于是 `--profile vertical --bundle mall` 会在 clone 阶段报
+    // "vertical profile 必须提供 --bundle"（参数在转发时被丢弃，实测）。
+    bundle: [],
     help: false,
   }
 
@@ -65,6 +69,8 @@ function parseArgs(args) {
     else if (arg.startsWith("--author=")) options.author = arg.split("=")[1]
     else if (arg === "--profile" && args[i + 1]) options.profile = args[++i]
     else if (arg.startsWith("--profile=")) options.profile = arg.split("=")[1]
+    else if (arg === "--bundle" && args[i + 1]) options.bundle = String(args[++i]).split(",").map((v) => v.trim()).filter(Boolean)
+    else if (arg.startsWith("--bundle=")) options.bundle = arg.split("=")[1].split(",").map((v) => v.trim()).filter(Boolean)
   }
 
   return options
@@ -358,6 +364,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   --port <port>          启动端口 (默认: 3200)
   --author <author>      公司或作者名称 (用于版权声明)
   --profile <profile>    保留域模板: standard (全量 17 域) | minimal | base
+  --bundle <a,b>         vertical profile 的业务域白名单 (例如: mall,crm)
 `)
     return
   }
@@ -372,7 +379,9 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   if (opts.target) {
     console.log(`\n[project-init] 正在派生克隆底座到目标目录: ${opts.target} ...`)
     const cloneScript = path.join(ROOT, "scripts", "clone-project-base.cjs")
-    execSync(`node "${cloneScript}" "${opts.target}" --profile ${opts.profile}`, { stdio: "inherit" })
+    const cloneArgs = [cloneScript, opts.target, "--profile", opts.profile]
+    if (Array.isArray(opts.bundle) && opts.bundle.length > 0) cloneArgs.push("--bundle", opts.bundle.join(","))
+    execFileSync("node", cloneArgs, { stdio: "inherit" })
     const targetDir = path.resolve(process.cwd(), opts.target)
     sanitizeProjectFiles(targetDir, opts)
     updateProjectProfile(targetDir, opts)

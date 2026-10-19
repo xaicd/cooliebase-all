@@ -40,10 +40,13 @@
 
 > **判据达成情况（2026-10-19 实测）**：
 > - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 11 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
-> - **G2 孵化链路** ✅ 已达成 —— 走 README 承诺的 **degit 路径**端到端实测：
+> - **G2 孵化链路** ✅ 已达成 —— 两条入口均已实测：
+>   ① degit 路径端到端：
 >   `npx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
 >   → `build` exit=0 → `pnpm dev`：`/healthz` 200、`/readyz` 200、登录 200、受保护接口带 token 200 / 无 token 401。
 >   （`project:create` 的 reactor/Postgres 路径因本机 Docker 端口不可达，未单独验证。）
+>   ② `project:init --target` 的四种 profile（base 5 域 / minimal 5 / vertical 6 / creator 17）
+>   各跑 `install`+`check`+`build` **全部 exit=0**。
 > - **G3 单命令建域** ✅ 已达成 —— 在 degit 副本里 `domain:new probe` 连跑两次：
 >   迁移目录未新增、catalog 条目数不变、插件文件指纹完全一致（第二次 14 写 / 2 跳过）。
 > - **G7 交付链** 🟡 部分 —— `build` ✅、`fingerprint` ✅；
@@ -125,7 +128,7 @@
 | D1 | 代码生成引擎 | 按表元数据产出全栈骨架 | ✅ | `npm run check`（codegen 相关门禁） |
 | D2 | 表定义单一真源 | 新增表先写元数据再生成迁移 | ✅ | `scripts/data/*-tables.ts` + `tables:migration` |
 | D3 | 一条命令建域 | `domain:new` 完成建表→生成→注册→契约→门禁 | ✅ | 连跑两次幂等（指纹一致） |
-| D4 | Profile 裁剪 | 四种 profile 产物各自可跑 | 🟡 | `project:create --profile …`（待逐仓复验） |
+| D4 | Profile 裁剪 | 四种 profile 产物各自可跑 | ✅ | base/minimal/vertical/creator 各跑 install+check+build 全绿（2026-10-19） |
 | D5 | 裁剪安全 | `clients/**` 缺席时相关门禁跳过而非失败 | ✅ | `clients:build:check` SKIP 分支实测 |
 
 ### WS-E 质量与测试
