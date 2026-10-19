@@ -36,7 +36,7 @@
 - **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
 - **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
 - **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
-  - 声明版本、17 域清单、38 技能目录、17 项 MCP 工具、13 层交付 Gate 与 Hatch 派生配置。
+  - 声明版本、17 域清单、38 技能目录、17 项 MCP 工具、14 层交付 Gate 与 Hatch 派生配置。
 - **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
 - **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)

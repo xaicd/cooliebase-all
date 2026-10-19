@@ -182,6 +182,7 @@
 | 15. **渗透** | `npm run security:scan` | 12 项: 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5 |
 | 16. **压测**（容量护栏） | `npm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5 |
 | 17. **变异测试**（断言杀伤力） | `npm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
+| 18. **文档命令真实性** | `npm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
 
 要点（都是实测踩出来的）:
 
@@ -618,7 +619,8 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. 发布前必须通过 strict 治理检查。
 2. 发布前必须生成最新扫描证据与迁移作战板。
-3. 发布前必须同步文档索引：npm run docs:sync-context。
+3. 发布前必须同步文档索引：`npm run openwiki:sync && npm run surface:sync`，并跑 `npm run openwiki:check` / `npm run llms:check` 确认无漂移。
+   （原文写的是 `docs:sync-context` —— **该脚本并不存在**，已由 `docs:commands:check` 拦出。）
 4. 发布前必须确认 `npm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
    —— 门禁只保证"不新增"，发布时还要确认既有的已接受风险没有扩大
    （台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）。

@@ -108,7 +108,8 @@
       "clients:build:check",
       "version:check",
       "llms:check",
-      "sbom:check"
+      "sbom:check",
+      "docs:commands:check"
     ]
   },
   "compatibility": {

@@ -4,15 +4,34 @@ inclusion: auto
 
 # 三端功能开发与脚手架规则
 
-新增业务功能必须优先遵循仓库级 Skill：`/feature-development-workflow`。固定顺序为：业务需求 → 数据库与索引 → API/权限 → 程序设计 → 实现或受控生成 → 三端动态配置 → 迁移加载与验收。
+> **本文件曾是独立规则，现已被取代。** 它的内容已并入仓库级唯一真源
+> `.agents/skills/new-feature/SKILL.md`（该 Skill 的 description 明确写着
+> "融合 `.kiro/feature-development-workflow`"）。此处只保留指针，避免同一份指引存在两处、
+> 然后各自漂移。
 
-- 仅在需求、数据/索引、API 和权限设计完成后，才评估能否使用 `npm run feature:generate` 创建三端基础壳；生成器不替代领域设计。
-- `src/shared/feature-scaffold/registry.ts` 是脚手架功能三端入口的唯一来源；禁止把同一个生成特性手工复制到后台菜单、商户菜单或 C 端快捷入口。
-- 后台权限采用双层模型：先在 `permissions.registry.ts` 注册权限语义、在 `role-permissions.ts` 维护系统角色默认基线；实际菜单与角色菜单授权必须通过迁移、种子或 `AdminRbacService` 持久化到 `AdminMenu`、`AdminRole`、`AdminRoleMenu`，并以数据库运行时加载结果为准。
-- 当前 `feature:generate` 不会自动写入这些后台运行态菜单/授权记录；交付功能前必须完成对应数据库配置与加载验收。
-- 生成的 Service 仅为可运行的空列表契约。交付前必须实现领域查询、数据权限、事务、日志、错误处理以及必要的审批/履约逻辑。
-- 新写接口、详情接口、审批和定时任务仍必须登记 `docs/api-routes.md`，并遵守 Route 薄层规范。
-- 新特性的需求、设计、原型 (HTML/PNG) 与任务归类标准，统一遵循 `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`，特性包统一置于 `docs/features/<feature>/`。
-- 完整的受控生成命令、回滚和安全边界见 `docs/guides/feature-codegen.md`；全流程门禁见 `.kiro/skills/feature-development-workflow/SKILL.md`。
+## 真源指向
 
+| 事项 | 唯一真源 |
+|---|---|
+| 全链路新功能研发闭环（需求 → 表 → API/权限 → 程序 → 生成 → 多端配置 → 验收） | `.agents/skills/new-feature/SKILL.md` |
+| 受控代码生成入口 | `npm run scaffold`（= `npx tsx ./scripts/scaffold-feature.ts`） |
+| 接口/路由规范 | `docs/guides/api-route-conventions.md` |
+| 特性规格与原型归类 | `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md` |
+| RBAC 角色默认基线 | `packages/shared/backend/lib/rbac-registry/role-permissions.ts` |
 
+## 本文件此前引用过、但**并不存在**的东西（已全部移除，勿再照抄）
+
+一次真实核查发现本文件整篇指向另一套工程结构（`scripts/check-docs-commands.cjs` 会拦这类漂移）：
+
+| 曾经的引用 | 实际 |
+|---|---|
+| 技能 `/feature-development-workflow` | 真源是 `.agents/skills/new-feature/` |
+| `feature:generate`（脚本名） | 真名是 `scaffold` |
+| `src/shared/feature-scaffold/registry.ts` | **不存在**；且 `AGENTS.md` §3.2 规定 `src/` 下只允许 `app/` 与 `proxy.ts` |
+| `permissions.registry.ts` | **不存在**（见上表 RBAC 真源路径） |
+| `docs/api-routes.md` | **不存在**（真源是 `docs/guides/api-route-conventions.md`） |
+| `docs/guides/feature-codegen.md` | **不存在** |
+| `.kiro/skills/feature-development-workflow/SKILL.md` | **不存在** |
+
+> 教训：**指向不存在的东西**与"编造出处"同族 —— 照着跑就是报错。
+> 新增文档引用前先 `ls` 确认；这类漂移由 `docs:commands:check` 门禁机器拦截。
