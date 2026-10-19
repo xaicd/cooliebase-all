@@ -3,28 +3,28 @@
   "domain": "infra",
   "title": "修复 6 条既存测试失败：退役脚本引用 + 过期断言",
   "type": "bugfix",
-  "goal": "修好仓内长期挂着的 6 条既存测试失败（2 个文件），使全量测试只剩 0 条失败；并把其中一处断言改成**耐增长且有真实约束**的形式（声明的 Skill 必须真实存在），避免同类失效再犯。",
-  "symptom": "`env -u DATABASE_URL -u DB_DRIVER -u NODE_ENV npx vitest run` 长期为 2 failed files / 6 failed tests。明细：`test/unit/spec-driven-agent-workflow.test.ts` 5 条，报 `Command failed: npx tsx scripts/spec-ops.ts new|build|archive …`；`scripts/lib/__tests__/agent-profile.test.ts` 1 条，报 `expected ['coding','automated-testing',…(2)] to deeply equal ['coding','automated-testing',…(1)]`。该 6 条在本次之前的多轮改动中都做过同环境前后对照，确认**非新增**，一直被当作 known pre-existing 记录。",
-  "rootCause": "两条独立根因：\n① 5 条（spec 闭环测试）：`scripts/spec-ops.ts` 已在提交 `d158d1f1` 被**退役**，统一收敛到 `scripts/speckit.ts`（`new` / `build` / `archive` 子命令齐备），但测试未跟改，仍在调已不存在的脚本 —— 属"改了生产侧、漏改测试侧"。5-Whys 到根因：**服务入口改名/收敛后缺少"测试引用的脚本是否真实存在"这一层校验**，于是断裂只能靠跑测试才发现，且被发现后又被记成"独立 ticket"搁置。\n② 第 6 条（agent-profile 测试）：该用例用 `toEqual` 精确断言 `npc.layers.L0.skills`，而 `agent-profile.json` 后来给 L0 补了 `project-init`（第 4 项）—— 测试编码的是**改动前的世界**。5-Whys 到根因：**用"精确全等"断言一个会随能力增长而增长的列表**，于是每次往角色里加技能都会把这条测试打红，而它红的意义（"这几个核心技能必须在"）与它断言的严格度（"只能有这几个"）并不一致。",
-  "preservedBehavior": "① **生产侧一行不改**：`scripts/speckit.ts`、`scripts/archive-spec.cjs`、`agent-profile.json`、生成器模板全部保持现状 —— 本次只修测试侧（对齐仓库既有原则：根因在测试假设时，改测试而不是弱化产品行为）。② 被修用例仍须覆盖原有意图：spec 闭环仍要验证"按域隔离落盘 / brief 特化字段 / 声明式展开产物齐备 / delivery 门禁可识别 / 归档可追溯"；agent-profile 仍要验证"workspace-bundle 身份 + 不托管 agent loop"。③ 测试对工作区保持零残留（活跃区与归档区都要清干净）。",
+  "goal": "修好仓内长期挂着的 6 条既存测试失败（2 个文件），使全量测试只剩 0 条失败；并把其中一处断言改成耐增长且有真实约束的形式（声明的 Skill 必须真实存在），避免同类失效再犯。",
+  "symptom": "`env -u DATABASE_URL -u DB_DRIVER -u NODE_ENV npx vitest run` 长期为 2 failed files / 6 failed tests。明细：`test/unit/spec-driven-agent-workflow.test.ts` 5 条，报 `Command failed: npx tsx scripts/spec-ops.ts new|build|archive …`；`scripts/lib/__tests__/agent-profile.test.ts` 1 条，报 `expected ['coding','automated-testing',…(2)] to deeply equal ['coding','automated-testing',…(1)]`。该 6 条在本次之前的多轮改动中都做过同环境前后对照，确认非新增，一直被当作 known pre-existing 记录。",
+  "rootCause": "两条独立根因：① 5 条（spec 闭环测试）：`scripts/spec-ops.ts` 已在提交 `d158d1f1` 被退役，统一收敛到 `scripts/speckit.ts`（`new` / `build` / `archive` 子命令齐备），但测试未跟改，仍在调已不存在的脚本 —— 属「改了生产侧、漏改测试侧」。5-Whys 到根因：服务入口改名/收敛后缺少「测试引用的脚本是否真实存在」这一层校验，于是断裂只能靠跑测试才发现，且被发现后又被记成「独立 ticket」搁置。② 第 6 条（agent-profile 测试）：该用例用 `toEqual` 精确断言 `npc.layers.L0.skills`，而 `agent-profile.json` 后来给 L0 补了 `project-init`（第 4 项）—— 测试编码的是改动前的世界。5-Whys 到根因：用「精确全等」断言一个会随能力增长而增长的列表，于是每次往角色里加技能都会把这条测试打红，而它红的意义（这几个核心技能必须在）与它断言的严格度（只能有这几个）并不一致。",
+  "preservedBehavior": "① 生产侧一行不改：`scripts/speckit.ts`、`scripts/archive-spec.cjs`、`agent-profile.json`、生成器模板全部保持现状 —— 本次只修测试侧（对齐仓库既有原则：根因在测试假设时，改测试而不是弱化产品行为）。② 被修用例仍须覆盖原有意图：spec 闭环仍要验证「按域隔离落盘 / brief 特化字段 / 声明式展开产物齐备 / delivery 门禁可识别 / 归档可追溯」；agent-profile 仍要验证「workspace-bundle 身份 + 不托管 agent loop」。③ 测试对工作区保持零残留（活跃区与归档区都要清干净）。",
   "roles": [
     {
       "role": "基座维护者",
-      "can": "跑全量测试时不再需要心算\"这 6 条是不是我造成的\"，红就是红、绿就是绿"
+      "can": "跑全量测试时不再需要心算这 6 条是不是我造成的，红就是红、绿就是绿"
     },
     {
       "role": "排障/SRE 工程师",
-      "can": "看到测试红即代表真有问题，不必再维护一份\"known pre-existing 失败\"的口头豁免清单"
+      "can": "看到测试红即代表真有问题，不必再维护一份 known pre-existing 失败的口头豁免清单"
     }
   ],
   "stories": [
     {
       "priority": "P0",
-      "text": "红灯复现 (Red Test)：跑这两个文件，确认 6 条失败可稳定复现，并定位到具体断言（已完成诊断，见 rootCause）"
+      "text": "红灯复现 (Red Test)：跑这两个文件，确认 6 条失败可稳定复现并定位到具体断言（已完成诊断，见 rootCause）"
     },
     {
       "priority": "P0",
-      "text": "把 spec 闭环测试的 3 处 `scripts/spec-ops.ts` 改为 `scripts/speckit.ts`，并把 `根因分析 (Root Cause)` 这条过期断言改为能匹配生成器实际标题（`### 根因分析 (Root Cause - 5-Whys)`）的锚定正则"
+      "text": "把 spec 闭环测试的 3 处 `scripts/spec-ops.ts` 改为 `scripts/speckit.ts`，并把过期的 `根因分析 (Root Cause)` 断言改为能匹配生成器实际标题（`### 根因分析 (Root Cause - 5-Whys)`）的锚定正则"
     },
     {
       "priority": "P0",
@@ -49,7 +49,7 @@
       "check": "`npx vitest run test/unit/spec-driven-agent-workflow.test.ts scripts/lib/__tests__/agent-profile.test.ts` exit=0（6 条由 Red 变绿）"
     },
     {
-      "check": "全量 `npx vitest run` 的 failed tests = **0**（此前恒为 6，且要求新增失败也为 0）"
+      "check": "全量 `npx vitest run` 的 failed tests = 0（此前恒为 6，且要求新增失败也为 0）"
     },
     {
       "check": "零残留：跑完两个测试文件后 `git status --porcelain` 与跑之前一致"
@@ -60,7 +60,7 @@
     "不重构 speckit 引擎或生成器模板",
     "不新增测试框架依赖或改变测试运行方式"
   ],
-  "architecture": "两条修补都在测试侧：\n① `test/unit/spec-driven-agent-workflow.test.ts`：三处 `execFileSync` 的目标由 `scripts/spec-ops.ts` 改为 `scripts/speckit.ts`（子命令与参数不变）；第 2 条用例里 `expect(reqContent).toContain(\"根因分析 (Root Cause)\")` 改为锚定标题的正则 `/^### 根因分析 \\(Root Cause/m`，以容忍生成器标题后缀 `- 5-Whys` 且仍要求它是标题行。\n② `scripts/lib/__tests__/agent-profile.test.ts`：L0/L4 的 `toEqual([...])` 改为 `expect.arrayContaining([...])`（保住\"核心技能必须在\"），并新增一条不变量断言 —— 遍历 `profile.npc.layers` 全部分层，每个声明技能都必须能找到 `.agents/skills/<name>/SKILL.md`，否则报出缺失项。这把\"引用必须可落地\"从靠人记变成可执行检查，也顺带覆盖了本次同类失效（退役入口无人校验）。",
+  "architecture": "两条修补都在测试侧：① `test/unit/spec-driven-agent-workflow.test.ts`：三处 `execFileSync` 的目标由 `scripts/spec-ops.ts` 改为 `scripts/speckit.ts`（子命令与参数不变）；第 2 条用例里对 `根因分析 (Root Cause)` 的 toContain 断言改为锚定标题的正则 /^### 根因分析 \\(Root Cause/m，以容忍生成器标题后缀 - 5-Whys 且仍要求它是标题行。② `scripts/lib/__tests__/agent-profile.test.ts`：L0/L4 的 toEqual 改为 expect.arrayContaining（保住核心技能必须在），并新增一条不变量断言 —— 遍历 `profile.npc.layers` 全部分层，每个声明技能都必须能找到 `.agents/skills/<name>/SKILL.md`，否则报出缺失项。这把引用必须可落地从靠人记变成可执行检查，也顺带覆盖了本次同类失效（退役入口无人校验）。",
   "entities": [
     {
       "table": "-",
@@ -74,23 +74,23 @@
     },
     {
       "name": "测试零残留",
-      "how": "beforeAll/afterAll 清理活跃区与归档区；用\"跑前跑后 git status 一致\"作为客观判据"
+      "how": "beforeAll/afterAll 清理活跃区与归档区；用跑前跑后 git status 一致作为客观判据"
     }
   ],
   "ui": [
     "不涉及 UI 调整"
   ],
   "ops": [
-    "无新增门禁；本次是让既有 `npx vitest run` 恢复为\"红了就是真有问题\"的可信信号"
+    "无新增门禁；本次是让既有 `npx vitest run` 恢复为红了就是真有问题的可信信号"
   ],
   "risks": [
     {
       "risk": "把精确全等改成 arrayContaining 后，列表里出现拼错/已删除的技能也不再被发现",
-      "mitigation": "新增\"声明的技能必须真实存在\"断言 —— 它恰好能抓到拼错与悬空引用，比原来的精确全等更强"
+      "mitigation": "新增「声明的技能必须真实存在」断言 —— 它恰好能抓到拼错与悬空引用，比原来的精确全等更强"
     },
     {
       "risk": "speckit 与 spec-ops 的输出结构若有差异，改完仍红",
-      "mitigation": "已实测：改脚本名后 5 条里 4 条立即转绿，仅剩 1 条标题断言；该断言已按生成器实际输出核对（`### 根因分析 (Root Cause - 5-Whys)`）后再修"
+      "mitigation": "已实测：改脚本名后 5 条里 4 条立即转绿，仅剩 1 条标题断言；该断言已按生成器实际输出核对后再修"
     }
   ],
   "screens": [
@@ -119,7 +119,7 @@
       "name": "把 spec-ops.ts 作为兼容别名加回来",
       "type": "自研",
       "license": "MIT",
-      "risk": "中：等于维持一个已退役入口，与\"退役即移除\"的既定做法相悖，且会长期误导读者"
+      "risk": "中：等于维持一个已退役入口，与退役即移除的既定做法相悖"
     }
   ],
   "benchmarks": [
@@ -129,7 +129,7 @@
     "本次实测：改脚本名后 5 条里 4 条立即转绿，仅剩 requirements.md 的标题断言",
     "本次实测：生成器实际输出 `### 根因分析 (Root Cause - 5-Whys)`，测试断言的旧串不是它的子串",
     "本次实测：agent-profile 声明 35 个技能，磁盘上 0 缺失 —— 新不变量今日成立",
-    "本次实测：`scripts/spec-ops.ts` 已不存在；`docs/07_release/RELEASE_NOTES_v1.4.0-brand-shorthand.md` 早前已把该 5 条记为 pre-existing 遗留"
+    "本次实测：`scripts/spec-ops.ts` 已不存在；release notes 早前已把该 5 条记为 pre-existing 遗留"
   ],
   "licenseConclusion": "零新增依赖，无合规风险",
   "tasks": [
