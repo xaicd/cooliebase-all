@@ -104,7 +104,8 @@
       "skills:check",
       "compat:check",
       "standards:check",
-      "deps:audit"
+      "deps:audit",
+      "clients:build:check"
     ]
   },
   "compatibility": {

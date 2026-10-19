@@ -58,6 +58,7 @@ function buildTrace(status = "pass") {
       "compat:check",
       "standards:check",
       "deps:audit",
+      "clients:build:check",
     ],
     sprintProd: latestSprintLog(),
     seamGraph: "packages/shared/contract/seam-graph.json",
