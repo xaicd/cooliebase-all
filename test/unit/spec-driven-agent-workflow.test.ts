@@ -42,7 +42,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
       "npx",
       [
         "tsx",
-        "scripts/spec-ops.ts",
+        "scripts/speckit.ts",
         "new",
         "--name",
         SPEC_NAME,
@@ -77,7 +77,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
   })
 
   it("2. Agent 声明式展开: 由 brief 自动展开全套文档，无任何遗漏且具备缺陷特化章节", () => {
-    execFileSync("npx", ["tsx", "scripts/spec-ops.ts", "build", "--name", SPEC_NAME], {
+    execFileSync("npx", ["tsx", "scripts/speckit.ts", "build", "--name", SPEC_NAME], {
       cwd: ROOT,
       stdio: "ignore",
     })
@@ -87,7 +87,10 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
 
     const reqContent = fs.readFileSync(path.join(specDir, "requirements.md"), "utf8")
     expect(reqContent).toContain("缺陷现象 (Symptom)")
-    expect(reqContent).toContain("根因分析 (Root Cause)")
+    // 生成器实际标题是 `### 根因分析 (Root Cause - 5-Whys)`。
+    // 用「锚定标题」的正则而不是旧的精确片段：既容忍标题后缀随模板演进，
+    // 又仍然强制它必须是一个**标题行**（比裸 toContain 更强）。
+    expect(reqContent).toMatch(/^### 根因分析 \(Root Cause/m)
     expect(reqContent).toContain("类型：`bugfix`")
 
     expect(fs.existsSync(path.join(specDir, "design.md"))).toBe(true)
@@ -117,7 +120,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
   })
 
   it("5. 施工完毕后归档: spec:archive 将完成的规格移入按季度隔离的归档区，且仍支持全生命周期追溯", () => {
-    execFileSync("npx", ["tsx", "scripts/spec-ops.ts", "archive", "--name", SPEC_NAME], {
+    execFileSync("npx", ["tsx", "scripts/speckit.ts", "archive", "--name", SPEC_NAME], {
       cwd: ROOT,
       stdio: "ignore",
     })
