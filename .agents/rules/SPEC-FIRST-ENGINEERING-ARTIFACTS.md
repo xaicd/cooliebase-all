@@ -64,7 +64,7 @@
   * **反假 Mock 铁律**：严禁无业务断言的空壳单测，必须真实断言数据库入库数据与状态机真值。
 * **全生命周期冒烟与安全拦截报告**：
   * 跑通平台级登录冒烟（`npm run smoke:login`）；
-  * 跑通 12 项安全穿透检查（`npm run security:scan`，含越权反证与未授权拦截）。
+  * 跑通 20 项安全穿透检查（`npm run security:scan`，含越权反证与未授权拦截）。
 
 ### 5. G5 交付与投产基线 (Release & Handover)
 * **《生产环境部署与秒级回滚预案 (Deployment & Rollback SOP)》**：

@@ -39,6 +39,10 @@ docker compose -f deploy/docker-compose.local.yml up --build
 
 ### Dev（PostgreSQL）
 
+> **交付链脚本（`smoke:login` / `security:scan` / `load:test` / `verify:real-db`）已**不再需要**这一步**：
+> 它们会自起**嵌入式 Postgres**（`scripts/lib/ephemeral-pg.cjs`），本机零容器即可跑；
+> 只有在你想用 compose 里的库做联调、或已有真实库时，才需要 `db:up` 并设 `DATABASE_URL`。
+
 ```bash
 # 仅启动默认 PostgreSQL：
 npm run db:up

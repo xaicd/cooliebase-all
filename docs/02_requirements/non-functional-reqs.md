@@ -49,7 +49,7 @@
 | 物料清单 | SBOM 必须与锁文件一致 | `npm run sbom:check` |
 | 许可证 | LGPL/MPL 等弱著佐权须知情；分发时随附许可证文本 | `docs/04_implementation/software-bill-of-materials.md` §0 |
 | 敏感数据 | 密码哈希存储；手机/身份证展示脱敏；日志禁止输出密钥与完整隐私数据 | 人工审查项（见代码审查清单） |
-| 渗透 | 未认证 / 伪造 token / 伪造 tenant / 插件挂载 / 不泄露栈 / 安全响应头 / 错误口令 | `npm run security:scan`（12 项，含两个**阴性对照**） |
+| 渗透 | 未认证 / 伪造 token / 伪造 tenant / 插件挂载 / 不泄露栈 / 安全响应头 / 错误口令 | `npm run security:scan`（20 项，含两个**阴性对照**） |
 
 ## 5. 可维护性与治理
 
@@ -71,6 +71,6 @@
 - **不承诺"无限扩展"**：容量目标须由 SLO、压测与资源预算确定，本仓不给出无边界的扩展声明。
 - **不承诺"全部四层金字塔都有独立入口"**：L3 契约层有测试但**无独立 npm 入口**
   （见 `docs/01_management/project-plan.md` 的 E1）。
-- **不承诺"压测已通过"**：本机 Docker 端口未转发，`load:test` 只能在 CI 上验。
+- **不承诺"压测已通过"**：`load:test` 现已可本机零容器运行（嵌入式 Postgres），但本机 rps **受机器负载影响**（实测 1.8k–2.8k vs 基线 26.9k），容量结论仍以生产真实流量为准。
 - **不承诺第三方依赖无漏洞**：既有 9 条 advisory 已被**基线冻结**（"冻结"≠"无漏洞"），
   台账见 `docs/architecture/cooliebase-all-dependency-policy.md`。

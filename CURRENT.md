@@ -63,5 +63,5 @@
 | 客户端构建 | `npm run clients:build:check` |
 | 全量测试 | `env -u DATABASE_URL -u DB_DRIVER npx vitest run` |
 | 生产构建 | `npm run build` |
-| 登录冒烟 / 安全扫描 / 压测 | `smoke:login` / `security:scan` / `load:test` |
+| 登录冒烟 / 安全扫描 / 压测 | `smoke:login` / `security:scan` / `load:test`（**本机零容器可跑**：自起嵌入式 Postgres；压测 rps 受机器负载影响，不代表容量） |
 | 环境指纹 | `npm run fingerprint` → `fingerprint:verify` |

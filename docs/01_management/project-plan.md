@@ -155,7 +155,7 @@
 |---|---|---|---|---|
 | GATE-1 | 生产构建 | `next build` 通过 | ✅ | `npm run build` |
 | GATE-2 | 登录冒烟 | 自管理环境跑到登录 200 | ✅ | `npm run smoke:login`（CI） |
-| GATE-3 | 安全扫描 | 12 项 + 阴性对照 | ✅ | `npm run security:scan`（CI） |
+| GATE-3 | 安全扫描 | 20 项 + 阴性对照 | ✅ | `npm run security:scan`（**本机零容器** 20/20 + CI） |
 | GATE-4 | 压测护栏 | 生产产物打压测并对阈值 | ✅ | `npm run load:test`（CI） |
 | GATE-5 | 环境指纹 | 盖章→核对→篡改必失败 | ✅ | `npm run fingerprint` / `fingerprint:verify` |
 | GATE-6 | 容器化部署 | 一体镜像 + 域镜像 + compose | ✅ | `deploy/` |

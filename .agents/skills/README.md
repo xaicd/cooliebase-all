@@ -133,5 +133,5 @@ H5 / uni-app / Flutter / desktop-pc 走同一管道。渠道契约：`packages/s
 ## 7. 压测与渗透
 
 执行层的现状与技能联动:
-* **渗透扫描** —— `npm run security:scan`（12 项自动化基础安全基线扫描，接进 CI + G5），高阶自主红队渗透演练遵循 `strix-penetration-testing/SKILL.md`（60k★ usestrix/strix 多智能体验证 PoC 确证与自动修补）。
+* **渗透扫描** —— `npm run security:scan`（20 项自动化基础安全基线扫描，接进 CI + G5；本机零容器可跑），高阶自主红队渗透演练遵循 `strix-penetration-testing/SKILL.md`（60k★ usestrix/strix 多智能体验证 PoC 确证与自动修补）。
 * **压测护栏** —— `npm run load:test` 容量回归护栏，与 `sre-slo-manager/SKILL.md` 联动对齐。

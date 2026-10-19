@@ -7,7 +7,7 @@
 ## 1. 为什么需要这份文档
 
 本仓曾同时存在 4 critical / 31 high 的依赖漏洞，而**没有任何门禁看得见它们**：
-`scripts/security-scan.cjs` 的 12 项全是运行时检查（能不能被打），不含 CVE（带的组件有没有已知洞）。
+`scripts/security-scan.cjs` 的 20 项全是运行时检查（能不能被打），不含 CVE（带的组件有没有已知洞）。
 两者职责不同，都要有 —— 现在后者由 `npm run deps:audit` 承担。
 
 另一个教训：**以 GitHub Dependabot 的告警数为准会严重低估**。它当时报 4 条（2 high / 2 moderate），
@@ -165,7 +165,7 @@ SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安�
 
 | 门禁 | 测什么 | 依赖环境 |
 |---|---|---|
-| `npm run security:scan` | **能不能被打**（未认证、伪造 token/tenant、越权、栈泄露、安全响应头…12 项） | docker + DB + 起应用，故为独立 CI job |
+| `npm run security:scan` | **能不能被打**（未认证、伪造 token/tenant、越权、栈泄露、安全响应头…20 项） | 需起应用；**本机零容器可跑**（嵌入式 Postgres），CI 仍为独立 job |
 | `npm run deps:audit` | **带的组件有没有已知洞**（CVE 棘轮） | 只需联网查通告库，故放进 `check` 快链 |
 
 ## 6. 相关文件

@@ -52,7 +52,7 @@ npm run test:all      # test:matrix 串 playwright
    `npm i -D @playwright/test && npx playwright install`。
 3. **部分 L2 测试依赖外部数据库**：`infra-services` / `mp-services` / `oauth2.service` /
    `system-persistence-services` 是 PostgreSQL 集成测试，**未配置 `DATABASE_URL` 时会整体跳过**
-   （不是失败）。要真实执行：先 `npm run db:up`，再带上 `DATABASE_URL` 跑。
+   （不是失败）。要真实执行：直接跑 `npm run verify:real-db` —— 它会**自起嵌入式 Postgres**（零容器）、建独立验证库、迁移、种子，再跑全量测试；若已有真实库，设 `DATABASE_URL` 即可复用它。
 4. **测试类型检查有既有欠账**：主 `tsconfig.json` 排除了 `**/__tests__/**` 与 `*.test.ts`，
    测试代码长期不在类型检查范围内。`tsconfig.vitest.json` 把它们纳入检查，据此可复现
    **94 个既有类型错误**，多为 `new Kysely({...})` 未带类型参数导致构造器推导为 `never`

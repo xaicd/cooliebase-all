@@ -199,7 +199,7 @@ cooliebase-all/
               │   └─ 从 Git 提交历史反推任务完备度 (1 Task = 1 Commit & 白名单)
               ▼
    Step 6. 平台级真实穿透 (npm run smoke:login && npm run security:scan)
-              │   └─ 真实数据库登录 200 + 12 项安全穿透扫描
+              │   └─ 真实数据库登录 200 + 20 项安全穿透扫描
               ▼
    Step 7. 生产部署与实施 (npm run runbook -- --feature <名> --run)
                   └─ 自动化生产割接与失败秒级自动回滚
@@ -216,8 +216,8 @@ cooliebase-all/
 | **OpenWiki 同步** | `npm run openwiki:sync` | 自动从元数据与契约抽取生成 30 篇机器可读架构与业务维基 |
 | **全量门禁总检** | `npm run check` | 严格检验 20 道工程标准（包含跨域隔离、路由规范、微服务边界） |
 | **真实数据库测试**| `npm run test:matrix` | 运行真实数据库驱动的所有单元与集成测试（零假 Mock、CAS 验证） |
-| **平台登录冒烟** | `npm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录 |
-| **安全渗透扫描** | `npm run security:scan` | 12 项安全漏洞测试（包含未认证、越权、伪造 Token/Tenant 等） |
+| **平台登录冒烟** | `npm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录。**本机零容器可跑**（嵌入式 Postgres） |
+| **安全渗透扫描** | `npm run security:scan` | 20 项安全漏洞测试（未认证、越权、伪造 Token/Tenant、不泄露栈…含两个阴性对照）。**本机零容器可跑** |
 | **容量压测护栏** | `npm run load:test` | 对 standalone 生产产物进行压力测试，防吞吐劣化（$\ge 5000\text{ RPS}$） |
 | **新业务域脚手架** | `npm run domain:new <domain>` | 一键新建符合第一方插件规范的业务域代码骨架 |
 | **发布制品打包** | `npm run release:package` | 自动构建发布资产包、契约清单与 SHA-256 完整性指纹 |
@@ -233,7 +233,7 @@ cooliebase-all/
 3. **源码提交资产**：符合白名单、无破坏性变更且 `pnpm build` 0 报错的代码 Commit（1 Task = 1 Commit）；
 4. **状态机单测报告**：覆盖正常流转、异常回滚与并发 CAS 竞争的真实数据库测试套件（变异得分 MSI $\ge 85\%$）；
 5. **实施与回滚 Runbook**：经过沙箱演练的自动化割接方案与失败秒级自动回滚脚本；
-6. **SRE 与安全基线报告**：通过全部 12 项安全穿透测试及容量压测回归护栏的扫描凭据；
+6. **SRE 与安全基线报告**：通过全部 20 项安全穿透测试及容量压测回归护栏的扫描凭据；
 7. **持续运营平账对账单**：符合复式记账法且账实相符的日终对账单据与调账凭证。
 
 ---
