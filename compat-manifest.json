@@ -105,7 +105,8 @@
       "compat:check",
       "standards:check",
       "deps:audit",
-      "clients:build:check"
+      "clients:build:check",
+      "version:check"
     ]
   },
   "compatibility": {

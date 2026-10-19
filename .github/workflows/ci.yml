@@ -21,7 +21,10 @@ jobs:
   gates:
     runs-on: ubuntu-latest
     steps:
+      # fetch-depth: 0 —— 版本一致性门禁要读最新 git tag；默认浅克隆没有 tag 会退化为"未校验"
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: pnpm/action-setup@v4
         with:
           version: 12

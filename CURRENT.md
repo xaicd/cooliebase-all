@@ -31,16 +31,22 @@
 
 ---
 
-## 3. ⚠️ 当前阻断项：版本源不一致
+## 3. 版本策略：两个解耦的概念（勿混为一谈）
 
-| 版本源 | 当前值 |
-|---|---|
-| 最新 git tag | `v1.4.0-brand-shorthand`（2026-10-18） |
-| `package.json.version` | `1.2.0` |
-| `compat-manifest.framework.templateVersion` | `1.2.0` |
+本仓**刻意区分**两个"版本"，这不是漂移：
 
-两者相差 52 个提交，且**当前没有版本一致性门禁**。
-→ **在补齐版本一致性检查并重新对齐之前，不得发布、不得对外声明版本。**
+| 概念 | 载体 | 含义 |
+|---|---|---|
+| **发布/渠道版本** | git tag（可带语义后缀，如 `v1.4.0-brand-shorthand`） | 一次对外发布或一次品牌里程碑的身份 |
+| **模板版本** | `package.json.version` 与 `compat.framework.templateVersion` | hatch 出的下游工程继承的模板基线；**两者必须同步** |
+
+**依据**：`docs/07_release/RELEASE_NOTES_v1.4.0-brand-shorthand.md` 的 R3 / R11 ——
+`v1.4.0-brand-shorthand` 是**显式命名的渠道 tag**；当时**刻意不 bump** `package.json.version`
+（保持 `1.2.0`），`templateVersion` 同理（它跟踪"模板"，而非"发布"）。
+
+**当前门禁缺口**：上述策略只写在发布说明里，**没有机检**。若
+`package.json.version` 与 `compat.templateVersion` 不同步，或打了一个没有发布说明的 tag，
+目前无人拦截。→ 已在 `risk-register.md` 登记为 RSK-006。
 
 ---
 

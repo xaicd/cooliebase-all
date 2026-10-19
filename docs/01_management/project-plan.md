@@ -1,6 +1,6 @@
 # 项目全周期计划：目标 · 路线图 · 阶段里程碑 · WBS
 
-- **版本**：与 `package.json` / `compat-manifest.json` 的 `1.2.0` 对齐（**不在此处另写版本号**，以契约为准）
+- **版本**：以 `package.json.version` 与 `compat-manifest.framework.templateVersion` 为准（**不在此处另写版本号**）
 - **更新日期**：2026-10-19
 - **归属规范**：CMMI 01_management (PLAN / MC / RSKM)
 - **状态真源分工**：
