@@ -112,7 +112,8 @@
       "docs:commands:check",
       "gen:paths:check",
       "agent:selectors:check",
-      "agent:routes:check"
+      "agent:routes:check",
+      "agent:coverage:check"
     ]
   },
   "compatibility": {

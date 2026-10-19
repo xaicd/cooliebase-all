@@ -186,6 +186,7 @@
 | 19. **生成物路径真实性** | `npm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
 | 20. **契约选择器一致性** | `npm run agent:selectors:check` | 每份 `*.agent.json` 声明的 `page.route` 与 `page.titleSelector`，在真实页面里必须成立（无头探针靠它定位）。路由经**页面注册表**解析，不做文件名猜测 |
 | 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
+| 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
 
 要点（都是实测踩出来的）:
 
