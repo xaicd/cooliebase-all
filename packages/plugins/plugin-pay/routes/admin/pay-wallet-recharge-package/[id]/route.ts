@@ -17,7 +17,7 @@ export const GET = withAdminRoute(async (_request, _auth, context: RouteContext)
 export const PUT = withAdminRoute(async (request, _auth, context: RouteContext) => {
   try {
     const { id } = await context.params
-    const data = await PayWalletRechargePackageService.update({ ...await request.json(), id })
+    const data = await PayWalletRechargePackageService.update(id, await request.json())
     return NextResponse.json({ success: true, data })
   } catch (error: any) { return NextResponse.json({ success: false, error: error?.message }, { status: 400 }) }
 }, { permission: PERMISSIONS.PAY_WALLET_RECHARGE_PACKAGE_UPDATE })

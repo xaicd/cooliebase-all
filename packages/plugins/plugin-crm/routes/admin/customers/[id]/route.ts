@@ -20,7 +20,7 @@ export const PUT = withAdminRoute(async (request, auth, context: RouteContext) =
     const { id } = await context.params
     const body = await request.json()
     const input = updateSchema.parse(body)
-    const data = await CrmCustomerService.update({ id, ...input })
+    const data = await CrmCustomerService.update(id, input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) { return NextResponse.json({ success: false, error: error?.message }, { status: 400 }) }
 }, { permission: PERMISSIONS.CRM_CUSTOMER_VIEW })

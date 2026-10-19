@@ -376,7 +376,7 @@ CI 前置检查：
 | `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `npm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
-当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `npm run standards:check --audit` 列出；下面这份是 2026-10-19 的**快照**（共 11 条）：
+当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `npm run standards:check --audit` 列出；下面这份是 2026-10-19 的**快照**（共 12 条）：
 
 | 规则 | 模式 | 约束 |
 |---|---|---|
@@ -389,6 +389,7 @@ CI 前置检查：
 | `table-definition-coverage` | enforce | §9.5 表定义覆盖（已知欠债在规则内显式列出） |
 | `base-native-domain-boundary` | enforce | §2/§17 基座原生域边界（已知越界在规则内显式列出） |
 | `no-vacuous-test-assertions` | enforce | 禁止字面恒真断言（如 `expect(true).toBe(true)`） |
+| `route-service-update-arity` | enforce | route 层 `Service.update` 的参数形态须与服务**真实签名**一致（先解析签名再判定，故不误报定制服务） |
 | `facade-method-dispatch-mapped` | ratchet | Facade 方法派发映射 |
 | `init-sql-seed-columns` | ratchet | 初始化 SQL 种子列 |
 

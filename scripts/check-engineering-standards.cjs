@@ -168,6 +168,68 @@ const RULES = [
     },
   },
   {
+    id: "route-service-update-arity",
+    section: "AGENTS.md §4.1 / §5.1",
+    mode: "enforce",
+    description:
+      "route 层调用 Service.update 必须与该服务**真实签名**一致：签名是 (id, data/…) 时传单对象会让 id 收到对象、data 收到 undefined",
+    run() {
+      // 实证过的系统性缺陷：339 个服务声明 `update(id, data, …)`，而 348 处 route 调用写成
+      // `Service.update({ ...body, id })` —— 实测会抛
+      // `Cannot read properties of undefined (reading 'name')`，即**更新接口全部失效**。
+      //
+      // 判定必须**先看服务真实签名**，否则会误报：`SystemDeptService.update(input: UpdateInput)`
+      // 是手写的定制服务、签名本就是单对象，那种调用是**对的**。
+      // 于是只在该服务声明的 update 首参为 `id`（或可变参数桩 `...args`）时才判违规。
+      const serviceSignatureByClass = (domainDir) => {
+        const map = new Map()
+        const servicesDir = path.join(domainDir, "backend", "services")
+        let entries = []
+        try {
+          entries = fs.readdirSync(servicesDir, { withFileTypes: true })
+        } catch {
+          return map
+        }
+        for (const entry of entries) {
+          if (!entry.isFile() || !entry.name.endsWith(".service.ts")) continue
+          const text = fs.readFileSync(path.join(servicesDir, entry.name), "utf8")
+          for (const match of text.matchAll(/class\s+(\w+Service)\b[\s\S]*?static\s+async\s+update\(([^)]*)\)/g)) {
+            map.set(match[1], match[2].trim())
+          }
+        }
+        return map
+      }
+
+      const cache = new Map()
+      const violations = []
+      for (const file of walkDomains((name) => name === "route.ts")) {
+        const rel = toRel(file)
+        if (!rel.includes("/routes/")) continue
+        const domainDir = file.slice(0, file.indexOf("/routes/"))
+        if (!cache.has(domainDir)) cache.set(domainDir, serviceSignatureByClass(domainDir))
+        const signatures = cache.get(domainDir)
+
+        const lines = fs.readFileSync(file, "utf8").split("\n")
+        lines.forEach((line, index) => {
+          const match = line.match(/(\w+Service)\.update\(\s*\{/)
+          if (!match) return
+          const signature = signatures.get(match[1])
+          // 看不懂签名一律不报（宁可漏，不可误报 —— 误报会逼出无意义豁免）
+          if (!signature) return
+          const firstParam = signature.split(",")[0].trim()
+          if (!/^(id\b|\.\.\.)/.test(firstParam)) return
+          violations.push({
+            file: rel,
+            detail:
+              `line ${index + 1}: ${match[1]}.update 的签名是 (${firstParam}, …)，`
+              + `但调用传了单对象首参 —— 应为 (id, data)：${line.trim().slice(0, 100)}`,
+          })
+        })
+      }
+      return violations
+    },
+  },
+  {
     id: "backend-no-console",
     section: "AGENTS.md §4.5",
     mode: "enforce",

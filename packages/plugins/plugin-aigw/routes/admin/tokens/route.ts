@@ -26,7 +26,7 @@ export const PUT = withAdminRoute(async (request) => {
   const id = searchParams.get("id")
   if (!id) throw new Error("缺少令牌 ID")
   const body = await request.json()
-  await AigwAccessTokenService.update({ ...body, id })
+  await AigwAccessTokenService.update(id, body)
   return NextResponse.json({ success: true })
 }, { permission: PERMISSIONS.AIGW_TOKEN_UPDATE })
 

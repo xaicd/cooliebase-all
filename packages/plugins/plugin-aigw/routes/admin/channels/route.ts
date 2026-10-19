@@ -23,7 +23,7 @@ export const PUT = withAdminRoute(async (request) => {
   const id = searchParams.get("id")
   if (!id) throw new Error("缺少渠道 ID")
   const body = await request.json()
-  await AigwChannelService.update({ ...body, id })
+  await AigwChannelService.update(id, body)
   return NextResponse.json({ success: true })
 }, { permission: PERMISSIONS.AIGW_CHANNEL_UPDATE })
 

@@ -20,7 +20,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await PayWalletService.update({ ...body, id })
+    const data = await PayWalletService.update(id, body)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

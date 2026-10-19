@@ -15,7 +15,7 @@ export const GET = withAdminRoute(async (_request, _auth, context: RouteContext)
 export const PUT = withAdminRoute(async (request, _auth, context: RouteContext) => {
   const { id } = await context.params
   const body = await request.json()
-  const data = await AiApiKeyService.update({ ...body, id })
+  const data = await AiApiKeyService.update(id, body)
   return NextResponse.json({ success: true, data })
 }, { permission: PERMISSIONS.AI_API_KEY_UPDATE })
 

@@ -26,7 +26,7 @@ export const PUT = withAdminRoute(async (request) => {
   const id = searchParams.get("id")
   if (!id) throw new Error("缺少模型 ID")
   const body = await request.json()
-  await AigwModelService.update({ ...body, id })
+  await AigwModelService.update(id, body)
   return NextResponse.json({ success: true })
 }, { permission: PERMISSIONS.AIGW_MODEL_UPDATE })
 
