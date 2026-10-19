@@ -135,7 +135,7 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| E1 | 测试金字塔 | L1–L4 各有入口 | 🟡 | L1 `test:unit` + 域内 `__tests__`、L2 `test:integration`、L4 `test:e2e`/`test:agent` 均有入口；**L3 契约测试存在但无独立入口**（`rpc-actions`/`messaging-protocol`/`grpc-fabric`/`codegen-engine.rpc`/`inventory-facade`，随全量 `vitest run` 跑） |
+| E1 | 测试金字塔 | L1–L4 各有入口 | ✅ | L1 `test:unit`(test/unit) · L2 `test:integration`(test/integration) · **L3 `test:contract`**(`packages/shared/contract/__tests__`，3 files/5 tests) · L4 `test:e2e`/`test:agent`；`test:matrix` 已补入契约层。口径为**目录即层次**（与既有约定一致）；协议**实现**测试（rpc-*/messaging/grpc/inventory-facade）归 L1/L2 而非 L3，边界已在 AGENTS §8.1 写明；另有 `contract-layer-entry.test.ts` 守卫入口空跑/漏选（含 2 条反向对照） |
 | E2 | 真实库验证 | 一键起库→迁移→种子→全量测试→清场 | ✅ | `npm run verify:real-db` |
 | E3 | 防假测试 | 关键断言须有**会失败**的反向对照 | ✅ | `no-vacuous-test-assertions`（enforce，字面恒真）+ 各门禁的反向对照测试。**结构性空转已实测排查**：850 个测试块中，零 `expect()` 块 1（助手断言，合法）、对字面量断言 0、全弱断言块 2（人工判读均合法：`not.toBeNull()` 正该用例所需、`toBeTruthy()` 在 12 键×4 语言循环里校验非空）。结论：**不存在结构性空转问题**；`npm run vacuity:audit` 为 report-only（三启发式均 100% 误报，设为门禁会逼出无意义豁免） |
 | E4 | 全量测试绿 | 0 failed | ✅ | 2026-10-19（816 passed） |

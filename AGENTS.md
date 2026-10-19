@@ -484,6 +484,21 @@ npm run check                 # 门禁产出证据 + 轨迹
 3. 涉及权限边界时必须有拒绝路径测试。
 4. 涉及事务时必须有失败回滚测试。
 
+### 8.1 四层金字塔的运行入口（**目录即层次**）
+
+| 层 | 入口 | 覆盖范围（目录锚定） |
+|---|---|---|
+| L1 单测 | `npm run test:unit` | `test/unit/` |
+| L2 集成 | `npm run test:integration` | `test/integration/` |
+| L3 契约 | `npm run test:contract` | `packages/shared/contract/__tests__/`（**契约产物**一致性） |
+| L4 E2E | `npm run test:e2e` / `test:agent` | `test/e2e/` / `test/agent/`（Playwright） |
+| 全量 | `npm run test` | 全部（含各域 `packages/**/__tests__/`） |
+
+**边界说明（避免误判覆盖范围）**：协议**实现**的测试（`rpc-protocol` / `messaging-protocol` /
+`grpc-fabric` / `rpc-actions` / `rpc-http` / `inventory-facade`）属 **L1/L2**，不是 L3 ——
+L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `packages/shared/contract/__tests__/`，
+否则不会进入 `test:contract`（这是**目录即层次**的约定，不是模糊的命名启发式）。
+
 建议命令：
 
 1. npm test -- --run packages/domains/infra/backend/services/__tests__/template-engine.service.test.ts

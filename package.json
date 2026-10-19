@@ -53,7 +53,7 @@
     "test": "vitest run",
     "test:unit": "vitest run test/unit",
     "test:integration": "vitest run test/integration",
-    "test:matrix": "vitest run test/unit test/integration",
+    "test:matrix": "vitest run test/unit test/integration packages/shared/contract",
     "test:e2e": "playwright test test/e2e",
     "test:agent": "playwright test test/agent",
     "test:all": "vitest run test/unit test/integration && playwright test",
@@ -177,7 +177,8 @@
     "sbom:generate": "node scripts/generate-sbom.cjs --write",
     "sbom:check": "node scripts/generate-sbom.cjs --check",
     "docs:commands:check": "node scripts/check-docs-commands.cjs",
-    "vacuity:audit": "node scripts/audit-test-vacuity.cjs"
+    "vacuity:audit": "node scripts/audit-test-vacuity.cjs",
+    "test:contract": "vitest run packages/shared/contract"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",
