@@ -120,7 +120,7 @@
 本工程严禁产生任何无法被 AI Agent 感知、调用、测试、运维的纯人工黑盒能力：
 1. **规格机器可读**：所有研发任务必须基于 Kiro SDD 规范与 `brief.json` 极简声明驱动，由 `scripts/speckit.ts` 展开并由 CI 双向校验；
 2. **接口契约全息**：所有业务接口必须收敛于 Agent 契约（份数以实际 `.agent.json` 文件为准）（`docs/agent/contracts.json`），必须支持 `npm run agent:ops` 无头体检与自动造数；
-3. **界面无头探针**：所有页面必须具备机器可读的 Page Schema（`agent-page-schemas.generated.json`），支持 `agent-device` 与 `agent-browser` (Playwright) 自动化驱动；
+3. **界面无头探针**：所有页面必须具备机器可读的 Page Schema（生成物 `packages/shared/contract/page-schemas.generated.ts`），支持 `agent-device` 与 `agent-browser` (Playwright) 自动化驱动；
 4. **测试与安全自主闭环**：变异测试杀灭假 Mock，红队安全演练采用 Strix 多智能体自主渗透，拒绝形式主义！
 
 

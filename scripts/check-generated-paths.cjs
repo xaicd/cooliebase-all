@@ -19,6 +19,7 @@
 
 const fs = require("fs")
 const path = require("path")
+const { spawnSync } = require("child_process")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
 const asJson = process.argv.includes("--json")
@@ -26,8 +27,20 @@ const asJson = process.argv.includes("--json")
 /** 生成物范围（目前只有 wiki；新增生成式 markdown 时在此登记）。 */
 const GENERATED_ROOTS = ["wiki"]
 
-/** 只检仓内路径（外部项目引用不在生成物里出现，若出现即为缺陷）。 */
+/**
+ * 只检仓内路径（外部项目引用不在生成物里出现，若出现即为缺陷）。
+ *
+ * **两道口径缺一不可** —— 第二道是被实际漏检逼出来的：
+ *  · 第一道：以目录开头的完整路径（`packages/...`）；
+ *  · 第二道：**裸文件名**（`xxx.generated.json` 这种）。
+ * 只做第一道时，`wiki/architecture/*.md` 里引用的 `agent-page-schemas.generated.json`
+ * **整整溜了过去** —— 因为它是裸文件名、没有前导目录。而该文件**根本不存在**
+ * （真值是 `packages/shared/contract/page-schemas.generated.ts`）。
+ * 实测第二道在本仓 wiki 上 **339 处引用、0 处误报**（唯二命中的就是那个真缺陷）。
+ */
 const PATH_PATTERN = "`((?:packages|docs|src|scripts|clients|test|prisma|sql|deploy)/[A-Za-z0-9_@./[\\]-]+)`"
+/** 裸文件名口径：带已知产物扩展名、且**不含斜杠**的反引号 token。 */
+const BARE_NAME_PATTERN = "`([A-Za-z0-9_@.-]+\\.(?:json|ts|tsx|md|cjs|mjs|sql|yaml|yml))`"
 
 function collectMarkdown(dir) {
   const out = []
@@ -58,7 +71,18 @@ if (files.length === 0) {
   process.exit(1)
 }
 
+// 仓内所有**被跟踪文件**的 basename —— 裸文件名口径的判定集合。
+const trackedBasenames = (() => {
+  const result = spawnSync("git", ["ls-files"], { cwd: ROOT, encoding: "utf8", maxBuffer: 16 * 1024 * 1024 })
+  if (result.status !== 0) {
+    console.error("[gen-paths] ✗ 无法列出 git 跟踪文件（拒绝在未知文件集上判定）")
+    process.exit(1)
+  }
+  return new Set((result.stdout || "").split("\n").filter(Boolean).map((p) => path.basename(p)))
+})()
+
 let checked = 0
+let checkedBare = 0
 let skipped = 0
 const problems = []
 
@@ -75,14 +99,24 @@ for (const full of files) {
       }
       checked += 1
       if (!fs.existsSync(path.join(ROOT, target))) {
-        problems.push({ file: rel, line: index + 1, target })
+        problems.push({ file: rel, line: index + 1, target, kind: "path" })
+      }
+    }
+    for (const match of line.matchAll(new RegExp(BARE_NAME_PATTERN, "g"))) {
+      const name = match[1]
+      checkedBare += 1
+      if (!trackedBasenames.has(name)) {
+        problems.push({ file: rel, line: index + 1, target: name, kind: "bare-name" })
       }
     }
   })
 }
 
-if (checked === 0) {
-  console.error("[gen-paths] ✗ 未检查到任何路径引用 —— 拒绝在零命中时判定通过（检查器可能已失效）")
+if (checked === 0 || checkedBare === 0) {
+  console.error(
+    `[gen-paths] ✗ 命中数异常（完整路径 ${checked} / 裸文件名 ${checkedBare}）`
+    + " —— 拒绝在零命中时判定通过（检查器可能已失效）",
+  )
   process.exit(1)
 }
 
@@ -90,15 +124,17 @@ if (asJson) {
   console.log(JSON.stringify({ ok: problems.length === 0, checked, skipped, problems }, null, 2))
 } else if (problems.length === 0) {
   console.log(
-    `[gen-paths] PASS: 生成物中的 ${checked} 处路径引用全部真实存在（跳过通配写法 ${skipped} 处）`,
+    `[gen-paths] PASS: 生成物中的 ${checked} 处路径与 ${checkedBare} 处文件名引用全部真实存在`
+    + `（跳过通配写法 ${skipped} 处）`,
   )
 } else {
   for (const problem of problems) {
-    console.error(`[gen-paths] ✗ ${problem.file}:${problem.line} — 引用了不存在的路径: ${problem.target}`)
+    const what = problem.kind === "bare-name" ? "引用了不存在的文件名" : "引用了不存在的路径"
+    console.error(`[gen-paths] ✗ ${problem.file}:${problem.line} — ${what}: ${problem.target}`)
   }
   console.error(
     `\n[gen-paths] FAIL: ${problems.length} 处生成物引用了不存在的路径`
-    + "\n  生成物只应引用真实存在的路径 —— 请修**生成器**（scripts/sync-openwiki.cjs），而不是改生成物"
+    + "\n  生成物只应引用真实存在的东西 —— 请修**生成器**（scripts/sync-openwiki.cjs），而不是改生成物"
     + "（生成物会在下次 npm run openwiki:sync 时被覆盖）。",
   )
 }

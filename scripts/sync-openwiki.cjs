@@ -442,7 +442,7 @@ await runUnitOfWork(async (uow) => {
 | **1. 规格立项层 (SDD)** | \`scripts/speckit.ts\`<br>\`brief.json\` | Agent 仅需 \`<500 Tokens\` 声明 \`brief.json\`，由引擎自动展开为 Kiro 规范规格包（需求、设计、波次任务图、Runbook）。 | 严禁人工手写千行重复文档，严禁无规格直接写代码。 |
 | **2. 代码实现层 (Coding)** | \`BaseMapper<T>\`<br>\`QueryWrapper<T>\`<br>\`BaseService<T>\` | Agent 以 DSL/Schema 驱动通用引擎自动展开，100% 继承多租户、逻辑删除与 8 大审计底座字段。 | 严禁大模型人肉生成几百行千篇一律的重复 CRUD。 |
 | **3. 契约通信层 (Contracts)** | \`docs/agent/contracts.json\`<br>\`seam-graph.json\`<br>\`rpc-actions.json\` | ${AGENT_CONTRACT_COUNT} 份全域契约、OpenAPI 3.1、自研 NATS 异步事件流与 Domain Facade，供 Agent 毫秒级定位调用。 | 严禁跨域私自 import Service，严禁无契约野路由。 |
-| **4. 前端交互层 (Agent-Native UI)** | \`agent-page-schemas.generated.json\`<br>主权网关与指挥大屏 | ${AGENT_CONTRACT_COUNT} 个实体的机器可读 Schema、主权网关与驾驶舱，支持 \`agent-device\` 与 \`agent-browser\` (Playwright) 无头探针自动化操作。 | 严禁仅能人类肉眼查看的死报表与死界面。 |
+| **4. 前端交互层 (Agent-Native UI)** | \`packages/shared/contract/page-schemas.generated.ts\`<br>主权网关与指挥大屏 | ${AGENT_CONTRACT_COUNT} 个实体的机器可读 Schema、主权网关与驾驶舱，支持 \`agent-device\` 与 \`agent-browser\` (Playwright) 无头探针自动化操作。 | 严禁仅能人类肉眼查看的死报表与死界面。 |
 | **5. 自动化测试层 (Testing)** | \`better-sqlite3\`<br>\`strix-penetration-testing\`<br>\`mutation-tester\` | 嵌入式 SQLite 真实 C 引擎并发测试、Strix 多智能体自主红队渗透验证真实 PoC、变异测试打假假 Mock。 | 严禁伪造前端 Mock 与空断言骗门禁。 |
 | **6. 运维割接层 (DevOps/SRE)** | \`runbook.json\`<br>\`scripts/agent/run-runbook.cjs\` | Agent 驱动实施预案执行（\`npm run runbook\`），原子割接并支持失败毫秒级自动回滚；SLO 错误预算自主熔断。 | 严禁手工改生产容器，严禁故障盲目甩锅。 |
 | **7. 持续运营层 (Operations)** | \`npm run agent:ops\`<br>\`financial-reconciliation-agent\` | Agent 直接通过真实 API 跑通健康体检、造数、清数与三方对账，无需人类开浏览器手工造数。 | 严禁手工登后台一个个填表单造数。 |
@@ -491,7 +491,7 @@ await runUnitOfWork(async (uow) => {
 在传统后台工程中，通常为数百个实体人工手写数百个千篇一律的薄壳页面文件，不仅消耗几十万 Token，而且当后端接口或表结构变动时，页面极易发生漂移与死字段。
 
 ## 二、 动态本体画布架构
-- **真源挂载**：直接消费 \`agent-page-schemas.generated.json\` 中的 ${AGENT_CONTRACT_COUNT} 份机器可读 Schema 契约；
+- **真源挂载**：直接消费 \`packages/shared/contract/page-schemas.generated.ts\` 中的 ${AGENT_CONTRACT_COUNT} 份机器可读 Schema 契约；
 - **自适应渲染**：由 \`UniversalSchemaCanvas\` 通用组件根据字段类型（string, number, boolean, date, enum）自适应渲染检索过滤区、动态数据表格、分页区与快捷交互抽屉；
 - **全息感知**：支持实体领域过滤（14 个域快速切换）、分类标签过滤、双向契约查看抽屉（API Mount、BFF Mount、权限码与字段元数据）；
 - **动态派发**：Admin 路由派发器 (\`src/app/(admin-pages)/admin/[...slug]/page.tsx\`) 统一调度，支持通过 \`?mode=canvas\` 或 \`/admin/canvas/[entity]\` 毫秒级打开任意实体的动态本体操作面板。

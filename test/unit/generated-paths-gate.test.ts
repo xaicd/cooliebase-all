@@ -44,7 +44,7 @@ describe("生成物路径真实性门禁", () => {
     const result = runGate()
     expect(result.status).toBe(0)
     expect(result.stdout).toMatch(/PASS/)
-    expect(result.stdout).toMatch(/路径引用全部真实存在/)
+    expect(result.stdout).toMatch(/路径与 \d+ 处文件名引用全部真实存在/)
   })
 
   it("★ 反向 1：生成物引用了不存在的路径 → 必须失败", () => {
@@ -56,6 +56,23 @@ describe("生成物路径真实性门禁", () => {
 
   it("★ 反向 2：通配写法不得被误判为具体路径（零误报的关键）", () => {
     withProbe("探针：`packages/plugins/plugin-*/contract/`", (result) => {
+      expect(result.status).toBe(0)
+    })
+  })
+
+  it("★ 反向 4：生成物引用了不存在的**裸文件名** → 必须失败", () => {
+    // 这条口径是被实际漏检逼出来的：只查"以目录开头的完整路径"时，
+    // `agent-page-schemas.generated.json`（真值是 packages/shared/contract/page-schemas.generated.ts）
+    // 整整溜了过去 —— 它没有前导目录。
+    withProbe("探针：`__definitely_missing__.generated.json`", (result) => {
+      expect(result.status).toBe(1)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/__definitely_missing__/)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/文件名/)
+    })
+  })
+
+  it("★ 反向 5：**存在**的裸文件名不得被误报（零误报的关键）", () => {
+    withProbe("探针：`package.json` 与 `tsconfig.json`", (result) => {
       expect(result.status).toBe(0)
     })
   })
