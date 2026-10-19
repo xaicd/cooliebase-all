@@ -21,7 +21,10 @@ describe("TradeOrderService - 交易订单4态状态机与幂等守卫", () => {
       const paidOrder = await TradeOrderService.notifyPaid(order.id, 88801, "alipay", "user-01")
       expect(paidOrder.status).toBe(TRADE_ORDER_STATUS.PAID)
       expect(paidOrder.pay_status).toBe(true)
-      expect(paidOrder.pay_order_id).toBe(88801)
+      // `pay_order_id` 在真实 schema 里是 **text 列**：PostgreSQL 会把它返回为字符串
+      // （`"88801"`），而内存回退会原样回显输入的 number。两者语义等价，
+      // 但直接 `toBe(88801)` 只在内存模式成立 —— 用 String 比较才对两种驱动都成立。
+      expect(String(paidOrder.pay_order_id)).toBe("88801")
       expect(paidOrder.pay_channel_code).toBe("alipay")
 
       // 3. 幂等性守卫：重复调用 notifyPaid 不报错且保持原状

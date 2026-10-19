@@ -15,6 +15,13 @@
  *   npm run verify:real-db -- --reuse # 复用已有验证库（不重建，更快但可能有残留数据）
  *
  * 注意: 验证库默认是独立的 `cooliebase_verify`，**不碰**开发库。
+ *
+ * **默认覆盖范围（重要）**：只跑 `test/unit` + `test/integration`。
+ * `packages` 下各域的 `__tests__`（域级 Service/Repository 测试）**不在默认范围**，但它们恰恰最依赖仓储。
+ * 实测（2026-10-19，`plugin-mall`）：域级测试在真实库下暴露过 1 处内存模式永远看不到的缺陷
+ * （text 列返回字符串 vs 内存回显 number）。要覆盖域级测试请显式传路径：
+ *   `npm run verify:real-db -- packages/plugins/plugin-mall`
+ * 全量跑会显著变慢，且可能一次暴露多处既有分歧 —— 建议按域逐步推进，而不是默认全开。
  */
 const { spawnSync } = require("node:child_process")
 const { randomBytes } = require("node:crypto")
