@@ -135,7 +135,7 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| E1 | 测试金字塔 | L1–L4 各有入口 | ❓ | 需核对 `test/` 分层与 scripts |
+| E1 | 测试金字塔 | L1–L4 各有入口 | 🟡 | L1 `test:unit` + 域内 `__tests__`、L2 `test:integration`、L4 `test:e2e`/`test:agent` 均有入口；**L3 契约测试存在但无独立入口**（`rpc-actions`/`messaging-protocol`/`grpc-fabric`/`codegen-engine.rpc`/`inventory-facade`，随全量 `vitest run` 跑） |
 | E2 | 真实库验证 | 一键起库→迁移→种子→全量测试→清场 | ✅ | `npm run verify:real-db` |
 | E3 | 防假测试 | 关键断言须有**会失败**的反向对照 | 🟡 | 已加 `no-vacuous-test-assertions`（enforce + 反向对照测试）；结构性空转仍需逐项对照 |
 | E4 | 全量测试绿 | 0 failed | ✅ | 2026-10-19（816 passed） |
