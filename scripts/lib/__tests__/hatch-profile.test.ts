@@ -64,6 +64,31 @@ describe("hatch-profile", () => {
     expect(shouldSkipRelPath("src/app/(admin-pages)/admin/mall/page.tsx", plan)).toBe(false)
   })
 
+  it("★ 裁剪不得裁掉门禁必需的已提交基线（目录前缀与文件名前缀语义不同）", () => {
+    const plan = resolveHatchPlan(catalog, { profile: "minimal" })
+
+    // 这三个是**门禁必需的已提交基线**，一旦被裁，新孵化工程的 `npm run check` 必红
+    //（实测：socratic:check 报缺少 socratic-inquiry-latest.json）。
+    for (const keep of [
+      "docs/architecture/artifacts/socratic-inquiry-latest.json",
+      "docs/architecture/artifacts/deps-audit-baseline.json",
+      "docs/architecture/artifacts/engineering-standards-baseline.json",
+    ]) {
+      expect(shouldSkipRelPath(keep, plan), `${keep} 不应被裁剪`).toBe(false)
+    }
+
+    // 历史扫描报告按**文件名前缀**裁剪。目录前缀语义是
+    // `rel === p || rel.startsWith(p + "/")`，对以 `-` 结尾的片段永远不会命中——
+    // 这正是本仓踩过的坑（写成目录前缀后 8 个历史报告一个都没被裁掉）。
+    expect(
+      shouldSkipRelPath("docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.json", plan),
+    ).toBe(true)
+    expect(shouldSkipRelPath("docs/architecture/artifacts/cooliebase-full-scan-2026-08-02.md", plan)).toBe(true)
+
+    // 归档目录按目录前缀裁剪
+    expect(shouldSkipRelPath("docs/architecture/archive/upstream-2026-Q3/README.md", plan)).toBe(true)
+  })
+
   it("prunes catalog and rpc-actions to the selected domains", () => {
     const plan = resolveHatchPlan(catalog, { profile: "minimal" })
     const nextCatalog = pruneCatalog(catalog, plan)

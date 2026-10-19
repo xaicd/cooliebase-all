@@ -198,21 +198,37 @@ function matchesDomainPrefix(rel, domain) {
   return false
 }
 
-const RETIRED_BENCHMARK_PREFIXES = Object.freeze([
+const RETIRED_DIR_PREFIXES = Object.freeze([
   "docs/architecture/archive",
   "docs/specs/archive",
-  "docs/architecture/artifacts",
+  // 注意：**不能整目录裁 `docs/architecture/artifacts`** —— 其中有 3 个门禁必需的已提交基线：
+  //   socratic-inquiry-latest.json（harness:check）、deps-audit-baseline.json（deps:audit）、
+  //   engineering-standards-baseline.json（standards:check）。
+  // 整目录裁掉会让新孵化工程的 `npm run check` 必红（实测：socratic:check 报缺文件）。
   "docs/architecture/OPEN-SOURCE-TRACKING-MANUAL.md",
   "docs/architecture/CURRENT-PROGRESS.md",
   ".claude",
   ".commandcode",
 ])
 
+/**
+ * **文件名前缀**裁剪（与目录前缀分开）：目录前缀按 `rel === p || rel.startsWith(p + "/")` 匹配，
+ * 而这里的前缀是文件名片段（如 `...coverage-`），必须按 `rel.startsWith(p)` 匹配，
+ * 否则永远不会命中（实测：写成目录前缀后 8 个历史报告一个都没被裁掉）。
+ */
+const RETIRED_FILE_PREFIXES = Object.freeze([
+  "docs/architecture/artifacts/all-next-starter-coverage-",
+  "docs/architecture/artifacts/cooliebase-full-scan-",
+])
+
 function shouldSkipRelPath(relPath, plan) {
   const rel = String(relPath || "").replace(/\\/g, "/")
   if (!rel) return false
-  for (const prefix of RETIRED_BENCHMARK_PREFIXES) {
+  for (const prefix of RETIRED_DIR_PREFIXES) {
     if (rel === prefix || rel.startsWith(`${prefix}/`)) return true
+  }
+  for (const prefix of RETIRED_FILE_PREFIXES) {
+    if (rel.startsWith(prefix)) return true
   }
   if (!plan.includeClients && (rel === "clients" || rel.startsWith("clients/"))) return true
   for (const domain of plan.excludedDomains || []) {

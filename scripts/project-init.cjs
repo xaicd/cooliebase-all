@@ -244,7 +244,13 @@ function refreshArtifacts(targetDir, opts) {
   }
 
   try {
-    if (fs.existsSync(path.join(targetDir, "scripts", "bootstrap-sqlite.ts"))) {
+    if (!fs.existsSync(path.join(targetDir, "node_modules"))) {
+      // 目标工程尚未安装依赖时，`npx tsx` 解析不到依赖，bootstrap 必然失败。
+      // 之前会打印一大段 Node 栈、随后仍然宣布 SUCCESS —— 属于"把失败报成成功"。
+      console.log("[project-init] 跳过 SQLite 本地库：目标工程尚未安装依赖。")
+      console.log("  安装后如需零配置 SQLite 库：pnpm install 后重跑本命令，或直接")
+      console.log("  SQLITE_DB_PATH=data/<工程名>.db npx tsx scripts/bootstrap-sqlite.ts")
+    } else if (fs.existsSync(path.join(targetDir, "scripts", "bootstrap-sqlite.ts"))) {
       const sqliteDbPath = resolveSqliteDbPath(opts)
       console.log(`[project-init] 正在自动初始化零配置 SQLite 本地库 (${sqliteDbPath})...`)
       // 必须显式传路径：bootstrap 默认 data/cooliebase.db，与 .env.local 的派生路径不一致时，
