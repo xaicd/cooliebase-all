@@ -85,14 +85,22 @@ cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "我的新业务系统"
 npm run dev
 ```
+> **已实测验证（2026-10-19）**：上述 degit 流程逐项通过 —— `pnpm install` → `project:init` → `npm run check`（exit 0）
+> → `npm run build` → `pnpm dev`；`/healthz` 200、`/readyz` 200、管理员登录 200（拿到 token）、
+> 受保护接口带 token 200 / 不带 token 401。
+>
+> ⚠️ **环境变量优先级**：`process.env` > `.env.local` > `.env`。若你的 shell 里已经导出过
+> `DB_DRIVER` / `DATABASE_URL` / `TENANT_PLATFORM_USERNAMES` / `NODE_ENV`，它们会**覆盖**工程内的配置，
+> 典型现象是「工程起得来、`/readyz` 200，但登录永远 401」。排查时先 `env | grep -E 'DB_DRIVER|TENANT_|NODE_ENV'`。
+> `npm run start`（standalone）**不读取** `.env.local`，生产部署请由容器/编排注入环境变量。
 
 > **自动化完成的核心事项**：
 > - ⚡ **秒级骨架派生**：彻底规避几百兆历史提交与 packfile 下载；
 > - 🏷️ **业务身份重构**：`project:init` 自动重构包名、中文标题、版权声明与运行时配置；
-> - 🗄️ **真实本地数据库自动就绪**：基于真实本地 SQLite 驱动（`data/cooliebase.db`），零外部重型依赖即可立即运行全部业务；
+> - 🗄️ **真实本地数据库自动就绪**：基于真实本地 SQLite 驱动，库文件按工程名派生（`data/<工程名>.db`）；`project:init` 会把 `DB_DRIVER` / `DATABASE_URL` / `SQLITE_DB_PATH` **三者写成同一路径**，零外部重型依赖即可立即运行全部业务；
 > - 🌐 **原生四国语言 (i18n)**：开箱即用支持 🇨🇳 中文 (`zh-CN`)、🇺🇸 英文 (`en-US`)、🇯🇵 日文 (`ja-JP`)、🇰🇷 韩文 (`ko-KR`)；
 > - 🔐 **零默认凭据体系 (Zero Default Credentials)**：严禁使用任何静态默认凭证；系统初始化时通过密码学安全伪随机发生器（CSPRNG）在隔离环境动态生成高熵引导凭证并持久化注入本地环境变量，天然免疫凭证撞库；
-> - 🛡️ **SpaceX 级全链路门禁**：执行 `npm run check` 自动核验 20 道工程质量门禁，立享 100% 绿灯护栏。
+> - 🛡️ **全链路门禁**：执行 `npm run check` 核验全部工程质量门禁（**清单与数量以 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates` 为准**，不在文档里写死数字）。
 
 ### 🔌 一键接入主流 AI Coding Agent (MCP Server)
 

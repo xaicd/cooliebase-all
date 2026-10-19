@@ -145,9 +145,14 @@ function updatePackageJson(targetDir, opts) {
   console.log(`[project-init] ✓ 已重构工程坐标: package.json (name: ${opts.name}, dev port: ${opts.port})`)
 }
 
+/** SQLite 库路径的**唯一解析处** —— .env 写入与实际 bootstrap 必须用同一个，否则应用会连到不存在的库。 */
+function resolveSqliteDbPath(opts) {
+  return `data/${opts.name}.db`
+}
+
 function updateEnvFiles(targetDir, opts) {
   const dbName = opts.dbName || opts.name.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()
-  const sqliteDbPath = `data/${opts.name}.db`
+  const sqliteDbPath = resolveSqliteDbPath(opts)
 
   const envUpdates = {
     NEXT_PUBLIC_APP_TITLE: opts.title,
@@ -155,6 +160,27 @@ function updateEnvFiles(targetDir, opts) {
     PORT: String(opts.port),
     DB_NAME: dbName,
     SQLITE_DB_PATH: sqliteDbPath,
+  }
+
+  // 零配置 SQLite 路径必须把**运行时真正读取的变量**一起写全，否则会出现
+  // "工程起得来、/readyz 200、登录永远 401"（实测三连）：
+  //   1. `DB_DRIVER` 缺省 → 驱动默认 `memory`（datasource-manager），跑在进程内存里；
+  //   2. 运行时用 **`DATABASE_URL`** 作为 SQLite 文件名（kysely-client.createSqliteDialect(url)），
+  //      而 `SQLITE_DB_PATH` **只有 bootstrap 脚本读** —— 只写它等于没写；
+  //   3. `DATABASE_URL` 为空时 url 会退化成 `memory://cooliebase-all` 这个占位符。
+  // 已有 `DATABASE_URL`（如克隆到 PostgreSQL 的路径）时一律不动，避免把 postgres 覆盖成 sqlite。
+  const existingEnvs = [".env", ".env.local"]
+    .map((name) => (fs.existsSync(path.join(targetDir, name)) ? fs.readFileSync(path.join(targetDir, name), "utf8") : ""))
+    .join("\n")
+  const hasDatabaseUrl = /^DATABASE_URL=/m.test(existingEnvs)
+  if (!hasDatabaseUrl) {
+    envUpdates.DB_DRIVER = "sqlite"
+    // file: 前缀让 detectDriverFromUrl 也能识别为 sqlite；相对路径以工程根为基准。
+    envUpdates.DATABASE_URL = `file:./${sqliteDbPath}`
+  }
+  // 生产启动要求 JWT_SECRET ≥32 字节且非默认值。孵化时就生成，避免 `npm start` 起不来。
+  if (!/^JWT_SECRET=/m.test(existingEnvs)) {
+    envUpdates.JWT_SECRET = require("node:crypto").randomBytes(32).toString("hex")
   }
 
   for (const envFileName of [".env", ".env.local"]) {
@@ -204,7 +230,7 @@ function updateGitRemote(targetDir, gitUrl) {
   }
 }
 
-function refreshArtifacts(targetDir) {
+function refreshArtifacts(targetDir, opts) {
   try {
     console.log("[project-init] 正在同步契约与 Seam 图谱...")
     execSync("node scripts/write-seam-graph.cjs", { cwd: targetDir, stdio: "pipe" })
@@ -219,8 +245,15 @@ function refreshArtifacts(targetDir) {
 
   try {
     if (fs.existsSync(path.join(targetDir, "scripts", "bootstrap-sqlite.ts"))) {
-      console.log("[project-init] 正在自动初始化零配置 SQLite 本地库 (data/cooliebase.db)...")
-      execSync("npx tsx scripts/bootstrap-sqlite.ts", { cwd: targetDir, stdio: "inherit" })
+      const sqliteDbPath = resolveSqliteDbPath(opts)
+      console.log(`[project-init] 正在自动初始化零配置 SQLite 本地库 (${sqliteDbPath})...`)
+      // 必须显式传路径：bootstrap 默认 data/cooliebase.db，与 .env.local 的派生路径不一致时，
+      // 应用会连到从未被种子的空库 —— 表现为"工程起得来、但登录永远 401"（实测）。
+      execSync("npx tsx scripts/bootstrap-sqlite.ts", {
+        cwd: targetDir,
+        stdio: "inherit",
+        env: { ...process.env, SQLITE_DB_PATH: sqliteDbPath },
+      })
       console.log("[project-init] ✓ 本地 SQLite 数据库已就绪 (预置平台超级管理员账号: supervip，随机安全密码已写入 .env.local)")
     }
   } catch (err) {
@@ -268,7 +301,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
-    refreshArtifacts(targetDir)
+    refreshArtifacts(targetDir, opts)
     console.log(`\n🎉 [SUCCESS] 业务项目已成功初始化在: ${targetDir}`)
   } else {
     console.log(`\n[project-init] 正在对当前底座进行【原地业务重构】...`)
@@ -277,7 +310,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
-    refreshArtifacts(targetDir)
+    refreshArtifacts(targetDir, opts)
     console.log(`\n🎉 [SUCCESS] 当前底座已成功重构为专属业务工程: [${opts.title} (${opts.name})]`)
   }
 
