@@ -23,11 +23,11 @@ export const AiKnowledgeApi = {
   },
 
   async update(data: AiKnowledgeUpdateDTO) {
-    return request.put<AiKnowledgeVO>(BASE_URL, data)
+    return request.put<AiKnowledgeVO>(`${BASE_URL}/${data.id}`, data)
   },
 
   async delete(id: string) {
-    return request.delete<void>(`${BASE_URL}?id=${id}`)
+    return request.delete<void>(`${BASE_URL}/${id}`)
   },
 
   async export(params?: AiKnowledgePageQuery) {

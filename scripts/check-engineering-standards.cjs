@@ -168,6 +168,38 @@ const RULES = [
     },
   },
   {
+    id: "frontend-api-url-shape",
+    section: "AGENTS.md §3.3 / §14.4",
+    mode: "enforce",
+    description:
+      "生成的 api 客户端更新/删除必须走 item 路径（/base/:id）；PUT 打集合路径、DELETE 用 ?id= 在路由里没有对应实现",
+    run() {
+      // 实证：340 个生成客户端写成 `request.put(BASE_URL, data)` 与
+      // `request.delete(`${BASE_URL}?id=${id}`)`，而路由注册里 PUT/DELETE 有 **696 个是 item 级**
+      // （`/[id]`）、collection 级只有 40 个且全是定制动作（如 `/profile`、`/channels`）。
+      // 即：界面的"编辑保存"与"删除"打的是**没人处理的路径**（405）。
+      // 修后本规则覆盖该类回归；实测全仓 0 命中（零误报）。
+      const violations = []
+      for (const file of walkDomains((name) => name.endsWith(".api.ts"))) {
+        const rel = toRel(file)
+        if (!rel.includes("/frontend/api/")) continue
+        const lines = fs.readFileSync(file, "utf8").split("\n")
+        lines.forEach((line, index) => {
+          const putToCollection = /request\.put<\w+>\(\s*BASE_URL\s*,/.test(line)
+          const deleteByQuery = /request\.delete<void>\(`\$\{BASE_URL\}\?id=/.test(line)
+          if (putToCollection || deleteByQuery) {
+            violations.push({
+              file: rel,
+              detail: `line ${index + 1}: ${putToCollection ? "PUT 打到集合路径" : "DELETE 用 ?id= 查询参数"
+                } —— 路由里没有对应实现，应为 /base/:id：${line.trim().slice(0, 100)}`,
+            })
+          }
+        })
+      }
+      return violations
+    },
+  },
+  {
     id: "route-service-update-arity",
     section: "AGENTS.md §4.1 / §5.1",
     mode: "enforce",

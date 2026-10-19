@@ -23,11 +23,11 @@ export const ProductFavoriteApi = {
   },
 
   async update(data: ProductFavoriteUpdateDTO) {
-    return request.put<ProductFavoriteVO>(BASE_URL, data)
+    return request.put<ProductFavoriteVO>(`${BASE_URL}/${data.id}`, data)
   },
 
   async delete(id: string) {
-    return request.delete<void>(`${BASE_URL}?id=${id}`)
+    return request.delete<void>(`${BASE_URL}/${id}`)
   },
 
   async export(params?: ProductFavoritePageQuery) {
