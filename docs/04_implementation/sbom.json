@@ -5,8 +5,8 @@
   "lockfile": "pnpm-lock.yaml",
   "generatedBy": "scripts/generate-sbom.cjs --write",
   "componentCount": {
-    "total": 607,
-    "host": 391,
+    "total": 616,
+    "host": 400,
     "client": 216
   },
   "licenses": {
@@ -17,10 +17,10 @@
     "BSD-3-Clause": 1,
     "ISC": 23,
     "LGPL-3.0-or-later": 1,
-    "MIT": 413,
+    "MIT": 415,
     "MIT and ISC": 1,
     "MPL-2.0": 4,
-    "UNKNOWN": 110
+    "UNKNOWN": 117
   },
   "components": [
     {
@@ -538,6 +538,54 @@
       "version": "0.3.3",
       "reach": "host",
       "license": "Apache-2.0"
+    },
+    {
+      "name": "@embedded-postgres/darwin-arm64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "@embedded-postgres/darwin-x64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/linux-arm",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/linux-arm64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/linux-ia32",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/linux-ppc64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/linux-x64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
+    },
+    {
+      "name": "@embedded-postgres/windows-x64",
+      "version": "18.4.0-beta.17",
+      "reach": "host",
+      "license": "UNKNOWN"
     },
     {
       "name": "@emnapi/runtime",
@@ -2318,6 +2366,12 @@
     {
       "name": "effect",
       "version": "3.20.0",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "embedded-postgres",
+      "version": "18.4.0-beta.17",
       "reach": "host",
       "license": "MIT"
     },

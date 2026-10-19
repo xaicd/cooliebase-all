@@ -18,3 +18,7 @@ allowBuilds:
   better-sqlite3: true
   esbuild: true
   prisma: true
+  # embedded-postgres 的 post-install 会生成 Postgres 需要的符号链接；不批准则二进制不可用
+  embedded-postgres: true
+  '@embedded-postgres/darwin-arm64': true
+  '@embedded-postgres/linux-x64': true

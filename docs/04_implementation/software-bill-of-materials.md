@@ -3,7 +3,7 @@
 - **生成方式**: `npm run sbom:generate`（**禁止手写**，本文件由脚本覆盖）
 - **锁文件真源**: `pnpm-lock.yaml`
 - **模板版本**: 1.2.0
-- **包总数**: 607（host 391 / client 216）
+- **包总数**: 616（host 400 / client 216）
 - **归属规范**: CMMI 04_implementation (TS / CM)
 
 > 机器可读版本：[`sbom.json`](./sbom.json)。漂移由 `npm run sbom:check` 判定。
@@ -17,7 +17,7 @@
 
 ## 0.1 未解析出许可证的包（UNKNOWN）
 
-共 **110** 个（占 607 的 18.1%）。
+共 **117** 个（占 616 的 19.0%）。
 
 原因**不是**锁文件缺信息，而是读取口径的限制：许可证来自**已安装依赖树**
 （`pnpm licenses list`），而清单里有大量**仅供其他平台使用的可选二进制**
@@ -32,7 +32,7 @@
 
 | 许可证 | 包数 |
 |---|---|
-| MIT | 413 |
+| MIT | 415 |
 | Apache-2.0 | 48 |
 | ISC | 23 |
 | MPL-2.0 | 4 |
@@ -43,7 +43,7 @@
 | LGPL-3.0-or-later | 1 |
 | MIT and ISC | 1 |
 
-⚠️ **110 个包未能解析出许可证（标记为 UNKNOWN）** —— 需要在依赖准入时人工确认。
+⚠️ **117 个包未能解析出许可证（标记为 UNKNOWN）** —— 需要在依赖准入时人工确认。
 
 ## 2. 口径说明
 
@@ -54,7 +54,7 @@
 
 ---
 
-## 3. 全量包清单 (607)
+## 3. 全量包清单 (616)
 
 | 包名 | 版本 | 归属 | 许可证 |
 |---|---|---|---|
@@ -144,6 +144,14 @@
 | `@dnd-kit/state` | 0.4.0 | host | MIT |
 | `@electric-sql/pglite-socket` | 0.1.3 | host | Apache-2.0 |
 | `@electric-sql/pglite-tools` | 0.3.3 | host | Apache-2.0 |
+| `@embedded-postgres/darwin-arm64` | 18.4.0-beta.17 | host | MIT |
+| `@embedded-postgres/darwin-x64` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/linux-arm` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/linux-arm64` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/linux-ia32` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/linux-ppc64` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/linux-x64` | 18.4.0-beta.17 | host | UNKNOWN |
+| `@embedded-postgres/windows-x64` | 18.4.0-beta.17 | host | UNKNOWN |
 | `@emnapi/runtime` | 1.11.3 | host | UNKNOWN |
 | `@esbuild/aix-ppc64` | 0.28.2 | host | UNKNOWN |
 | `@esbuild/android-arm` | 0.28.2 | host | UNKNOWN |
@@ -441,6 +449,7 @@
 | `delaunator` | 5.1.0 | host | ISC |
 | `detect-libc` | 1.0.3 | host | Apache-2.0 |
 | `effect` | 3.20.0 | host | MIT |
+| `embedded-postgres` | 18.4.0-beta.17 | host | MIT |
 | `end-of-stream` | 1.4.5 | host | MIT |
 | `error-stack-parser` | 2.1.4 | client | MIT |
 | `esbuild` | 0.28.2 | host | MIT |

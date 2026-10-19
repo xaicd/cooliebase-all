@@ -165,7 +165,10 @@
       "files": [
         "scripts/lib/ephemeral-pg.cjs",
         "pnpm-workspace.yaml",
-        "package.json"
+        "package.json",
+        "pnpm-lock.yaml",
+        "docs/04_implementation/sbom.json",
+        "docs/04_implementation/software-bill-of-materials.md"
       ]
     },
     {
