@@ -349,9 +349,10 @@ CI 前置检查：
 6. npm run skills:check
 7. npm run compat:check
 8. npm run standards:check
-9. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
+9. npm run deps:audit（依赖 CVE 棘轮：与基线比对**只拦新增**。注意"冻结"≠"无漏洞"；已接受风险台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）
+10. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 
-一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 8 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 9 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
 
 注意：`gen/**` 被 `.gitignore` 排除，干净检出上 `domain:check` / `microservice:check` 依赖的 Go 桩须由 `contracts:sync` 先生成，故这两道门禁不可单独在干净检出上直接执行。
 
@@ -602,6 +603,9 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 1. 发布前必须通过 strict 治理检查。
 2. 发布前必须生成最新扫描证据与迁移作战板。
 3. 发布前必须同步文档索引：npm run docs:sync-context。
+4. 发布前必须确认 `npm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
+   —— 门禁只保证"不新增"，发布时还要确认既有的已接受风险没有扩大
+   （台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）。
 
 ## 11. 代码规模与拆分约束
 
