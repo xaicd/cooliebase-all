@@ -1,4 +1,4 @@
-# Tasks Breakdown & WBS: 交付链三件套本地可验证（smoke/security/load）
+# Tasks Breakdown & WBS: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
@@ -46,29 +46,29 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 抽出数据库端点解析 helper（直连/隧道/失败三态，支持 PGHOST+PGPORT）
+- [ ] **T1**: 新增 `scripts/lib/ephemeral-pg.cjs`：外部 DATABASE_URL 优先，否则起 PGlite 并返回端点；finally 清理并轮询确认端口释放
   - 归属: `main`
-  - 文件白名单: `scripts/lib/pg-endpoint.cjs`
+  - 文件白名单: `scripts/lib/ephemeral-pg.cjs`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 三件套改用 helper，移除硬编码 5433
+- [ ] **T2**: `smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433）；保留全部断言
   - 归属: `T1`
-  - 文件白名单: `scripts/smoke-login.cjs, scripts/security-scan.cjs, scripts/load-test.cjs`
+  - 文件白名单: `scripts/smoke-login.cjs`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 反向对照：不可达必须 fail-loud；隧道必须被清理且端口释放
+- [ ] **T3**: `security:scan` 同样改用该 helper；12 项与两个阴性对照逐字不变
   - 归属: `T2`
-  - 文件白名单: `test/unit/pg-endpoint.test.ts`
+  - 文件白名单: `scripts/security-scan.cjs`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
-- [ ] **T4**: 本机实跑三件套，记录真实 exit code 与输出（含 rps/p95、12 项渗透结果）
+- [ ] **T4**: 反向对照测试：PGlite 起不来必须 fail-loud；清理后端口必须释放；外部 DATABASE_URL 优先
   - 归属: `T3`
-  - 文件白名单: `docs/specs/infra/delivery-chain-local-verification/evidence.json`
+  - 文件白名单: `test/unit/ephemeral-pg.test.ts`
   - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
 
-- [ ] **T5**: 回写状态：AGENTS §3.4、项目计划 R3/G7、sprint 日志
+- [ ] **T5**: 本机实跑两条命令并记录真实输出（登录 200/受保护接口 200、12 项渗透结果），回写 AGENTS/计划/日志
   - 归属: `T4`
-  - 文件白名单: `AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md`
+  - 文件白名单: `docs/specs/infra/delivery-chain-local-verification/evidence.json, AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md`
   - 验收要求: 必须携带提交标识 `[T5]` 并附带真实测试验证
 
 
@@ -83,11 +83,11 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 抽出数据库端点解析 helper（直连/隧道/失败三态，支持 PGHOST+PGPORT） | scripts/lib/pg-endpoint.cjs | 未开始 |
-| T2 | T1 | 三件套改用 helper，移除硬编码 5433 | scripts/smoke-login.cjs, scripts/security-scan.cjs, scripts/load-test.cjs | 未开始 |
-| T3 | T2 | 反向对照：不可达必须 fail-loud；隧道必须被清理且端口释放 | test/unit/pg-endpoint.test.ts | 未开始 |
-| T4 | T3 | 本机实跑三件套，记录真实 exit code 与输出（含 rps/p95、12 项渗透结果） | docs/specs/infra/delivery-chain-local-verification/evidence.json | 未开始 |
-| T5 | T4 | 回写状态：AGENTS §3.4、项目计划 R3/G7、sprint 日志 | AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md | 未开始 |
+| T1 | main | 新增 `scripts/lib/ephemeral-pg.cjs`：外部 DATABASE_URL 优先，否则起 PGlite 并返回端点；finally 清理并轮询确认端口释放 | scripts/lib/ephemeral-pg.cjs | 未开始 |
+| T2 | T1 | `smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433）；保留全部断言 | scripts/smoke-login.cjs | 未开始 |
+| T3 | T2 | `security:scan` 同样改用该 helper；12 项与两个阴性对照逐字不变 | scripts/security-scan.cjs | 未开始 |
+| T4 | T3 | 反向对照测试：PGlite 起不来必须 fail-loud；清理后端口必须释放；外部 DATABASE_URL 优先 | test/unit/ephemeral-pg.test.ts | 未开始 |
+| T5 | T4 | 本机实跑两条命令并记录真实输出（登录 200/受保护接口 200、12 项渗透结果），回写 AGENTS/计划/日志 | docs/specs/infra/delivery-chain-local-verification/evidence.json, AGENTS.md, docs/01_management/project-plan.md, docs/features/sprint-prod/1019.md | 未开始 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 

@@ -1,4 +1,4 @@
-# Quality Checklist & Acceptance Gate: 交付链三件套本地可验证（smoke/security/load）
+# Quality Checklist & Acceptance Gate: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 质量验收与门禁自检清单 (Verification Checklist)**
 > 所属领域：`infra` | 规格标识：`delivery-chain-local-verification` | 阶段：`PLAN_APPROVED`
@@ -21,9 +21,9 @@
 - [ ] **实施轨回滚演练 (G5_PRE)**：`runbook.json` 包含 S1~S5 步骤与 R1~R3 回滚演练预案。
 
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
-- [ ] 本机 `npm run smoke:login` exit=0，且输出含登录 200 与受保护接口 200
-- [ ] 本机 `npm run security:scan` exit=0，12 项全过（两个阴性对照必须仍然会失败）
-- [ ] 本机 `npm run load:test` exit=0，产出 rps/p95/失败率并对阈值
-- [ ] 三条命令结束后：隧道端口无监听、无残留 next/node 进程、临时库已清理
-- [ ] 反向对照：数据库不可达时三条命令**必须非 0 退出**（不得 skip 成 0）
-- [ ] `npm run check` exit=0 且全量测试 0 failed
+- [ ] 本机无 docker 运行时，`npm run smoke:login` exit=0，输出含登录 200 与受保护接口 200
+- [ ] 本机无 docker 运行时，`npm run security:scan` exit=0，12 项全过且两个阴性对照仍会失败
+- [ ] PGlite 上的迁移与真实 Postgres 一致（`prisma migrate deploy` 全部应用，已在 spike 中验证）
+- [ ] 命令结束后：PGlite 端口无监听、无残留 node 进程、临时数据已删除
+- [ ] 反向对照：把 PGlite 启动禁用后，两条命令**必须非 0 退出**（不得回退成内存模式并报绿）
+- [ ] `npm run check` exit=0，全量测试 0 failed

@@ -1,4 +1,4 @@
-# Deployment & Network Infrastructure (G5): 交付链三件套本地可验证（smoke/security/load）
+# Deployment & Network Infrastructure (G5): 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 基础设施与网络策略矩阵 (Deployment & Network Policy Document)**
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 5 上线前实施割接)

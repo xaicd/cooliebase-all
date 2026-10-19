@@ -1,4 +1,4 @@
-# 原型与交互规范: 交付链三件套本地可验证（smoke/security/load）
+# 原型与交互规范: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit UI/UX 文本线框原型与交互状态契约 (UI Prototypes & Interaction States)**
 > 上游真源：`brief.json`。线框用纯文本表达，100% 具备机器可读性与 Agent 操作确定性。

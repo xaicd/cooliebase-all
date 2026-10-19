@@ -1,4 +1,4 @@
-# Research & Decision Analysis (DAR): 交付链三件套本地可验证（smoke/security/load）
+# Research & Decision Analysis (DAR): 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 概念研判与加权决策分析 (Idea Assessment & Tech Selection)**
 > 所属领域：`infra` | 规格标识：`delivery-chain-local-verification`
@@ -7,7 +7,7 @@
 ---
 
 ## 1. 业务痛点与技术诉求阐述 (Background & Objectives)
-让 `smoke:login` / `security:scan` / `load:test` 三件套在**本机自管理**跑通（当前只能在 CI），从而真正验证交付链而不是把它长期列为「受阻」。
+让 `smoke:login` 与 `security:scan` 在**嵌入式 PGlite**（Postgres 编译为 WASM）上跑通，从而本机零容器即可验证交付链；不再依赖 docker/colima 的端口转发。
 
 ## 2. 候选方案拟定 (Candidate Solutions >= 2 + 1 阴性对照)
 | 方案编号 | 方案名称 | 技术路线 | 开源协议 | 维护成本与风险 |
@@ -27,4 +27,4 @@
 | **合计** | **综合加权得分** | **100%** | **5.00** | **3.15** | **2.40** |
 
 ## 4. 结论与立项裁决 (Decision Conclusion)
-结论：无新增第三方依赖；复用 colima 自带 ssh-config 与本机 ssh。。方案 A 在开发 ROI、架构一致性与无外部额外运行时依赖方面表现最优，获准进入规格立项阶段。
+结论：PGlite 为 Apache-2.0，可商用；两个包已在锁文件中，无需新增供应链面。。方案 A 在开发 ROI、架构一致性与无外部额外运行时依赖方面表现最优，获准进入规格立项阶段。

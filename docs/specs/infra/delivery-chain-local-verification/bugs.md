@@ -1,4 +1,4 @@
-# Defect & Verification Ledger: 交付链三件套本地可验证（smoke/security/load）
+# Defect & Verification Ledger: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 缺陷台账与复现验证清单**
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 4 真实入库测试与缺陷闭环)

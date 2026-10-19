@@ -1,4 +1,4 @@
-# Technical Architecture & Implementation Plan: 交付链三件套本地可验证（smoke/security/load）
+# Technical Architecture & Implementation Plan: 交付链三件套用嵌入式 Postgres（PGlite）本地验证，去除容器依赖
 
 > **Spec-Kit 架构与技术实施方案 (ADD: Architecture & Design Document)**
 > 上游真源：`spec.md` (或 `requirements.md`)。技术方案严格支撑需求，严禁反向变更业务目标。
@@ -9,12 +9,12 @@
 
 ## 1. 关键不变量与防御性约束 (Key Invariants & Guards)
 
-1. **检查集不可被静默降级** —— 不可达必须非 0 退出；SKIP 只能由显式环境开关触发，且输出必须可见
-2. **无残留** —— 隧道进程与临时数据库在 finally 中清理，并轮询验证端口释放
+1. **引擎语义不可降级** —— 只允许真实 Postgres 或 PGlite（Postgres 的 WASM 编译）；禁止退回 SQLite/内存模式并报绿
+2. **无残留** —— PGlite 进程与临时目录在 finally 中清理，轮询验证端口释放
 
 ## 2. 领域架构边界与调用拓扑 (Architecture Topology & Flows)
 
-选定方案 A：**脚本内置「数据库端点解析 + 自管理 SSH 隧道」**。解析顺序：① `localhost:5433` 可达 → 直接连接；② 否则若 `colima` 在运行且 `colima ssh-config` 可用 → 建立 `ssh -F <config> -N -L 127.0.0.1:<空闲端口>:127.0.0.1:5433 colima`，把 PGHOST/PGPORT 指向隧道；③ 都不满足 → fail-loud 并给出修复指引。三件套改从 `scripts/lib/pg-endpoint.cjs` 取端点（消除 5433 硬编码），隧道在进程退出时关闭并**轮询确认端口释放**。实测该隧道 1 秒内可用。
+PGlite（`@electric-sql/pglite`）+ `@electric-sql/pglite-socket` 把嵌入式 Postgres 暴露为**标准 Postgres wire 协议**的 TCP 服务：`pglite-server --db=memory:// --port=<空闲端口> --host=127.0.0.1`。脚本据此构造 `DATABASE_URL=postgresql://postgres@127.0.0.1:<端口>/postgres?sslmode=disable`（`sslmode=disable` 是必需的：不带时 Prisma 报 P1001 连不上）。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 无 docker 依赖要求 → 起 PGlite；③ 起不来 → fail-loud。冒烟与渗透共用 `scripts/lib/ephemeral-pg.cjs`，进程与数据在 finally 中清理并轮询确认端口释放。
 
 ### 核心业务时序图 (Archify Mermaid Flow)
 ```mermaid
@@ -61,6 +61,7 @@ sequenceDiagram
 
 ## 6. 技术风险评估与缓解策略 (Technical Risks & Mitigations)
 
-- **风险**: colima 未运行或 ssh 不可用 → 隧道建不起来 -> **缓释策略**: fail-loud 并给指引；CI 走直连分支不受影响
-- **风险**: 隧道端口冲突或清理不彻底 → 下次运行被占用 -> **缓释策略**: 动态选空闲端口；finally 中 kill 并轮询验证端口释放
-- **风险**: 改造把三件套的检查逻辑一并改坏（此前有过批量改动伤及单域的先例） -> **缓释策略**: 只替换端点解析与进程管理；检查项、阈值、断言保持逐字不变，并用前后输出对照验证
+- **风险**: PGlite 与真实 Postgres 的差异导致某些迁移或查询行为不一致 -> **缓释策略**: 已实测全部迁移可在 PGlite 上应用；发现不兼容时 fail-loud，并在文档标出仅限 CI 的项
+- **风险**: 把 PGlite 用于压测，得出误导性容量数字 -> **缓释策略**: 明确列为 nonGoal：load:test 继续要求真实 Postgres，并在脚本文档里写明原因
+- **风险**: 改动波及检查逻辑（此前批量改动伤及单域的先例） -> **缓释策略**: 只替换「数据库端点获取 + 进程生命周期」；登录断言/12 项清单/阴性对照逐字不动，并用改前改后输出对照
+- **风险**: 新增依赖影响供应链门禁 -> **缓释策略**: `@electric-sql/pglite` 与 `pglite-socket` 当前已在锁文件中（Prisma 的传递依赖，0.4.3/0.1.3）；提升为直接 devDependency，跑 `deps:audit` 复核
