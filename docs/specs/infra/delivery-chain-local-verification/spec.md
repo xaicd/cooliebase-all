@@ -15,7 +15,7 @@
 ### 性能基线与优化目标 (Baseline vs Target Metrics)
 
 - 当前基线 (Baseline): 两个事实叠加导致本机无法验证：① `smoke:login`/`security:scan`/`load:test` 只支持 docker 里的 Postgres（`docker exec psql` + 容器名 `cooliebase-dev-postgres-1` + 写死 5433）；② 本机 colima 转发器故障（lima 日志 `failed to set up forwarding tcp port 5433 … exit status 255`，随后按『negligible』忽略），宿主机 `lsof -iTCP:5433` 无监听 → `localhost:5433` 不可达。结果：G7 只能在 CI 验证。
-- 目标指标 (Target): 本机**不启动任何容器**：`smoke:login` exit=0（建库→迁移→种子→登记插件→起服务→登录 200→受保护接口 200）、`security:scan` exit=0（12 项含两个阴性对照）；两条命令跑完进程/端口/数据目录零残留；数据库起不来必须非 0 退出。`load:test` 因是**真实 Postgres 多连接**，同机制下应可运行，但其数字仅代表本机、不代表生产容量。
+- 目标指标 (Target): 本机**不启动任何容器**：`smoke:login` exit=0（建库→迁移→种子→登记插件→起服务→登录 200→受保护接口 200）、`security:scan` exit=0（20 项含两个阴性对照）；两条命令跑完进程/端口/数据目录零残留；数据库起不来必须非 0 退出。`load:test` 因是**真实 Postgres 多连接**，同机制下应可运行，但其数字仅代表本机、不代表生产容量。
 
 
 ## 2. 术语定义与领域边界 (Glossary & Domain Scope)
@@ -42,7 +42,7 @@
 ## 5. 验收标准清单 (Acceptance Criteria)
 
 1. **THE system SHALL** 验证：本机无 docker 运行时，`npm run smoke:login` exit=0，输出含登录 200 与受保护接口 200
-2. **THE system SHALL** 验证：本机无 docker 运行时，`npm run security:scan` exit=0，12 项全过且两个阴性对照仍会失败
+2. **THE system SHALL** 验证：本机无 docker 运行时，`npm run security:scan` exit=0，20 项全过且两个阴性对照仍会失败
 3. **THE system SHALL** 验证：嵌入式 Postgres 的版本与 CI 使用的 PostgreSQL 主版本一致（避免两套语义）
 4. **THE system SHALL** 验证：命令结束后：postgres 进程已退出、端口无监听、临时 dataDir 已删除
 5. **THE system SHALL** 验证：反向对照：禁用嵌入式 Postgres 后，命令必须非 0 退出（不得回退内存模式并报绿）
@@ -57,7 +57,7 @@
 * **THE system SHALL COMPLY WITH**: 版本必须**精确锁定**（当前为 `18.4.0-beta.17`），不得用 `^` 浮动；beta 状态须记入依赖策略与风险。
 * **THE system SHALL COMPLY WITH**: 不得把「跳过」当「通过」：初始化/启动/迁移/登录任一步失败都必须非 0 退出并可诊断。
 * **THE system SHALL COMPLY WITH**: 不得残留：postgres 进程与临时数据目录在 finally 中清理，并轮询确认端口释放。
-* **THE system SHALL COMPLY WITH**: 不改变检查内容：登录断言、12 项渗透清单、两个阴性对照逐字保留。
+* **THE system SHALL COMPLY WITH**: 不改变检查内容：登录断言、20 项渗透清单、两个阴性对照逐字保留。
 
 ### 明确不做与负向范围 (Non-Goals)
 * 不把 `load:test` 的数字当作容量结论：即便改用真实 Postgres，本机压测仍受单机 CPU/磁盘限制，只作回归护栏

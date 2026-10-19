@@ -270,7 +270,7 @@ function handleNew() {
       ],
       acceptance: [
         { check: "`npm run check` exit=0" },
-        { check: "`npm run security:scan` exit=0 (12 项基础扫描全过)" },
+        { check: "`npm run security:scan` exit=0（全量检查项全过，项数以脚本为准）" },
         { check: "<!-- 待填: PoC 攻击用例被 100% 拦截并记录安全审计 -->" },
       ],
       nonGoals: ["不盲目引入重型第三方商业安全 WAF 依赖"],

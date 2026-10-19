@@ -5,7 +5,7 @@
   "type": "enhancement",
   "goal": "让 `smoke:login` / `security:scan`（并评估 `load:test`）在**嵌入式真实 PostgreSQL 二进制**上跑通，本机零容器、零 docker/colima 依赖，且保留**真实 Postgres 引擎**（多连接、真扩展、可代表容量）。",
   "baselineMetric": "两个事实叠加导致本机无法验证：① `smoke:login`/`security:scan`/`load:test` 只支持 docker 里的 Postgres（`docker exec psql` + 容器名 `cooliebase-dev-postgres-1` + 写死 5433）；② 本机 colima 转发器故障（lima 日志 `failed to set up forwarding tcp port 5433 … exit status 255`，随后按『negligible』忽略），宿主机 `lsof -iTCP:5433` 无监听 → `localhost:5433` 不可达。结果：G7 只能在 CI 验证。",
-  "targetMetric": "本机**不启动任何容器**：`smoke:login` exit=0（建库→迁移→种子→登记插件→起服务→登录 200→受保护接口 200）、`security:scan` exit=0（12 项含两个阴性对照）；两条命令跑完进程/端口/数据目录零残留；数据库起不来必须非 0 退出。`load:test` 因是**真实 Postgres 多连接**，同机制下应可运行，但其数字仅代表本机、不代表生产容量。",
+  "targetMetric": "本机**不启动任何容器**：`smoke:login` exit=0（建库→迁移→种子→登记插件→起服务→登录 200→受保护接口 200）、`security:scan` exit=0（20 项含两个阴性对照）；两条命令跑完进程/端口/数据目录零残留；数据库起不来必须非 0 退出。`load:test` 因是**真实 Postgres 多连接**，同机制下应可运行，但其数字仅代表本机、不代表生产容量。",
   "roles": [
     {
       "role": "开发/SRE",
@@ -37,14 +37,14 @@
     "版本必须**精确锁定**（当前为 `18.4.0-beta.17`），不得用 `^` 浮动；beta 状态须记入依赖策略与风险。",
     "不得把「跳过」当「通过」：初始化/启动/迁移/登录任一步失败都必须非 0 退出并可诊断。",
     "不得残留：postgres 进程与临时数据目录在 finally 中清理，并轮询确认端口释放。",
-    "不改变检查内容：登录断言、12 项渗透清单、两个阴性对照逐字保留。"
+    "不改变检查内容：登录断言、20 项渗透清单、两个阴性对照逐字保留。"
   ],
   "acceptance": [
     {
       "check": "本机无 docker 运行时，`npm run smoke:login` exit=0，输出含登录 200 与受保护接口 200"
     },
     {
-      "check": "本机无 docker 运行时，`npm run security:scan` exit=0，12 项全过且两个阴性对照仍会失败"
+      "check": "本机无 docker 运行时，`npm run security:scan` exit=0，20 项全过且两个阴性对照仍会失败"
     },
     {
       "check": "嵌入式 Postgres 的版本与 CI 使用的 PostgreSQL 主版本一致（避免两套语义）"
@@ -183,7 +183,7 @@
     {
       "id": "T3",
       "parent": "T2",
-      "title": "`security:scan` 同样改用；12 项与两个阴性对照不变",
+      "title": "`security:scan` 同样改用；20 项与两个阴性对照不变",
       "files": [
         "scripts/security-scan.cjs",
         "scripts/lib/ephemeral-pg.cjs"

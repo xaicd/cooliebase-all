@@ -22,7 +22,7 @@
 
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
 - [ ] 本机无 docker 运行时，`npm run smoke:login` exit=0，输出含登录 200 与受保护接口 200
-- [ ] 本机无 docker 运行时，`npm run security:scan` exit=0，12 项全过且两个阴性对照仍会失败
+- [ ] 本机无 docker 运行时，`npm run security:scan` exit=0，20 项全过且两个阴性对照仍会失败
 - [ ] 嵌入式 Postgres 的版本与 CI 使用的 PostgreSQL 主版本一致（避免两套语义）
 - [ ] 命令结束后：postgres 进程已退出、端口无监听、临时 dataDir 已删除
 - [ ] 反向对照：禁用嵌入式 Postgres 后，命令必须非 0 退出（不得回退内存模式并报绿）
