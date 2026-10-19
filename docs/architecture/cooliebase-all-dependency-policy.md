@@ -95,6 +95,39 @@
 在**没有任何 Expo 构建门禁**的情况下强推第 2 条，等于用不可验证的风险换数字好看，
 所以本次**刻意不做**（宁可如实记录，也不假装做完）。
 
+#### 3.2.1 升级路径评估（2026-10-19，前置门禁已落地）
+
+**前置条件已满足**：仓内此前对客户端构建是**零验证**（CI 无任何 expo 步骤、根 package.json
+无 expo 脚本）。现已新增 `npm run clients:build:check` 并入 `npm run check`：
+实测 Expo web 导出约 5.3s，断言退出码 + `index.html` + 至少一个 bundle，产物落临时目录并清理，
+且 `clients/**` 缺席时跳过而非失败。依据：`docs/specs/infra/client-build-gate/`。
+**从此 SDK 升级具备客观信号**——"升完还能不能打包"有了可执行的判定。
+
+**升级跨度**：本仓 `expo ~52.0.0` + `react-native 0.76.5` + `react 18.3.1`；可用 SDK 已到 **58**
+（`latest 58.0.14`），即跨 **6 个大版本**，连带 react-native 与 React 的大版本跃迁。
+
+**实测证据（升级很可能确实消掉大部分）**：查询上游声明可得 ——
+`expo@58.0.14` 依赖 `@expo/cli@^58.1.11`，而该 CLI 的直接依赖中，
+本台账 §3.2 列出的被报包 **`tar` / `@xmldom/xmldom` / `postcss` / `image-size` / `uuid` /
+`shell-quote` 都已不再是它的直接依赖**，只剩 `node-forge@^1.4.0`
+（而 node-forge 本就没有补丁版本，见 §3.1）。
+即预期可消掉 tar 12 + @xmldom/xmldom 15 + image-size 2 + uuid 1 等一大批；
+`node-forge` / `sprintf-js`（无补丁）与 `braces`（走 tailwindcss 链，与 expo 无关）不受影响。
+
+> ⚠️ 以上是**间接证据**（依据上游 `@expo/cli` 的依赖声明推导），**不是**"装完实测"的结论。
+> 真实结论必须由升级后的 `npm run deps:audit --audit` 给出，本台账不接受推测当证据。
+
+**风险面**：客户端规模很小（15 个源文件、约 960 行），改动面可控；但跨 6 个 SDK 大版本仍可能
+撞上 `expo-*` 子包与 react-native 的破坏性 API 变更。
+
+**建议路径（分阶段，每步可验证）**：**不建议直接跳到 58** —— 一次跨 6 级，失败时无法定位是哪一级
+引入的破坏。改为逐级推进：
+
+1. 先升到 SDK 54，跑 `npm run clients:build:check` + 全量 `npm run check` + 测试；
+2. 逐级推进 55 → 56 → 57 → 58，**每级一次原子提交**；
+3. 每级用 `npm run deps:audit --audit` 实测漏洞消减，并在确认后刷新基线；
+4. 任一级失败即回滚该级，不带病前进（对齐"宁可失败，也不静默产出坏工程"）。
+
 ### 3.3 阻塞在第三方包（本仓依赖图内）
 
 | 包 | 条数 | 严重度 | 阻塞原因 |
