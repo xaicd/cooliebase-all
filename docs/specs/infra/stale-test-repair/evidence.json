@@ -1,0 +1,10 @@
+{
+  "feature": "stale-test-repair",
+  "domain": "infra",
+  "type": "bugfix",
+  "created": "2026-10-19T04:46:27.012Z",
+  "trace": {
+    "brief": "brief.json",
+    "spec": "spec.json"
+  }
+}
