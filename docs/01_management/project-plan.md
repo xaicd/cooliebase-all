@@ -159,7 +159,7 @@
 | GATE-4 | 压测护栏 | 生产产物打压测并对阈值 | ✅ | `npm run load:test`（CI） |
 | GATE-5 | 环境指纹 | 盖章→核对→篡改必失败 | ✅ | `npm run fingerprint` / `fingerprint:verify` |
 | GATE-6 | 容器化部署 | 一体镜像 + 域镜像 + compose | ✅ | `deploy/` |
-| GATE-7 | SRE 基线 | SLO/灾备/复盘资产真实存在 | ❓ | 目录存在，内容待核 |
+| GATE-7 | SRE 基线 | SLO/灾备/复盘资产真实存在 | ✅ | `SLO-SLI-ERROR-BUDGET-MATRIX.md`（Tier-1/2 + 错误预算，64 行真内容）；`06_incidents_postmortem`/`security-reports` **按零假 Demo 铁律留空 `.gitkeep`**；`cmmi:asset:check` 0 伪造 |
 
 ### WS-H 文档与治理资产
 
@@ -169,7 +169,7 @@
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `npm run speckit:check -- --spec <名>` |
 | H3 | 文档准确性 | 文档声称的命令/数字可复现 | 🟡 | 见 §6（本轮修完 2 份状态文件，其余待治） |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
-| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ❓ | `openwiki:check` 需复跑 |
+| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | `openwiki:check` 43 篇 100% 同步；新增 `llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致（修掉 8 处实际漂移） |
 
 ---
 

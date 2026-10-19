@@ -85,7 +85,7 @@
     "clients:build:check": "node scripts/check-client-build.cjs",
     "evolution:backlog": "node scripts/build-evolution-backlog.cjs",
     "mcp:serve": "node scripts/mcp/cooliebase-mcp-server.cjs",
-    "check": "npm run domain:manifests:check && npm run contracts:sync && npm run rpc:actions:check && npm run domain:loaders:check && npm run domain:check && npm run microservice:check && npm run harness:check && npm run admin:routes:check && npm run admin:pages:check && npm run foundation:ontology:check && npm run skills:check && npm run compat:check && npm run version:check && npm run surface:check && npm run openwiki:check && npm run standards:check && npm run deps:audit && npm run clients:build:check && npm run agent:native:check && npm run agent:contracts:check && npm run agent:page-schemas:check && npm run handwritten:check && npm run specs:health && npm run workflow:check && npm run cmmi:asset:check && npm run evolution:backlog && node scripts/write-harness-trace.cjs && npm run delivery:hints",
+    "check": "npm run domain:manifests:check && npm run contracts:sync && npm run rpc:actions:check && npm run domain:loaders:check && npm run domain:check && npm run microservice:check && npm run harness:check && npm run admin:routes:check && npm run admin:pages:check && npm run foundation:ontology:check && npm run skills:check && npm run compat:check && npm run version:check && npm run surface:check && npm run openwiki:check && npm run llms:check && npm run standards:check && npm run deps:audit && npm run clients:build:check && npm run agent:native:check && npm run agent:contracts:check && npm run agent:page-schemas:check && npm run handwritten:check && npm run specs:health && npm run workflow:check && npm run cmmi:asset:check && npm run evolution:backlog && node scripts/write-harness-trace.cjs && npm run delivery:hints",
     "domain:dev": "node scripts/pack-domain.cjs --dev --materialize",
     "domain:build": "node scripts/pack-domain.cjs --build --materialize",
     "domain:up": "node scripts/domain-up.cjs",
@@ -172,7 +172,8 @@
     "security:scan": "node scripts/security-scan.cjs",
     "load:test": "node scripts/load-test.cjs",
     "version:check": "node scripts/check-version-consistency.cjs",
-    "mutation:gate": "node scripts/mutation-gate.cjs --self-check && node scripts/mutation-gate.cjs"
+    "mutation:gate": "node scripts/mutation-gate.cjs --self-check && node scripts/mutation-gate.cjs",
+    "llms:check": "node scripts/check-llms-sync.cjs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

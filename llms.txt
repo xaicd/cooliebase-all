@@ -1,6 +1,6 @@
 # cooliebase-all
 
-> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 17 个原生业务域、26 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
+> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 17 个原生业务域、38 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
 
 ## 核心架构与能力一览 (Pre-Download Capabilities)
 
@@ -8,7 +8,7 @@
 - **17 原生业务域**: 
   - 平台地基: `system` (RBAC权限/多租户/部门岗位/数据字典), `infra` (动态参数/定时任务/代码生成器)
   - 业务域插件: `ai` (AI智能工作台/知识库), `aigw` (多模型聚合网关/Token计费), `bpm` (工作流/BPMN2.0), `pay` (聚合支付/微信支付宝/退款), `report` (大屏可视化/多维报表), `mp` (微信公众号管理), `mall` (电商/商品SPU-SKU/订单), `member` (C端会员/成长值), `crm` (客户关系/商机/公海池), `erp` (进销存/采购销售), `wms` (仓储物流/批次条码), `mes` (制造执行/排产报工), `iot` (物联网/物模型/告警), `im` (实时通信/长连接群聊), `online` (低代码在线开发)。
-- **26 个 Agent 专属技能 (Skills - 单一真源 .agents/skills)**:
+- **38 个 Agent 专属技能 (Skills - 单一真源 .agents/skills)**:
   - `project-init`: 一键业务项目重构引擎
   - `coding`, `api-design`, `devops`, `database-design`, `automated-testing`, `service-governance`, `security`, `ui-design`, `architecture-design`, `agent-harness` 等。
 - **CMMI 01~09 全生命周期工程过程资产**:
@@ -24,10 +24,10 @@
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
 - **MCP 原生支持 (Model Context Protocol)**:
-  - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 12+ 确定性工具），消除全库扫描 Token 浪费。
+  - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 17 个确定性工具），消除全库扫描 Token 浪费。
 - **全自动项目重塑引擎 (ProjectReactor CLI)**:
   - 原地重塑: `npm run project:init`，一键重塑包名、中文系统标题、端口、Git Remote 与品牌版权。
-  - 派生裁剪: 支持 `--profile minimal` / `standard`，自动剔除冗余业务域，并自动 `git init` 记录任务痕迹。
+  - 派生裁剪: 支持 `--profile base` / `minimal` / `standard` / `vertical` / `creator` 五种形态（vertical 可再 `--bundle <域>`），自动剔除冗余业务域，并自动 `git init` 记录任务痕迹。
 
 ## 预检与直接契约访问 (Direct Contract Access - Standard AI Discovery)
 
@@ -36,7 +36,7 @@
 - **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
 - **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
 - **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
-  - 声明版本、17 域清单、26 技能目录、12 项 MCP 工具、8 层交付 Gate 与 Hatch 派生配置。
+  - 声明版本、17 域清单、38 技能目录、17 项 MCP 工具、12 层交付 Gate 与 Hatch 派生配置。
 - **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
 - **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)

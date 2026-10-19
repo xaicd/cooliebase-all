@@ -950,7 +950,7 @@ npm run check
 ### 25. 单一真源与全生命周期过程资产防污染规范 (Single Source of Truth & Process Asset Anti-Pollution)
 
 1. **技能单一真源法则**：
-   - 全仓技能有且仅有唯一真源：`.agents/skills/<name>/SKILL.md`（共 26 个技能），严禁在 `docs/skills/` 等建立任何镜像或重复目录；
+   - 全仓技能有且仅有唯一真源：`.agents/skills/<name>/SKILL.md`（共 38 个技能），严禁在 `docs/skills/` 等建立任何镜像或重复目录；
    - 技能注册表统一维护于 `.agents/skills/README.md`，上游开源许可溯源落位 `.agents/skills/UPSTREAM-NOTICE.md`；
    - 门禁脚本 `sync-skills.cjs` 与 `check-specs-health.cjs` 实时强制拦截重复目录。
 2. **统一规格 (Spec) 与生命周期管理**：
