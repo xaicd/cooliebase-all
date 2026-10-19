@@ -198,9 +198,22 @@ function matchesDomainPrefix(rel, domain) {
   return false
 }
 
+const RETIRED_BENCHMARK_PREFIXES = Object.freeze([
+  "docs/architecture/archive",
+  "docs/specs/archive",
+  "docs/architecture/artifacts",
+  "docs/architecture/OPEN-SOURCE-TRACKING-MANUAL.md",
+  "docs/architecture/CURRENT-PROGRESS.md",
+  ".claude",
+  ".commandcode",
+])
+
 function shouldSkipRelPath(relPath, plan) {
   const rel = String(relPath || "").replace(/\\/g, "/")
   if (!rel) return false
+  for (const prefix of RETIRED_BENCHMARK_PREFIXES) {
+    if (rel === prefix || rel.startsWith(`${prefix}/`)) return true
+  }
   if (!plan.includeClients && (rel === "clients" || rel.startsWith("clients/"))) return true
   for (const domain of plan.excludedDomains || []) {
     if (matchesDomainPrefix(rel, domain)) return true

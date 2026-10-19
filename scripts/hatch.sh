@@ -186,15 +186,17 @@ trap 'rm -rf "$TMP_BASE"' EXIT
 
 DOWNLOAD_SUCCESS=false
 
-# 策略 1: 检查本地当前目录是否正是 cooliebase-all 基座
-CURRENT_DIR=$(pwd)
-if [[ -f "$CURRENT_DIR/scripts/clone-project-base.cjs" && -f "$CURRENT_DIR/package.json" ]]; then
-  CURRENT_PKG_NAME=$(node -e "try { console.log(require('./package.json').name) } catch(e){}" 2>/dev/null || echo "")
-  if [[ "$CURRENT_PKG_NAME" == "cooliebase-all" ]]; then
-    echo "💡 检测到当前处于基座仓库中，直接执行就地克隆派生..."
-    SOURCE_DIR="$CURRENT_DIR"
-    DOWNLOAD_SUCCESS=true
-  fi
+# 策略 1: 检查本地脚本所在仓库或当前目录是否正是 cooliebase-all 基座
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" 2>/dev/null && pwd)"
+BASE_DIR="$(cd "$SCRIPT_DIR/.." 2>/dev/null && pwd)"
+if [[ -f "$BASE_DIR/scripts/clone-project-base.cjs" && -f "$BASE_DIR/package.json" ]]; then
+  echo "💡 检测到本地基座仓库 ($BASE_DIR)，直接执行就地克隆派生..."
+  SOURCE_DIR="$BASE_DIR"
+  DOWNLOAD_SUCCESS=true
+elif [[ -f "$(pwd)/scripts/clone-project-base.cjs" && -f "$(pwd)/package.json" ]]; then
+  echo "💡 检测到当前处于基座仓库中，直接执行就地克隆派生..."
+  SOURCE_DIR="$(pwd)"
+  DOWNLOAD_SUCCESS=true
 fi
 
 # 策略 2: npx degit (极速解包最新 commit，支持 Gitee / GitHub 双源自动测速)
@@ -251,12 +253,16 @@ fi
 echo ""
 echo "⚡ 正在驱动 ProjectReactor 展开派生工程..."
 
+if [[ "$PROFILE" == "next-base" ]]; then
+  PROFILE="base"
+fi
+
 REACTOR_ARGS=("$TARGET_DIR" "--profile" "$PROFILE")
 if [[ -n "$BUNDLE" ]]; then
   REACTOR_ARGS+=("--bundle" "$BUNDLE")
 fi
 
-node "$SOURCE_DIR/scripts/clone-project-base.cjs" "${REACTOR_ARGS[@]}"
+(cd "$SOURCE_DIR" && node scripts/clone-project-base.cjs "${REACTOR_ARGS[@]}")
 
 # 替换标题与端口等定制参数
 if [[ -f "$TARGET_DIR/.env" ]]; then

@@ -52,9 +52,12 @@ const EXCLUDE_DIRS = new Set([
   "node_modules",
   ".next",
   ".next-cooliebase",
+  ".next-ruoyi",
   ".git",
   ".idea",
   ".vscode",
+  ".claude",
+  ".commandcode",
   "backups",
   "tmp",
   ".data",
@@ -83,15 +86,46 @@ const PROTECTED_DOCS = new Set([
 ])
 
 /**
- * 文本内容重写器
- * 严格执行“长词优先”替换原则，避免短词误伤
+ * 文本内容重写器 (ProjectReactor)
+ * 严格执行“长词优先”替换原则，避免短词误伤，深度抹除开源底座与供应商硬编码
  */
 function transformFileContent(content, targetName, targetTitle, targetDbName, targetPort) {
-  return content
+  let res = content
     .replace(/cooliebase-all/g, targetName)
     .replace(/CoolieBase All/g, targetTitle)
     .replace(/cooliebase_next/g, targetDbName)
     .replace(/PORT=3100/g, `PORT=${targetPort}`)
+
+  // ProjectReactor: 白标化脱敏清洗
+  res = res
+    .replace(/芋道四位一体企业级管理中台/g, `${targetTitle} · 企业级管理中台`)
+    .replace(/芋道四位一体管理系统/g, `${targetTitle} · 业务管理系统`)
+    .replace(/芋道四位一体业务工作台/g, `${targetTitle} · 业务工作台`)
+    .replace(/芋道四位一体云商中台/g, `${targetTitle} · 业务中台`)
+    .replace(/芋道四位一体/g, `${targetTitle} · 多端中台`)
+    .replace(/芋道管理中台/g, `${targetTitle} · 管理中台`)
+    .replace(/芋道管理后台/g, `${targetTitle} · 管理后台`)
+    .replace(/芋道管理系统/g, `${targetTitle} · 业务系统`)
+    .replace(/芋道源码/g, "企业级开源底座")
+    .replace(/芋道/g, targetTitle)
+    .replace(/yudao-quad-terminal/g, `${targetName}-quad`)
+    .replace(/yudao-ui-admin-vue3/g, `@${targetName}/admin`)
+    .replace(/yudao-cloud-backend/g, `@${targetName}/backend`)
+    .replace(/yudao-server/g, `${targetName}-server`)
+    .replace(/yudao-monorepo/g, `@${targetName}`)
+    .replace(/yudao-native-app/g, `@${targetName}/app`)
+    .replace(/yudao-boot-mini/g, `${targetName}-boot`)
+    .replace(/yudao-cloud/g, `${targetName}-cloud`)
+    .replace(/cn\.iocoder\.cloud/g, `com.${targetName}`)
+    .replace(/cn\.iocoder\.boot/g, `com.${targetName}`)
+    .replace(/cn\.iocoder\.yudao/g, `com.${targetName}.server`)
+    .replace(/yudao/gi, (match) => {
+      if (match === "Yudao") return targetName.charAt(0).toUpperCase() + targetName.slice(1)
+      if (match === "YUDAO") return targetName.toUpperCase()
+      return targetName.toLowerCase()
+    })
+
+  return res
 }
 
 /**
@@ -378,6 +412,28 @@ function pruneDomainReferenceLists(destRoot, plan) {
       write(rel, `${JSON.stringify(json, null, 2)}\n`)
       const removed = beforeCount - json.pages.length
       if (removed > 0) dropped.push(`${rel}: 剔除 ${removed} 个被裁域的管理端页面条目`)
+    }
+  }
+
+  // 4.8) first-party-entries.ts 第一方插件静态入口: 剔除被裁域的条目
+  {
+    const rel = "packages/shared/backend/plugins/first-party-entries.ts"
+    const text = read(rel)
+    if (text) {
+      const prunedPlugins = ALL_DOMAINS.filter((name) => !keep.has(name))
+      const lines = text.split("\n")
+      const out = lines.filter((line) => {
+        for (const domain of prunedPlugins) {
+          if (line.includes(`plugin-${domain}/plugin-entry`) || line.includes(`.${domain}":`)) {
+            return false
+          }
+        }
+        return true
+      })
+      if (out.length < lines.length) {
+        write(rel, out.join("\n"))
+        dropped.push(`${rel}: 剔除 ${lines.length - out.length} 个被裁域的插件入口`)
+      }
     }
   }
 
