@@ -12,6 +12,9 @@
  *
  * 与 `verify:real-db` 同一模式: 自管理环境（起库/建库/种子/起服务），跑完清场。
  *
+ * 数据库来源已改为**嵌入式真实 Postgres**（`scripts/lib/ephemeral-pg.cjs`）：
+ * 本机零容器即可跑；若已设置 `DATABASE_URL` / `PGHOST` 则优先使用外部库（CI 行为不变）。
+ *
  * 用法:
  *   node scripts/smoke-login.cjs            # 跑完清场
  *   node scripts/smoke-login.cjs --keep     # 保留现场（起着的服务与库不动）
@@ -30,9 +33,7 @@ const PORT = process.env.SMOKE_PORT || "3200"
 const BASE = `http://localhost:${PORT}`
 const PASSWORD = "Smoke@123456"
 const SALT = "smoke-salt"
-const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
-const CONTAINER = "cooliebase-dev-postgres-1"
+const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")
 
 const results = []
 const step = (name, ok, detail = "") => {
@@ -46,82 +47,61 @@ const sh = (command, args, env = {}) => {
   return { ok: result.status === 0, out: `${result.stdout ?? ""}${result.stderr ?? ""}` }
 }
 
-function dockerExec(args) {
-  const hasDocker = require("node:child_process").spawnSync("which", ["docker"]).status === 0
-  if (hasDocker) {
-    const r = require("node:child_process").spawnSync("docker", args, { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  const hasHostExec = require("node:child_process").spawnSync("which", ["host-exec"]).status === 0
-  if (hasHostExec) {
-    const cmd = args.map((a) => `'${String(a).replace(/'/g, "'\\''")}'`).join(" ")
-    const r = require("node:child_process").spawnSync("host-exec", [`docker ${cmd}`], { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  return { ok: false, out: "docker and host-exec not found" }
-}
-
-function psql(database, sql) {
-  const hasDocker = require("node:child_process").spawnSync("which", ["docker"]).status === 0
-  if (hasDocker) {
-    const r = require("node:child_process").spawnSync("docker", ["exec", CONTAINER, "psql", "-U", "cooliebase", "-d", database, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  const hasHostExec = require("node:child_process").spawnSync("which", ["host-exec"]).status === 0
-  if (hasHostExec) {
-    const escapedSql = sql.replace(/'/g, "'\\''")
-    const cmd = `docker exec ${CONTAINER} psql -U cooliebase -d ${database} -t -A -c '${escapedSql}'`
-    const r = require("node:child_process").spawnSync("host-exec", [cmd], { cwd: ROOT, encoding: "utf8" })
-    return { ok: r.status === 0, out: `${r.stdout ?? ""}${r.stderr ?? ""}` }
-  }
-  return { ok: false, out: "docker and host-exec not found" }
-}
-
 let app = null
 let smokeEnvLocalBackup = null
-let startedPostgres = false
+let endpoint = null
+let URL = null
 const cleanup = async () => {
   if (KEEP) {
     console.log(`\n[smoke] --keep: 服务留在 ${BASE}，库 ${DB} 未删`)
     return
   }
-  if (app) app.kill("SIGTERM")
+  if (app?.pid) {
+    // 杀整个进程组（负 pid），否则 next-server 会成为孤儿
+    try { process.kill(-app.pid, "SIGTERM") } catch { try { app.kill("SIGTERM") } catch { /* 已退出 */ } }
+    await new Promise((r) => setTimeout(r, 500))
+    try { process.kill(-app.pid, "SIGKILL") } catch { /* 已退出 */ }
+  }
+  // 兜底：仍占用端口就按持有者 PID 清掉（只在本脚本自己起的服务上兜底）
+  for (let i = 0; i < 10; i += 1) {
+    const busy = require("node:child_process").spawnSync("lsof", ["-nP", `-iTCP:${PORT}`, "-sTCP:LISTEN", "-t"], { encoding: "utf8" })
+    const pid = busy.stdout?.trim().split("\n")[0]
+    if (!pid) break
+    try { process.kill(Number(pid), "SIGKILL") } catch { /* 已退出 */ }
+    await new Promise((r) => setTimeout(r, 300))
+  }
+  const stillBusy = require("node:child_process").spawnSync("lsof", ["-nP", `-iTCP:${PORT}`, "-sTCP:LISTEN"], { encoding: "utf8" })
+  if (stillBusy.stdout?.trim()) console.log(`  ! 清理后端口 ${PORT} 仍被占用`)
   if (smokeEnvLocalBackup) {
     if (smokeEnvLocalBackup.content === null) fs.rmSync(smokeEnvLocalBackup.file, { force: true })
     else fs.writeFileSync(smokeEnvLocalBackup.file, smokeEnvLocalBackup.content)
   }
-  psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE)`)
-  // **只在本次是自己起的 postgres 时才停它** —— 否则会把使用者正在用的库停掉
-  // （实测: 上一次冒烟清场停了 postgres，紧接着的诊断全部连不上）
-  if (startedPostgres) {
-    const hasDocker = require("node:child_process").spawnSync("which", ["docker"]).status === 0
-    if (hasDocker) sh("pnpm", ["run", "db:down"])
-    else require("node:child_process").spawnSync("host-exec", ["docker", "compose", "-f", "deploy/docker-compose.dev.yml", "stop", "postgres"], { cwd: ROOT, encoding: "utf8" })
+  if (endpoint) {
+    try {
+      await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
+    } catch (error) {
+      console.log(`  ! 清理数据库失败: ${error?.message ?? error}`)
+    }
+    // 嵌入式库由本进程负责关闭（persistent:false 会连带删除 dataDir）；
+    // 外部库的 close() 是 no-op —— 不会误停使用者正在用的库。
+    await endpoint.close()
   }
 }
 
 async function main() {
   console.log(`\n=== 登录冒烟（库 ${DB} / 端口 ${PORT}）===\n`)
 
-  const alreadyUp = dockerExec(["inspect", "--format={{.State.Health.Status}}", CONTAINER]).out.trim() === "healthy"
-  if (!alreadyUp) {
-    startedPostgres = true
-    const hasDocker = require("node:child_process").spawnSync("which", ["docker"]).status === 0
-    if (hasDocker) {
-      if (!sh("pnpm", ["run", "db:up"]).ok) { step("起 postgres", false); return }
-    } else {
-      require("node:child_process").spawnSync("host-exec", ["docker", "compose", "-f", "deploy/docker-compose.dev.yml", "up", "-d", "postgres"], { cwd: ROOT, encoding: "utf8" })
-    }
+  try {
+    endpoint = await resolveDatabaseEndpoint()
+    URL = withDatabase(endpoint.url, DB)
+    step("起数据库（嵌入式或外部）", true, `${endpoint.source}${endpoint.port ? ` :${endpoint.port}` : ""}`)
+  } catch (error) {
+    step("起数据库（嵌入式或外部）", false, String(error?.message ?? error).split("\n")[0])
+    return
   }
-  for (let i = 0; i < 20; i += 1) {
-    const health = dockerExec(["inspect", "--format={{.State.Health.Status}}", CONTAINER])
-    if (health.out.trim() === "healthy") break
-    await new Promise((r) => setTimeout(r, 2000))
-  }
-  step("起 postgres 并等健康", true)
 
-  psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE)`)
-  step("建库", psql("postgres", `CREATE DATABASE ${DB}`).ok)
+  await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
+  step("建库", true)
 
   step("迁移", sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL }).ok)
   step("种子", sh("npx", ["tsx", "scripts/seed-postgresql.ts"], {
@@ -130,8 +110,22 @@ async function main() {
   }).ok)
   step("登记插件", sh("npx", ["tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL }).ok)
 
-  const seeded = psql(DB, 'SELECT count(*) FROM "system_user" WHERE username = \'admin\'')
-  step("库里确有 admin（注意表名要加引号）", seeded.out.trim() === "1", `count=${seeded.out.trim()}`)
+  let seededCount = "?"
+  try {
+    const seeded = await query(URL, 'SELECT count(*)::int AS n FROM "system_user" WHERE username = \'admin\'')
+    seededCount = String(seeded.rows?.[0]?.n ?? "?")
+  } catch (error) {
+    seededCount = `err:${String(error?.message ?? error).slice(0, 60)}`
+  }
+  step("库里确有 admin（注意表名要加引号）", seededCount === "1", `count=${seededCount}`)
+
+  // **端口守卫**：3200 上若有残留 dev server，后面的 `GET /` 探活会打到它，
+  // 于是"起服务 ✓"其实是假绿，登录却打到另一个库上（实测踩过：ECONNREFUSED + 7/8）。
+  const portBusy = require("node:child_process").spawnSync("lsof", ["-nP", `-iTCP:${PORT}`, "-sTCP:LISTEN"], { encoding: "utf8" })
+  if (portBusy.status === 0 && portBusy.stdout.trim()) {
+    step("端口空闲", false, `${PORT} 已被占用（先清理残留 dev server）`)
+    return
+  }
 
   // 起服务（与人工操作一致: 环境变量显式给全）
   const logFile = path.join(require("node:os").tmpdir(), "smoke-login-app.log")
@@ -152,7 +146,11 @@ async function main() {
     "ADMIN_BOOTSTRAP_USERNAME=admin", `ADMIN_BOOTSTRAP_PASSWORD=${PASSWORD}`, `ADMIN_BOOTSTRAP_SALT=${SALT}`,
   ].join("\n") + "\n")
   app = spawn("pnpm", ["run", "dev"], {
-    cwd: ROOT, stdio: ["ignore", fs.openSync(logFile, "a"), fs.openSync(logFile, "a")],
+    cwd: ROOT,
+    // **必须 detached**：`pnpm run dev` 会再拉起 next-server；只 kill 包装进程会留下孤儿
+    // （实测泄漏过一个 6 小时前的 next-server，一直占着 3200，后续冒烟全打到它上面）
+    detached: true,
+    stdio: ["ignore", fs.openSync(logFile, "a"), fs.openSync(logFile, "a")],
     // **这四项必须走进程环境变量，不能只写 .env.local**:
     // Next 不会覆盖已存在的 process.env，优先级是 shell > .env.local > .env。
     // 实测: 只写 .env.local 时 admin 仍不被认作平台用户 → 401；

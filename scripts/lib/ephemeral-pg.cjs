@@ -26,6 +26,9 @@ const net = require("node:net")
 const os = require("node:os")
 const path = require("node:path")
 
+// `pg` 是本仓的直接依赖（^8.13.1）—— 外部库与嵌入式库共用同一个客户端。
+const { Client } = require("pg")
+
 const LOG_BUFFER_LIMIT = 40
 
 function createLogBuffer() {
@@ -195,4 +198,28 @@ async function resolveDatabaseEndpoint(options = {}) {
   }
 }
 
-module.exports = { resolveDatabaseEndpoint, findFreePort, waitForPortClosed }
+/**
+ * 对给定连接串执行 SQL。外部库与嵌入式库共用同一条路径，避免"两套客户端"。
+ * @param {string} url
+ * @param {string} sql
+ * @param {string[]} [params]
+ */
+async function query(url, sql, params = []) {
+  const client = new Client({ connectionString: url })
+  try {
+    await client.connect()
+    const result = await client.query(sql, params)
+    return result
+  } finally {
+    await client.end().catch(() => undefined)
+  }
+}
+
+/** 把连接串里的数据库名换掉（用于「在 postgres 库上建目标库」这类操作）。 */
+function withDatabase(url, database) {
+  const parsed = new URL(url)
+  parsed.pathname = `/${database}`
+  return parsed.toString()
+}
+
+module.exports = { resolveDatabaseEndpoint, findFreePort, waitForPortClosed, query, withDatabase }

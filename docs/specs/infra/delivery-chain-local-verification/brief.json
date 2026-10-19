@@ -176,7 +176,8 @@
       "parent": "T1",
       "title": "`smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433），断言逐字保留",
       "files": [
-        "scripts/smoke-login.cjs"
+        "scripts/smoke-login.cjs",
+        "scripts/lib/ephemeral-pg.cjs"
       ]
     },
     {

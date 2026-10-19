@@ -53,7 +53,7 @@
 
 - [ ] **T2**: `smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433），断言逐字保留
   - 归属: `T1`
-  - 文件白名单: `scripts/smoke-login.cjs`
+  - 文件白名单: `scripts/smoke-login.cjs, scripts/lib/ephemeral-pg.cjs`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
 - [ ] **T3**: `security:scan` 同样改用；12 项与两个阴性对照不变
@@ -89,7 +89,7 @@
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
 | T1 | main | spike + helper：核实最新版无需 patch（dist 含 getBestLocale 与 process.env 继承）；登记 allowBuilds、精确锁版本；实现 `scripts/lib/ephemeral-pg.cjs`（外部 DATABASE_URL 优先；空闲端口探测 + 以 postmaster.pid 实际端口为准；PG_VERSION 复用判定；persistent:false 的资源在 finally 中 stop 并确认端口释放；失败带最近日志） | scripts/lib/ephemeral-pg.cjs, pnpm-workspace.yaml, package.json, pnpm-lock.yaml, docs/04_implementation/sbom.json, docs/04_implementation/software-bill-of-materials.md | 未开始 |
-| T2 | T1 | `smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433），断言逐字保留 | scripts/smoke-login.cjs | 未开始 |
+| T2 | T1 | `smoke:login` 改用该 helper（移除 docker exec/容器名/写死 5433），断言逐字保留 | scripts/smoke-login.cjs, scripts/lib/ephemeral-pg.cjs | 未开始 |
 | T3 | T2 | `security:scan` 同样改用；12 项与两个阴性对照不变 | scripts/security-scan.cjs | 未开始 |
 | T4 | T3 | `load:test` 复用同一 helper，并在输出标注『本机数字≠容量』 | scripts/load-test.cjs | 未开始 |
 | T5 | T4 | 反向对照测试（起不来必须 fail-loud、清理后端口释放、外部 URL 优先）+ 本机实跑三条命令并记录证据 | test/unit/ephemeral-pg.test.ts, docs/specs/infra/delivery-chain-local-verification/evidence.json | 未开始 |
