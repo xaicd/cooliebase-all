@@ -155,7 +155,7 @@ export default function SystemUsersPage() {
       {/* 页头 */}
       <div className="flex items-center justify-between rounded-lg border bg-white p-4">
         <div>
-          <h1 className="text-lg font-semibold text-slate-900">用户管理</h1>
+          <h1 data-testid="user-title" className="text-lg font-semibold text-slate-900">用户管理</h1>
           <p className="mt-0.5 text-sm text-slate-500">管理系统用户账号、角色分配与状态</p>
         </div>
         <button

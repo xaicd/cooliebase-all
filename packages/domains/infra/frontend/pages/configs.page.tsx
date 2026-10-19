@@ -44,7 +44,7 @@ export default function InfraConfigsPage() {
   return (
     <div className="space-y-4">
       <div className="flex items-center justify-between rounded-lg border bg-white p-4">
-        <div><h1 className="text-lg font-semibold text-slate-900">系统配置</h1><p className="mt-0.5 text-sm text-slate-500">管理系统运行参数与配置项</p></div>
+        <div><h1 data-testid="config-title" className="text-lg font-semibold text-slate-900">系统配置</h1><p className="mt-0.5 text-sm text-slate-500">管理系统运行参数与配置项</p></div>
         <button onClick={() => { setEditing(null); setShowForm(true) }} className="h-9 rounded-md bg-blue-600 px-4 text-sm font-medium text-white hover:bg-blue-700">新增配置</button>
       </div>
 

@@ -110,7 +110,8 @@
       "llms:check",
       "sbom:check",
       "docs:commands:check",
-      "gen:paths:check"
+      "gen:paths:check",
+      "agent:selectors:check"
     ]
   },
   "compatibility": {
