@@ -65,7 +65,7 @@
     "不调整渗透项与压测阈值",
     "不把三件套并入 `npm run check`（它们要起服务，属发布期检查）"
   ],
-  "architecture": "使用 `embedded-postgres`（Node，封装 zonky 的 Postgres 二进制）：`new EmbeddedPostgres({ databaseDir: <临时目录>, port: <空闲端口>, user, password, persistent: false })` → `initialise()` → `start()` → `createDatabase()` → 让 `DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:<port>/<db>` 指向它 → 跑迁移/种子/起应用 → `stop()` 并在 finally 删除临时 dataDir。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 否则起嵌入式 Postgres；③ 起不来 → fail-loud。两个实测/调研得出的必需细节：**pnpm 必须 approve build scripts**（否则二进制缺符号链接）、**版本精确锁 beta**。冒烟与渗透共用 `scripts/lib/ephemeral-pg.cjs`；`load:test` 复用同一 helper（真实多连接），但在输出里标注「本机数字≠容量」。",
+  "architecture": "使用 `embedded-postgres@18.4.0-beta.17`（Node，封装 zonky 的 Postgres 二进制）：`new EmbeddedPostgres({ databaseDir: <临时目录>, port: <探测到的空闲端口>, user, password, persistent: false })` → `initialise()` → `start()` → `createDatabase()` → `DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:<port>/<db>` → 跑迁移/种子/起应用 → `stop()`（`persistent:false` 会连带删除 dataDir）。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 否则起嵌入式 Postgres；③ 起不来 → fail-loud。\n**参考实现（本地 fork paperclipai/paperclip → workspace/xaicd/coolie）已精读**，采用其经验：\n  · 端口冲突：先探测空闲端口，**并以 postmaster.pid 中的实际端口为准**（配置端口可能与实际不同）；\n  · 集群复用：以 `<dataDir>/PG_VERSION` 存在判定已初始化，跳过 `initialise()`；残留 `postmaster.pid` 要先删；\n  · `initdbFlags` 固定 `--encoding=UTF8`；locale 交给库的 `getBestLocale()`（见下方风险）；\n  · 失败时必须带最近 Postgres 日志输出，否则只看到 exit code 无从排查。\n**paperclip 维护的 patch 在新版已不需要**：它补的两点（locale 写死、子进程 env 丢 PATH）在最新源码里分别是 `getBestLocale()` 与 `{ ...process.env, LC_MESSAGES }`。T1 spike 必须核实安装后的 dist 确实包含这两处，否则回退 pin 18.1 + 移植其 patch。",
   "entities": [],
   "invariants": [
     {
@@ -102,6 +102,14 @@
     {
       "risk": "改动波及检查逻辑",
       "mitigation": "只替换端点获取与进程生命周期；断言/清单逐字不动，用改前改后输出对照"
+    },
+    {
+      "risk": "`start()` 以 stderr 中出现英文就绪串判定启动完成，locale 不对会挂起",
+      "mitigation": "依赖库的 getBestLocale()；spike 时确认该函数在 dist 中；必要时显式传 --lc-messages=C 并在失败时带日志"
+    },
+    {
+      "risk": "旧版本需要维护 patch（locale/env），增加长期维护成本",
+      "mitigation": "用最新 18.4.0-beta.17 并 spike 核实无需 patch；若仍需 patch，则按 coolie 的方式登记 patchedDependencies 并写明原因"
     }
   ],
   "screens": [],
@@ -138,19 +146,22 @@
   ],
   "benchmarks": [
     "embedded-postgres（leinelissen）官方 README 与平台支持矩阵",
-    "AGENTS §3.4 第 14~16 步与 §10.3 发布门禁"
+    "AGENTS §3.4 第 14~16 步与 §10.3 发布门禁",
+    "paperclip（coolie fork）实践：端口探测 + PG_VERSION 复用判定 + postmaster.pid 身份校验 + 失败带日志"
   ],
   "scan": [
     "调研：`embedded-postgres@18.4.0-beta.17` 支持 darwin-arm64 / linux-x64 等 8 个平台",
     "调研：README 明确『需要 post-install 脚本生成符号链接；pnpm 用户需 approve-builds』",
-    "前序实测（PGlite 路线，作为对照）：WASM 方案迁移可应用，但单连接限制不适合容量检查"
+    "前序实测（PGlite 路线，作为对照）：WASM 方案迁移可应用，但单连接限制不适合容量检查",
+    "精读本地 fork（workspace/xaicd/coolie，上游 paperclipai/paperclip）：server/src/index.ts:545 起为实例化与生命周期，server/src/embedded-postgres-owner.ts 用 postmaster.pid 校验实例身份与实际端口，patches/embedded-postgres@18.1.0-beta.16.patch 记录了两处上游缺陷",
+    "对比最新源码：上述两处缺陷已在上游修复（getBestLocale + process.env 继承），故最新版无需 patch"
   ],
   "licenseConclusion": "embedded-postgres 代码 MIT、二进制 Apache-2.0，均可商用；需在依赖策略中记录 beta 版本与二进制体积。",
   "tasks": [
     {
       "id": "T1",
       "parent": "main",
-      "title": "spike + helper：登记 allowBuilds、精确锁版本，实现 `scripts/lib/ephemeral-pg.cjs`（外部 URL 优先，否则 initialise/start/stop + 临时 dataDir + 端口释放校验）",
+      "title": "spike + helper：核实最新版无需 patch（dist 含 getBestLocale 与 process.env 继承）；登记 allowBuilds、精确锁版本；实现 `scripts/lib/ephemeral-pg.cjs`（外部 DATABASE_URL 优先；空闲端口探测 + 以 postmaster.pid 实际端口为准；PG_VERSION 复用判定；persistent:false 的资源在 finally 中 stop 并确认端口释放；失败带最近日志）",
       "files": [
         "scripts/lib/ephemeral-pg.cjs",
         "pnpm-workspace.yaml",

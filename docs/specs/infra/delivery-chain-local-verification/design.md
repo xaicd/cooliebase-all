@@ -14,7 +14,13 @@
 
 ## 2. 领域架构边界与调用拓扑 (Architecture Topology & Flows)
 
-使用 `embedded-postgres`（Node，封装 zonky 的 Postgres 二进制）：`new EmbeddedPostgres({ databaseDir: <临时目录>, port: <空闲端口>, user, password, persistent: false })` → `initialise()` → `start()` → `createDatabase()` → 让 `DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:<port>/<db>` 指向它 → 跑迁移/种子/起应用 → `stop()` 并在 finally 删除临时 dataDir。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 否则起嵌入式 Postgres；③ 起不来 → fail-loud。两个实测/调研得出的必需细节：**pnpm 必须 approve build scripts**（否则二进制缺符号链接）、**版本精确锁 beta**。冒烟与渗透共用 `scripts/lib/ephemeral-pg.cjs`；`load:test` 复用同一 helper（真实多连接），但在输出里标注「本机数字≠容量」。
+使用 `embedded-postgres@18.4.0-beta.17`（Node，封装 zonky 的 Postgres 二进制）：`new EmbeddedPostgres({ databaseDir: <临时目录>, port: <探测到的空闲端口>, user, password, persistent: false })` → `initialise()` → `start()` → `createDatabase()` → `DATABASE_URL=postgresql://<user>:<password>@127.0.0.1:<port>/<db>` → 跑迁移/种子/起应用 → `stop()`（`persistent:false` 会连带删除 dataDir）。端点解析优先级：① 显式 `DATABASE_URL`（CI/已有库）→ 直接用；② 否则起嵌入式 Postgres；③ 起不来 → fail-loud。
+**参考实现（本地 fork paperclipai/paperclip → workspace/xaicd/coolie）已精读**，采用其经验：
+  · 端口冲突：先探测空闲端口，**并以 postmaster.pid 中的实际端口为准**（配置端口可能与实际不同）；
+  · 集群复用：以 `<dataDir>/PG_VERSION` 存在判定已初始化，跳过 `initialise()`；残留 `postmaster.pid` 要先删；
+  · `initdbFlags` 固定 `--encoding=UTF8`；locale 交给库的 `getBestLocale()`（见下方风险）；
+  · 失败时必须带最近 Postgres 日志输出，否则只看到 exit code 无从排查。
+**paperclip 维护的 patch 在新版已不需要**：它补的两点（locale 写死、子进程 env 丢 PATH）在最新源码里分别是 `getBestLocale()` 与 `{ ...process.env, LC_MESSAGES }`。T1 spike 必须核实安装后的 dist 确实包含这两处，否则回退 pin 18.1 + 移植其 patch。
 
 ### 核心业务时序图 (Archify Mermaid Flow)
 ```mermaid
@@ -66,3 +72,5 @@ sequenceDiagram
 - **风险**: 二进制体积与平台差异 -> **缓释策略**: 仅装当前平台的包；CI 若已有 PG 走 DATABASE_URL 直连，不下载
 - **风险**: 误把本机压测数字当容量 -> **缓释策略**: load:test 输出显式标注『本机 ≠ 容量』，阈值仅作回归护栏
 - **风险**: 改动波及检查逻辑 -> **缓释策略**: 只替换端点获取与进程生命周期；断言/清单逐字不动，用改前改后输出对照
+- **风险**: `start()` 以 stderr 中出现英文就绪串判定启动完成，locale 不对会挂起 -> **缓释策略**: 依赖库的 getBestLocale()；spike 时确认该函数在 dist 中；必要时显式传 --lc-messages=C 并在失败时带日志
+- **风险**: 旧版本需要维护 patch（locale/env），增加长期维护成本 -> **缓释策略**: 用最新 18.4.0-beta.17 并 spike 核实无需 patch；若仍需 patch，则按 coolie 的方式登记 patchedDependencies 并写明原因
