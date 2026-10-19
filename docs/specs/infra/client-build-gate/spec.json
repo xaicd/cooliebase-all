@@ -1,0 +1,12 @@
+{
+  "name": "client-build-gate",
+  "domain": "infra",
+  "title": "客户端构建门禁（Expo 导出）+ Expo SDK 升级路径评估",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 5,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-10-19T04:31:51.394Z"
+}

@@ -1,0 +1,165 @@
+{
+  "name": "client-build-gate",
+  "domain": "infra",
+  "title": "客户端构建门禁（Expo 导出）+ Expo SDK 升级路径评估",
+  "type": "feature",
+  "goal": "补上仓内**完全缺失**的客户端构建验证：新增 `npm run clients:build:check`，跑一次 Expo 导出并断言产物，使「客户端还能不能被打包」从无人验证变成有门禁；并据此给出 Expo SDK 升级路径的评估结论（升级本身不在本次范围内）。",
+  "roles": [
+    {
+      "role": "基座维护者",
+      "can": "在改依赖或升 SDK 之前就知道客户端是否还能打包，而不是等用户装上 App 才发现白屏"
+    },
+    {
+      "role": "发布/SRE 工程师",
+      "can": "把「客户端能构建」纳入发布前的确定性证据，不再只有服务端一条链的验证"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "新增门禁：跑一次 Expo 导出到**临时目录**（不污染工作区），断言退出码为 0 且产物含 index.html 与至少一个 bundle"
+    },
+    {
+      "priority": "P0",
+      "text": "在 `clients/expo` 缺席或依赖未安装时**跳过并说明原因**，而不是失败 —— 裁剪过的工程（profile base/minimal）不含客户端，硬要求会让门禁在那些工程里必定红"
+    },
+    {
+      "priority": "P1",
+      "text": "接线：npm script + `npm run check` 链 + 轨迹 gates + compat 声明（check 已在 CI 的 gates job 里跑，故无需另加 CI 步骤）；并配反向对照证明门禁会 fire"
+    },
+    {
+      "priority": "P1",
+      "text": "把 Expo SDK 升级路径评估（含本次实测证据）写入依赖治理台账 §3.2，替换原先「无可验证手段」的表述"
+    }
+  ],
+  "constraints": [
+    "零污染：导出产物必须落到临时目录并在结束时清理，调用后 `git status --porcelain` 不得出现新条目。",
+    "离线可跑：不得依赖网络（除已安装依赖外）；实测 `expo export` 走本地 Metro 打包。",
+    "裁剪安全：`clients/**` 缺席的工程必须跳过关禁而不是失败（基座要能被裁剪孵化）。",
+    "不得绕过 `npm run check`：门禁只报事实与退出码，不自判通过。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0"
+    },
+    {
+      "check": "`npm run clients:build:check` exit=0，且断言产物存在（index.html + 至少 1 个 bundle 文件）"
+    },
+    {
+      "check": "零污染：调用后 `git status --porcelain` 与调用前一致（导出产物已清理）"
+    },
+    {
+      "check": "反向对照：人为破坏客户端入口后门禁必须失败（证明它会 fire，不是装饰）"
+    },
+    {
+      "check": "裁剪场景：临时移开 `clients/expo` 时门禁跳过并打印原因，退出码为 0 而非失败"
+    }
+  ],
+  "nonGoals": [
+    "本次**不**升级 Expo SDK（只补门禁 + 出评估结论）",
+    "不做 iOS/Android 原生构建（需要 Xcode/Android SDK，超出本仓可验证范围）；只做 web 导出这条可在 CI 跑的链",
+    "不改动客户端应用代码或 Expo 依赖版本"
+  ],
+  "architecture": "新增 `scripts/check-client-build.cjs`：① 若 `clients/expo` 或其 `node_modules` 不存在 → 打印跳过原因并 exit 0；② 否则在 `os.tmpdir()` 下建唯一临时目录，以 `cwd=clients/expo` 执行 `npx expo export -p web --output-dir <tmp>`；③ 断言退出码 0、`<tmp>/index.html` 存在、`_expo/static/js/web/` 下至少一个 `.js`；④ 无论成败都在 finally 里删除临时目录；⑤ 输出结构化结果（跳过/通过/失败 + 耗时 + 产物数），失败时打印导出日志尾部。接线：`npm run clients:build:check` 插入 `npm run check` 链，并在 `write-harness-trace.cjs` 的 gates 与 `compat-manifest.json` 的 `consumptionSurface.gates` 同步声明。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "不涉及数据库表；门禁实现为 scripts/check-client-build.cjs，无持久化产物"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "零污染",
+      "how": "导出始终指向临时目录，且 finally 中清理；调用前后 git status 必须一致"
+    },
+    {
+      "name": "裁剪不失败",
+      "how": "clients/** 缺席即跳过（exit 0 + 原因），保证 profile base/minimal 孵化的工程不会因缺少客户端而红"
+    }
+  ],
+  "ui": [
+    "不涉及 UI 调整（本门禁验证的是客户端能否打包，不改客户端代码）"
+  ],
+  "ops": [
+    "新增 `npm run clients:build:check`；纳入 `npm run check`（CI 的 gates job 由此自动覆盖）；发布前随 check 一并执行"
+  ],
+  "risks": [
+    {
+      "risk": "Expo 导出在 CI（linux）与本机（darwin）行为不同，门禁可能在 CI 红",
+      "mitigation": "门禁只断言退出码与产物存在，不断言字节内容；失败时打印导出日志尾部便于定位"
+    },
+    {
+      "risk": "门禁耗时随客户端规模增长，拖慢 check",
+      "mitigation": "实测当前约十几秒（Metro 打包 4.2s）；若显著增长，再按仓内既有做法（smoke/security/load）拆为独立 job"
+    }
+  ],
+  "screens": [
+    {
+      "name": "门禁输出",
+      "wireframe": "不涉及（CLI 文本）"
+    }
+  ],
+  "interactions": [
+    "与既有门禁一致：退出码即结论，无交互"
+  ],
+  "states": [
+    "加载中：不涉及。",
+    "空数据：无客户端 → 跳过并打印原因，exit 0。",
+    "出错：导出失败 → exit 非 0 并打印日志尾部，不静默通过。",
+    "成功：打印耗时与产物数量，exit 0。"
+  ],
+  "candidates": [
+    {
+      "name": "复用 clients/expo 既有 export 能力 + 临时输出目录",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "低：实测可直接跑通"
+    },
+    {
+      "name": "引入 Expo 官方 EAS Build / 原生构建",
+      "type": "商业",
+      "license": "专有",
+      "risk": "高：需云端服务与凭证，且本仓无法在 CI 验证 iOS/Android 原生链"
+    }
+  ],
+  "benchmarks": [
+    "仓内既有门禁形态（自管理、退出码即结论、失败打印证据）"
+  ],
+  "scan": [
+    "本次实测：`npx expo export -p web` exit=0，Metro 打包 4165ms，产物 index.html + 1 个 329kB bundle",
+    "本次实测：`.github/workflows/ci.yml` 全文件无任何 expo 步骤；根 package.json 无 expo 脚本 → 客户端构建此前**零验证**"
+  ],
+  "licenseConclusion": "复用既有依赖（expo 已在客户端 workspace 内），零新增第三方依赖，无合规风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "实现客户端构建门禁脚本（临时目录导出 + 产物断言 + 裁剪跳过）",
+      "files": [
+        "scripts/check-client-build.cjs"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "接线：npm script + check 链 + 轨迹 + compat 声明",
+      "files": [
+        "package.json",
+        "scripts/write-harness-trace.cjs",
+        "packages/shared/contract/compat-manifest.json",
+        "compat-manifest.json",
+        "public/compat-manifest.json"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "Expo SDK 升级路径评估写入依赖治理台账",
+      "files": [
+        "docs/architecture/cooliebase-all-dependency-policy.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 10
+}
