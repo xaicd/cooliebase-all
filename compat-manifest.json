@@ -103,7 +103,8 @@
       "foundation:ontology:check",
       "skills:check",
       "compat:check",
-      "standards:check"
+      "standards:check",
+      "deps:audit"
     ]
   },
   "compatibility": {
