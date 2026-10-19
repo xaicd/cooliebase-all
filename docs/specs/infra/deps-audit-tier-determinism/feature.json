@@ -1,0 +1,12 @@
+{
+  "name": "deps-audit-tier-determinism",
+  "domain": "infra",
+  "title": "依赖 CVE 门禁分层判据改为从 pnpm-lock.yaml 离线推导（消除多父级包导致的 5/5/6 不确定）",
+  "type": "bugfix",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 4,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-10-19T04:20:00.361Z"
+}
