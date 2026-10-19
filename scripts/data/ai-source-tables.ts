@@ -1481,6 +1481,7 @@ export const AI_TABLES: CodegenConfig[] = [
           "type": "varchar",
           "tsType": "string",
           "nullable": false,
+          "maxLength": 20,
           "comment": "状态",
           "nullableInferred": true,
           "queryType": "="

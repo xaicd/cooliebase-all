@@ -20,6 +20,22 @@ function isRequiredColumn(column: ConfiguredColumn): boolean {
  * 所以测试在内存模式下能过；一配真实库就 `null value in column "..." violates
  * not-null constraint` —— 这类测试**只在内存模式下成立**，等于没测。
  */
+/**
+ * 生成一个**不超过列长度上限**的字符串字面量。
+ *
+ * 为什么需要: 生成器把所有字符串列都填成同一个长业务名，而真实列常有长度上限
+ * （如 `status varchar(20)`）。内存回退不校验长度，测试就"通过"；
+ * 一配真实库直接 `value too long for type character varying(20)`（实测 `ai_model`）。
+ * 元数据没记 `maxLength` 时无法判断，只能按原值生成 —— 那是元数据的缺口，
+ * 不是这里可以猜的（`scripts/fill-missing-columns.ts` 会从 information_schema 补录）。
+ */
+function stringLiteral(raw: string, maxLength?: number): string {
+  if (typeof maxLength === "number" && maxLength > 0 && raw.length > maxLength) {
+    return `"${raw.slice(0, maxLength)}"`
+  }
+  return `"${raw}"`
+}
+
 function sampleValue(column: ConfiguredColumn, businessName: string): string {
   // **按数据库类型判**，不要只看 tsType —— 元数据里存在 `tsType: "string"` 但
   // 物理列是 integer 的情况（导入器的启发式推断），只按 tsType 会生成字符串，
@@ -39,9 +55,9 @@ function sampleValue(column: ConfiguredColumn, businessName: string): string {
       if (column.type === "timestamp" || column.name.endsWith("_time") || column.name.endsWith("_at")) {
         return "new Date().toISOString()"
       }
-      return `"测试${businessName}"`
+      return stringLiteral(`测试${businessName}`, column.maxLength)
     default:
-      return `"测试${businessName}"`
+      return stringLiteral(`测试${businessName}`, column.maxLength)
   }
 }
 

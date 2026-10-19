@@ -21,14 +21,17 @@ describe("跨域 Facade: 库存操作", () => {
 
   beforeAll(async () => {
     const created = await runWithTenantContext({ tenantId: "1" }, async () =>
-      WmsInventoryRepository.create({ warehouseId: "w1", itemId: "i1", qty: 10, lockedQty: 0 } as never),
+      // 仓储的入参契约是 **snake_case**（`WRITABLE_COLUMNS` 按物理列名匹配，
+      // validator 也是 `warehouse_id`）。之前写成 camelCase 时，`persistable()` 一个字段都匹配不上，
+      // 真实库直接因 `warehouse_id` NOT NULL 违约报错；内存模式不校验，所以"通过"了。
+      WmsInventoryRepository.create({ warehouse_id: "w1", item_id: "i1", qty: 10, locked_qty: 0 } as never),
     )
     inventoryId = String((created as { id: string }).id)
   })
 
   beforeEach(async () => {
     await runWithTenantContext({ tenantId: "1" }, async () =>
-      WmsInventoryRepository.update(inventoryId, { qty: 10, lockedQty: 0 } as never),
+      WmsInventoryRepository.update(inventoryId, { qty: 10, locked_qty: 0 } as never),
     )
   })
 

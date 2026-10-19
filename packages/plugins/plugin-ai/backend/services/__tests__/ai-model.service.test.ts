@@ -9,7 +9,9 @@ describe("AiModelService", () => {
       const created = await AiModelService.create({
         name: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
         sort: 1,
-        status: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
+        // `status` 是 `varchar(20)`：生成器现在按元数据的 maxLength 截断，
+        // 这里按同样规则取前 20 个字符（否则真实库报 value too long）。
+        status: "测试AI 模型 DO默认模型： 为开启，",
         model_key: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
         input_ratio: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",
         output_ratio: "测试AI 模型 DO默认模型： 为开启，并且 排序第一",

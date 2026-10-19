@@ -44,8 +44,8 @@ async function main() {
     if (!Array.isArray(configs)) continue
 
     for (const config of configs) {
-      const rows = await client.query<{ column_name: string; data_type: string; is_nullable: string }>(
-        `SELECT column_name, data_type, is_nullable FROM information_schema.columns WHERE table_name = $1`,
+      const rows = await client.query<{ column_name: string; data_type: string; is_nullable: string; character_maximum_length: number | null }>(
+        `SELECT column_name, data_type, is_nullable, character_maximum_length FROM information_schema.columns WHERE table_name = $1`,
         [config.table.name],
       )
       if (rows.rows.length === 0) continue
@@ -66,6 +66,9 @@ async function main() {
         // 托管列不写进元数据（由平台统一处理），其余原样登记
         block.push("        {", `          "name": "${row.column_name}",`, `          "type": "${mapped.type}",`,
           `          "tsType": "${mapped.tsType}",`, `          "nullable": ${row.is_nullable === "NO" ? "false" : "true"},`,
+          // 记下长度上限：生成器要按它生成"塞得进去"的测试值，
+          // 漏掉它就会生成超长字符串，真实库报 `value too long for type character varying(N)`。
+          ...(row.character_maximum_length ? [`          "maxLength": ${row.character_maximum_length},`] : []),
           `          "comment": "表里已有、元数据此前未登记",`, "          \"nullableInferred\": true", "        },")
       }
       lines.splice(end, 0, ...block)

@@ -29,9 +29,21 @@ describe("plugin-ai / ai-model 路由层", () => {
         new Request("http://localhost/api/v1/admin/ai/ai-model", {
           method: "POST",
           headers: { "content-type": "application/json" },
-          body: JSON.stringify({ name: "route-probe-model", sort: 1, status: "ENABLED" }),
+          // `model_key` / `provider` 在真实表里是**无默认值的 NOT NULL 列**：
+          // 不填则 PostgreSQL 直接拒绝（内存回退不校验，所以此前"通过"）。
+          body: JSON.stringify({
+            name: "route-probe-model",
+            model_key: "route-probe-key",
+            provider: "openai",
+            sort: 1,
+            status: "ENABLED",
+          }),
         }),
       )
+      if (created.status !== 201) {
+        // 带出响应原文：400 可能是校验失败、也可能是真实库约束（NOT NULL/长度/类型）拒绝
+        throw new Error(`POST 返回 ${created.status}: ${(await created.text()).slice(0, 200)}`)
+      }
       expect(created.status).toBe(201)
       const createdBody = (await created.json()) as { success: boolean; data: { id: string; name: string } }
       expect(createdBody.success).toBe(true)
