@@ -5,7 +5,7 @@ export const COOLIEBASE_SYSTEM_FIELD_LABELS: Record<string, string> = {
   id: "主键", creator: "创建者", create_time: "创建时间", updater: "更新者", update_time: "更新时间", deleted: "是否删除", tenant_id: "租户编号",
 }
 
-export function createRuoyiSystemFields(): OnlineFieldIR[] {
+export function createSystemFields(): OnlineFieldIR[] {
   return [
     { code: "id", type: "string", nullable: false, length: 36, remark: "主键", identity: "PLATFORM_UUID", systemManaged: true },
     { code: "creator", type: "string", nullable: false, length: 64, default: "", remark: "创建者", systemTemplate: "CREATED_AUDIT", systemManaged: true },
@@ -18,7 +18,7 @@ export function createRuoyiSystemFields(): OnlineFieldIR[] {
 }
 
 export function createInitialOnlineModel(): OnlineModelIR {
-  return { version: 1, storage: { kind: "GENERIC_RECORD" }, fields: createRuoyiSystemFields(), indexes: [], relations: [] }
+  return { version: 1, storage: { kind: "GENERIC_RECORD" }, fields: createSystemFields(), indexes: [], relations: [] }
 }
 
 function widgetFor(field: OnlineFieldIR): string {
@@ -41,8 +41,8 @@ function sameField(left: OnlineFieldIR, right: OnlineFieldIR, compareSystemManag
   return left.code === right.code && left.type === right.type && left.nullable === right.nullable && left.length === right.length && left.precision === right.precision && left.default === right.default && left.remark === right.remark && left.identity === right.identity && left.systemTemplate === right.systemTemplate && (!compareSystemManaged || left.systemManaged === right.systemManaged)
 }
 
-export function mergeRuoyiSystemFields(model: OnlineModelIR): OnlineModelIR {
-  const standardFields = createRuoyiSystemFields()
+export function mergeSystemFields(model: OnlineModelIR): OnlineModelIR {
+  const standardFields = createSystemFields()
   const standardByCode = new Map(standardFields.map((field) => [field.code, field]))
   const businessFields = model.fields.filter((field) => !standardByCode.has(field.code))
   for (const standard of standardFields) {
@@ -52,14 +52,14 @@ export function mergeRuoyiSystemFields(model: OnlineModelIR): OnlineModelIR {
   return { ...model, fields: [...businessFields, ...standardFields] }
 }
 
-export function mergeRuoyiSystemInteractions(interaction: OnlineInteractionIR, model: OnlineModelIR): Record<string, unknown> {
-  const systemCodes = new Set(createRuoyiSystemFields().map((field) => field.code))
+export function mergeSystemInteractions(interaction: OnlineInteractionIR, model: OnlineModelIR): Record<string, unknown> {
+  const systemCodes = new Set(createSystemFields().map((field) => field.code))
   const systemFields = model.fields.filter((field) => systemCodes.has(field.code))
   return { ...interaction, fields: [...interaction.fields.filter((field) => !systemCodes.has(field.code)), ...createSystemFieldInteractions(systemFields)] }
 }
 
-export function validateRuoyiSystemFields(model: OnlineModelIR): void {
-  const expected = new Map(createRuoyiSystemFields().map((field) => [field.code, field]))
+export function validateSystemFields(model: OnlineModelIR): void {
+  const expected = new Map(createSystemFields().map((field) => [field.code, field]))
   for (const field of model.fields) {
     if (!field.systemManaged) continue
     const standard = expected.get(field.code)
@@ -67,7 +67,7 @@ export function validateRuoyiSystemFields(model: OnlineModelIR): void {
   }
 }
 
-export function assertRuoyiSystemFieldsImmutable(current: OnlineModelIR, next: OnlineModelIR): void {
+export function assertSystemFieldsImmutable(current: OnlineModelIR, next: OnlineModelIR): void {
   for (const field of current.fields.filter((item) => item.systemManaged)) {
     const candidate = next.fields.find((item) => item.code === field.code)
     if (!candidate || !sameField(field, candidate)) throw new Error(`系统字段 ${field.code} 已固化，不能删除或修改`)

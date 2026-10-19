@@ -6,7 +6,7 @@ import { parseOnlineInteractionIR } from "../../application/online-interaction.c
 import { validateOnlineModelAggregate } from "../../application/online-model.validator"
 import { fingerprintOnlineModelIR, parseOnlineModelIR } from "../../application/online-schema-plan.compiler"
 import { onlineReleaseChecksum, verifyOnlineReleaseChecksum } from "../../application/online-runtime.compiler"
-import { assertRuoyiSystemFieldsImmutable, createInitialOnlineInteraction, createInitialOnlineModel, mergeRuoyiSystemFields, mergeRuoyiSystemInteractions } from "../../application/online-model-defaults"
+import { assertSystemFieldsImmutable, createInitialOnlineInteraction, createInitialOnlineModel, mergeSystemFields, mergeSystemInteractions } from "../../application/online-model-defaults"
 
 function requireDatabase(): void {
   if (!hasRealDatabase()) throw new ApiError("DEPENDENCY_UNAVAILABLE", "Online Definition 需要已迁移的 PostgreSQL 数据库，不支持内存持久化")
@@ -299,9 +299,9 @@ export class KyselyOnlineDefinitionRepository {
       const revisionId = crypto.randomUUID()
       const now = new Date()
       const requestedModel = input.model ? parseOnlineModelIR(input.model) : createInitialOnlineModel()
-      const initialModel = await resolveRelationTargets(trx, { tenantId: input.tenantId, definitionCode: input.code, model: mergeRuoyiSystemFields(requestedModel) })
+      const initialModel = await resolveRelationTargets(trx, { tenantId: input.tenantId, definitionCode: input.code, model: mergeSystemFields(requestedModel) })
       const requestedInteraction = input.interaction ? parseOnlineInteractionIR(input.interaction, initialModel) : parseOnlineInteractionIR(createInitialOnlineInteraction(initialModel), initialModel)
-      const initialInteraction = await resolveMasterDetailTargets(trx, { tenantId: input.tenantId, definitionCode: input.code, interaction: parseOnlineInteractionIR(mergeRuoyiSystemInteractions(requestedInteraction, initialModel), initialModel) })
+      const initialInteraction = await resolveMasterDetailTargets(trx, { tenantId: input.tenantId, definitionCode: input.code, interaction: parseOnlineInteractionIR(mergeSystemInteractions(requestedInteraction, initialModel), initialModel) })
       await validateDraftConfiguration(() => validateOnlineModelAggregate(input.modelType as OnlineModelType, input.code, initialModel, initialInteraction))
       await trx.insertInto("online_definition").values({ id: definitionId, tenant_id: input.tenantId, code: input.code, name: input.name, model_type: input.modelType, status: "DRAFT", current_draft_revision_id: null, published_release_id: null, lock_version: 1, created_by: input.actorId, updated_by: input.actorId, created_at: now, updated_at: now, deleted: false }).execute()
       await trx.insertInto("online_revision").values({ id: revisionId, definition_id: definitionId, tenant_id: input.tenantId, sequence: 1, status: "DRAFT", schema_revision: 0, model_json: initialModel, interaction_json: initialInteraction, policy_json: {}, workflow_json: {}, validation_report: null, created_by: input.actorId, published_by: null, published_at: null, created_at: now, updated_at: now }).execute()
@@ -371,8 +371,8 @@ export class KyselyOnlineDefinitionRepository {
       if (!definition || definition.lock_version !== input.expectedLockVersion || !definition.current_draft_revision_id) throw new ApiError("CONFLICT", "Definition 不存在、无 Draft 或版本已过期")
       const current = await trx.selectFrom("online_revision").selectAll().where("id", "=", definition.current_draft_revision_id).where("tenant_id", "=", input.tenantId).where("definition_id", "=", definition.id).where("status", "in", ["DRAFT", "VALIDATED"]).executeTakeFirst()
       if (!current) throw new ApiError("CONFLICT", "Draft Revision 已被发布或归档")
-      const nextModel = await resolveRelationTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, model: parseOnlineModelIR(mergeRuoyiSystemFields(parseOnlineModelIR(current.model_json))) })
-      const nextInteraction = await resolveMasterDetailTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, interaction: parseOnlineInteractionIR(mergeRuoyiSystemInteractions(parseOnlineInteractionIR(current.interaction_json, parseOnlineModelIR(current.model_json)), nextModel), nextModel) })
+      const nextModel = await resolveRelationTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, model: parseOnlineModelIR(mergeSystemFields(parseOnlineModelIR(current.model_json))) })
+      const nextInteraction = await resolveMasterDetailTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, interaction: parseOnlineInteractionIR(mergeSystemInteractions(parseOnlineInteractionIR(current.interaction_json, parseOnlineModelIR(current.model_json)), nextModel), nextModel) })
       const modelChanged = fingerprintOnlineModelIR(current.model_json) !== fingerprintOnlineModelIR(nextModel)
       const revisionUpdated = await trx.updateTable("online_revision").set({ model_json: nextModel, interaction_json: nextInteraction, status: "DRAFT", validation_report: null, updated_at: new Date() }).where("id", "=", current.id).where("tenant_id", "=", input.tenantId).where("status", "in", ["DRAFT", "VALIDATED"]).executeTakeFirst()
       if (Number(revisionUpdated.numUpdatedRows) !== 1) throw new ApiError("CONFLICT", "Draft Revision 已被发布或归档")
@@ -397,7 +397,7 @@ export class KyselyOnlineDefinitionRepository {
       if (!current) throw new ApiError("CONFLICT", "Draft Revision 已被发布或归档")
       const requestedModel = normalizeDraftModel(await validateDraftConfiguration(() => parseOnlineModelIR(input.model ?? current.model_json)))
       const currentModel = await validateDraftConfiguration(() => parseOnlineModelIR(current.model_json))
-      await validateDraftConfiguration(() => assertRuoyiSystemFieldsImmutable(currentModel, requestedModel))
+      await validateDraftConfiguration(() => assertSystemFieldsImmutable(currentModel, requestedModel))
       const nextModel = await validateDraftConfiguration(() => resolveRelationTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, model: requestedModel }))
       const requestedInteraction = await validateDraftConfiguration(() => parseOnlineInteractionIR(normalizeDraftInteraction(input.interaction ?? current.interaction_json, nextModel), nextModel))
       const nextInteraction = await validateDraftConfiguration(() => resolveMasterDetailTargets(trx, { tenantId: input.tenantId, definitionCode: definition.code, interaction: requestedInteraction }))

@@ -10,7 +10,7 @@ import {
   type OnlineSchemaPlanPayload,
   type OnlineSchemaRisk,
 } from "./online-schema-plan.contract"
-import { validateRuoyiSystemFields } from "./online-model-defaults"
+import { validateSystemFields } from "./online-model-defaults"
 
 const code = z.string().regex(/^[a-z][a-z0-9_]{1,63}$/, "标识必须以小写字母开头，仅允许小写字母、数字和下划线")
 const fieldSchema = z.object({
@@ -75,7 +75,7 @@ export function parseOnlineModelIR(value: unknown): OnlineModelIR {
     if (field.systemTemplate && field.identity) throw new Error(`字段 ${field.code} 不能同时是系统字段和 identity 字段`)
     validateFieldDefault(field)
   }
-  validateRuoyiSystemFields(parsed)
+  validateSystemFields(parsed)
   for (const index of parsed.indexes) {
     if (new Set(index.fields).size !== index.fields.length) throw new Error(`索引 ${index.code} 不可重复引用同一字段`)
     for (const field of index.fields) if (!fieldCodes.has(field)) throw new Error(`索引 ${index.code} 引用了不存在字段 ${field}`)
