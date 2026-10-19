@@ -111,7 +111,8 @@
       "sbom:check",
       "docs:commands:check",
       "gen:paths:check",
-      "agent:selectors:check"
+      "agent:selectors:check",
+      "agent:routes:check"
     ]
   },
   "compatibility": {
