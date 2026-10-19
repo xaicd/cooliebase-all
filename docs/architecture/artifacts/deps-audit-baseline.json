@@ -4,7 +4,7 @@
   "note": "冻结的依赖漏洞欠债（ratchet）。门禁只拦**新增**；基线内的既有项如实展示、不阻断。用 `npm run deps:audit:baseline` 刷新，并逐条复核增量后再提交 —— 刷新基线等于接受这些洞。",
   "counts": {
     "total": 43,
-    "runtime": 6,
+    "runtime": 10,
     "bySeverity": {
       "critical": 2,
       "high": 30,
@@ -202,7 +202,7 @@
       "package": "postcss",
       "severity": "high",
       "ghsa": "GHSA-6g55-p6wh-862q",
-      "tier": "client-toolchain",
+      "tier": "runtime",
       "patchedVersions": ">=8.5.12"
     },
     {
@@ -210,7 +210,7 @@
       "package": "postcss",
       "severity": "moderate",
       "ghsa": "GHSA-fxqj-rqcc-2cmp",
-      "tier": "client-toolchain",
+      "tier": "runtime",
       "patchedVersions": ">=8.5.23"
     },
     {
@@ -218,7 +218,7 @@
       "package": "postcss",
       "severity": "moderate",
       "ghsa": "GHSA-qx2v-qp2m-jg93",
-      "tier": "client-toolchain",
+      "tier": "runtime",
       "patchedVersions": ">=8.5.10"
     },
     {
@@ -226,7 +226,7 @@
       "package": "postcss",
       "severity": "high",
       "ghsa": "GHSA-r28c-9q8g-f849",
-      "tier": "client-toolchain",
+      "tier": "runtime",
       "patchedVersions": ">=8.5.18"
     },
     {
