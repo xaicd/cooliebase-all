@@ -1,0 +1,12 @@
+{
+  "name": "deps-vuln-remediation",
+  "domain": "infra",
+  "title": "依赖漏洞治理：生产树止血 + 依赖 CVE 门禁 + dev 树欠债冻结",
+  "type": "security",
+  "status": "PLAN_APPROVED",
+  "stories": 5,
+  "acceptance": 5,
+  "invariants": 2,
+  "tasks": 7,
+  "updatedAt": "2026-10-19T03:09:51.660Z"
+}

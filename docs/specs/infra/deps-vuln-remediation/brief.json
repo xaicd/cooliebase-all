@@ -1,0 +1,213 @@
+{
+  "name": "deps-vuln-remediation",
+  "domain": "infra",
+  "title": "依赖漏洞治理：生产树止血 + 依赖 CVE 门禁 + dev 树欠债冻结",
+  "type": "security",
+  "goal": "消除生产运行时依赖的已知漏洞，并建立依赖 CVE 门禁使该类欠债不再无人看见：生产树强制 0 漏洞（enforce），dev/构建树以基线冻结既有欠债（ratchet，只拦新增）。",
+  "vulnerabilityAdvisory": "实测 `pnpm audit` 于本仓报出 53 条唯一通告（4 critical / 31 high / 17 moderate / 1 low），而 GitHub Dependabot 仅报 4 条（2 high / 2 moderate）——已抓取 GHSA-23hp-3jrh-7fpw（tar，CVE-2026-59873，critical）、GHSA-86w9-cpqp-85rv（node-forge，CVE-2026-85393，high）、GHSA-cjq9-62q9-8jv4（next，CVE-2026-94483，high）三条实锤，均为 GitHub 已审阅且带 CVE 编号的真实通告，故 53 为真、Dependabot 的 4 未扫全该 pnpm workspace。按依赖根分层后的真实暴露：生产运行时 8 条（next 6 条：>=16.0.0 <16.3.8，含 Image Optimization SSRF CVE-2026-94483；mysql2 2 条：<3.22.0 / <=3.23.0）；测试专属 4 条（tinypool 2 条 critical，随 vitest 3.2.7）；开发调试 1 条 critical（shell-quote 1.10.0，经 react-native > react-devtools-core，不进产物 bundle）；剩余约 38 条集中在 clients/expo > @expo/cli 工具链（tar 12 / @xmldom/xmldom 15 / postcss 4 / image-size 2 / node-forge / sprintf-js / uuid / braces），属构建期不在运行时。另有 3 条无补丁版本可用（node-forge <=1.4.0、braces <=3.0.3、sprintf-js <=1.1.3，Patched versions 均为空），升级无法解决。",
+  "attackSurface": "① 生产 HTTP 面：Next.js 16.3.6 的 Image Optimization 存在 SSRF（CVE-2026-94483，可利用 images.remotePatterns 中的可控远端 URL 访问内网；若未配置 remotePatterns 则不受影响，但其余 5 条 next 通告另计）；② 数据访问面：mysql2 3.15.3 为真实生产依赖，被 packages/shared/backend/lib/database/kysely-client.ts、packages/domains/infra/backend/services/data-source-config.service.ts、packages/plugins/plugin-report/backend/services/custom-sql-report.service.ts 引用；③ 供应链面：clients/expo 的 @expo/cli 与 react-devtools-core 工具链含 tar / shell-quote 等 critical，属开发机构建期暴露（需开发机拉取恶意归档/调试工具时方可触发），不进入客户端产物。",
+  "roles": [
+    {
+      "role": "基座维护者",
+      "can": "确信生产运行时依赖零已知漏洞，且新增漏洞会被门禁拦下而不是悄然进入"
+    },
+    {
+      "role": "发布/SRE 工程师",
+      "can": "在发布前看到依赖漏洞的确定性证据（生产树 enforce 0 + dev 树棘轮增量），不必依赖 GitHub 告警面"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "建立依赖漏洞基线快照与按依赖根（生产/测试/构建工具链）分层台账，作为 ratchet 真源"
+    },
+    {
+      "priority": "P0",
+      "text": "S1 生产树止血：next 升至 >=16.3.8、mysql2 升至 >=3.23.1（含 packages/plugins/plugin-pay 的 next 声明）"
+    },
+    {
+      "priority": "P0",
+      "text": "S2 新增依赖 CVE 门禁：新增 `scripts/check-deps-audit.cjs` 与 `npm run deps:audit`，--prod 走 enforce、全树走 ratchet"
+    },
+    {
+      "priority": "P0",
+      "text": "门禁接线并配正反向测试，证明它会真的 fire（未验证的机制等于不存在）"
+    },
+    {
+      "priority": "P1",
+      "text": "S3 dev/构建树升级（Expo/CLI/测试工具链）；3 条无补丁项转已接受风险台账"
+    }
+  ],
+  "constraints": [
+    "分批推进：S1 生产树止血先行且独立可验证，S3 dev 树批量升级单独一轮，禁止一次性盲升全树。",
+    "单一锁文件真源：只允许 pnpm 操作（pnpm update / --frozen-lockfile），不得引入 package-lock.json 或第二份锁。",
+    "零破坏性：升级后 `npm run check`、`npm run security:scan`、全量测试必须全绿；不得为通过门禁而放宽既有契约。",
+    "禁止为消除告警而凭空造定义：3 条无补丁版本的通告不得伪造成已修复，必须落「已接受风险」台账并写明依据。",
+    "门禁不得自判通过：只报出真实漏洞事实与退出码，不引入推测性放行；基线只允许通过显式命令刷新。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0"
+    },
+    {
+      "check": "`npm run deps:audit -- --prod` exit=0（生产树漏洞数 = 0）"
+    },
+    {
+      "check": "`npm run deps:audit`（全树 ratchet）exit=0，且产出与 `docs/architecture/artifacts/deps-audit-baseline.json` 一致；人为新增一条不存在的漏洞版本后必须被拦下"
+    },
+    {
+      "check": "`npm run security:scan` exit=0（既有运行时 12 项不回退）"
+    },
+    {
+      "check": "`pnpm why next`/`pnpm why mysql2` 显示生产路径实际解析到 >=16.3.8 / >=3.23.1"
+    }
+  ],
+  "nonGoals": [
+    "不引入商业 SCA/Snyk 类重型第三方依赖（沿用 pnpm 内置 audit）",
+    "不在本轮修复 3 条无补丁版本的通告（转已接受风险台账）",
+    "不改动 clients/expo 的应用代码或 Expo SDK 主版本",
+    "不做依赖架构重构（如替换 mysql2 驱动）"
+  ],
+  "architecture": "新增 `scripts/check-deps-audit.cjs`：薄封装 `pnpm audit --json`，按依赖根把通告分层（生产 importer=`.` 与 packages/**，dev/构建=clients/expo 的 @expo/cli 与 vitest/react-devtools-core 链），输出 { prod: [...], dev: [...] } 两类计数；`--prod` 时断言生产层为 0（enforce，违规即失败），全树模式与 `docs/architecture/artifacts/deps-audit-baseline.json` 逐条比对（ratchet，只拦新增，`--write-baseline` 显式刷新）。接线：`npm run deps:audit` 注入 `npm run check` 门禁链，并由 `scripts/write-harness-trace.cjs` 写入轨迹；证据产物沿用既有 shape（自管环境 → 产出 JSON 落 docs/architecture/artifacts/）。不引入新依赖，与 `security-scan.cjs`（运行时 12 项）职责分离：一个测「能不能被打」，一个测「带的组件有没有已知洞」。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "不涉及数据库表；真源为根 package.json 与 pnpm-lock.yaml，基线为 docs/architecture/artifacts/deps-audit-baseline.json"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "生产树零漏洞",
+      "how": "deps:audit --prod 以 enforce 模式断言生产 importer 层漏洞数为 0，违规直接 exit!=0"
+    },
+    {
+      "name": "门禁必须证明会 fire",
+      "how": "配正向（当前状态通过）与反向（人为注入一条新增漏洞后必须被拦）双向测试；反向测试按既有惯例在跑完后恢复现场"
+    }
+  ],
+  "ui": [
+    "不涉及 UI 调整"
+  ],
+  "ops": [
+    "新增 `npm run deps:audit` 与 `deps:audit:baseline`（显式刷新基线）；建议独立 CI job，不进快速静态链以控耗时；发布前接入 §10.3 发布门禁"
+  ],
+  "risks": [
+    {
+      "risk": "升级 next/mysql2 引入行为变更或构建失败（next 处于 16.x 且本仓依赖其 breaking 变更后的 API）",
+      "mitigation": "在干净已提交基线上分步升级，每步跑全量 check + 测试；失败即回滚该步，不带病提交"
+    },
+    {
+      "risk": "把 dev 树的 45 条直接 enforce 会导致门禁长期红，进而被绕过",
+      "mitigation": "dev 树用 ratchet 冻结既有欠债、只拦新增；生产树才 enforce 0"
+    },
+    {
+      "risk": "依赖 audit 输出随上游通告库变化而波动，造成假失败",
+      "mitigation": "基线显式提交并可通过 `deps:audit:baseline` 刷新；刷新动作必须人工确认并在提交信息中说明"
+    }
+  ],
+  "screens": [
+    {
+      "name": "门禁证据产物",
+      "wireframe": "不涉及（JSON 产物 docs/architecture/artifacts/）"
+    }
+  ],
+  "interactions": [
+    "与既有门禁一致：命令行退出码即结论，不做交互式确认"
+  ],
+  "states": [
+    "加载中：不涉及。",
+    "空数据：无漏洞时输出 0 并 exit 0。",
+    "出错：pnpm audit 不可用/无网络时明确报错，不得静默当作 0 漏洞通过。",
+    "成功：输出生产/dev 分层计数与基线比对结果。"
+  ],
+  "candidates": [
+    {
+      "name": "pnpm 内置 audit（复用官方 GitHub Advisory 数据）",
+      "type": "开源",
+      "license": "MIT",
+      "risk": "低"
+    },
+    {
+      "name": "引入 Snyk/Dependabot 等商业 SCA",
+      "type": "商业",
+      "license": "专有",
+      "risk": "高：新增外部服务依赖与凭证治理成本，与「不引入重型第三方」约束冲突"
+    }
+  ],
+  "benchmarks": [
+    "OWASP Top 10 A06:2021 Vulnerable and Outdated Components",
+    "GitHub Advisory Database（GHSA/CVE 真源）",
+    "OpenSSF Scorecard 的 Dependency-Update-Tool 检查项"
+  ],
+  "scan": [
+    "本次 `pnpm audit --json` 全量 53 条与按依赖根分层结果",
+    "package.json 无任何 audit 脚本、scripts/security-scan.cjs 12 项均为运行时检查且不含 CVE，证实依赖漏洞当前无门禁覆盖"
+  ],
+  "licenseConclusion": "仅复用 pnpm 内置 audit（同 MIT 生态），不新增第三方依赖，无合规风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "实现依赖 CVE 门禁脚本（prod enforce + 全树 ratchet + --write-baseline）",
+      "files": [
+        "scripts/check-deps-audit.cjs"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "S1 生产树止血：next 升至 >=16.3.8、mysql2 升至 >=3.23.1",
+      "files": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "packages/plugins/plugin-pay/package.json"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "由门禁脚本产出基线（此时残留即 dev 树欠债）",
+      "files": [
+        "docs/architecture/artifacts/deps-audit-baseline.json"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "门禁接线：npm script + check 链 + 轨迹证据",
+      "files": [
+        "package.json",
+        "scripts/write-harness-trace.cjs"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "门禁正反向测试（证明会 fire）",
+      "files": [
+        "test/unit/deps-audit-gate.test.ts"
+      ]
+    },
+    {
+      "id": "T6",
+      "parent": "T5",
+      "title": "S3 dev/构建树升级（Expo/CLI/测试工具链）",
+      "files": [
+        "package.json",
+        "pnpm-lock.yaml",
+        "clients/expo/package.json"
+      ]
+    },
+    {
+      "id": "T7",
+      "parent": "T6",
+      "title": "无补丁三项已接受风险台账 + 规范登记",
+      "files": [
+        "docs/architecture/cooliebase-all-dependency-policy.md",
+        "AGENTS.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7",
+  "windowMinutes": 10
+}
