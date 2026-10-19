@@ -1,0 +1,230 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "wms",
+  "entity": "WmsMovementOrder",
+  "kebab": "wms-movement-order",
+  "businessName": "移库单",
+  "permissionPrefix": "wms:movement",
+  "page": {
+    "route": "/admin/wms/wms-movement-order",
+    "title": "移库单管理",
+    "titleSelector": "[data-testid=\"wms-movement-order-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+    "bffMount": "/api/v1/admin/wms",
+    "resource": "wms-movement-order",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/wms-movement-order",
+        "query": [
+          "page",
+          "pageSize",
+          "order_no"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/wms-movement-order/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/wms-movement-order"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/wms-movement-order/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/wms-movement-order/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"wms-movement-order-title\"]",
+    "refresh": "[data-testid=\"wms-movement-order-refresh\"]",
+    "createButton": "[data-testid=\"wms-movement-order-create\"]",
+    "searchForm": "[data-testid=\"wms-movement-order-search\"]",
+    "searchSubmit": "[data-testid=\"wms-movement-order-search-submit\"]",
+    "searchReset": "[data-testid=\"wms-movement-order-search-reset\"]",
+    "total": "[data-testid=\"wms-movement-order-total\"]",
+    "table": "[data-testid=\"wms-movement-order-table\"]",
+    "row": "[data-testid=\"wms-movement-order-row\"]",
+    "editButton": "[data-testid=\"wms-movement-order-edit\"]",
+    "deleteButton": "[data-testid=\"wms-movement-order-delete\"]",
+    "form": "[data-testid=\"wms-movement-order-form\"]",
+    "formError": "[data-testid=\"wms-movement-order-form-error\"]",
+    "formSubmit": "[data-testid=\"wms-movement-order-form-submit\"]",
+    "formCancel": "[data-testid=\"wms-movement-order-form-cancel\"]",
+    "formClose": "[data-testid=\"wms-movement-order-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "移库单列表",
+    "dialogLabel": {
+      "create": "新增移库单",
+      "edit": "编辑移库单"
+    },
+    "searchFields": [
+      {
+        "name": "order_no",
+        "label": "移库单号",
+        "testId": "search-order_no",
+        "selector": "[data-testid=\"search-order_no\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "order_no",
+        "label": "移库单号",
+        "type": "string",
+        "required": true,
+        "testId": "field-order_no",
+        "selector": "[data-testid=\"field-order_no\"]"
+      },
+      {
+        "name": "from_warehouse_id",
+        "label": "源仓库ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-from_warehouse_id",
+        "selector": "[data-testid=\"field-from_warehouse_id\"]"
+      },
+      {
+        "name": "to_warehouse_id",
+        "label": "目标仓库ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-to_warehouse_id",
+        "selector": "[data-testid=\"field-to_warehouse_id\"]"
+      },
+      {
+        "name": "total_qty",
+        "label": "移库数量",
+        "type": "number",
+        "required": true,
+        "testId": "field-total_qty",
+        "selector": "[data-testid=\"field-total_qty\"]"
+      },
+      {
+        "name": "status",
+        "label": "单据状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "wms-movement-order",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"wms-movement-order\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"wms-movement-order-form-overlay\"]",
+      "dialog": "[data-testid=\"wms-movement-order-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "wms-movement-order:search",
+      "reset": "wms-movement-order:reset",
+      "refresh": "wms-movement-order:refresh",
+      "create": "wms-movement-order:create",
+      "edit": "wms-movement-order:edit",
+      "delete": "wms-movement-order:delete",
+      "submit": "wms-movement-order:submit",
+      "cancel": "wms-movement-order:cancel",
+      "close": "wms-movement-order:close",
+      "row": "wms-movement-order:row",
+      "pagination": "wms-movement-order:pagination",
+      "fields": {
+        "order_no": "wms-movement-order:field:order_no",
+        "from_warehouse_id": "wms-movement-order:field:from_warehouse_id",
+        "to_warehouse_id": "wms-movement-order:field:to_warehouse_id",
+        "total_qty": "wms-movement-order:field:total_qty",
+        "status": "wms-movement-order:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "wms.wms-movement-order",
+      "examples": [
+        "wms.wms-movement-order__List__Refresh",
+        "wms.wms-movement-order__ListItem__Open",
+        "wms.wms-movement-order__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

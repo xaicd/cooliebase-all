@@ -37,11 +37,29 @@
 
 ---
 
-## 三、 Agent 自动化实体与契约清单 (0 个)
+## 三、 Agent 自动化实体与契约清单 (16 个)
 
 本领域随代码生成器同源产出的机器可读契约，支持 `agent-device` (接口自动化运营) 与 `agent-browser` (Playwright 真实 UI 探针)：
 
-*暂无独立生成的 Agent 契约（地基服务或纯跨域 RPC 面）*
+| 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
+|---|---|---|---|---|
+| `WmsCheckOrder` | 盘点单 | `/admin/wms/wms-check-order` | `wms:check` | [`wms-check-order.agent.json`](../../packages/plugins/plugin-wms/agent/wms-check-order.agent.json) |
+| `WmsCheckOrderDetail` | 盘点明细 | `/admin/wms/wms-check-order-detail` | `wms:check` | [`wms-check-order-detail.agent.json`](../../packages/plugins/plugin-wms/agent/wms-check-order-detail.agent.json) |
+| `WmsInventory` | 实时库存 | `/admin/wms/wms-inventory` | `wms:inventory` | [`wms-inventory.agent.json`](../../packages/plugins/plugin-wms/agent/wms-inventory.agent.json) |
+| `WmsInventoryHistory` | 库存流水 | `/admin/wms/wms-inventory-history` | `wms:inventory-history` | [`wms-inventory-history.agent.json`](../../packages/plugins/plugin-wms/agent/wms-inventory-history.agent.json) |
+| `WmsItem` | 物料主数据 | `/admin/wms/wms-item` | `wms:item` | [`wms-item.agent.json`](../../packages/plugins/plugin-wms/agent/wms-item.agent.json) |
+| `WmsItemBrand` | 物料品牌 | `/admin/wms/wms-item-brand` | `wms:brand` | [`wms-item-brand.agent.json`](../../packages/plugins/plugin-wms/agent/wms-item-brand.agent.json) |
+| `WmsItemCategory` | 物料分类 | `/admin/wms/wms-item-category` | `wms:category` | [`wms-item-category.agent.json`](../../packages/plugins/plugin-wms/agent/wms-item-category.agent.json) |
+| `WmsItemSku` | 物料SKU | `/admin/wms/wms-item-sku` | `wms:item` | [`wms-item-sku.agent.json`](../../packages/plugins/plugin-wms/agent/wms-item-sku.agent.json) |
+| `WmsMerchant` | 货主管理 | `/admin/wms/wms-merchant` | `wms:merchant` | [`wms-merchant.agent.json`](../../packages/plugins/plugin-wms/agent/wms-merchant.agent.json) |
+| `WmsMovementOrder` | 移库单 | `/admin/wms/wms-movement-order` | `wms:movement` | [`wms-movement-order.agent.json`](../../packages/plugins/plugin-wms/agent/wms-movement-order.agent.json) |
+| `WmsMovementOrderDetail` | 移库明细 | `/admin/wms/wms-movement-order-detail` | `wms:movement` | [`wms-movement-order-detail.agent.json`](../../packages/plugins/plugin-wms/agent/wms-movement-order-detail.agent.json) |
+| `WmsReceiptOrder` | 入库单 | `/admin/wms/wms-receipt-order` | `wms:receipt` | [`wms-receipt-order.agent.json`](../../packages/plugins/plugin-wms/agent/wms-receipt-order.agent.json) |
+| `WmsReceiptOrderDetail` | 入库明细 | `/admin/wms/wms-receipt-order-detail` | `wms:receipt` | [`wms-receipt-order-detail.agent.json`](../../packages/plugins/plugin-wms/agent/wms-receipt-order-detail.agent.json) |
+| `WmsShipmentOrder` | 出库单 | `/admin/wms/wms-shipment-order` | `wms:shipment` | [`wms-shipment-order.agent.json`](../../packages/plugins/plugin-wms/agent/wms-shipment-order.agent.json) |
+| `WmsShipmentOrderDetail` | 出库明细 | `/admin/wms/wms-shipment-order-detail` | `wms:shipment` | [`wms-shipment-order-detail.agent.json`](../../packages/plugins/plugin-wms/agent/wms-shipment-order-detail.agent.json) |
+| `WmsWarehouse` | 智能仓库 | `/admin/wms/wms-warehouse` | `wms:warehouse` | [`wms-warehouse.agent.json`](../../packages/plugins/plugin-wms/agent/wms-warehouse.agent.json) |
+
 
 ---
 

@@ -1,0 +1,237 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "wms",
+  "entity": "WmsItemCategory",
+  "kebab": "wms-item-category",
+  "businessName": "物料分类",
+  "permissionPrefix": "wms:category",
+  "page": {
+    "route": "/admin/wms/wms-item-category",
+    "title": "物料分类管理",
+    "titleSelector": "[data-testid=\"wms-item-category-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+    "bffMount": "/api/v1/admin/wms",
+    "resource": "wms-item-category",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/wms-item-category",
+        "query": [
+          "page",
+          "pageSize",
+          "name",
+          "code"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/wms-item-category/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/wms-item-category"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/wms-item-category/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/wms-item-category/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"wms-item-category-title\"]",
+    "refresh": "[data-testid=\"wms-item-category-refresh\"]",
+    "createButton": "[data-testid=\"wms-item-category-create\"]",
+    "searchForm": "[data-testid=\"wms-item-category-search\"]",
+    "searchSubmit": "[data-testid=\"wms-item-category-search-submit\"]",
+    "searchReset": "[data-testid=\"wms-item-category-search-reset\"]",
+    "total": "[data-testid=\"wms-item-category-total\"]",
+    "table": "[data-testid=\"wms-item-category-table\"]",
+    "row": "[data-testid=\"wms-item-category-row\"]",
+    "editButton": "[data-testid=\"wms-item-category-edit\"]",
+    "deleteButton": "[data-testid=\"wms-item-category-delete\"]",
+    "form": "[data-testid=\"wms-item-category-form\"]",
+    "formError": "[data-testid=\"wms-item-category-form-error\"]",
+    "formSubmit": "[data-testid=\"wms-item-category-form-submit\"]",
+    "formCancel": "[data-testid=\"wms-item-category-form-cancel\"]",
+    "formClose": "[data-testid=\"wms-item-category-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "物料分类列表",
+    "dialogLabel": {
+      "create": "新增物料分类",
+      "edit": "编辑物料分类"
+    },
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "分类名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "code",
+        "label": "分类编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "parent_id",
+        "label": "上级分类ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-parent_id",
+        "selector": "[data-testid=\"field-parent_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "分类名称",
+        "type": "string",
+        "required": true,
+        "testId": "field-name",
+        "selector": "[data-testid=\"field-name\"]"
+      },
+      {
+        "name": "code",
+        "label": "分类编码",
+        "type": "string",
+        "required": true,
+        "testId": "field-code",
+        "selector": "[data-testid=\"field-code\"]"
+      },
+      {
+        "name": "sort",
+        "label": "显示排序",
+        "type": "number",
+        "required": true,
+        "testId": "field-sort",
+        "selector": "[data-testid=\"field-sort\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "wms-item-category",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"wms-item-category\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"wms-item-category-form-overlay\"]",
+      "dialog": "[data-testid=\"wms-item-category-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "wms-item-category:search",
+      "reset": "wms-item-category:reset",
+      "refresh": "wms-item-category:refresh",
+      "create": "wms-item-category:create",
+      "edit": "wms-item-category:edit",
+      "delete": "wms-item-category:delete",
+      "submit": "wms-item-category:submit",
+      "cancel": "wms-item-category:cancel",
+      "close": "wms-item-category:close",
+      "row": "wms-item-category:row",
+      "pagination": "wms-item-category:pagination",
+      "fields": {
+        "parent_id": "wms-item-category:field:parent_id",
+        "name": "wms-item-category:field:name",
+        "code": "wms-item-category:field:code",
+        "sort": "wms-item-category:field:sort",
+        "status": "wms-item-category:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "wms.wms-item-category",
+      "examples": [
+        "wms.wms-item-category__List__Refresh",
+        "wms.wms-item-category__ListItem__Open",
+        "wms.wms-item-category__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

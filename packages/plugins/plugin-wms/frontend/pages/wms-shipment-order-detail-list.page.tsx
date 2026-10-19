@@ -69,7 +69,7 @@ export function WmsShipmentOrderDetailListPage() {
       {/* 页面头部 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">出库明细管理</h1>
+          <h1 data-testid="wms-shipment-order-detail-title" className="text-xl font-bold tracking-tight text-slate-900">出库明细管理</h1>
           <p className="text-xs text-slate-500 mt-0.5">出库明细列表与配置管理</p>
         </div>
         <div className="flex items-center gap-2">

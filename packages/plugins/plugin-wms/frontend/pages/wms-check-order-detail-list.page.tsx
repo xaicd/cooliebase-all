@@ -69,7 +69,7 @@ export function WmsCheckOrderDetailListPage() {
       {/* 页面头部 */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-xl font-bold tracking-tight text-slate-900">盘点明细管理</h1>
+          <h1 data-testid="wms-check-order-detail-title" className="text-xl font-bold tracking-tight text-slate-900">盘点明细管理</h1>
           <p className="text-xs text-slate-500 mt-0.5">盘点明细列表与配置管理</p>
         </div>
         <div className="flex items-center gap-2">

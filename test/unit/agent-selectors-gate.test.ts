@@ -46,7 +46,8 @@ describe("Agent 契约选择器一致性门禁", () => {
     const result = runGate()
     expect(result.status).toBe(0)
     expect(result.stdout).toMatch(/PASS/)
-    expect(result.stdout).toMatch(/326 份契约/)
+    // 不写死数量：契约数会随 codegen 增长（实测 326 → 342），写死会让测试变成"文档更新器"
+    expect(result.stdout).toMatch(/\d+ 份契约/)
   })
 
   it("★ 反向 1：页面缺了契约声明的 data-testid → 必须失败并点名两边", () => {

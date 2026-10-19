@@ -5120,6 +5120,183 @@ export const GENERATED_PAGE_SCHEMAS: Record<string, GeneratedPageSchema> = {
       { code: "status", label: "状态", type: "text", required: true },
     ],
   },
+  "wms_check_order": {
+    entity: "wms_check_order",
+    title: "盘点单",
+    fields: [
+      { code: "order_no", label: "盘点单号", type: "text", required: true },
+      { code: "warehouse_id", label: "盘点仓库ID", type: "text", required: true },
+      { code: "check_type", label: "盘点类型", type: "text", required: true },
+      { code: "status", label: "单据状态", type: "text", required: true },
+    ],
+  },
+  "wms_check_order_detail": {
+    entity: "wms_check_order_detail",
+    title: "盘点明细",
+    fields: [
+      { code: "check_order_id", label: "关联盘点单ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "system_qty", label: "账面数量", type: "number", required: true },
+      { code: "check_qty", label: "实盘数量", type: "number", required: true },
+      { code: "diff_qty", label: "差异数量", type: "number", required: true },
+    ],
+  },
+  "wms_inventory": {
+    entity: "wms_inventory",
+    title: "实时库存",
+    fields: [
+      { code: "warehouse_id", label: "仓库ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "merchant_id", label: "货主ID", type: "text" },
+      { code: "qty", label: "现存数量", type: "number", required: true },
+      { code: "locked_qty", label: "锁定数量", type: "number", required: true },
+    ],
+  },
+  "wms_inventory_history": {
+    entity: "wms_inventory_history",
+    title: "库存流水",
+    fields: [
+      { code: "warehouse_id", label: "仓库ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "change_type", label: "变动类型", type: "text", required: true },
+      { code: "qty_change", label: "变动数量", type: "number", required: true },
+      { code: "before_qty", label: "变动前数量", type: "number", required: true },
+      { code: "after_qty", label: "变动后数量", type: "number", required: true },
+      { code: "ref_order_no", label: "关联单号", type: "text" },
+    ],
+  },
+  "wms_item": {
+    entity: "wms_item",
+    title: "物料主数据",
+    fields: [
+      { code: "item_code", label: "物料编码", type: "text", required: true },
+      { code: "item_name", label: "物料名称", type: "text", required: true },
+      { code: "category_id", label: "分类ID", type: "text" },
+      { code: "brand_id", label: "品牌ID", type: "text" },
+      { code: "unit", label: "基本单位", type: "text" },
+      { code: "spec", label: "规格型号", type: "text" },
+      { code: "status", label: "物料状态", type: "text", required: true },
+    ],
+  },
+  "wms_item_brand": {
+    entity: "wms_item_brand",
+    title: "物料品牌",
+    fields: [
+      { code: "name", label: "品牌名称", type: "text", required: true },
+      { code: "code", label: "品牌编码", type: "text", required: true },
+      { code: "logo", label: "品牌LOGO", type: "text" },
+      { code: "status", label: "状态", type: "text", required: true },
+    ],
+  },
+  "wms_item_category": {
+    entity: "wms_item_category",
+    title: "物料分类",
+    fields: [
+      { code: "parent_id", label: "上级分类ID", type: "text", required: true },
+      { code: "name", label: "分类名称", type: "text", required: true },
+      { code: "code", label: "分类编码", type: "text", required: true },
+      { code: "sort", label: "显示排序", type: "number", required: true },
+      { code: "status", label: "状态", type: "text", required: true },
+    ],
+  },
+  "wms_item_sku": {
+    entity: "wms_item_sku",
+    title: "物料SKU",
+    fields: [
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "sku_code", label: "SKU编码", type: "text", required: true },
+      { code: "sku_name", label: "规格名称", type: "text", required: true },
+      { code: "barcode", label: "条形码", type: "text" },
+      { code: "price", label: "参考单价", type: "number" },
+    ],
+  },
+  "wms_merchant": {
+    entity: "wms_merchant",
+    title: "货主管理",
+    fields: [
+      { code: "code", label: "货主编码", type: "text", required: true },
+      { code: "name", label: "货主名称", type: "text", required: true },
+      { code: "contact_name", label: "联系人", type: "text" },
+      { code: "contact_phone", label: "联系电话", type: "text" },
+      { code: "status", label: "状态", type: "text", required: true },
+    ],
+  },
+  "wms_movement_order": {
+    entity: "wms_movement_order",
+    title: "移库单",
+    fields: [
+      { code: "order_no", label: "移库单号", type: "text", required: true },
+      { code: "from_warehouse_id", label: "源仓库ID", type: "text", required: true },
+      { code: "to_warehouse_id", label: "目标仓库ID", type: "text", required: true },
+      { code: "total_qty", label: "移库数量", type: "number", required: true },
+      { code: "status", label: "单据状态", type: "text", required: true },
+    ],
+  },
+  "wms_movement_order_detail": {
+    entity: "wms_movement_order_detail",
+    title: "移库明细",
+    fields: [
+      { code: "movement_order_id", label: "关联移库单ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "qty", label: "移库数量", type: "number", required: true },
+    ],
+  },
+  "wms_receipt_order": {
+    entity: "wms_receipt_order",
+    title: "入库单",
+    fields: [
+      { code: "order_no", label: "入库单号", type: "text", required: true },
+      { code: "receipt_type", label: "入库类型", type: "text", required: true },
+      { code: "warehouse_id", label: "目标仓库ID", type: "text", required: true },
+      { code: "merchant_id", label: "货主ID", type: "text" },
+      { code: "total_qty", label: "总入库数量", type: "number", required: true },
+      { code: "status", label: "单据状态", type: "text", required: true },
+    ],
+  },
+  "wms_receipt_order_detail": {
+    entity: "wms_receipt_order_detail",
+    title: "入库明细",
+    fields: [
+      { code: "receipt_order_id", label: "关联入库单ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "plan_qty", label: "计划入库数量", type: "number", required: true },
+      { code: "real_qty", label: "实际入库数量", type: "number", required: true },
+      { code: "batch_no", label: "批次号", type: "text" },
+    ],
+  },
+  "wms_shipment_order": {
+    entity: "wms_shipment_order",
+    title: "出库单",
+    fields: [
+      { code: "order_no", label: "出库单号", type: "text", required: true },
+      { code: "shipment_type", label: "出库类型", type: "text", required: true },
+      { code: "warehouse_id", label: "源仓库ID", type: "text", required: true },
+      { code: "merchant_id", label: "货主ID", type: "text" },
+      { code: "total_qty", label: "总出库数量", type: "number", required: true },
+      { code: "status", label: "单据状态", type: "text", required: true },
+    ],
+  },
+  "wms_shipment_order_detail": {
+    entity: "wms_shipment_order_detail",
+    title: "出库明细",
+    fields: [
+      { code: "shipment_order_id", label: "关联出库单ID", type: "text", required: true },
+      { code: "item_id", label: "物料ID", type: "text", required: true },
+      { code: "plan_qty", label: "计划出库数量", type: "number", required: true },
+      { code: "real_qty", label: "实际出库数量", type: "number", required: true },
+      { code: "batch_no", label: "批次号", type: "text" },
+    ],
+  },
+  "wms_warehouse": {
+    entity: "wms_warehouse",
+    title: "智能仓库",
+    fields: [
+      { code: "code", label: "仓库编码", type: "text", required: true },
+      { code: "name", label: "仓库名称", type: "text", required: true },
+      { code: "capacity", label: "库容量(m³)", type: "number" },
+      { code: "active", label: "启用状态", type: "boolean", required: true },
+    ],
+  },
 }
 
 /** 按实体名取兜底 schema（未登记返回 undefined，调用方再退到 defaultPageSchema）。 */

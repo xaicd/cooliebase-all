@@ -10,7 +10,7 @@
    - 决策记录目录：`docs/01_management/dar-decision-records/` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
    - 已归档的真实规格包：`docs/specs/archive/2026-Q4/shop/ecommerce/` (商城最小闭环)
-   - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（326 份 Agent 契约）
+   - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（342 份 Agent 契约）
    - 规范目录 `docs/02_requirements/` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
    - 架构决策记录：`docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md`、`ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md`

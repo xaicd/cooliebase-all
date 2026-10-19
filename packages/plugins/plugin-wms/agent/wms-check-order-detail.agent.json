@@ -1,0 +1,237 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "wms",
+  "entity": "WmsCheckOrderDetail",
+  "kebab": "wms-check-order-detail",
+  "businessName": "盘点明细",
+  "permissionPrefix": "wms:check",
+  "page": {
+    "route": "/admin/wms/wms-check-order-detail",
+    "title": "盘点明细管理",
+    "titleSelector": "[data-testid=\"wms-check-order-detail-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+    "bffMount": "/api/v1/admin/wms",
+    "resource": "wms-check-order-detail",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/wms-check-order-detail",
+        "query": [
+          "page",
+          "pageSize",
+          "check_order_id",
+          "item_id"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/wms-check-order-detail/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/wms-check-order-detail"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/wms-check-order-detail/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/wms-check-order-detail/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"wms-check-order-detail-title\"]",
+    "refresh": "[data-testid=\"wms-check-order-detail-refresh\"]",
+    "createButton": "[data-testid=\"wms-check-order-detail-create\"]",
+    "searchForm": "[data-testid=\"wms-check-order-detail-search\"]",
+    "searchSubmit": "[data-testid=\"wms-check-order-detail-search-submit\"]",
+    "searchReset": "[data-testid=\"wms-check-order-detail-search-reset\"]",
+    "total": "[data-testid=\"wms-check-order-detail-total\"]",
+    "table": "[data-testid=\"wms-check-order-detail-table\"]",
+    "row": "[data-testid=\"wms-check-order-detail-row\"]",
+    "editButton": "[data-testid=\"wms-check-order-detail-edit\"]",
+    "deleteButton": "[data-testid=\"wms-check-order-detail-delete\"]",
+    "form": "[data-testid=\"wms-check-order-detail-form\"]",
+    "formError": "[data-testid=\"wms-check-order-detail-form-error\"]",
+    "formSubmit": "[data-testid=\"wms-check-order-detail-form-submit\"]",
+    "formCancel": "[data-testid=\"wms-check-order-detail-form-cancel\"]",
+    "formClose": "[data-testid=\"wms-check-order-detail-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "盘点明细列表",
+    "dialogLabel": {
+      "create": "新增盘点明细",
+      "edit": "编辑盘点明细"
+    },
+    "searchFields": [
+      {
+        "name": "check_order_id",
+        "label": "关联盘点单ID",
+        "testId": "search-check_order_id",
+        "selector": "[data-testid=\"search-check_order_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "check_order_id",
+        "label": "关联盘点单ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-check_order_id",
+        "selector": "[data-testid=\"field-check_order_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-item_id",
+        "selector": "[data-testid=\"field-item_id\"]"
+      },
+      {
+        "name": "system_qty",
+        "label": "账面数量",
+        "type": "number",
+        "required": true,
+        "testId": "field-system_qty",
+        "selector": "[data-testid=\"field-system_qty\"]"
+      },
+      {
+        "name": "check_qty",
+        "label": "实盘数量",
+        "type": "number",
+        "required": true,
+        "testId": "field-check_qty",
+        "selector": "[data-testid=\"field-check_qty\"]"
+      },
+      {
+        "name": "diff_qty",
+        "label": "差异数量",
+        "type": "number",
+        "required": true,
+        "testId": "field-diff_qty",
+        "selector": "[data-testid=\"field-diff_qty\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "wms-check-order-detail",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"wms-check-order-detail\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"wms-check-order-detail-form-overlay\"]",
+      "dialog": "[data-testid=\"wms-check-order-detail-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "wms-check-order-detail:search",
+      "reset": "wms-check-order-detail:reset",
+      "refresh": "wms-check-order-detail:refresh",
+      "create": "wms-check-order-detail:create",
+      "edit": "wms-check-order-detail:edit",
+      "delete": "wms-check-order-detail:delete",
+      "submit": "wms-check-order-detail:submit",
+      "cancel": "wms-check-order-detail:cancel",
+      "close": "wms-check-order-detail:close",
+      "row": "wms-check-order-detail:row",
+      "pagination": "wms-check-order-detail:pagination",
+      "fields": {
+        "check_order_id": "wms-check-order-detail:field:check_order_id",
+        "item_id": "wms-check-order-detail:field:item_id",
+        "system_qty": "wms-check-order-detail:field:system_qty",
+        "check_qty": "wms-check-order-detail:field:check_qty",
+        "diff_qty": "wms-check-order-detail:field:diff_qty"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "wms.wms-check-order-detail",
+      "examples": [
+        "wms.wms-check-order-detail__List__Refresh",
+        "wms.wms-check-order-detail__ListItem__Open",
+        "wms.wms-check-order-detail__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

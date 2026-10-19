@@ -1,7 +1,7 @@
 {
   "$schema": "cooliebase.agent.registry/v1",
   "generatedBy": "scripts/agent/collect-contracts.cjs",
-  "total": 326,
+  "total": 342,
   "domains": [
     {
       "domain": "ai",
@@ -58,6 +58,10 @@
     {
       "domain": "system",
       "count": 1
+    },
+    {
+      "domain": "wms",
+      "count": 16
     }
   ],
   "contracts": [
@@ -86340,6 +86344,3795 @@
         }
       },
       "__source": "packages/domains/system/agent/user.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsCheckOrder",
+      "kebab": "wms-check-order",
+      "businessName": "盘点单",
+      "permissionPrefix": "wms:check",
+      "page": {
+        "route": "/admin/wms/wms-check-order",
+        "title": "盘点单管理",
+        "titleSelector": "[data-testid=\"wms-check-order-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-check-order",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-check-order",
+            "query": [
+              "page",
+              "pageSize",
+              "order_no"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-check-order/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-check-order"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-check-order/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-check-order/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-check-order-title\"]",
+        "refresh": "[data-testid=\"wms-check-order-refresh\"]",
+        "createButton": "[data-testid=\"wms-check-order-create\"]",
+        "searchForm": "[data-testid=\"wms-check-order-search\"]",
+        "searchSubmit": "[data-testid=\"wms-check-order-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-check-order-search-reset\"]",
+        "total": "[data-testid=\"wms-check-order-total\"]",
+        "table": "[data-testid=\"wms-check-order-table\"]",
+        "row": "[data-testid=\"wms-check-order-row\"]",
+        "editButton": "[data-testid=\"wms-check-order-edit\"]",
+        "deleteButton": "[data-testid=\"wms-check-order-delete\"]",
+        "form": "[data-testid=\"wms-check-order-form\"]",
+        "formError": "[data-testid=\"wms-check-order-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-check-order-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-check-order-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-check-order-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "盘点单列表",
+        "dialogLabel": {
+          "create": "新增盘点单",
+          "edit": "编辑盘点单"
+        },
+        "searchFields": [
+          {
+            "name": "order_no",
+            "label": "盘点单号",
+            "testId": "search-order_no",
+            "selector": "[data-testid=\"search-order_no\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "order_no",
+            "label": "盘点单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-order_no",
+            "selector": "[data-testid=\"field-order_no\"]"
+          },
+          {
+            "name": "warehouse_id",
+            "label": "盘点仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-warehouse_id",
+            "selector": "[data-testid=\"field-warehouse_id\"]"
+          },
+          {
+            "name": "check_type",
+            "label": "盘点类型",
+            "type": "string",
+            "required": true,
+            "testId": "field-check_type",
+            "selector": "[data-testid=\"field-check_type\"]"
+          },
+          {
+            "name": "status",
+            "label": "单据状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-check-order",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-check-order\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-check-order-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-check-order-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-check-order:search",
+          "reset": "wms-check-order:reset",
+          "refresh": "wms-check-order:refresh",
+          "create": "wms-check-order:create",
+          "edit": "wms-check-order:edit",
+          "delete": "wms-check-order:delete",
+          "submit": "wms-check-order:submit",
+          "cancel": "wms-check-order:cancel",
+          "close": "wms-check-order:close",
+          "row": "wms-check-order:row",
+          "pagination": "wms-check-order:pagination",
+          "fields": {
+            "order_no": "wms-check-order:field:order_no",
+            "warehouse_id": "wms-check-order:field:warehouse_id",
+            "check_type": "wms-check-order:field:check_type",
+            "status": "wms-check-order:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-check-order",
+          "examples": [
+            "wms.wms-check-order__List__Refresh",
+            "wms.wms-check-order__ListItem__Open",
+            "wms.wms-check-order__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-check-order.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsCheckOrderDetail",
+      "kebab": "wms-check-order-detail",
+      "businessName": "盘点明细",
+      "permissionPrefix": "wms:check",
+      "page": {
+        "route": "/admin/wms/wms-check-order-detail",
+        "title": "盘点明细管理",
+        "titleSelector": "[data-testid=\"wms-check-order-detail-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-check-order-detail",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-check-order-detail",
+            "query": [
+              "page",
+              "pageSize",
+              "check_order_id",
+              "item_id"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-check-order-detail/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-check-order-detail"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-check-order-detail/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-check-order-detail/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-check-order-detail-title\"]",
+        "refresh": "[data-testid=\"wms-check-order-detail-refresh\"]",
+        "createButton": "[data-testid=\"wms-check-order-detail-create\"]",
+        "searchForm": "[data-testid=\"wms-check-order-detail-search\"]",
+        "searchSubmit": "[data-testid=\"wms-check-order-detail-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-check-order-detail-search-reset\"]",
+        "total": "[data-testid=\"wms-check-order-detail-total\"]",
+        "table": "[data-testid=\"wms-check-order-detail-table\"]",
+        "row": "[data-testid=\"wms-check-order-detail-row\"]",
+        "editButton": "[data-testid=\"wms-check-order-detail-edit\"]",
+        "deleteButton": "[data-testid=\"wms-check-order-detail-delete\"]",
+        "form": "[data-testid=\"wms-check-order-detail-form\"]",
+        "formError": "[data-testid=\"wms-check-order-detail-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-check-order-detail-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-check-order-detail-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-check-order-detail-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "盘点明细列表",
+        "dialogLabel": {
+          "create": "新增盘点明细",
+          "edit": "编辑盘点明细"
+        },
+        "searchFields": [
+          {
+            "name": "check_order_id",
+            "label": "关联盘点单ID",
+            "testId": "search-check_order_id",
+            "selector": "[data-testid=\"search-check_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "check_order_id",
+            "label": "关联盘点单ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-check_order_id",
+            "selector": "[data-testid=\"field-check_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "system_qty",
+            "label": "账面数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-system_qty",
+            "selector": "[data-testid=\"field-system_qty\"]"
+          },
+          {
+            "name": "check_qty",
+            "label": "实盘数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-check_qty",
+            "selector": "[data-testid=\"field-check_qty\"]"
+          },
+          {
+            "name": "diff_qty",
+            "label": "差异数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-diff_qty",
+            "selector": "[data-testid=\"field-diff_qty\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-check-order-detail",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-check-order-detail\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-check-order-detail-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-check-order-detail-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-check-order-detail:search",
+          "reset": "wms-check-order-detail:reset",
+          "refresh": "wms-check-order-detail:refresh",
+          "create": "wms-check-order-detail:create",
+          "edit": "wms-check-order-detail:edit",
+          "delete": "wms-check-order-detail:delete",
+          "submit": "wms-check-order-detail:submit",
+          "cancel": "wms-check-order-detail:cancel",
+          "close": "wms-check-order-detail:close",
+          "row": "wms-check-order-detail:row",
+          "pagination": "wms-check-order-detail:pagination",
+          "fields": {
+            "check_order_id": "wms-check-order-detail:field:check_order_id",
+            "item_id": "wms-check-order-detail:field:item_id",
+            "system_qty": "wms-check-order-detail:field:system_qty",
+            "check_qty": "wms-check-order-detail:field:check_qty",
+            "diff_qty": "wms-check-order-detail:field:diff_qty"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-check-order-detail",
+          "examples": [
+            "wms.wms-check-order-detail__List__Refresh",
+            "wms.wms-check-order-detail__ListItem__Open",
+            "wms.wms-check-order-detail__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-check-order-detail.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsInventory",
+      "kebab": "wms-inventory",
+      "businessName": "实时库存",
+      "permissionPrefix": "wms:inventory",
+      "page": {
+        "route": "/admin/wms/wms-inventory",
+        "title": "实时库存管理",
+        "titleSelector": "[data-testid=\"wms-inventory-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-inventory",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-inventory",
+            "query": [
+              "page",
+              "pageSize",
+              "warehouse_id",
+              "item_id"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-inventory/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-inventory"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-inventory/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-inventory/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-inventory-title\"]",
+        "refresh": "[data-testid=\"wms-inventory-refresh\"]",
+        "createButton": "[data-testid=\"wms-inventory-create\"]",
+        "searchForm": "[data-testid=\"wms-inventory-search\"]",
+        "searchSubmit": "[data-testid=\"wms-inventory-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-inventory-search-reset\"]",
+        "total": "[data-testid=\"wms-inventory-total\"]",
+        "table": "[data-testid=\"wms-inventory-table\"]",
+        "row": "[data-testid=\"wms-inventory-row\"]",
+        "editButton": "[data-testid=\"wms-inventory-edit\"]",
+        "deleteButton": "[data-testid=\"wms-inventory-delete\"]",
+        "form": "[data-testid=\"wms-inventory-form\"]",
+        "formError": "[data-testid=\"wms-inventory-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-inventory-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-inventory-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-inventory-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "实时库存列表",
+        "dialogLabel": {
+          "create": "新增实时库存",
+          "edit": "编辑实时库存"
+        },
+        "searchFields": [
+          {
+            "name": "warehouse_id",
+            "label": "仓库ID",
+            "testId": "search-warehouse_id",
+            "selector": "[data-testid=\"search-warehouse_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "warehouse_id",
+            "label": "仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-warehouse_id",
+            "selector": "[data-testid=\"field-warehouse_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "merchant_id",
+            "label": "货主ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-merchant_id",
+            "selector": "[data-testid=\"field-merchant_id\"]"
+          },
+          {
+            "name": "qty",
+            "label": "现存数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-qty",
+            "selector": "[data-testid=\"field-qty\"]"
+          },
+          {
+            "name": "locked_qty",
+            "label": "锁定数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-locked_qty",
+            "selector": "[data-testid=\"field-locked_qty\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-inventory",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-inventory\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-inventory-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-inventory-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-inventory:search",
+          "reset": "wms-inventory:reset",
+          "refresh": "wms-inventory:refresh",
+          "create": "wms-inventory:create",
+          "edit": "wms-inventory:edit",
+          "delete": "wms-inventory:delete",
+          "submit": "wms-inventory:submit",
+          "cancel": "wms-inventory:cancel",
+          "close": "wms-inventory:close",
+          "row": "wms-inventory:row",
+          "pagination": "wms-inventory:pagination",
+          "fields": {
+            "warehouse_id": "wms-inventory:field:warehouse_id",
+            "item_id": "wms-inventory:field:item_id",
+            "merchant_id": "wms-inventory:field:merchant_id",
+            "qty": "wms-inventory:field:qty",
+            "locked_qty": "wms-inventory:field:locked_qty"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-inventory",
+          "examples": [
+            "wms.wms-inventory__List__Refresh",
+            "wms.wms-inventory__ListItem__Open",
+            "wms.wms-inventory__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-inventory.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsInventoryHistory",
+      "kebab": "wms-inventory-history",
+      "businessName": "库存流水",
+      "permissionPrefix": "wms:inventory-history",
+      "page": {
+        "route": "/admin/wms/wms-inventory-history",
+        "title": "库存流水管理",
+        "titleSelector": "[data-testid=\"wms-inventory-history-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-inventory-history",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-inventory-history",
+            "query": [
+              "page",
+              "pageSize",
+              "ref_order_no"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-inventory-history/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-inventory-history"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-inventory-history/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-inventory-history/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-inventory-history-title\"]",
+        "refresh": "[data-testid=\"wms-inventory-history-refresh\"]",
+        "createButton": "[data-testid=\"wms-inventory-history-create\"]",
+        "searchForm": "[data-testid=\"wms-inventory-history-search\"]",
+        "searchSubmit": "[data-testid=\"wms-inventory-history-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-inventory-history-search-reset\"]",
+        "total": "[data-testid=\"wms-inventory-history-total\"]",
+        "table": "[data-testid=\"wms-inventory-history-table\"]",
+        "row": "[data-testid=\"wms-inventory-history-row\"]",
+        "editButton": "[data-testid=\"wms-inventory-history-edit\"]",
+        "deleteButton": "[data-testid=\"wms-inventory-history-delete\"]",
+        "form": "[data-testid=\"wms-inventory-history-form\"]",
+        "formError": "[data-testid=\"wms-inventory-history-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-inventory-history-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-inventory-history-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-inventory-history-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "库存流水列表",
+        "dialogLabel": {
+          "create": "新增库存流水",
+          "edit": "编辑库存流水"
+        },
+        "searchFields": [
+          {
+            "name": "ref_order_no",
+            "label": "关联单号",
+            "testId": "search-ref_order_no",
+            "selector": "[data-testid=\"search-ref_order_no\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "warehouse_id",
+            "label": "仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-warehouse_id",
+            "selector": "[data-testid=\"field-warehouse_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "change_type",
+            "label": "变动类型",
+            "type": "string",
+            "required": true,
+            "testId": "field-change_type",
+            "selector": "[data-testid=\"field-change_type\"]"
+          },
+          {
+            "name": "qty_change",
+            "label": "变动数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-qty_change",
+            "selector": "[data-testid=\"field-qty_change\"]"
+          },
+          {
+            "name": "before_qty",
+            "label": "变动前数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-before_qty",
+            "selector": "[data-testid=\"field-before_qty\"]"
+          },
+          {
+            "name": "after_qty",
+            "label": "变动后数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-after_qty",
+            "selector": "[data-testid=\"field-after_qty\"]"
+          },
+          {
+            "name": "ref_order_no",
+            "label": "关联单号",
+            "type": "string",
+            "required": false,
+            "testId": "field-ref_order_no",
+            "selector": "[data-testid=\"field-ref_order_no\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-inventory-history",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-inventory-history\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-inventory-history-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-inventory-history-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-inventory-history:search",
+          "reset": "wms-inventory-history:reset",
+          "refresh": "wms-inventory-history:refresh",
+          "create": "wms-inventory-history:create",
+          "edit": "wms-inventory-history:edit",
+          "delete": "wms-inventory-history:delete",
+          "submit": "wms-inventory-history:submit",
+          "cancel": "wms-inventory-history:cancel",
+          "close": "wms-inventory-history:close",
+          "row": "wms-inventory-history:row",
+          "pagination": "wms-inventory-history:pagination",
+          "fields": {
+            "warehouse_id": "wms-inventory-history:field:warehouse_id",
+            "item_id": "wms-inventory-history:field:item_id",
+            "change_type": "wms-inventory-history:field:change_type",
+            "qty_change": "wms-inventory-history:field:qty_change",
+            "before_qty": "wms-inventory-history:field:before_qty",
+            "after_qty": "wms-inventory-history:field:after_qty",
+            "ref_order_no": "wms-inventory-history:field:ref_order_no"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-inventory-history",
+          "examples": [
+            "wms.wms-inventory-history__List__Refresh",
+            "wms.wms-inventory-history__ListItem__Open",
+            "wms.wms-inventory-history__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-inventory-history.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsItem",
+      "kebab": "wms-item",
+      "businessName": "物料主数据",
+      "permissionPrefix": "wms:item",
+      "page": {
+        "route": "/admin/wms/wms-item",
+        "title": "物料主数据管理",
+        "titleSelector": "[data-testid=\"wms-item-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-item",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-item",
+            "query": [
+              "page",
+              "pageSize",
+              "item_code",
+              "item_name"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-item/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-item"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-item/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-item/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-item-title\"]",
+        "refresh": "[data-testid=\"wms-item-refresh\"]",
+        "createButton": "[data-testid=\"wms-item-create\"]",
+        "searchForm": "[data-testid=\"wms-item-search\"]",
+        "searchSubmit": "[data-testid=\"wms-item-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-item-search-reset\"]",
+        "total": "[data-testid=\"wms-item-total\"]",
+        "table": "[data-testid=\"wms-item-table\"]",
+        "row": "[data-testid=\"wms-item-row\"]",
+        "editButton": "[data-testid=\"wms-item-edit\"]",
+        "deleteButton": "[data-testid=\"wms-item-delete\"]",
+        "form": "[data-testid=\"wms-item-form\"]",
+        "formError": "[data-testid=\"wms-item-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-item-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-item-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-item-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "物料主数据列表",
+        "dialogLabel": {
+          "create": "新增物料主数据",
+          "edit": "编辑物料主数据"
+        },
+        "searchFields": [
+          {
+            "name": "item_code",
+            "label": "物料编码",
+            "testId": "search-item_code",
+            "selector": "[data-testid=\"search-item_code\"]"
+          },
+          {
+            "name": "item_name",
+            "label": "物料名称",
+            "testId": "search-item_name",
+            "selector": "[data-testid=\"search-item_name\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "item_code",
+            "label": "物料编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_code",
+            "selector": "[data-testid=\"field-item_code\"]"
+          },
+          {
+            "name": "item_name",
+            "label": "物料名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_name",
+            "selector": "[data-testid=\"field-item_name\"]"
+          },
+          {
+            "name": "category_id",
+            "label": "分类ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-category_id",
+            "selector": "[data-testid=\"field-category_id\"]"
+          },
+          {
+            "name": "brand_id",
+            "label": "品牌ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-brand_id",
+            "selector": "[data-testid=\"field-brand_id\"]"
+          },
+          {
+            "name": "unit",
+            "label": "基本单位",
+            "type": "string",
+            "required": false,
+            "testId": "field-unit",
+            "selector": "[data-testid=\"field-unit\"]"
+          },
+          {
+            "name": "spec",
+            "label": "规格型号",
+            "type": "string",
+            "required": false,
+            "testId": "field-spec",
+            "selector": "[data-testid=\"field-spec\"]"
+          },
+          {
+            "name": "status",
+            "label": "物料状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-item",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-item\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-item-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-item-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-item:search",
+          "reset": "wms-item:reset",
+          "refresh": "wms-item:refresh",
+          "create": "wms-item:create",
+          "edit": "wms-item:edit",
+          "delete": "wms-item:delete",
+          "submit": "wms-item:submit",
+          "cancel": "wms-item:cancel",
+          "close": "wms-item:close",
+          "row": "wms-item:row",
+          "pagination": "wms-item:pagination",
+          "fields": {
+            "item_code": "wms-item:field:item_code",
+            "item_name": "wms-item:field:item_name",
+            "category_id": "wms-item:field:category_id",
+            "brand_id": "wms-item:field:brand_id",
+            "unit": "wms-item:field:unit",
+            "spec": "wms-item:field:spec",
+            "status": "wms-item:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-item",
+          "examples": [
+            "wms.wms-item__List__Refresh",
+            "wms.wms-item__ListItem__Open",
+            "wms.wms-item__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-item.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsItemBrand",
+      "kebab": "wms-item-brand",
+      "businessName": "物料品牌",
+      "permissionPrefix": "wms:brand",
+      "page": {
+        "route": "/admin/wms/wms-item-brand",
+        "title": "物料品牌管理",
+        "titleSelector": "[data-testid=\"wms-item-brand-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-item-brand",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-item-brand",
+            "query": [
+              "page",
+              "pageSize",
+              "name",
+              "code"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-item-brand/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-item-brand"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-item-brand/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-item-brand/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-item-brand-title\"]",
+        "refresh": "[data-testid=\"wms-item-brand-refresh\"]",
+        "createButton": "[data-testid=\"wms-item-brand-create\"]",
+        "searchForm": "[data-testid=\"wms-item-brand-search\"]",
+        "searchSubmit": "[data-testid=\"wms-item-brand-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-item-brand-search-reset\"]",
+        "total": "[data-testid=\"wms-item-brand-total\"]",
+        "table": "[data-testid=\"wms-item-brand-table\"]",
+        "row": "[data-testid=\"wms-item-brand-row\"]",
+        "editButton": "[data-testid=\"wms-item-brand-edit\"]",
+        "deleteButton": "[data-testid=\"wms-item-brand-delete\"]",
+        "form": "[data-testid=\"wms-item-brand-form\"]",
+        "formError": "[data-testid=\"wms-item-brand-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-item-brand-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-item-brand-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-item-brand-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "物料品牌列表",
+        "dialogLabel": {
+          "create": "新增物料品牌",
+          "edit": "编辑物料品牌"
+        },
+        "searchFields": [
+          {
+            "name": "name",
+            "label": "品牌名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "code",
+            "label": "品牌编码",
+            "testId": "search-code",
+            "selector": "[data-testid=\"search-code\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "name",
+            "label": "品牌名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "code",
+            "label": "品牌编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-code",
+            "selector": "[data-testid=\"field-code\"]"
+          },
+          {
+            "name": "logo",
+            "label": "品牌LOGO",
+            "type": "string",
+            "required": false,
+            "testId": "field-logo",
+            "selector": "[data-testid=\"field-logo\"]"
+          },
+          {
+            "name": "status",
+            "label": "状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-item-brand",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-item-brand\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-item-brand-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-item-brand-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-item-brand:search",
+          "reset": "wms-item-brand:reset",
+          "refresh": "wms-item-brand:refresh",
+          "create": "wms-item-brand:create",
+          "edit": "wms-item-brand:edit",
+          "delete": "wms-item-brand:delete",
+          "submit": "wms-item-brand:submit",
+          "cancel": "wms-item-brand:cancel",
+          "close": "wms-item-brand:close",
+          "row": "wms-item-brand:row",
+          "pagination": "wms-item-brand:pagination",
+          "fields": {
+            "name": "wms-item-brand:field:name",
+            "code": "wms-item-brand:field:code",
+            "logo": "wms-item-brand:field:logo",
+            "status": "wms-item-brand:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-item-brand",
+          "examples": [
+            "wms.wms-item-brand__List__Refresh",
+            "wms.wms-item-brand__ListItem__Open",
+            "wms.wms-item-brand__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-item-brand.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsItemCategory",
+      "kebab": "wms-item-category",
+      "businessName": "物料分类",
+      "permissionPrefix": "wms:category",
+      "page": {
+        "route": "/admin/wms/wms-item-category",
+        "title": "物料分类管理",
+        "titleSelector": "[data-testid=\"wms-item-category-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-item-category",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-item-category",
+            "query": [
+              "page",
+              "pageSize",
+              "name",
+              "code"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-item-category/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-item-category"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-item-category/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-item-category/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-item-category-title\"]",
+        "refresh": "[data-testid=\"wms-item-category-refresh\"]",
+        "createButton": "[data-testid=\"wms-item-category-create\"]",
+        "searchForm": "[data-testid=\"wms-item-category-search\"]",
+        "searchSubmit": "[data-testid=\"wms-item-category-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-item-category-search-reset\"]",
+        "total": "[data-testid=\"wms-item-category-total\"]",
+        "table": "[data-testid=\"wms-item-category-table\"]",
+        "row": "[data-testid=\"wms-item-category-row\"]",
+        "editButton": "[data-testid=\"wms-item-category-edit\"]",
+        "deleteButton": "[data-testid=\"wms-item-category-delete\"]",
+        "form": "[data-testid=\"wms-item-category-form\"]",
+        "formError": "[data-testid=\"wms-item-category-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-item-category-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-item-category-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-item-category-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "物料分类列表",
+        "dialogLabel": {
+          "create": "新增物料分类",
+          "edit": "编辑物料分类"
+        },
+        "searchFields": [
+          {
+            "name": "name",
+            "label": "分类名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "code",
+            "label": "分类编码",
+            "testId": "search-code",
+            "selector": "[data-testid=\"search-code\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "parent_id",
+            "label": "上级分类ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-parent_id",
+            "selector": "[data-testid=\"field-parent_id\"]"
+          },
+          {
+            "name": "name",
+            "label": "分类名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "code",
+            "label": "分类编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-code",
+            "selector": "[data-testid=\"field-code\"]"
+          },
+          {
+            "name": "sort",
+            "label": "显示排序",
+            "type": "number",
+            "required": true,
+            "testId": "field-sort",
+            "selector": "[data-testid=\"field-sort\"]"
+          },
+          {
+            "name": "status",
+            "label": "状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-item-category",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-item-category\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-item-category-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-item-category-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-item-category:search",
+          "reset": "wms-item-category:reset",
+          "refresh": "wms-item-category:refresh",
+          "create": "wms-item-category:create",
+          "edit": "wms-item-category:edit",
+          "delete": "wms-item-category:delete",
+          "submit": "wms-item-category:submit",
+          "cancel": "wms-item-category:cancel",
+          "close": "wms-item-category:close",
+          "row": "wms-item-category:row",
+          "pagination": "wms-item-category:pagination",
+          "fields": {
+            "parent_id": "wms-item-category:field:parent_id",
+            "name": "wms-item-category:field:name",
+            "code": "wms-item-category:field:code",
+            "sort": "wms-item-category:field:sort",
+            "status": "wms-item-category:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-item-category",
+          "examples": [
+            "wms.wms-item-category__List__Refresh",
+            "wms.wms-item-category__ListItem__Open",
+            "wms.wms-item-category__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-item-category.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsItemSku",
+      "kebab": "wms-item-sku",
+      "businessName": "物料SKU",
+      "permissionPrefix": "wms:item",
+      "page": {
+        "route": "/admin/wms/wms-item-sku",
+        "title": "物料SKU管理",
+        "titleSelector": "[data-testid=\"wms-item-sku-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-item-sku",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-item-sku",
+            "query": [
+              "page",
+              "pageSize",
+              "item_id",
+              "sku_code",
+              "sku_name"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-item-sku/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-item-sku"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-item-sku/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-item-sku/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-item-sku-title\"]",
+        "refresh": "[data-testid=\"wms-item-sku-refresh\"]",
+        "createButton": "[data-testid=\"wms-item-sku-create\"]",
+        "searchForm": "[data-testid=\"wms-item-sku-search\"]",
+        "searchSubmit": "[data-testid=\"wms-item-sku-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-item-sku-search-reset\"]",
+        "total": "[data-testid=\"wms-item-sku-total\"]",
+        "table": "[data-testid=\"wms-item-sku-table\"]",
+        "row": "[data-testid=\"wms-item-sku-row\"]",
+        "editButton": "[data-testid=\"wms-item-sku-edit\"]",
+        "deleteButton": "[data-testid=\"wms-item-sku-delete\"]",
+        "form": "[data-testid=\"wms-item-sku-form\"]",
+        "formError": "[data-testid=\"wms-item-sku-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-item-sku-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-item-sku-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-item-sku-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "物料SKU列表",
+        "dialogLabel": {
+          "create": "新增物料SKU",
+          "edit": "编辑物料SKU"
+        },
+        "searchFields": [
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          },
+          {
+            "name": "sku_code",
+            "label": "SKU编码",
+            "testId": "search-sku_code",
+            "selector": "[data-testid=\"search-sku_code\"]"
+          },
+          {
+            "name": "sku_name",
+            "label": "规格名称",
+            "testId": "search-sku_name",
+            "selector": "[data-testid=\"search-sku_name\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "sku_code",
+            "label": "SKU编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-sku_code",
+            "selector": "[data-testid=\"field-sku_code\"]"
+          },
+          {
+            "name": "sku_name",
+            "label": "规格名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-sku_name",
+            "selector": "[data-testid=\"field-sku_name\"]"
+          },
+          {
+            "name": "barcode",
+            "label": "条形码",
+            "type": "string",
+            "required": false,
+            "testId": "field-barcode",
+            "selector": "[data-testid=\"field-barcode\"]"
+          },
+          {
+            "name": "price",
+            "label": "参考单价",
+            "type": "number",
+            "required": false,
+            "testId": "field-price",
+            "selector": "[data-testid=\"field-price\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-item-sku",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-item-sku\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-item-sku-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-item-sku-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-item-sku:search",
+          "reset": "wms-item-sku:reset",
+          "refresh": "wms-item-sku:refresh",
+          "create": "wms-item-sku:create",
+          "edit": "wms-item-sku:edit",
+          "delete": "wms-item-sku:delete",
+          "submit": "wms-item-sku:submit",
+          "cancel": "wms-item-sku:cancel",
+          "close": "wms-item-sku:close",
+          "row": "wms-item-sku:row",
+          "pagination": "wms-item-sku:pagination",
+          "fields": {
+            "item_id": "wms-item-sku:field:item_id",
+            "sku_code": "wms-item-sku:field:sku_code",
+            "sku_name": "wms-item-sku:field:sku_name",
+            "barcode": "wms-item-sku:field:barcode",
+            "price": "wms-item-sku:field:price"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-item-sku",
+          "examples": [
+            "wms.wms-item-sku__List__Refresh",
+            "wms.wms-item-sku__ListItem__Open",
+            "wms.wms-item-sku__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-item-sku.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsMerchant",
+      "kebab": "wms-merchant",
+      "businessName": "货主管理",
+      "permissionPrefix": "wms:merchant",
+      "page": {
+        "route": "/admin/wms/wms-merchant",
+        "title": "货主管理管理",
+        "titleSelector": "[data-testid=\"wms-merchant-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-merchant",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-merchant",
+            "query": [
+              "page",
+              "pageSize",
+              "code",
+              "name"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-merchant/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-merchant"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-merchant/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-merchant/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-merchant-title\"]",
+        "refresh": "[data-testid=\"wms-merchant-refresh\"]",
+        "createButton": "[data-testid=\"wms-merchant-create\"]",
+        "searchForm": "[data-testid=\"wms-merchant-search\"]",
+        "searchSubmit": "[data-testid=\"wms-merchant-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-merchant-search-reset\"]",
+        "total": "[data-testid=\"wms-merchant-total\"]",
+        "table": "[data-testid=\"wms-merchant-table\"]",
+        "row": "[data-testid=\"wms-merchant-row\"]",
+        "editButton": "[data-testid=\"wms-merchant-edit\"]",
+        "deleteButton": "[data-testid=\"wms-merchant-delete\"]",
+        "form": "[data-testid=\"wms-merchant-form\"]",
+        "formError": "[data-testid=\"wms-merchant-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-merchant-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-merchant-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-merchant-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "货主管理列表",
+        "dialogLabel": {
+          "create": "新增货主管理",
+          "edit": "编辑货主管理"
+        },
+        "searchFields": [
+          {
+            "name": "code",
+            "label": "货主编码",
+            "testId": "search-code",
+            "selector": "[data-testid=\"search-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "货主名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "code",
+            "label": "货主编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-code",
+            "selector": "[data-testid=\"field-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "货主名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "contact_name",
+            "label": "联系人",
+            "type": "string",
+            "required": false,
+            "testId": "field-contact_name",
+            "selector": "[data-testid=\"field-contact_name\"]"
+          },
+          {
+            "name": "contact_phone",
+            "label": "联系电话",
+            "type": "string",
+            "required": false,
+            "testId": "field-contact_phone",
+            "selector": "[data-testid=\"field-contact_phone\"]"
+          },
+          {
+            "name": "status",
+            "label": "状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-merchant",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-merchant\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-merchant-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-merchant-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-merchant:search",
+          "reset": "wms-merchant:reset",
+          "refresh": "wms-merchant:refresh",
+          "create": "wms-merchant:create",
+          "edit": "wms-merchant:edit",
+          "delete": "wms-merchant:delete",
+          "submit": "wms-merchant:submit",
+          "cancel": "wms-merchant:cancel",
+          "close": "wms-merchant:close",
+          "row": "wms-merchant:row",
+          "pagination": "wms-merchant:pagination",
+          "fields": {
+            "code": "wms-merchant:field:code",
+            "name": "wms-merchant:field:name",
+            "contact_name": "wms-merchant:field:contact_name",
+            "contact_phone": "wms-merchant:field:contact_phone",
+            "status": "wms-merchant:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-merchant",
+          "examples": [
+            "wms.wms-merchant__List__Refresh",
+            "wms.wms-merchant__ListItem__Open",
+            "wms.wms-merchant__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-merchant.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsMovementOrder",
+      "kebab": "wms-movement-order",
+      "businessName": "移库单",
+      "permissionPrefix": "wms:movement",
+      "page": {
+        "route": "/admin/wms/wms-movement-order",
+        "title": "移库单管理",
+        "titleSelector": "[data-testid=\"wms-movement-order-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-movement-order",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-movement-order",
+            "query": [
+              "page",
+              "pageSize",
+              "order_no"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-movement-order/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-movement-order"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-movement-order/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-movement-order/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-movement-order-title\"]",
+        "refresh": "[data-testid=\"wms-movement-order-refresh\"]",
+        "createButton": "[data-testid=\"wms-movement-order-create\"]",
+        "searchForm": "[data-testid=\"wms-movement-order-search\"]",
+        "searchSubmit": "[data-testid=\"wms-movement-order-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-movement-order-search-reset\"]",
+        "total": "[data-testid=\"wms-movement-order-total\"]",
+        "table": "[data-testid=\"wms-movement-order-table\"]",
+        "row": "[data-testid=\"wms-movement-order-row\"]",
+        "editButton": "[data-testid=\"wms-movement-order-edit\"]",
+        "deleteButton": "[data-testid=\"wms-movement-order-delete\"]",
+        "form": "[data-testid=\"wms-movement-order-form\"]",
+        "formError": "[data-testid=\"wms-movement-order-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-movement-order-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-movement-order-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-movement-order-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "移库单列表",
+        "dialogLabel": {
+          "create": "新增移库单",
+          "edit": "编辑移库单"
+        },
+        "searchFields": [
+          {
+            "name": "order_no",
+            "label": "移库单号",
+            "testId": "search-order_no",
+            "selector": "[data-testid=\"search-order_no\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "order_no",
+            "label": "移库单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-order_no",
+            "selector": "[data-testid=\"field-order_no\"]"
+          },
+          {
+            "name": "from_warehouse_id",
+            "label": "源仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-from_warehouse_id",
+            "selector": "[data-testid=\"field-from_warehouse_id\"]"
+          },
+          {
+            "name": "to_warehouse_id",
+            "label": "目标仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-to_warehouse_id",
+            "selector": "[data-testid=\"field-to_warehouse_id\"]"
+          },
+          {
+            "name": "total_qty",
+            "label": "移库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-total_qty",
+            "selector": "[data-testid=\"field-total_qty\"]"
+          },
+          {
+            "name": "status",
+            "label": "单据状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-movement-order",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-movement-order\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-movement-order-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-movement-order-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-movement-order:search",
+          "reset": "wms-movement-order:reset",
+          "refresh": "wms-movement-order:refresh",
+          "create": "wms-movement-order:create",
+          "edit": "wms-movement-order:edit",
+          "delete": "wms-movement-order:delete",
+          "submit": "wms-movement-order:submit",
+          "cancel": "wms-movement-order:cancel",
+          "close": "wms-movement-order:close",
+          "row": "wms-movement-order:row",
+          "pagination": "wms-movement-order:pagination",
+          "fields": {
+            "order_no": "wms-movement-order:field:order_no",
+            "from_warehouse_id": "wms-movement-order:field:from_warehouse_id",
+            "to_warehouse_id": "wms-movement-order:field:to_warehouse_id",
+            "total_qty": "wms-movement-order:field:total_qty",
+            "status": "wms-movement-order:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-movement-order",
+          "examples": [
+            "wms.wms-movement-order__List__Refresh",
+            "wms.wms-movement-order__ListItem__Open",
+            "wms.wms-movement-order__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-movement-order.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsMovementOrderDetail",
+      "kebab": "wms-movement-order-detail",
+      "businessName": "移库明细",
+      "permissionPrefix": "wms:movement",
+      "page": {
+        "route": "/admin/wms/wms-movement-order-detail",
+        "title": "移库明细管理",
+        "titleSelector": "[data-testid=\"wms-movement-order-detail-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-movement-order-detail",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-movement-order-detail",
+            "query": [
+              "page",
+              "pageSize",
+              "movement_order_id",
+              "item_id"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-movement-order-detail/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-movement-order-detail"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-movement-order-detail/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-movement-order-detail/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-movement-order-detail-title\"]",
+        "refresh": "[data-testid=\"wms-movement-order-detail-refresh\"]",
+        "createButton": "[data-testid=\"wms-movement-order-detail-create\"]",
+        "searchForm": "[data-testid=\"wms-movement-order-detail-search\"]",
+        "searchSubmit": "[data-testid=\"wms-movement-order-detail-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-movement-order-detail-search-reset\"]",
+        "total": "[data-testid=\"wms-movement-order-detail-total\"]",
+        "table": "[data-testid=\"wms-movement-order-detail-table\"]",
+        "row": "[data-testid=\"wms-movement-order-detail-row\"]",
+        "editButton": "[data-testid=\"wms-movement-order-detail-edit\"]",
+        "deleteButton": "[data-testid=\"wms-movement-order-detail-delete\"]",
+        "form": "[data-testid=\"wms-movement-order-detail-form\"]",
+        "formError": "[data-testid=\"wms-movement-order-detail-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-movement-order-detail-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-movement-order-detail-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-movement-order-detail-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "移库明细列表",
+        "dialogLabel": {
+          "create": "新增移库明细",
+          "edit": "编辑移库明细"
+        },
+        "searchFields": [
+          {
+            "name": "movement_order_id",
+            "label": "关联移库单ID",
+            "testId": "search-movement_order_id",
+            "selector": "[data-testid=\"search-movement_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "movement_order_id",
+            "label": "关联移库单ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-movement_order_id",
+            "selector": "[data-testid=\"field-movement_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "qty",
+            "label": "移库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-qty",
+            "selector": "[data-testid=\"field-qty\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-movement-order-detail",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-movement-order-detail\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-movement-order-detail-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-movement-order-detail-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-movement-order-detail:search",
+          "reset": "wms-movement-order-detail:reset",
+          "refresh": "wms-movement-order-detail:refresh",
+          "create": "wms-movement-order-detail:create",
+          "edit": "wms-movement-order-detail:edit",
+          "delete": "wms-movement-order-detail:delete",
+          "submit": "wms-movement-order-detail:submit",
+          "cancel": "wms-movement-order-detail:cancel",
+          "close": "wms-movement-order-detail:close",
+          "row": "wms-movement-order-detail:row",
+          "pagination": "wms-movement-order-detail:pagination",
+          "fields": {
+            "movement_order_id": "wms-movement-order-detail:field:movement_order_id",
+            "item_id": "wms-movement-order-detail:field:item_id",
+            "qty": "wms-movement-order-detail:field:qty"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-movement-order-detail",
+          "examples": [
+            "wms.wms-movement-order-detail__List__Refresh",
+            "wms.wms-movement-order-detail__ListItem__Open",
+            "wms.wms-movement-order-detail__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-movement-order-detail.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsReceiptOrder",
+      "kebab": "wms-receipt-order",
+      "businessName": "入库单",
+      "permissionPrefix": "wms:receipt",
+      "page": {
+        "route": "/admin/wms/wms-receipt-order",
+        "title": "入库单管理",
+        "titleSelector": "[data-testid=\"wms-receipt-order-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-receipt-order",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-receipt-order",
+            "query": [
+              "page",
+              "pageSize",
+              "order_no"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-receipt-order/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-receipt-order"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-receipt-order/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-receipt-order/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-receipt-order-title\"]",
+        "refresh": "[data-testid=\"wms-receipt-order-refresh\"]",
+        "createButton": "[data-testid=\"wms-receipt-order-create\"]",
+        "searchForm": "[data-testid=\"wms-receipt-order-search\"]",
+        "searchSubmit": "[data-testid=\"wms-receipt-order-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-receipt-order-search-reset\"]",
+        "total": "[data-testid=\"wms-receipt-order-total\"]",
+        "table": "[data-testid=\"wms-receipt-order-table\"]",
+        "row": "[data-testid=\"wms-receipt-order-row\"]",
+        "editButton": "[data-testid=\"wms-receipt-order-edit\"]",
+        "deleteButton": "[data-testid=\"wms-receipt-order-delete\"]",
+        "form": "[data-testid=\"wms-receipt-order-form\"]",
+        "formError": "[data-testid=\"wms-receipt-order-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-receipt-order-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-receipt-order-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-receipt-order-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "入库单列表",
+        "dialogLabel": {
+          "create": "新增入库单",
+          "edit": "编辑入库单"
+        },
+        "searchFields": [
+          {
+            "name": "order_no",
+            "label": "入库单号",
+            "testId": "search-order_no",
+            "selector": "[data-testid=\"search-order_no\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "order_no",
+            "label": "入库单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-order_no",
+            "selector": "[data-testid=\"field-order_no\"]"
+          },
+          {
+            "name": "receipt_type",
+            "label": "入库类型",
+            "type": "string",
+            "required": true,
+            "testId": "field-receipt_type",
+            "selector": "[data-testid=\"field-receipt_type\"]"
+          },
+          {
+            "name": "warehouse_id",
+            "label": "目标仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-warehouse_id",
+            "selector": "[data-testid=\"field-warehouse_id\"]"
+          },
+          {
+            "name": "merchant_id",
+            "label": "货主ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-merchant_id",
+            "selector": "[data-testid=\"field-merchant_id\"]"
+          },
+          {
+            "name": "total_qty",
+            "label": "总入库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-total_qty",
+            "selector": "[data-testid=\"field-total_qty\"]"
+          },
+          {
+            "name": "status",
+            "label": "单据状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-receipt-order",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-receipt-order\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-receipt-order-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-receipt-order-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-receipt-order:search",
+          "reset": "wms-receipt-order:reset",
+          "refresh": "wms-receipt-order:refresh",
+          "create": "wms-receipt-order:create",
+          "edit": "wms-receipt-order:edit",
+          "delete": "wms-receipt-order:delete",
+          "submit": "wms-receipt-order:submit",
+          "cancel": "wms-receipt-order:cancel",
+          "close": "wms-receipt-order:close",
+          "row": "wms-receipt-order:row",
+          "pagination": "wms-receipt-order:pagination",
+          "fields": {
+            "order_no": "wms-receipt-order:field:order_no",
+            "receipt_type": "wms-receipt-order:field:receipt_type",
+            "warehouse_id": "wms-receipt-order:field:warehouse_id",
+            "merchant_id": "wms-receipt-order:field:merchant_id",
+            "total_qty": "wms-receipt-order:field:total_qty",
+            "status": "wms-receipt-order:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-receipt-order",
+          "examples": [
+            "wms.wms-receipt-order__List__Refresh",
+            "wms.wms-receipt-order__ListItem__Open",
+            "wms.wms-receipt-order__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-receipt-order.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsReceiptOrderDetail",
+      "kebab": "wms-receipt-order-detail",
+      "businessName": "入库明细",
+      "permissionPrefix": "wms:receipt",
+      "page": {
+        "route": "/admin/wms/wms-receipt-order-detail",
+        "title": "入库明细管理",
+        "titleSelector": "[data-testid=\"wms-receipt-order-detail-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-receipt-order-detail",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-receipt-order-detail",
+            "query": [
+              "page",
+              "pageSize",
+              "receipt_order_id",
+              "item_id"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-receipt-order-detail/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-receipt-order-detail"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-receipt-order-detail/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-receipt-order-detail/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-receipt-order-detail-title\"]",
+        "refresh": "[data-testid=\"wms-receipt-order-detail-refresh\"]",
+        "createButton": "[data-testid=\"wms-receipt-order-detail-create\"]",
+        "searchForm": "[data-testid=\"wms-receipt-order-detail-search\"]",
+        "searchSubmit": "[data-testid=\"wms-receipt-order-detail-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-receipt-order-detail-search-reset\"]",
+        "total": "[data-testid=\"wms-receipt-order-detail-total\"]",
+        "table": "[data-testid=\"wms-receipt-order-detail-table\"]",
+        "row": "[data-testid=\"wms-receipt-order-detail-row\"]",
+        "editButton": "[data-testid=\"wms-receipt-order-detail-edit\"]",
+        "deleteButton": "[data-testid=\"wms-receipt-order-detail-delete\"]",
+        "form": "[data-testid=\"wms-receipt-order-detail-form\"]",
+        "formError": "[data-testid=\"wms-receipt-order-detail-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-receipt-order-detail-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-receipt-order-detail-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-receipt-order-detail-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "入库明细列表",
+        "dialogLabel": {
+          "create": "新增入库明细",
+          "edit": "编辑入库明细"
+        },
+        "searchFields": [
+          {
+            "name": "receipt_order_id",
+            "label": "关联入库单ID",
+            "testId": "search-receipt_order_id",
+            "selector": "[data-testid=\"search-receipt_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "receipt_order_id",
+            "label": "关联入库单ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-receipt_order_id",
+            "selector": "[data-testid=\"field-receipt_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "plan_qty",
+            "label": "计划入库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-plan_qty",
+            "selector": "[data-testid=\"field-plan_qty\"]"
+          },
+          {
+            "name": "real_qty",
+            "label": "实际入库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-real_qty",
+            "selector": "[data-testid=\"field-real_qty\"]"
+          },
+          {
+            "name": "batch_no",
+            "label": "批次号",
+            "type": "string",
+            "required": false,
+            "testId": "field-batch_no",
+            "selector": "[data-testid=\"field-batch_no\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-receipt-order-detail",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-receipt-order-detail\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-receipt-order-detail-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-receipt-order-detail-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-receipt-order-detail:search",
+          "reset": "wms-receipt-order-detail:reset",
+          "refresh": "wms-receipt-order-detail:refresh",
+          "create": "wms-receipt-order-detail:create",
+          "edit": "wms-receipt-order-detail:edit",
+          "delete": "wms-receipt-order-detail:delete",
+          "submit": "wms-receipt-order-detail:submit",
+          "cancel": "wms-receipt-order-detail:cancel",
+          "close": "wms-receipt-order-detail:close",
+          "row": "wms-receipt-order-detail:row",
+          "pagination": "wms-receipt-order-detail:pagination",
+          "fields": {
+            "receipt_order_id": "wms-receipt-order-detail:field:receipt_order_id",
+            "item_id": "wms-receipt-order-detail:field:item_id",
+            "plan_qty": "wms-receipt-order-detail:field:plan_qty",
+            "real_qty": "wms-receipt-order-detail:field:real_qty",
+            "batch_no": "wms-receipt-order-detail:field:batch_no"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-receipt-order-detail",
+          "examples": [
+            "wms.wms-receipt-order-detail__List__Refresh",
+            "wms.wms-receipt-order-detail__ListItem__Open",
+            "wms.wms-receipt-order-detail__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-receipt-order-detail.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsShipmentOrder",
+      "kebab": "wms-shipment-order",
+      "businessName": "出库单",
+      "permissionPrefix": "wms:shipment",
+      "page": {
+        "route": "/admin/wms/wms-shipment-order",
+        "title": "出库单管理",
+        "titleSelector": "[data-testid=\"wms-shipment-order-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-shipment-order",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-shipment-order",
+            "query": [
+              "page",
+              "pageSize",
+              "order_no"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-shipment-order/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-shipment-order"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-shipment-order/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-shipment-order/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-shipment-order-title\"]",
+        "refresh": "[data-testid=\"wms-shipment-order-refresh\"]",
+        "createButton": "[data-testid=\"wms-shipment-order-create\"]",
+        "searchForm": "[data-testid=\"wms-shipment-order-search\"]",
+        "searchSubmit": "[data-testid=\"wms-shipment-order-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-shipment-order-search-reset\"]",
+        "total": "[data-testid=\"wms-shipment-order-total\"]",
+        "table": "[data-testid=\"wms-shipment-order-table\"]",
+        "row": "[data-testid=\"wms-shipment-order-row\"]",
+        "editButton": "[data-testid=\"wms-shipment-order-edit\"]",
+        "deleteButton": "[data-testid=\"wms-shipment-order-delete\"]",
+        "form": "[data-testid=\"wms-shipment-order-form\"]",
+        "formError": "[data-testid=\"wms-shipment-order-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-shipment-order-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-shipment-order-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-shipment-order-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "出库单列表",
+        "dialogLabel": {
+          "create": "新增出库单",
+          "edit": "编辑出库单"
+        },
+        "searchFields": [
+          {
+            "name": "order_no",
+            "label": "出库单号",
+            "testId": "search-order_no",
+            "selector": "[data-testid=\"search-order_no\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "order_no",
+            "label": "出库单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-order_no",
+            "selector": "[data-testid=\"field-order_no\"]"
+          },
+          {
+            "name": "shipment_type",
+            "label": "出库类型",
+            "type": "string",
+            "required": true,
+            "testId": "field-shipment_type",
+            "selector": "[data-testid=\"field-shipment_type\"]"
+          },
+          {
+            "name": "warehouse_id",
+            "label": "源仓库ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-warehouse_id",
+            "selector": "[data-testid=\"field-warehouse_id\"]"
+          },
+          {
+            "name": "merchant_id",
+            "label": "货主ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-merchant_id",
+            "selector": "[data-testid=\"field-merchant_id\"]"
+          },
+          {
+            "name": "total_qty",
+            "label": "总出库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-total_qty",
+            "selector": "[data-testid=\"field-total_qty\"]"
+          },
+          {
+            "name": "status",
+            "label": "单据状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-shipment-order",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-shipment-order\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-shipment-order-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-shipment-order-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-shipment-order:search",
+          "reset": "wms-shipment-order:reset",
+          "refresh": "wms-shipment-order:refresh",
+          "create": "wms-shipment-order:create",
+          "edit": "wms-shipment-order:edit",
+          "delete": "wms-shipment-order:delete",
+          "submit": "wms-shipment-order:submit",
+          "cancel": "wms-shipment-order:cancel",
+          "close": "wms-shipment-order:close",
+          "row": "wms-shipment-order:row",
+          "pagination": "wms-shipment-order:pagination",
+          "fields": {
+            "order_no": "wms-shipment-order:field:order_no",
+            "shipment_type": "wms-shipment-order:field:shipment_type",
+            "warehouse_id": "wms-shipment-order:field:warehouse_id",
+            "merchant_id": "wms-shipment-order:field:merchant_id",
+            "total_qty": "wms-shipment-order:field:total_qty",
+            "status": "wms-shipment-order:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-shipment-order",
+          "examples": [
+            "wms.wms-shipment-order__List__Refresh",
+            "wms.wms-shipment-order__ListItem__Open",
+            "wms.wms-shipment-order__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-shipment-order.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsShipmentOrderDetail",
+      "kebab": "wms-shipment-order-detail",
+      "businessName": "出库明细",
+      "permissionPrefix": "wms:shipment",
+      "page": {
+        "route": "/admin/wms/wms-shipment-order-detail",
+        "title": "出库明细管理",
+        "titleSelector": "[data-testid=\"wms-shipment-order-detail-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-shipment-order-detail",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-shipment-order-detail",
+            "query": [
+              "page",
+              "pageSize",
+              "shipment_order_id",
+              "item_id"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-shipment-order-detail/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-shipment-order-detail"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-shipment-order-detail/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-shipment-order-detail/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-shipment-order-detail-title\"]",
+        "refresh": "[data-testid=\"wms-shipment-order-detail-refresh\"]",
+        "createButton": "[data-testid=\"wms-shipment-order-detail-create\"]",
+        "searchForm": "[data-testid=\"wms-shipment-order-detail-search\"]",
+        "searchSubmit": "[data-testid=\"wms-shipment-order-detail-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-shipment-order-detail-search-reset\"]",
+        "total": "[data-testid=\"wms-shipment-order-detail-total\"]",
+        "table": "[data-testid=\"wms-shipment-order-detail-table\"]",
+        "row": "[data-testid=\"wms-shipment-order-detail-row\"]",
+        "editButton": "[data-testid=\"wms-shipment-order-detail-edit\"]",
+        "deleteButton": "[data-testid=\"wms-shipment-order-detail-delete\"]",
+        "form": "[data-testid=\"wms-shipment-order-detail-form\"]",
+        "formError": "[data-testid=\"wms-shipment-order-detail-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-shipment-order-detail-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-shipment-order-detail-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-shipment-order-detail-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "出库明细列表",
+        "dialogLabel": {
+          "create": "新增出库明细",
+          "edit": "编辑出库明细"
+        },
+        "searchFields": [
+          {
+            "name": "shipment_order_id",
+            "label": "关联出库单ID",
+            "testId": "search-shipment_order_id",
+            "selector": "[data-testid=\"search-shipment_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "testId": "search-item_id",
+            "selector": "[data-testid=\"search-item_id\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "shipment_order_id",
+            "label": "关联出库单ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-shipment_order_id",
+            "selector": "[data-testid=\"field-shipment_order_id\"]"
+          },
+          {
+            "name": "item_id",
+            "label": "物料ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-item_id",
+            "selector": "[data-testid=\"field-item_id\"]"
+          },
+          {
+            "name": "plan_qty",
+            "label": "计划出库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-plan_qty",
+            "selector": "[data-testid=\"field-plan_qty\"]"
+          },
+          {
+            "name": "real_qty",
+            "label": "实际出库数量",
+            "type": "number",
+            "required": true,
+            "testId": "field-real_qty",
+            "selector": "[data-testid=\"field-real_qty\"]"
+          },
+          {
+            "name": "batch_no",
+            "label": "批次号",
+            "type": "string",
+            "required": false,
+            "testId": "field-batch_no",
+            "selector": "[data-testid=\"field-batch_no\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-shipment-order-detail",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-shipment-order-detail\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-shipment-order-detail-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-shipment-order-detail-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-shipment-order-detail:search",
+          "reset": "wms-shipment-order-detail:reset",
+          "refresh": "wms-shipment-order-detail:refresh",
+          "create": "wms-shipment-order-detail:create",
+          "edit": "wms-shipment-order-detail:edit",
+          "delete": "wms-shipment-order-detail:delete",
+          "submit": "wms-shipment-order-detail:submit",
+          "cancel": "wms-shipment-order-detail:cancel",
+          "close": "wms-shipment-order-detail:close",
+          "row": "wms-shipment-order-detail:row",
+          "pagination": "wms-shipment-order-detail:pagination",
+          "fields": {
+            "shipment_order_id": "wms-shipment-order-detail:field:shipment_order_id",
+            "item_id": "wms-shipment-order-detail:field:item_id",
+            "plan_qty": "wms-shipment-order-detail:field:plan_qty",
+            "real_qty": "wms-shipment-order-detail:field:real_qty",
+            "batch_no": "wms-shipment-order-detail:field:batch_no"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-shipment-order-detail",
+          "examples": [
+            "wms.wms-shipment-order-detail__List__Refresh",
+            "wms.wms-shipment-order-detail__ListItem__Open",
+            "wms.wms-shipment-order-detail__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-shipment-order-detail.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "wms",
+      "entity": "WmsWarehouse",
+      "kebab": "wms-warehouse",
+      "businessName": "智能仓库",
+      "permissionPrefix": "wms:warehouse",
+      "page": {
+        "route": "/admin/wms/wms-warehouse",
+        "title": "智能仓库管理",
+        "titleSelector": "[data-testid=\"wms-warehouse-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.wms/api",
+        "bffMount": "/api/v1/admin/wms",
+        "resource": "wms-warehouse",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/wms-warehouse",
+            "query": [
+              "page",
+              "pageSize",
+              "code",
+              "name"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/wms-warehouse/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/wms-warehouse"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/wms-warehouse/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/wms-warehouse/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"wms-warehouse-title\"]",
+        "refresh": "[data-testid=\"wms-warehouse-refresh\"]",
+        "createButton": "[data-testid=\"wms-warehouse-create\"]",
+        "searchForm": "[data-testid=\"wms-warehouse-search\"]",
+        "searchSubmit": "[data-testid=\"wms-warehouse-search-submit\"]",
+        "searchReset": "[data-testid=\"wms-warehouse-search-reset\"]",
+        "total": "[data-testid=\"wms-warehouse-total\"]",
+        "table": "[data-testid=\"wms-warehouse-table\"]",
+        "row": "[data-testid=\"wms-warehouse-row\"]",
+        "editButton": "[data-testid=\"wms-warehouse-edit\"]",
+        "deleteButton": "[data-testid=\"wms-warehouse-delete\"]",
+        "form": "[data-testid=\"wms-warehouse-form\"]",
+        "formError": "[data-testid=\"wms-warehouse-form-error\"]",
+        "formSubmit": "[data-testid=\"wms-warehouse-form-submit\"]",
+        "formCancel": "[data-testid=\"wms-warehouse-form-cancel\"]",
+        "formClose": "[data-testid=\"wms-warehouse-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "智能仓库列表",
+        "dialogLabel": {
+          "create": "新增智能仓库",
+          "edit": "编辑智能仓库"
+        },
+        "searchFields": [
+          {
+            "name": "code",
+            "label": "仓库编码",
+            "testId": "search-code",
+            "selector": "[data-testid=\"search-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "仓库名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "code",
+            "label": "仓库编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-code",
+            "selector": "[data-testid=\"field-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "仓库名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "capacity",
+            "label": "库容量(m³)",
+            "type": "number",
+            "required": false,
+            "testId": "field-capacity",
+            "selector": "[data-testid=\"field-capacity\"]"
+          },
+          {
+            "name": "active",
+            "label": "启用状态",
+            "type": "boolean",
+            "required": true,
+            "testId": "field-active",
+            "selector": "[data-testid=\"field-active\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "wms-warehouse",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"wms-warehouse\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"wms-warehouse-form-overlay\"]",
+          "dialog": "[data-testid=\"wms-warehouse-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "wms-warehouse:search",
+          "reset": "wms-warehouse:reset",
+          "refresh": "wms-warehouse:refresh",
+          "create": "wms-warehouse:create",
+          "edit": "wms-warehouse:edit",
+          "delete": "wms-warehouse:delete",
+          "submit": "wms-warehouse:submit",
+          "cancel": "wms-warehouse:cancel",
+          "close": "wms-warehouse:close",
+          "row": "wms-warehouse:row",
+          "pagination": "wms-warehouse:pagination",
+          "fields": {
+            "code": "wms-warehouse:field:code",
+            "name": "wms-warehouse:field:name",
+            "capacity": "wms-warehouse:field:capacity",
+            "active": "wms-warehouse:field:active"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "wms.wms-warehouse",
+          "examples": [
+            "wms.wms-warehouse__List__Refresh",
+            "wms.wms-warehouse__ListItem__Open",
+            "wms.wms-warehouse__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-wms/agent/wms-warehouse.agent.json"
     }
   ]
 }

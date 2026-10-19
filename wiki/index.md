@@ -9,7 +9,7 @@
 1. **零 Token 浪费 & Schema 驱动**：严禁人肉手写几百行重复 CRUD。必须复用 `BaseMapper<T>`、`QueryWrapper<T>` 与 `BaseService<T>`，自动继承 8 大审计字段与行级租户隔离。
 2. **第一方插件规范 (First-Party Plugins)**：业务域一律落在 `packages/plugins/plugin-<domain>/`，平台地基落在 `packages/domains/{system,infra}/`。严禁在 `src/` 堆放平铺代码。
 3. **真实数据库驱动 (Zero Fake Mock)**：测试 100% 由嵌入式 SQLite (`better-sqlite3`) 或真实 PostgreSQL 驱动，严禁前端伪造 Mock。
-4. **全链路 Agent 契约闭环**：全仓已收敛 **326 份机器可读契约**，由 `agent-device` (接口运营/造数) 与 `agent-browser` (Playwright 探针) 统一驱动。
+4. **全链路 Agent 契约闭环**：全仓已收敛 **342 份机器可读契约**，由 `agent-device` (接口运营/造数) 与 `agent-browser` (Playwright 探针) 统一驱动。
 
 ---
 
@@ -28,7 +28,7 @@
 | [member](domains/member.md) | 🧩 第一方插件 | 阶段 A | 3218 | 11 | 7 | `/api/v1/admin/member`, `/api/v1/app/member` |
 | [crm](domains/crm.md) | 🧩 第一方插件 | 阶段 B | 3219 | 21 | 4 | `/api/v1/admin/crm` |
 | [erp](domains/erp.md) | 🧩 第一方插件 | 阶段 B | 3220 | 33 | 4 | `/api/v1/admin/erp` |
-| [wms](domains/wms.md) | 🧩 第一方插件 | 阶段 B | 3221 | 0 | 7 | `/api/v1/admin/wms` |
+| [wms](domains/wms.md) | 🧩 第一方插件 | 阶段 B | 3221 | 16 | 7 | `/api/v1/admin/wms` |
 | [mes](domains/mes.md) | 🧩 第一方插件 | 阶段 B | 3222 | 133 | 3 | `/api/v1/admin/mes` |
 | [ai](domains/ai.md) | 🧩 第一方插件 | 阶段 B | 3223 | 14 | 8 | `/api/v1/admin/ai`, `/api/v1/open/ai` |
 | [aigw](domains/aigw.md) | 🧩 第一方插件 | 阶段 B | 3226 | 0 | 9 | `/api/v1/admin/aigw`, `/api/v1/open/aigw` |

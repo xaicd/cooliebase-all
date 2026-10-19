@@ -3,7 +3,6 @@
   "updatedAt": "2026-10-19",
   "knownZeroCoverageDomains": [
     "online",
-    "wms",
     "aigw"
   ],
   "snapshot": [
@@ -18,7 +17,7 @@
     "member: 11 契约 / 28 页面",
     "crm: 21 契约 / 47 页面",
     "erp: 33 契约 / 58 页面",
-    "wms: 0 契约 / 33 页面",
+    "wms: 16 契约 / 33 页面",
     "mes: 133 契约 / 261 页面",
     "ai: 14 契约 / 27 页面",
     "aigw: 0 契约 / 8 页面",
