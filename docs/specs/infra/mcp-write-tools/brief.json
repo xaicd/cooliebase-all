@@ -166,7 +166,8 @@
       "parent": "T2",
       "title": "正反向测试与不落盘断言",
       "files": [
-        "scripts/mcp/__tests__/cooliebase-mcp-server.test.ts"
+        "scripts/mcp/__tests__/cooliebase-mcp-server.test.ts",
+        "scripts/mcp/__tests__/ruoyi-mcp-server.test.ts"
       ]
     },
     {

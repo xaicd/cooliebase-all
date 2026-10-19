@@ -738,14 +738,61 @@ function handleTasks() {
   console.log(`| 任务ID | 状态 (Git取证) | 任务名称 | 白名单限制 | 提交证据 |`)
   console.log(`|---|---|---|---|---|`)
 
+  /**
+   * 提交 → 变更文件（一次 git log 拿全，避免逐提交调用）。
+   * 为什么要文件：**只按 `[T<ID>]` 匹配会跨规格误判** —— 实测把 Expo 升级提交里的
+   * `[T5]` 当成了另一个规格的 T5，于是在测试还没写时就报「6/6 完成」。
+   */
+  const commits: Array<{ sha: string; subject: string; files: string[] }> = []
+  if (isGitRepo) {
+    const raw = git(["log", "--pretty=format:%x00%H%x09%s", "--name-only", "-n", "300"])
+    for (const block of raw.split("\u0000")) {
+      if (!block.trim()) continue
+      const [head, ...rest] = block.split("\n")
+      const [sha, ...subjectParts] = head.split("\t")
+      commits.push({ sha, subject: subjectParts.join("\t"), files: rest.map((f) => f.trim()).filter(Boolean) })
+    }
+  }
+
+  /**
+   * 白名单 → 正则。与 `--task` 分支的 `toRegExp` 保持同一套语义，
+   * 并额外处理**目录形式**（以 `/` 结尾，如 `docs/specs/<域>/<名>/`）：
+   * 直接转正则只会匹配目录本身、匹配不到其下文件 —— 实测因此把已完成任务误判成待执行。
+   */
+  const globToRegExp = (pattern: string) => {
+    const normalized = pattern.endsWith("/") ? `${pattern}**` : pattern
+    const escaped = normalized
+      .replace(/[.+^${}()|[\]\\]/g, "\\$&")
+      .replace(/\*\*\//g, "\u0000")
+      .replace(/\*\*/g, "\u0001")
+      .replace(/\*/g, "[^/]*")
+    return new RegExp("^" + escaped.replace(/\u0000/g, "(?:.*/)?").replace(/\u0001/g, ".*") + "$")
+  }
+
   let touched = 0
   for (const t of tasks) {
-    const hits = logLines.filter(line => (line.split("\t")[1] ?? "").includes(`[${t.id}]`))
+    const byId = commits.filter((c) => c.subject.includes(`[${t.id}]`))
+    let hits = byId
+    let suspicious = 0
+    if (t.whitelist !== "-") {
+      const patterns = t.whitelist.split(",").map((i) => i.trim()).filter(Boolean).map(globToRegExp)
+      hits = byId.filter((c) => c.files.some((f) => patterns.some((re) => re.test(f))))
+      suspicious = byId.length - hits.length
+    } else {
+      // 纯验证任务没有可核验的文件 —— 退化为「提交里必须提到本规格名」，否则同样可能是跨规格误匹配
+      const mentionsSpec = (c: { subject: string }) => c.subject.includes(name) || c.subject.includes(path.basename(dir))
+      hits = byId.filter(mentionsSpec)
+      suspicious = byId.length - hits.length
+    }
     const isDone = hits.length > 0
     if (isDone) touched++
 
     const statusBadge = isDone ? "✅ 已完成 (Git)" : "⏳ 待执行"
-    const evidence = isDone ? `${hits.length} 个提交 (${hits[0].split("\t")[0].slice(0, 7)})` : "无物理提交"
+    const evidence = isDone
+      ? `${hits.length} 个提交 (${hits[0].sha.slice(0, 7)})`
+      : (suspicious > 0
+        ? `无物理提交（${suspicious} 个 [${t.id}] 提交来自**其它规格**，已排除）`
+        : "无物理提交")
     console.log(`| ${t.id} | ${statusBadge} | ${t.title} | \`${t.whitelist}\` | ${evidence} |`)
   }
 

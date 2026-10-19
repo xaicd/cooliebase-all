@@ -6,7 +6,7 @@
       "status": "passed",
       "summary": "通过 DAR 选型评估与竞品 ROI 论证",
       "evidence": ["research.md", "selection.md"],
-      "verifiedAt": "2026-10-19T04:08:35.047Z"
+      "verifiedAt": "2026-10-19T13:04:29.746Z"
     },
     "G1_FDA": {
       "status": "pending",
@@ -30,7 +30,7 @@
       "status": "passed",
       "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
       "evidence": ["spec.md", "requirements.md"],
-      "verifiedAt": "2026-10-19T04:08:35.047Z"
+      "verifiedAt": "2026-10-19T13:04:29.746Z"
     },
     "G5_PRE": {
       "status": "pending",
