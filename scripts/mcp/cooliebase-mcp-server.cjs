@@ -2,8 +2,13 @@
  * cooliebase MCP server (stdio, zero-dependency).
  *
  * Exposes this repository's code-framework knowledge to any external agent
- * (Claude Code / Cursor / Command Code / DSH / hermes). Read-only by design:
- * it never scaffolds, generates, or mutates the repo.
+ * (Claude Code / Cursor / Command Code / DSH / hermes).
+ *
+ * **Never mutates the repository.** Tools are either read-only queries or
+ * plan/preview (they return what a real run *would* do and leave writing to an
+ * explicit command a human runs). The plan/preview tools never pass --write,
+ * and their inputSchema exposes no write-class argument.
+ * See docs/specs/infra/mcp-write-tools/write-tool-contract.md.
  *
  * Every tool wraps existing sources of truth. Do not reimplement domain logic
  * here — that would create a second source of truth.
@@ -76,6 +81,66 @@ function readSkillIndex() {
 function truncate(text, max) {
   if (text.length <= max) return text
   return `${text.slice(0, max)}\n… (${text.length - max} more chars truncated)`
+}
+
+/**
+ * 域名会进入路径与子进程参数 —— 必须是最小字符集，不接受任意字符串。
+ * 契约见 docs/specs/infra/mcp-write-tools/write-tool-contract.md §2。
+ */
+const DOMAIN_SLUG = /^[a-z][a-z0-9-]{0,40}$/
+
+function requireDomainSlug(raw) {
+  const name = String(raw == null ? "" : raw).trim()
+  if (!DOMAIN_SLUG.test(name)) {
+    throw new Error(`invalid domain ${JSON.stringify(raw)}; expected ${DOMAIN_SLUG}`)
+  }
+  return name
+}
+
+/** MCP 入参是系统边界：只接受仓库内路径，越界一律拒绝（不纠正、不兜底）。 */
+function resolveInsideRepo(value, label) {
+  const raw = String(value == null ? "" : value).trim()
+  if (!raw) throw new Error(`${label} is required`)
+  const full = path.resolve(ROOT, raw)
+  const rel = path.relative(ROOT, full)
+  if (!rel || rel.startsWith("..") || path.isAbsolute(rel)) {
+    throw new Error(`${label} must stay inside the repository: ${raw}`)
+  }
+  return { full, rel: rel.split(path.sep).join("/") }
+}
+
+const NPX = process.platform === "win32" ? "npx.cmd" : "npx"
+
+/**
+ * 执行既有脚本并回收输出。**永不**传 --write / --force —— 本批的零落盘保证靠这里兜住，
+ * 而不是靠调用方自觉。
+ */
+function runExistingScript(command, args) {
+  const result = spawnSync(command, args, {
+    cwd: ROOT,
+    encoding: "utf8",
+    timeout: GATE_TIMEOUT_MS,
+    shell: false,
+  })
+  return {
+    status: result.status,
+    stdout: result.stdout || "",
+    stderr: result.stderr || "",
+    spawnError: result.error ? String(result.error.message) : null,
+  }
+}
+
+/** 统一返回契约（write-tool-contract.md §3）：writes 恒 false，是保证不是提示。 */
+function planEnvelope(tool, mode, payload) {
+  return {
+    tool,
+    mode,
+    writes: false,
+    plannedWrites: payload.plannedWrites || [],
+    followUpGates: payload.followUpGates || ["npm run check"],
+    manualSteps: payload.manualSteps || [],
+    details: payload.details || {},
+  }
 }
 
 const TOOLS = [
@@ -538,6 +603,223 @@ const TOOLS = [
       })
 
       return { totalPhases: PHASES.length, returnedPhases: result.length, phases: result }
+    },
+  },
+  {
+    name: "cooliebase_scaffold_plan",
+    description:
+      "PLAN ONLY — never writes. For a NEW domain plus its low-code table metadata module, validate the metadata and return the ordered steps a real scaffold would run, so the caller does not have to memorise the npm commands. Refuses domains already registered in domain-catalog.json (this plans new ones). --write is never passed.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        domain: { type: "string", description: "New domain slug, e.g. shop" },
+        tables: {
+          type: "string",
+          description: "Repo-relative metadata module; defaults to scripts/data/<domain>-tables.ts",
+        },
+        export: {
+          type: "string",
+          description: "Exported CodegenConfig[] name; defaults to <DOMAIN>_TABLES",
+        },
+      },
+      required: ["domain"],
+      additionalProperties: false,
+    },
+    run(args) {
+      const domain = requireDomainSlug(args.domain)
+      const catalog = loadCatalog()
+      if ((catalog.domains || []).some((item) => item.name === domain)) {
+        throw new Error(
+          `domain "${domain}" is already registered in domain-catalog.json; scaffold_plan targets NEW domains only. `
+          + `For an existing domain use cooliebase_domain_resolve / cooliebase_codegen_targets.`,
+        )
+      }
+      const tablesRel = args.tables
+        ? resolveInsideRepo(args.tables, "tables").rel
+        : `scripts/data/${domain}-tables.ts`
+      const exportName = args.export
+        ? String(args.export).trim()
+        : `${domain.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_TABLES`
+
+      const result = runExistingScript(NPX, [
+        "tsx",
+        "scripts/create-business-domain.ts",
+        domain,
+        "--dry-run",
+        "--tables",
+        tablesRel,
+        "--export",
+        exportName,
+      ])
+      const tables = [...result.stdout.matchAll(/^\s+·\s+(\S+)\s+->\s+(\S+)\s*$/gm)].map((match) => ({
+        table: match[1],
+        className: match[2],
+      }))
+
+      return planEnvelope("cooliebase_scaffold_plan", "plan", {
+        // dry-run 只校验元数据，拿不到完整文件清单 —— 诚实置空而不猜路径。
+        plannedWrites: [],
+        followUpGates: ["npm run check", "npm run domain:check"],
+        manualSteps: [
+          `写表元数据（属产品决策，工具不代写）：${tablesRel} 需导出 \`${exportName}: CodegenConfig[]\``,
+          `真正落盘（本工具不执行）：npm run domain:new ${domain}`,
+          "部署到目标库：npx prisma migrate deploy",
+          "提交前跑：npm run check",
+        ],
+        details: {
+          domain,
+          tablesModule: tablesRel,
+          exportName,
+          metadataValidated: result.status === 0,
+          dryRunExitCode: result.status,
+          dryRunOutput: truncate(`${result.stdout}${result.stderr}`.trim(), 4000),
+          tables,
+          plannedWritesNote:
+            "create-business-domain.ts 的 --dry-run 分支只校验表元数据并列出表名（源码第 80-84 行），"
+            + "不执行第 2-5 步，因此无法给出完整文件清单。此处留空是刻意的 —— 猜路径在插件域上会静默失效。",
+          finalDirAfterStep4: `packages/plugins/plugin-${domain}`,
+          finalDirNote:
+            "真实运行先在第 1 步前于 packages/domains/<域> 建目录，第 4 步 migrate-domain-to-plugin.cjs 再搬到 "
+            + "packages/plugins/plugin-<域> —— 上面给的是搬完之后的最终落点。",
+        },
+      })
+    },
+  },
+  {
+    name: "cooliebase_codegen_preview",
+    description:
+      "PREVIEW ONLY — never writes. Given an already-extracted codegen output directory (must contain codegen-manifest.json), dry-run the injector and return the exact files it WOULD copy, plus any overwrite conflicts the injector detected. Also returns the target domain's real codegen directories so paths are never guessed. Nothing is copied.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        extractedDir: {
+          type: "string",
+          description: "Repo-relative extracted codegen directory containing codegen-manifest.json",
+        },
+        domain: {
+          type: "string",
+          description: "Optional target domain (must be registered) — returned for path context",
+        },
+      },
+      required: ["extractedDir"],
+      additionalProperties: false,
+    },
+    run(args) {
+      const { full, rel } = resolveInsideRepo(args.extractedDir, "extractedDir")
+      if (!fs.existsSync(full)) throw new Error(`extractedDir does not exist: ${rel}`)
+      if (!fs.existsSync(path.join(full, "codegen-manifest.json"))) {
+        throw new Error(`${rel} has no codegen-manifest.json; the injector refuses to run without it`)
+      }
+      let domain = null
+      if (args.domain) {
+        domain = requireDomainSlug(args.domain)
+        const catalog = loadCatalog()
+        if (!(catalog.domains || []).some((item) => item.name === domain)) {
+          throw new Error(`unknown domain "${domain}"; see cooliebase_domain_list`)
+        }
+      }
+
+      const result = runExistingScript(process.execPath, [
+        "scripts/inject-codegen-output.cjs",
+        rel,
+        "--dry-run",
+      ])
+      const wouldCopy = [...result.stdout.matchAll(/^\s+WOULD COPY:\s+(\S+)\s*$/gm)].map((match) => match[1])
+      const validated = /DRY RUN: Validated (\d+) files?/.exec(result.stdout)
+
+      return planEnvelope("cooliebase_codegen_preview", "preview", {
+        plannedWrites: wouldCopy,
+        followUpGates: ["npm run check"],
+        manualSteps: [
+          `确认清单无误后真正注入（本工具不执行）：node scripts/inject-codegen-output.cjs ${rel}`,
+          "注入器遇到已存在文件会中止而不是覆盖 —— 冲突需人工决策后再处理",
+          "提交前跑：npm run check",
+        ],
+        details: {
+          extractedDir: rel,
+          domain,
+          domainTargets: domain
+            ? {
+                base: domainDirOf(ROOT, domain),
+                backend: `${domainDirOf(ROOT, domain)}/backend`,
+                frontend: `${domainDirOf(ROOT, domain)}/frontend`,
+                contract: `${domainDirOf(ROOT, domain)}/contract`,
+              }
+            : null,
+          validatedFileCount: validated ? Number(validated[1]) : null,
+          wouldCopyCount: wouldCopy.length,
+          exitCode: result.status,
+          output: truncate(`${result.stdout}${result.stderr}`.trim(), 6000),
+        },
+      })
+    },
+  },
+  {
+    name: "cooliebase_table_migration_plan",
+    description:
+      "PLAN ONLY — never writes. Given a low-code table metadata module (CodegenConfig[]), return the PostgreSQL DDL a migration would contain and where it would land. The underlying generator is dry-run by default and --write is never passed. Use before authoring a migration so the DDL is reviewable first.",
+    inputSchema: {
+      type: "object",
+      properties: {
+        tables: { type: "string", description: "Repo-relative metadata module, e.g. scripts/data/wms-tables.ts" },
+        export: { type: "string", description: "Exported CodegenConfig[] name; defaults to \"default\"" },
+        name: { type: "string", description: "Migration name, e.g. add_wms_tables" },
+      },
+      required: ["tables", "name"],
+      additionalProperties: false,
+    },
+    run(args) {
+      const { rel } = resolveInsideRepo(args.tables, "tables")
+      const name = String(args.name == null ? "" : args.name).trim()
+      if (!/^[a-z0-9_]{1,60}$/.test(name)) {
+        throw new Error(`invalid migration name ${JSON.stringify(args.name)}; expected /^[a-z0-9_]{1,60}$/`)
+      }
+      const exportName = args.export ? String(args.export).trim() : "default"
+      if (!/^[A-Za-z_$][A-Za-z0-9_$]*$/.test(exportName)) {
+        throw new Error(`invalid export name ${JSON.stringify(args.export)}`)
+      }
+
+      const result = runExistingScript(NPX, [
+        "tsx",
+        "scripts/generate-table-migration.ts",
+        "--tables",
+        rel,
+        "--export",
+        exportName,
+        "--name",
+        name,
+      ])
+      const summary = /\[table-migration\] dry-run: (\d+) 张表/.exec(result.stdout)
+      // 同名迁移已存在时是**原地更新**（生成器第 79-87 行的幂等分支），路径因此可确定。
+      const migrationsDir = path.join(ROOT, "prisma", "migrations")
+      const existing = fs.existsSync(migrationsDir)
+        ? fs.readdirSync(migrationsDir).find((entry) => entry.endsWith(`_${name}`))
+        : undefined
+
+      return planEnvelope("cooliebase_table_migration_plan", "plan", {
+        plannedWrites: existing ? [`prisma/migrations/${existing}/migration.sql`] : [],
+        followUpGates: ["npm run check", "npm run tables:inventory"],
+        manualSteps: [
+          `真正落盘：npx tsx scripts/generate-table-migration.ts --tables ${rel} --export ${exportName} --name ${name} --write`,
+          existing
+            ? `注意：同名迁移 ${existing} 已存在，--write 会原地更新该文件（幂等，不堆目录）`
+            : "注意：尚不存在同名迁移，--write 会按 UTC 时间戳新建目录",
+          "表定义的唯一真源是低代码元数据（AGENTS §9.5），不要手写 DDL",
+        ],
+        details: {
+          tablesModule: rel,
+          exportName,
+          migrationName: name,
+          tableCount: summary ? Number(summary[1]) : null,
+          existingMigrationDir: existing || null,
+          plannedWritesNote: existing
+            ? `同名迁移 ${existing} 已存在，--write 原地更新该文件，路径可确定。`
+            : "尚无同名迁移，--write 会按 UTC 时间戳新建 prisma/migrations/<timestamp>_"
+              + `${name}/migration.sql；时间戳此刻不可知，故 plannedWrites 留空而不猜。`,
+          exitCode: result.status,
+          ddl: truncate(result.stdout.split("\n[table-migration]")[0].trim(), 8000),
+        },
+      })
     },
   },
 ]
