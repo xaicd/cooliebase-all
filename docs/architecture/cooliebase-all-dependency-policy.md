@@ -28,9 +28,9 @@
 **棘轮不是"没问题"。** 门禁通过的确切含义是「相对基线没有**新增**」，不是「仓库没有漏洞」。
 基线 `docs/architecture/artifacts/deps-audit-baseline.json` 是**生成物**，由脚本产出，禁止手改。
 
-分层按**依赖根**推导（不写死包名，写死会静默漏掉新链）：
+分层由**锁文件的依赖图离线推导**（不写死包名，也不读审计输出的采样字段）：
 
-- `runtime` —— 根 importer 是 `.` 或 `packages/**`，即**出现在本仓自己的依赖图里**；
+- `runtime` —— 可从本仓项目（`.` 与 `packages/**`）的依赖图走到，即**出现在本仓自己的依赖图里**；
 - `client-toolchain` —— 其余（当前即 `clients/expo → @expo/cli / react-devtools-core`）。
 
 > ⚠️ 标签 `runtime` **不等于「生产运行时」**：它只表示"能从本仓项目的依赖图走到"，
@@ -41,19 +41,16 @@
 `runtime` 是全体子集，故门禁只实现「全树不新增」一条规则：它严格强于「runtime 层不新增」。
 分层只用于**展示影响半径**，不参与判定。
 
-当前总量：**43** 条（critical 2 / high 30 / moderate 11），由基线逐条记录，**总数与逐包计数可复现**。
+当前总量：**43** 条（critical 2 / high 30 / moderate 11）= **runtime 10 + client-toolchain 33**，
+由基线逐条记录，**总数、逐包与逐层计数均可复现**。
 
-> ⚠️ **分层计数不可作为精确数字引用（实测 2026-10-19）**：`runtime` 层在同一状态下连跑三次
-> 得到 **5 / 5 / 6**。根因是只有 `braces@GHSA-vfj7-8cjw-p6xm` 一条在翻 —— 它的 importer roots
-> 时而只有 `clients__expo`、时而含 `.`。`pnpm why braces` 证实它**确实有两个根**
-> （`tailwindcss → chokidar` 与 `react-native → … → micromatch`），故 `runtime`（即 6）才是正确的，
-> `5` 是**被截断**的那次。原因在 `pnpm audit` 本身：**对多父级包，它返回的 `paths` 列表会被截断**
-> （人类可读输出里就写着「Found 8 paths」却只列出 3 条）。本门禁的分层正是从该字段推导的，
-> 因此对**多父级包**天然不稳定。
->
-> 影响面：仅限展示标签，**判定不受影响**（棘轮比对用的是「包名 + GHSA」，与分层无关）。
-> 正解是把分层改为从 `pnpm-lock.yaml` 的依赖图离线推导（确定性强、不依赖 pnpm 的路径采样），
-> 属独立小项，未在本批次实施。在此之前：引用总数可以，引用 `runtime` 精确值不行。
+> 分层判据的历史（2026-10-19 已修）：原先取自 `pnpm audit` 的 `findings[].paths`，而 pnpm
+> **对多父级包会截断该列表**（人类可读输出里写着「Found 8 paths」却只列 3 条）。
+> `braces` 恰有两个父级，截断时只剩 expo 那条 → 同一状态连跑三次得到 **5 / 5 / 6**；
+> 且把 `postcss` 误标为 client-toolchain（`pnpm why -r` 实测它有 **6 条 host 根链**：
+> next / autoprefixer / postcss-import / tailwindcss 均在 `cooliebase-all` 之下）。
+> 现改为从 `pnpm-lock.yaml` 离线推导（真源即依赖图本身），结果确定可复现 ——
+> 连续 3 次运行的全量 (key, tier) 指纹完全一致。依据：`docs/specs/infra/deps-audit-tier-determinism/`。
 
 失败方向的两个坑（实现里已显式处理）：
 1. `pnpm audit` **有漏洞时自身返回非 0** —— 那不是工具失败，不能据此判定；
@@ -74,17 +71,18 @@
 
 这三条**不得**伪造成已修复；只能等上游，或移除对应依赖。
 
-### 3.2 阻塞在上游大版本（Expo 客户端构建工具链，37 条）
+### 3.2 阻塞在上游大版本（Expo 客户端构建工具链，33 条）
 
 | 包 | 条数 | 严重度 | 传递来源 |
 |---|---|---|---|
 | `@xmldom/xmldom` | 15 | high/moderate | `clients/expo → @expo/cli` |
 | `tar` | 12 | **critical**/high/moderate | 同上 |
-| `postcss` | 4 | high/moderate | 同上 |
 | `image-size` | 2 | high | 同上 |
 | `shell-quote` | 1 | **critical** | `react-native → react-devtools-core` |
 | `uuid` | 1 | moderate | `@expo/cli` |
 | `node-forge` / `sprintf-js` | 各 1 | high/moderate | 见 §3.1（同时无补丁） |
+
+（`postcss` 4 条原列于此，经锁文件推导**改判为 `runtime`** —— 它有 6 条 host 根链，详见 §3.3。）
 
 **为什么接受**：这些全部是**客户端构建/调试工具链**依赖，不进 app bundle，也不在本仓服务端运行时路径上；
 要修只能二选一 ——
@@ -102,6 +100,7 @@
 | 包 | 条数 | 严重度 | 阻塞原因 |
 |---|---|---|---|
 | `mysql2` | 2 | high/moderate | 被报实例是 `prisma@7.10.0` 的**传递依赖** 3.15.3，不是本仓直接依赖。本仓用 PostgreSQL/SQLite，MySQL 路径完全未使用。 |
+| `postcss` | 4 | high/moderate | 构建期传递依赖；`pnpm why -r` 实测 **6 条 host 根链**（next / autoprefixer / postcss-import / tailwindcss 均在 `cooliebase-all` 之下），故属 runtime。 |
 | `deepmerge-ts` | 1 | high | 构建期传递依赖；跨大版本（7→8）。 |
 | `postcss-selector-parser` | 1 | moderate | 构建期传递依赖；跨大版本（6→7）。 |
 | `source-map-js` | 1 | high | 构建期传递依赖（Next 工具链）。 |
