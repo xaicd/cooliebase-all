@@ -831,6 +831,9 @@ npm run check
 3. **提示分段**：`.agents/context/ASSEMBLY.md`。禁止把本文件整篇灌进每一次模型请求。
 4. **NPC 孵化**：只允许 `npm run project:create -- <目标路径>`；身份只改 `project-profile.json` 与 `public/branding/`。
 5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-harness-evolution.md`。
+6. **Agent 消费面（MCP）**：`scripts/mcp/cooliebase-mcp-server.cjs` 是本仓对外的机器可读工具面，声明登记在 `compat-manifest.json` 的 `consumptionSurface.mcp`（由 `compat:check` 与服务实际工具清单交叉校验，防第二真源）。
+   **该面永不写盘**：工具只有两种形态——只读查询，或 plan/preview（返回"真跑会做什么"并把写盘留给显式命令）。plan/preview 工具不得暴露 write 类入参，也不得内部透传 `--write`；落盘命令只出现在返回的 `manualSteps` 里，由人执行。
+   同时**不得代跑门禁或自判通过**（守 §3 明确不引入第 5 条）。契约与实测边界见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`。
 
 ### 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
 

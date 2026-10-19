@@ -158,3 +158,37 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 - 孵化：AGENTS.md §16、`scripts/clone-project-base.cjs`
 - 域真源：`packages/shared/backend/constants/domain-catalog.json`
 - 参考实现（Harness 侧，勿复制进本仓）：DigitalStaff `docs/design/deepseek_harness_analysis.md`
+
+## 11. Agent 消费面（MCP）：只读 + plan/preview，永不落盘
+
+本仓对外的机器可读工具面是 `scripts/mcp/cooliebase-mcp-server.cjs`（stdio，零依赖），
+声明登记在 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.mcp`，
+由 `npm run compat:check` 与服务**实际注册的工具清单**交叉校验（防第二真源）。
+
+工具只有两种形态，**都不写盘**：
+
+| 形态 | 语义 | 例子 |
+|---|---|---|
+| 只读查询 | 返回既有契约/目录事实 | `cooliebase_domain_list`、`cooliebase_codegen_targets` |
+| plan / preview | 返回"真跑**会**做什么"，把写盘留给显式命令 | `cooliebase_scaffold_plan`、`cooliebase_codegen_preview`、`cooliebase_table_migration_plan` |
+
+铁律（B1 二期确立，见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`）：
+
+1. **零落盘**：plan/preview 工具的 `inputSchema` 不含 `write` 类入参，实现内部**永不**透传
+   `--write`。不给入口，而不是靠调用方自觉。
+2. **不自判通过**：工具只返回 `followUpGates`（该跑哪条门禁），绝不代跑、绝不自称通过
+   （守 §3 明确不引入第 5 条）。
+3. **不猜路径**：拿不到完整清单时返回空数组并说明原因，不允许为了"看起来有用"而推断路径 ——
+   插件域上猜错路径是**静默失效**，不是报错。
+4. **落盘命令写在 `manualSteps` 里**，由人执行；MCP 不承担提交与推送。
+
+回归保护：`scripts/mcp/__tests__/ruoyi-mcp-server.test.ts` 的「★ 零落盘」用例用工作区快照
+delta 断言"调用全部工具后无变化"。该用例**必须保持为本 describe 的第一个 it**，且快照需带
+`--ignored=matching` —— 否则断言会假通过（实测：注入写文件探针后依然全绿）。
+
+> 遗留：本仓仍有若干 active 文档沿用上游文件名前缀（`ruoyi-all-next-*`、
+> `ruoyi-full-migration-board.md`、`sql/init/ruoyi_all_next_*.sql`、
+> `scripts/mcp/__tests__/ruoyi-mcp-server.test.ts` 等）。`AGENTS.md §13` 已按去品牌后的
+> 名字书写，故这些引用当前是**断的**。修法是**改文件名去迁就文档**，不是反过来把文档改回
+> 上游名（本文件即按此处理）。归档目录 `docs/architecture/archive/upstream-2026-Q3/`
+> 与历史 release notes 属上游研究存档，保留原名不改。

@@ -175,6 +175,7 @@
       "title": "规范同步登记（交付链与 harness 演进规范）",
       "files": [
         "AGENTS.md",
+        "docs/architecture/cooliebase-all-harness-evolution.md",
         "docs/architecture/ruoyi-all-next-harness-evolution.md"
       ]
     }
