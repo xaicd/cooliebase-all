@@ -1,27 +1,61 @@
-# DigitalStaff — 正式发布版本与特性真源 (Release Source of Truth)
+# cooliebase-all — 已发布能力真源 (Release Source of Truth)
 
-> **规范指引**：严格遵循 `AGENTS.md` Rule 17。仅通过 `RELEASE_APPROVED` 门禁的已发布特性方可在此登记。
-> **当前版本**：v2.134.4 (LTS)
+> **规范指引**：遵循 `AGENTS.md` §6.1 —— 仅通过发布门禁（`RELEASE_APPROVED`）的能力方可登记于此。
+> **阶段状态**请看 `project-status.md`；**计划与路线图**请看 `docs/01_management/project-plan.md`。
+> **最后更新**：2026-10-19
 
 ---
 
-## 🚀 已正式发布核心能力大典
+## 1. 本文的边界
 
-### 1. 原生 Coding Agent 引擎 (Native ReAct Loop)
-- **Node.js 大脑主控**：动态 Prompt 装配、ReAct 认知循环、HITL 人在环审批时间线持久化；
-- **Google AI Studio 式预热引擎 (`ScaffoldRegistry`)**：秒级预铺设样板底座，Token 消耗削减 85%+；
-- **Rust 底层高算力工具**：全文正则检索、AST 提取、高精度 Patch 合并与微沙箱守护。
+- 本文件只登记**本仓（cooliebase-all 基座/模板）**的已发布能力。
+- **DigitalStaff（Agent Runtime / Harness）的发布真源不在本仓** —— 其位置由
+  `packages/shared/contract/agent-profile.json` 的 `harnessPartners.runtimePath` 指向。
+  本仓只提供 Harness 所需的工作区契约与环境，不复制其发布记录。
+- 未通过发布门禁的能力一律不在此登记，只在 `project-status.md` 中标注阶段。
 
-### 2. 多模型三阶段流水线与自动化质量门禁
-- **规划阶段**：Pro/高推理大脑输出 `requirements.md`、`design.md`、`tasks.md`，状态收敛为 `PLAN_APPROVED`；
-- **开发阶段**：Coder 高吞吐模型基于冻结规格精准编码，交付不可变候选 Commit SHA，状态收敛为 `DEV_READY`；
-- **独立测试阶段**：TestingKit 4 层测试金字塔（L1-L4）独立客观验收，状态收敛为 `TEST_PASSED`；
-- **物理门禁防御**：`pnpm run api:guard` 保证 23 模块 RESTful 路由与常量字典 100% 对齐。
+---
 
-### 3. Build 顶级全栈模板 (`cooliebase-all`)
-- **独立 Git Submodule 挂载**：`templates/cooliebase-all`；
-- **零配置 SQLite 驱动**：秒级冷启动与种子数据注入；
-- **4 层测试金字塔与 Playwright 自动化 Agent 探针**。
+## 2. 发布标签历史
 
-### 4. 多仓库级联同步工具
-- **单命令全闭环**：`pnpm run git:sync -- "message"` 全自动检测子模块变动、推送远端、更新主仓指针并同步 GitHub/Gitee 双远端。
+| 标签 | 日期 | 说明 |
+|---|---|---|
+| `v1.0.0` | 2026-10-09 | 首个基线 |
+| `v1.1.0` | 2026-10-09 | — |
+| `v1.2.0` | 2026-10-10 | 模板基线（`compat.framework.releasedAt` 记录此日） |
+| `v1.3.0-ruoyi-removed` | 2026-10-18 | 品牌 2.0：去上游品牌 |
+| `v1.4.0-brand-shorthand` | 2026-10-18 | 品牌 2.1：标识缩短 |
+
+> **注意**：以上标签只记录版本节点，**尚未逐能力建立 tag → 能力映射**。
+> 在补齐映射前，本文不宣称任何"已发布能力"。
+
+---
+
+## 3. ⚠️ 当前阻断项：版本源不一致
+
+| 版本源 | 当前值 |
+|---|---|
+| 最新 git tag | `v1.4.0-brand-shorthand`（2026-10-18） |
+| `package.json.version` | `1.2.0` |
+| `compat-manifest.framework.templateVersion` | `1.2.0` |
+
+两者相差 52 个提交，且**当前没有版本一致性门禁**。
+→ **在补齐版本一致性检查并重新对齐之前，不得发布、不得对外声明版本。**
+
+---
+
+## 4. 已验证能力面（非发布声明）
+
+以下是**当前代码状态下可以复跑验证**的能力面，仅供判断"现在能不能用"，
+**不构成发布声明**（发布需 `RELEASE_APPROVED`）：
+
+| 能力面 | 验证入口 |
+|---|---|
+| 契约与治理门禁 | `npm run check` |
+| 消费面一致性（工具/技能/门禁） | `npm run compat:check` |
+| 依赖漏洞棘轮 | `npm run deps:audit` |
+| 客户端构建 | `npm run clients:build:check` |
+| 全量测试 | `env -u DATABASE_URL -u DB_DRIVER npx vitest run` |
+| 生产构建 | `npm run build` |
+| 登录冒烟 / 安全扫描 / 压测 | `smoke:login` / `security:scan` / `load:test` |
+| 环境指纹 | `npm run fingerprint` → `fingerprint:verify` |
