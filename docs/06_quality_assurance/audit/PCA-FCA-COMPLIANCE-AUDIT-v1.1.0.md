@@ -36,7 +36,7 @@ flowchart TD
 | 审计核查项目 | 验证准则与依据 | 抽样/全检证据 | 审计判定 |
 |---|---|---|---|
 | **1. 契约无漂移性 (Contracts)** | 前后端 DTO 与 OpenAPI 3.1 接口契约是否完全同步 | `npm run contracts:sync` 退出码 0，前后端与 RPC 动作严格对齐（326 份契约一致） | **通过 (PASS)** |
-| **2. 真实数据库测试充分性** | 是否消灭假 Mock，100% 依托真实嵌入式 SQLite WAL 事务运行 | `npm run test:matrix` 执行 14 个测试套件（55 passed / 6 skipped），0 失败，0 报错 | **通过 (PASS)** |
+| **2. 真实数据库测试充分性** | 是否消灭假 Mock，100% 依托真实嵌入式 SQLite WAL 事务运行 | 全量 `npx vitest run` 0 失败（**数字见生成的** `docs/05_verification/test-summary-report.md`；该文件由 `npm run test:summary` 生成。此前这里写死的「14 个测试套件 / 55 passed」实测已差约 30 倍） | **通过 (PASS)** |
 | **3. 安全渗透基线合规** | 针对未授权、Token伪造、租户越权、栈信息泄露的基线扫描 | `scripts/security-scan.cjs` 扫描 19 项安全检查，全部通过 (0 failed) | **通过 (PASS)** |
 | **4. 路由与权限保护覆盖** | 管理端与第一方插件路由鉴权策略是否覆盖 | `npm run admin:routes:check` 验证 91 条管理路由全部纳入鉴权守护 | **通过 (PASS)** |
 

@@ -36,7 +36,7 @@
 | G4 | Agent 面与代码一致 | `npm run compat:check` 交叉校验通过（工具/技能/门禁清单无第二真源） |
 | G5 | 供应链只减不增 | `npm run deps:audit` exit=0（棘轮），且新增漏洞会被拦下 |
 | G6 | 客户端能打包 | `npm run clients:build:check` exit=0 |
-| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 |
+| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **明确受阻**：本机无法验证 —— Docker 为 colima（Linux VM），PostgreSQL 5433 端口未转发到 macOS，故 `smoke:login`/`security:scan`/`load:test` 三类依赖真实库的交付链**只能在本仓 CI 上跑**。已在 CI 中配为独立 job；**本地不假装跑过**（本轮未产出任何"本地已验"声明） |
 
 > **判据达成情况（2026-10-19 实测）**：
 > - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 11 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
@@ -165,9 +165,9 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | 🟡 | 01 3 份、**02 2 份真实资产**（RTM 全部引用已核实 + NFR 含实测与来源）、03 5 份、04 3 份、05/06/07/08 有实质文件。**02 的 SRS/URS 为刻意决策不产出**（真源是 `docs/specs/` 的 8 份 brief + 需求日志；单体 SRS 会成第二真源，且空骨架违反「骨架不算完成」—— 交付型业务工程才需要，已写进脚手架模板）；09_operations 按「三存三不存」留空是正确姿势 |
+| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：8 份 `docs/specs/*/brief.json` + 需求日志；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节 |
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `npm run speckit:check -- --spec <名>` |
-| H3 | 文档准确性 | 文档声称的命令/数字可复现 | 🟡 | 已完成：CMMI 模板 6 处错误事实、契约数 324→326、「20 道门禁」全线写死、`docs:sync-context` 与 kiro steering 死引用；新增 `docs:commands:check`（715 处引用全部真实，已接 check 链）。**剩余**：`.kiro` 整体偏旧（39 处不存在路径引用、引用已删除的 `clients/h5`/`flutter` 等，且含 3 个 `.pyc`），是否清理需决策；历史发布说明按惯例不改写 |
+| H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `npm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状 |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
 | H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | `openwiki:check` 43 篇 100% 同步；新增 `llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致（修掉 8 处实际漂移） |
 

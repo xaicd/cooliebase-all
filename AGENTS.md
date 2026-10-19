@@ -640,7 +640,9 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 2. 发布前必须生成最新扫描证据与迁移作战板。
 3. 发布前必须同步文档索引：`npm run openwiki:sync && npm run surface:sync`，并跑 `npm run openwiki:check` / `npm run llms:check` 确认无漂移。
    （原文写的是 `docs:sync-context` —— **该脚本并不存在**，已由 `docs:commands:check` 拦出。）
-4. 发布前必须确认 `npm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
+4. 发布前必须**重新生成测试总结报告**：`npm run test:summary`
+   （`docs/05_verification/test-summary-report.md` 是**生成物**，禁止手写 —— 手写版曾比实测少报约 30 倍）。
+5. 发布前必须确认 `npm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
    —— 门禁只保证"不新增"，发布时还要确认既有的已接受风险没有扩大
    （台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）。
 

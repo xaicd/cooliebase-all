@@ -178,7 +178,8 @@
     "sbom:check": "node scripts/generate-sbom.cjs --check",
     "docs:commands:check": "node scripts/check-docs-commands.cjs",
     "vacuity:audit": "node scripts/audit-test-vacuity.cjs",
-    "test:contract": "vitest run packages/shared/contract"
+    "test:contract": "vitest run packages/shared/contract",
+    "test:summary": "node scripts/write-test-summary.cjs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

@@ -16,7 +16,7 @@
 |---|---|---|---|---|
 | **编制人 (Author)** | AI Agent 自动化工程团队 | @wf-planner / @agent-team | 规格、代码与测试已闭环，合规编制 | 2026-10-10 |
 | **架构审查人 (Architect)** | 技术委员会 / 架构部 | @wf-architect / @architect-team | 跨域 Facade 契约与 DAG 无环依赖审查通过 | 2026-10-10 |
-| **质量合规人 (QA/PPQA)** | 质量保障部 (PPQA) | @compliance-auditor | 21 道门禁 Exit Code 0，FCA/PCA 合规 | 2026-10-10 |
+| **质量合规人 (QA/PPQA)** | 质量保障部 (PPQA) | @compliance-auditor | `npm run check` 全量 Exit Code 0，FCA/PCA 合规（**门禁数会变，不写死**；清单以 `package.json` 的 `check` 为准） | 2026-10-10 |
 | **SRE 运维签署人 (SRE/Ops)** | 基础设施与高可用 SRE 组 | @devops / @sre-team | 秒级回滚预案与 26k RPS 压测护栏已就绪 | 2026-10-10 |
 
 ---
@@ -50,7 +50,9 @@
 
 ### 4. 21 道全自动化质量门禁与真实数据库测试
 - 门禁体系升级至 21 道自动化防线（新增 `workflow:check`）；
-- 14 个套件、55 个测试用例 100% 依托真实嵌入式 SQLite WAL/PG 数据库运行，0 失败、0 降级、0 假 Mock。
+- 全量测试套件 100% 依托真实内存回退 / SQLite WAL / PostgreSQL 运行，0 失败、0 假 Mock。
+  （**具体数字见** `docs/05_verification/test-summary-report.md`，由 `npm run test:summary` 生成；
+  发布说明里不再写死用例数 —— 写死的数字必然漂移，本文件此前写的「14 个套件 / 55 个用例」实测已差约 30 倍。）
 
 ---
 
