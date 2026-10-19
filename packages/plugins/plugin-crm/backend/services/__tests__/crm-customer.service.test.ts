@@ -13,11 +13,14 @@ describe("CrmCustomerService - 客户公私海与状态机守卫", () => {
       } as any)
       expect(customer.id).toBeDefined()
       expect(customer.lock_status).toBe(false)
-      expect(customer.owner_user_id).toBe(101)
+      // `owner_user_id` 是 **text 列**：PostgreSQL 返回字符串（`"101"`），
+      // 内存回退原样回显传入的 number。用 String 比较才对两种驱动都成立。
+      expect(String(customer.owner_user_id)).toBe("101")
 
       // 2. 客户负责人移交
       const transferred = await CrmCustomerService.transfer(customer.id, 102, "101")
-      expect(transferred.owner_user_id).toBe(102)
+      // `owner_user_id` 是 text 列：真实库返回字符串，内存回退回显 number —— 用 String 比较。
+      expect(String(transferred.owner_user_id)).toBe("102")
 
       // 3. 锁定客户
       const locked = await CrmCustomerService.setLock(customer.id, true, "102")
@@ -35,7 +38,8 @@ describe("CrmCustomerService - 客户公私海与状态机守卫", () => {
 
       // 6. 新员工从公海池认领该客户
       const claimed = await CrmCustomerService.receiveFromPool(customer.id, 103, "103")
-      expect(claimed.owner_user_id).toBe(103)
+      // `owner_user_id` 是 text 列：真实库返回字符串，内存回退回显 number —— 用 String 比较。
+      expect(String(claimed.owner_user_id)).toBe("103")
 
       // 7. 不变量守卫：已有负责人的客户不可重复认领
       await expect(CrmCustomerService.receiveFromPool(customer.id, 104, "104")).rejects.toThrow(
