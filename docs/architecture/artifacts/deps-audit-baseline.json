@@ -1,0 +1,393 @@
+{
+  "version": 1,
+  "kind": "deps-audit-baseline",
+  "note": "冻结的依赖漏洞欠债（ratchet）。门禁只拦**新增**；基线内的既有项如实展示、不阻断。用 `npm run deps:audit:baseline` 刷新，并逐条复核增量后再提交 —— 刷新基线等于接受这些洞。",
+  "counts": {
+    "total": 47,
+    "runtime": 9,
+    "bySeverity": {
+      "critical": 4,
+      "high": 30,
+      "moderate": 13,
+      "low": 0
+    }
+  },
+  "entries": [
+    {
+      "key": "@vitest/mocker@GHSA-82fw-gwwq-j7x9",
+      "package": "@vitest/mocker",
+      "severity": "moderate",
+      "ghsa": "GHSA-82fw-gwwq-j7x9",
+      "tier": "runtime",
+      "patchedVersions": ">=4.1.11"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-27p8-2357-5qqv",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-27p8-2357-5qqv",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-2v35-w6hq-6mfw",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-2v35-w6hq-6mfw",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-4w3w-2rp5-g8jm",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-4w3w-2rp5-g8jm",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-6gmq-8vp8-gcm6",
+      "package": "@xmldom/xmldom",
+      "severity": "moderate",
+      "ghsa": "GHSA-6gmq-8vp8-gcm6",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-6h8r-xr42-gp59",
+      "package": "@xmldom/xmldom",
+      "severity": "moderate",
+      "ghsa": "GHSA-6h8r-xr42-gp59",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-8344-3jmq-59r6",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-8344-3jmq-59r6",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-93r5-fhx6-vmg9",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-93r5-fhx6-vmg9",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-965w-775f-mr7g",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-965w-775f-mr7g",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-c7q8-3ch8-vqpv",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-c7q8-3ch8-vqpv",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-f6ww-3ggp-fr8h",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-f6ww-3ggp-fr8h",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-j759-j44w-7fr8",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-j759-j44w-7fr8",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-w2rr-34g9-rvrj",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-w2rr-34g9-rvrj",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-wh4c-j3r5-mjhp",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-wh4c-j3r5-mjhp",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-x4fp-j954-r2f4",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-x4fp-j954-r2f4",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "@xmldom/xmldom@GHSA-x6wf-f3px-wcqx",
+      "package": "@xmldom/xmldom",
+      "severity": "high",
+      "ghsa": "GHSA-x6wf-f3px-wcqx",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=0.8.15"
+    },
+    {
+      "key": "braces@GHSA-vfj7-8cjw-p6xm",
+      "package": "braces",
+      "severity": "high",
+      "ghsa": "GHSA-vfj7-8cjw-p6xm",
+      "tier": "client-toolchain",
+      "patchedVersions": ""
+    },
+    {
+      "key": "deepmerge-ts@GHSA-ggr8-5vv4-36mx",
+      "package": "deepmerge-ts",
+      "severity": "high",
+      "ghsa": "GHSA-ggr8-5vv4-36mx",
+      "tier": "runtime",
+      "patchedVersions": ">=8.0.0"
+    },
+    {
+      "key": "image-size@GHSA-5p2g-fcmc-qvqq",
+      "package": "image-size",
+      "severity": "high",
+      "ghsa": "GHSA-5p2g-fcmc-qvqq",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=2.0.3"
+    },
+    {
+      "key": "image-size@GHSA-w3rx-r6r6-pgpr",
+      "package": "image-size",
+      "severity": "high",
+      "ghsa": "GHSA-w3rx-r6r6-pgpr",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=2.0.3"
+    },
+    {
+      "key": "mysql2@GHSA-3f6p-5ww8-9rcr",
+      "package": "mysql2",
+      "severity": "high",
+      "ghsa": "GHSA-3f6p-5ww8-9rcr",
+      "tier": "runtime",
+      "patchedVersions": ">=3.22.0"
+    },
+    {
+      "key": "mysql2@GHSA-rgwj-5xj2-c3m3",
+      "package": "mysql2",
+      "severity": "moderate",
+      "ghsa": "GHSA-rgwj-5xj2-c3m3",
+      "tier": "runtime",
+      "patchedVersions": ">=3.23.1"
+    },
+    {
+      "key": "node-forge@GHSA-86w9-cpqp-85rv",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-86w9-cpqp-85rv",
+      "tier": "client-toolchain",
+      "patchedVersions": ""
+    },
+    {
+      "key": "postcss-selector-parser@GHSA-rj75-hqrm-r3gf",
+      "package": "postcss-selector-parser",
+      "severity": "moderate",
+      "ghsa": "GHSA-rj75-hqrm-r3gf",
+      "tier": "runtime",
+      "patchedVersions": ">=7.1.6"
+    },
+    {
+      "key": "postcss@GHSA-6g55-p6wh-862q",
+      "package": "postcss",
+      "severity": "high",
+      "ghsa": "GHSA-6g55-p6wh-862q",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=8.5.12"
+    },
+    {
+      "key": "postcss@GHSA-fxqj-rqcc-2cmp",
+      "package": "postcss",
+      "severity": "moderate",
+      "ghsa": "GHSA-fxqj-rqcc-2cmp",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=8.5.23"
+    },
+    {
+      "key": "postcss@GHSA-qx2v-qp2m-jg93",
+      "package": "postcss",
+      "severity": "moderate",
+      "ghsa": "GHSA-qx2v-qp2m-jg93",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=8.5.10"
+    },
+    {
+      "key": "postcss@GHSA-r28c-9q8g-f849",
+      "package": "postcss",
+      "severity": "high",
+      "ghsa": "GHSA-r28c-9q8g-f849",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=8.5.18"
+    },
+    {
+      "key": "shell-quote@GHSA-pqg4-j6r4-53mv",
+      "package": "shell-quote",
+      "severity": "critical",
+      "ghsa": "GHSA-pqg4-j6r4-53mv",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.11.0"
+    },
+    {
+      "key": "source-map-js@GHSA-68fv-2mgg-jv7q",
+      "package": "source-map-js",
+      "severity": "high",
+      "ghsa": "GHSA-68fv-2mgg-jv7q",
+      "tier": "runtime",
+      "patchedVersions": ">=1.2.2"
+    },
+    {
+      "key": "sprintf-js@GHSA-hp3w-g68c-fv3c",
+      "package": "sprintf-js",
+      "severity": "moderate",
+      "ghsa": "GHSA-hp3w-g68c-fv3c",
+      "tier": "client-toolchain",
+      "patchedVersions": ""
+    },
+    {
+      "key": "tar@GHSA-23hp-3jrh-7fpw",
+      "package": "tar",
+      "severity": "critical",
+      "ghsa": "GHSA-23hp-3jrh-7fpw",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.19"
+    },
+    {
+      "key": "tar@GHSA-34x7-hfp2-rc4v",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-34x7-hfp2-rc4v",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.8"
+    },
+    {
+      "key": "tar@GHSA-83g3-92jg-28cx",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-83g3-92jg-28cx",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.8"
+    },
+    {
+      "key": "tar@GHSA-8qq5-rm4j-mr97",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-8qq5-rm4j-mr97",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.8"
+    },
+    {
+      "key": "tar@GHSA-8x88-c5mf-7j5w",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-8x88-c5mf-7j5w",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.18"
+    },
+    {
+      "key": "tar@GHSA-9ppj-qmqm-q256",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-9ppj-qmqm-q256",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.11"
+    },
+    {
+      "key": "tar@GHSA-gvwx-54wh-qm9j",
+      "package": "tar",
+      "severity": "moderate",
+      "ghsa": "GHSA-gvwx-54wh-qm9j",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.17"
+    },
+    {
+      "key": "tar@GHSA-qffp-2rhf-9h96",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-qffp-2rhf-9h96",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.10"
+    },
+    {
+      "key": "tar@GHSA-r292-9mhp-454m",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-r292-9mhp-454m",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.21"
+    },
+    {
+      "key": "tar@GHSA-r6q2-hw4h-h46w",
+      "package": "tar",
+      "severity": "high",
+      "ghsa": "GHSA-r6q2-hw4h-h46w",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.8"
+    },
+    {
+      "key": "tar@GHSA-vmf3-w455-68vh",
+      "package": "tar",
+      "severity": "moderate",
+      "ghsa": "GHSA-vmf3-w455-68vh",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.16"
+    },
+    {
+      "key": "tar@GHSA-w8wr-v893-vjvp",
+      "package": "tar",
+      "severity": "moderate",
+      "ghsa": "GHSA-w8wr-v893-vjvp",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=7.5.18"
+    },
+    {
+      "key": "tinypool@GHSA-5gmw-xhrv-c9v3",
+      "package": "tinypool",
+      "severity": "critical",
+      "ghsa": "GHSA-5gmw-xhrv-c9v3",
+      "tier": "runtime",
+      "patchedVersions": ">=2.1.1"
+    },
+    {
+      "key": "tinypool@GHSA-85c8-ppgw-ccpr",
+      "package": "tinypool",
+      "severity": "critical",
+      "ghsa": "GHSA-85c8-ppgw-ccpr",
+      "tier": "runtime",
+      "patchedVersions": ">=2.1.2"
+    },
+    {
+      "key": "uuid@GHSA-w5hq-g745-h8pq",
+      "package": "uuid",
+      "severity": "moderate",
+      "ghsa": "GHSA-w5hq-g745-h8pq",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=11.1.1"
+    },
+    {
+      "key": "vitest@GHSA-82fw-gwwq-j7x9",
+      "package": "vitest",
+      "severity": "moderate",
+      "ghsa": "GHSA-82fw-gwwq-j7x9",
+      "tier": "runtime",
+      "patchedVersions": ">=4.1.11"
+    }
+  ]
+}
