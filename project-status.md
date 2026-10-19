@@ -13,8 +13,8 @@
 | **Agent 消费面（R2）** | `TEST_PASSED` | MCP 工具不落盘、Skills 与代码一致、提示可重建 | `compat:check`（17 domains / 38 skills / 17 MCP tools / 10 gates） |
 | **供应链安全（M2）** | `TEST_PASSED` | 只拦新增漏洞；存量入台账 | `deps:audit`（43 → 9） |
 | **客户端构建（M3）** | `TEST_PASSED` | 导出产物存在 + 零污染 + 裁剪跳过 | `clients:build:check` |
-| **孵化与建域（R1）** | `DEV_READY` | 最小 profile 产物自身可 check/build/启动；`domain:new` 幂等 | **待逐仓复验**（历史出现过"门禁绿但起不来"） |
-| **交付与发布（R3/M6）** | `PLAN_APPROVED` | 七项交付门禁 + 版本一致性 | 见下节"已知不一致" |
+| **孵化与建域（R1）** | `TEST_PASSED` | degit 快照端到端（install→init→check→build→dev→登录）+ `domain:new` 连跑两次幂等 | ✅ 2026-10-19（`project:create` reactor/Postgres 路径未验） |
+| **交付与发布（R3/M6）** | `DEV_READY` | `build`/`fingerprint` 已过；`smoke:login`/`security:scan`/`load:test` 需可达数据库 | 本机 Docker(colima) 发布端口不可达，待 CI 执行 |
 | **SRE / 运营资产（R4）** | `PLAN_PENDING` | 资产真实存在且未发生项留空 | 待逐项核验 |
 
 > 状态词只表达流程位置，**不表达"没问题"**。只有"判据 + 证据"都成立才可标 `TEST_PASSED`。

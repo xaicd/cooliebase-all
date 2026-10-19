@@ -261,6 +261,77 @@ function refreshArtifacts(targetDir, opts) {
   }
 }
 
+function sanitizeProjectFiles(targetDir, opts) {
+  console.log(`[project-init] 🧹 执行白标化脱敏与品牌清洗 (ProjectReactor)...`)
+  const exts = new Set([".vue", ".html", ".json", ".yaml", ".yml", ".ts", ".js", ".mjs", ".md", ".java", ".xml", ".sql", ".sh", ".cjs"])
+  const ignoreDirs = new Set(["node_modules", ".git", ".next", ".next-cooliebase", ".next-ruoyi", ".claude", ".commandcode", "dist", "build"])
+
+  const replacements = [
+    [/芋道四位一体企业级管理中台/g, `${opts.title} · 企业级管理中台`],
+    [/芋道四位一体管理系统/g, `${opts.title} · 业务管理系统`],
+    [/芋道四位一体业务工作台/g, `${opts.title} · 业务工作台`],
+    [/芋道四位一体云商中台/g, `${opts.title} · 业务中台`],
+    [/芋道四位一体/g, `${opts.title} · 多端中台`],
+    [/芋道管理中台/g, `${opts.title} · 管理中台`],
+    [/芋道管理后台/g, `${opts.title} · 管理后台`],
+    [/芋道管理系统/g, `${opts.title} · 业务系统`],
+    [/芋道源码/g, "企业级开源底座"],
+    [/芋道/g, opts.title],
+    [/yudao-quad-terminal/g, `${opts.name}-quad`],
+    [/yudao-ui-admin-vue3/g, `@${opts.name}/admin`],
+    [/yudao-cloud-backend/g, `@${opts.name}/backend`],
+    [/yudao-server/g, `${opts.name}-server`],
+    [/yudao-monorepo/g, `@${opts.name}`],
+    [/yudao-native-app/g, `@${opts.name}/app`],
+    [/yudao-boot-mini/g, `${opts.name}-boot`],
+    [/yudao-cloud/g, `${opts.name}-cloud`],
+    [/cn\.iocoder\.cloud/g, `com.${opts.name}`],
+    [/cn\.iocoder\.boot/g, `com.${opts.name}`],
+    [/cn\.iocoder\.yudao/g, `com.${opts.name}.server`],
+    [/yudao/gi, (match) => {
+      if (match === "Yudao") return opts.name.charAt(0).toUpperCase() + opts.name.slice(1)
+      if (match === "YUDAO") return opts.name.toUpperCase()
+      return opts.name.toLowerCase()
+    }],
+  ]
+
+  function walk(dir) {
+    let entries
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }) } catch { return }
+    for (const entry of entries) {
+      if (ignoreDirs.has(entry.name)) continue
+      const fullPath = path.join(dir, entry.name)
+      if (entry.isDirectory()) {
+        walk(fullPath)
+      } else if (entry.isFile()) {
+        const ext = path.extname(entry.name).toLowerCase()
+        if (!exts.has(ext)) continue
+        try {
+          let content = fs.readFileSync(fullPath, "utf8")
+          let modified = false
+          for (const [re, rep] of replacements) {
+            if (re.test(content)) {
+              content = content.replace(re, rep)
+              modified = true
+            }
+          }
+          if (modified) {
+            fs.writeFileSync(fullPath, content, "utf8")
+          }
+        } catch {}
+      }
+    }
+  }
+
+  try {
+    fs.rmSync(path.join(targetDir, "docs", "architecture", "archive"), { recursive: true, force: true })
+    fs.rmSync(path.join(targetDir, "docs", "specs", "archive"), { recursive: true, force: true })
+  } catch {}
+
+  walk(targetDir)
+  console.log(`[project-init] ✓ 白标化脱敏清洗完毕`)
+}
+
 async function run() {
   const parsed = parseArgs(process.argv.slice(2))
   if (parsed.help) {
@@ -297,6 +368,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     const cloneScript = path.join(ROOT, "scripts", "clone-project-base.cjs")
     execSync(`node "${cloneScript}" "${opts.target}" --profile ${opts.profile}`, { stdio: "inherit" })
     const targetDir = path.resolve(process.cwd(), opts.target)
+    sanitizeProjectFiles(targetDir, opts)
     updateProjectProfile(targetDir, opts)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)
@@ -306,6 +378,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   } else {
     console.log(`\n[project-init] 正在对当前底座进行【原地业务重构】...`)
     const targetDir = ROOT
+    sanitizeProjectFiles(targetDir, opts)
     updateProjectProfile(targetDir, opts)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)

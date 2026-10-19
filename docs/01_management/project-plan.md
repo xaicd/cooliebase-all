@@ -38,6 +38,19 @@
 | G6 | 客户端能打包 | `npm run clients:build:check` exit=0 |
 | G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 |
 
+> **判据达成情况（2026-10-19 实测）**：
+> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 11 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
+> - **G2 孵化链路** ✅ 已达成 —— 走 README 承诺的 **degit 路径**端到端实测：
+>   `npx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
+>   → `build` exit=0 → `pnpm dev`：`/healthz` 200、`/readyz` 200、登录 200、受保护接口带 token 200 / 无 token 401。
+>   （`project:create` 的 reactor/Postgres 路径因本机 Docker 端口不可达，未单独验证。）
+> - **G3 单命令建域** ✅ 已达成 —— 在 degit 副本里 `domain:new probe` 连跑两次：
+>   迁移目录未新增、catalog 条目数不变、插件文件指纹完全一致（第二次 14 写 / 2 跳过）。
+> - **G7 交付链** 🟡 部分 —— `build` ✅、`fingerprint` ✅；
+>   `smoke:login` / `security:scan` / `load:test` **本机不可验证**：Docker 为 colima(Linux VM)，
+>   容器 `postgres` 的发布端口（宿主 5433）从 macOS 连不上（5432/5433 均 ECONNREFUSED，容器内正常），
+>   故 Prisma 迁移报 `P1001 Can't reach database server`。这三项需在 CI 或可达数据库的环境执行。
+
 > 注：G2 与 G3 是"基座是否真的可用"的核心判据，历史上多次出现"门禁全绿但孵化出的工程起不来"，故这两条必须**跑产物本身**，不能只看基座自测。
 
 ---
@@ -62,8 +75,8 @@
 | **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `npm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 17 MCP tools / 10 gates） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `npm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `npm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
-| **M4 孵化无阻塞** | 最小 profile 产物能启动并跑通自身门禁 | `project:create --profile base` → 产物 `check`/`build`/登录 | ❓ 待逐仓复验（历史曾出现"门禁绿但起不来"） |
-| **M5 单命令建域** | `domain:new` 全自动、可重复执行 | 连续跑两次结果一致（幂等） | ❓ 待核验 |
+| **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-19（degit 路径；reactor/Postgres 路径未验） |
+| **M5 单命令建域** | `domain:new` 全自动、可重复执行 | 连续跑两次结果一致（幂等） | ✅ 2026-10-19（指纹一致、迁移不新增） |
 | **M6 可交付发布** | 七项交付门禁 + 指纹一致 | `build`/`smoke:login`/`security:scan`/`load:test`/`fingerprint:verify` | 🟡 部分（CI 已覆盖，发布前需复跑） |
 
 ---
@@ -111,7 +124,7 @@
 |---|---|---|---|---|
 | D1 | 代码生成引擎 | 按表元数据产出全栈骨架 | ✅ | `npm run check`（codegen 相关门禁） |
 | D2 | 表定义单一真源 | 新增表先写元数据再生成迁移 | ✅ | `scripts/data/*-tables.ts` + `tables:migration` |
-| D3 | 一条命令建域 | `domain:new` 完成建表→生成→注册→契约→门禁 | ❓ | 需实跑两遍验幂等 |
+| D3 | 一条命令建域 | `domain:new` 完成建表→生成→注册→契约→门禁 | ✅ | 连跑两次幂等（指纹一致） |
 | D4 | Profile 裁剪 | 四种 profile 产物各自可跑 | 🟡 | `project:create --profile …`（待逐仓复验） |
 | D5 | 裁剪安全 | `clients/**` 缺席时相关门禁跳过而非失败 | ✅ | `clients:build:check` SKIP 分支实测 |
 
@@ -137,13 +150,13 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| G1 | 生产构建 | `next build` 通过 | ✅ | `npm run build` |
-| G2 | 登录冒烟 | 自管理环境跑到登录 200 | ✅ | `npm run smoke:login`（CI） |
-| G3 | 安全扫描 | 12 项 + 阴性对照 | ✅ | `npm run security:scan`（CI） |
-| G4 | 压测护栏 | 生产产物打压测并对阈值 | ✅ | `npm run load:test`（CI） |
-| G5 | 环境指纹 | 盖章→核对→篡改必失败 | ✅ | `npm run fingerprint` / `fingerprint:verify` |
-| G6 | 容器化部署 | 一体镜像 + 域镜像 + compose | ✅ | `deploy/` |
-| G7 | SRE 基线 | SLO/灾备/复盘资产真实存在 | ❓ | 目录存在，内容待核 |
+| GATE-1 | 生产构建 | `next build` 通过 | ✅ | `npm run build` |
+| GATE-2 | 登录冒烟 | 自管理环境跑到登录 200 | ✅ | `npm run smoke:login`（CI） |
+| GATE-3 | 安全扫描 | 12 项 + 阴性对照 | ✅ | `npm run security:scan`（CI） |
+| GATE-4 | 压测护栏 | 生产产物打压测并对阈值 | ✅ | `npm run load:test`（CI） |
+| GATE-5 | 环境指纹 | 盖章→核对→篡改必失败 | ✅ | `npm run fingerprint` / `fingerprint:verify` |
+| GATE-6 | 容器化部署 | 一体镜像 + 域镜像 + compose | ✅ | `deploy/` |
+| GATE-7 | SRE 基线 | SLO/灾备/复盘资产真实存在 | ❓ | 目录存在，内容待核 |
 
 ### WS-H 文档与治理资产
 
