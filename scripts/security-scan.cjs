@@ -29,8 +29,10 @@ const KEEP = process.argv.includes("--keep")
 const arg = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined }
 const BASE = arg("--base") || "http://localhost:3200"
 const DB = "cooliebase_secscan"
-const PG_HOST = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const URL = `postgresql://cooliebase:cooliebase123@${PG_HOST}:5433/${DB}?schema=public`
+const { URL: NodeURL } = require("node:url")
+const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")
+let endpoint = null
+let URL = null
 const PASSWORD = "SecScan@123456"
 const SALT = "secscan-salt"
 
@@ -41,47 +43,32 @@ const step = (name, ok, detail = "") => {
 }
 const sh = (cmd, args, env = {}) => spawnSync(cmd, args, { cwd: ROOT, encoding: "utf8", env: { ...process.env, ...env } })
 
-function dockerExec(args) {
-  const hasDocker = spawnSync("which", ["docker"]).status === 0
-  if (hasDocker) {
-    return spawnSync("docker", args, { cwd: ROOT, encoding: "utf8" })
-  }
-  const hasHostExec = spawnSync("which", ["host-exec"]).status === 0
-  if (hasHostExec) {
-    return spawnSync("host-exec", ["docker", ...args], { cwd: ROOT, encoding: "utf8" })
-  }
-  return { status: 127, stdout: "", stderr: "docker and host-exec not found" }
-}
-
-function psql(db, sql) {
-  const hasDocker = spawnSync("which", ["docker"]).status === 0
-  if (hasDocker) {
-    return spawnSync("docker", ["exec", "cooliebase-dev-postgres-1", "psql", "-U", "cooliebase", "-d", db, "-t", "-A", "-c", sql], { cwd: ROOT, encoding: "utf8" })
-  }
-  const hasHostExec = spawnSync("which", ["host-exec"]).status === 0
-  if (hasHostExec) {
-    const escapedSql = sql.replace(/'/g, "'\\''")
-    const cmd = `docker exec cooliebase-dev-postgres-1 psql -U cooliebase -d ${db} -t -A -c '${escapedSql}'`
-    return spawnSync("host-exec", [cmd], { cwd: ROOT, encoding: "utf8" })
-  }
-  return { status: 127, stdout: "", stderr: "docker and host-exec not found" }
-}
-
 let app = null
-let startedPostgres = false
 let envLocalBackup = null
 
 const cleanup = async () => {
   if (KEEP) { console.log(`\n[sec] --keep: 服务留在 ${BASE}`); return }
-  if (app) app.kill("SIGTERM")
+  if (app?.pid) {
+    // **必须杀进程组**：只 kill pnpm 包装进程会留下孤儿 next-server（冒烟那边实测泄漏过）
+    try { process.kill(-app.pid, "SIGTERM") } catch { try { app.kill("SIGTERM") } catch { /* 已退出 */ } }
+    await new Promise((r) => setTimeout(r, 500))
+    try { process.kill(-app.pid, "SIGKILL") } catch { /* 已退出 */ }
+  }
+  // 端口兜底（只在本脚本自己起的服务上兜底）
+  const portNum = Number(new NodeURL(BASE).port || 80)
+  for (let i = 0; i < 10; i += 1) {
+    const busy = spawnSync("lsof", ["-nP", `-iTCP:${portNum}`, "-sTCP:LISTEN", "-t"], { encoding: "utf8" })
+    const pid = busy.stdout?.trim().split("\n")[0]
+    if (!pid) break
+    try { process.kill(Number(pid), "SIGKILL") } catch { /* 已退出 */ }
+    await new Promise((r) => setTimeout(r, 300))
+  }
   const envLocal = path.join(ROOT, ".env.local")
   if (envLocalBackup === null) fs.rmSync(envLocal, { force: true })
   else fs.writeFileSync(envLocal, envLocalBackup)
-  psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE)`)
-  if (startedPostgres) {
-    const hasDocker = spawnSync("which", ["docker"]).status === 0
-    if (hasDocker) sh("pnpm", ["run", "db:down"])
-    else spawnSync("host-exec", ["docker", "compose", "-f", "deploy/docker-compose.dev.yml", "stop", "postgres"], { cwd: ROOT, encoding: "utf8" })
+  if (endpoint) {
+    try { await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`) } catch { /* 已不可达 */ }
+    await endpoint.close()
   }
 }
 
@@ -96,19 +83,16 @@ async function main() {
   console.log(`\n=== 安全扫描（${BASE}）===\n`)
 
   if (!arg("--base")) {
-    const healthy = dockerExec(["inspect", "--format={{.State.Health.Status}}", "cooliebase-dev-postgres-1"]).stdout?.trim() === "healthy"
-    if (!healthy) {
-      startedPostgres = true
-      const hasDocker = spawnSync("which", ["docker"]).status === 0
-      if (hasDocker) sh("pnpm", ["run", "db:up"])
-      else spawnSync("host-exec", ["docker", "compose", "-f", "deploy/docker-compose.dev.yml", "up", "-d", "postgres"], { cwd: ROOT, encoding: "utf8" })
+    try {
+      endpoint = await resolveDatabaseEndpoint()
+      URL = withDatabase(endpoint.url, DB)
+      step("起数据库（嵌入式或外部）", true, `${endpoint.source}${endpoint.port ? ` :${endpoint.port}` : ""}`)
+    } catch (error) {
+      step("起数据库（嵌入式或外部）", false, String(error?.message ?? error).split("\n")[0])
+      return
     }
-    for (let i = 0; i < 20; i += 1) {
-      if (dockerExec(["inspect", "--format={{.State.Health.Status}}", "cooliebase-dev-postgres-1"]).stdout?.trim() === "healthy") break
-      await new Promise((r) => setTimeout(r, 2000))
-    }
-    psql("postgres", `DROP DATABASE IF EXISTS ${DB} WITH (FORCE)`)
-    psql("postgres", `CREATE DATABASE ${DB}`)
+    await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
+    await query(endpoint.url, `CREATE DATABASE "${DB}"`)
     sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL })
     // **必须检查种子自己的退出码** —— 它可能建完 admin 之后才失败，
     // 那样 admin-count 会通过而登录永远 401（实测踩到，整整查了一轮）
@@ -126,8 +110,16 @@ async function main() {
     fs.writeFileSync(envLocal, `DATABASE_URL=${URL}\nDB_DRIVER=postgresql\nTENANT_MODE=disabled\nTENANT_PLATFORM_USERNAMES=admin,secscan_lowpriv\nADMIN_BOOTSTRAP_USERNAME=admin\nADMIN_BOOTSTRAP_PASSWORD=${PASSWORD}\nADMIN_BOOTSTRAP_SALT=${SALT}\n`)
     const logFile = path.join(os.tmpdir(), "security-scan-app.log")
     fs.writeFileSync(logFile, "") // 每轮截断
+    const portNum = Number(new NodeURL(BASE).port || 80)
+    const busy = spawnSync("lsof", ["-nP", `-iTCP:${portNum}`, "-sTCP:LISTEN"], { encoding: "utf8" })
+    if (busy.status === 0 && busy.stdout.trim()) {
+      step("端口空闲", false, `${portNum} 已被占用（先清理残留 dev server）`)
+      return
+    }
     app = spawn("pnpm", ["run", "dev"], {
-      cwd: ROOT, stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
+      cwd: ROOT,
+      detached: true,
+      stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
       env: { ...process.env, DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin,secscan_lowpriv", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
     })
     let ready = false
@@ -137,8 +129,12 @@ async function main() {
     }
     if (!ready) { step("起服务", false); console.log(fs.readFileSync(logFile, "utf8").slice(-600)); return }
     // 先确认种子真的建了 admin —— 否则 401 时无从判断是种子失败还是鉴权失败
-    const seeded = psql(DB, "SELECT count(*) FROM \"system_user\" WHERE username='admin'")
-    step("种子建出 admin（表名须加引号：system_user 是保留字）", seeded.stdout?.trim() === "1", `count=${seeded.stdout?.trim()}`)
+    let seededCount = "?"
+    try {
+      const seeded = await query(URL, 'SELECT count(*)::int AS n FROM "system_user" WHERE username=\'admin\'')
+      seededCount = String(seeded.rows?.[0]?.n ?? "?")
+    } catch (error) { seededCount = `err:${String(error?.message ?? error).slice(0, 50)}` }
+    step("种子建出 admin（表名须加引号：system_user 是保留字）", seededCount === "1", `count=${seededCount}`)
     step("起服务", true, BASE)
   }
 

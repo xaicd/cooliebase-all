@@ -185,7 +185,8 @@
       "parent": "T2",
       "title": "`security:scan` 同样改用；12 项与两个阴性对照不变",
       "files": [
-        "scripts/security-scan.cjs"
+        "scripts/security-scan.cjs",
+        "scripts/lib/ephemeral-pg.cjs"
       ]
     },
     {

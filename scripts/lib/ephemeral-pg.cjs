@@ -159,6 +159,7 @@ async function resolveDatabaseEndpoint(options = {}) {
     onError: (line) => logs.push(line),
   })
 
+  const keepDataDir = options.persistent === true
   let started = false
   let actualPort = port
   const close = async () => {
@@ -171,6 +172,16 @@ async function resolveDatabaseEndpoint(options = {}) {
     }
     const released = await waitForPortClosed(actualPort)
     if (!released) logger.error(`[pg-endpoint] ✗ 端口 ${actualPort} 在 stop 后仍被占用`)
+    // 兜底：dataDir 是本进程自己 mkdtemp 出来的，必须清掉。
+    // `stop()` 在 persistent:false 下通常会删，但它可能在异常路径上提前 return
+    // —— 实测留下过残留目录，所以这里再删一次（force，幂等）。
+    if (!keepDataDir) {
+      try {
+        fs.rmSync(dataDir, { recursive: true, force: true })
+      } catch (error) {
+        logger.error(`[pg-endpoint] ✗ 删除临时 dataDir 失败: ${error?.message ?? error}`)
+      }
+    }
   }
 
   try {
