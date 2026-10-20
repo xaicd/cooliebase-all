@@ -433,6 +433,24 @@ npm run check                 # 门禁产出证据 + 轨迹
 3. 领域知识只在 Skill、契约与门禁里沉淀；禁止把「智能进化」实现为运行时自修改。
 4. 待办项被修复后，应通过新增/收紧机检规则固化，而不是靠记忆维持。
 
+### 3.5 任意终端 CLI 接入（cmd / Claude Code / agy / Hermes）
+
+本仓的流程约束**不依赖某个 IDE**，而是分四层，覆盖范围递增：
+
+| 层 | 执行者 | 能否被模型绕过 |
+|---|---|---|
+| L0 `npm run agent:route -- "<需求>"` | 仓库脚本 | 可以（模型可选择不跑） |
+| L1 各 CLI hooks（如 `.commandcode/settings.json`） | **CLI 引擎** | **不能** |
+| L2 `.githooks/pre-commit` | **git** | **不能**（唯一跨 CLI 的一层） |
+| L3 `npm run specs:health` 入口机检 | CI | 不能 |
+
+- **统一守卫脚本** `.agents/hooks/spec-gate.sh`：只用 `stdin JSON + exit 2 + stderr`，
+  三家通用（exit 2 拦截是 cmd 与 Hermes 共同承认的协议）。它同时兼容
+  `tool_input.file_path`（cmd / Claude）与 `args.path`（Hermes）两种载荷 —— 只认一种会在某家**静默失效**。
+- **逐家入口与取证**（读哪个文件、hooks 怎么配、哪些未验证）见
+  `docs/guides/agent-cli-onboarding.md`。
+- 逃生阀：`AGENT_ROUTE_SKIP=1`（git 与 guard 均生效）。**只在确认判定有误时用，并回头改规则表。**
+
 ## 6.1 多模型三阶段协作规范（强制）
 
 为杜绝多模型协同过程中的越权修改、规格漂移与虚假测试，全平台严格贯彻「规划 -> 开发 -> 独立测试」不可逾越的三阶段流水线与门禁铁律：

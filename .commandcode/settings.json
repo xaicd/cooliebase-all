@@ -11,7 +11,7 @@
       {
         "matcher": "write|edit",
         "hooks": [
-          { "type": "command", "command": "./.commandcode/hooks/guard-spec.sh", "timeout": 10 }
+          { "type": "command", "command": "./.agents/hooks/spec-gate.sh", "timeout": 10 }
         ]
       }
     ]

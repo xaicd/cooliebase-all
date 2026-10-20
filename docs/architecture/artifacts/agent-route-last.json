@@ -1,14 +1,14 @@
 {
-  "at": "2026-10-20T05:13:03.894Z",
-  "verdict": "DIRECT_OK",
+  "at": "2026-10-20T05:33:34.140Z",
+  "verdict": "SPEC_REQUIRED",
   "specType": "feature",
-  "requirement": "同步一下文档里的门禁数字",
-  "requirementHash": "f891a712eb4463e2",
-  "matched": [],
-  "exempted": [
-    "typo-doc"
+  "requirement": "新增一个不存在的接口",
+  "requirementHash": "8325a1c6f7f27967",
+  "matched": [
+    "api-contract",
+    "feature-word"
   ],
-  "rulesVersion": "scripts/lib/spec-necessity-rules.cjs",
-  "loggedAt": "docs/features/sprint-prod/1020.md",
-  "logIndex": 1
+  "exempted": [],
+  "noTask": [],
+  "rulesVersion": "scripts/lib/spec-necessity-rules.cjs"
 }
