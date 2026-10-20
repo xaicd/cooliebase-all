@@ -16,7 +16,7 @@
  *
  * 用法:
  *   pnpm run hatch:e2e                    # 两条入口 × minimal
- *   pnpm run hatch:e2e -- --profile base  # 指定 profile
+ *   pnpm run hatch:e2e -- --profile base  # 指定 profile（vertical 需要 --bundle，默认 mall,crm）
  *   pnpm run hatch:e2e -- --only init     # 只跑一条
  *   pnpm run hatch:e2e -- --skip-install  # 迭代用（产物复用已装依赖会失败，谨慎）
  *   pnpm run hatch:e2e -- --keep          # 保留产物目录便于排查
@@ -38,6 +38,10 @@ const valueOf = (name, fallback) => {
 }
 
 const profile = valueOf("profile", "minimal")
+// `vertical` 必须给 `--bundle`（否则 reactor 直接拒绝：vertical profile 必须提供 --bundle）。
+// 矩阵验证时**不能因此判产品失败** —— 那是 harness 的调用方式问题，不是产物问题。
+const bundle = valueOf("bundle", profile === "vertical" ? "mall,crm" : "")
+const bundleArgs = bundle ? ["--bundle", bundle] : []
 const only = valueOf("only", "both")
 const skipInstall = hasFlag("skip-install")
 // 默认**连运行时一起验**（build + 起服务 + 登录）；`--fast` 只跑到产物 check。
@@ -77,10 +81,10 @@ async function runEntry(kind) {
 
   const initCode = kind === "init"
     ? step("project:init --target", "node",
-        [path.join(ROOT, "scripts", "project-init.cjs"), "--target", target, "--name", `e2e-${kind}`, "--title", "E2E Probe", "--profile", profile],
+        [path.join(ROOT, "scripts", "project-init.cjs"), "--target", target, "--name", `e2e-${kind}`, "--title", "E2E Probe", "--profile", profile, ...bundleArgs],
         ROOT, env)
     : step("project:create", "node",
-        [path.join(ROOT, "scripts", "clone-project-base.cjs"), target, "--profile", profile],
+        [path.join(ROOT, "scripts", "clone-project-base.cjs"), target, "--profile", profile, ...bundleArgs],
         ROOT, env)
 
   if (initCode !== 0) {
