@@ -151,9 +151,76 @@ async function main() {
       for (const item of items) console.log(`    ${item}`)
     }
   }
+
+  await reportArtifactChain(meta)
 }
 
 main().catch((error) => {
   console.error(`[validator-reachability] 执行失败: ${String(error?.stack ?? error)}`)
   process.exit(1)
 })
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 附：产物链的其余环节（同一根源、同样会漂移）
+//
+// RSK-011 最初只看校验器，但同一条"元数据单向流动、生成物停在旧版本"的根因还污染了：
+//   · `backend/types/*.types.ts` 的 DTO 类型（前端据此决定是否转数字）
+//   · 前端弹窗表单的 `Number(e.target.value)` 转换（由 tsType 驱动）
+// 只对齐校验器而不同时对齐这两者，会在**接线的一瞬间**把数字输入变成 400 —— 即把
+// "今天能跑"变成"明天不能跑"。故此处一并报告，避免又一次只看一环就动手。
+// ─────────────────────────────────────────────────────────────────────────────
+
+async function reportArtifactChain(meta: Map<string, Map<string, string>>) {
+  const NUMERIC = new Set(["int", "bigint", "smallint", "decimal", "numeric", "float", "double", "double precision", "real"])
+  const dtoDrift: string[] = []
+  let formConversions = 0
+
+  const plugins = path.join(ROOT, "packages", "plugins")
+  for (const plugin of fs.readdirSync(plugins).filter((n) => n.startsWith("plugin-"))) {
+    const base = path.join(plugins, plugin)
+    const repoDir = path.join(base, "backend", "repositories")
+    const typeDir = path.join(base, "backend", "types")
+    if (!fs.existsSync(repoDir)) continue
+
+    const tableOf = new Map<string, string>()
+    for (const file of fs.readdirSync(repoDir)) {
+      if (!file.endsWith(".repository.ts")) continue
+      const table = fs.readFileSync(path.join(repoDir, file), "utf8").match(/const TABLE_NAME = "([^"]+)"/)?.[1]
+      if (table) tableOf.set(file.replace(".repository.ts", ""), table)
+    }
+
+    if (fs.existsSync(typeDir)) {
+      for (const file of fs.readdirSync(typeDir)) {
+        if (!file.endsWith(".types.ts")) continue
+        const columns = meta.get(tableOf.get(file.replace(".types.ts", "")) ?? "")
+        if (!columns) continue
+        const source = fs.readFileSync(path.join(typeDir, file), "utf8")
+        for (const match of source.matchAll(/^\s{2}(\w+)\?: (number|string);?\s*$/gm)) {
+          const [, column, ts] = match
+          const declared = columns.get(column)
+          if (!declared || declared === "timestamp" || declared === "boolean") continue
+          if (column === "id" || (column.endsWith("_id") && NUMERIC.has(declared))) continue
+          if (NUMERIC.has(declared) !== (ts === "number")) {
+            dtoDrift.push(`${tableOf.get(file.replace(".types.ts", ""))}.${column}: DTO ${ts} ↔ 元数据 ${declared}`)
+          }
+        }
+      }
+    }
+
+    const componentDir = path.join(base, "frontend", "components")
+    if (fs.existsSync(componentDir)) {
+      for (const file of fs.readdirSync(componentDir)) {
+        const source = fs.readFileSync(path.join(componentDir, file), "utf8")
+        formConversions += (source.match(/Number\(e\.target\.value\)/g) ?? []).length
+      }
+    }
+  }
+
+  console.log("\n  ── 同一根源的其余产物 ──")
+  console.log(`  DTO 类型漂移 (*.types.ts): ${dtoDrift.length}`)
+  console.log(`  前端表单数字转换 (Number(...)): ${formConversions}`)
+  if (dtoDrift.length > 0) {
+    console.log(`  样例: ${dtoDrift.slice(0, 4).join(" · ")}`)
+    console.log("  ⚠ 只对齐校验器而不同时处理这两者，接线会把「今天能跑」变成 400")
+  }
+}
