@@ -149,7 +149,7 @@
 | D1 | 代码生成引擎 | 按表元数据产出全栈骨架 | ✅ | `pnpm run check`（codegen 相关门禁） |
 | D2 | 表定义单一真源 | 新增表先写元数据再生成迁移 | ✅ | `scripts/data/*-tables.ts` + `tables:migration` |
 | D3 | 一条命令建域 | `domain:new` 完成建表→生成→注册→契约→门禁 | ✅ | 连跑两次幂等（指纹一致） |
-| D4 | Profile 裁剪 | 各 profile 产物各自可跑 | ✅ | **5 个 profile（base/minimal/standard/vertical/creator）** 各跑 `hatch:e2e --only init --fast` → `init + install + 产物 check` **全绿（2026-10-20 复验）**；注：`vertical` 必须带 `--bundle`（harness 已内置默认 `mall,crm`）；全量 `hatch:e2e`（含 build + smoke:login）在 minimal 上亦全绿 |
+| D4 | Profile 裁剪 | 各 profile 产物各自可跑 | ✅ | **5 个 profile（base/minimal/standard/vertical/creator）** 各跑 `hatch:e2e --only init --fast` → `init + install + 产物 check` **全绿（2026-10-20 复验）**；**两条入口都测了**：`project:init` 与 `project:create` 各 × 5 profile = **10/10 PASS（2026-10-20）**。注：`vertical` 必须带 `--bundle`（harness 已内置默认 `mall,crm`）；全量 `hatch:e2e`（含 build + smoke:login 起服务登录）在 minimal 上亦全绿 |
 | D5 | 裁剪安全 | `clients/**` 缺席时相关门禁跳过而非失败 | ✅ | `clients:build:check` SKIP 分支实测 |
 
 ### WS-E 质量与测试
@@ -219,7 +219,7 @@
 | I16 | **孵化不再依赖 Docker** | `project:create` 的 PG 地址可覆盖；连不上即**中止**不产坏工程 | ✅ | 此前写死 `localhost:5433` 且**忽略环境**；实测：嵌入式 PG 下 `exit=0`、目标库真实建出；不可达时 `exit=1` 且不写 postgres 配置 |
 | I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
 | I18 | **孵化端到端固化** | 产物的 `check` 由常规入口守，而非「某次验过」 | ✅ | 新增 `pnpm run hatch:e2e`（两条入口 × minimal，各自 install + 产物 `check` + `build` + `smoke:login` 起服务登录）+ 独立 CI job；反向对照：关掉 restamp → 产物 `check` 红 → 该入口 `exit=1`（**门禁确实能失败**） |
-| I19 | **profile 矩阵复验** | 5 个 profile 的产物各自 `check` 全绿 | ✅ | 实测 **5/5 PASS**；过程中发现 harness 未传 `--bundle` 导致 `vertical` 误报（已修，并注明**那是 harness 的调用问题、不是产物问题**） |
+| I19 | **profile 矩阵复验** | **两条入口 × 5 profile** 的产物各自 `check` 全绿 | ✅ | 实测 **10/10 PASS**（init 侧 5/5 + create 侧 5/5）；过程中发现 harness 未传 `--bundle` 导致 `vertical` 误报（已修，并注明**那是 harness 的调用问题、不是产物问题**） |
 
 ## 5. 当前进展快照（2026-10-20）
 
