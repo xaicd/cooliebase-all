@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { IotOtaTaskService } from "@/modules/iot/backend/services/iot-ota-task.service"
+import { iotOtaTaskCreateSchema, iotOtaTaskPageQuerySchema, iotOtaTaskUpdateSchema } from "@/modules/iot/backend/validators/iot-ota-task.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await IotOtaTaskService.update(id, body)
+    const data = await IotOtaTaskService.update(id, iotOtaTaskUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImChannelService } from "@/modules/im/backend/services/im-channel.service"
+import { imChannelCreateSchema, imChannelPageQuerySchema, imChannelUpdateSchema } from "@/modules/im/backend/validators/im-channel.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImChannelService.update(id, body)
+    const data = await ImChannelService.update(id, imChannelUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

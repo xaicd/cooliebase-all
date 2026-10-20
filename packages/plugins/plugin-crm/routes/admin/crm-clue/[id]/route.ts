@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { CrmClueService } from "@/modules/crm/backend/services/crm-clue.service"
+import { crmClueCreateSchema, crmCluePageQuerySchema, crmClueUpdateSchema } from "@/modules/crm/backend/validators/crm-clue.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await CrmClueService.update(id, body)
+    const data = await CrmClueService.update(id, crmClueUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

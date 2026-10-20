@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ErpStockRecordService } from "@/modules/erp/backend/services/erp-stock-record.service"
+import { erpStockRecordCreateSchema, erpStockRecordPageQuerySchema, erpStockRecordUpdateSchema } from "@/modules/erp/backend/validators/erp-stock-record.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ErpStockRecordService.update(id, body)
+    const data = await ErpStockRecordService.update(id, erpStockRecordUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImConversationReadService } from "@/modules/im/backend/services/im-conversation-read.service"
+import { imConversationReadCreateSchema, imConversationReadPageQuerySchema, imConversationReadUpdateSchema } from "@/modules/im/backend/validators/im-conversation-read.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImConversationReadService.update(id, body)
+    const data = await ImConversationReadService.update(id, imConversationReadUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

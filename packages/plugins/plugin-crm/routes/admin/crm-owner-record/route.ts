@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"
 import { CrmOwnerRecordService } from "@/modules/crm/backend/services/crm-owner-record.service"
+import { crmOwnerRecordCreateSchema, crmOwnerRecordPageQuerySchema, crmOwnerRecordUpdateSchema } from "@/modules/crm/backend/validators/crm-owner-record.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = crmOwnerRecordPageQuerySchema.parse(raw)
     const data = await CrmOwnerRecordService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await CrmOwnerRecordService.create(body)
+    const data = await CrmOwnerRecordService.create(crmOwnerRecordCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImGroupMemberService } from "@/modules/im/backend/services/im-group-member.service"
+import { imGroupMemberCreateSchema, imGroupMemberPageQuerySchema, imGroupMemberUpdateSchema } from "@/modules/im/backend/validators/im-group-member.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImGroupMemberService.update(id, body)
+    const data = await ImGroupMemberService.update(id, imGroupMemberUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

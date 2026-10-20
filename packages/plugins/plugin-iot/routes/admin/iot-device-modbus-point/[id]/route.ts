@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { IotDeviceModbusPointService } from "@/modules/iot/backend/services/iot-device-modbus-point.service"
+import { iotDeviceModbusPointCreateSchema, iotDeviceModbusPointPageQuerySchema, iotDeviceModbusPointUpdateSchema } from "@/modules/iot/backend/validators/iot-device-modbus-point.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await IotDeviceModbusPointService.update(id, body)
+    const data = await IotDeviceModbusPointService.update(id, iotDeviceModbusPointUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

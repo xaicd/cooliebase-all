@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ErpFinancePaymentService } from "@/modules/erp/backend/services/erp-finance-payment.service"
+import { erpFinancePaymentCreateSchema, erpFinancePaymentPageQuerySchema, erpFinancePaymentUpdateSchema } from "@/modules/erp/backend/validators/erp-finance-payment.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ErpFinancePaymentService.update(id, body)
+    const data = await ErpFinancePaymentService.update(id, erpFinancePaymentUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

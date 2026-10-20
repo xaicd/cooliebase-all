@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { IotProductCategoryService } from "@/modules/iot/backend/services/iot-product-category.service"
+import { iotProductCategoryCreateSchema, iotProductCategoryPageQuerySchema, iotProductCategoryUpdateSchema } from "@/modules/iot/backend/validators/iot-product-category.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await IotProductCategoryService.update(id, body)
+    const data = await IotProductCategoryService.update(id, iotProductCategoryUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

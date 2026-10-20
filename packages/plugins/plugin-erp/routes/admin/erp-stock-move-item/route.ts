@@ -1,13 +1,13 @@
 import { NextResponse } from "next/server"
 import { ErpStockMoveItemService } from "@/modules/erp/backend/services/erp-stock-move-item.service"
+import { erpStockMoveItemCreateSchema, erpStockMoveItemPageQuerySchema, erpStockMoveItemUpdateSchema } from "@/modules/erp/backend/validators/erp-stock-move-item.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = erpStockMoveItemPageQuerySchema.parse(raw)
     const data = await ErpStockMoveItemService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -18,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await ErpStockMoveItemService.create(body)
+    const data = await ErpStockMoveItemService.create(erpStockMoveItemCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

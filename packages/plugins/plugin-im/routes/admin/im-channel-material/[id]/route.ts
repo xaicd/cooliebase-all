@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImChannelMaterialService } from "@/modules/im/backend/services/im-channel-material.service"
+import { imChannelMaterialCreateSchema, imChannelMaterialPageQuerySchema, imChannelMaterialUpdateSchema } from "@/modules/im/backend/validators/im-channel-material.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImChannelMaterialService.update(id, body)
+    const data = await ImChannelMaterialService.update(id, imChannelMaterialUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

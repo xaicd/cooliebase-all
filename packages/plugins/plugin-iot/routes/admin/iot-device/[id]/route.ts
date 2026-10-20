@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { IotDeviceService } from "@/modules/iot/backend/services/iot-device.service"
+import { iotDeviceCreateSchema, iotDevicePageQuerySchema, iotDeviceUpdateSchema } from "@/modules/iot/backend/validators/iot-device.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await IotDeviceService.update(id, body)
+    const data = await IotDeviceService.update(id, iotDeviceUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

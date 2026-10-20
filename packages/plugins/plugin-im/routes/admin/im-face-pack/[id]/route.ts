@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImFacePackService } from "@/modules/im/backend/services/im-face-pack.service"
+import { imFacePackCreateSchema, imFacePackPageQuerySchema, imFacePackUpdateSchema } from "@/modules/im/backend/validators/im-face-pack.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImFacePackService.update(id, body)
+    const data = await ImFacePackService.update(id, imFacePackUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

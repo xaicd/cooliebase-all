@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { CrmContractConfigService } from "@/modules/crm/backend/services/crm-contract-config.service"
+import { crmContractConfigCreateSchema, crmContractConfigPageQuerySchema, crmContractConfigUpdateSchema } from "@/modules/crm/backend/validators/crm-contract-config.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await CrmContractConfigService.update(id, body)
+    const data = await CrmContractConfigService.update(id, crmContractConfigUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

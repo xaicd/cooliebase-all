@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ErpPurchaseOrderItemService } from "@/modules/erp/backend/services/erp-purchase-order-item.service"
+import { erpPurchaseOrderItemCreateSchema, erpPurchaseOrderItemPageQuerySchema, erpPurchaseOrderItemUpdateSchema } from "@/modules/erp/backend/validators/erp-purchase-order-item.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ErpPurchaseOrderItemService.update(id, body)
+    const data = await ErpPurchaseOrderItemService.update(id, erpPurchaseOrderItemUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

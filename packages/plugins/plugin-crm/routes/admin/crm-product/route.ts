@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server"
 import { CrmProductService } from "@/modules/crm/backend/services/crm-product.service"
+import { crmProductCreateSchema, crmProductPageQuerySchema, crmProductUpdateSchema } from "@/modules/crm/backend/validators/crm-product.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-      keyword: searchParams.get("keyword") || undefined,
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = crmProductPageQuerySchema.parse(raw)
     const data = await CrmProductService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -19,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await CrmProductService.create(body)
+    const data = await CrmProductService.create(crmProductCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

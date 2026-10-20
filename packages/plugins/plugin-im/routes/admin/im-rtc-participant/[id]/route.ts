@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ImRtcParticipantService } from "@/modules/im/backend/services/im-rtc-participant.service"
+import { imRtcParticipantCreateSchema, imRtcParticipantPageQuerySchema, imRtcParticipantUpdateSchema } from "@/modules/im/backend/validators/im-rtc-participant.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ImRtcParticipantService.update(id, body)
+    const data = await ImRtcParticipantService.update(id, imRtcParticipantUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

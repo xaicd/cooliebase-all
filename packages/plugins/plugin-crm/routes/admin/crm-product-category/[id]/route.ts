@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { CrmProductCategoryService } from "@/modules/crm/backend/services/crm-product-category.service"
+import { crmProductCategoryCreateSchema, crmProductCategoryPageQuerySchema, crmProductCategoryUpdateSchema } from "@/modules/crm/backend/validators/crm-product-category.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await CrmProductCategoryService.update(id, body)
+    const data = await CrmProductCategoryService.update(id, crmProductCategoryUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

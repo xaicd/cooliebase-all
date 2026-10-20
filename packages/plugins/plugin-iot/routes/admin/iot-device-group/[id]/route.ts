@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { IotDeviceGroupService } from "@/modules/iot/backend/services/iot-device-group.service"
+import { iotDeviceGroupCreateSchema, iotDeviceGroupPageQuerySchema, iotDeviceGroupUpdateSchema } from "@/modules/iot/backend/validators/iot-device-group.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await IotDeviceGroupService.update(id, body)
+    const data = await IotDeviceGroupService.update(id, iotDeviceGroupUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

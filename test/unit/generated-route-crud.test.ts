@@ -85,6 +85,27 @@ function valueForType(dataType: string | null, variant: "create" | "update"): un
   }
 }
 
+/**
+ * 从**表元数据**取列类型（离线可得，两种运行模式都有）。
+ *
+ * 为什么优先用元数据而不是只查 `information_schema`：内存回退模式下查不到真实库，
+ * 原来会退回字符串 `"probe"` —— 而这在**接线校验器之后**会被数值列拒成 400
+ * （实测 `crm_owner_record.biz_type` 是 `int`，收 `"probe"` → `expected number, received NaN`）。
+ * 元数据是离线真源，用它才能让两种模式下 payload 都合法。
+ */
+async function metadataTypeOf(domain: string, table: string, column: string): Promise<string | null> {
+  try {
+    const mod = (await import(`../../scripts/data/${domain}-source-tables.ts`)) as Record<string, unknown>
+    const list = Object.values(mod).find((value) => Array.isArray(value)) as
+      | Array<{ table?: { name?: string; columns?: Array<{ name?: string; type?: string }> } }>
+      | undefined
+    const config = list?.find((item) => item.table?.name === table)
+    return config?.table?.columns?.find((item) => item.name === column)?.type ?? null
+  } catch {
+    return null
+  }
+}
+
 async function columnDataType(table: string, column: string): Promise<string | null> {
   const url = process.env.DATABASE_URL
   if (!url) return null // 内存模式：没有类型系统
@@ -124,7 +145,10 @@ describe("批量补齐的 47 个资源：真实路由 CRUD", () => {
       const key = `${domain}/${resource}`
       const target = payloadTarget(domain, resource)
       const column = target?.column ?? null
-      const dataType = target ? await columnDataType(target.table, target.column) : null
+      const dataType = target
+        ? (await metadataTypeOf(domain, target.table, target.column)) ??
+          (await columnDataType(target.table, target.column))
+        : null
       const createValue = valueForType(dataType, "create")
       const updateValue = valueForType(dataType, "update")
       const collectionKey = findModule(collectionModules, domain, resource, "route.ts")
