@@ -75,6 +75,7 @@ function replaceQueryBlock(source, schema) {
 }
 
 const problems = []
+const skipped = []
 let changedFiles = 0
 let changedRoutes = 0
 
@@ -83,7 +84,10 @@ for (const resource of fs.readdirSync(routesDir)) {
   if (!fs.statSync(dir).isDirectory()) continue
   const schemas = schemaNames(resource)
   if (!schemas) {
-    problems.push(`${resource}: 找不到校验器或缺少 page/create/update 三个 schema`)
+    // **不适用** ≠ **意外**：导出/统计/看板这类非标准端点没有生成的校验器，
+    // 不能接线（需要手写 schema 或按例外登记）。这类**跳过并计数**，不算失败 ——
+    // 否则工具会把"不适用"报成"坏掉了"，让人以为需要去修。
+    skipped.push(resource)
     continue
   }
   const importLine = `import { ${schemas.create}, ${schemas.page}, ${schemas.update} } from "@/modules/${domain}/backend/validators/${resource}.validator"`
@@ -120,8 +124,15 @@ for (const resource of fs.readdirSync(routesDir)) {
     // ③ POST：create 走 create schema
     if (kind === "collection") {
       const createCall = source.match(/await \w+Service\.create\(\s*body\s*\)/)
+      const createInline = source.match(/await \w+Service\.create\(\s*await request\.json\(\s*\)\s*\)/)
       if (createCall) {
         source = source.replace(createCall[0], createCall[0].replace("body", `${schemas.create}.parse(body)`))
+      } else if (createInline) {
+        // 变体：内联读取，没有 body 变量（实测 pay 域存在）
+        source = source.replace(
+          createInline[0],
+          createInline[0].replace("await request.json()", `${schemas.create}.parse(await request.json())`),
+        )
       } else if (!source.includes(`${schemas.create}.parse`)) {
         problems.push(`${path.relative(ROOT, file)}: POST 的 create 调用形态未识别`)
         continue
@@ -131,10 +142,16 @@ for (const resource of fs.readdirSync(routesDir)) {
     // ④ PUT：update 走 update schema（merge id —— update schema 要求 id）
     if (kind === "item") {
       const updateCall = source.match(/await \w+Service\.update\(\s*id\s*,\s*body\s*\)/)
+      const updateInline = source.match(/await \w+Service\.update\(\s*id\s*,\s*await request\.json\(\s*\)\s*\)/)
       if (updateCall) {
         source = source.replace(
           updateCall[0],
           updateCall[0].replace("id, body", `id, ${schemas.update}.parse({ ...body, id })`),
+        )
+      } else if (updateInline) {
+        source = source.replace(
+          updateInline[0],
+          updateInline[0].replace("await request.json()", `${schemas.update}.parse({ ...(await request.json()), id })`),
         )
       } else if (!source.includes(`${schemas.update}.parse`)) {
         problems.push(`${path.relative(ROOT, file)}: PUT 的 update 调用形态未识别`)
@@ -156,4 +173,8 @@ if (problems.length > 0) {
   process.exit(1)
 }
 
-console.log(`[wire-routes] 域 ${domain}${write ? "" : "（dry-run，加 --write 落盘）"}: ${changedRoutes} 个路由文件需接线`)
+console.log(
+  `[wire-routes] 域 ${domain}${write ? "" : "（dry-run，加 --write 落盘）"}: ` +
+    `${changedRoutes} 个路由文件需接线；跳过 ${skipped.length} 个无校验器的非标准资源` +
+    (skipped.length > 0 ? `（${skipped.slice(0, 6).join(", ")}${skipped.length > 6 ? "…" : ""}）` : ""),
+)

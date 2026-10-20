@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { BpmUserGroupService } from "@/modules/bpm/backend/services/bpm-user-group.service"
+import { bpmUserGroupCreateSchema, bpmUserGroupPageQuerySchema, bpmUserGroupUpdateSchema } from "@/modules/bpm/backend/validators/bpm-user-group.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await BpmUserGroupService.update(id, body)
+    const data = await BpmUserGroupService.update(id, bpmUserGroupUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

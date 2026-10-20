@@ -2,6 +2,7 @@ import { NextResponse } from "next/server"
 import { withAdminRoute } from "@/modules/shared/backend/http/admin-route"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 import { PayOrderService } from "@/modules/pay/backend/services/pay-order.service"
+import { payOrderCreateSchema, payOrderPageQuerySchema, payOrderUpdateSchema } from "@/modules/pay/backend/validators/pay-order.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -20,7 +21,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await PayOrderService.update(id, body)
+    const data = await PayOrderService.update(id, payOrderUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

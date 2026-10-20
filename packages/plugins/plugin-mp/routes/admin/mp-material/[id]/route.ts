@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MpMaterialService } from "@/modules/mp/backend/services/mp-material.service"
+import { mpMaterialCreateSchema, mpMaterialPageQuerySchema, mpMaterialUpdateSchema } from "@/modules/mp/backend/validators/mp-material.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MpMaterialService.update(id, body)
+    const data = await MpMaterialService.update(id, mpMaterialUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MemberLevelRecordService } from "@/modules/member/backend/services/member-level-record.service"
+import { memberLevelRecordCreateSchema, memberLevelRecordPageQuerySchema, memberLevelRecordUpdateSchema } from "@/modules/member/backend/validators/member-level-record.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MemberLevelRecordService.update(id, body)
+    const data = await MemberLevelRecordService.update(id, memberLevelRecordUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

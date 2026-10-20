@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server"
 import { BpmProcessExpressionService } from "@/modules/bpm/backend/services/bpm-process-expression.service"
+import { bpmProcessExpressionCreateSchema, bpmProcessExpressionPageQuerySchema, bpmProcessExpressionUpdateSchema } from "@/modules/bpm/backend/validators/bpm-process-expression.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-      keyword: searchParams.get("keyword") || undefined,
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = bpmProcessExpressionPageQuerySchema.parse(raw)
     const data = await BpmProcessExpressionService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -19,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await BpmProcessExpressionService.create(body)
+    const data = await BpmProcessExpressionService.create(bpmProcessExpressionCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

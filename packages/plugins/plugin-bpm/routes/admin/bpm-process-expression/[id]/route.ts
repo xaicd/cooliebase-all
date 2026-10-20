@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { BpmProcessExpressionService } from "@/modules/bpm/backend/services/bpm-process-expression.service"
+import { bpmProcessExpressionCreateSchema, bpmProcessExpressionPageQuerySchema, bpmProcessExpressionUpdateSchema } from "@/modules/bpm/backend/validators/bpm-process-expression.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await BpmProcessExpressionService.update(id, body)
+    const data = await BpmProcessExpressionService.update(id, bpmProcessExpressionUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

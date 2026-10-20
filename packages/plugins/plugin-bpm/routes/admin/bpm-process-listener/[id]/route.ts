@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { BpmProcessListenerService } from "@/modules/bpm/backend/services/bpm-process-listener.service"
+import { bpmProcessListenerCreateSchema, bpmProcessListenerPageQuerySchema, bpmProcessListenerUpdateSchema } from "@/modules/bpm/backend/validators/bpm-process-listener.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await BpmProcessListenerService.update(id, body)
+    const data = await BpmProcessListenerService.update(id, bpmProcessListenerUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

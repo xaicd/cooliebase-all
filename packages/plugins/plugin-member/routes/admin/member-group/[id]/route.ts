@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MemberGroupService } from "@/modules/member/backend/services/member-group.service"
+import { memberGroupCreateSchema, memberGroupPageQuerySchema, memberGroupUpdateSchema } from "@/modules/member/backend/validators/member-group.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MemberGroupService.update(id, body)
+    const data = await MemberGroupService.update(id, memberGroupUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { BpmCategoryService } from "@/modules/bpm/backend/services/bpm-category.service"
+import { bpmCategoryCreateSchema, bpmCategoryPageQuerySchema, bpmCategoryUpdateSchema } from "@/modules/bpm/backend/validators/bpm-category.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await BpmCategoryService.update(id, body)
+    const data = await BpmCategoryService.update(id, bpmCategoryUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MpAccountService } from "@/modules/mp/backend/services/mp-account.service"
+import { mpAccountCreateSchema, mpAccountPageQuerySchema, mpAccountUpdateSchema } from "@/modules/mp/backend/validators/mp-account.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MpAccountService.update(id, body)
+    const data = await MpAccountService.update(id, mpAccountUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

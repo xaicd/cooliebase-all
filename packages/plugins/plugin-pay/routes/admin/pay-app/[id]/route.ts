@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { PayAppService } from "@/modules/pay/backend/services/pay-app.service"
+import { payAppCreateSchema, payAppPageQuerySchema, payAppUpdateSchema } from "@/modules/pay/backend/validators/pay-app.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await PayAppService.update(id, body)
+    const data = await PayAppService.update(id, payAppUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

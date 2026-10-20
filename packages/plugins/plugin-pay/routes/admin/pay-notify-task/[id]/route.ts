@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { PayNotifyTaskService } from "@/modules/pay/backend/services/pay-notify-task.service"
+import { payNotifyTaskCreateSchema, payNotifyTaskPageQuerySchema, payNotifyTaskUpdateSchema } from "@/modules/pay/backend/validators/pay-notify-task.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await PayNotifyTaskService.update(id, body)
+    const data = await PayNotifyTaskService.update(id, payNotifyTaskUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })
