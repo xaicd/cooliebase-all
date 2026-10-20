@@ -22,6 +22,16 @@ fi
 ROOT=$(git rev-parse --show-toplevel)
 RECORD="$ROOT/docs/architecture/artifacts/agent-route-last.json"
 
+# ── WBS 时效性：能力面变了（新增 script / 门禁 / 域），计划就必须在同一次提交里跟随 ──
+# 放在"受保护路径早退"**之前**：能力面变化未必触及 packages/（例如只加了 npm script），
+# 如果放在后面就会被早退跳过 —— 那又是一次静默失效。
+if ! node "$ROOT/scripts/check-plan-freshness.cjs"; then
+  echo ""
+  echo "[plan-freshness] 本次提交被拦下：能力面变了，但没有更新 docs/01_management/project-plan.md"
+  echo "                （确认不该记入计划时：AGENT_ROUTE_SKIP=1 git commit ...，并说明理由）"
+  exit 1
+fi
+
 PROTECTED=$(git diff --cached --name-only --diff-filter=ACMR \
   | grep -E '^(packages/|prisma/|src/app/api/)' | head -5 || true)
 if [ -z "$PROTECTED" ]; then

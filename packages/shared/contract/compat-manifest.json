@@ -120,7 +120,8 @@
     "commands": [
       "agent:route",
       "harness:health",
-      "harness:hermes-hook"
+      "harness:hermes-hook",
+      "plan:freshness"
     ]
   },
   "compatibility": {

@@ -160,6 +160,7 @@
     "agent:route": "node scripts/agent-route.cjs",
     "harness:hermes-hook": "node scripts/install-hermes-hook.cjs",
     "harness:health": "node scripts/harness-health.cjs",
+    "plan:freshness": "node scripts/check-plan-freshness.cjs",
     "task:verify": "pnpm exec tsx scripts/speckit.ts tasks",
     "fingerprint": "node scripts/env-fingerprint.cjs --write",
     "fingerprint:verify": "node scripts/env-fingerprint.cjs --verify",
