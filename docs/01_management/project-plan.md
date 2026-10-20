@@ -223,6 +223,7 @@
 
 ## 5. 当前进展快照（2026-10-20）
 
+- **统一生命周期入口**：新增 `pnpm run all`, `init:all`, `test:all` 与 `scripts/lifecycle.sh` 独立全生命周期执行器。
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
   **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
   （它们随每次加用例/规则而变化，写死必然漂 —— 本仓已连续四轮栽在这上面）。
