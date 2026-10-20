@@ -13,7 +13,7 @@
  *   · 已正确设置 → 什么都不做
  *   · 未设置 → 设为 `.githooks` 并打印一行
  *
- * 已接入 `postinstall`，`pnpm install` 后自动生效；也可单跑 `npm run setup:hooks`。
+ * 已接入 `postinstall`，`pnpm install` 后自动生效；也可单跑 `pnpm run setup:hooks`。
  */
 const fs = require("node:fs")
 const path = require("node:path")

@@ -21,7 +21,7 @@
    - 泛型 BaseMapper/QueryWrapper 引擎：`packages/shared/backend/lib/database/`
    - 极简 Brief 声明驱动：`docs/specs/<domain>/<name>/brief.json` 与 1 Task = 1 Commit
 5. **05_verification (验证与打假)**：
-   - 真实测试执行总结：`docs/05_verification/test-summary-report.md`（**由 `npm run test:summary` 生成；数字以该文件为准，此处不写死**）
+   - 真实测试执行总结：`docs/05_verification/test-summary-report.md`（**由 `pnpm run test:summary` 生成；数字以该文件为准，此处不写死**）
    - 变异测试目录：`docs/05_verification/mutation/` (保持留空待实际 Stryker 工具集成)
 6. **06_quality_assurance (质量与配置审计)**：
    - 功能与物理配置审计：`docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md` (compliance-auditor 技能)

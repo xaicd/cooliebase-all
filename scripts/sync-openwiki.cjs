@@ -452,8 +452,8 @@ await runUnitOfWork(async (uow) => {
 | **3. 契约通信层 (Contracts)** | \`docs/agent/contracts.json\`<br>\`seam-graph.json\`<br>\`rpc-actions.json\` | ${AGENT_CONTRACT_COUNT} 份全域契约、OpenAPI 3.1、自研 NATS 异步事件流与 Domain Facade，供 Agent 毫秒级定位调用。 | 严禁跨域私自 import Service，严禁无契约野路由。 |
 | **4. 前端交互层 (Agent-Native UI)** | \`packages/shared/contract/page-schemas.generated.ts\`<br>主权网关与指挥大屏 | ${AGENT_CONTRACT_COUNT} 个实体的机器可读 Schema、主权网关与驾驶舱，支持 \`agent-device\` 与 \`agent-browser\` (Playwright) 无头探针自动化操作。 | 严禁仅能人类肉眼查看的死报表与死界面。 |
 | **5. 自动化测试层 (Testing)** | \`better-sqlite3\`<br>\`strix-penetration-testing\`<br>\`mutation-tester\` | 嵌入式 SQLite 真实 C 引擎并发测试、Strix 多智能体自主红队渗透验证真实 PoC、变异测试打假假 Mock。 | 严禁伪造前端 Mock 与空断言骗门禁。 |
-| **6. 运维割接层 (DevOps/SRE)** | \`runbook.json\`<br>\`scripts/agent/run-runbook.cjs\` | Agent 驱动实施预案执行（\`npm run runbook\`），原子割接并支持失败毫秒级自动回滚；SLO 错误预算自主熔断。 | 严禁手工改生产容器，严禁故障盲目甩锅。 |
-| **7. 持续运营层 (Operations)** | \`npm run agent:ops\`<br>\`financial-reconciliation-agent\` | Agent 直接通过真实 API 跑通健康体检、造数、清数与三方对账，无需人类开浏览器手工造数。 | 严禁手工登后台一个个填表单造数。 |
+| **6. 运维割接层 (DevOps/SRE)** | \`runbook.json\`<br>\`scripts/agent/run-runbook.cjs\` | Agent 驱动实施预案执行（\`pnpm run runbook\`），原子割接并支持失败毫秒级自动回滚；SLO 错误预算自主熔断。 | 严禁手工改生产容器，严禁故障盲目甩锅。 |
+| **7. 持续运营层 (Operations)** | \`pnpm run agent:ops\`<br>\`financial-reconciliation-agent\` | Agent 直接通过真实 API 跑通健康体检、造数、清数与三方对账，无需人类开浏览器手工造数。 | 严禁手工登后台一个个填表单造数。 |
 
 ## 三、 三位一体协同机制：Skills + MCP + CLI
 1. **Skills (.agents/skills/)**：指导 Agent “怎么做”（方法论、EARS 句式、5-Whys、红绿测试准则，全仓 38 个原生技能）；
@@ -519,9 +519,9 @@ await runUnitOfWork(async (uow) => {
 4. **全域 326 份 Agent 契约健康度打分**：实时聚合各域实体就绪度，输出 0~100 综合健康评分 (🟢 OPTIMAL / 🟡 ATTENTION / 🔴 DEGRADED)。
 
 ## 二、 核心命令与服务入口
-- 单次巡检与诊断：\`npm run agent:autopilot\`
-- 常驻后台守护进程：\`npm run agent:autopilot:daemon\`
-- 主动触发全栈自愈：\`npm run agent:autopilot:heal\`
+- 单次巡检与诊断：\`pnpm run agent:autopilot\`
+- 常驻后台守护进程：\`pnpm run agent:autopilot:daemon\`
+- 主动触发全栈自愈：\`pnpm run agent:autopilot:heal\`
 - 内部 RPC 遥测接口：\`GET /api/internal/autopilot\` 与 \`POST /api/internal/autopilot\`
 `.trim() + "\n");
 
@@ -562,8 +562,8 @@ await runUnitOfWork(async (uow) => {
 | **Level 6** | 终极目的对齐 (Telos Alignment) | 系统的一切能力是否为了实现全能力 AI Agent 闭环驱动？ | 全仓 38 个 Skills、MCP 服务、无头运营套件与 CI 强制门禁。 |
 
 ## 三、 门禁自循环闭环
-- 本地执行反问自检：\`npm run socratic:inquire\`
-- CI 自动化校验：\`npm run socratic:check\`（挂载在 \`npm run harness:check\` 与 \`npm run check\` 之中，任何破坏 6 阶反思的行为直接中断构建并退出报错）。
+- 本地执行反问自检：\`pnpm run socratic:inquire\`
+- CI 自动化校验：\`pnpm run socratic:check\`（挂载在 \`pnpm run harness:check\` 与 \`pnpm run check\` 之中，任何破坏 6 阶反思的行为直接中断构建并退出报错）。
 `.trim() + "\n");
 
   // 14) speckit-slash-commands.md
@@ -576,26 +576,26 @@ Spec-Driven Development (SDD) 已由 GitHub Spec-Kit 与腾讯 CodeBuddy 发展�
 本项目已**全量升级并拥抱 GitHub Spec-Kit 开源标准**，将原有的私有 \`spec-ops\` 全面收敛升级为 **Enterprise Spec-Kit**：
 1. **拓扑标准遵从**：建立 \`.specify/memory/constitution.md\` 作为项目唯一最高宪法，包含 Rule 0、13 项通用铁律与 6 阶苏格拉底反思；
 2. **顶层路径透传**：\`specs/ -> docs/specs/\` 顶层软链接，与所有原生 Spec-Kit 自动化工具 100% 互通；
-3. **原生跨平台驱动**：通过 \`npm run speckit\` / \`npm run specify\` 提供零额外环境依赖的 TypeScript 原生引擎，告别 Python/uv 工具链负担；
+3. **原生跨平台驱动**：通过 \`pnpm run speckit\` / \`pnpm run specify\` 提供零额外环境依赖的 TypeScript 原生引擎，告别 Python/uv 工具链负担；
 4. **唯一真源指令化**：\`.agents/commands/speckit.*\` 作为唯一物理实体真源，直接面向各类智能体与开发者交付。
 
 ## 二、 10 大 /speckit.* 核心斜杠指令矩阵
 | 斜杠指令 | 底层执行引擎 | 功能分类 | 核心产物 / 验收标准 |
 |---|---|---|---|
 | \`/speckit.eval\` | \`dar-decision-matrix\` | **[Idea Assessment]** 概念评估 | 需求立项前进行可行性、必要性与 DAR 投资回报率论证 |
-| \`/speckit.constitution\` | \`npm run socratic:inquire\` | **[Constitution]** 核心宪法 | 审查底座宪法并执行 6 阶苏格拉底高阶反问与辩证 |
-| \`/speckit.specify\` | \`npm run speckit:new\` | **[Specification]** 规格立项 | 交互式立项，生成 \`brief.json\`、\`assets/\` 与 \`prototypes/\` 骨架 |
-| \`/speckit.plan\` | \`npm run speckit:build\` | **[Architecture]** 架构展开 | 极简 DSL 自动编译展开 8 份标准工程文档与时序图 |
+| \`/speckit.constitution\` | \`pnpm run socratic:inquire\` | **[Constitution]** 核心宪法 | 审查底座宪法并执行 6 阶苏格拉底高阶反问与辩证 |
+| \`/speckit.specify\` | \`pnpm run speckit:new\` | **[Specification]** 规格立项 | 交互式立项，生成 \`brief.json\`、\`assets/\` 与 \`prototypes/\` 骨架 |
+| \`/speckit.plan\` | \`pnpm run speckit:build\` | **[Architecture]** 架构展开 | 极简 DSL 自动编译展开 8 份标准工程文档与时序图 |
 | \`/speckit.tasks\` | \`scripts/speckit.ts tasks\` | **[Task Breakdown]** 任务拆解 | 提取波次任务树，严格贯彻 1 Task = 1 Commit |
-| \`/speckit.implement\` | \`npm run task:verify\` | **[Implementation]** 实施落地 | 真实入库编码，核对 Git 提交白名单，杜绝口头完工 |
-| \`/speckit.checklist\` | \`npm run speckit:check\` | **[Quality Checklist]** 验收清单 | 逐项核验验收标准与 11 阶段交付合规性 |
+| \`/speckit.implement\` | \`pnpm run task:verify\` | **[Implementation]** 实施落地 | 真实入库编码，核对 Git 提交白名单，杜绝口头完工 |
+| \`/speckit.checklist\` | \`pnpm run speckit:check\` | **[Quality Checklist]** 验收清单 | 逐项核验验收标准与 11 阶段交付合规性 |
 | \`/speckit.gate\` | \`scripts/speckit.ts gate\` | **[SpaceX Gate]** 物理门禁 | CMMI Gate 1~6 物理门禁扫描，100% 真实数据库测试驱动 |
-| \`/speckit.ops\` | \`npm run agent:ops\` | **[Agent Operations]** 无头运营 | 326 份机器契约接口自动化体检、仿真造数与敏感清数 |
-| \`/speckit.archive\` | \`npm run speckit:archive\` | **[Lifecycle Archive]** 归档防污 | 移入 \`docs/specs/archive/<YYYY-Qx>/<domain>/<name>/\`，保持施工区整洁 |
+| \`/speckit.ops\` | \`pnpm run agent:ops\` | **[Agent Operations]** 无头运营 | 326 份机器契约接口自动化体检、仿真造数与敏感清数 |
+| \`/speckit.archive\` | \`pnpm run speckit:archive\` | **[Lifecycle Archive]** 归档防污 | 移入 \`docs/specs/archive/<YYYY-Qx>/<domain>/<name>/\`，保持施工区整洁 |
 
 ## 三、 全面收敛统一 (Full Unification)
 历史定制过渡层已全部退役清除，所有流程 100% 统一为 Spec-Kit 原生规范：
-- 规格立项与编译：统一使用 \`npm run speckit:new\` / \`speckit:build\`；
+- 规格立项与编译：统一使用 \`pnpm run speckit:new\` / \`speckit:build\`；
 - 工作流配方 (Workflows)：\`.agents/workflows/\` 全部收敛为 Spec-Kit 标准步骤；
 - CMMI 01~09 过程资产：全面挂载 Spec-Kit 模板与交付门禁；
 - 斜杠指令：全部收敛为 \`/speckit.*\` 10 大指令矩阵。
@@ -664,7 +664,7 @@ RETURNING id;
   // 4) security-and-load-testing.md
   generatedFiles.set("testing/security-and-load-testing.md", `# 测试百科：安全渗透扫描与性能容量回归护栏
 
-## 一、 自动化安全扫描 (\`npm run security:scan\`)
+## 一、 自动化安全扫描 (\`pnpm run security:scan\`)
 覆盖本仓承诺的 12 项真实安全红线：
 1. 未认证访问后台接口强制 401；
 2. 伪造 Token 强制 401；
@@ -674,7 +674,7 @@ RETURNING id;
 6. 强制安全响应头 (HSTS, NoSniff)；
 7. 插件挂载点权限守卫。
 
-## 二、 性能压测护栏 (\`npm run load:test\`)
+## 二、 性能压测护栏 (\`pnpm run load:test\`)
 - 依据 \`packages/shared/contract/load-baseline.json\` 基线；
 - 统计 RPS、P95 延迟与失败率；
 - **铁律**：必须针对生产 standalone 产物进行压测，严禁对开发热更新进程跑压测！
@@ -760,7 +760,7 @@ ${ARCHIVED_SPEC_SAMPLE}
    - 泛型 BaseMapper/QueryWrapper 引擎：\`packages/shared/backend/lib/database/\`
    - 极简 Brief 声明驱动：\`docs/specs/<domain>/<name>/brief.json\` 与 1 Task = 1 Commit
 5. **05_verification (验证与打假)**：
-   - 真实测试执行总结：\`docs/05_verification/test-summary-report.md\`（**由 \`npm run test:summary\` 生成；数字以该文件为准，此处不写死**）
+   - 真实测试执行总结：\`docs/05_verification/test-summary-report.md\`（**由 \`pnpm run test:summary\` 生成；数字以该文件为准，此处不写死**）
    - 变异测试目录：\`docs/05_verification/mutation/\` (保持留空待实际 Stryker 工具集成)
 6. **06_quality_assurance (质量与配置审计)**：
    - 功能与物理配置审计：\`docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md\` (compliance-auditor 技能)
@@ -805,7 +805,7 @@ function buildGotchasMds() {
 本机有正在运行的 \`next dev\` 调试进程占据了 3200 端口。开发模式下 Next.js 对每个请求做 JIT 动态编译与热更新监听，性能严重劣化。
 
 ### 解决
-压测前必须清场杀掉 dev 进程，运行 \`npm run build\` 后启动生产镜像或独立二进制执行压测。
+压测前必须清场杀掉 dev 进程，运行 \`pnpm run build\` 后启动生产镜像或独立二进制执行压测。
 `.trim() + "\n");
 
   // 3) admin-route-proxy-policy.md
@@ -893,7 +893,7 @@ function main() {
 
   if (checkOnly) {
     if (driftCount > 0) {
-      console.error(`\n[openwiki:check] ✗ 发现 ${driftCount} 处 Wiki 漂移，请运行: npm run openwiki:sync 修复\n`);
+      console.error(`\n[openwiki:check] ✗ 发现 ${driftCount} 处 Wiki 漂移，请运行: pnpm run openwiki:sync 修复\n`);
       process.exit(1);
     } else {
       console.log(`[openwiki:check] PASS: 全部 ${generatedFiles.size} 篇 OpenWiki 百科词条与元数据 100% 同步！`);

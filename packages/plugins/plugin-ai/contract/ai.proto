@@ -5,7 +5,7 @@ package cooliebase.ai.v1;
 option go_package = "cooliebase/all-base/gen/ai/v1;aiv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.ai.v1.AiService/<Method>
 
 message JsonReply {

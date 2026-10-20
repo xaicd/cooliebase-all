@@ -102,16 +102,16 @@
 ### 1. 创建规格包
 ```bash
 # 创建新业务特性 (Feature)
-npm run speckit:new -- --name payment-split --domain pay --title "分账结算中心" --type feature
+pnpm run speckit:new -- --name payment-split --domain pay --title "分账结算中心" --type feature
 
 # 创建缺陷修补规格 (Bugfix)
-npm run speckit:new -- --name fix-cart-race-condition --domain mall --title "修复购物车并发超卖" --type bugfix
+pnpm run speckit:new -- --name fix-cart-race-condition --domain mall --title "修复购物车并发超卖" --type bugfix
 
 # 创建增量增强规格 (Enhancement)
-npm run speckit:new -- --name optimize-report-export --domain report --title "报表导出性能优化" --type enhancement
+pnpm run speckit:new -- --name optimize-report-export --domain report --title "报表导出性能优化" --type enhancement
 
 # 创建架构重构规格 (Refactor)
-npm run speckit:new -- --name refactor-iot-parser --domain iot --title "重构设备网关协议解析器" --type refactor
+pnpm run speckit:new -- --name refactor-iot-parser --domain iot --title "重构设备网关协议解析器" --type refactor
 ```
 
 ### 2. 声明式 Brief (`brief.json`) 针对性差异
@@ -124,21 +124,21 @@ npm run speckit:new -- --name refactor-iot-parser --domain iot --title "重构�
 
 ### 3. 一键展开生成 10~15 件套物理工程资产
 ```bash
-npm run speckit:build -- --name fix-cart-race-condition
+pnpm run speckit:build -- --name fix-cart-race-condition
 ```
 自动展开生成 `requirements.md`、`design.md`、`prototype.md`、`tasks.md` 等标准工程文档，格式 100% 结构化对齐。
 
 ### 4. 真实测试与 1 Task = 1 Commit 追溯
 - 对 Bugfix 必须坚持 **反假 Mock 铁律**：写出能在真实数据库/状态机下红灯挂掉的测试用例；
 - 每次提交关联任务：`git commit -m "fix(mall): [T1] 补充购物车并发超卖红灯复现单测"`；
-- 任务执行与白名单核验：`npm run speckit:tasks -- --spec fix-cart-race-condition --summary`；
-- 单项任务审查：`npm run speckit:tasks -- --spec fix-cart-race-condition --task T1`；
-- 自动化门禁核查：`npm run speckit:check -- --spec fix-cart-race-condition` 与 `npm run check`。
+- 任务执行与白名单核验：`pnpm run speckit:tasks -- --spec fix-cart-race-condition --summary`；
+- 单项任务审查：`pnpm run speckit:tasks -- --spec fix-cart-race-condition --task T1`；
+- 自动化门禁核查：`pnpm run speckit:check -- --spec fix-cart-race-condition` 与 `pnpm run check`。
 
 ### 5. 交付上线与规格归档 (Spec Archive)
 上线割接完成并验证通过后，执行一键归档：
 ```bash
-npm run speckit:archive -- --name fix-cart-race-condition
+pnpm run speckit:archive -- --name fix-cart-race-condition
 ```
 该规格包将自动从活跃施工区移动至 `docs/specs/archive/<YYYY-Qx>/<domain>/<name>/`，防止活跃目录随项目演进而膨胀污染；系统全息解析器依然保留对其全局可审计与双向追溯能力。
 

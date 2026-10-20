@@ -360,7 +360,7 @@ async function main() {
   const serverAlive = await isServerAlive()
   if (!serverAlive) {
     console.log(`⚠️  应用服务 (${baseUrl}) 未响应。`)
-    console.log("   自动收敛为静态严谨性审计通过模式 (运行态需先启动 pnpm run dev / npm run smoke:login)。")
+    console.log("   自动收敛为静态严谨性审计通过模式 (运行态需先启动 pnpm run dev / pnpm run smoke:login)。")
     const report: AgentOpsSuiteReport = {
       timestamp: new Date().toISOString(),
       mode: "contract-audit",

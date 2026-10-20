@@ -5,7 +5,7 @@ package cooliebase.online.v1;
 option go_package = "cooliebase/all-base/gen/online/v1;onlinev1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.online.v1.OnlineService/<Method>
 
 message JsonReply {

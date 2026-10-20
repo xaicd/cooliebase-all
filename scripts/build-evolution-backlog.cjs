@@ -83,7 +83,7 @@ function collectGateStatus() {
         title: "No gate trace stamp found",
         files: [TRACE_REL],
         evidence: `${TRACE_REL} does not exist, so no gate run has been recorded`,
-        command: "npm run check",
+        command: "pnpm run check",
         action: "Run the gate chain to record a trace stamp.",
       },
     ]
@@ -98,7 +98,7 @@ function collectGateStatus() {
       title: `Gate chain last stamped ${trace.status}`,
       files: [TRACE_REL],
       evidence: `harness-trace status=${trace.status} at ${trace.at}`,
-      command: "npm run check",
+      command: "pnpm run check",
       action: "Fix the failing gate before any other work.",
     })
   }
@@ -112,7 +112,7 @@ function collectGateStatus() {
       title: "Gate trace is older than HEAD",
       files: [TRACE_REL],
       evidence: `trace.head=${trace.head}, current HEAD=${head}`,
-      command: "npm run check",
+      command: "pnpm run check",
       action: "Re-run the gates so the recorded evidence matches the current revision.",
     })
   }
@@ -169,7 +169,7 @@ function collectStandards(report) {
       title: `${entry.id}: ${entry.acceptedFiles} file(s) carry frozen debt`,
       files: [],
       evidence: `baseline accepts debt in ${entry.acceptedFiles} file(s); new debt is already blocked`,
-      command: "npm run standards:baseline",
+      command: "pnpm run standards:baseline",
       action: "Burn the frozen debt down, then re-baseline so the rule can move from ratchet to enforce.",
     })
   }
@@ -214,7 +214,7 @@ function collectOversizedFiles() {
       title: `${path.basename(toRel(file))}: ${lines} lines`,
       files: [toRel(file)],
       evidence: `§11.2 asks for files over ${OVERSIZED_FILE_LINES} lines to be split into sub-services behind the facade`,
-      command: "npm run standards:check",
+      command: "pnpm run standards:check",
       action: "Split into sub-services, keeping the domain facade as the single entry point.",
     })
   }

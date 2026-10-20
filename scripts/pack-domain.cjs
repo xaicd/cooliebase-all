@@ -219,9 +219,9 @@ function main() {
       invoke: "sdk",
       port: 3100,
       pack: "full Next.js app (Dockerfile)",
-      dev: "npm run dev",
-      start: "npm run build && npm run start",
-      compose: "npm run runtime:all",
+      dev: "pnpm run dev",
+      start: "pnpm run build && pnpm run start",
+      compose: "pnpm run runtime:all",
     }, null, 2))
     return
   }

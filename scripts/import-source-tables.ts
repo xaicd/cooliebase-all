@@ -6,7 +6,7 @@
  * Java 类型给列类型、字段 javadoc 就是列注释。
  *
  * 产出 `scripts/data/<域>-source-tables.ts`（`CodegenConfig[]`），之后走标准链路:
- *   npm run domain:new <域>        # 建表迁移 + codegen + 注册插件
+ *   pnpm run domain:new <域>        # 建表迁移 + codegen + 注册插件
  *
  * 用法:
  *   git clone --depth 1 --filter=blob:none --sparse https://github.com/YunaiV/cooliebase-vue-pro.git /tmp/yudao
@@ -244,7 +244,7 @@ ${columns.map((column) => `        ${JSON.stringify(column)},`).join("\n")}
     fs.mkdirSync(path.dirname(target), { recursive: true })
     fs.writeFileSync(target, out)
     console.log(`  ✓ 已写 ${path.relative(ROOT, target)}`)
-    console.log(`\n  下一步: npm run domain:new ${domain} --tables scripts/data/${domain}-source-tables.ts --export ${domain.toUpperCase()}_TABLES`)
+    console.log(`\n  下一步: pnpm run domain:new ${domain} --tables scripts/data/${domain}-source-tables.ts --export ${domain.toUpperCase()}_TABLES`)
   } else {
     console.log(out.slice(0, 1200))
     console.log(`\n  (dry-run: 未写入。加 --write 落盘到 scripts/data/${domain}-source-tables.ts)`)

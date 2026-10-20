@@ -40,7 +40,7 @@ if (!specDir) {
 
 const file = path.join(specDir, "runbook.json")
 if (!fs.existsSync(file)) {
-  console.error(`[runbook] 找不到 ${path.relative(ROOT, file)}（npm run spec:new 会给骨架）`)
+  console.error(`[runbook] 找不到 ${path.relative(ROOT, file)}（pnpm run spec:new 会给骨架）`)
   process.exit(2)
 }
 let runbook

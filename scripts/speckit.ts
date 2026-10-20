@@ -11,26 +11,26 @@
  *
  * 用法 (CLI Usage):
  *   # 0. 初始化与环境检查
- *   npm run speckit:init
- *   npm run speckit:constitution
+ *   pnpm run speckit:init
+ *   pnpm run speckit:constitution
  *
  *   # 1. 创建任意类型的规格骨架
- *   npm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature|bugfix|enhancement|refactor|security]
+ *   pnpm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature|bugfix|enhancement|refactor|security]
  *
  *   # 2. 从 brief.json 展开编译生成 7~8 份完备 Markdown 规格与任务波次图
- *   npm run speckit:build -- --name <名> [--check]
+ *   pnpm run speckit:build -- --name <名> [--check]
  *
  *   # 3. 校验规格交付状态与门禁
- *   npm run speckit:check -- --spec <名>
+ *   pnpm run speckit:check -- --spec <名>
  *
  *   # 4. 列出全域活跃与归档规格
- *   npm run speckit:list [--domain <域>]
+ *   pnpm run speckit:list [--domain <域>]
  *
  *   # 5. 上线后一键防污染归档
- *   npm run speckit:archive -- --name <名>
+ *   pnpm run speckit:archive -- --name <名>
  *
  *   # 6. 规格健康与防污染扫描
- *   npm run speckit:health
+ *   pnpm run speckit:health
  */
 
 import fs from "node:fs"
@@ -123,7 +123,7 @@ function handleNew() {
         "防回归保证：修复不得引入次生故障或破坏既有正常流转。",
       ],
       acceptance: [
-        { check: "`npm run check` exit=0" },
+        { check: "`pnpm run check` exit=0" },
         { check: "<!-- 待填: 缺陷复现用例从 Red 变绿 (100% PASS) -->" },
         { check: "<!-- 待填: 既有核心回归测试套件全部通过 (0 Regression) -->" },
       ],
@@ -172,8 +172,8 @@ function handleNew() {
         "跨域通信：必须经过 Domain Facade，禁止违规侵入内部私有服务。",
       ],
       acceptance: [
-        { check: "`npm run check` exit=0" },
-        { check: "`npm run test:matrix` exit=0 (真实 SQLite 矩阵 100% 通过)" },
+        { check: "`pnpm run check` exit=0" },
+        { check: "`pnpm run test:matrix` exit=0 (真实 SQLite 矩阵 100% 通过)" },
         { check: "<!-- 待填: 业务等价性单测全部通过 -->" },
       ],
       nonGoals: ["不在本次重构中增加未经评审的业务新功能"],
@@ -221,7 +221,7 @@ function handleNew() {
         "数据强一致性：性能优化绝不能牺牲事务隔离性与多租户安全。",
       ],
       acceptance: [
-        { check: "`npm run check` exit=0" },
+        { check: "`pnpm run check` exit=0" },
         { check: "<!-- 待填: 压测报告显示达成目标指标（RPS / p95） -->" },
       ],
       nonGoals: ["不在本次优化中改动核心业务数据模型"],
@@ -269,8 +269,8 @@ function handleNew() {
         "最小权限：接口必须严格绑定 Permission Code 权限码。",
       ],
       acceptance: [
-        { check: "`npm run check` exit=0" },
-        { check: "`npm run security:scan` exit=0（全量检查项全过，项数以脚本为准）" },
+        { check: "`pnpm run check` exit=0" },
+        { check: "`pnpm run security:scan` exit=0（全量检查项全过，项数以脚本为准）" },
         { check: "<!-- 待填: PoC 攻击用例被 100% 拦截并记录安全审计 -->" },
       ],
       nonGoals: ["不盲目引入重型第三方商业安全 WAF 依赖"],
@@ -318,7 +318,7 @@ function handleNew() {
         "定制业务不回写基座（§17.3）；全动词 API（§5.1）；UI 带 Agent-Native 属性（§5.2.1）。",
       ],
       acceptance: [
-        { check: "`npm run check` exit=0" },
+        { check: "`pnpm run check` exit=0" },
         { check: "<!-- 待填: 每条都要可执行验证，不要写『体验良好』 -->" },
       ],
       nonGoals: ["<!-- 待填: 显式划出边界，这一节能挡掉一半范围蔓延 -->"],

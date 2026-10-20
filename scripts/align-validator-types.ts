@@ -283,7 +283,7 @@ function alignFrontendForms(targetDir: string, apply: boolean, meta: Map<string,
 // 校验器的 create schema 原先只按**表单列**生成，而仓储的可写列是**全部非审计列**。
 // 于是不在表单里的列（如 ai_model.model_key / provider）API 根本传不进来 ——
 // 而表要求它们非空，接线后创建必然失败。实测正是这一步把 ai-model 的路由测试打红。
-// 真源取**仓储的 WRITABLE_COLUMNS**，与 `npm run repo:columns:check` 的口径一致。
+// 真源取**仓储的 WRITABLE_COLUMNS**，与 `pnpm run repo:columns:check` 的口径一致。
 // ─────────────────────────────────────────────────────────────────────────────
 
 /** 按元数据类型给出 Zod 字段构造器（与生成器模板保持一致） */

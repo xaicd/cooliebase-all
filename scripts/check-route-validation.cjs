@@ -11,7 +11,7 @@
  * 新增一个裸传 body 的写路由会直接失败。
  *
  * **与 RSK-011 的先后关系（重要）**：那批校验器自身存在「元数据 vs Zod 类型」漂移
- * （`npm run validator:reachability` 显示 780 处目前不可达 —— 恰恰因为路由没在调它们）。
+ * （`pnpm run validator:reachability` 显示 780 处目前不可达 —— 恰恰因为路由没在调它们）。
  * 因此**补接线必须与对齐校验器同时做**，否则接线的一瞬间就把漂移变成真实缺陷。
  *
  * 用法:
@@ -107,7 +107,7 @@ function main() {
       note:
         "AGENTS §4.1「禁止绕过 Validator 直连 Service」的既有欠债冻结名单（冻结 ≠ 已修）。" +
         "只拦新增：不在此名单里的裸传路由会直接失败。补接线时必须**同时**对齐该域的校验器，" +
-        "否则接线瞬间会把 RSK-011 的类型漂移变成真实缺陷（见 npm run validator:reachability）。",
+        "否则接线瞬间会把 RSK-011 的类型漂移变成真实缺陷（见 pnpm run validator:reachability）。",
       frozenAt: new Date().toISOString().slice(0, 10),
       totalWriteRoutes: total,
       violations: violations.map((item) => item.id),
@@ -146,7 +146,7 @@ function main() {
       "\n修法: 在路由里接上本资源的 Zod schema，例如\n" +
         "  const body = await request.json()\n" +
         "  const data = xxxCreateSchema.parse(body)   // 不要把裸 body 直传 Service\n" +
-        "注意（顺序）: 接线前先跑 `npm run validator:reachability` 对齐该域校验器的字段类型，\n" +
+        "注意（顺序）: 接线前先跑 `pnpm run validator:reachability` 对齐该域校验器的字段类型，\n" +
         "否则接线会把 RSK-011 的类型漂移变成真实缺陷。\n",
     )
     process.exit(1)

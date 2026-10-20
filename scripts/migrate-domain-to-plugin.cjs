@@ -275,7 +275,7 @@ for (const { name, from, to, files } of plan) {
   if (govRow) {
     const cells = govRow.split("|")
     cells[7] = cells[7].replace(from.replace(/\//g, "/"), to)
-    cells[9] = ` **第一方插件**(kind=plugin): 保留域级特征(可 API-only 独立打包/运行/部署, \`npm run domain:up -- ${name}\`), 同时支持合并运行; 路由经 /api/v1/plugins/cooliebase.${name}/api/** 挂载 `
+    cells[9] = ` **第一方插件**(kind=plugin): 保留域级特征(可 API-only 独立打包/运行/部署, \`pnpm run domain:up -- ${name}\`), 同时支持合并运行; 路由经 /api/v1/plugins/cooliebase.${name}/api/** 挂载 `
     gov = gov.replace(govRow, cells.join("|"))
     writeFile(governancePath, gov)
   }

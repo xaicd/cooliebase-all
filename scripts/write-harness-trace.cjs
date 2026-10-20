@@ -65,7 +65,7 @@ function buildTrace(status = "pass") {
     seamGraph: "packages/shared/contract/seam-graph.json",
     backlog: BACKLOG_REL,
     hatch: hatchSnapshot(),
-    note: "Last successful npm run check stamp. Session events stay in DigitalStaff Native.",
+    note: "Last successful pnpm run check stamp. Session events stay in DigitalStaff Native.",
   }
 }
 

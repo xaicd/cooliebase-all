@@ -27,7 +27,8 @@
         "scripts/hatch-e2e.cjs（新增）；package.json 新增 hatch:e2e",
         "正向：`npm run hatch:e2e` → `结论: PASS —— init + create 的产物均通过自身门禁`，exit=0",
         "反向对照：临时关掉 reactor 的 facts restamp → `--only create` exit=1，输出 `create: 产物自身 check 失败 (exit=1)`；还原后复跑 exit=0",
-        "`npm run check` exit=0；470 files / 955 tests 0 failed"
+        "`npm run check` exit=0；470 files / 955 tests 0 failed",
+        "运行时（裁剪后的产物，minimal profile）：`build` exit=0、`smoke:login` exit=0（起服务 + 登录 200）"
       ],
       "summary": "harness 已实现并证明**可失败**（不止可通过）"
     },

@@ -152,7 +152,7 @@ function handleList() {
     }
   }
   console.log("\n" + "=".repeat(78))
-  console.log(`运行 \x1b[32mnpm run workflow:dry-run -- --recipe <name> [args...]\x1b[0m 预览执行拓扑。`)
+  console.log(`运行 \x1b[32mpnpm run workflow:dry-run -- --recipe <name> [args...]\x1b[0m 预览执行拓扑。`)
 }
 
 // ----------------------------------------------------------------------------
@@ -255,7 +255,7 @@ function handleCheck(): boolean {
 function handleDryRun(flags: Record<string, string>, positional: string[]) {
   const recipeName = flags.recipe || positional[0]
   if (!recipeName) {
-    console.error("❌ 请提供配方名称: npm run workflow:dry-run -- --recipe <name>")
+    console.error("❌ 请提供配方名称: pnpm run workflow:dry-run -- --recipe <name>")
     process.exit(1)
   }
 
@@ -310,7 +310,7 @@ function handleDryRun(flags: Record<string, string>, positional: string[]) {
 function handleRun(flags: Record<string, string>, positional: string[]) {
   const recipeName = flags.recipe || positional[0]
   if (!recipeName) {
-    console.error("❌ 请提供配方名称: npm run workflow:run -- --recipe <name> --name <spec> --domain <domain> --title <title>")
+    console.error("❌ 请提供配方名称: pnpm run workflow:run -- --recipe <name> --name <spec> --domain <domain> --title <title>")
     process.exit(1)
   }
 
@@ -384,7 +384,7 @@ function handleRun(flags: Record<string, string>, positional: string[]) {
     const s = recipe.steps[i]
     console.log(`   - 步骤 ${i + 1} [${s.id}]: 由 \x1b[33m@${s.agent}\x1b[0m 驱动`)
   }
-  console.log(`\n可运行 \x1b[32mnpm run spec:check -- --spec ${vars.name}\x1b[0m 实时监控规格完成度。\n`)
+  console.log(`\n可运行 \x1b[32mpnpm run spec:check -- --spec ${vars.name}\x1b[0m 实时监控规格完成度。\n`)
 }
 
 // ----------------------------------------------------------------------------
@@ -393,7 +393,7 @@ function handleRun(flags: Record<string, string>, positional: string[]) {
 function handleNew(flags: Record<string, string>, positional: string[]) {
   const name = flags.name || positional[0]
   if (!name) {
-    console.error("❌ 请指定新工作流名称: npm run workflow:new -- --name <name> --description <desc>")
+    console.error("❌ 请指定新工作流名称: pnpm run workflow:new -- --name <name> --description <desc>")
     process.exit(1)
   }
 
@@ -448,14 +448,14 @@ function handleNew(flags: Record<string, string>, positional: string[]) {
         id: "verify",
         agent: "@wf-tester",
         dependsOn: ["implement"],
-        prompt: "Verify implementation against quality gates: `npm run check`."
+        prompt: "Verify implementation against quality gates: `pnpm run check`."
       }
     ]
   }
 
   fs.writeFileSync(targetFile, JSON.stringify(template, null, 2) + "\n", "utf8")
   console.log(`✅ 成功生成工作流配方: \x1b[32m${path.relative(ROOT, targetFile)}\x1b[0m`)
-  console.log(`运行 \x1b[36mnpm run workflow:check\x1b[0m 校验语法。`)
+  console.log(`运行 \x1b[36mpnpm run workflow:check\x1b[0m 校验语法。`)
 }
 
 // ----------------------------------------------------------------------------
@@ -473,11 +473,11 @@ function handleHelp() {
   new        创建新的工作流配方模板 (.agents/workflows/)
 
 示例用法:
-  npm run workflow:list
-  npm run workflow:check
-  npm run workflow:dry-run -- --recipe feature-delivery --name mall-coupon --domain mall --title "优惠券模块"
-  npm run workflow:run -- --recipe bugfix --name fix-pay-lock --domain pay --title "修复支付回调死锁"
-  npm run workflow:new -- --name db-migration --description "数据库平滑迁移编排"
+  pnpm run workflow:list
+  pnpm run workflow:check
+  pnpm run workflow:dry-run -- --recipe feature-delivery --name mall-coupon --domain mall --title "优惠券模块"
+  pnpm run workflow:run -- --recipe bugfix --name fix-pay-lock --domain pay --title "修复支付回调死锁"
+  pnpm run workflow:new -- --name db-migration --description "数据库平滑迁移编排"
 `)
 }
 

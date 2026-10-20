@@ -135,7 +135,7 @@ if (asJson) {
   console.error(
     `\n[gen-paths] FAIL: ${problems.length} 处生成物引用了不存在的路径`
     + "\n  生成物只应引用真实存在的东西 —— 请修**生成器**（scripts/sync-openwiki.cjs），而不是改生成物"
-    + "（生成物会在下次 npm run openwiki:sync 时被覆盖）。",
+    + "（生成物会在下次 pnpm run openwiki:sync 时被覆盖）。",
   )
 }
 

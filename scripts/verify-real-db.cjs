@@ -10,9 +10,9 @@
  * 内存模式跑得快、用来做日常回归；**改过仓储/迁移/多租户逻辑后必须再跑一次本入口**。
  *
  * 用法:
- *   npm run verify:real-db            # 全新验证库 + 迁移 + 全量测试，跑完停库
- *   npm run verify:real-db -- --keep  # 跑完保留数据库与容器（调试用）
- *   npm run verify:real-db -- --reuse # 复用已有验证库（不重建，更快但可能有残留数据）
+ *   pnpm run verify:real-db            # 全新验证库 + 迁移 + 全量测试，跑完停库
+ *   pnpm run verify:real-db -- --keep  # 跑完保留数据库与容器（调试用）
+ *   pnpm run verify:real-db -- --reuse # 复用已有验证库（不重建，更快但可能有残留数据）
  *
  * 注意: 验证库默认是独立的 `cooliebase_verify`，**不碰**开发库。
  *
@@ -20,7 +20,7 @@
  * `packages` 下各域的 `__tests__`（域级 Service/Repository 测试）**不在默认范围**，但它们恰恰最依赖仓储。
  * 实测（2026-10-19，`plugin-mall`）：域级测试在真实库下暴露过 1 处内存模式永远看不到的缺陷
  * （text 列返回字符串 vs 内存回显 number）。要覆盖域级测试请显式传路径：
- *   `npm run verify:real-db -- packages/plugins/plugin-mall`
+ *   `pnpm run verify:real-db -- packages/plugins/plugin-mall`
  * 全量跑会显著变慢，且可能一次暴露多处既有分歧 —— 建议按域逐步推进，而不是默认全开。
  */
 const { spawnSync } = require("node:child_process")
@@ -134,7 +134,7 @@ async function main() {
 [verify:real-db] 完成，测试退出码 ${status}
 
 判读提示（本仓已知的分类，不必从头查）:
-  - relation "..." does not exist  -> 表定义缺口，看 npm run tables:inventory
+  - relation "..." does not exist  -> 表定义缺口，看 pnpm run tables:inventory
   - null value in column "..."     -> 两条路径语义分叉（内存有生成/DB 没有），或生成器模板漏填必填列
   - 计数/长度断言不合预期          -> 测试假设了空库或"世界里只有我造的记录"，属测试隔离问题
   - 内存模式（不设 DATABASE_URL）通常全绿 —— 全绿不代表真实库正确

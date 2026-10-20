@@ -16,7 +16,7 @@
  * 分层只用于**展示影响半径**，不作为第二套判据。
  *
  * Usage:
- *   node scripts/check-deps-audit.cjs                 # 门禁（供 npm run check 调用）
+ *   node scripts/check-deps-audit.cjs                 # 门禁（供 pnpm run check 调用）
  *   node scripts/check-deps-audit.cjs --json          # 机器可读
  *   node scripts/check-deps-audit.cjs --audit         # 打印全部，永不失败
  *   node scripts/check-deps-audit.cjs --write-baseline
@@ -125,7 +125,7 @@ if (writeBaseline) {
     kind: "deps-audit-baseline",
     note:
       "冻结的依赖漏洞欠债（ratchet）。门禁只拦**新增**；基线内的既有项如实展示、不阻断。"
-      + "用 `npm run deps:audit:baseline` 刷新，并逐条复核增量后再提交 —— 刷新基线等于接受这些洞。",
+      + "用 `pnpm run deps:audit:baseline` 刷新，并逐条复核增量后再提交 —— 刷新基线等于接受这些洞。",
     counts: { total: entries.length, runtime: runtimeEntries.length, bySeverity: countBySeverity(entries) },
     entries: entries.map(({ key, package: pkg, severity, ghsa, tier, patchedVersions }) => ({
       key,
@@ -210,5 +210,5 @@ for (const entry of newEntries) {
   if (entry.patchedVersions) console.error(`      patched: ${entry.patchedVersions}`)
 }
 console.error("")
-console.error("  修掉它们，或（确认可接受后）用 `npm run deps:audit:baseline` 刷新基线并复核增量。")
+console.error("  修掉它们，或（确认可接受后）用 `pnpm run deps:audit:baseline` 刷新基线并复核增量。")
 process.exit(1)

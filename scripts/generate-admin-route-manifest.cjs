@@ -58,10 +58,10 @@ const baseline = {
   routes,
 }
 if (process.argv.includes("--check")) {
-  if (!fs.existsSync(outputPath)) throw new Error("admin route baseline is missing; run npm run admin:routes:manifest")
+  if (!fs.existsSync(outputPath)) throw new Error("admin route baseline is missing; run pnpm run admin:routes:manifest")
   const existing = JSON.parse(fs.readFileSync(outputPath, "utf8"))
   const comparable = (value) => JSON.stringify({ routeCount: value.routeCount, operationCount: value.operationCount, routes: value.routes })
-  if (comparable(existing) !== comparable(baseline)) throw new Error("admin route baseline is stale; run npm run admin:routes:manifest and review the policy delta")
+  if (comparable(existing) !== comparable(baseline)) throw new Error("admin route baseline is stale; run pnpm run admin:routes:manifest and review the policy delta")
   const legacyDirectGuardRoutes = routes.flatMap((route) => route.operations.filter((operation) => operation.protection === "legacy-direct-guard").map((operation) => `${operation.method} ${route.path}`))
   if (legacyDirectGuardRoutes.length > 0) throw new Error(`legacy direct guards are forbidden; migrate these operations to withAdminRoute: ${legacyDirectGuardRoutes.join(", ")}`)
   console.log(`[admin-route-manifest] PASS: ${baseline.routeCount} routes / ${baseline.operationCount} operations match the reviewed baseline; ${summarize(routes).wrapper ?? 0} use withAdminRoute`)

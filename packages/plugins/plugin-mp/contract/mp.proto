@@ -5,7 +5,7 @@ package cooliebase.mp.v1;
 option go_package = "cooliebase/all-base/gen/mp/v1;mpv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.mp.v1.MpService/<Method>
 
 message JsonReply {

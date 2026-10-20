@@ -16,7 +16,7 @@
  *    这种"收下了但写不进去"比直接报错更难查，故单列一条断言。
  *
  * 与 `scripts/report-type-drift.ts` 的分工：那个连真实库比**列类型**（需 DB、只报告）；
- * 本脚本纯离线比**列集合**（进 `npm run check`，缺列即失败）。
+ * 本脚本纯离线比**列集合**（进 `pnpm run check`，缺列即失败）。
  *
  * 用法: pnpm exec tsx scripts/check-repository-column-coverage.ts [--audit]
  */

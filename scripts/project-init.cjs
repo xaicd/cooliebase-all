@@ -11,7 +11,7 @@
  *   node scripts/project-init.cjs --in-place --name my-mall --title "九夏智居数字化商城" --git git@github.com:org/my-mall.git
  *
  *   # 交互式引导重构 (如果未传参数)
- *   npm run project:init
+ *   pnpm run project:init
  *
  *   # 克隆派生到新目录 (Clone & Hatch)
  *   node scripts/project-init.cjs --target ../my-mall --name my-mall --title "九夏智居数字化商城"
@@ -240,7 +240,7 @@ function updateGitRemote(targetDir, gitUrl) {
  * 确保派生工程有 git 仓库。
  *
  * 为什么必须在这里补：`degit` 下载的骨架**没有 `.git`**，而 `project:init` 是这条路径的最后一步。
- * 不补的话，后续 `npm run check` 里依赖 git 的门禁会直接红 —— 实测
+ * 不补的话，后续 `pnpm run check` 里依赖 git 的门禁会直接红 —— 实测
  * `docs:commands:check`：「无法列出 git 跟踪文件（拒绝在未知文件集上判定）」，
  * 而 README 声称这条 degit 流程「已实测验证」。**承诺与实际不符，必须在代码里补上。**
  *

@@ -137,7 +137,7 @@ function planEnvelope(tool, mode, payload) {
     mode,
     writes: false,
     plannedWrites: payload.plannedWrites || [],
-    followUpGates: payload.followUpGates || ["npm run check"],
+    followUpGates: payload.followUpGates || ["pnpm run check"],
     manualSteps: payload.manualSteps || [],
     details: payload.details || {},
   }
@@ -660,12 +660,12 @@ const TOOLS = [
       return planEnvelope("cooliebase_scaffold_plan", "plan", {
         // dry-run 只校验元数据，拿不到完整文件清单 —— 诚实置空而不猜路径。
         plannedWrites: [],
-        followUpGates: ["npm run check", "npm run domain:check"],
+        followUpGates: ["pnpm run check", "pnpm run domain:check"],
         manualSteps: [
           `写表元数据（属产品决策，工具不代写）：${tablesRel} 需导出 \`${exportName}: CodegenConfig[]\``,
-          `真正落盘（本工具不执行）：npm run domain:new ${domain}`,
+          `真正落盘（本工具不执行）：pnpm run domain:new ${domain}`,
           "部署到目标库：pnpm exec prisma migrate deploy",
-          "提交前跑：npm run check",
+          "提交前跑：pnpm run check",
         ],
         details: {
           domain,
@@ -730,11 +730,11 @@ const TOOLS = [
 
       return planEnvelope("cooliebase_codegen_preview", "preview", {
         plannedWrites: wouldCopy,
-        followUpGates: ["npm run check"],
+        followUpGates: ["pnpm run check"],
         manualSteps: [
           `确认清单无误后真正注入（本工具不执行）：node scripts/inject-codegen-output.cjs ${rel}`,
           "注入器遇到已存在文件会中止而不是覆盖 —— 冲突需人工决策后再处理",
-          "提交前跑：npm run check",
+          "提交前跑：pnpm run check",
         ],
         details: {
           extractedDir: rel,
@@ -800,7 +800,7 @@ const TOOLS = [
 
       return planEnvelope("cooliebase_table_migration_plan", "plan", {
         plannedWrites: existing ? [`prisma/migrations/${existing}/migration.sql`] : [],
-        followUpGates: ["npm run check", "npm run tables:inventory"],
+        followUpGates: ["pnpm run check", "pnpm run tables:inventory"],
         manualSteps: [
           `真正落盘：pnpm exec tsx scripts/generate-table-migration.ts --tables ${rel} --export ${exportName} --name ${name} --write`,
           existing

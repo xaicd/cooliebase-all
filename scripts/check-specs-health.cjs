@@ -73,7 +73,7 @@ function checkHealth() {
       // 这条从 warning 提到 error：它是流程能否自动触发的唯一开关。
       if (!content.includes("agent:route")) {
         errors.push(
-          `${ideFile} 未指明需求分诊入口（应在文件里出现 \`npm run agent:route\`）—— ` +
+          `${ideFile} 未指明需求分诊入口（应在文件里出现 \`pnpm run agent:route\`）—— ` +
             `否则 agent 不会先判定"要不要立规格"，流程又回到靠自觉`,
         )
       }

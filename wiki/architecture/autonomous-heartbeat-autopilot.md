@@ -11,7 +11,7 @@
 4. **全域 326 份 Agent 契约健康度打分**：实时聚合各域实体就绪度，输出 0~100 综合健康评分 (🟢 OPTIMAL / 🟡 ATTENTION / 🔴 DEGRADED)。
 
 ## 二、 核心命令与服务入口
-- 单次巡检与诊断：`npm run agent:autopilot`
-- 常驻后台守护进程：`npm run agent:autopilot:daemon`
-- 主动触发全栈自愈：`npm run agent:autopilot:heal`
+- 单次巡检与诊断：`pnpm run agent:autopilot`
+- 常驻后台守护进程：`pnpm run agent:autopilot:daemon`
+- 主动触发全栈自愈：`pnpm run agent:autopilot:heal`
 - 内部 RPC 遥测接口：`GET /api/internal/autopilot` 与 `POST /api/internal/autopilot`

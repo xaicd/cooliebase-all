@@ -95,12 +95,12 @@ if (hasDomain("pay")) {
 
   const protoPath = path.join(domainPathOf(ROOT, "pay"), "contract", "pay.proto")
   if (!fs.existsSync(protoPath) || !fs.readFileSync(protoPath, "utf8").includes("service PayService")) {
-    fail("pay.proto must declare PayService; run npm run domain:contracts")
+    fail("pay.proto must declare PayService; run pnpm run domain:contracts")
   }
 
   const goStubPath = path.join(ROOT, "gen", "go", "pay", "v1", "service.go")
   if (!fs.existsSync(goStubPath) || !fs.readFileSync(goStubPath, "utf8").includes("type PayService interface")) {
-    fail("gen/go/pay/v1/service.go must declare PayService; run npm run domain:contracts")
+    fail("gen/go/pay/v1/service.go must declare PayService; run pnpm run domain:contracts")
   }
 }
 

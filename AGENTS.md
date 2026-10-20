@@ -22,7 +22,7 @@
 > 10. **0-1 软件工程交付资产与 No Artifact, No Done 铁律 (Spec-First Artifacts, 详见 §24 & .agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md)**：严禁将上线运行期业务数据（订单数据、图纸、运营指标）当成交付资产；严禁口头声明完工；每个工单必须基于 8 要素 Brief 派发，且必须产出 7 类物理工程资产之一（SRS/RTM、OpenAPI 契约、0 报错源码、真实 DB 状态机单测报告、生产回滚 SOP、SRE 稳定性基线、持续运营对账单）！
 > 11. **单一真源与全生命周期过程资产防污染铁律 (Single Source of Truth & Anti-Pollution, 详见 §25 & docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)**：技能唯一真源为 `.agents/skills/<name>/SKILL.md`，严禁在 `docs/skills` 等建立任何重复副本；业务规格按域隔离于 `docs/specs/<domain>/<name>/`（支持 feature/bugfix/enhancement/refactor 四态）并支持自动归档；过程资产收敛于 `docs/01_management` ~ `09_operations`（含 08_sre 全栈保障与 09_operations 持续运营），执行三存三不存法则，杜绝 Git 仓库被二进制撑爆与认知污染！
 > 12. **OpenWiki (LLM-Wiki) 动态百科首屏导航 (OpenWiki First, 详见 wiki/index.md)**：任何外部 AI 助手进场时，优先阅读 `wiki/index.md` 与目标域百科 `wiki/domains/<domain>.md`，基于机器可读契约与架构词条开展工作，严禁全盘盲扫代码浪费 Token 与引起漂移！
-> 13. **全能力 AI Agent 驱动公理 (All Capabilities Must Be AI Agent Driven)**：系统内的一切能力（需求立项、代码实现、API 契约、页面交互、接口运营、自动化测试、容器发版、故障自愈）必须具备 **100% 机器可读与 AI Agent 闭环驱动能力**；严禁设计仅供人类手点、无法被 AI Agent 编排或无头探针访问的孤岛能力；前端必须挂载机器可读 Page Schema，后端必须挂载 342 份 Agent 契约并支持 `npm run agent:ops` 无头运营，测试必须支持 Strix 多智能体自主红队渗透演练！
+> 13. **全能力 AI Agent 驱动公理 (All Capabilities Must Be AI Agent Driven)**：系统内的一切能力（需求立项、代码实现、API 契约、页面交互、接口运营、自动化测试、容器发版、故障自愈）必须具备 **100% 机器可读与 AI Agent 闭环驱动能力**；严禁设计仅供人类手点、无法被 AI Agent 编排或无头探针访问的孤岛能力；前端必须挂载机器可读 Page Schema，后端必须挂载 342 份 Agent 契约并支持 `pnpm run agent:ops` 无头运营，测试必须支持 Strix 多智能体自主红队渗透演练！
 
 ---
 
@@ -70,8 +70,13 @@
    pnpm 12 已用 `allowBuilds`（pkg→true 映射）取代 `onlyBuiltDependencies`；漏登记会让
    better-sqlite3 没有二进制、prisma 没有引擎、esbuild 没有可执行文件，构建与测试随之失败。
 5. CI/镜像构建一律用 `pnpm install --frozen-lockfile`（Dockerfile 已切）。
-6. 脚本仍可用 `pnpm run <script>` 或 `npm run <script>`（后者在 pnpm 布局下同样可用），
-   但**安装与锁文件操作只允许用 pnpm**。
+6. **脚本调用统一写 `pnpm run <script>`**。`npm run <script>` 在 pnpm 布局下虽能跑通，
+   但它是**历史遗留写法**，不再作为规范形态：
+   · 本仓的命令真实性检查器 `check-docs-commands.cjs:93` 用 `(?<![pP])npm run` 匹配，
+     **显式把 `pnpm run` 排除在外** —— 即规范形态就是 pnpm；
+   · 混用会让「文档里写的」与「实际该敲的」长期分叉（实测存量：AGENTS.md 104 处 / 全仓 2841 处）；
+   · 新增或修改的**文档、脚本、提示文案**一律写 `pnpm run`，**安装与锁文件操作只允许 pnpm**；
+   · 存量由 `standards:check` 的 **`no-new-npm-run` 棘轮**冻结，**只拦新增**。
 7. **`npx` 同理**：`npx <pkg>` 在包缺失时会**隐式安装**，等于绕过 `pnpm-lock.yaml`。
    本仓统一用 **`pnpm exec <tool>`**（已安装的执行器）或 **`pnpm dlx <pkg>`**（一次性下载执行）。
    存量 `npx` 由 `standards:check` 的 `no-new-npx` 棘轮冻结，**只拦新增**。
@@ -132,7 +137,7 @@
 8. **删 Next 转发文件**必须用**固定路径段**（`src/app/api/v1/<surface>/<domain>/`），
    禁止用"路径里含域名"的子串模式 —— `admin/mes/work-orders/report` 这种会被误删。
 9. **拆分部署不受影响**：proxy 的 `matchRemoteDomainUpstream` 位于鉴权与路由**之前**，
-   按 `publicPrefixes` 转发；因此删掉 Next 转发文件后，`npm run domain:up -- <domain>`
+   按 `publicPrefixes` 转发；因此删掉 Next 转发文件后，`pnpm run domain:up -- <domain>`
    的独立部署照样工作（已实测）。
 
 3. `src/` 下只允许 `app/`（Next.js 路由 = BFF 层）与 `proxy.ts`。
@@ -168,35 +173,35 @@
 
 | 步骤 | 命令 | 产物 / 证据 |
 |---|---|---|
-| **0. 需求分诊（强制第一步）** | `npm run agent:route -- "<用户原始需求>"` | **三值确定性**判定（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`——后者指确认、授权、上下文陈述、调研提问、续作指令等**根本不是需求**的输入）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `docs/architecture/artifacts/agent-route-last.json`。 |
-| 1. 规格立项 | `npm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature\|bugfix\|enhancement\|refactor\|security]` | `brief.json` + `assets/` + `prototypes/`（**按域隔离于 docs/specs/<域>/<名>，由 Spec-Kit 原生引擎 scripts/speckit.ts 统一驱动**） |
+| **0. 需求分诊（强制第一步）** | `pnpm run agent:route -- "<用户原始需求>"` | **三值确定性**判定（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`——后者指确认、授权、上下文陈述、调研提问、续作指令等**根本不是需求**的输入）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `docs/architecture/artifacts/agent-route-last.json`。 |
+| 1. 规格立项 | `pnpm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature\|bugfix\|enhancement\|refactor\|security]` | `brief.json` + `assets/` + `prototypes/`（**按域隔离于 docs/specs/<域>/<名>，由 Spec-Kit 原生引擎 scripts/speckit.ts 统一驱动**） |
 | 2. 填 brief | 编辑 `docs/specs/<域>/<名>/brief.json` | 目标/角色/故事/约束/验收/不变量/表/任务（bugfix 特化 symptom/rootCause/RedTest） |
-| 3. 展开 | `npm run speckit:build -- --name <名>` | 10~15 份标准资产 + `evidence.json` + `runbook.json`（**由 Spec-Kit 引擎 scripts/speckit.ts 展开，结构不可能缺**） |
-| 4. 看进度 | `npm run speckit:check -- --spec <名>` | 11 阶段 / 6 gate / 任务树 / 缺陷，逐条「还缺什么」 |
-| 5. 建域 | `npm run domain:new <域>` | 建表迁移 + codegen + 注册插件（**按域，不按特性**） |
-| 6. 门禁 | `npm run check` / `build` / `domain:pack <域>` | **退出码** |
-| 7. 建库 | `pnpm exec prisma migrate deploy` + 种子 + `npm run plugins:register` | 表 / 菜单 / 授权 / **插件登记**（不登记则插件接口全 404） |
+| 3. 展开 | `pnpm run speckit:build -- --name <名>` | 10~15 份标准资产 + `evidence.json` + `runbook.json`（**由 Spec-Kit 引擎 scripts/speckit.ts 展开，结构不可能缺**） |
+| 4. 看进度 | `pnpm run speckit:check -- --spec <名>` | 11 阶段 / 6 gate / 任务树 / 缺陷，逐条「还缺什么」 |
+| 5. 建域 | `pnpm run domain:new <域>` | 建表迁移 + codegen + 注册插件（**按域，不按特性**） |
+| 6. 门禁 | `pnpm run check` / `build` / `domain:pack <域>` | **退出码** |
+| 7. 建库 | `pnpm exec prisma migrate deploy` + 种子 + `pnpm run plugins:register` | 表 / 菜单 / 授权 / **插件登记**（不登记则插件接口全 404） |
 | 8. 业务逻辑 | 写成 Service + 测试 | 复用既有原语（条件更新、状态机、幂等、Red Test） |
-| 9. 任务追溯 | `npm run speckit:tasks -- --spec <名> [--summary\|--task T1]` | **从 git 历史推导**真实完成度；核验原子提交 `[T<ID>]` 与文件白名单（1 Task = 1 Commit） |
-| 10. 上线 | `npm run fingerprint` → `fingerprint:verify` | 确认上线的就是测试过的那份 |
-| 11. 实施 | `npm run runbook -- --feature <名> --check/--dry-run/--run` | 割接 + **失败自动回滚** + **实测**耗时 |
-| 12. 归档防污染 | `npm run speckit:archive -- --name <名>` | 移动至 `docs/specs/archive/<YYYY-Qx>/<域>/<名>/`，保持活跃区清爽 |
-| 13. 运营 | `npm run agent:ops -- <域>.<实体> health/seed-sample/purge-sample` | 接口体检 + 造数/清数 |
-| 14. 冒烟（**平台可用性**） | `npm run smoke:login` | 建库→迁移→种子→登记插件→起服务→**登录 200**→受保护接口 200。自管理环境，跑完清场。**本机零容器可跑**（嵌入式 Postgres；外部 `DATABASE_URL` 优先） |
-| 15. **渗透** | `npm run security:scan` | 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5；**本机零容器可跑** |
-| 16. **压测**（容量护栏） | `npm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5；**本机零容器可跑**，但 rps **不代表容量**（受机器负载影响，实测 1.8k–2.8k vs 基线 26.9k） |
-| 17. **孵化端到端**（产物可用性） | `npm run hatch:e2e` | **产物自身能不能跑通它自己的门禁**（G2 的判据）。两条入口都跑：`project:init --target`（SQLite）与 `project:create`（reactor 裁剪 + **嵌入式** Postgres，零 Docker）；各自 `install` → **产物的 `check`**。任一非 0 即非 0，**不降级**。为什么必须单列：基座自己的 `check` **看不到**只在新工程里暴露的残留 —— 实测 `project:create` 的产物曾 `check` exit=1（374 处悬空引用：被裁域的 wiki 词条 + llms/README 的规模声明），而基座 17 域全在、全绿。独立 CI job（非 PR） |
-| 17. **变异测试**（断言杀伤力） | `npm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
-| 18. **文档命令真实性** | `npm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
-| 19. **生成物路径真实性** | `npm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
-| 20. **契约选择器一致性** | `npm run agent:selectors:check` | 每份 `*.agent.json` 声明的 `page.route` 与 `page.titleSelector`，在真实页面里必须成立（无头探针靠它定位）。路由经**页面注册表**解析，不做文件名猜测 |
-| 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
-| 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
-| 23. **生成物列覆盖** | `npm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
-| 24. **路由校验覆盖** | `npm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `npm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
+| 9. 任务追溯 | `pnpm run speckit:tasks -- --spec <名> [--summary\|--task T1]` | **从 git 历史推导**真实完成度；核验原子提交 `[T<ID>]` 与文件白名单（1 Task = 1 Commit） |
+| 10. 上线 | `pnpm run fingerprint` → `fingerprint:verify` | 确认上线的就是测试过的那份 |
+| 11. 实施 | `pnpm run runbook -- --feature <名> --check/--dry-run/--run` | 割接 + **失败自动回滚** + **实测**耗时 |
+| 12. 归档防污染 | `pnpm run speckit:archive -- --name <名>` | 移动至 `docs/specs/archive/<YYYY-Qx>/<域>/<名>/`，保持活跃区清爽 |
+| 13. 运营 | `pnpm run agent:ops -- <域>.<实体> health/seed-sample/purge-sample` | 接口体检 + 造数/清数 |
+| 14. 冒烟（**平台可用性**） | `pnpm run smoke:login` | 建库→迁移→种子→登记插件→起服务→**登录 200**→受保护接口 200。自管理环境，跑完清场。**本机零容器可跑**（嵌入式 Postgres；外部 `DATABASE_URL` 优先） |
+| 15. **渗透** | `pnpm run security:scan` | 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5；**本机零容器可跑** |
+| 16. **压测**（容量护栏） | `pnpm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5；**本机零容器可跑**，但 rps **不代表容量**（受机器负载影响，实测 1.8k–2.8k vs 基线 26.9k） |
+| 17. **孵化端到端**（产物可用性） | `pnpm run hatch:e2e` | **产物自身能不能跑通它自己的门禁**（G2 的判据）。两条入口都跑：`project:init --target`（SQLite）与 `project:create`（reactor 裁剪 + **嵌入式** Postgres，零 Docker）；各自 `install` → **产物的 `check`** → **产物的 `build`** → **产物的 `smoke:login`**（起服务 + 登录 200）。任一非 0 即非 0，**不降级**；`--fast` 只跑到 `check`。为什么必须单列：基座自己的 `check` **看不到**只在新工程里暴露的残留 —— 实测 `project:create` 的产物曾 `check` exit=1（374 处悬空引用：被裁域的 wiki 词条 + llms/README 的规模声明），而基座 17 域全在、全绿。独立 CI job（非 PR） |
+| 18. **变异测试**（断言杀伤力） | `pnpm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
+| 19. **文档命令真实性** | `pnpm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
+| 20. **生成物路径真实性** | `pnpm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
+| 21. **契约选择器一致性** | `pnpm run agent:selectors:check` | 每份 `*.agent.json` 声明的 `page.route` 与 `page.titleSelector`，在真实页面里必须成立（无头探针靠它定位）。路由经**页面注册表**解析，不做文件名猜测 |
+| 22. **契约路由覆盖** | `pnpm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
+| 23. **契约域级覆盖** | `pnpm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
+| 24. **生成物列覆盖** | `pnpm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
+| 25. **路由校验覆盖** | `pnpm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `pnpm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
 
 
-> **本表列的是「人工决策点」，不是门禁清单。** `npm run check` 当前包含 34 个 npm 步骤，
+> **本表列的是「人工决策点」，不是门禁清单。** `pnpm run check` 当前包含 34 个 npm 步骤，
 > 完整清单以 `package.json` 的 `check` 脚本为**唯一真源** —— 在这里复制一份清单必然腐坏
 > （实测有 13 个组成门禁未在本表出现，它们都只是 `check` 的内部步骤，不需要单独决策）。
 > 判断标准：**「什么时候跑、跑完看什么、失败怎么办」三者之一需要人判断**的，才进本表。
@@ -210,7 +215,7 @@
 4. **加载 `embedded-postgres` 的脚本不能用 `process.exitCode` 表达失败**：
    该包导入时注册 `AsyncExitHook`，事件循环结束会把退出码**重置为 0**（实测：压测 0/3 通过却 exit 0）。
    失败必须用显式 `process.exit(code)`。见 `scripts/lib/ephemeral-pg.cjs` 顶部说明。
-5. **测试空转度只审计、不拦截**：`npm run vacuity:audit`（report-only，退出码恒 0）。
+5. **测试空转度只审计、不拦截**：`pnpm run vacuity:audit`（report-only，退出码恒 0）。
    实测三个启发式（`toBeDefined()` 计数 / 全弱断言块 / 条件内断言）在本仓**全部 100% 误报** ——
    弱断言单独出现通常是**正确**的（`expect(id).toBeDefined()` 确实在断言『不是 undefined』）。
    设为门禁只会逼出无意义豁免，故只报告。真实基线：850 个测试块中字面量断言 0 处、全弱断言 2 处（人工判读均合法）。
@@ -220,7 +225,7 @@
    裸 `T1` 会误匹配到「顺口提到」的提交。
 7. **G5 说 passed ⇒ 三样齐全**: 全过的 `runbook-result.json` + 全过的 `security-scan-result.json`
    + 达阈值的 `load-test-result.json`，且**都不超过 7 天**（`not_applicable` 必须给理由）。
-   **这条已机检**（`npm run delivery:check --strict`，在 `check` 链内）：扫**全部规格**的
+   **这条已机检**（`pnpm run delivery:check --strict`，在 `check` 链内）：扫**全部规格**的
    `evidence.json`，自报 `passed` 而证据不支持即失败。此前它只在给了 `--feature` 时才判，
    而默认路径恒为 null —— 代价是实测两个规格自报 `G5_PRE passed` 而引用的压测产物已是
    `failed=3/3`，无任何门禁发现。**别把它改回纯报告**：脚本另有 `delivery:status` 专供查询。
@@ -228,7 +233,7 @@
    目的是拦"吞吐被打成十分之一"。真实容量必须在生产用真实流量压，**本地压不出来也不该假装压出来**。
 9. **压测前必须清端口**: 否则会打到残留的 dev 进程，拿到低一个数量级的数字
    （实测: 报 588 rps，实际 26,877 —— **不是产品慢，是打错了进程**）。
-10. **平台级冒烟必须进 CI**（`npm run smoke:login`）。教训: 门禁（check/build/fingerprint/
+10. **平台级冒烟必须进 CI**（`pnpm run smoke:login`）。教训: 门禁（check/build/fingerprint/
    task:verify）**全绿而登录链是断的** —— 因为门禁测的是**机制**，不是**产品能不能用**。
 11. **`TENANT_PLATFORM_USERNAMES` 必须包含引导管理员**。基座的 `.env` 里曾是一台机器的残留
    （`vps_adm`），`admin` 不被认作平台用户 → 登录按租户找用户 → 找不到 → **401**。
@@ -341,8 +346,8 @@
 3. 多层弹窗打开时，**底层容器必须打 `inert`** 实现节点剪枝隔离。
 4. 移动端（clients/expo）testID 统一 `[Screen]__[Component]__[Action]` 命名空间。
 5. **严禁**让 agent 依赖无文本 CSS 或坐标定位。
-6. 每张表随代码产出 Agent 操作契约 `<插件根>/agent/<kebab>.agent.json`；汇总 `npm run agent:contracts`。
-7. 机检: `npm run agent:native:check` + `npm run agent:contracts:check`（ratchet，只拦新增）。
+6. 每张表随代码产出 Agent 操作契约 `<插件根>/agent/<kebab>.agent.json`；汇总 `pnpm run agent:contracts`。
+7. 机检: `pnpm run agent:native:check` + `pnpm run agent:contracts:check`（ratchet，只拦新增）。
 
 ### 5.2 前端 UI Design System 与低代码 Codegen 模板对齐规范（强制）
 
@@ -372,19 +377,19 @@
 
 CI 前置检查：
 
-1. npm run domain:check
-2. npm run microservice:check
-3. npm run harness:check
-4. npm run admin:routes:check
-5. npm run foundation:ontology:check
-6. npm run skills:check
-7. npm run compat:check
-8. npm run standards:check
-9. npm run deps:audit（依赖 CVE 棘轮：与基线比对**只拦新增**。注意"冻结"≠"无漏洞"；已接受风险台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）
-10. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
+1. pnpm run domain:check
+2. pnpm run microservice:check
+3. pnpm run harness:check
+4. pnpm run admin:routes:check
+5. pnpm run foundation:ontology:check
+6. pnpm run skills:check
+7. pnpm run compat:check
+8. pnpm run standards:check
+9. pnpm run deps:audit（依赖 CVE 棘轮：与基线比对**只拦新增**。注意"冻结"≠"无漏洞"；已接受风险台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）
+10. pnpm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 
-一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
-**门禁数量不写死**：真源是 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates`（`npm run compat:check` 会打印当前条数），`check` 链的步骤数以 `package.json` 的 `check` 脚本为准。
+一键门禁：`pnpm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+**门禁数量不写死**：真源是 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates`（`pnpm run compat:check` 会打印当前条数），`check` 链的步骤数以 `package.json` 的 `check` 脚本为准。
 
 注意：`gen/**` 被 `.gitignore` 排除，干净检出上 `domain:check` / `microservice:check` 依赖的 Go 桩须由 `contracts:sync` 先生成，故这两道门禁不可单独在干净检出上直接执行。
 
@@ -395,10 +400,10 @@ CI 前置检查：
 | 模式 | 语义 |
 |---|---|
 | `enforce` | 有违规即失败 |
-| `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `npm run standards:baseline` 并复核增量 |
+| `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `pnpm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
-当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `npm run standards:check --audit` 列出；下面这份是 2026-10-19 的**快照**（共 13 条）：
+当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-20 的**快照**（共 14 条）：
 
 | 规则 | 模式 | 约束 |
 |---|---|---|
@@ -413,6 +418,7 @@ CI 前置检查：
 | `no-vacuous-test-assertions` | enforce | 禁止字面恒真断言（如 `expect(true).toBe(true)`） |
 | `route-service-update-arity` | enforce | route 层 `Service.update` 的参数形态须与服务**真实签名**一致（先解析签名再判定，故不误报定制服务） |
 | `frontend-api-url-shape` | enforce | 生成的 api 客户端更新/删除须走 item 路径（`/base/:id`）；PUT 打集合、DELETE 用 `?id=` 路由无实现 |
+| `no-new-npm-run` | ratchet | §2.1 脚本调用统一 `pnpm run`（存量 218 文件冻结，**只拦新增**） |
 | `facade-method-dispatch-mapped` | ratchet | Facade 方法派发映射 |
 | `init-sql-seed-columns` | ratchet | 初始化 SQL 种子列 |
 
@@ -425,14 +431,14 @@ CI 前置检查：
 本仓库**不托管 Agent Loop**（§18）。闭环由「门禁产出证据 → 聚合为待办 → 外部 Agent 消费并修复 → 重跑门禁」构成，模型始终在仓外：
 
 ```
-npm run check                 # 门禁产出证据 + 轨迹
+pnpm run check                 # 门禁产出证据 + 轨迹
   ├─ docs/architecture/artifacts/harness-trace-latest.json
   └─ docs/architecture/artifacts/evolution-backlog.json
         ↑ scripts/build-evolution-backlog.cjs 聚合：
           门禁轨迹状态 / standards report 项与冻结欠债 /
           各域测试覆盖（§8）/ 超 200 行文件（§11 第 2 条）/ TODO 标记（§12）
         ↓ 外部 Agent 读取（MCP 工具 cooliebase_evolution_backlog）
-        修复 → 再跑 npm run check 验证
+        修复 → 再跑 pnpm run check 验证
 ```
 
 铁律：
@@ -448,10 +454,10 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 | 层 | 执行者 | 能否被模型绕过 |
 |---|---|---|
-| L0 `npm run agent:route -- "<需求>"` | 仓库脚本 | 可以（模型可选择不跑） |
+| L0 `pnpm run agent:route -- "<需求>"` | 仓库脚本 | 可以（模型可选择不跑） |
 | L1 各 CLI hooks（如 `.commandcode/settings.json`） | **CLI 引擎** | **不能** |
 | L2 `.githooks/pre-commit` | **git** | **不能**（唯一跨 CLI 的一层） |
-| L3 `npm run specs:health` 入口机检 | CI | 不能 |
+| L3 `pnpm run specs:health` 入口机检 | CI | 不能 |
 
 - **统一守卫脚本** `.agents/hooks/spec-gate.sh`：只用 `stdin JSON + exit 2 + stderr`，
   三家通用（exit 2 拦截是 cmd 与 Hermes 共同承认的协议）。它同时兼容
@@ -533,11 +539,11 @@ npm run check                 # 门禁产出证据 + 轨迹
 
 | 层 | 入口 | 覆盖范围（目录锚定） |
 |---|---|---|
-| L1 单测 | `npm run test:unit` | `test/unit/` |
-| L2 集成 | `npm run test:integration` | `test/integration/` |
-| L3 契约 | `npm run test:contract` | `packages/shared/contract/__tests__/`（**契约产物**一致性） |
-| L4 E2E | `npm run test:e2e` / `test:agent` | `test/e2e/` / `test/agent/`（Playwright） |
-| 全量 | `npm run test` | 全部（含各域 `packages/**/__tests__/`） |
+| L1 单测 | `pnpm run test:unit` | `test/unit/` |
+| L2 集成 | `pnpm run test:integration` | `test/integration/` |
+| L3 契约 | `pnpm run test:contract` | `packages/shared/contract/__tests__/`（**契约产物**一致性） |
+| L4 E2E | `pnpm run test:e2e` / `test:agent` | `test/e2e/` / `test/agent/`（Playwright） |
+| 全量 | `pnpm run test` | 全部（含各域 `packages/**/__tests__/`） |
 
 **边界说明（避免误判覆盖范围）**：协议**实现**的测试（`rpc-protocol` / `messaging-protocol` /
 `grpc-fabric` / `rpc-actions` / `rpc-http` / `inventory-facade`）属 **L1/L2**，不是 L3 ——
@@ -557,36 +563,36 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 
 一键入口（推荐）：
 
-1. npm run quick-start
+1. pnpm run quick-start
 
 该入口会自动执行基础设施启动、数据库初始化、治理检查与开发服务器启动。
 
 ### 9.1 首次启动
 
-1. 首次初始化：npm run init
-2. 门禁检查：npm run check
-3. 启动应用：npm run dev
+1. 首次初始化：pnpm run init
+2. 门禁检查：pnpm run check
+3. 启动应用：pnpm run dev
 
 ### 9.2 all-next 研发常用命令
 
-1. 治理检查：npm run check
-2. 域独立打包：npm run domain:list && npm run domain:pack -- pay
-3. 一体运行：npm run dev（或 npm run runtime:all）
-4. 域独立运行：npm run domain:dev -- pay
-5. 拆分部署（BFF + pay，Facade RPC）：npm run runtime:split 或 npm run domain:up -- pay
-6. 域 RPC 契约：npm run domain:contracts（生成 TS Facade / proto / gen/go 桩）
-7. 微服务治理门禁：npm run microservice:check
-8. 全域初始化与最新 SQL 编译（唯一官方标准入口）：`npm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`，严禁编写临时 scratch 导出脚本！）
+1. 治理检查：pnpm run check
+2. 域独立打包：pnpm run domain:list && pnpm run domain:pack -- pay
+3. 一体运行：pnpm run dev（或 pnpm run runtime:all）
+4. 域独立运行：pnpm run domain:dev -- pay
+5. 拆分部署（BFF + pay，Facade RPC）：pnpm run runtime:split 或 pnpm run domain:up -- pay
+6. 域 RPC 契约：pnpm run domain:contracts（生成 TS Facade / proto / gen/go 桩）
+7. 微服务治理门禁：pnpm run microservice:check
+8. 全域初始化与最新 SQL 编译（唯一官方标准入口）：`pnpm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`，严禁编写临时 scratch 导出脚本！）
 
 本地命令面（package.json）：
 
-1. npm run quick-start
-2. npm run check
-3. npm run build:init-sql  (编译最新官方全量 PostgreSQL V1.0.0 初始化 SQL)
-4. npm run project:create -- <目标路径>  (一键孵化新工程与独立数据库)
-5. npm run scaffold
-5. npm run domain:list
-6. npm run domain:up -- pay
+1. pnpm run quick-start
+2. pnpm run check
+3. pnpm run build:init-sql  (编译最新官方全量 PostgreSQL V1.0.0 初始化 SQL)
+4. pnpm run project:create -- <目标路径>  (一键孵化新工程与独立数据库)
+5. pnpm run scaffold
+5. pnpm run domain:list
+6. pnpm run domain:up -- pay
 
 
 ### 9.3 本地验证最小闭环
@@ -604,11 +610,11 @@ pnpm run test:clean                                       # 全量绿（数量�
 # ↑ 等价于「剔除 DATABASE_URL / DB_DRIVER / **NODE_ENV** 后跑 vitest」。
 # **不要手写 `env -u …`**：漏掉 NODE_ENV 时，只要 shell 恰好是 NODE_ENV=production，
 # 业务代码走生产分支 → 实测 `generated-route-crud` 报「生产环境必须配置 DATABASE_URL」而红。
-npm run verify:real-db                             # 真实库验证（改过仓储/迁移/多租户后必跑）
+pnpm run verify:real-db                             # 真实库验证（改过仓储/迁移/多租户后必跑）
 ```
 
 **内存模式全绿 ≠ 真实库正确** —— 内存回退不校验任何数据库约束。改过仓储、迁移、
-多租户或 codegen 模板后，必须再跑 `npm run verify:real-db`
+多租户或 codegen 模板后，必须再跑 `pnpm run verify:real-db`
 （一键: **自起嵌入式 Postgres**（零容器）→ 重建独立验证库 `cooliebase_verify` → 迁移 →
 种子 → 全量测试 → 删库并关实例；`--keep` 保留现场、`--reuse` 复用库。
 若已存在真实库，设 `DATABASE_URL` 即可直接复用、不起嵌入式实例）。它会**显式设置 `DATABASE_URL`** ——
@@ -655,9 +661,9 @@ shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试�
 
 | 命令 | 用途 |
 |---|---|
-| `npm run tables:inventory` | 盘点四种来源 + "仓储在查但无处创建" |
-| `npm run tables:migration -- --tables … --export … --name … [--write]` | 元数据 → 建表迁移 |
-| `npm run tables:metadata-draft` | 为缺元数据的表导出**待评审草稿**（`docs/architecture/artifacts/table-metadata-draft.md`） |
+| `pnpm run tables:inventory` | 盘点四种来源 + "仓储在查但无处创建" |
+| `pnpm run tables:migration -- --tables … --export … --name … [--write]` | 元数据 → 建表迁移 |
+| `pnpm run tables:metadata-draft` | 为缺元数据的表导出**待评审草稿**（`docs/architecture/artifacts/table-metadata-draft.md`） |
 
 草稿工具的存在意义：给这 7 张表补元数据需要人判断 PG 类型（`number` 可能是 int 也可能是
 decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*Row` 接口推导列，
@@ -668,10 +674,10 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 ### 10.1 预发/生产构建
 
-1. npm run lint
+1. pnpm run lint
 2. npm test
-3. npm run build
-4. npm run start  # 运行 `.next-cooliebase/standalone/server.js`，验证生产构建
+3. pnpm run build
+4. pnpm run start  # 运行 `.next-cooliebase/standalone/server.js`，验证生产构建
 
 ### 10.2 Docker 部署
 
@@ -679,7 +685,7 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 2. 域镜像：docker build -f Dockerfile.domain -t cooliebase-all-domain .
 3. 生产编排：docker compose -f deploy/docker-compose.prod.yml up -d
 4. 开发编排：docker compose -f deploy/docker-compose.dev.yml up -d
-5. 拆分编排（BFF + 域）：npm run domain:up -- pay
+5. 拆分编排（BFF + 域）：pnpm run domain:up -- pay
 
 详见 deploy/README.md。
 
@@ -687,11 +693,11 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. 发布前必须通过 strict 治理检查。
 2. 发布前必须生成最新扫描证据与迁移作战板。
-3. 发布前必须同步文档索引：`npm run openwiki:sync && npm run surface:sync`，并跑 `npm run openwiki:check` / `npm run llms:check` 确认无漂移。
+3. 发布前必须同步文档索引：`pnpm run openwiki:sync && pnpm run surface:sync`，并跑 `pnpm run openwiki:check` / `pnpm run llms:check` 确认无漂移。
    （原文写的是 `docs:sync-context` —— **该脚本并不存在**，已由 `docs:commands:check` 拦出。）
-4. 发布前必须**重新生成测试总结报告**：`npm run test:summary`
+4. 发布前必须**重新生成测试总结报告**：`pnpm run test:summary`
    （`docs/05_verification/test-summary-report.md` 是**生成物**，禁止手写 —— 手写版曾比实测少报约 30 倍）。
-5. 发布前必须确认 `npm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
+5. 发布前必须确认 `pnpm run deps:audit` 通过，**且**复核基线相对上个发布版本**没有新增条目**
    —— 门禁只保证"不新增"，发布时还要确认既有的已接受风险没有扩大
    （台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）。
 
@@ -876,14 +882,14 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 #### 17.4 移植合规门禁三步法
 ```bash
 # 1. 部署增量迁移
-npm run db:migrate
+pnpm run db:migrate
 
 # 2. 重新生成 RPC 与路由 Manifest
-npm run domain:contracts
-npm run domain:manifests
+pnpm run domain:contracts
+pnpm run domain:manifests
 
 # 3. 执行全量合规与单元测试检查
-npm run check
+pnpm run check
 ```
 
 ## 18. Harness 进化规范（DeepSeek Harness 思想 × DigitalStaff NPC 模板）
@@ -893,7 +899,7 @@ npm run check
 1. **学思想，不搬框架**：吸收插件化域、Capability Seam、Profile/Bundle/Patch、Prompt 分段组装、可追溯轨迹。禁止引入 Cordis、禁止在 `src/` 实现 Agent Loop、禁止运行时自挂载插件。
 2. **机器可读入口**：`packages/shared/contract/agent-profile.json`。域名真源仍是 `domain-catalog.json`。
 3. **提示分段**：`.agents/context/ASSEMBLY.md`。禁止把本文件整篇灌进每一次模型请求。
-4. **NPC 孵化**：只允许 `npm run project:create -- <目标路径>`；身份只改 `project-profile.json` 与 `public/branding/`。
+4. **NPC 孵化**：只允许 `pnpm run project:create -- <目标路径>`；身份只改 `project-profile.json` 与 `public/branding/`。
 5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-harness-evolution.md`。
 6. **Agent 消费面（MCP）**：`scripts/mcp/cooliebase-mcp-server.cjs` 是本仓对外的机器可读工具面，声明登记在 `compat-manifest.json` 的 `consumptionSurface.mcp`（由 `compat:check` 与服务实际工具清单交叉校验，防第二真源）。
    **该面永不写盘**：工具只有两种形态——只读查询，或 plan/preview（返回"真跑会做什么"并把写盘留给显式命令）。plan/preview 工具不得暴露 write 类入参，也不得内部透传 `--write`；落盘命令只出现在返回的 `manualSteps` 里，由人执行。
@@ -1014,7 +1020,7 @@ npm run check
 2. **统一规格 (Spec) 与生命周期管理**：
    - 彻底摒弃以单纯 "Feature" 命名一切的局限思维，全面采用 **4 类规格演进类型**：`feature`（新特性）、`bugfix`（缺陷修复，必须携带 Symptom、Root Cause 与红灯复现用例 Red Test）、`enhancement`（增量增强）、`refactor`（架构重构）；
    - 施工区按域严格隔离于 `docs/specs/<domain>/<name>/`，原型资产按静态切图 `assets/` 与动态可点击 `prototypes/` 分离；
-   - 投产后通过 `npm run speckit:archive -- --name <name>` 统一沉淀归档至 `docs/specs/archive/<YYYY-Qx>/<domain>/<name>/`，保持施工区清爽。
+   - 投产后通过 `pnpm run speckit:archive -- --name <name>` 统一沉淀归档至 `docs/specs/archive/<YYYY-Qx>/<domain>/<name>/`，保持施工区清爽。
 3. **CMMI 01~09 过程资产全生命周期库与技能标准化作业 (SOP)**：
    - 全生命周期 9 大阶段均有确定性专属 Skill 驱动专业作业（`.agents/skills/cmmi-asset-authoring/SKILL.md`）：
      - `01_management`: `dar-decision-matrix`（立项、研发计划、风险台账、DAR 加权决策分析）
@@ -1026,7 +1032,7 @@ npm run check
      - `07_release`: `devops`（6 步零停机割接 SOP、秒级自动回滚 Runbook、版本发布说明）
      - `08_sre`: `sre-slo-manager`, `postmortem-analyzer`（SLO/SLI 矩阵、5-Whys 免责复盘、Strix 渗透演练）
      - `09_operations`: `financial-reconciliation-agent`（日常资金轧差平账、AI 数字员工台账、健康巡检）
-   - **CLI 标准作业**: 统一通过 `npm run cmmi:asset new -- --phase <01~09> --type <type>` 展开，`npm run cmmi:asset list` 盘点，`npm run cmmi:asset:check` 合规巡检；
+   - **CLI 标准作业**: 统一通过 `pnpm run cmmi:asset new -- --phase <01~09> --type <type>` 展开，`pnpm run cmmi:asset list` 盘点，`pnpm run cmmi:asset:check` 合规巡检；
    - **MCP 机器可读**: 提供 `cooliebase_cmmi_list` 工具，外部智能体（Claude Code/Cursor/DSH）可秒级查询 9 大阶段规范与资产状态；
    - **三存三不存与反造假**: 文本、Schema 契约与测试脚本入 Git；事故复盘、资金对账与渗透演练必须带 `--real` 真实凭证，未发生时保留 `.gitkeep` 严格留空，坚守零假 Demo 铁律！
 

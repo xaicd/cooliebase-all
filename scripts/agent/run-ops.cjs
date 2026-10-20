@@ -44,7 +44,7 @@ async function preflight() {
   } catch (error) {
     console.error(
       `[agent:ops] 连不上应用 ${baseUrl}\n` +
-        `  运营轨跑的是真实接口，需要应用在运行。先 \`npm run dev\`，或设置 COOLIEBASE_AGENT_BASE_URL。\n` +
+        `  运营轨跑的是真实接口，需要应用在运行。先 \`pnpm run dev\`，或设置 COOLIEBASE_AGENT_BASE_URL。\n` +
         `  原始错误: ${error instanceof Error ? error.message : String(error)}`,
     )
     process.exit(2)

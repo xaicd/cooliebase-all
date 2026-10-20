@@ -122,9 +122,9 @@
 
 ---
 
-## 5. 10 大 SpaceX 级质量门禁 (`npm run check`)
+## 5. 10 大 SpaceX 级质量门禁 (`pnpm run check`)
 
-每次代码交付前，必须保证 `npm run check` 退出码为 0：
+每次代码交付前，必须保证 `pnpm run check` 退出码为 0：
 1. **Engineering Standards Check**: 规范分层、禁止 `src/modules` 遗留目录、检查导出大小写别名（PascalCase + camelCase）。
 2. **Microservice Boundaries**: 拦截跨域直接 import，校验 Domain Facade 与 Broker Subject 契约。
 3. **Harness Invariants**: 检查 AI-Driven 流程完整性，确保任务白名单与提交痕迹对齐。
@@ -146,6 +146,6 @@ pnpm dlx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install
-npm run project:init -- --name "my-app" --title "我的新业务系统"
-npm run dev
+pnpm run project:init -- --name "my-app" --title "我的新业务系统"
+pnpm run dev
 ```

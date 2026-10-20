@@ -136,7 +136,7 @@ function buildSeamGraph({ root = ROOT, catalog, rpcActions } = {}) {
     generated: true,
     source: "packages/shared/backend/constants/domain-catalog.json",
     generatedBy: "scripts/lib/seam-graph.cjs",
-    note: "Do not hand-edit domain names. Run npm run domain:seams after catalog/contract changes.",
+    note: "Do not hand-edit domain names. Run pnpm run domain:seams after catalog/contract changes.",
     domains,
   }
 }
@@ -162,11 +162,11 @@ function assertSeamGraphMatches(options = {}) {
   const expected = renderSeamGraph(options)
   const target = seamGraphPath(root)
   if (!fs.existsSync(target)) {
-    throw new Error(`missing ${SEAM_GRAPH_REL}; run npm run domain:seams`)
+    throw new Error(`missing ${SEAM_GRAPH_REL}; run pnpm run domain:seams`)
   }
   const actual = fs.readFileSync(target, "utf8")
   if (actual !== expected) {
-    throw new Error(`seam-graph drift in ${SEAM_GRAPH_REL}; run npm run domain:seams`)
+    throw new Error(`seam-graph drift in ${SEAM_GRAPH_REL}; run pnpm run domain:seams`)
   }
   const graph = JSON.parse(actual)
   const catalogNames = (options.catalog || loadCatalog()).domains.map((item) => item.name)

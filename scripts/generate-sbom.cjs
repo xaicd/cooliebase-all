@@ -162,13 +162,13 @@ function renderMarkdown(report) {
 
   return `# 软件物料清单 (Software Bill of Materials - SBOM)
 
-- **生成方式**: \`npm run sbom:generate\`（**禁止手写**，本文件由脚本覆盖）
+- **生成方式**: \`pnpm run sbom:generate\`（**禁止手写**，本文件由脚本覆盖）
 - **锁文件真源**: \`${report.lockfile}\`
 - **模板版本**: ${report.templateVersion}
 - **包总数**: ${report.componentCount.total}（host ${report.componentCount.host} / client ${report.componentCount.client}）
 - **归属规范**: CMMI 04_implementation (TS / CM)
 
-> 机器可读版本：[\`sbom.json\`](./sbom.json)。漂移由 \`npm run sbom:check\` 判定。
+> 机器可读版本：[\`sbom.json\`](./sbom.json)。漂移由 \`pnpm run sbom:check\` 判定。
 
 ---
 
@@ -230,7 +230,7 @@ if (write) {
 // --check：只读锁文件，判定确定性部分是否漂移。
 const jsonFull = abs(JSON_REL)
 if (!fs.existsSync(jsonFull)) {
-  fail(`${JSON_REL} 不存在。请运行 \`npm run sbom:generate\``)
+  fail(`${JSON_REL} 不存在。请运行 \`pnpm run sbom:generate\``)
 }
 
 const committed = JSON.parse(fs.readFileSync(jsonFull, "utf8"))
@@ -258,7 +258,7 @@ if (problems.length > 0) {
     console.log(JSON.stringify({ ok: false, problems, added: added.slice(0, 50), removed: removed.slice(0, 50) }, null, 2))
   } else {
     for (const problem of problems) console.error(`[sbom] ✗ ${problem}`)
-    console.error("[sbom] 提示: 依赖变化后请运行 `npm run sbom:generate` 并提交产物。")
+    console.error("[sbom] 提示: 依赖变化后请运行 `pnpm run sbom:generate` 并提交产物。")
   }
   fail(`❌ ${problems.length} 处漂移`)
 }

@@ -77,10 +77,10 @@ for (const domain of domains) {
     continue
   }
 
-  if (!fs.existsSync(target)) fail(`generated manifest missing: ${path.relative(ROOT, target)}; run npm run domain:manifests`)
+  if (!fs.existsSync(target)) fail(`generated manifest missing: ${path.relative(ROOT, target)}; run pnpm run domain:manifests`)
   const expected = toYaml(domain)
   const actual = fs.readFileSync(target, "utf8")
-  if (actual !== expected) fail(`manifest drift ${path.relative(ROOT, target)}; run npm run domain:manifests`)
+  if (actual !== expected) fail(`manifest drift ${path.relative(ROOT, target)}; run pnpm run domain:manifests`)
 }
 
 const rpcCatalog = loadRpcActions()
@@ -89,15 +89,15 @@ for (const domain of domains) {
   const expected = renderDomain(domain.name, rpcCatalog)
   const targets = contractPaths(domain.name)
   for (const [kind, file] of [["actions", targets.actions], ["facade", targets.facade], ["proto", targets.proto], ["go", targets.go]]) {
-    if (!fs.existsSync(file)) fail(`missing ${kind} ${path.relative(ROOT, file)}; run npm run domain:contracts`)
+    if (!fs.existsSync(file)) fail(`missing ${kind} ${path.relative(ROOT, file)}; run pnpm run domain:contracts`)
     const actual = fs.readFileSync(file, "utf8")
-    if (actual !== expected[kind]) fail(`contract drift ${path.relative(ROOT, file)}; run npm run domain:contracts`)
+    if (actual !== expected[kind]) fail(`contract drift ${path.relative(ROOT, file)}; run pnpm run domain:contracts`)
   }
 }
 
 const goModPath = path.join(ROOT, "gen", "go", "go.mod")
 if (!fs.existsSync(goModPath) || !fs.readFileSync(goModPath, "utf8").includes("module cooliebase/all-base/gen")) {
-  fail("missing gen/go/go.mod; run npm run domain:contracts")
+  fail("missing gen/go/go.mod; run pnpm run domain:contracts")
 }
 
 if (!fs.existsSync(path.join(ROOT, "src", "app", "api", "internal", "rpc", "route.ts"))) {

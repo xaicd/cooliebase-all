@@ -118,7 +118,7 @@ function main() {
   const cli = parseArgs(process.argv.slice(2))
 
   if (process.argv.includes("--help") || process.argv.includes("-h")) {
-    console.log(`用法: npm run scaffold -- [参数]\n\n参数:\n  --pack service-pattern       使用 Service 设计模式组合包\n  --templates code1,code2      指定模板编码列表\n  --module system/user         模块路径变量 modulePath\n  --entity SystemUser          实体名变量 entityName\n  --service SystemUserService  服务名变量 serviceName\n  --permission-update XXX      权限变量 permissionUpdate\n  --out-root <path>            输出根目录（默认仓库根 "."；模板路径自带 packages/domains/<域>/ 结构）\n  --force                      覆盖已存在文件\n`) 
+    console.log(`用法: pnpm run scaffold -- [参数]\n\n参数:\n  --pack service-pattern       使用 Service 设计模式组合包\n  --templates code1,code2      指定模板编码列表\n  --module system/user         模块路径变量 modulePath\n  --entity SystemUser          实体名变量 entityName\n  --service SystemUserService  服务名变量 serviceName\n  --permission-update XXX      权限变量 permissionUpdate\n  --out-root <path>            输出根目录（默认仓库根 "."；模板路径自带 packages/domains/<域>/ 结构）\n  --force                      覆盖已存在文件\n`) 
     return
   }
 

@@ -10,7 +10,7 @@
  *   writeOntology()  —— 把最新 fanIn/state/dependents 回写 catalog（进化时刷新）。
  *   checkOntology()  —— 只对账不写；返回 { ok, drifts }（门禁用）。
  *
- * 真源勿手改 fanIn/state/dependents：改代码后跑 npm run foundation:ontology 刷新。
+ * 真源勿手改 fanIn/state/dependents：改代码后跑 pnpm run foundation:ontology 刷新。
  */
 const fs = require("fs")
 const path = require("path")

@@ -67,7 +67,7 @@ describe("hatch-profile", () => {
   it("★ 裁剪不得裁掉门禁必需的已提交基线（目录前缀与文件名前缀语义不同）", () => {
     const plan = resolveHatchPlan(catalog, { profile: "minimal" })
 
-    // 这三个是**门禁必需的已提交基线**，一旦被裁，新孵化工程的 `npm run check` 必红
+    // 这三个是**门禁必需的已提交基线**，一旦被裁，新孵化工程的 `pnpm run check` 必红
     //（实测：socratic:check 报缺少 socratic-inquiry-latest.json）。
     for (const keep of [
       "docs/architecture/artifacts/socratic-inquiry-latest.json",
@@ -94,7 +94,7 @@ describe("hatch-profile", () => {
     const minimal = resolveHatchPlan(catalog, { profile: "minimal" })
 
     // 实测：裁掉 online 后，`src/app/api/v1/open/meta/page-schema/[entity]/route.ts`
-    // 与 infra 的 codegen 模板仍静态 import 它，`npm run build` 直接 module-not-found。
+    // 与 infra 的 codegen 模板仍静态 import 它，`pnpm run build` 直接 module-not-found。
     for (const companion of PLATFORM_COMPANIONS) {
       expect(base.domains, `base 缺少伴生域 ${companion}`).toContain(companion)
     }

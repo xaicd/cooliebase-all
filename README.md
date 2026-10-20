@@ -82,12 +82,12 @@ pnpm dlx create-cooliebase-app my-app
 # 方案 B: degit 骨架拉取 (10秒内完成，0MB 历史提交)
 pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
-npm run project:init -- --name "my-app" --title "我的新业务系统"
-npm run dev
+pnpm run project:init -- --name "my-app" --title "我的新业务系统"
+pnpm run dev
 ```
 > **实测记录**
 >
-> - **2026-10-20 复跑**（无 `.git` 克隆模拟 degit）：`pnpm install` → `project:init` → `npm run check`（**exit 0**）。
+> - **2026-10-20 复跑**（无 `.git` 克隆模拟 degit）：`pnpm install` → `project:init` → `pnpm run check`（**exit 0**）。
 >   复跑**发现并修掉两处回归**：① `project:init` 不 `git init`，导致无 `.git` 的派生工程在
 >   `docs:commands:check` 上**直接红**（「无法列出 git 跟踪文件」）；
 >   ② `project:init` 删除归档区后**没有重生成 wiki**，`gen:paths:check` 引用已删路径。
@@ -98,7 +98,7 @@ npm run dev
 > ⚠️ **环境变量优先级**：`process.env` > `.env.local` > `.env`。若你的 shell 里已经导出过
 > `DB_DRIVER` / `DATABASE_URL` / `TENANT_PLATFORM_USERNAMES` / `NODE_ENV`，它们会**覆盖**工程内的配置，
 > 典型现象是「工程起得来、`/readyz` 200，但登录永远 401」。排查时先 `env | grep -E 'DB_DRIVER|TENANT_|NODE_ENV'`。
-> `npm run start`（standalone）**不读取** `.env.local`，生产部署请由容器/编排注入环境变量。
+> `pnpm run start`（standalone）**不读取** `.env.local`，生产部署请由容器/编排注入环境变量。
 
 > **自动化完成的核心事项**：
 > - ⚡ **秒级骨架派生**：彻底规避几百兆历史提交与 packfile 下载；
@@ -106,7 +106,7 @@ npm run dev
 > - 🗄️ **真实本地数据库自动就绪**：基于真实本地 SQLite 驱动，库文件按工程名派生（`data/<工程名>.db`）；`project:init` 会把 `DB_DRIVER` / `DATABASE_URL` / `SQLITE_DB_PATH` **三者写成同一路径**，零外部重型依赖即可立即运行全部业务；
 > - 🌐 **原生四国语言 (i18n)**：开箱即用支持 🇨🇳 中文 (`zh-CN`)、🇺🇸 英文 (`en-US`)、🇯🇵 日文 (`ja-JP`)、🇰🇷 韩文 (`ko-KR`)；
 > - 🔐 **零默认凭据体系 (Zero Default Credentials)**：严禁使用任何静态默认凭证；系统初始化时通过密码学安全伪随机发生器（CSPRNG）在隔离环境动态生成高熵引导凭证并持久化注入本地环境变量，天然免疫凭证撞库；
-> - 🛡️ **全链路门禁**：执行 `npm run check` 核验全部工程质量门禁（**清单与数量以 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates` 为准**，不在文档里写死数字）。
+> - 🛡️ **全链路门禁**：执行 `pnpm run check` 核验全部工程质量门禁（**清单与数量以 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates` 为准**，不在文档里写死数字）。
 
 ### 🔌 一键接入主流 AI Coding Agent (MCP Server)
 
@@ -189,25 +189,25 @@ cooliebase-all/
        【一句话业务诉求】
               │
               ▼
-   Step 1. 规格立项 (npm run speckit:new -- --name <名> --domain <域>)
+   Step 1. 规格立项 (pnpm run speckit:new -- --name <名> --domain <域>)
               │   └─ 编辑 docs/specs/<域>/<名>/brief.json (仅约 500 Token)
               ▼
-   Step 2. 自动展开 (npm run speckit:build -- --name <名>)
+   Step 2. 自动展开 (pnpm run speckit:build -- --name <名>)
               │   └─ 自动展开 10~15 份标准工程资产、evidence.json 与 runbook.json
               ▼
-   Step 3. 域与代码生成 (npm run domain:new <域>)
+   Step 3. 域与代码生成 (pnpm run domain:new <域>)
               │   └─ 基于 Schema 自动展开 CRUD、Service、Validator 与单测
               ▼
-   Step 4. 自动化门禁 (npm run check && npm run test:matrix)
+   Step 4. 自动化门禁 (pnpm run check && pnpm run test:matrix)
               │   └─ 23 道工程门禁与真实数据库测试全绿保障
               ▼
-   Step 5. 任务与波次核验 (npm run speckit:tasks -- --spec <名> [--summary|--task T1])
+   Step 5. 任务与波次核验 (pnpm run speckit:tasks -- --spec <名> [--summary|--task T1])
               │   └─ 从 Git 提交历史反推任务完备度 (1 Task = 1 Commit & 白名单)
               ▼
-   Step 6. 平台级真实穿透 (npm run smoke:login && npm run security:scan)
+   Step 6. 平台级真实穿透 (pnpm run smoke:login && pnpm run security:scan)
               │   └─ 真实数据库登录 200 + 20 项安全穿透扫描
               ▼
-   Step 7. 生产部署与实施 (npm run runbook -- --feature <名> --run)
+   Step 7. 生产部署与实施 (pnpm run runbook -- --feature <名> --run)
                   └─ 自动化生产割接与失败秒级自动回滚
 ```
 
@@ -215,18 +215,18 @@ cooliebase-all/
 
 | 任务类型 | 执行命令 | 产物 / 质量门禁说明 |
 |---|---|---|
-| **Spec-Kit 规格管理** | `npm run speckit` | 统一 SDD 控制台 (new / build / tasks / check / list / archive) |
+| **Spec-Kit 规格管理** | `pnpm run speckit` | 统一 SDD 控制台 (new / build / tasks / check / list / archive) |
 |---|---|---|
-| **工程初始化** | `npm run project:init` | 交互式/参数化重构品牌、初始化真实本地 SQLite 数据库 |
-| **契约同步** | `npm run contracts:sync` | 自动同步 `compat-manifest.json`、`agent-profile.json` 等端点 |
-| **OpenWiki 同步** | `npm run openwiki:sync` | 自动从元数据与契约抽取生成 30 篇机器可读架构与业务维基 |
-| **全量门禁总检** | `npm run check` | 严格检验 20 道工程标准（包含跨域隔离、路由规范、微服务边界） |
-| **真实数据库测试**| `npm run test:matrix` | 运行真实数据库驱动的所有单元与集成测试（零假 Mock、CAS 验证） |
-| **平台登录冒烟** | `npm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录。**本机零容器可跑**（嵌入式 Postgres） |
-| **安全渗透扫描** | `npm run security:scan` | 20 项安全漏洞测试（未认证、越权、伪造 Token/Tenant、不泄露栈…含两个阴性对照）。**本机零容器可跑** |
-| **容量压测护栏** | `npm run load:test` | 对 standalone 生产产物进行压力测试，防吞吐劣化（$\ge 5000\text{ RPS}$） |
-| **新业务域脚手架** | `npm run domain:new <domain>` | 一键新建符合第一方插件规范的业务域代码骨架 |
-| **发布制品打包** | `npm run release:package` | 自动构建发布资产包、契约清单与 SHA-256 完整性指纹 |
+| **工程初始化** | `pnpm run project:init` | 交互式/参数化重构品牌、初始化真实本地 SQLite 数据库 |
+| **契约同步** | `pnpm run contracts:sync` | 自动同步 `compat-manifest.json`、`agent-profile.json` 等端点 |
+| **OpenWiki 同步** | `pnpm run openwiki:sync` | 自动从元数据与契约抽取生成 30 篇机器可读架构与业务维基 |
+| **全量门禁总检** | `pnpm run check` | 严格检验 20 道工程标准（包含跨域隔离、路由规范、微服务边界） |
+| **真实数据库测试**| `pnpm run test:matrix` | 运行真实数据库驱动的所有单元与集成测试（零假 Mock、CAS 验证） |
+| **平台登录冒烟** | `pnpm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录。**本机零容器可跑**（嵌入式 Postgres） |
+| **安全渗透扫描** | `pnpm run security:scan` | 20 项安全漏洞测试（未认证、越权、伪造 Token/Tenant、不泄露栈…含两个阴性对照）。**本机零容器可跑** |
+| **容量压测护栏** | `pnpm run load:test` | 对 standalone 生产产物进行压力测试，防吞吐劣化（$\ge 5000\text{ RPS}$） |
+| **新业务域脚手架** | `pnpm run domain:new <domain>` | 一键新建符合第一方插件规范的业务域代码骨架 |
+| **发布制品打包** | `pnpm run release:package` | 自动构建发布资产包、契约清单与 SHA-256 完整性指纹 |
 
 ---
 

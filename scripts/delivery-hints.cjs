@@ -3,7 +3,7 @@
  * 交付进度的**软提醒**（永不失败）。
  *
  * 为什么是软的: "骨架还没填"是**正常的中间状态**，不该阻断构建 —— 阻断交给门禁，
- * 提醒交给这里。它让 agent 每轮 `npm run check` 都能自己看到还差什么，
+ * 提醒交给这里。它让 agent 每轮 `pnpm run check` 都能自己看到还差什么，
  * 而不是等人来问。
  */
 const fs = require("node:fs")
@@ -15,7 +15,7 @@ const { listAllSpecs } = require("./lib/spec-resolver.cjs")
 
 const allSpecs = listAllSpecs().filter((s) => !s.isArchived)
 if (allSpecs.length === 0) {
-  console.log("[delivery] 尚未登记规格或特性（npm run spec:new -- --name <名> --domain <域>）")
+  console.log("[delivery] 尚未登记规格或特性（pnpm run spec:new -- --name <名> --domain <域>）")
   process.exit(0)
 }
 

@@ -675,7 +675,7 @@ function applyHatchPatches(destRoot, plan, sourceCatalog, targetName) {
       profile: plan.profile,
       domains: plan.domains,
       includeClients: plan.includeClients,
-      hatchCommand: `npm run project:create -- <target-path> --profile ${plan.profile}${plan.bundle.length ? ` --bundle ${plan.bundle.join(",")}` : ""}`,
+      hatchCommand: `pnpm run project:create -- <target-path> --profile ${plan.profile}${plan.bundle.length ? ` --bundle ${plan.bundle.join(",")}` : ""}`,
     }
     fs.writeFileSync(agentPath, `${JSON.stringify(agentProfile, null, 2)}\n`, "utf8")
   }
@@ -891,9 +891,9 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     console.log("")
     console.log("  三条路，任选其一：")
     console.log("    ① 指到任意可达的 Postgres（无需 Docker）:")
-    console.log("         PROJECT_PG_ADMIN_URL=postgresql://user:pass@host:5432/postgres npm run project:create -- <目录>")
+    console.log("         PROJECT_PG_ADMIN_URL=postgresql://user:pass@host:5432/postgres pnpm run project:create -- <目录>")
     console.log("    ② 起本机 PostgreSQL 后重试（历史默认 5433）。")
-    console.log("    ③ **零容器**路线：改用 `npm run project:init -- --target <目录> --profile base`")
+    console.log("    ③ **零容器**路线：改用 `pnpm run project:init -- --target <目录> --profile base`")
     console.log("       （走 SQLite，自带库文件，不依赖任何外部服务）。")
     process.exit(1)
   }
@@ -943,7 +943,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   console.log("\n启动指引:")
   console.log(`  1. cd /d "${resolvedTarget}"`)
   console.log("  2. start.bat")
-  console.log("  3. 新增表结构后运行 npm run db:migrate")
+  console.log("  3. 新增表结构后运行 pnpm run db:migrate")
   if (plan.excludedDomains.length > 0) {
     console.log("")
     console.log("  ⚠ 已知缺口（裁剪场景）: pnpm-lock.yaml 里仍声明着被裁掉的工作区包，")
@@ -963,7 +963,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   console.log("        TENANT_*），它会**覆盖 .env** —— 那样工程会连到别的库、或把平台")
   console.log("        管理员当成租户账号，表现为「登录说用户名或密码错误」（实测踩过）。")
   console.log("")
-  console.log("  提示: 起服务后跑一次 npm run smoke:login —— 它会自己建库/迁移/种子/起服务，")
+  console.log("  提示: 起服务后跑一次 pnpm run smoke:login —— 它会自己建库/迁移/种子/起服务，")
   console.log("        验到「登录 200 + 受保护接口 200」为止。今天就是这条抓住了登录 401。")
   console.log("================================================================")
   // 派生工程必须有版本控制 —— 否则任务痕迹（commit 里的 [T1]）与环境指纹

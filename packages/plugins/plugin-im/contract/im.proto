@@ -5,7 +5,7 @@ package cooliebase.im.v1;
 option go_package = "cooliebase/all-base/gen/im/v1;imv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.im.v1.ImService/<Method>
 
 message JsonReply {

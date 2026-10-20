@@ -99,7 +99,7 @@ function parseArgv(argv) {
 
 function helpText() {
   return `用法:
-  npm run project:create -- <目标路径> [--profile base|minimal|standard|vertical|creator] [--bundle mall,crm]
+  pnpm run project:create -- <目标路径> [--profile base|minimal|standard|vertical|creator] [--bundle mall,crm]
 
 Profile:
   standard  整仓（默认，DigitalStaff NPC 全能力模板）
@@ -175,7 +175,7 @@ function resolveHatchPlan(catalog, options = {}) {
     //     `onlinePlatformFacade`。
     // 早前这里注释写的是"已改为按需动态加载"，但它只对 `codegen-table.service.ts`
     // 这类动态 import 成立，上述两处仍是静态的 —— 于是 `--profile base` 产物
-    // **`npm run build` 直接失败**（实测：module-not-found on online）。
+    // **`pnpm run build` 直接失败**（实测：module-not-found on online）。
     // 结论：`base` 与 `minimal` 目前等价。要真正区分，需先把上述两处改为惰性加载。
     selected = unique([...platform, ...companions])
     includeClients = false
@@ -220,7 +220,7 @@ const RETIRED_DIR_PREFIXES = Object.freeze([
   // 注意：**不能整目录裁 `docs/architecture/artifacts`** —— 其中有 3 个门禁必需的已提交基线：
   //   socratic-inquiry-latest.json（harness:check）、deps-audit-baseline.json（deps:audit）、
   //   engineering-standards-baseline.json（standards:check）。
-  // 整目录裁掉会让新孵化工程的 `npm run check` 必红（实测：socratic:check 报缺文件）。
+  // 整目录裁掉会让新孵化工程的 `pnpm run check` 必红（实测：socratic:check 报缺文件）。
   "docs/architecture/OPEN-SOURCE-TRACKING-MANUAL.md",
   "docs/architecture/CURRENT-PROGRESS.md",
   ".claude",

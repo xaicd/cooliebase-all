@@ -12,7 +12,7 @@ const { pruneCatalog, resolveHatchPlan, shouldSkipRelPath } = require("../hatch-
  *
  * 曾经的 bug（域全面插件化后暴露）: 业务域清单只读 layers.business，而迁走的域
  * 都进了 layers.plugin —— 于是 standard profile 只剩 system/infra，
- * `npm run project:create` 会孵出一个**没有任何业务域**的工程。
+ * `pnpm run project:create` 会孵出一个**没有任何业务域**的工程。
  * 原有测试全绿，因为它自带 fixture，压根没碰真实 catalog。
  *
  * 教训: 这类"登记结构变了、消费方没跟上"的缺陷，只有对着真实真源断言才抓得住。

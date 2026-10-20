@@ -16,5 +16,5 @@
 | **Level 6** | 终极目的对齐 (Telos Alignment) | 系统的一切能力是否为了实现全能力 AI Agent 闭环驱动？ | 全仓 38 个 Skills、MCP 服务、无头运营套件与 CI 强制门禁。 |
 
 ## 三、 门禁自循环闭环
-- 本地执行反问自检：`npm run socratic:inquire`
-- CI 自动化校验：`npm run socratic:check`（挂载在 `npm run harness:check` 与 `npm run check` 之中，任何破坏 6 阶反思的行为直接中断构建并退出报错）。
+- 本地执行反问自检：`pnpm run socratic:inquire`
+- CI 自动化校验：`pnpm run socratic:check`（挂载在 `pnpm run harness:check` 与 `pnpm run check` 之中，任何破坏 6 阶反思的行为直接中断构建并退出报错）。

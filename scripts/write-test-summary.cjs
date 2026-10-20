@@ -98,7 +98,7 @@ const today = new Date().toISOString().split("T")[0]
 
 const report = `# 软件测试执行总结报告 (Test Summary Report)
 
-- **生成方式**: \`npm run test:summary\` —— **本文件由脚本生成，禁止手写**（数字来自真实 vitest JSON reporter）
+- **生成方式**: \`pnpm run test:summary\` —— **本文件由脚本生成，禁止手写**（数字来自真实 vitest JSON reporter）
 - **生成日期**: ${today}
 - **真源**: 全量 \`pnpm exec vitest run\` 的 JSON 报告
 
@@ -128,19 +128,19 @@ const report = `# 软件测试执行总结报告 (Test Summary Report)
 
 - 测试依赖真实存储：内存回退（无 \`DATABASE_URL\`）或真实 SQLite/PostgreSQL；
   **不存在前端伪造 Mock 充当数据库的情形**。
-- 断言空转度由 \`npm run vacuity:audit\` 审计（report-only）——
+- 断言空转度由 \`pnpm run vacuity:audit\` 审计（report-only）——
   实测 850 个测试块中字面量恒真断言 0 处。
-- 断言**杀伤力**由 \`npm run mutation:gate\` 验证（语义突变必须被测试杀死）。
+- 断言**杀伤力**由 \`pnpm run mutation:gate\` 验证（语义突变必须被测试杀死）。
 
 ## 3. 复现方式
 
 \`\`\`bash
-npm run test            # 全量（本报告的真源）
-npm run test:unit       # L1
-npm run test:integration# L2
-npm run test:contract   # L3 契约产物层
-npm run test:e2e        # L4（Playwright）
-npm run test:summary    # 重新生成本报告
+pnpm run test            # 全量（本报告的真源）
+pnpm run test:unit       # L1
+pnpm run test:integration# L2
+pnpm run test:contract   # L3 契约产物层
+pnpm run test:e2e        # L4（Playwright）
+pnpm run test:summary    # 重新生成本报告
 \`\`\`
 
 ## 4. 逐套件结果（按状态）

@@ -4,7 +4,7 @@
   "generated": true,
   "source": "packages/shared/backend/constants/domain-catalog.json",
   "generatedBy": "scripts/lib/seam-graph.cjs",
-  "note": "Do not hand-edit domain names. Run npm run domain:seams after catalog/contract changes.",
+  "note": "Do not hand-edit domain names. Run pnpm run domain:seams after catalog/contract changes.",
   "domains": [
     {
       "name": "system",

@@ -533,6 +533,70 @@ const RULES = [
     },
   },
   {
+    id: "no-new-npm-run",
+    section: "AGENTS.md §2.1",
+    mode: "ratchet",
+    description:
+      "docs/scripts must not introduce new `npm run <script>` — the canonical form is `pnpm run <script>`",
+    run() {
+      // 为什么需要：本仓的包管理器是 **pnpm**，`check-docs-commands.cjs:93` 的命令真实性
+      // 检查器用的是 `(?<![pP])npm run` —— **显式把 `pnpm run` 排除在外**，规范形态即 pnpm。
+      // 混用会让「文档里写的」与「实际该敲的」长期分叉（实测存量：AGENTS.md 104 处 / 全仓 2841 处）。
+      //
+      // 存量太大（689 文件），逐个改风险高、且大量属**历史记录**（施工日志/归档规格/构建产物/生成镜像），
+      // 故按本仓既有做法：**棘轮冻结存量、只拦新增**（同 `no-new-npx`）。
+      // 注意：`npm run` 与 `pnpm run` 在 pnpm 布局下**都能跑通** —— 这条拦的是**规范一致性**，
+      // 不是"会失败"，所以用 ratchet 而不是 enforce。
+      const violations = []
+      const skipPrefixes = [
+        "node_modules/",
+        ".git/",
+        "docs/features/", // 施工日志：历史记录，刻意保留当时的写法
+        "docs/architecture/artifacts/", // 生成物
+        "docs/specs/archive/", // 已归档规格是历史记录
+        ".claude/worktrees/", // git worktree 里的副本，不参与判定
+        "public/", // 由 surface:sync 生成的镜像，改它无意义
+        ".well-known/",
+      ]
+      // 只认"可执行指引"形态：`npm run <script>`。裸提 `npm`（如"包管理器统一为 pnpm"）不算。
+      const pattern = /(?<![pP])npm\s+run\s/
+      const walk = (dir) => {
+        for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+          const rel = dir ? `${dir}/${entry.name}` : entry.name
+          if (skipPrefixes.some((prefix) => rel.startsWith(prefix))) continue
+          if (entry.isDirectory()) {
+            walk(rel)
+            continue
+          }
+          if (!/\.(md|sh|ts|cjs|json|js|txt|bat)$/.test(entry.name)) continue
+          if (rel === "scripts/check-engineering-standards.cjs") continue // 规则自身必须提到该模式
+          const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
+          for (let i = 0; i < lines.length; i += 1) {
+            if (pattern.test(lines[i])) violations.push({ file: rel, detail: `line ${i + 1}` })
+          }
+        }
+      }
+      for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
+        if (entry.name.startsWith(".")) continue // 隐藏项（.git/.claude/.next-* 等）统一跳过
+        if (entry.isDirectory()) walk(entry.name)
+        else if (/\.(md|sh|ts|cjs|bat)$/.test(entry.name)) {
+          const lines = fs.readFileSync(path.join(ROOT, entry.name), "utf8").split("\n")
+          for (let i = 0; i < lines.length; i += 1) {
+            if (pattern.test(lines[i])) violations.push({ file: entry.name, detail: `line ${i + 1}` })
+          }
+        }
+      }
+      if (fs.existsSync(path.join(ROOT, ".agents"))) walk(".agents")
+
+      // `package.json` 的 scripts 是**运行时真调用**，比注释更严重 —— 同 `no-new-npx` 的教训。
+      const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+      for (const [name, command] of Object.entries(pkg.scripts || {})) {
+        if (pattern.test(String(command))) violations.push({ file: "package.json", detail: `scripts.${name}` })
+      }
+      return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
+    },
+  },
+  {
     id: "init-sql-seed-columns",
     section: "AGENTS.md §9.2",
     mode: "ratchet",

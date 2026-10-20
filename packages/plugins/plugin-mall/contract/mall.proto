@@ -5,7 +5,7 @@ package cooliebase.mall.v1;
 option go_package = "cooliebase/all-base/gen/mall/v1;mallv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.mall.v1.MallService/<Method>
 
 message JsonReply {

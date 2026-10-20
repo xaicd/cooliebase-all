@@ -1,5 +1,5 @@
 # Generated from packages/shared/backend/constants/domain-catalog.json
-# Do not hand-edit pack/upstream fields. Run: npm run domain:manifests
+# Do not hand-edit pack/upstream fields. Run: pnpm run domain:manifests
 domain: mall
 owner: mall
 kind: plugin

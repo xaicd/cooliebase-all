@@ -10,7 +10,7 @@
  *   3. 按表跑 codegen，产出全栈代码（contract/backend/frontend/路由/迁移）
  *   4. 注册为第一方插件（`migrate-domain-to-plugin.cjs`，含新域自动登记）
  *   5. 重生成契约与清单（**顺序固定**: contracts -> seams -> manifests -> admin routes）
- *   6. 门禁自检（`npm run check`）
+ *   6. 门禁自检（`pnpm run check`）
  *
  * 它**不做**（需要人或 CI 决定）:
  *   - 不写表元数据 —— 业务字段的类型/可空/默认值必须由人定（这是产品决策）

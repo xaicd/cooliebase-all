@@ -84,7 +84,7 @@ if (args.includes("--write")) {
 
 if (args.includes("--verify")) {
   if (!fs.existsSync(ARTIFACT)) {
-    console.error("[fingerprint] 没有指纹记录 —— 先跑测试并 `npm run fingerprint`")
+    console.error("[fingerprint] 没有指纹记录 —— 先跑测试并 `pnpm run fingerprint`")
     process.exit(2)
   }
   const stamped = JSON.parse(fs.readFileSync(ARTIFACT, "utf8"))

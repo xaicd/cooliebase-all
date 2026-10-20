@@ -6,7 +6,7 @@
  * 为什么需要：配置文件合法 ≠ 生效。CLI 完全可能因为
  *   · hooks schema 变更、· 首次使用未 allowlist、· 工作目录不同而找不到脚本、
  *   · matcher 拼错、· 根本没装这家 CLI
- * 而**静默不执行**。这种情况下 `npm run check` 全绿，但守卫形同虚设。
+ * 而**静默不执行**。这种情况下 `pnpm run check` 全绿，但守卫形同虚设。
  *
  * 机制：`.agents/hooks/spec-gate.sh` 每次被调用都会往 `harness-heartbeat.jsonl` 追加一行
  * （kind / decision / protocol / file）。本脚本读它并与各家的配置交叉核对：
@@ -131,7 +131,7 @@ const KEEP_LINES = 2000
   const ok = value === ".githooks" && executable
   console.log(
     `  ${ok ? "✅" : "⚠️"} git 兜底    core.hooksPath=${value || "（未设置）"} · pre-commit ${executable ? "可执行" : "不可执行"}` +
-      (ok ? "" : " → 跑 `npm run setup:hooks`（或重新 pnpm install）"),
+      (ok ? "" : " → 跑 `pnpm run setup:hooks`（或重新 pnpm install）"),
   )
 }
 

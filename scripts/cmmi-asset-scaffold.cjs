@@ -392,7 +392,7 @@ flowchart TD
 - [ ] **并发防护**: 扣减库存或关键状态迁移是否使用 CAS 乐观锁守卫？
 - [ ] **无假 Mock**: 测试用例是否基于真实数据库执行，无空洞假断言？
 - [ ] **类型安全**: TypeScript 是否 0 any 滥用、0 隐式类型丢失？
-- [ ] **门禁绿色**: \`npm run check\` 退出码是否严格为 0？
+- [ ] **门禁绿色**: \`pnpm run check\` 退出码是否严格为 0？
 `
       },
       "plugin-blueprint": {
@@ -454,7 +454,7 @@ flowchart TD
 - **报告标识**: TEST-SUMMARY-REPORT-${opts.version || "v1.1.0"}
 - **生成日期**: ${new Date().toISOString().split("T")[0]}
 - **归属规范**: CMMI 05_verification (VV) / .agents/skills/automated-testing
-- **执行命令**: \`npm run test:matrix\`
+- **执行命令**: \`pnpm run test:matrix\`
 
 ---
 
@@ -515,7 +515,7 @@ flowchart TD
 ---
 
 ## 1. 过程审计频次与检查单标准
-- 门禁自动化审计: 每次提交触发 \`npm run check\` 全量静态门禁（**步数以 \`package.json\` 为准，勿写死数字**）
+- 门禁自动化审计: 每次提交触发 \`pnpm run check\` 全量静态门禁（**步数以 \`package.json\` 为准，勿写死数字**）
 - 物理配置审计: 发版前由 PPQA 审计员核验 pnpm-lock 与指纹
 `
       },
@@ -534,7 +534,7 @@ flowchart TD
 
 ## 1. 审计双基石核验 (FCA & PCA)
 - FCA (功能配置审计): 真实测试矩阵全绿、契约同步零漂移；
-- PCA (物理配置审计): 锁文件确定性 (pnpm-lock.yaml)、\`npm run check\` 全量 Exit Code 0、Git 数字指纹验证。
+- PCA (物理配置审计): 锁文件确定性 (pnpm-lock.yaml)、\`pnpm run check\` 全量 Exit Code 0、Git 数字指纹验证。
 `
       },
       "gate-trace": {
@@ -568,10 +568,10 @@ flowchart TD
 
 ## 标准 6 步零停机割接流水线
 1. 获取制品与锁定依赖 (\`pnpm install --frozen-lockfile\`)
-2. 质量门禁与指纹验证 (\`npm run check\`)
+2. 质量门禁与指纹验证 (\`pnpm run check\`)
 3. 生产产物编译 (\`pnpm run build\`)
 4. 数据库幂等迁移 (\`pnpm exec prisma migrate deploy\`)
-5. 第一方插件静态注册 (\`npm run plugins:register\`)
+5. 第一方插件静态注册 (\`pnpm run plugins:register\`)
 6. 启动服务与存活探针核验
 `
       },
@@ -733,7 +733,7 @@ flowchart TD
         template: () => `# AI 数字员工运营与任务台账 (AI Agent Ops Ledger)
 
 - **归属规范**: CMMI 09_operations / .agents/skills/cmmi-asset-authoring
-- **运行命令**: \`npm run agent:ops -- <domain>.<entity> health\`
+- **运行命令**: \`pnpm run agent:ops -- <domain>.<entity> health\`
 
 ---
 

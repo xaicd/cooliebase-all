@@ -5,7 +5,7 @@ package cooliebase.report.v1;
 option go_package = "cooliebase/all-base/gen/report/v1;reportv1";
 
 // Generated from packages/shared/backend/constants/rpc-actions.json
-// Do not hand-edit. Run: npm run domain:contracts
+// Do not hand-edit. Run: pnpm run domain:contracts
 // gRPC path: /cooliebase.report.v1.ReportService/<Method>
 
 message JsonReply {

@@ -259,7 +259,7 @@ describe("MCP: 写类工具（plan/preview，零落盘）", () => {
       // 元数据文件本用例不会创建 —— 工具必须如实反映，而不是假装校验通过
       expect(result.details.metadataValidated).toBe(false)
       expect(result.details.dryRunExitCode).not.toBe(0)
-      expect(result.manualSteps.join(" ")).toMatch(/npm run domain:new planonlyprobe/)
+      expect(result.manualSteps.join(" ")).toMatch(/pnpm run domain:new planonlyprobe/)
     })
   })
 

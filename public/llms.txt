@@ -19,14 +19,14 @@
   - 按域垂直隔离于 `docs/specs/<domain>/<name>/`（支持 `feature`, `bugfix`, `enhancement`, `refactor` 四态）
   - 机器输入只需 <500 Token `brief.json`，自动展开 7 类规范文档与 G0~G7 质量门禁。
 - **OpenWiki (LLM-Wiki 知识大脑)**:
-  - 内置 `wiki/` 动态互联百科（`npm run openwiki:sync`），由底层元数据与 342 份 Agent 契约全自动自愈同步，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
+  - 内置 `wiki/` 动态互联百科（`pnpm run openwiki:sync`），由底层元数据与 342 份 Agent 契约全自动自愈同步，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
 - **真实数据库驱动 (Zero Fake Mock)**:
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
 - **MCP 原生支持 (Model Context Protocol)**:
   - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 17 个确定性工具），消除全库扫描 Token 浪费。
 - **全自动项目重塑引擎 (ProjectReactor CLI)**:
-  - 原地重塑: `npm run project:init`，一键重塑包名、中文系统标题、端口、Git Remote 与品牌版权。
+  - 原地重塑: `pnpm run project:init`，一键重塑包名、中文系统标题、端口、Git Remote 与品牌版权。
   - 派生裁剪: 支持 `--profile base` / `minimal` / `standard` / `vertical` / `creator` 五种形态（vertical 可再 `--bundle <域>`），自动剔除冗余业务域，并自动 `git init` 记录任务痕迹。
 
 ## 预检与直接契约访问 (Direct Contract Access - Standard AI Discovery)
@@ -56,8 +56,8 @@ pnpm dlx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install
-npm run project:init -- --name "my-app" --title "我的新业务系统"
-npm run dev
+pnpm run project:init -- --name "my-app" --title "我的新业务系统"
+pnpm run dev
 ```
 
 > **补充**：若需更细粒度裁剪规格（如纯白板底座 `base`），亦可使用远程单行指令：  
@@ -67,15 +67,15 @@ npm run dev
 ```bash
 git clone https://github.com/xaicd/cooliebase-all.git my-business-app
 cd my-business-app && pnpm install
-npm run project:init               # 一键重构
-npm run db:bootstrap:sqlite        # 初始化数据库
-npm run dev                        # 访问 http://localhost:3200 (预填 supervip 与安全随机密码)
+pnpm run project:init               # 一键重构
+pnpm run db:bootstrap:sqlite        # 初始化数据库
+pnpm run dev                        # 访问 http://localhost:3200 (预填 supervip 与安全随机密码)
 ```
 
 ## 自动化测试与质量门禁 (Gates)
-- `npm run check`: 运行 10 大工程标准自检（0 Blocker, 0 High Debt 铁律）。
-- `npm run test:unit`: 运行 Vitest 单元与集成测试（100% PASS 门禁）。
-- `npm run smoke:login`: 登录链冒烟测试（建库 -> 迁移 -> 种子 -> 启动 -> 登录 200 -> 受保护接口 200）。
+- `pnpm run check`: 运行 10 大工程标准自检（0 Blocker, 0 High Debt 铁律）。
+- `pnpm run test:unit`: 运行 Vitest 单元与集成测试（100% PASS 门禁）。
+- `pnpm run smoke:login`: 登录链冒烟测试（建库 -> 迁移 -> 种子 -> 启动 -> 登录 200 -> 受保护接口 200）。
 
 ## 文档索引 (Deep Dive)
 - [llms-full.txt](llms-full.txt): 面向超长上下文模型 (100k+ Tokens) 的全量技术规范与架构契约。

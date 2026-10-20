@@ -47,6 +47,9 @@
     },
     {
       "check": "`node scripts/sync-openwiki.cjs --check` exit=0；`node scripts/check-llms-sync.cjs` exit=0"
+    },
+    {
+      "check": "`pnpm run hatch:e2e` 的每条入口还需跑通产物的 `build` 与 `smoke:login`（起服务 → 登录 200）；`--fast` 可跳过"
     }
   ],
   "nonGoals": [

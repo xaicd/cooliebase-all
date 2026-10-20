@@ -1,11 +1,11 @@
 /**
  * 文档命令真实性门禁。
  *
- * 为什么需要：文档里写着 `npm run xxx`，而 `xxx` **根本不在 package.json 里** —— 这类
+ * 为什么需要：文档里写着 `pnpm run xxx`，而 `xxx` **根本不在 package.json 里** —— 这类
  * 漂移不会让任何现有门禁变红，但会直接误导照着文档操作的人和 AI Agent（照着跑就是报错）。
  * 已实证的样本：
- *   · `AGENTS.md` §10.3 发布门禁让人跑 `npm run docs:sync-context`（不存在）；
- *   · `.kiro/steering/feature-scaffold.md` 让人跑 `npm run feature:generate`（真名是 `scaffold`）；
+ *   · `AGENTS.md` §10.3 发布门禁让人跑 `pnpm run docs:sync-context`（不存在）；
+ *   · `.kiro/steering/feature-scaffold.md` 让人跑 `pnpm run feature:generate`（真名是 `scaffold`）；
  *   · 归档上游调研文档里的一批 `cooliebase:*` 脚本（当时存在，现已改名）。
  * 与"编造出处"同族：**指向不存在的东西**。
  *
@@ -111,7 +111,7 @@ for (const rel of files) {
     const line = lines[i]
     for (const match of line.matchAll(NPM_PATTERN)) {
       const script = match[1]
-      if (script.includes("*")) continue // 通配写法（如 `npm run cooliebase:*:check`）不是具体命令
+      if (script.includes("*")) continue // 通配写法（如 `pnpm run cooliebase:*:check`）不是具体命令
       const record = { file: rel, line: i + 1, script }
       if (isSkipped(rel)) {
         if (!knownScriptsFor(rel).has(script)) skippedHits.push(record)

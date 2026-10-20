@@ -15,11 +15,12 @@
  *   · `project:create`      ：reactor 克隆 + hatch 裁剪 + **真实 Postgres**（这里用嵌入式，零 Docker）。
  *
  * 用法:
- *   npm run hatch:e2e                    # 两条入口 × minimal
- *   npm run hatch:e2e -- --profile base  # 指定 profile
- *   npm run hatch:e2e -- --only init     # 只跑一条
- *   npm run hatch:e2e -- --skip-install  # 迭代用（产物复用已装依赖会失败，谨慎）
- *   npm run hatch:e2e -- --keep          # 保留产物目录便于排查
+ *   pnpm run hatch:e2e                    # 两条入口 × minimal
+ *   pnpm run hatch:e2e -- --profile base  # 指定 profile
+ *   pnpm run hatch:e2e -- --only init     # 只跑一条
+ *   pnpm run hatch:e2e -- --skip-install  # 迭代用（产物复用已装依赖会失败，谨慎）
+ *   pnpm run hatch:e2e -- --keep          # 保留产物目录便于排查
+ *   pnpm run hatch:e2e -- --fast          # 只跑到产物的 check（跳过 build 与起服务登录）
  *
  * 退出码：任一环节非 0 即非 0（**不做任何降级**）。
  */
@@ -39,6 +40,8 @@ const valueOf = (name, fallback) => {
 const profile = valueOf("profile", "minimal")
 const only = valueOf("only", "both")
 const skipInstall = hasFlag("skip-install")
+// 默认**连运行时一起验**（build + 起服务 + 登录）；`--fast` 只跑到产物 check。
+const fast = hasFlag("fast")
 const keep = hasFlag("keep")
 const baseDir = fs.mkdtempSync(path.join(os.tmpdir(), "hatch-e2e-"))
 
@@ -93,9 +96,25 @@ async function runEntry(kind) {
     }
   }
 
-  const checkCode = step("产物自身 check（关键判据）", "pnpm", ["run", "check"], target)
+  const checkCode = step("产物自身 check（静态判据）", "pnpm", ["run", "check"], target)
   if (checkCode !== 0) {
     failures.push(`${kind}: 产物自身 check 失败 (exit=${checkCode}) —— 孵化出的是**坏工程**`)
+  }
+
+  // `check` 是**静态**门禁：它证明不了「工程能构建、能起来、能登录」。
+  // 而 M4 的判据正是「产物能启动并跑通自身门禁」—— 裁剪掉的域可能让构建或启动挂在运行时。
+  if (fast) return
+
+  const buildCode = step("产物生产构建", "pnpm", ["run", "build"], target)
+  if (buildCode !== 0) {
+    failures.push(`${kind}: 产物 build 失败 (exit=${buildCode})`)
+  }
+
+  // 起服务 → 建库/迁移/种子/登记插件 → **登录 200** → 受保护接口 200。
+  // 产物自带这条入口（与基座同源），所以这里不另写断言，直接复用 —— 避免第二真源。
+  const smokeCode = step("产物 smoke:login（起服务 + 登录）", "pnpm", ["run", "smoke:login"], target)
+  if (smokeCode !== 0) {
+    failures.push(`${kind}: 产物 smoke:login 失败 (exit=${smokeCode}) —— 工程起不来或登不进去`)
   }
 }
 

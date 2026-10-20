@@ -172,7 +172,7 @@ function inspectEvidence(featureDir, gateIds) {
   // runbook-result.json 里的耗时才是实测。没有实测记录的 passed 只是声称。
   const g5 = (data.gates ?? {}).G5_PRE
   // G5 是"上线前"：指纹一致 + 割接演练 + **安全扫描绿**，三样缺一不可。
-  // 安全扫描结果由 `npm run security:scan` 落盘（自管理环境、对着跑起来的应用打真实请求）。
+  // 安全扫描结果由 `pnpm run security:scan` 落盘（自管理环境、对着跑起来的应用打真实请求）。
   if (g5?.status === "passed") {
     const secPath = path.join(ROOT, "docs", "architecture", "artifacts", "security-scan-result.json")
     if (!fs.existsSync(secPath)) {
@@ -422,7 +422,7 @@ function main() {
     console.log(
       created
         ? `   实现    ${dDir}/   （域名 ${scoped.domain} —— 打包/拆分部署按域工作）`
-        : `   实现    尚未创建（域名 ${scoped.domain}）—— npm run domain:new ${scoped.domain}`,
+        : `   实现    尚未创建（域名 ${scoped.domain}）—— pnpm run domain:new ${scoped.domain}`,
     )
     console.log(`   元数据  scripts/data/${scoped.domain}-tables.ts（表定义真源，AGENTS §9.5）`)
     console.log(`   注意: 一个域可以承载多个特性；特性目录里**不该**有业务代码。`)
@@ -458,7 +458,7 @@ function main() {
     process.exitCode = 1
   }
   if (bugs) {
-    if (!bugs.present) console.log(`[delivery] 提示: 没有 bugs.md —— 缺陷无处记录（npm run feature:new 会生成）`)
+    if (!bugs.present) console.log(`[delivery] 提示: 没有 bugs.md —— 缺陷无处记录（pnpm run feature:new 会生成）`)
     else {
       console.log(`[delivery] 缺陷: 未修 ${bugs.open} 条${bugs.malformed > 0 ? ` —— 有 ${bugs.malformed} 条缺复现/验证命令` : ""}`)
     }

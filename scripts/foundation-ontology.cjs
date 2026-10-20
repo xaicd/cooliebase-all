@@ -19,7 +19,7 @@ if (isCheck) {
     const hint = d.hint ? `  → ${d.hint}` : ""
     console.error(`  - ${d.id}.${d.field}: ${JSON.stringify(d.from)} → ${JSON.stringify(d.to)}${hint}`)
   }
-  console.error(`\n修复：运行 npm run foundation:ontology 刷新真源，并同步导航总纲 §3 能力表后提交。`)
+  console.error(`\n修复：运行 pnpm run foundation:ontology 刷新真源，并同步导航总纲 §3 能力表后提交。`)
   process.exit(2)
 } else {
   const { updated, rel } = writeOntology()
