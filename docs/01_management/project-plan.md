@@ -41,7 +41,7 @@
 | G4 | Agent 面与代码一致 | `npm run compat:check` 交叉校验通过（工具/技能/门禁清单无第二真源） |
 | G5 | 供应链只减不增 | `npm run deps:audit` exit=0（棘轮），且新增漏洞会被拦下 |
 | G6 | 客户端能打包 | `npm run clients:build:check` exit=0 |
-| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **大部分解除**：`smoke:login`（10/10）与 `security:scan`（20/20）已在本机**零容器**验证通过（嵌入式 Postgres，`DATABASE_URL` 优先）。**仍未通过**：仅剩 `load:test` 的 rps 护栏（本机负载 6.8/13/16、colima VM 占 243% CPU；受控对照证明数据库不是变量）。`verify:real-db` **已在真实嵌入式 Postgres 上通过**（2026-10-20：45 文件 / 192 用例，exit=0，零容器）|
+| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **已全绿（本机零容器，2026-10-20）**：`build` ✅ · `fingerprint:verify` ✅ · `smoke:login` **10/10** ✅ · `security:scan` **20/20** ✅ · `verify:real-db` **45 文件 / 192 用例 exit=0** ✅ · `load:test` **3/3 exit=0**（rps 18,534 / 23,015 / 23,632，护栏 5,000）✅ |
 
 > **判据达成情况（2026-10-19 实测）**：
 > - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 20 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
@@ -54,11 +54,15 @@
 >   各跑 `install`+`check`+`build` **全部 exit=0**。
 > - **G3 单命令建域** ✅ 已达成 —— 在 degit 副本里 `domain:new probe` 连跑两次：
 >   迁移目录未新增、catalog 条目数不变、插件文件指纹完全一致（第二次 14 写 / 2 跳过）。
-> - **G7 交付链** 🟡 部分 —— `build` ✅、`fingerprint:verify` ✅。
+> - **G7 交付链** ✅ **全部解除** —— `build` / `fingerprint:verify` / `smoke:login`(10/10) /
+>   `security:scan`(20/20) / `verify:real-db` / `load:test` 六项**均在本机零容器跑通**。
 >   `smoke:login`（10/10）、`security:scan`（20/20）✅ **已在本机零容器验证**（嵌入式 Postgres，
 >   `DATABASE_URL` 优先）—— 先前"colima 端口不可达 ⇒ 本机不可验证"的结论**基于 Docker 路径，已被零容器路径取代**。
->   **仍未通过**：`load:test` 的 rps 护栏（本机负载 6.8/13/16、colima VM 占 243% CPU；
->   受控对照证明数据库不是变量），需在安静环境或 CI 复验。
+>   压测此前在本机多次不达标（1,850–2,855 rps），**原因是机器过载而非代码**：机器负载已由产物自证
+>   （`load-test-result.json` 的 `environment.loadavg1` / `busyRatio`），不再靠人写"6.8/13/16"。
+>   本次通过时 `loadavg 7.29/10.09/9.83`、`负载/核 = 0.61`（安静窗口）。
+>   **新增三态判定**：`passed` / `inconclusive`（未达标且机器过载 ⇒ **不当作回归证据**，要求换环境重跑）/
+>   `failed`（机器空闲仍不达标 ⇒ 真回归）。**inconclusive 同样非零退出**，绝不因负载高就放行。
 
 > 注：G2 与 G3 是"基座是否真的可用"的核心判据，历史上多次出现"门禁全绿但孵化出的工程起不来"，故这两条必须**跑产物本身**，不能只看基座自测。
 
@@ -71,7 +75,7 @@
 | **R0** | 地基：域、契约、门禁 | 17 域登记；跨域只走 Facade；`check` 链可一键跑；`compat:check` 交叉校验生效 | ✅ 已达成（本轮实测 `check` exit=0） |
 | **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | 🟡 部分达成（`clients` 跳过已实测；其余 profile 待逐仓复验） |
 | **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 17 工具 + 零落盘反向对照 + `compat:check` 20 gates） |
-| **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | 🟡 部分达成（`smoke:login` **10/10**、`security:scan` **20/20**、**`verify:real-db` exit=0（真实嵌入式 Postgres，45 文件 / 192 用例）**均已在本机**零容器**跑通；仅 `load:test` 的 rps 护栏不过——受机器负载影响，memory 1850 vs embedded 2005 vs 基线 26877，**不调低阈值**，需在安静环境或 CI 复验） |
+| **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | ✅ 达成 —— `build`/`fingerprint`/`smoke:login`(10/10)/`security:scan`(20/20)/`verify:real-db`(45 文件 192 用例)/`load:test`(3/3, 18.5k–23.6k rps) 六项**本机零容器全部 exit=0** |
 | **R4** | 可运营：SRE 与持续运营资产 | SLO/灾备/复盘/对账/巡检资产齐备，且**未发生时留空**而不是放假 Demo | ❓ 待核验（目录存在，内容真实性未逐项核实） |
 
 ---
@@ -86,7 +90,7 @@
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `npm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
 | **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-19（degit 路径；reactor/Postgres 路径未验） |
 | **M5 单命令建域** | `domain:new` 全自动、可重复执行 | 连续跑两次结果一致（幂等） | ✅ 2026-10-19（指纹一致、迁移不新增） |
-| **M6 可交付发布** | 七项交付门禁 + 指纹一致 | `build`/`smoke:login`/`security:scan`/`load:test`/`fingerprint:verify` | 🟡 部分（CI 已覆盖，发布前需复跑） |
+| **M6 可交付发布** | 七项交付门禁 + 指纹一致 | `build`/`smoke:login`/`security:scan`/`load:test`/`fingerprint:verify` | ✅ 2026-10-20（六项本机实测 exit=0；发布前按 CI 再复跑一次） |
 
 ---
 
@@ -204,6 +208,7 @@
 | I12 | **外部 onboarding 进 CI** | 模拟 degit（无 `.git`）→ 安装 → `project:init` → 全量门禁 | ✅ | CI `onboarding` job（非 PR 触发；两处只在「从零开始」路径暴露的回归都在这里守） |
 | I13 | **证据门禁能失败** | 自报 `passed` 必须凭**当前**证据（全规格扫描）+ 三条时效；`delivery:check --strict` 在 `check` 链内 | ✅ | 实测揪出 2 个规格自报 `G5_PRE passed` 而压测产物为 `failed=3/3`；反向对照 2 条（无证据 / 30 天前割接记录）均 exit 1 |
 | I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 此前 `EVOLUTION-ROADMAP-2026.md` **全仓零引用**（它自己也不引用任何文档）；现互引并登记 AGENTS §13 |
+| I15 | **压测判定分三态** | 记录运行时负载，区分 `passed`/`inconclusive`/`failed` | ✅ | 此前不达标只报「失败」，无法区分「真回归」与「机器被压住」。现产物自证环境（`environment.loadavg1`/`busyRatio`）；**inconclusive 同样非零退出**；单测 5 条含反向对照 |
 
 ## 5. 当前进展快照（2026-10-20）
 

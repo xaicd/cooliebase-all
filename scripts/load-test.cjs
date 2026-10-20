@@ -21,6 +21,7 @@ const { spawnSync, spawn } = require("node:child_process")
 const fs = require("node:fs")
 const http = require("node:http")
 const os = require("node:os")
+const { loadVerdict } = require("./lib/load-verdict.cjs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
@@ -201,15 +202,34 @@ async function main() {
   }
 
   const failed = results.filter((r) => !r.ok)
+
+  // 记录**运行时的机器负载**。此前只记 cores，于是"这次没过是因为本机负载高"
+  // 只能写在计划里**用手敲**（"机器负载 6.8/13/16"），证据文件里查不到、无从复核。
+  // 有了它，同一份产物既能自证环境，也能把「真的退化了」与「机器被压住了」分开。
+  const loadavg = os.loadavg()
+  const cores = os.cpus().length
+  const busyRatio = loadavg[0] / cores
+  const verdict = loadVerdict({ failed: failed.length, loadavg1: loadavg[0], cores })
+  const contended = verdict === "inconclusive"
+
   const out = {
     ranAt: new Date().toISOString(),
     base: BASE,
     runner: hasAb ? "ab" : "node",
-    cores: os.cpus().length,
+    cores,
+    environment: { loadavg1: loadavg[0], loadavg5: loadavg[1], loadavg15: loadavg[2], busyRatio, contended },
+    verdict,
     note: baseline.note,
     total: results.length,
     failed: failed.length,
     results,
+  }
+
+  console.log(`\n[load] 环境: ${cores} 核 · loadavg ${loadavg.map((n) => n.toFixed(2)).join("/")} · 负载/核 = ${busyRatio.toFixed(2)}`)
+  if (verdict === "inconclusive") {
+    console.log("[load] ⚠ 判定 **inconclusive**：机器过载与吞吐塌陷同时出现 —— 这不是回归证据，请在安静环境或 CI 重跑")
+  } else if (verdict === "failed") {
+    console.log("[load] ✗ 判定 **failed**：机器负载正常，吞吐仍不达阈值 —— 这**是**回归，去查代码")
   }
   fs.mkdirSync(path.dirname(path.join(ROOT, RESULT_REL)), { recursive: true })
   fs.writeFileSync(path.join(ROOT, RESULT_REL), JSON.stringify(out, null, 2) + "\n")
@@ -217,7 +237,7 @@ async function main() {
     "[load] ⚠ 本机压测只作**回归护栏**：单机 CPU/磁盘/网络与生产不同，"
     + "这里的 rps/p95 **不代表容量**；真实容量须在生产用真实流量压。",
   )
-  console.log(`\n[load] ${results.length - failed.length}/${results.length} 通过 —— 结果落盘 ${RESULT_REL}`)
+  console.log(`\n[load] ${results.length - failed.length}/${results.length} 通过 · verdict=${verdict} —— 结果落盘 ${RESULT_REL}`)
   exitCode = failed.length === 0 ? 0 : 1
 }
 
