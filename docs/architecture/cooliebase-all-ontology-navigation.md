@@ -198,6 +198,7 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev
 | **新增跨切面能力** | `packages/shared/backend/lib/<能力>/`（含 `index.ts` barrel） | 加驱动/管理器（按 §5 可切换范式），并在本页 §3/§5 登记一行 | tsc 零增量；`__tests__` 覆盖 |
 | **沉淀高频研发经验** | `.agents/skills/<name>/SKILL.md` | 用 `skill-authoring` 结晶新 SKILL；在 §7 索引补一行 | `.agents/context/ASSEMBLY.md` 注册 order（若需自动加载） |
 | **能力/架构画像变更** | `packages/shared/contract/{agent-profile,project-profile}.json` | 更新画像；本页对应节同步 | 与 `AGENTS.md`/catalog 冲突时以后者为准 |
+| **流程 / 防呆变更**（2026-10-20 新增） | 判定规则 `scripts/lib/spec-necessity-rules.cjs` · 守卫 `.agents/hooks/` · 门禁 `scripts/check-*.cjs` | 改规则表 / 守卫 / 门禁后，在 `compat-manifest.consumptionSurface` 的 `gates` 或 **`commands`** 登记（`agent:route` / `harness:health` 就属后者） | `pnpm run check`（**14 条**规范规则）· `npm run compat:check` · `npm run harness:health`（金丝雀：证明 CLI 真的执行了 hook） |
 
 ### 10.2 进化闭环（每轮进化必走）
 

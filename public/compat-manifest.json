@@ -116,6 +116,11 @@
       "agent:coverage:check",
       "repo:columns:check",
       "routes:validation:check"
+    ],
+    "commands": [
+      "agent:route",
+      "harness:health",
+      "harness:hermes-hook"
     ]
   },
   "compatibility": {

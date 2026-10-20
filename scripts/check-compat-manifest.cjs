@@ -140,6 +140,12 @@ for (const gate of surface.gates || []) {
   if (!pkg.scripts?.[gate]) fail(`consumptionSurface.gates lists "${gate}" but package.json has no such script`)
 }
 
+// 非门禁类入口（分诊器 / 自检 / 安装器）单独声明 —— 它们不判质量分，但同样是"对外可调用的面"。
+// 塞进 gates 会失真（gates 的语义是"能红的质量门禁"），所以单列并同样校验存在性。
+for (const command of surface.commands || []) {
+  if (!pkg.scripts?.[command]) fail(`consumptionSurface.commands lists "${command}" but package.json has no such script`)
+}
+
 const gateValues = new Set(Object.values(server.GATES))
 for (const script of gateValues) {
   if (!pkg.scripts?.[script]) fail(`MCP server gate "${script}" is not a package.json script`)

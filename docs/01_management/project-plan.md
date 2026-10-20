@@ -110,6 +110,9 @@
 | B5 | 依赖 CVE 棘轮 | 只拦新增；无补丁项入台账 | ✅ | `npm run deps:audit` |
 | B6 | 客户端构建门禁 | 导出产物存在 + 零污染 + 裁剪跳过 | ✅ | `npm run clients:build:check` |
 | B7 | 版本策略机检 | 模板版本两处同步；最新 tag 有发布说明；解耦须有据 | ✅ | `npm run version:check`（含两条反向对照） |
+| B8 | 路由校验覆盖（§4.1） | 写路由且读 body 就必须接 Zod；棘轮只拦新增 | ✅ | `npm run routes:validation:check`（已接线 **709/854**，剩 145 条全为非标准端点） |
+| B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `npm run repo:columns:check`（323 仓储 / 324 表，0 违规） |
+| B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce，14 条规范规则之一；反向对照三条） |
 
 ### WS-C Agent 消费面
 
@@ -173,14 +176,35 @@
 
 ---
 
-## 5. 当前进展快照（2026-10-19）
+### WS-I Harness 与流程自动化（2026-10-20 新增）
 
-- **基座**：`npm run check` exit=0；全量 `pnpm exec vitest run` 436 files / 816 tests / **0 failed**。
-- **消费面**：17 domains / 38 skills / 17 MCP tools / 10 gates（`compat:check` 实测）。
-- **供应链**：漏洞 43 → 9（消除了 2 个 critical 中的 1 个；`shell-quote` 仍为 critical，属开发调试链）。
+> 本轮工作的主线：让**任意终端 CLI**（cmd / Claude Code / agy / Hermes）都**自动**走
+> 「需求分诊 → 规格 → 门禁」，而不是靠模型自觉。
+
+| ID | 工作项 | 验收 | 状态 | 证据 |
+|---|---|---|---|---|
+| I1 | 需求分诊（三值判定） | 同一输入永远同一结论；判不准时宁严勿宽 | ✅ | `npm run agent:route -- "<需求>"`（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`）；`test/unit/agent-route.test.ts` 14 条 |
+| I2 | 规则表可测 | 真实历史语料未命中率 ≤ 40% | ✅ | `test/unit/agent-route-corpus.test.ts`（37 条真实原话，65% → **32%**） |
+| I3 | 跨 CLI 引擎级守卫 | 三家 hooks 接入；两种协议（exit 2 / stdout JSON） | ✅ | `.agents/hooks/spec-gate.sh` + `.agents/hooks/parse-payload.js`；`test/unit/spec-gate-hook.test.ts` 11 条 |
+| I4 | 配置接线机检 | 配置合法 **且** 指向真实脚本、规则单一真源 | ✅ | `test/unit/cli-hook-wiring.test.ts` |
+| I5 | 金丝雀自检 | 证明「CLI 真的执行了 hook」，而非只配置合法 | ✅ | `npm run harness:health`（✅ 生效 / ⚠️ 配了没跑 / — 无配置） |
+| I6 | git 兜底（跨 CLI 唯一层） | 哪个 agent 提交都要过 | ✅ | `.githooks/pre-commit` + `core.hooksPath` |
+| I7 | §15 强制落地 | 用户原始输入自动入库（此前只有条文） | ✅ | `agent:route` 自动写 `docs/features/sprint-prod/{MMDD}.md` |
+| I8 | Hermes 接入 | 幂等安装（dry-run / 备份 / 拒绝重复键） | 🟡 | `npm run harness:hermes-hook -- --write` **待执行**（用户级全局配置，不擅自改） |
+| I9 | 入口一致性机检 | 6 个入口都必须出现 `agent:route` | ✅ | `npm run specs:health`（error 级） |
+
+## 5. 当前进展快照（2026-10-20）
+
+- **基座**：`pnpm run check` exit=0（**14 条规范规则**）；全量 `pnpm exec vitest run` **465 files / 938 tests / 0 failed**。
+- **消费面**：17 domains / 38 skills / 17 MCP tools / **20 gates / 3 commands**（`compat:check` 实测）。
+- **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
+  （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
+- **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（清单 `non-standard-endpoints.md`）。
+- **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
+- **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：8 条活跃规格（7 条 infra + 1 条 system），本轮新增 4 条并全部关闭。
-- **进化待办**：1 条（low：门禁轨迹比 HEAD 旧，跑一次 `check` 自愈）。
+- **规格库**：活跃 **10 条**；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **Harness**：本轮 32 个提交；风险台账新增 RSK-011/012/013 并全部收敛到「已知边界 + 机检」。
 
 ---
 
