@@ -56,7 +56,7 @@ npm run agent:route -- "<用户的原始需求原文>"
 - 规则真源：`scripts/lib/spec-necessity-rules.cjs`（**每条带理由，可审阅可改**）
 - 判**不准**时宁严勿宽：是任务但没命中任何规则 → `SPEC_REQUIRED`
 - 顺带兑现 AGENTS §15：原始输入自动记入 `docs/features/sprint-prod/{MMDD}.md`
-- 机器可读记录：`docs/architecture/artifacts/agent-route-last.json`
+- 机器可读记录：`docs/architecture/artifacts/agent-route-last.json`（**本机瞬时状态，已 gitignore** —— 每次运行都会变，追踪它只会让每次分诊都产生 diff；hooks 在无记录时按「不拦」处理，新建克隆不会因为没有它而卡死）
 
 **回测证据**：拿 11 条真实历史输入验证，初版曾 **11/11 全部判 SPEC_REQUIRED**（连「干」都要求立规格），
 修正后为 5 SPEC / 1 DIRECT / 5 非需求。相关用例已固化为 `test/unit/agent-route.test.ts`。
