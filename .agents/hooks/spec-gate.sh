@@ -31,10 +31,24 @@ INPUT=$(cat)
 # 输出格式固定为一行 `file<TAB>protocol`，**只起一个 node 进程**：
 # 早期版本用 3 个 `node -e`（解析 + 取 file + 取 protocol），实测单次 hook 高达 185ms，
 # 而它会在**每次** write/edit/shell 调用上执行 —— 太贵。
-PARSED=$(printf '%s' "$INPUT" | node "$(dirname "$0")/parse-payload.js" 2>/dev/null || printf '\texit2')
+PARSED=$(printf '%s' "$INPUT" | node "$(dirname "$0")/parse-payload.js" 2>/dev/null || printf '\texit2\tunknown')
 FILE_PATH="${PARSED%%$'\t'*}"
-PROTOCOL="${PARSED##*$'\t'}"
+REST="${PARSED#*$'\t'}"
+PROTOCOL="${REST%%$'\t'*}"
+KIND="${REST#*$'\t'}"
 [ -z "$PROTOCOL" ] && PROTOCOL="exit2"
+[ -z "$KIND" ] && KIND="unknown"
+
+# ── 心跳（金丝雀）：证明"这家 CLI **真的执行了**我们的 hook" ──────────────────
+# 只验证"配置文件合法"是不够的 —— CLI 可能因为 schema 变更、allowlist、cwd 不同而根本没加载它。
+# 这里每次被调用都追加一行（gitignored），`npm run harness:health` 据此报告各家是否真的生效。
+DECISION="allow"
+HEARTBEAT="${AGENT_ROUTE_HEARTBEAT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/docs/architecture/artifacts/harness-heartbeat.jsonl}"
+beat() {
+  printf '{"at":"%s","kind":"%s","decision":"%s","protocol":"%s","file":"%s"}\n' \
+    "$(date -u +%FT%TZ)" "$KIND" "$DECISION" "$PROTOCOL" "$FILE_PATH" >> "$HEARTBEAT" 2>/dev/null || true
+}
+trap beat EXIT
 
 # 不是写受保护路径 → 不表态
 if [ -z "$FILE_PATH" ]; then exit 0; fi
@@ -71,6 +85,7 @@ MSG="[spec-gate] 拦截：上一条需求被判为「需要规格」(SPEC_REQUIR
   规则真源：scripts/lib/spec-necessity-rules.cjs（可审阅、可修改）
   确认判定有误时：AGENT_ROUTE_SKIP=1（并回头改规则表，而不是长期绕过）"
 
+DECISION="deny"
 printf '%s\n' "$MSG" >&2
 
 if [ "$PROTOCOL" = "antigravity" ]; then

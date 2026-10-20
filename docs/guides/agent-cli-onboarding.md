@@ -150,6 +150,31 @@ hooks:
 
 ## 7. 怎么验证整套机制是活的
 
+### 7.0 金丝雀：证明「配置合法」之外的东西
+
+**配置合法 ≠ 生效。** CLI 可能 schema 变更、首次未 allowlist、cwd 不同找不到脚本、
+matcher 拼错、或干脆没装 —— 这些情况下 `npm run check` 全绿，而守卫形同虚设。
+
+机制：守卫**每次被调用**都往 `docs/architecture/artifacts/harness-heartbeat.jsonl`（gitignored）追加一行
+（`kind` / `decision` / `protocol` / `file`）。据此交叉核对：
+
+```bash
+npm run harness:health                     # 报告：✅ 真的生效 / ⚠️ 配了但从未触发 / — 无配置
+npm run harness:health -- --require cmd,agy  # 指定家必须近期有心跳，否则 exit 1
+npm run harness:health -- --window 60        # 只看最近 60 分钟
+```
+
+| 状态 | 含义 |
+|---|---|
+| ✅ | 配了 **且** 近期有心跳 → 真的生效 |
+| ⚠️ | **配了但从未触发** → 多半没加载 / 没 allowlist / matcher 拼错 |
+| — | 无配置文件（靠文本层 + git 兜底） |
+
+**使用建议**：在每家 CLI 里各做一次写操作，然后跑 `npm run harness:health`，
+确认那一家变成 ✅。这是唯一能证明"该 CLI 真的执行了我们的 hook"的手段。
+
+
+
 ```bash
 # ① 分诊器本身（含 7 条回测回归用例）
 npx vitest run test/unit/agent-route.test.ts

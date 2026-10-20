@@ -201,3 +201,6 @@ __pycache__/
 
 # 需求分诊的**本机瞬时状态**（每次运行都变；不是产物，不进版本库）
 docs/architecture/artifacts/agent-route-last.json
+
+# hook 心跳（金丝雀自检用；本机状态，不进版本库）
+docs/architecture/artifacts/harness-heartbeat.jsonl

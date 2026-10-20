@@ -82,5 +82,17 @@ process.stdin.on("end", () => {
 
   // 协议：出现 toolCall 即 Antigravity（它读 stdout JSON，不看 exit code）
   const protocol = payload && payload.toolCall ? "antigravity" : "exit2"
-  process.stdout.write(file + "\t" + protocol)
+
+  // 推断是哪家 CLI —— 用于心跳与"金丝雀"自检（证明该 CLI 真的执行了我们的 hook）
+  //   cmd      : 有 tool_display_name（SHELL/READ/WRITE/EDIT）
+  //   Claude   : 有 hook_event_name 且无 tool_display_name
+  //   Hermes   : 用 args 传工具参数
+  //   agy      : 有 toolCall
+  let kind = "unknown"
+  if (payload && payload.toolCall) kind = "agy"
+  else if (payload && typeof payload.args === "object" && payload.args) kind = "hermes"
+  else if (payload && payload.tool_display_name) kind = "cmd"
+  else if (payload && payload.hook_event_name) kind = "claude"
+
+  process.stdout.write(file + "\t" + protocol + "\t" + kind)
 })
