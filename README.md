@@ -85,9 +85,15 @@ cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "我的新业务系统"
 npm run dev
 ```
-> **已实测验证（2026-10-19）**：上述 degit 流程逐项通过 —— `pnpm install` → `project:init` → `npm run check`（exit 0）
-> → `npm run build` → `pnpm dev`；`/healthz` 200、`/readyz` 200、管理员登录 200（拿到 token）、
-> 受保护接口带 token 200 / 不带 token 401。
+> **实测记录**
+>
+> - **2026-10-20 复跑**（无 `.git` 克隆模拟 degit）：`pnpm install` → `project:init` → `npm run check`（**exit 0**）。
+>   复跑**发现并修掉两处回归**：① `project:init` 不 `git init`，导致无 `.git` 的派生工程在
+>   `docs:commands:check` 上**直接红**（「无法列出 git 跟踪文件」）；
+>   ② `project:init` 删除归档区后**没有重生成 wiki**，`gen:paths:check` 引用已删路径。
+> - **2026-10-19**：当时的完整链路 `install → project:init → check → build → dev`，
+>   `/healthz` 200、`/readyz` 200、登录 200、受保护接口 200/401。
+>   （**本轮只复跑到 `check`**，`build` / `dev` / 健康检查那一半未复跑。）
 >
 > ⚠️ **环境变量优先级**：`process.env` > `.env.local` > `.env`。若你的 shell 里已经导出过
 > `DB_DRIVER` / `DATABASE_URL` / `TENANT_PLATFORM_USERNAMES` / `NODE_ENV`，它们会**覆盖**工程内的配置，

@@ -9,7 +9,7 @@
    - 风险登记册与缓解预案：`docs/01_management/risk-register.md`
    - 决策记录目录：`docs/01_management/dar-decision-records/` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
-   - 已归档的真实规格包：`docs/specs/archive/2026-Q4/shop/ecommerce/` (商城最小闭环)
+   - 已归档的真实规格包：\`docs/specs/archive/2026-Q4/shop/ecommerce/\` (商城最小闭环)
    - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（342 份 Agent 契约）
    - 规范目录 `docs/02_requirements/` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：

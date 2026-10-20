@@ -236,6 +236,40 @@ function updateGitRemote(targetDir, gitUrl) {
   }
 }
 
+/**
+ * 确保派生工程有 git 仓库。
+ *
+ * 为什么必须在这里补：`degit` 下载的骨架**没有 `.git`**，而 `project:init` 是这条路径的最后一步。
+ * 不补的话，后续 `npm run check` 里依赖 git 的门禁会直接红 —— 实测
+ * `docs:commands:check`：「无法列出 git 跟踪文件（拒绝在未知文件集上判定）」，
+ * 而 README 声称这条 degit 流程「已实测验证」。**承诺与实际不符，必须在代码里补上。**
+ *
+ * **必须 `git add -A` 而不只是 `git init`**：空仓库的 `git ls-files` 返回空列表，
+ * 检查器会「扫 0 个文件 → 通过」—— 那是假绿，比报错更糟。
+ */
+function ensureGitRepo(dir) {
+  if (fs.existsSync(path.join(dir, ".git"))) return
+  try {
+    execFileSync("git", ["init", "-q"], { cwd: dir })
+    const hasEmail = spawnSync("git", ["config", "user.email"], { cwd: dir }).status === 0
+    if (!hasEmail) {
+      execFileSync("git", ["config", "user.email", "bot@local"], { cwd: dir })
+      execFileSync("git", ["config", "user.name", "ProjectInit"], { cwd: dir })
+    }
+    execFileSync("git", ["add", "-A"], { cwd: dir })
+    try {
+      execFileSync("git", ["commit", "-q", "-m", "chore: 派生工程初始快照"], { cwd: dir })
+    } catch {
+      /* 提交失败不影响可用性：索引已建立，git 依赖门禁可正常工作 */
+    }
+    console.log("[project-init] ✓ 已初始化 git 仓库（任务痕迹与指纹依赖它）")
+  } catch (error) {
+    console.warn(
+      `[project-init] ⚠ git 初始化失败（不影响启动，但依赖 git 的门禁会失败）：${String(error.message)}`,
+    )
+  }
+}
+
 function refreshArtifacts(targetDir, opts) {
   try {
     console.log("[project-init] 正在同步契约与 Seam 图谱...")
@@ -243,6 +277,12 @@ function refreshArtifacts(targetDir, opts) {
     execSync("node scripts/write-domain-manifests.cjs", { cwd: targetDir, stdio: "pipe" })
     if (fs.existsSync(path.join(targetDir, "scripts", "sync-agent-surface.cjs"))) {
       execSync("node scripts/sync-agent-surface.cjs", { cwd: targetDir, stdio: "pipe" })
+    }
+    // **必须重生成 wiki**：sanitizeProjectFiles 会删掉 `docs/specs/archive` 与
+    // `docs/architecture/archive`（派生工程不继承基座历史），而 wiki 里仍有指向它们的链接。
+    // 不重生成 → `gen:paths:check` 在派生工程里必红（实测：wiki/cmmi/cmmi-lifecycle.md）。
+    if (fs.existsSync(path.join(targetDir, "scripts", "sync-openwiki.cjs"))) {
+      execSync("node scripts/sync-openwiki.cjs --write", { cwd: targetDir, stdio: "pipe" })
     }
     console.log("[project-init] ✓ 契约图谱与发现表面已重新编译对齐")
   } catch (err) {
@@ -389,6 +429,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
+    ensureGitRepo(targetDir)
     console.log(`\n🎉 [SUCCESS] 业务项目已成功初始化在: ${targetDir}`)
   } else {
     console.log(`\n[project-init] 正在对当前底座进行【原地业务重构】...`)
@@ -399,6 +440,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
+    ensureGitRepo(targetDir)
     console.log(`\n🎉 [SUCCESS] 当前底座已成功重构为专属业务工程: [${opts.title} (${opts.name})]`)
   }
 

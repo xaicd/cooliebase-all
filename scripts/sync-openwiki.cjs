@@ -34,6 +34,14 @@ const contractsPath = path.join(ROOT, "docs/agent/contracts.json");
  * 教训：本文件里曾同时存在 324 与 326 两种写法（同一份生成器自相矛盾），
  * 而真值是随开发变化的 —— 写死就必然漂移。
  */
+// 归档样例按**存在性**生成：`project:init` 会删掉 `docs/specs/archive`
+// （派生工程不继承基座历史），写死路径会让 `gen:paths:check` 在派生工程里必红（实测）。
+const ARCHIVED_SPEC_SAMPLE = fs.existsSync(
+  path.join(ROOT, "docs", "specs", "archive", "2026-Q4", "shop", "ecommerce"),
+)
+  ? "   - 已归档的真实规格包：\\`docs/specs/archive/2026-Q4/shop/ecommerce/\\` (商城最小闭环)"
+  : "   - 已归档规格：**派生工程不继承基座历史**（`project:init` 会清空归档区）"
+
 const AGENT_CONTRACT_COUNT = (() => {
   let count = 0
   const walk = (dir) => {
@@ -740,7 +748,7 @@ function buildCmmiMds() {
    - 风险登记册与缓解预案：\`docs/01_management/risk-register.md\`
    - 决策记录目录：\`docs/01_management/dar-decision-records/\` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
-   - 已归档的真实规格包：\`docs/specs/archive/2026-Q4/shop/ecommerce/\` (商城最小闭环)
+${ARCHIVED_SPEC_SAMPLE}
    - 全域跨端契约：\`packages/plugins/plugin-*/contract/\` 与 \`packages/domains/*/contract/\`（${AGENT_CONTRACT_COUNT} 份 Agent 契约）
    - 规范目录 \`docs/02_requirements/\` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
