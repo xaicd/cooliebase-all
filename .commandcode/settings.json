@@ -9,7 +9,7 @@
     ],
     "PreToolUse": [
       {
-        "matcher": "write|edit",
+        "matcher": "write|edit|shell",
         "hooks": [
           { "type": "command", "command": "./.agents/hooks/spec-gate.sh", "timeout": 10 }
         ]

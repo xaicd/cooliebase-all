@@ -27,29 +27,9 @@ if [ "${AGENT_ROUTE_SKIP:-0}" = "1" ]; then exit 0; fi
 
 INPUT=$(cat)
 
-# 一次解析出「文件路径」与「协议类型」
-PARSED=$(printf '%s' "$INPUT" | node -e '
-  const chunks = []
-  process.stdin.on("data", (c) => chunks.push(c))
-  process.stdin.on("end", () => {
-    let d = {}
-    try { d = JSON.parse(Buffer.concat(chunks).toString("utf8")) } catch { /* 非法 JSON → 不表态 */ }
-    const pick = (o, p) => p.split(".").reduce((a, k) => (a == null ? a : a[k]), o)
-    const candidates = [
-      "tool_input.file_path", "tool_input.path", "tool_input.absolute_path",
-      "args.file_path", "args.path",
-      "toolCall.args.TargetFile", "toolCall.args.AbsolutePath",
-      "toolCall.args.FilePath", "toolCall.args.target_file", "toolCall.args.Path",
-    ]
-    let file = ""
-    for (const c of candidates) {
-      const v = pick(d, c)
-      if (typeof v === "string" && v) { file = v; break }
-    }
-    const protocol = d && d.toolCall ? "antigravity" : "exit2"
-    process.stdout.write(JSON.stringify({ file, protocol }))
-  })
-' 2>/dev/null || printf '{"file":"","protocol":"exit2"}')
+# 解析「文件路径」与「协议类型」——逻辑在独立的 .agents/hooks/parse-payload.js 里。
+# 之前内联在 node -e 里，正则中的单引号会把 shell 字符串提前闭合（踩过多次），故拆开。
+PARSED=$(printf '%s' "$INPUT" | node "$(dirname "$0")/parse-payload.js" 2>/dev/null || printf '{"file":"","protocol":"exit2"}')
 
 FILE_PATH=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).file||"")}catch{}})')
 PROTOCOL=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).protocol||"exit2")}catch{process.stdout.write("exit2")}})')

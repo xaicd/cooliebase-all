@@ -82,6 +82,38 @@ describe("跨 CLI 规格守卫（exit 2 协议）", () => {
     expect(decision.reason).toMatch(/需要规格|SPEC_REQUIRED/)
   })
 
+  /**
+   * ★ 用 **shell 写文件**也必须能拦 —— 否则 `echo x > packages/y.ts` 直接绕过守卫
+   * （实测：只在 `write|edit` 上挂 hook 时，这里 exit 0，完全拦不住）。
+   * 检测口径**刻意很窄**：只认「写操作符紧跟着受保护路径」，避免把读操作误判。
+   */
+  it("★ shell 重定向写受保护路径 → 拦截", () => {
+    writeRecord("SPEC_REQUIRED")
+    expect(
+      runHook({ tool_name: "shell_command", tool_input: { command: `echo x > ${ROOT}/packages/foo.ts` } }),
+    ).toBe(2)
+  })
+
+  it("★ shell 用 tee / sed -i / cp 写受保护路径 → 拦截", () => {
+    writeRecord("SPEC_REQUIRED")
+    for (const command of [
+      `cat a | tee ${ROOT}/prisma/x.sql`,
+      `sed -i 's/a/b/' ${ROOT}/src/app/api/x/route.ts`,
+      `cp /tmp/a ${ROOT}/packages/b.ts`,
+    ]) {
+      expect(runHook({ tool_input: { command } }), `未拦住: ${command}`).toBe(2)
+    }
+  })
+
+  it("★ 反向：读操作即使带重定向也不得误伤（git diff … > /tmp/out）", () => {
+    writeRecord("SPEC_REQUIRED")
+    expect(
+      runHook({ tool_input: { command: `git diff -- ${ROOT}/packages/x > /tmp/out.txt` } }),
+    ).toBe(0)
+    expect(runHook({ tool_input: { command: `grep -rn "packages/foo" ${ROOT}/docs` } })).toBe(0)
+    expect(runHook({ tool_input: { command: "npm run check" } })).toBe(0)
+  })
+
   it("非受保护路径 → 放行", () => {
     writeRecord("SPEC_REQUIRED")
     expect(runHook({ tool_input: { file_path: `${ROOT}/docs/notes.md` } })).toBe(0)
