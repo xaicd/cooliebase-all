@@ -97,7 +97,16 @@ npm run agent:route -- "<用户的原始需求原文>"
 
 ## 4. 尚未接入：Hermes（需要你自己加一次配置）
 
-Hermes 的 hooks 配置在**用户级** `~/.hermes/config.yaml`（不在本仓），所以这里只给片段，不擅自改你的全局配置。
+Hermes 的 hooks **只能**配置在用户级 `~/.hermes/config.yaml`（源码 `_parse_hooks_block` 只读 config，
+没有项目级入口）。那是**会影响你所有项目**的全局配置，所以本仓**不擅自修改**，
+而是提供一个**幂等安装脚本**（默认 dry-run、写入前备份、已有 `hooks:` 段则拒绝）：
+
+```bash
+npm run harness:hermes-hook            # dry-run：只打印将追加的内容，不动你的配置
+npm run harness:hermes-hook -- --write # 备份后追加
+```
+
+它会追加一个带标记的块（删掉标记之间的内容即可回滚）。手工等价片段如下：
 
 ```yaml
 hooks:

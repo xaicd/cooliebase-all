@@ -158,6 +158,7 @@
     "spec:archive": "node scripts/archive-spec.cjs",
     "delivery:hints": "node scripts/delivery-hints.cjs",
     "agent:route": "node scripts/agent-route.cjs",
+    "harness:hermes-hook": "node scripts/install-hermes-hook.cjs",
     "task:verify": "npx tsx scripts/speckit.ts tasks",
     "fingerprint": "node scripts/env-fingerprint.cjs --write",
     "fingerprint:verify": "node scripts/env-fingerprint.cjs --verify",
