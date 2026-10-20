@@ -114,7 +114,8 @@
       "agent:selectors:check",
       "agent:routes:check",
       "agent:coverage:check",
-      "repo:columns:check"
+      "repo:columns:check",
+      "routes:validation:check"
     ]
   },
   "compatibility": {
