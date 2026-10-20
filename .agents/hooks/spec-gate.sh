@@ -1,48 +1,61 @@
 #!/usr/bin/env bash
-# 跨 CLI 的「写受保护路径前必须走过规格流程」守卫 —— **一份脚本，三家通用**。
+# 跨 CLI 的「写受保护路径前必须走过规格流程」守卫 —— **一份脚本，多家通用**。
 #
-# 为什么这么写：各家的 hook 配置格式不同，但**拦截协议是同一个**：
-#   · Command Code 文档：PreToolUse `exit 2` → 工具被跳过；
-#   · Hermes 源码注释：`Exit code 2 blocks a pre_tool_call even without JSON (Claude-Code / Cursor)`。
-# 所以这里只用 **stdin JSON + exit 2 + stderr**，不依赖任何一家的专有输出格式。
+# 为什么这么写：各家 hook 的配置格式不同，但拦截协议只有两类（均取自各家文档/源码，非猜测）：
+#   · cmd / Claude / Hermes：用 **exit 2** 拦截
+#       —— cmd 文档：PreToolUse `exit 2` → 工具被跳过；
+#       —— Hermes 源码注释：`Exit code 2 blocks a pre_tool_call even without JSON (Claude-Code / Cursor)`。
+#   · **Antigravity (agy)**：不看退出码，读 **stdout 上的 JSON**
+#       —— `{"decision":"deny"|"allow"|"ask"|"force_ask","reason":"..."}`
+#          （取自 agy 二进制内嵌的 hooks 文档）
 #
-# 载荷差异（实测自各家源码/文档，非猜测）：
-#   · cmd      : {"tool_name": ..., "tool_input": {"file_path": "..."}}
-#   · Claude   : {"tool_name": ..., "tool_input": {"file_path": "..."}}
-#   · Hermes   : {"tool_name": ..., "args": {"path": "..."}}      ← 路径字段是 path，不是 file_path
+# 载荷差异（实测/取证的字段名）：
+#   · cmd / Claude : {"tool_input": {"file_path": "..."}}
+#   · Hermes       : {"args": {"path": "..."}}
+#   · Antigravity  : {"toolCall": {"args": {"TargetFile": "..."}}}   ← 出现 toolCall 即 agy
 #
 # 规则（与 .githooks/pre-commit 同源，避免两处漂移）：
 #   写受保护路径（packages/ · prisma/ · src/app/api/）
 #   且上一条需求分诊为 SPEC_REQUIRED
 #   且还没有比该记录更新的规格包
-#   → 拦下（exit 2）。
+#   → 拦下。
 #
-# 逃生阀：AGENT_ROUTE_SKIP=1（放行）。请只在确认判定有误时使用，并回头改规则表。
+# 逃生阀：AGENT_ROUTE_SKIP=1（放行）。只在确认判定有误时用，并回头改规则表。
 set -uo pipefail
 
 if [ "${AGENT_ROUTE_SKIP:-0}" = "1" ]; then exit 0; fi
 
 INPUT=$(cat)
 
-# 从三种载荷里取文件路径（哪个字段存在用哪个）
-FILE_PATH=$(printf '%s' "$INPUT" | node -e '
+# 一次解析出「文件路径」与「协议类型」
+PARSED=$(printf '%s' "$INPUT" | node -e '
   const chunks = []
   process.stdin.on("data", (c) => chunks.push(c))
   process.stdin.on("end", () => {
     let d = {}
-    try { d = JSON.parse(Buffer.concat(chunks).toString("utf8")) } catch { process.exit(0) }
+    try { d = JSON.parse(Buffer.concat(chunks).toString("utf8")) } catch { /* 非法 JSON → 不表态 */ }
     const pick = (o, p) => p.split(".").reduce((a, k) => (a == null ? a : a[k]), o)
     const candidates = [
-      "tool_input.file_path", "tool_input.path",   // cmd / Claude
-      "args.file_path", "args.path",               // Hermes
-      "tool_input.absolute_path",
+      "tool_input.file_path", "tool_input.path", "tool_input.absolute_path",
+      "args.file_path", "args.path",
+      "toolCall.args.TargetFile", "toolCall.args.AbsolutePath",
+      "toolCall.args.FilePath", "toolCall.args.target_file", "toolCall.args.Path",
     ]
-    for (const c of candidates) { const v = pick(d, c); if (typeof v === "string" && v) { process.stdout.write(v); return } }
+    let file = ""
+    for (const c of candidates) {
+      const v = pick(d, c)
+      if (typeof v === "string" && v) { file = v; break }
+    }
+    const protocol = d && d.toolCall ? "antigravity" : "exit2"
+    process.stdout.write(JSON.stringify({ file, protocol }))
   })
-' 2>/dev/null || true)
+' 2>/dev/null || printf '{"file":"","protocol":"exit2"}')
 
+FILE_PATH=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).file||"")}catch{}})')
+PROTOCOL=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).protocol||"exit2")}catch{process.stdout.write("exit2")}})')
+
+# 不是写受保护路径 → 不表态
 if [ -z "$FILE_PATH" ]; then exit 0; fi
-
 case "$FILE_PATH" in
   */packages/*|*/prisma/*|*/src/app/api/*) : ;;
   *) exit 0 ;;
@@ -56,21 +69,32 @@ if [ ! -f "$RECORD" ]; then
   exit 0   # 没有分诊记录时不拦（避免在还没跑过 agent:route 的仓库里卡死）
 fi
 
+# **必须转成绝对路径**：下面用 `require()` 读它，而 `require("docs/x.json")` 会被当成模块名解析、
+# 读不到 → VERDICT 为空 → **静默放行**（实测踩过）。宁可多一行，也不要静默失效。
+RECORD="$(cd "$(dirname "$RECORD")" && pwd)/$(basename "$RECORD")"
+
 VERDICT=$(node -e 'try{process.stdout.write(require(process.argv[1]).verdict||"")}catch{}' "$RECORD" 2>/dev/null || echo "")
 if [ "$VERDICT" != "SPEC_REQUIRED" ]; then exit 0; fi
 
 NEWER=$(find "$ROOT/docs/specs" -name brief.json -newer "$RECORD" 2>/dev/null | head -1 || true)
 if [ -n "$NEWER" ]; then exit 0; fi
 
-cat >&2 <<MSG
-[spec-gate] 拦截：上一条需求被判为「需要规格」(SPEC_REQUIRED)，但还没有对应规格包。
+MSG="[spec-gate] 拦截：上一条需求被判为「需要规格」(SPEC_REQUIRED)，但还没有对应规格包。
 
-  要写的文件：$FILE_PATH
+  要写的文件：${FILE_PATH}
   先执行：
-      npm run speckit:new -- --name <名字> --domain <域> --type <类型> --title "<标题>"
+      npm run speckit:new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\"
   （分诊输出里已给出建议的 --type 与 --name）
 
   规则真源：scripts/lib/spec-necessity-rules.cjs（可审阅、可修改）
-  确认判定有误时：AGENT_ROUTE_SKIP=1（并回头改规则表，而不是长期绕过）
-MSG
+  确认判定有误时：AGENT_ROUTE_SKIP=1（并回头改规则表，而不是长期绕过）"
+
+printf '%s\n' "$MSG" >&2
+
+if [ "$PROTOCOL" = "antigravity" ]; then
+  # Antigravity：读 stdout 的 JSON decision，不看退出码
+  node -e 'process.stdout.write(JSON.stringify({ decision: "deny", reason: process.argv[1] }))' "$MSG"
+  exit 0
+fi
+
 exit 2

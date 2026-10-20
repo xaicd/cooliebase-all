@@ -30,10 +30,10 @@ L1 各家配置格式不同；**L2 是唯一真正跨 CLI 的一层**，所以�
 | **Command Code (`cmd`)** | `AGENTS.md`（**不读 `CLAUDE.md`**） | ✅ `.commandcode/settings.json`，事件 `PreToolUse` / `PostToolUse` / `Stop` / `SessionStart` | 产品文档 `reference/memory.md`、`reference/hooks.md` |
 | **Claude Code** | `CLAUDE.md`（仓内已有，且已补「第一步」） | ✅ `.claude/settings.json`（事件名以它自己的文档为准） | 未在本仓接入（schema 未取到实证，**不编**） |
 | **Hermes** | **自动注入 `AGENTS.md`**（还有 `SOUL.md`） | ✅ `~/.hermes/config.yaml`，事件 `pre_tool_call` / `post_tool_call` / `pre_llm_call` / `subagent_stop` 等 | `hermes --help` 的 `--ignore-rules` 说明；源码 `agent/shell_hooks.py` |
-| **agy（Antigravity CLI）** | **未验证** | **未验证** | `~/.local/bin/agy` 是启动器，把 Antigravity 跑在 Docker 容器里（宿主工作区映射为 `/host-workspace`）；容器当时不可达、宿主亦无 Antigravity 配置，**取不到证据** |
+| **agy（Antigravity CLI）** | **`AGENTS.md` + `GEMINI.md` + `.agents/rules/*.md`**（三者都读） | ✅ **`.agents/hooks.json`（项目级）**，事件 `PreToolUse` / `PostToolUse` / `PreInvocation` / `PostInvocation` / `Stop` | **从 207MB CLI 二进制内嵌文档直接取证**：`Paths: GEMINI.md, AGENTS.md, .agents/rules/*.md`；`Directory-Based Rules (GEMINI.md / AGENTS.md)`；hooks 配置 `customization root … (e.g., .agents/hooks.json)` |
 
-> 关于 agy：**它的入口文件是什么，我没有证据，所以不做断言**。
-> 若它读 `AGENTS.md`（生态在收敛），则 L0 文本已覆盖；若读别的文件，把文件名告诉维护者即可补一个转发器。
+> 关于 agy（已取证）：它读 **`AGENTS.md`**，所以本仓现有结构**天然覆盖**；
+> 额外还读 `.agents/rules/*.md` —— 我们把长文档搬进 `.agents/rules/` 的做法正好被它直接消费。
 
 ---
 
@@ -86,6 +86,8 @@ npm run agent:route -- "<用户的原始需求原文>"
 - **cmd**：`.commandcode/settings.json`
   - `SessionStart` → `.commandcode/hooks/route-contract.sh`（把契约注入会话第一轮）
   - `PreToolUse(write|edit)` → `.agents/hooks/spec-gate.sh`
+- **agy（Antigravity）**：`.agents/hooks.json`（**项目级**，随仓分发，无需改全局配置）
+  - `PreToolUse` matcher = `write_to_file|replace_file_content|multi_replace_file_content|create_file|write_file|edit_file`
 - **git（所有 CLI）**：`.githooks/pre-commit` + `git config core.hooksPath .githooks`
 - **入口机检**：`npm run specs:health` 里「入口必须出现 `agent:route`」是 **error** 级
 
@@ -114,7 +116,17 @@ hooks:
 
 ---
 
-## 5. 尚未接入：Claude Code
+## 5. 协议差异（**必须知道，否则会静默放行**）
+
+| CLI | 拦截方式 | 载荷里的文件路径 |
+|---|---|---|
+| cmd / Claude / Hermes | **`exit 2`** | `tool_input.file_path` / `args.path` |
+| **Antigravity (agy)** | **stdout 上的 JSON** `{"decision":"deny","reason":"..."}`（**不看退出码**） | `toolCall.args.TargetFile`（还有 `AbsolutePath` / `FilePath` / `target_file`） |
+
+`.agents/hooks/spec-gate.sh` 会先看载荷里有没有 `toolCall` 来**自动选协议** ——
+只实现一种的话，在另一种上就会**静默放行**（本轮实测过：`require()` 读相对路径失败也会静默放行，已修）。
+
+## 6. 尚未接入：Claude Code
 
 `CLAUDE.md` 已经带「第一步：需求分诊」，文本层已覆盖。
 若要在 Claude Code 上也做到**引擎级**拦截，需要 `.claude/settings.json` 的 hooks。
@@ -122,7 +134,7 @@ hooks:
 
 ---
 
-## 6. 怎么验证整套机制是活的
+## 7. 怎么验证整套机制是活的
 
 ```bash
 # ① 分诊器本身（含 7 条回测回归用例）
@@ -142,10 +154,10 @@ git rm -q --cached packages/__probe__/p.ts && rm -rf packages/__probe__
 
 ---
 
-## 7. 已知边界（不要假装它们不存在）
+## 8. 已知边界（不要假装它们不存在）
 
 1. **模型可以不跑 L0** —— 所以才有 L1/L2；而 L1 是单家 CLI 的、L2 只覆盖到提交时。
 2. **L2 是"提交时"拦截**，不是"写文件时"；工作区里仍可能先出现不合规改动。
-3. **agy 未验证**；Claude Code 的 hooks 未接入。
+3. **Claude Code 的 hooks 未接入**（schema 无实证）；agy 已接入并有取证。
 4. **误判代价不对称**：漏判 → 该立规格的没立（返工）；误判 → 小改被拖住（烦）。
    当前用"宁严勿宽"，若觉得太吵，改规则表而不是绕过它。
