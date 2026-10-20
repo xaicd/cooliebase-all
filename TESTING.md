@@ -45,8 +45,11 @@ npm run test:all      # test:matrix 串 playwright
 
 ## 4. 已知缺口（诚实记录）
 
-1. **`test:unit` 覆盖面偏小**：它只跑 `test/unit/`（2 个文件），而 **69 个单元测试实际在
-   `src/**/__tests__/`**。要跑全量请用 `npm test` 或 `npm run test:matrix`。
+1. **`test:unit` 覆盖面偏小**：它只跑 `test/unit/`；**域级单元测试在 `packages/**/__tests__/`**，
+   数量以 `find packages -path '*__tests__*' -name '*.test.ts' | wc -l` 为准（不写死）。
+   要跑全量请用 **`pnpm run test:clean`** —— 覆盖 `test/` + `packages/`，且**剔除
+   `DATABASE_URL` / `DB_DRIVER` / `NODE_ENV`**（手写 `env -u …` 漏掉 NODE_ENV 会在
+   `NODE_ENV=production` 的 shell 里误红，实测）。
 2. **L4 目前跑不起来**：`package.json` 声明了 `test:e2e` / `test:agent`，`playwright.config.ts` 与
    `test/e2e/*.spec.ts` 也在，但 **`@playwright/test` 既不在依赖里也未安装**。启用前需要：
    `npm i -D @playwright/test && pnpm exec playwright install`。

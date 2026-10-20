@@ -122,7 +122,8 @@
       "harness:health",
       "harness:hermes-hook",
       "plan:freshness",
-      "setup:hooks"
+      "setup:hooks",
+      "test:clean"
     ]
   },
   "compatibility": {

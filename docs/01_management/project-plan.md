@@ -194,6 +194,7 @@
 | I8 | Hermes 接入 | 幂等安装（dry-run / 备份 / 拒绝重复键） | 🟡 | `npm run harness:hermes-hook -- --write` **待执行**（用户级全局配置，不擅自改） |
 | I9 | 入口一致性机检 | 6 个入口都必须出现 `agent:route` | ✅ | `npm run specs:health`（error 级） |
 | I10 | **git 兜底可移植** | `core.hooksPath` 是本机配置、不可提交 → 新克隆默认没有 | ✅ | `npm run setup:hooks`（幂等；已接 `postinstall`）；`npm run harness:health` 报告启用状态 |
+| I11 | **测试入口不被环境污染** | 剔除 `DATABASE_URL` / `DB_DRIVER` / **`NODE_ENV`** 后再跑 | ✅ | `pnpm run test:clean`（跨平台；`env -u` 是 POSIX-only 且漏了 NODE_ENV） |
 
 ## 5. 当前进展快照（2026-10-20）
 

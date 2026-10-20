@@ -595,7 +595,10 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 **本地跑 `vitest` 不要设 `DATABASE_URL`，也不要设非 memory 的 `DB_DRIVER`。**
 
 ```bash
-env -u DATABASE_URL -u DB_DRIVER pnpm exec vitest run    # 全量绿（数量会变，不写死）
+pnpm run test:clean                                       # 全量绿（数量会变，不写死）
+# ↑ 等价于「剔除 DATABASE_URL / DB_DRIVER / **NODE_ENV** 后跑 vitest」。
+# **不要手写 `env -u …`**：漏掉 NODE_ENV 时，只要 shell 恰好是 NODE_ENV=production，
+# 业务代码走生产分支 → 实测 `generated-route-crud` 报「生产环境必须配置 DATABASE_URL」而红。
 npm run verify:real-db                             # 真实库验证（改过仓储/迁移/多租户后必跑）
 ```
 
