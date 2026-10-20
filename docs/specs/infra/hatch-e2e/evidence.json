@@ -1,0 +1,56 @@
+{
+  "feature": "hatch-e2e",
+  "domain": "infra",
+  "gates": {
+    "G0_DAR": {
+      "status": "passed",
+      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
+      "evidence": [
+        "research.md",
+        "selection.md"
+      ],
+      "verifiedAt": "2026-10-20T14:37:25.495Z"
+    },
+    "G1_FDA": {
+      "status": "passed",
+      "owner": "设计",
+      "evidence": [
+        "design.md（speckit build 生成）",
+        "brief.json 的 architecture 段：hatch-e2e → project-init / clone-project-base → 产物自身 check，单向无环"
+      ],
+      "summary": "工具链改动：方向单一、无新增依赖（复用 ephemeral-pg.cjs 与产物自身的 check）"
+    },
+    "G2_CoreSWE": {
+      "status": "passed",
+      "owner": "开发",
+      "evidence": [
+        "scripts/hatch-e2e.cjs（新增）；package.json 新增 hatch:e2e",
+        "正向：`npm run hatch:e2e` → `结论: PASS —— init + create 的产物均通过自身门禁`，exit=0",
+        "反向对照：临时关掉 reactor 的 facts restamp → `--only create` exit=1，输出 `create: 产物自身 check 失败 (exit=1)`；还原后复跑 exit=0",
+        "`npm run check` exit=0；470 files / 955 tests 0 failed"
+      ],
+      "summary": "harness 已实现并证明**可失败**（不止可通过）"
+    },
+    "G3_FDSE": {
+      "status": "not_applicable",
+      "owner": "—",
+      "evidence": [],
+      "summary": "本规格无 UI / 无前端改动：不新增页面、组件或原型，故前端交付门禁不适用。"
+    },
+    "G4_DS": {
+      "status": "passed",
+      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
+      "evidence": [
+        "spec.md",
+        "requirements.md"
+      ],
+      "verifiedAt": "2026-10-20T14:37:25.495Z"
+    },
+    "G5_PRE": {
+      "status": "not_applicable",
+      "owner": "—",
+      "evidence": [],
+      "summary": "本规格是**构建期工具链改动**，不产出可部署物，故 runbook 割接演练 / 渗透扫描 / 容量压测三项均不适用；其对应的验证就是 `npm run hatch:e2e` 本身（已实测，见 G2_CoreSWE）。"
+    }
+  }
+}

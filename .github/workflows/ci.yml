@@ -81,6 +81,30 @@ jobs:
       - name: 派生工程必须通过全量门禁
         run: cd /tmp/derived && pnpm run check
 
+  # 孵化端到端：**产物自身能不能跑通它自己的门禁**（G2 的判据）。
+  #
+  # 为什么必须单列一个 job：基座自己的 `check` 看不到"只在新工程里暴露"的残留 ——
+  # 实测（2026-10-20）`project:create` 的产物 `check` exit=1（374 处悬空引用：被裁域的
+  # wiki 词条 + llms/README 的规模声明），而**基座 17 个域都在，完全绿**。
+  #
+  # `project:create` 需要一台真实 Postgres —— 这里走**嵌入式**（零容器），不引入 Docker。
+  # 与 onboarding 的分工：onboarding 守"别人从零 clone（无 .git）"；这里守"孵化出的成品能自跑门禁"。
+  hatch:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 孵化端到端（两条入口 × minimal，各自跑通自身 check）
+        run: pnpm run hatch:e2e
+
   # 平台可用性: 建库 → 迁移 → 种子 → 登记插件 → 起服务 → 登录 → 受保护接口
   smoke:
     runs-on: ubuntu-latest

@@ -1,0 +1,166 @@
+{
+  "name": "hatch-e2e",
+  "domain": "infra",
+  "title": "孵化端到端：产物自身门禁固化",
+  "type": "feature",
+  "goal": "让「孵化出的产物能否跑通它自己的门禁」成为一个**可常规执行**的入口（`npm run hatch:e2e` + 独立 CI job），而不是某次手工验证的结论。",
+  "provenanceNote": "**实现先于规格**：本轮先改代码并实测通过，在提交时被本仓 pre-commit 的 spec-gate 拦下（判定 SPEC_REQUIRED，命中 feature-word + scope-broad），遂补立本规格。此处如实记录顺序，不假装它是先规划后实现。",
+  "roles": [
+    {
+      "role": "开发者 / 维护者",
+      "can": "一条命令确认「孵化出的工程不是坏工程」，不必手工造两次工程"
+    },
+    {
+      "role": "CI / 门禁",
+      "can": "在非 PR 触发时守住孵化产物可用性，防回归"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为维护者，我跑 `npm run hatch:e2e` 就能知道两条孵化入口的产物**是否通过了它自己的 check**。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为门禁维护者，我要能证明这个 harness **会失败**（注入真实缺陷后它必须非 0），否则它是装饰。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为 CI，我希望它在非 PR 触发时独立成 job，与 onboarding（守「从零 clone」）分工明确。"
+    }
+  ],
+  "constraints": [
+    "**零 Docker**：`project:create` 需要真实 Postgres，必须走嵌入式（`scripts/lib/ephemeral-pg.cjs`），与 verify:real-db / smoke:login 同一条路。",
+    "**不降级**：任一环节非 0 即整体非 0；不因「环境不便」放宽判据。",
+    "**不造第二真源**：改写规模声明由 `check-llms-sync.cjs --restamp` 完成（判真值与改写同一个脚本）；wiki 陈旧清理由生成器自己做。",
+    "**不改产品代码**：本规格只动工具链与门禁接线。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0"
+    },
+    {
+      "check": "`npm run hatch:e2e` exit=0（init + create 两条入口的产物均通过自身 check）"
+    },
+    {
+      "check": "反向对照可复现：临时关掉 reactor 的 facts restamp → `npm run hatch:e2e -- --only create` 必须 exit=1，且输出 `create: 产物自身 check 失败`（已实测；还原后复跑 exit=0）"
+    },
+    {
+      "check": "`node scripts/sync-openwiki.cjs --check` exit=0；`node scripts/check-llms-sync.cjs` exit=0"
+    }
+  ],
+  "nonGoals": [
+    "**不覆盖 profile 矩阵**：默认只跑 minimal，`--profile` 可切换；四 profile × 两入口 × 全量 check 成本过高，不设为默认。",
+    "**不替代 onboarding job**：后者守「别人从零 clone（无 .git）」，职责不同。",
+    "**不做业务域交付**：本规格不新增任何业务表、页面、API。",
+    "**不追求「本地也能压测出容量」**：与本规格无关。"
+  ],
+  "architecture": "方向单一，无环：\n`scripts/hatch-e2e.cjs`\n  → 起嵌入式 Postgres（仅 create 需要；`scripts/lib/ephemeral-pg.cjs`）\n  → 入口 A `scripts/project-init.cjs --target`（SQLite，零外部依赖）\n  → 入口 B `scripts/clone-project-base.cjs`（reactor：克隆 → hatch 裁剪 → 重生成 wiki → 重写规模声明 → 建库/迁移/种子）\n  → 每个产物 `pnpm install --frozen-lockfile` → **产物自身的 `pnpm run check`**\n  → 汇总退出码（任一非 0 即非 0）\n两端都只**读**基座、只**写**临时目录；基座仓不被修改。",
+  "entities": [
+    {
+      "table": "不适用",
+      "note": "本规格是工具链改动，不涉及数据库表；不新增迁移。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "harness 必须能失败",
+      "how": "反向对照：注入真实缺陷（关掉 restamp）后 `--only create` 必须 exit=1 并报出「产物自身 check 失败」。"
+    },
+    {
+      "name": "基座自身不被污染",
+      "how": "所有产物写在 mkdtemp 目录，跑完 `rmSync`；`--keep` 才保留。"
+    },
+    {
+      "name": "退化为「某次验过」即失败",
+      "how": "接进 CI 独立 job（非 PR），而不是留在文档里的结论。"
+    }
+  ],
+  "ui": [
+    "不适用：无页面、无前端改动"
+  ],
+  "ops": [
+    "入口：`npm run hatch:e2e`（`--profile` / `--only` / `--keep` / `--skip-install`）",
+    "CI：新增独立 job `hatch`（`if: github.event_name != 'pull_request'`），CI 现有 7 个 job",
+    "接线：`package.json` 的 `hatch:e2e`；登记进 `compat-manifest.consumptionSurface.commands`；AGENTS §3.4 交付链表新增第 17 条；WBS I18"
+  ],
+  "risks": [
+    {
+      "risk": "E2E 依赖 `pnpm install` 两次（两个产物），CI 耗时上升",
+      "mitigation": "独立 job 且仅非 PR 触发；本地可 `--only` / `--skip-install` 迭代"
+    },
+    {
+      "risk": "harness 通过 ≠ 产品正确（它只验「产物能跑通自己的门禁」）",
+      "mitigation": "在文档与 AGENTS 中写明它与 smoke:login / security:scan 的分工与边界，不夸大"
+    },
+    {
+      "risk": "嵌入式 Postgres 在 CI 上不可用",
+      "mitigation": "smoke:login / security:scan 已在 CI 用同一条路并常年通过，风险已被既有事实覆盖"
+    }
+  ],
+  "screens": [
+    {
+      "name": "不适用（无 UI）",
+      "wireframe": "不适用"
+    }
+  ],
+  "interactions": [
+    "不适用（无 UI）"
+  ],
+  "states": [
+    "不适用（无 UI）"
+  ],
+  "candidates": [
+    {
+      "name": "自研 harness（采用）",
+      "type": "自研",
+      "license": "不适用（仓内脚本）",
+      "risk": "无"
+    },
+    {
+      "name": "把两个手工脚本留在 scratchpad 不固化",
+      "type": "不做",
+      "license": "不适用",
+      "risk": "判据退化为「某次验过」——本规格要解决的就是这个"
+    }
+  ],
+  "benchmarks": [
+    "业界常规做法是把「新建工程模板」的端到端（scaffold → install → build/test）放进 CI（如 create-react-app / create-vite 的 smoke 任务），而不是只跑模板库自身的测试。本规格与之一致。"
+  ],
+  "scan": [
+    "复用仓内既有能力，不引入新依赖：嵌入式 Postgres 用 `scripts/lib/ephemeral-pg.cjs`（verify:real-db / smoke:login / security:scan / load:test 已在用）；产物校验直接调产物自己的 `pnpm run check`，不另写断言。"
+  ],
+  "licenseConclusion": "不适用新依赖 —— 全部复用仓内既有脚本与 `embedded-postgres`（已在本仓使用）。无新增许可风险，无传染性。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "实现 hatch:e2e harness（两条入口 × install × 产物 check；嵌入式 PG；清理与 --keep）",
+      "files": [
+        "scripts/hatch-e2e.cjs",
+        "package.json"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "接线：compat commands / AGENTS 交付链 / WBS / 独立 CI job",
+      "files": [
+        "packages/shared/contract/compat-manifest.json",
+        "AGENTS.md",
+        "docs/01_management/project-plan.md",
+        ".github/workflows/ci.yml"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T1",
+      "title": "验证：正向跑通 + 反向对照（注入缺陷必须非 0）+ 还原后复跑",
+      "files": [
+        "-"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3（T3 依赖 T1 的实现与 T2 的接线）",
+  "windowMinutes": 10
+}

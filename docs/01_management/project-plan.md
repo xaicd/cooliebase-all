@@ -218,6 +218,7 @@
 | I15 | **压测判定分三态** | 记录运行时负载，区分 `passed`/`inconclusive`/`failed` | ✅ | 此前不达标只报「失败」，无法区分「真回归」与「机器被压住」。现产物自证环境（`environment.loadavg1`/`busyRatio`）；**inconclusive 同样非零退出**；单测 5 条含反向对照 |
 | I16 | **孵化不再依赖 Docker** | `project:create` 的 PG 地址可覆盖；连不上即**中止**不产坏工程 | ✅ | 此前写死 `localhost:5433` 且**忽略环境**；实测：嵌入式 PG 下 `exit=0`、目标库真实建出；不可达时 `exit=1` 且不写 postgres 配置 |
 | I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
+| I18 | **孵化端到端固化** | 产物的 `check` 由常规入口守，而非「某次验过」 | ✅ | 新增 `npm run hatch:e2e`（两条入口 × minimal，各自 install + 产物 `check`）+ 独立 CI job；反向对照：关掉 restamp → 产物 `check` 红 → 该入口 `exit=1`（**门禁确实能失败**） |
 
 ## 5. 当前进展快照（2026-10-20）
 

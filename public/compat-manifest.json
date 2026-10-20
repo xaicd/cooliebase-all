@@ -123,7 +123,8 @@
       "harness:hermes-hook",
       "plan:freshness",
       "setup:hooks",
-      "test:clean"
+      "test:clean",
+      "hatch:e2e"
     ]
   },
   "compatibility": {
