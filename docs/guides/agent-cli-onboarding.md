@@ -191,10 +191,10 @@ npm run harness:health -- --window 60        # 只看最近 60 分钟
 
 ```bash
 # ① 分诊器本身（含 7 条回测回归用例）
-npx vitest run test/unit/agent-route.test.ts
+pnpm exec vitest run test/unit/agent-route.test.ts
 
 # ② 守卫脚本（三种载荷 + 逃生阀 + 无记录）
-npx vitest run test/unit/spec-gate-hook.test.ts
+pnpm exec vitest run test/unit/spec-gate-hook.test.ts
 
 # ③ 入口一致性（6 个入口文件都必须出现 agent:route）
 npm run specs:health

@@ -72,6 +72,9 @@
 5. CI/镜像构建一律用 `pnpm install --frozen-lockfile`（Dockerfile 已切）。
 6. 脚本仍可用 `pnpm run <script>` 或 `npm run <script>`（后者在 pnpm 布局下同样可用），
    但**安装与锁文件操作只允许用 pnpm**。
+7. **`npx` 同理**：`npx <pkg>` 在包缺失时会**隐式安装**，等于绕过 `pnpm-lock.yaml`。
+   本仓统一用 **`pnpm exec <tool>`**（已安装的执行器）或 **`pnpm dlx <pkg>`**（一次性下载执行）。
+   存量 `npx` 由 `standards:check` 的 `no-new-npx` 棘轮冻结，**只拦新增**。
 
 ## 3. 架构总览
 
@@ -189,7 +192,7 @@
 | 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
 | 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
 | 23. **生成物列覆盖** | `npm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
-| 24. **路由校验覆盖** | `npm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `npx tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `npm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
+| 24. **路由校验覆盖** | `npm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `npm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
 
 
 > **本表列的是「人工决策点」，不是门禁清单。** `npm run check` 当前包含 34 个 npm 步骤，
@@ -805,7 +808,7 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 
 > **已移至** [`.agents/rules/PROJECT-REACTOR.md`](./.agents/rules/PROJECT-REACTOR.md)（原文逐字保留）。
 >
-> **何时读**：孵化新工程（`project:create` / `npx degit` / `scripts/hatch.sh`）或调整派生工程 profile 时。
+> **何时读**：孵化新工程（`project:create` / `pnpm dlx degit` / `scripts/hatch.sh`）或调整派生工程 profile 时。
 > **日常开发不必加载** —— 它是"如何生成一个新工程"的操作说明，不是日常规则。
 
 ## 17. 目录职责划分与基座/业务边界规范（Core Base vs Business Domain）

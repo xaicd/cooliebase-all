@@ -467,6 +467,55 @@ const RULES = [
     },
   },
   {
+    id: "no-new-npx",
+    section: "AGENTS.md §2.1",
+    mode: "ratchet",
+    description:
+      "docs/scripts must not introduce new `npx` — at runtime it can download-and-install a missing package, silently bypassing pnpm-lock.yaml",
+    run() {
+      // 为什么需要：`npx <pkg>` 在包缺失时会**隐式安装** —— 等于绕过 `pnpm-lock.yaml`，
+      // 而这正是"锁文件真源"要防的事。仓内已有大量历史写法（skills/rules/docs），
+      // 逐个改风险大、收益低，故**棘轮冻结存量、只拦新增**。
+      // 对应替代：`pnpm exec <tool>`（已安装执行器）/ `pnpm dlx <pkg>`（一次性下载执行）。
+      const violations = []
+      const skipPrefixes = [
+        "node_modules/",
+        ".git/",
+        "docs/features/",
+        "docs/architecture/artifacts/",
+      ]
+      const pattern = /\bnpx\s+[a-z@]/i
+      const walk = (dir) => {
+        for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
+          const rel = dir ? `${dir}/${entry.name}` : entry.name
+          if (skipPrefixes.some((prefix) => rel.startsWith(prefix))) continue
+          if (entry.isDirectory()) {
+            walk(rel)
+            continue
+          }
+          if (!/\.(md|sh)$/.test(entry.name)) continue
+          const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
+          for (let i = 0; i < lines.length; i += 1) {
+            if (pattern.test(lines[i])) violations.push({ file: rel, detail: `line ${i + 1}` })
+          }
+        }
+      }
+      for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
+        if (entry.name.startsWith(".")) continue // 根目录的隐藏项统一跳过（.git/.agents 等由别处守）
+        if (entry.isDirectory()) walk(entry.name)
+        else if (/\.(md|sh)$/.test(entry.name)) {
+          const lines = fs.readFileSync(path.join(ROOT, entry.name), "utf8").split("\n")
+          for (let i = 0; i < lines.length; i += 1) {
+            if (pattern.test(lines[i])) violations.push({ file: entry.name, detail: `line ${i + 1}` })
+          }
+        }
+      }
+      // .agents/ 也要扫（skills/rules 里大量命令行示例）
+      if (fs.existsSync(path.join(ROOT, ".agents"))) walk(".agents")
+      return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
+    },
+  },
+  {
     id: "init-sql-seed-columns",
     section: "AGENTS.md §9.2",
     mode: "ratchet",
