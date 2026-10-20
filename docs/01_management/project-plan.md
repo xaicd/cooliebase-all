@@ -150,7 +150,7 @@
 | D2 | 表定义单一真源 | 新增表先写元数据再生成迁移 | ✅ | `scripts/data/*-tables.ts` + `tables:migration` |
 | D3 | 一条命令建域 | `domain:new` 完成建表→生成→注册→契约→门禁 | ✅ | 连跑两次幂等（指纹一致） |
 | D4 | Profile 裁剪 | 各 profile 产物各自可跑 | ✅ | **5 个 profile（base/minimal/standard/vertical/creator）** 各跑 `hatch:e2e --only init --fast` → `init + install + 产物 check` **全绿（2026-10-20 复验）**；**两条入口都测了**：`project:init` 与 `project:create` 各 × 5 profile = **10/10 PASS（2026-10-20）**。注：`vertical` 必须带 `--bundle`（harness 已内置默认 `mall,crm`）；全量 `hatch:e2e`（含 build + smoke:login 起服务登录）在 minimal 上亦全绿 |
-| D5 | 裁剪安全 | `clients/**` 缺席时相关门禁跳过而非失败 | ✅ | `clients:build:check` SKIP 分支实测 |
+| D5 | 裁剪安全 | `clients/**` 缺席时相关门禁跳过而非失败 | ✅ | **两个分支都在派生工程里实测（2026-10-20）**：含客户端的 `creator` 产物 → `[client-build] PASS: Expo web 导出成功`；已裁剪的 `minimal` 产物 → `[client-build] SKIP: clients/expo/package.json 不存在`（**跳过而非失败**）。此前只在本仓验过，现已在**产物**里坐实 |
 
 ### WS-E 质量与测试
 
