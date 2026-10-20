@@ -7,13 +7,14 @@ export const mesDvCheckRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesDvCheckRecordCreateSchema = z.object({
-  plan_id: z.coerce.number().finite().optional(),
-  machinery_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
+  machinery_id: z.string().trim().optional(),
   check_time: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

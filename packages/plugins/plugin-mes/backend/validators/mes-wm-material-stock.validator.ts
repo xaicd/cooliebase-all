@@ -7,17 +7,18 @@ export const mesWmMaterialStockPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmMaterialStockCreateSchema = z.object({
-  item_type_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
+  item_type_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
+  batch_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
-  location_id: z.coerce.number().finite().optional(),
-  area_id: z.coerce.number().finite().optional(),
-  vendor_id: z.coerce.number().finite().optional(),
+  warehouse_id: z.string().trim().optional(),
+  location_id: z.string().trim().optional(),
+  area_id: z.string().trim().optional(),
+  vendor_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   receipt_time: z.string().trim().optional(),
   frozen: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),

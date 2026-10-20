@@ -7,13 +7,14 @@ export const mesQcIndicatorResultPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcIndicatorResultCreateSchema = z.object({
   code: z.string().trim().optional(),
-  qc_id: z.coerce.number().finite().optional(),
+  qc_id: z.string().trim().optional(),
   qc_type: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
   sn: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 

@@ -7,6 +7,7 @@ export const payDemoWithdrawPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payDemoWithdrawCreateSchema = z.object({
@@ -16,7 +17,7 @@ export const payDemoWithdrawCreateSchema = z.object({
   user_name: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   status: z.coerce.number().finite().optional(),
-  pay_transfer_id: z.coerce.number().finite().optional(),
+  pay_transfer_id: z.string().trim().optional(),
   transfer_channel_code: z.string().trim().optional(),
   transfer_time: z.string().trim().optional(),
   transfer_error_msg: z.string().trim().optional(),

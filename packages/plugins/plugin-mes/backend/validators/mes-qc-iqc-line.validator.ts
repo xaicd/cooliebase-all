@@ -7,15 +7,16 @@ export const mesQcIqcLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcIqcLineCreateSchema = z.object({
-  iqc_id: z.coerce.number().finite().optional(),
-  indicator_id: z.coerce.number().finite().optional(),
+  iqc_id: z.string().trim().optional(),
+  indicator_id: z.string().trim().optional(),
   tool: z.string().trim().optional(),
   check_method: z.string().trim().optional(),
   standard_value: z.coerce.number().finite().optional(),
-  unit_measure_id: z.coerce.number().finite().optional(),
+  unit_measure_id: z.string().trim().optional(),
   max_threshold: z.coerce.number().finite().optional(),
   min_threshold: z.coerce.number().finite().optional(),
   critical_quantity: z.coerce.number().finite().optional(),

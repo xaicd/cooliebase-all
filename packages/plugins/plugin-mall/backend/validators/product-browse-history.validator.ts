@@ -7,11 +7,12 @@ export const productBrowseHistoryPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productBrowseHistoryCreateSchema = z.object({
-  spu_id: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  spu_id: z.string().trim().optional(),
+  user_id: z.string().trim().optional(),
   user_deleted: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
 
 }).strict()

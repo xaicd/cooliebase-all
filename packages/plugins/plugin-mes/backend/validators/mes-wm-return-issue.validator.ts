@@ -7,13 +7,14 @@ export const mesWmReturnIssuePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmReturnIssueCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  work_order_id: z.coerce.number().finite().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
+  work_order_id: z.string().trim().optional(),
+  workstation_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   return_date: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

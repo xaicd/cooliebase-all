@@ -7,13 +7,14 @@ export const mesProAndonConfigPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProAndonConfigCreateSchema = z.object({
   reason: z.string().trim().optional(),
   level: z.coerce.number().finite().optional(),
-  handler_role_id: z.coerce.number().finite().optional(),
-  handler_user_id: z.coerce.number().finite().optional(),
+  handler_role_id: z.string().trim().optional(),
+  handler_user_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

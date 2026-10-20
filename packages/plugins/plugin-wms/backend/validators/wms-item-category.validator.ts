@@ -9,6 +9,7 @@ export const wmsItemCategoryPageQuerySchema = z.object({
   tree: z.enum(["true", "false"]).optional(),
   name: z.string().trim().max(200).optional(),
   code: z.string().trim().max(200).optional(),
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const wmsItemCategoryCreateSchema = z.object({

@@ -7,11 +7,12 @@ export const erpStockInPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpStockInCreateSchema = z.object({
   no: z.string().trim().optional(),
-  supplier_id: z.coerce.number().finite().optional(),
+  supplier_id: z.string().trim().optional(),
   in_time: z.string().trim().optional(),
   total_count: z.coerce.number().finite().optional(),
   total_price: z.coerce.number().finite().optional(),

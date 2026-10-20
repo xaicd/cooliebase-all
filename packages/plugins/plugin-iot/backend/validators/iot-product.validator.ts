@@ -7,6 +7,7 @@ export const iotProductPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotProductCreateSchema = z.object({
@@ -14,7 +15,7 @@ export const iotProductCreateSchema = z.object({
   product_key: z.string().trim().optional(),
   product_secret: z.string().trim().optional(),
   register_enabled: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  category_id: z.coerce.number().finite().optional(),
+  category_id: z.string().trim().optional(),
   icon: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),
   description: z.string().trim().optional(),

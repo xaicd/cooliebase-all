@@ -7,14 +7,15 @@ export const mesMdItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdItemCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
   specification: z.string().trim().optional(),
-  unit_measure_id: z.coerce.number().finite().optional(),
-  item_type_id: z.coerce.number().finite().optional(),
+  unit_measure_id: z.string().trim().optional(),
+  item_type_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   safe_stock_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   min_stock: z.coerce.number().finite().optional(),

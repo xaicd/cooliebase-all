@@ -8,6 +8,7 @@ export const wmsItemPageQuerySchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
   item_code: z.string().trim().max(200).optional(),
   item_name: z.string().trim().max(200).optional(),
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const wmsItemCreateSchema = z.object({

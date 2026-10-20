@@ -7,12 +7,13 @@ export const mesQcDefectRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcDefectRecordCreateSchema = z.object({
   qc_type: z.coerce.number().finite().optional(),
-  qc_id: z.coerce.number().finite().optional(),
-  line_id: z.coerce.number().finite().optional(),
+  qc_id: z.string().trim().optional(),
+  line_id: z.string().trim().optional(),
   name: z.string().trim().optional(),
   level: z.coerce.number().finite().optional(),
   quantity: z.coerce.number().finite().optional(),

@@ -7,10 +7,11 @@ export const memberSignInRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const memberSignInRecordCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   day: z.coerce.number().finite().optional(),
   point: z.coerce.number().finite().optional(),
   experience: z.coerce.number().finite().optional(),

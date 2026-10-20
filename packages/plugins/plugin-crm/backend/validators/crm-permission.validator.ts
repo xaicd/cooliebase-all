@@ -7,12 +7,13 @@ export const crmPermissionPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmPermissionCreateSchema = z.object({
   biz_type: z.coerce.number().finite().optional(),
-  biz_id: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  biz_id: z.string().trim().optional(),
+  user_id: z.string().trim().optional(),
   level: z.coerce.number().finite().optional(),
 
 }).strict()

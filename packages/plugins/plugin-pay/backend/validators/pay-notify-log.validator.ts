@@ -7,10 +7,11 @@ export const payNotifyLogPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payNotifyLogCreateSchema = z.object({
-  task_id: z.coerce.number().finite().optional(),
+  task_id: z.string().trim().optional(),
   notify_times: z.coerce.number().finite().optional(),
   response: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

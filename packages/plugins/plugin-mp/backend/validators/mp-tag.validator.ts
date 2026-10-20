@@ -7,13 +7,14 @@ export const mpTagPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mpTagCreateSchema = z.object({
-  tag_id: z.coerce.number().finite().optional(),
+  tag_id: z.string().trim().optional(),
   name: z.string().trim().optional(),
   count: z.coerce.number().finite().optional(),
-  account_id: z.coerce.number().finite().optional(),
+  account_id: z.string().trim().optional(),
   app_id: z.string().trim().optional(),
 
 }).strict()

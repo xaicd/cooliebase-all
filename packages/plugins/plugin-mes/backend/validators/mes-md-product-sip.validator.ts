@@ -7,12 +7,13 @@ export const mesMdProductSipPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdProductSipCreateSchema = z.object({
-  item_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
+  process_id: z.string().trim().optional(),
   title: z.string().trim().optional(),
   description: z.string().trim().optional(),
   url: z.string().trim().optional(),

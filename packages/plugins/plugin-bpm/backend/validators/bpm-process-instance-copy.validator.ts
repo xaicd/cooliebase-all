@@ -7,10 +7,11 @@ export const bpmProcessInstanceCopyPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const bpmProcessInstanceCopyCreateSchema = z.object({
-  start_user_id: z.coerce.number().finite().optional(),
+  start_user_id: z.string().trim().optional(),
   process_instance_name: z.string().trim().optional(),
   process_instance_id: z.string().trim().optional(),
   process_definition_id: z.string().trim().optional(),
@@ -18,7 +19,7 @@ export const bpmProcessInstanceCopyCreateSchema = z.object({
   activity_id: z.string().trim().optional(),
   activity_name: z.string().trim().optional(),
   task_id: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   reason: z.string().trim().optional(),
 
 }).strict()

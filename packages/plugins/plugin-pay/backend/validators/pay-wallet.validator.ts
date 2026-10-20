@@ -7,10 +7,11 @@ export const payWalletPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payWalletCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   user_type: z.coerce.number().finite().optional(),
   balance: z.coerce.number().finite().optional(),
   freeze_price: z.coerce.number().finite().optional(),

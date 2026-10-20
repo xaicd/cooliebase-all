@@ -7,6 +7,7 @@ export const bargainActivityPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const bargainActivityCreateSchema = z.object({
@@ -14,8 +15,8 @@ export const bargainActivityCreateSchema = z.object({
   start_time: z.string().trim().optional(),
   end_time: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  spu_id: z.string().trim().optional(),
+  sku_id: z.string().trim().optional(),
   bargain_first_price: z.coerce.number().finite().optional(),
   bargain_min_price: z.coerce.number().finite().optional(),
   stock: z.coerce.number().finite().optional(),

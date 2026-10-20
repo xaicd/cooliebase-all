@@ -7,12 +7,13 @@ export const imRtcParticipantPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imRtcParticipantCreateSchema = z.object({
-  call_id: z.coerce.number().finite().optional(),
+  call_id: z.string().trim().optional(),
   room: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   role: z.coerce.number().finite().optional(),
   status: z.coerce.number().finite().optional(),
   invite_time: z.string().trim().optional(),

@@ -7,6 +7,7 @@ export const productSpuPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productSpuCreateSchema = z.object({
@@ -14,8 +15,8 @@ export const productSpuCreateSchema = z.object({
   keyword: z.string().trim().optional(),
   introduction: z.string().trim().optional(),
   description: z.string().trim().optional(),
-  category_id: z.coerce.number().finite().optional(),
-  brand_id: z.coerce.number().finite().optional(),
+  category_id: z.string().trim().optional(),
+  brand_id: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),
   slider_pic_urls: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
@@ -26,7 +27,7 @@ export const productSpuCreateSchema = z.object({
   cost_price: z.coerce.number().finite().optional(),
   stock: z.coerce.number().finite().optional(),
   delivery_types: z.string().trim().optional(),
-  delivery_template_id: z.coerce.number().finite().optional(),
+  delivery_template_id: z.string().trim().optional(),
   give_integral: z.coerce.number().finite().optional(),
   sub_commission_type: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   sales_count: z.coerce.number().finite().optional(),

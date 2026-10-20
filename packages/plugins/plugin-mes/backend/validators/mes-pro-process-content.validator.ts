@@ -7,10 +7,11 @@ export const mesProProcessContentPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProProcessContentCreateSchema = z.object({
-  process_id: z.coerce.number().finite().optional(),
+  process_id: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
   content: z.string().trim().optional(),
   device: z.string().trim().optional(),

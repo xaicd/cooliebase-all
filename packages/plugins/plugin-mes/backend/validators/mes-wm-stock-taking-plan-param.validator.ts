@@ -7,12 +7,13 @@ export const mesWmStockTakingPlanParamPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmStockTakingPlanParamCreateSchema = z.object({
-  plan_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  value_id: z.coerce.number().finite().optional(),
+  value_id: z.string().trim().optional(),
   value_code: z.string().trim().optional(),
   value_name: z.string().trim().optional(),
   remark: z.string().trim().optional(),

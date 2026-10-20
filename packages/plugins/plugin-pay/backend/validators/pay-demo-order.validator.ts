@@ -7,18 +7,19 @@ export const payDemoOrderPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payDemoOrderCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
   spu_name: z.string().trim().optional(),
   price: z.coerce.number().finite().optional(),
   pay_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  pay_order_id: z.coerce.number().finite().optional(),
+  pay_order_id: z.string().trim().optional(),
   pay_time: z.string().trim().optional(),
   pay_channel_code: z.string().trim().optional(),
-  pay_refund_id: z.coerce.number().finite().optional(),
+  pay_refund_id: z.string().trim().optional(),
   refund_price: z.coerce.number().finite().optional(),
   refund_time: z.string().trim().optional(),
 

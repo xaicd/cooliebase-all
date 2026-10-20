@@ -7,16 +7,17 @@ export const aiKnowledgePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiKnowledgeCreateSchema = z.object({
   name: z.string().trim().optional(),
   description: z.string().trim().optional(),
-  embedding_model_id: z.coerce.number().finite().optional(),
+  embedding_model_id: z.string().trim().optional(),
   embedding_model: z.string().trim().optional(),
   top_k: z.coerce.number().finite().optional(),
   similarity_threshold: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
 
 }).strict()
 

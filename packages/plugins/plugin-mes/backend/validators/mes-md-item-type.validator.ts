@@ -7,12 +7,13 @@ export const mesMdItemTypePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdItemTypeCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  parent_id: z.coerce.number().finite().optional(),
+  parent_id: z.string().trim().optional(),
   item_or_product: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
   status: z.coerce.number().finite().optional(),

@@ -7,14 +7,15 @@ export const mesWmItemConsumePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmItemConsumeCreateSchema = z.object({
-  work_order_id: z.coerce.number().finite().optional(),
-  task_id: z.coerce.number().finite().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
-  feedback_id: z.coerce.number().finite().optional(),
+  work_order_id: z.string().trim().optional(),
+  task_id: z.string().trim().optional(),
+  workstation_id: z.string().trim().optional(),
+  process_id: z.string().trim().optional(),
+  feedback_id: z.string().trim().optional(),
   consume_date: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),

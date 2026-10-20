@@ -7,14 +7,15 @@ export const imRtcCallPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imRtcCallCreateSchema = z.object({
   room: z.string().trim().optional(),
   conversation_type: z.coerce.number().finite().optional(),
   media_type: z.coerce.number().finite().optional(),
-  inviter_user_id: z.coerce.number().finite().optional(),
-  group_id: z.coerce.number().finite().optional(),
+  inviter_user_id: z.string().trim().optional(),
+  group_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   end_reason: z.coerce.number().finite().optional(),
   start_time: z.string().trim().optional(),

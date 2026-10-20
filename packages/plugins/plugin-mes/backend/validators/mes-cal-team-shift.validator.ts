@@ -7,12 +7,13 @@ export const mesCalTeamShiftPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesCalTeamShiftCreateSchema = z.object({
-  plan_id: z.coerce.number().finite().optional(),
-  team_id: z.coerce.number().finite().optional(),
-  shift_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
+  team_id: z.string().trim().optional(),
+  shift_id: z.string().trim().optional(),
   day: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),

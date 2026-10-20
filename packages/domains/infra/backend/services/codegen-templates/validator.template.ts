@@ -69,6 +69,9 @@ ${childSchemas}
 export const ${camel}PageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
+  // 通用列表模板 admin-list-page.template.tsx 会发 keyword；
+  // 缺了它 .strict() 会让搜索框一打字就 400 —— 实测已接线的 wms 正踩这个坑。
+  keyword: z.string().trim().max(200).optional(),
 ${config.template === "TREE" ? `  tree: z.enum(["true", "false"]).optional(),\n` : ""}${queryFields}
 }).strict()
 

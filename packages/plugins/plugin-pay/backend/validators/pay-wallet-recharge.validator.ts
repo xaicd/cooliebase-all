@@ -7,19 +7,20 @@ export const payWalletRechargePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payWalletRechargeCreateSchema = z.object({
-  wallet_id: z.coerce.number().finite().optional(),
+  wallet_id: z.string().trim().optional(),
   total_price: z.coerce.number().finite().optional(),
   pay_price: z.coerce.number().finite().optional(),
   bonus_price: z.coerce.number().finite().optional(),
-  package_id: z.coerce.number().finite().optional(),
+  package_id: z.string().trim().optional(),
   pay_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  pay_order_id: z.coerce.number().finite().optional(),
+  pay_order_id: z.string().trim().optional(),
   pay_channel_code: z.string().trim().optional(),
   pay_time: z.string().trim().optional(),
-  pay_refund_id: z.coerce.number().finite().optional(),
+  pay_refund_id: z.string().trim().optional(),
   refund_total_price: z.coerce.number().finite().optional(),
   refund_pay_price: z.coerce.number().finite().optional(),
   refund_bonus_price: z.coerce.number().finite().optional(),

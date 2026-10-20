@@ -7,10 +7,11 @@ export const mesMdAutoCodeRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdAutoCodeRecordCreateSchema = z.object({
-  rule_id: z.coerce.number().finite().optional(),
+  rule_id: z.string().trim().optional(),
   result: z.string().trim().optional(),
   serial_no: z.coerce.number().finite().optional(),
   input_char: z.string().trim().optional(),

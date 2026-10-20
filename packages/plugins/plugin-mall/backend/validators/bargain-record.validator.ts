@@ -7,18 +7,19 @@ export const bargainRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const bargainRecordCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
-  activity_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  activity_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
+  sku_id: z.string().trim().optional(),
   bargain_first_price: z.coerce.number().finite().optional(),
   bargain_price: z.coerce.number().finite().optional(),
   status: z.coerce.number().finite().optional(),
   end_time: z.string().trim().optional(),
-  order_id: z.coerce.number().finite().optional(),
+  order_id: z.string().trim().optional(),
 
 }).strict()
 

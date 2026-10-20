@@ -7,19 +7,20 @@ export const mesWmStockTakingTaskLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmStockTakingTaskLineCreateSchema = z.object({
-  task_id: z.coerce.number().finite().optional(),
-  material_stock_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
+  task_id: z.string().trim().optional(),
+  material_stock_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
+  batch_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   taking_quantity: z.coerce.number().finite().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
-  location_id: z.coerce.number().finite().optional(),
-  area_id: z.coerce.number().finite().optional(),
+  warehouse_id: z.string().trim().optional(),
+  location_id: z.string().trim().optional(),
+  area_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

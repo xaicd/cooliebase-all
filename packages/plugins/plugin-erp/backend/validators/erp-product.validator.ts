@@ -7,13 +7,14 @@ export const erpProductPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpProductCreateSchema = z.object({
   name: z.string().trim().optional(),
   bar_code: z.string().trim().optional(),
-  category_id: z.coerce.number().finite().optional(),
-  unit_id: z.coerce.number().finite().optional(),
+  category_id: z.string().trim().optional(),
+  unit_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   standard: z.string().trim().optional(),
   remark: z.string().trim().optional(),

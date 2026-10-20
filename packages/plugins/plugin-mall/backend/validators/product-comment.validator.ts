@@ -7,18 +7,19 @@ export const productCommentPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productCommentCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   user_nickname: z.string().trim().optional(),
   user_avatar: z.string().trim().optional(),
   anonymous: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  order_id: z.coerce.number().finite().optional(),
-  order_item_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
+  order_id: z.string().trim().optional(),
+  order_item_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
   spu_name: z.string().trim().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  sku_id: z.string().trim().optional(),
   sku_pic_url: z.string().trim().optional(),
   sku_properties: z.string().trim().optional(),
   visible: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
@@ -28,7 +29,7 @@ export const productCommentCreateSchema = z.object({
   content: z.string().trim().optional(),
   pic_urls: z.string().trim().optional(),
   reply_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  reply_user_id: z.coerce.number().finite().optional(),
+  reply_user_id: z.string().trim().optional(),
   reply_content: z.string().trim().optional(),
   reply_time: z.string().trim().optional(),
 

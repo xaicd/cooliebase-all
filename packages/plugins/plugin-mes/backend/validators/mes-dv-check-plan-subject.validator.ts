@@ -7,11 +7,12 @@ export const mesDvCheckPlanSubjectPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesDvCheckPlanSubjectCreateSchema = z.object({
-  plan_id: z.coerce.number().finite().optional(),
-  subject_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
+  subject_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

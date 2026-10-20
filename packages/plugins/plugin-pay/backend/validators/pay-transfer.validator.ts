@@ -7,14 +7,15 @@ export const payTransferPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payTransferCreateSchema = z.object({
   no: z.string().trim().optional(),
-  app_id: z.coerce.number().finite().optional(),
-  channel_id: z.coerce.number().finite().optional(),
+  app_id: z.string().trim().optional(),
+  channel_id: z.string().trim().optional(),
   channel_code: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   user_type: z.coerce.number().finite().optional(),
   merchant_transfer_id: z.string().trim().optional(),
   subject: z.string().trim().optional(),

@@ -7,10 +7,11 @@ export const brokerageUserPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const brokerageUserCreateSchema = z.object({
-  bind_user_id: z.coerce.number().finite().optional(),
+  bind_user_id: z.string().trim().optional(),
   bind_user_time: z.string().trim().optional(),
   brokerage_enabled: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   brokerage_time: z.string().trim().optional(),

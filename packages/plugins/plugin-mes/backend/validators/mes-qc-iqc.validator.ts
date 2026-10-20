@@ -7,19 +7,20 @@ export const mesQcIqcPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcIqcCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  template_id: z.coerce.number().finite().optional(),
+  template_id: z.string().trim().optional(),
   source_doc_type: z.coerce.number().finite().optional(),
-  source_doc_id: z.coerce.number().finite().optional(),
-  source_line_id: z.coerce.number().finite().optional(),
+  source_doc_id: z.string().trim().optional(),
+  source_line_id: z.string().trim().optional(),
   source_doc_code: z.string().trim().optional(),
-  vendor_id: z.coerce.number().finite().optional(),
+  vendor_id: z.string().trim().optional(),
   vendor_batch: z.string().trim().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
   received_quantity: z.coerce.number().finite().optional(),
   check_quantity: z.coerce.number().finite().optional(),
   qualified_quantity: z.coerce.number().finite().optional(),
@@ -33,7 +34,7 @@ export const mesQcIqcCreateSchema = z.object({
   check_result: z.coerce.number().finite().optional(),
   receive_date: z.string().trim().optional(),
   inspect_date: z.string().trim().optional(),
-  inspector_user_id: z.coerce.number().finite().optional(),
+  inspector_user_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

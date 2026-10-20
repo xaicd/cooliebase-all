@@ -7,13 +7,14 @@ export const iotThingModelPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotThingModelCreateSchema = z.object({
   identifier: z.string().trim().optional(),
   name: z.string().trim().optional(),
   description: z.string().trim().optional(),
-  product_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
   product_key: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   property: z.string().trim().optional(),

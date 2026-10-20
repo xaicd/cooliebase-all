@@ -7,17 +7,18 @@ export const aiKnowledgeSegmentPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiKnowledgeSegmentCreateSchema = z.object({
-  knowledge_id: z.coerce.number().finite().optional(),
-  document_id: z.coerce.number().finite().optional(),
+  knowledge_id: z.string().trim().optional(),
+  document_id: z.string().trim().optional(),
   content: z.string().trim().optional(),
   content_length: z.coerce.number().finite().optional(),
   vector_id: z.string().trim().optional(),
   tokens: z.coerce.number().finite().optional(),
   retrieval_count: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
 
 }).strict()
 

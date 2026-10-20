@@ -7,15 +7,16 @@ export const tradeOrderItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const tradeOrderItemCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
-  order_id: z.coerce.number().finite().optional(),
-  cart_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  order_id: z.string().trim().optional(),
+  cart_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
   spu_name: z.string().trim().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  sku_id: z.string().trim().optional(),
   properties: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),
   count: z.coerce.number().finite().optional(),
@@ -30,11 +31,11 @@ export const tradeOrderItemCreateSchema = z.object({
   use_point: z.coerce.number().finite().optional(),
   give_point: z.coerce.number().finite().optional(),
   vip_price: z.coerce.number().finite().optional(),
-  after_sale_id: z.coerce.number().finite().optional(),
+  after_sale_id: z.string().trim().optional(),
   after_sale_status: z.coerce.number().finite().optional(),
-  property_id: z.coerce.number().finite().optional(),
+  property_id: z.string().trim().optional(),
   property_name: z.string().trim().optional(),
-  value_id: z.coerce.number().finite().optional(),
+  value_id: z.string().trim().optional(),
   value_name: z.string().trim().optional(),
 
 }).strict()

@@ -7,19 +7,20 @@ export const mesProTaskIssuePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProTaskIssueCreateSchema = z.object({
-  task_id: z.coerce.number().finite().optional(),
-  work_order_id: z.coerce.number().finite().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
+  task_id: z.string().trim().optional(),
+  work_order_id: z.string().trim().optional(),
+  workstation_id: z.string().trim().optional(),
   source_doc_type: z.string().trim().optional(),
-  source_doc_id: z.coerce.number().finite().optional(),
-  source_line_id: z.coerce.number().finite().optional(),
+  source_doc_id: z.string().trim().optional(),
+  source_line_id: z.string().trim().optional(),
   source_doc_code: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
-  item_id: z.coerce.number().finite().optional(),
-  unit_measure_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
+  unit_measure_id: z.string().trim().optional(),
   issued_quantity: z.coerce.number().finite().optional(),
   available_quantity: z.coerce.number().finite().optional(),
   used_quantity: z.coerce.number().finite().optional(),

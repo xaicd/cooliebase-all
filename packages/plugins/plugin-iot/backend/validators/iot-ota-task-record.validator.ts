@@ -7,13 +7,14 @@ export const iotOtaTaskRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotOtaTaskRecordCreateSchema = z.object({
-  firmware_id: z.coerce.number().finite().optional(),
-  task_id: z.coerce.number().finite().optional(),
-  device_id: z.coerce.number().finite().optional(),
-  from_firmware_id: z.coerce.number().finite().optional(),
+  firmware_id: z.string().trim().optional(),
+  task_id: z.string().trim().optional(),
+  device_id: z.string().trim().optional(),
+  from_firmware_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   progress: z.coerce.number().finite().optional(),
   description: z.string().trim().optional(),

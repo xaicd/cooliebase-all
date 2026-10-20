@@ -7,17 +7,18 @@ export const aiImagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiImageCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   prompt: z.string().trim().optional(),
   platform: z.string().trim().optional(),
-  model_id: z.coerce.number().finite().optional(),
+  model_id: z.string().trim().optional(),
   model: z.string().trim().optional(),
   width: z.coerce.number().finite().optional(),
   height: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
   finish_time: z.string().trim().optional(),
   error_message: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),

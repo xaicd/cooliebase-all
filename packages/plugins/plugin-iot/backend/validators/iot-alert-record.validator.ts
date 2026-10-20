@@ -7,15 +7,16 @@ export const iotAlertRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotAlertRecordCreateSchema = z.object({
-  config_id: z.coerce.number().finite().optional(),
+  config_id: z.string().trim().optional(),
   config_name: z.string().trim().optional(),
   config_level: z.coerce.number().finite().optional(),
-  scene_rule_id: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  device_id: z.coerce.number().finite().optional(),
+  scene_rule_id: z.string().trim().optional(),
+  product_id: z.string().trim().optional(),
+  device_id: z.string().trim().optional(),
   device_message: z.string().trim().optional(),
   process_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   process_remark: z.string().trim().optional(),

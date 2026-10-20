@@ -7,11 +7,12 @@ export const mesQcTemplateItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcTemplateItemCreateSchema = z.object({
-  template_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  template_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity_check: z.coerce.number().finite().optional(),
   quantity_unqualified: z.coerce.number().finite().optional(),
   critical_rate: z.coerce.number().finite().optional(),

@@ -7,13 +7,14 @@ export const aiWritePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiWriteCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   platform: z.string().trim().optional(),
-  model_id: z.coerce.number().finite().optional(),
+  model_id: z.string().trim().optional(),
   model: z.string().trim().optional(),
   prompt: z.string().trim().optional(),
   generated_content: z.string().trim().optional(),

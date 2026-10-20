@@ -7,14 +7,15 @@ export const mesWmBarcodePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmBarcodeCreateSchema = z.object({
-  config_id: z.coerce.number().finite().optional(),
+  config_id: z.string().trim().optional(),
   format: z.coerce.number().finite().optional(),
   biz_type: z.coerce.number().finite().optional(),
   content: z.string().trim().optional(),
-  biz_id: z.coerce.number().finite().optional(),
+  biz_id: z.string().trim().optional(),
   biz_code: z.string().trim().optional(),
   biz_name: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

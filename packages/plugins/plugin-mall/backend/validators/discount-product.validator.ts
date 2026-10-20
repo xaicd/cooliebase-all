@@ -7,12 +7,13 @@ export const discountProductPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const discountProductCreateSchema = z.object({
-  activity_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  activity_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
+  sku_id: z.string().trim().optional(),
   discount_type: z.coerce.number().finite().optional(),
   discount_percent: z.coerce.number().finite().optional(),
   discount_price: z.coerce.number().finite().optional(),

@@ -7,14 +7,15 @@ export const crmReceivablePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmReceivableCreateSchema = z.object({
   no: z.string().trim().optional(),
-  plan_id: z.coerce.number().finite().optional(),
-  customer_id: z.coerce.number().finite().optional(),
-  contract_id: z.coerce.number().finite().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
+  customer_id: z.string().trim().optional(),
+  contract_id: z.string().trim().optional(),
+  owner_user_id: z.string().trim().optional(),
   return_time: z.string().trim().optional(),
   return_type: z.coerce.number().finite().optional(),
   price: z.coerce.number().finite().optional(),

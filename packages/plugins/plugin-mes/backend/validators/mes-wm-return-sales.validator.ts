@@ -7,13 +7,14 @@ export const mesWmReturnSalesPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmReturnSalesCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
   sales_order_code: z.string().trim().optional(),
-  client_id: z.coerce.number().finite().optional(),
+  client_id: z.string().trim().optional(),
   return_date: z.string().trim().optional(),
   return_reason: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

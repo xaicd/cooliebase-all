@@ -7,12 +7,13 @@ export const mesWmSalesNoticeLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmSalesNoticeLineCreateSchema = z.object({
-  notice_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
+  notice_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
+  batch_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   oqc_check_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),

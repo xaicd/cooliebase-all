@@ -7,18 +7,19 @@ export const mesWmReturnSalesDetailPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmReturnSalesDetailCreateSchema = z.object({
-  return_id: z.coerce.number().finite().optional(),
-  line_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  return_id: z.string().trim().optional(),
+  line_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
+  batch_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
-  location_id: z.coerce.number().finite().optional(),
-  area_id: z.coerce.number().finite().optional(),
+  warehouse_id: z.string().trim().optional(),
+  location_id: z.string().trim().optional(),
+  area_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

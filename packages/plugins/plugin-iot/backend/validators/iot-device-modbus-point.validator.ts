@@ -7,11 +7,12 @@ export const iotDeviceModbusPointPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotDeviceModbusPointCreateSchema = z.object({
-  device_id: z.coerce.number().finite().optional(),
-  thing_model_id: z.coerce.number().finite().optional(),
+  device_id: z.string().trim().optional(),
+  thing_model_id: z.string().trim().optional(),
   identifier: z.string().trim().optional(),
   name: z.string().trim().optional(),
   function_code: z.coerce.number().finite().optional(),

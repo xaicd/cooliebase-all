@@ -7,13 +7,14 @@ export const imConversationReadPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imConversationReadCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   conversation_type: z.coerce.number().finite().optional(),
-  target_id: z.coerce.number().finite().optional(),
-  message_id: z.coerce.number().finite().optional(),
+  target_id: z.string().trim().optional(),
+  message_id: z.string().trim().optional(),
   read_time: z.string().trim().optional(),
 
 }).strict()

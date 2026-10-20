@@ -7,11 +7,12 @@ export const productStatisticsPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productStatisticsCreateSchema = z.object({
   time: z.string().trim().optional(),
-  spu_id: z.coerce.number().finite().optional(),
+  spu_id: z.string().trim().optional(),
   browse_count: z.coerce.number().finite().optional(),
   browse_user_count: z.coerce.number().finite().optional(),
   favorite_count: z.coerce.number().finite().optional(),

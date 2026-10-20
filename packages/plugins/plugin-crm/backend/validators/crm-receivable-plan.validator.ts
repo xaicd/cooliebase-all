@@ -7,17 +7,18 @@ export const crmReceivablePlanPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmReceivablePlanCreateSchema = z.object({
   period: z.coerce.number().finite().optional(),
-  customer_id: z.coerce.number().finite().optional(),
-  contract_id: z.coerce.number().finite().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  customer_id: z.string().trim().optional(),
+  contract_id: z.string().trim().optional(),
+  owner_user_id: z.string().trim().optional(),
   return_time: z.string().trim().optional(),
   return_type: z.coerce.number().finite().optional(),
   price: z.coerce.number().finite().optional(),
-  receivable_id: z.coerce.number().finite().optional(),
+  receivable_id: z.string().trim().optional(),
   remind_days: z.coerce.number().finite().optional(),
   remind_time: z.string().trim().optional(),
   remark: z.string().trim().optional(),

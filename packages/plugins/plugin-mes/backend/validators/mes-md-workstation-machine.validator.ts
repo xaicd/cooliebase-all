@@ -7,11 +7,12 @@ export const mesMdWorkstationMachinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdWorkstationMachineCreateSchema = z.object({
-  workstation_id: z.coerce.number().finite().optional(),
-  machinery_id: z.coerce.number().finite().optional(),
+  workstation_id: z.string().trim().optional(),
+  machinery_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

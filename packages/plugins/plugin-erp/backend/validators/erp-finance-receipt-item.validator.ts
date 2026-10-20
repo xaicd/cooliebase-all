@@ -7,12 +7,13 @@ export const erpFinanceReceiptItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpFinanceReceiptItemCreateSchema = z.object({
-  receipt_id: z.coerce.number().finite().optional(),
+  receipt_id: z.string().trim().optional(),
   biz_type: z.coerce.number().finite().optional(),
-  biz_id: z.coerce.number().finite().optional(),
+  biz_id: z.string().trim().optional(),
   biz_no: z.string().trim().optional(),
   total_price: z.coerce.number().finite().optional(),
   receipted_price: z.coerce.number().finite().optional(),

@@ -7,17 +7,18 @@ export const mesMdWorkstationPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdWorkstationCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
   address: z.string().trim().optional(),
-  workshop_id: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
-  location_id: z.coerce.number().finite().optional(),
-  area_id: z.coerce.number().finite().optional(),
+  workshop_id: z.string().trim().optional(),
+  process_id: z.string().trim().optional(),
+  warehouse_id: z.string().trim().optional(),
+  location_id: z.string().trim().optional(),
+  area_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

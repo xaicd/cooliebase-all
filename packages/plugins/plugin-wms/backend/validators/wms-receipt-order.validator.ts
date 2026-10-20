@@ -7,6 +7,7 @@ export const wmsReceiptOrderPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
   order_no: z.string().trim().max(200).optional(),
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const wmsReceiptOrderCreateSchema = z.object({

@@ -7,11 +7,12 @@ export const mesDvRepairLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesDvRepairLineCreateSchema = z.object({
-  repair_id: z.coerce.number().finite().optional(),
-  subject_id: z.coerce.number().finite().optional(),
+  repair_id: z.string().trim().optional(),
+  subject_id: z.string().trim().optional(),
   malfunction: z.string().trim().optional(),
   malfunction_url: z.string().trim().optional(),
   description: z.string().trim().optional(),

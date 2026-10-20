@@ -7,20 +7,21 @@ export const mesDvRepairPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesDvRepairCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  machinery_id: z.coerce.number().finite().optional(),
+  machinery_id: z.string().trim().optional(),
   require_date: z.string().trim().optional(),
   finish_date: z.string().trim().optional(),
   confirm_date: z.string().trim().optional(),
   result: z.coerce.number().finite().optional(),
-  accepted_user_id: z.coerce.number().finite().optional(),
-  confirm_user_id: z.coerce.number().finite().optional(),
+  accepted_user_id: z.string().trim().optional(),
+  confirm_user_id: z.string().trim().optional(),
   source_doc_type: z.coerce.number().finite().optional(),
-  source_doc_id: z.coerce.number().finite().optional(),
+  source_doc_id: z.string().trim().optional(),
   source_doc_code: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),

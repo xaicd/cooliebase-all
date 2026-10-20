@@ -7,6 +7,7 @@ export const mesProFeedbackPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProFeedbackCreateSchema = z.object({
@@ -14,12 +15,12 @@ export const mesProFeedbackCreateSchema = z.object({
   type: z.coerce.number().finite().optional(),
   channel: z.string().trim().optional(),
   feedback_time: z.string().trim().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
-  route_id: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
-  work_order_id: z.coerce.number().finite().optional(),
-  task_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  workstation_id: z.string().trim().optional(),
+  route_id: z.string().trim().optional(),
+  process_id: z.string().trim().optional(),
+  work_order_id: z.string().trim().optional(),
+  task_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   expire_date: z.string().trim().optional(),
   lot_number: z.string().trim().optional(),
   scheduled_quantity: z.coerce.number().finite().optional(),
@@ -30,8 +31,8 @@ export const mesProFeedbackCreateSchema = z.object({
   labor_scrap_quantity: z.coerce.number().finite().optional(),
   material_scrap_quantity: z.coerce.number().finite().optional(),
   other_scrap_quantity: z.coerce.number().finite().optional(),
-  feedback_user_id: z.coerce.number().finite().optional(),
-  approve_user_id: z.coerce.number().finite().optional(),
+  feedback_user_id: z.string().trim().optional(),
+  approve_user_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

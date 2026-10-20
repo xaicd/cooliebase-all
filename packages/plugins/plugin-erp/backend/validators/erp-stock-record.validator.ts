@@ -7,16 +7,17 @@ export const erpStockRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpStockRecordCreateSchema = z.object({
-  product_id: z.coerce.number().finite().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
+  warehouse_id: z.string().trim().optional(),
   count: z.coerce.number().finite().optional(),
   total_count: z.coerce.number().finite().optional(),
   biz_type: z.coerce.number().finite().optional(),
-  biz_id: z.coerce.number().finite().optional(),
-  biz_item_id: z.coerce.number().finite().optional(),
+  biz_id: z.string().trim().optional(),
+  biz_item_id: z.string().trim().optional(),
   biz_no: z.string().trim().optional(),
 
 }).strict()

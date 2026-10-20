@@ -7,10 +7,11 @@ export const mpMessageTemplatePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mpMessageTemplateCreateSchema = z.object({
-  account_id: z.coerce.number().finite().optional(),
+  account_id: z.string().trim().optional(),
   app_id: z.string().trim().optional(),
   template_id: z.string().trim().optional(),
   title: z.string().trim().optional(),

@@ -7,6 +7,7 @@ export const mesWmMiscIssuePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmMiscIssueCreateSchema = z.object({
@@ -14,7 +15,7 @@ export const mesWmMiscIssueCreateSchema = z.object({
   name: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   source_doc_type: z.string().trim().optional(),
-  source_doc_id: z.coerce.number().finite().optional(),
+  source_doc_id: z.string().trim().optional(),
   source_doc_code: z.string().trim().optional(),
   issue_date: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

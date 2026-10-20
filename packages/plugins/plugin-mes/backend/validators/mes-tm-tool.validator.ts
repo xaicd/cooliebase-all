@@ -7,6 +7,7 @@ export const mesTmToolPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesTmToolCreateSchema = z.object({
@@ -14,7 +15,7 @@ export const mesTmToolCreateSchema = z.object({
   name: z.string().trim().optional(),
   brand: z.string().trim().optional(),
   specification: z.string().trim().optional(),
-  tool_type_id: z.coerce.number().finite().optional(),
+  tool_type_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   available_quantity: z.coerce.number().finite().optional(),
   mainten_type: z.coerce.number().finite().optional(),

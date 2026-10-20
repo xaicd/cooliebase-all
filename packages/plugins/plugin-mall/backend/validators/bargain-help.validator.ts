@@ -7,12 +7,13 @@ export const bargainHelpPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const bargainHelpCreateSchema = z.object({
-  activity_id: z.coerce.number().finite().optional(),
-  record_id: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  activity_id: z.string().trim().optional(),
+  record_id: z.string().trim().optional(),
+  user_id: z.string().trim().optional(),
   reduce_price: z.coerce.number().finite().optional(),
 
 }).strict()

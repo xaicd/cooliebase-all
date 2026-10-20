@@ -7,14 +7,15 @@ export const mesQcTemplateIndicatorPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesQcTemplateIndicatorCreateSchema = z.object({
-  template_id: z.coerce.number().finite().optional(),
-  indicator_id: z.coerce.number().finite().optional(),
+  template_id: z.string().trim().optional(),
+  indicator_id: z.string().trim().optional(),
   check_method: z.string().trim().optional(),
   standard_value: z.coerce.number().finite().optional(),
-  unit_measure_id: z.coerce.number().finite().optional(),
+  unit_measure_id: z.string().trim().optional(),
   threshold_max: z.coerce.number().finite().optional(),
   threshold_min: z.coerce.number().finite().optional(),
   doc_url: z.string().trim().optional(),

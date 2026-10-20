@@ -7,10 +7,11 @@ export const productSkuPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productSkuCreateSchema = z.object({
-  spu_id: z.coerce.number().finite().optional(),
+  spu_id: z.string().trim().optional(),
   properties: z.string().trim().optional(),
   price: z.coerce.number().finite().optional(),
   market_price: z.coerce.number().finite().optional(),
@@ -23,9 +24,9 @@ export const productSkuCreateSchema = z.object({
   first_brokerage_price: z.coerce.number().finite().optional(),
   second_brokerage_price: z.coerce.number().finite().optional(),
   sales_count: z.coerce.number().finite().optional(),
-  property_id: z.coerce.number().finite().optional(),
+  property_id: z.string().trim().optional(),
   property_name: z.string().trim().optional(),
-  value_id: z.coerce.number().finite().optional(),
+  value_id: z.string().trim().optional(),
   value_name: z.string().trim().optional(),
 
 }).strict()

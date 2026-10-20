@@ -7,12 +7,13 @@ export const erpSaleOrderItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpSaleOrderItemCreateSchema = z.object({
-  order_id: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  product_unit_id: z.coerce.number().finite().optional(),
+  order_id: z.string().trim().optional(),
+  product_id: z.string().trim().optional(),
+  product_unit_id: z.string().trim().optional(),
   product_price: z.coerce.number().finite().optional(),
   count: z.coerce.number().finite().optional(),
   total_price: z.coerce.number().finite().optional(),

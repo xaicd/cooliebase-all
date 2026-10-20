@@ -7,12 +7,13 @@ export const imGroupMessagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imGroupMessageCreateSchema = z.object({
   client_message_id: z.string().trim().optional(),
-  sender_id: z.coerce.number().finite().optional(),
-  group_id: z.coerce.number().finite().optional(),
+  sender_id: z.string().trim().optional(),
+  group_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   content: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

@@ -7,13 +7,14 @@ export const erpStockCheckItemPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const erpStockCheckItemCreateSchema = z.object({
-  check_id: z.coerce.number().finite().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  product_unit_id: z.coerce.number().finite().optional(),
+  check_id: z.string().trim().optional(),
+  warehouse_id: z.string().trim().optional(),
+  product_id: z.string().trim().optional(),
+  product_unit_id: z.string().trim().optional(),
   product_price: z.coerce.number().finite().optional(),
   stock_count: z.coerce.number().finite().optional(),
   actual_count: z.coerce.number().finite().optional(),

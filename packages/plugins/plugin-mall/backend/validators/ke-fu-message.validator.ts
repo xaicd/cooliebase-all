@@ -7,13 +7,14 @@ export const keFuMessagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const keFuMessageCreateSchema = z.object({
-  conversation_id: z.coerce.number().finite().optional(),
-  sender_id: z.coerce.number().finite().optional(),
+  conversation_id: z.string().trim().optional(),
+  sender_id: z.string().trim().optional(),
   sender_type: z.coerce.number().finite().optional(),
-  receiver_id: z.coerce.number().finite().optional(),
+  receiver_id: z.string().trim().optional(),
   receiver_type: z.coerce.number().finite().optional(),
   content_type: z.coerce.number().finite().optional(),
   content: z.string().trim().optional(),

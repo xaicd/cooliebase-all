@@ -7,13 +7,14 @@ export const mesProRouteProcessPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProRouteProcessCreateSchema = z.object({
-  route_id: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
+  route_id: z.string().trim().optional(),
+  process_id: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
-  next_process_id: z.coerce.number().finite().optional(),
+  next_process_id: z.string().trim().optional(),
   link_type: z.coerce.number().finite().optional(),
   prepare_time: z.coerce.number().finite().optional(),
   wait_time: z.coerce.number().finite().optional(),

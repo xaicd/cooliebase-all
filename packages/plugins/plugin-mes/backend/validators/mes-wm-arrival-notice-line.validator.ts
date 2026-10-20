@@ -7,15 +7,16 @@ export const mesWmArrivalNoticeLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmArrivalNoticeLineCreateSchema = z.object({
-  notice_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  notice_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   arrival_quantity: z.coerce.number().finite().optional(),
   qualified_quantity: z.coerce.number().finite().optional(),
   iqc_check_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  iqc_id: z.coerce.number().finite().optional(),
+  iqc_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

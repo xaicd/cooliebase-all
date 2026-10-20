@@ -7,12 +7,13 @@ export const cartPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const cartCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
-  sku_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
+  sku_id: z.string().trim().optional(),
   count: z.coerce.number().finite().optional(),
   selected: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
 

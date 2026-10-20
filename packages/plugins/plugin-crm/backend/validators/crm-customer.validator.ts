@@ -7,6 +7,7 @@ export const crmCustomerPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmCustomerCreateSchema = z.object({
@@ -15,7 +16,7 @@ export const crmCustomerCreateSchema = z.object({
   contact_last_time: z.string().trim().optional(),
   contact_last_content: z.string().trim().optional(),
   contact_next_time: z.string().trim().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  owner_user_id: z.string().trim().optional(),
   owner_time: z.string().trim().optional(),
   lock_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   deal_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),

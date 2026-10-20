@@ -7,6 +7,7 @@ export const crmCluePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmClueCreateSchema = z.object({
@@ -15,9 +16,9 @@ export const crmClueCreateSchema = z.object({
   contact_last_time: z.string().trim().optional(),
   contact_last_content: z.string().trim().optional(),
   contact_next_time: z.string().trim().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  owner_user_id: z.string().trim().optional(),
   transform_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
-  customer_id: z.coerce.number().finite().optional(),
+  customer_id: z.string().trim().optional(),
   mobile: z.string().trim().optional(),
   telephone: z.string().trim().optional(),
   qq: z.string().trim().optional(),

@@ -7,17 +7,18 @@ export const mesWmTransferLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmTransferLineCreateSchema = z.object({
-  transfer_id: z.coerce.number().finite().optional(),
-  material_stock_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  transfer_id: z.string().trim().optional(),
+  material_stock_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
-  from_warehouse_id: z.coerce.number().finite().optional(),
-  from_location_id: z.coerce.number().finite().optional(),
-  from_area_id: z.coerce.number().finite().optional(),
+  batch_id: z.string().trim().optional(),
+  from_warehouse_id: z.string().trim().optional(),
+  from_location_id: z.string().trim().optional(),
+  from_area_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

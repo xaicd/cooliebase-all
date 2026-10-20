@@ -7,6 +7,7 @@ export const aiChatRolePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiChatRoleCreateSchema = z.object({
@@ -15,14 +16,14 @@ export const aiChatRoleCreateSchema = z.object({
   category: z.string().trim().optional(),
   description: z.string().trim().optional(),
   system_message: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
-  model_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  model_id: z.string().trim().optional(),
   knowledge_ids: z.string().trim().optional(),
   tool_ids: z.string().trim().optional(),
   mcp_client_names: z.string().trim().optional(),
   public_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   sort: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
 
 }).strict()
 

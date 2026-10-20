@@ -7,23 +7,24 @@ export const mesWmPackagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmPackageCreateSchema = z.object({
   code: z.string().trim().optional(),
-  parent_id: z.coerce.number().finite().optional(),
+  parent_id: z.string().trim().optional(),
   package_date: z.string().trim().optional(),
   sales_order_code: z.string().trim().optional(),
   invoice_code: z.string().trim().optional(),
-  client_id: z.coerce.number().finite().optional(),
+  client_id: z.string().trim().optional(),
   length: z.coerce.number().finite().optional(),
   width: z.coerce.number().finite().optional(),
   height: z.coerce.number().finite().optional(),
-  size_unit_id: z.coerce.number().finite().optional(),
+  size_unit_id: z.string().trim().optional(),
   net_weight: z.coerce.number().finite().optional(),
   gross_weight: z.coerce.number().finite().optional(),
-  weight_unit_id: z.coerce.number().finite().optional(),
-  inspector_user_id: z.coerce.number().finite().optional(),
+  weight_unit_id: z.string().trim().optional(),
+  inspector_user_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

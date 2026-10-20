@@ -7,12 +7,13 @@ export const mesWmWarehouseLocationPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmWarehouseLocationCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  warehouse_id: z.coerce.number().finite().optional(),
+  warehouse_id: z.string().trim().optional(),
   area: z.coerce.number().finite().optional(),
   frozen: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   remark: z.string().trim().optional(),

@@ -7,19 +7,20 @@ export const mesWmOutsourceReceiptLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmOutsourceReceiptLineCreateSchema = z.object({
-  receipt_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  receipt_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
-  batch_id: z.coerce.number().finite().optional(),
+  batch_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
   production_date: z.string().trim().optional(),
   expire_date: z.string().trim().optional(),
   lot_number: z.string().trim().optional(),
   remark: z.string().trim().optional(),
-  iqc_id: z.coerce.number().finite().optional(),
+  iqc_id: z.string().trim().optional(),
   iqc_check_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   quality_status: z.coerce.number().finite().optional(),
 

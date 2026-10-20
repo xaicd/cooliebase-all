@@ -7,6 +7,7 @@ export const crmProductPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmProductCreateSchema = z.object({
@@ -15,9 +16,9 @@ export const crmProductCreateSchema = z.object({
   unit: z.coerce.number().finite(),
   price: z.coerce.number().finite().optional(),
   status: z.coerce.number().finite().optional(),
-  category_id: z.coerce.number().finite().optional(),
+  category_id: z.string().trim().optional(),
   description: z.string().trim().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  owner_user_id: z.string().trim().optional(),
 
 }).strict()
 

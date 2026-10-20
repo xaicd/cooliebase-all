@@ -7,20 +7,21 @@ export const mesProCardProcessPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProCardProcessCreateSchema = z.object({
-  card_id: z.coerce.number().finite().optional(),
+  card_id: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
+  process_id: z.string().trim().optional(),
   input_time: z.string().trim().optional(),
   output_time: z.string().trim().optional(),
   input_quantity: z.coerce.number().finite().optional(),
   output_quantity: z.coerce.number().finite().optional(),
   unqualified_quantity: z.coerce.number().finite().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
-  ipqc_id: z.coerce.number().finite().optional(),
+  workstation_id: z.string().trim().optional(),
+  user_id: z.string().trim().optional(),
+  ipqc_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

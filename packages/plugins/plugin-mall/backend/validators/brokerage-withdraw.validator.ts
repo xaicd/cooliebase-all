@@ -7,10 +7,11 @@ export const brokerageWithdrawPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const brokerageWithdrawCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   price: z.coerce.number().finite().optional(),
   fee_price: z.coerce.number().finite().optional(),
   total_price: z.coerce.number().finite().optional(),
@@ -24,7 +25,7 @@ export const brokerageWithdrawCreateSchema = z.object({
   audit_reason: z.string().trim().optional(),
   audit_time: z.string().trim().optional(),
   remark: z.string().trim().optional(),
-  pay_transfer_id: z.coerce.number().finite().optional(),
+  pay_transfer_id: z.string().trim().optional(),
   transfer_channel_code: z.string().trim().optional(),
   transfer_time: z.string().trim().optional(),
   transfer_error_msg: z.string().trim().optional(),

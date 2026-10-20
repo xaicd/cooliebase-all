@@ -7,11 +7,12 @@ export const imFriendRequestPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imFriendRequestCreateSchema = z.object({
-  from_user_id: z.coerce.number().finite().optional(),
-  to_user_id: z.coerce.number().finite().optional(),
+  from_user_id: z.string().trim().optional(),
+  to_user_id: z.string().trim().optional(),
   apply_content: z.string().trim().optional(),
   display_name: z.string().trim().optional(),
   add_source: z.coerce.number().finite().optional(),

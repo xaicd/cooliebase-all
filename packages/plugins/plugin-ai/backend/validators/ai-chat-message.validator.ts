@@ -7,16 +7,17 @@ export const aiChatMessagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const aiChatMessageCreateSchema = z.object({
-  conversation_id: z.coerce.number().finite().optional(),
-  reply_id: z.coerce.number().finite().optional(),
+  conversation_id: z.string().trim().optional(),
+  reply_id: z.string().trim().optional(),
   type: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
-  role_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  role_id: z.string().trim().optional(),
   model: z.string().trim().optional(),
-  model_id: z.coerce.number().finite().optional(),
+  model_id: z.string().trim().optional(),
   content: z.string().trim().optional(),
   reasoning_content: z.string().trim().optional(),
   use_context: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),

@@ -7,17 +7,18 @@ export const crmBusinessPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmBusinessCreateSchema = z.object({
   name: z.string().trim().optional(),
-  customer_id: z.coerce.number().finite().optional(),
+  customer_id: z.string().trim().optional(),
   follow_up_status: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   contact_last_time: z.string().trim().optional(),
   contact_next_time: z.string().trim().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
-  status_type_id: z.coerce.number().finite().optional(),
-  status_id: z.coerce.number().finite().optional(),
+  owner_user_id: z.string().trim().optional(),
+  status_type_id: z.string().trim().optional(),
+  status_id: z.string().trim().optional(),
   end_status: z.coerce.number().finite().optional(),
   end_remark: z.string().trim().optional(),
   deal_time: z.string().trim().optional(),

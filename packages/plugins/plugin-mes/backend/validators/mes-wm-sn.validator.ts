@@ -7,14 +7,15 @@ export const mesWmSnPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmSnCreateSchema = z.object({
   uuid: z.string().trim().optional(),
   code: z.string().trim().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
-  work_order_id: z.coerce.number().finite().optional(),
+  work_order_id: z.string().trim().optional(),
 
 }).strict()
 

@@ -7,14 +7,15 @@ export const mesWmPackageLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmPackageLineCreateSchema = z.object({
-  package_id: z.coerce.number().finite().optional(),
-  material_stock_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  package_id: z.string().trim().optional(),
+  material_stock_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
-  work_order_id: z.coerce.number().finite().optional(),
+  work_order_id: z.string().trim().optional(),
   expire_date: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 

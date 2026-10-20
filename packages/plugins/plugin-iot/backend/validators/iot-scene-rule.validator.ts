@@ -7,6 +7,7 @@ export const iotSceneRulePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const iotSceneRuleCreateSchema = z.object({
@@ -17,25 +18,25 @@ export const iotSceneRuleCreateSchema = z.object({
   triggers: z.string().trim().optional(),
   actions: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  device_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
+  device_id: z.string().trim().optional(),
   identifier: z.string().trim().optional(),
   operator: z.string().trim().optional(),
   value: z.string().trim().optional(),
   cron_expression: z.string().trim().optional(),
   condition_groups: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  device_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
+  device_id: z.string().trim().optional(),
   identifier: z.string().trim().optional(),
   operator: z.string().trim().optional(),
   param: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  device_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
+  device_id: z.string().trim().optional(),
   identifier: z.string().trim().optional(),
   params: z.string().trim().optional(),
-  alert_config_id: z.coerce.number().finite().optional(),
+  alert_config_id: z.string().trim().optional(),
 
 }).strict()
 

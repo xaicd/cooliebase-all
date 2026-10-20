@@ -7,11 +7,12 @@ export const imChannelMessagePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imChannelMessageCreateSchema = z.object({
-  channel_id: z.coerce.number().finite().optional(),
-  material_id: z.coerce.number().finite().optional(),
+  channel_id: z.string().trim().optional(),
+  material_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   content: z.string().trim().optional(),
   receiver_user_ids: z.string().trim().optional(),

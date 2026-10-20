@@ -7,12 +7,13 @@ export const mesWmWarehouseAreaPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmWarehouseAreaCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  location_id: z.coerce.number().finite().optional(),
+  location_id: z.string().trim().optional(),
   area: z.coerce.number().finite().optional(),
   max_load: z.coerce.number().finite().optional(),
   position_x: z.coerce.number().finite().optional(),

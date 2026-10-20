@@ -8,6 +8,7 @@ export const wmsMovementOrderDetailPageQuerySchema = z.object({
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
   movement_order_id: z.string().trim().max(200).optional(),
   item_id: z.string().trim().max(200).optional(),
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const wmsMovementOrderDetailCreateSchema = z.object({

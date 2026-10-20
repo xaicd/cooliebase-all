@@ -7,16 +7,17 @@ export const imGroupRequestPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const imGroupRequestCreateSchema = z.object({
-  group_id: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
-  inviter_user_id: z.coerce.number().finite().optional(),
+  group_id: z.string().trim().optional(),
+  user_id: z.string().trim().optional(),
+  inviter_user_id: z.string().trim().optional(),
   apply_content: z.string().trim().optional(),
   add_source: z.coerce.number().finite().optional(),
   handle_result: z.coerce.number().finite().optional(),
-  handle_user_id: z.coerce.number().finite().optional(),
+  handle_user_id: z.string().trim().optional(),
   handle_content: z.string().trim().optional(),
   handle_time: z.string().trim().optional(),
 

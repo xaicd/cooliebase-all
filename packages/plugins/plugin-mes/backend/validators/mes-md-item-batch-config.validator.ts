@@ -7,10 +7,11 @@ export const mesMdItemBatchConfigPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesMdItemBatchConfigCreateSchema = z.object({
-  item_id: z.coerce.number().finite().optional(),
+  item_id: z.string().trim().optional(),
   produce_date_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   expire_date_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   receipt_date_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),

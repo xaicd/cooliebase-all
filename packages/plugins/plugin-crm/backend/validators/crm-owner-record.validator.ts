@@ -7,13 +7,14 @@ export const crmOwnerRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmOwnerRecordCreateSchema = z.object({
   biz_type: z.coerce.number().finite().optional(),
-  biz_id: z.coerce.number().finite().optional(),
-  pre_owner_user_id: z.coerce.number().finite().optional(),
-  post_owner_user_id: z.coerce.number().finite().optional(),
+  biz_id: z.string().trim().optional(),
+  pre_owner_user_id: z.string().trim().optional(),
+  post_owner_user_id: z.string().trim().optional(),
 
 }).strict()
 

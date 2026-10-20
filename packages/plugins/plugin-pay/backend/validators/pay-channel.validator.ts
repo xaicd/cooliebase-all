@@ -7,6 +7,7 @@ export const payChannelPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const payChannelCreateSchema = z.object({
@@ -14,7 +15,7 @@ export const payChannelCreateSchema = z.object({
   status: z.coerce.number().finite().optional(),
   fee_rate: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
-  app_id: z.coerce.number().finite().optional(),
+  app_id: z.string().trim().optional(),
   config: z.string().trim().optional(),
 
 }).strict()

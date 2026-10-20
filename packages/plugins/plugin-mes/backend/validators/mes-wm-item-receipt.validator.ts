@@ -7,15 +7,16 @@ export const mesWmItemReceiptPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmItemReceiptCreateSchema = z.object({
   code: z.string().trim().optional(),
   name: z.string().trim().optional(),
-  iqc_id: z.coerce.number().finite().optional(),
-  notice_id: z.coerce.number().finite().optional(),
+  iqc_id: z.string().trim().optional(),
+  notice_id: z.string().trim().optional(),
   purchase_order_code: z.string().trim().optional(),
-  vendor_id: z.coerce.number().finite().optional(),
+  vendor_id: z.string().trim().optional(),
   receipt_date: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),

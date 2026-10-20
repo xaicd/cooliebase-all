@@ -7,11 +7,12 @@ export const crmProductCategoryPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmProductCategoryCreateSchema = z.object({
   name: z.string().trim().optional(),
-  parent_id: z.coerce.number().finite().optional(),
+  parent_id: z.string().trim().optional(),
 
 }).strict()
 

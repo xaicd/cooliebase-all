@@ -7,15 +7,16 @@ export const crmContractPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmContractCreateSchema = z.object({
   name: z.string().trim().optional(),
   no: z.string().trim().optional(),
-  customer_id: z.coerce.number().finite().optional(),
-  business_id: z.coerce.number().finite().optional(),
+  customer_id: z.string().trim().optional(),
+  business_id: z.string().trim().optional(),
   contact_last_time: z.string().trim().optional(),
-  owner_user_id: z.coerce.number().finite().optional(),
+  owner_user_id: z.string().trim().optional(),
   process_instance_id: z.string().trim().optional(),
   audit_status: z.coerce.number().finite().optional(),
   order_date: z.string().trim().optional(),
@@ -24,8 +25,8 @@ export const crmContractCreateSchema = z.object({
   total_product_price: z.coerce.number().finite().optional(),
   discount_percent: z.coerce.number().finite().optional(),
   total_price: z.coerce.number().finite().optional(),
-  sign_contact_id: z.coerce.number().finite().optional(),
-  sign_user_id: z.coerce.number().finite().optional(),
+  sign_contact_id: z.string().trim().optional(),
+  sign_user_id: z.string().trim().optional(),
   remark: z.string().trim().optional(),
 
 }).strict()

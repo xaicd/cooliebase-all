@@ -7,13 +7,14 @@ export const mesProRouteProductBomPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProRouteProductBomCreateSchema = z.object({
-  route_id: z.coerce.number().finite().optional(),
-  process_id: z.coerce.number().finite().optional(),
-  product_id: z.coerce.number().finite().optional(),
-  item_id: z.coerce.number().finite().optional(),
+  route_id: z.string().trim().optional(),
+  process_id: z.string().trim().optional(),
+  product_id: z.string().trim().optional(),
+  item_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 

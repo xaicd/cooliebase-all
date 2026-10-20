@@ -7,11 +7,12 @@ export const crmPerformanceConfigPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const crmPerformanceConfigCreateSchema = z.object({
   biz_type: z.coerce.number().finite().optional(),
-  object_id: z.coerce.number().finite().optional(),
+  object_id: z.string().trim().optional(),
   object_type: z.coerce.number().finite().optional(),
   year: z.coerce.number().finite().optional(),
   year_target_price: z.coerce.number().finite().optional(),

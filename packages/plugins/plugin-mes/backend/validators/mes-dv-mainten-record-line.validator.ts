@@ -7,11 +7,12 @@ export const mesDvMaintenRecordLinePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesDvMaintenRecordLineCreateSchema = z.object({
-  record_id: z.coerce.number().finite().optional(),
-  subject_id: z.coerce.number().finite().optional(),
+  record_id: z.string().trim().optional(),
+  subject_id: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),
   result: z.string().trim().optional(),
   remark: z.string().trim().optional(),

@@ -7,6 +7,7 @@ export const mesProWorkOrderPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProWorkOrderCreateSchema = z.object({
@@ -15,16 +16,16 @@ export const mesProWorkOrderCreateSchema = z.object({
   type: z.coerce.number().finite().optional(),
   order_source_type: z.coerce.number().finite().optional(),
   order_source_code: z.string().trim().optional(),
-  product_id: z.coerce.number().finite().optional(),
+  product_id: z.string().trim().optional(),
   quantity: z.coerce.number().finite().optional(),
   quantity_produced: z.coerce.number().finite().optional(),
   quantity_changed: z.coerce.number().finite().optional(),
   quantity_scheduled: z.coerce.number().finite().optional(),
-  client_id: z.coerce.number().finite().optional(),
-  vendor_id: z.coerce.number().finite().optional(),
+  client_id: z.string().trim().optional(),
+  vendor_id: z.string().trim().optional(),
   batch_code: z.string().trim().optional(),
   request_date: z.string().trim().optional(),
-  parent_id: z.coerce.number().finite().optional(),
+  parent_id: z.string().trim().optional(),
   finish_date: z.string().trim().optional(),
   cancel_date: z.string().trim().optional(),
   status: z.coerce.number().finite().optional(),

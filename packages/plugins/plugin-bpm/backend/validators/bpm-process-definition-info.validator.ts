@@ -7,6 +7,7 @@ export const bpmProcessDefinitionInfoPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const bpmProcessDefinitionInfoCreateSchema = z.object({
@@ -17,7 +18,7 @@ export const bpmProcessDefinitionInfoCreateSchema = z.object({
   icon: z.string().trim().optional(),
   description: z.string().trim().optional(),
   form_type: z.coerce.number().finite().optional(),
-  form_id: z.coerce.number().finite().optional(),
+  form_id: z.string().trim().optional(),
   form_conf: z.string().trim().optional(),
   form_fields: z.string().trim().optional(),
   form_custom_create_path: z.string().trim().optional(),

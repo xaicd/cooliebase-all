@@ -7,10 +7,11 @@ export const productCategoryPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const productCategoryCreateSchema = z.object({
-  parent_id: z.coerce.number().finite().optional(),
+  parent_id: z.string().trim().optional(),
   name: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),

@@ -7,10 +7,11 @@ export const brokerageRecordPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const brokerageRecordCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   biz_id: z.string().trim().optional(),
   biz_type: z.coerce.number().finite().optional(),
   title: z.string().trim().optional(),
@@ -21,7 +22,7 @@ export const brokerageRecordCreateSchema = z.object({
   frozen_days: z.coerce.number().finite().optional(),
   unfreeze_time: z.string().trim().optional(),
   source_user_level: z.coerce.number().finite().optional(),
-  source_user_id: z.coerce.number().finite().optional(),
+  source_user_id: z.string().trim().optional(),
 
 }).strict()
 

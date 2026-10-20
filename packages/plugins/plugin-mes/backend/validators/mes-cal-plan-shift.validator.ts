@@ -7,10 +7,11 @@ export const mesCalPlanShiftPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesCalPlanShiftCreateSchema = z.object({
-  plan_id: z.coerce.number().finite().optional(),
+  plan_id: z.string().trim().optional(),
   sort: z.coerce.number().finite().optional(),
   name: z.string().trim().optional(),
   start_time: z.string().trim().optional(),

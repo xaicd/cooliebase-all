@@ -7,6 +7,7 @@ export const mesWmStockTakingTaskPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesWmStockTakingTaskCreateSchema = z.object({
@@ -14,8 +15,8 @@ export const mesWmStockTakingTaskCreateSchema = z.object({
   name: z.string().trim().optional(),
   taking_date: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  user_id: z.coerce.number().finite().optional(),
-  plan_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  plan_id: z.string().trim().optional(),
   blind_flag: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   frozen: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   start_time: z.string().trim().optional(),

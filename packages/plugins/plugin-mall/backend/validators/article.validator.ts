@@ -7,11 +7,12 @@ export const articlePageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const articleCreateSchema = z.object({
-  category_id: z.coerce.number().finite().optional(),
-  spu_id: z.coerce.number().finite().optional(),
+  category_id: z.string().trim().optional(),
+  spu_id: z.string().trim().optional(),
   title: z.string().trim().optional(),
   author: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),

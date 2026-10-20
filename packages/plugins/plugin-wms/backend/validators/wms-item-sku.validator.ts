@@ -9,6 +9,7 @@ export const wmsItemSkuPageQuerySchema = z.object({
   item_id: z.string().trim().max(200).optional(),
   sku_code: z.string().trim().max(200).optional(),
   sku_name: z.string().trim().max(200).optional(),
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const wmsItemSkuCreateSchema = z.object({

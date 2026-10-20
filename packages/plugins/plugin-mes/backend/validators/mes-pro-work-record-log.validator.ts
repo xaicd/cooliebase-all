@@ -7,11 +7,12 @@ export const mesProWorkRecordLogPageQuerySchema = z.object({
   page: z.coerce.number().int().min(1).default(1),
   pageSize: z.coerce.number().int().min(1).max(100).default(20),
 
+  keyword: z.string().trim().max(200).optional(),
 }).strict()
 
 export const mesProWorkRecordLogCreateSchema = z.object({
-  user_id: z.coerce.number().finite().optional(),
-  workstation_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
+  workstation_id: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   remark: z.string().trim().optional(),
 
