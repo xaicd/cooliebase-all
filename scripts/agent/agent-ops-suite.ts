@@ -8,10 +8,10 @@
  *   Health (探针) -> Seed-Sample (造数) -> Verify-Seed (回读) -> Purge-Sample (清数) -> Verify-Residue (零残留断言)
  *
  * 用法:
- *   npx tsx scripts/agent/agent-ops-suite.ts --check          # 快速离线全量 326 份契约静态严谨性审计
- *   npx tsx scripts/agent/agent-ops-suite.ts                 # 自动探测运行态，若应用就绪则执行全域代表性闭环测试
- *   npx tsx scripts/agent/agent-ops-suite.ts --domain mes    # 针对特定域进行测试
- *   npx tsx scripts/agent/agent-ops-suite.ts --all           # 针对全量 326 个实体执行深水区全量运行态测试
+ *   pnpm exec tsx scripts/agent/agent-ops-suite.ts --check          # 快速离线全量 326 份契约静态严谨性审计
+ *   pnpm exec tsx scripts/agent/agent-ops-suite.ts                 # 自动探测运行态，若应用就绪则执行全域代表性闭环测试
+ *   pnpm exec tsx scripts/agent/agent-ops-suite.ts --domain mes    # 针对特定域进行测试
+ *   pnpm exec tsx scripts/agent/agent-ops-suite.ts --all           # 针对全量 326 个实体执行深水区全量运行态测试
  *
  * 环境变量:
  *   COOLIEBASE_AGENT_BASE_URL    默认 http://localhost:3200

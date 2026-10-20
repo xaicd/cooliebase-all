@@ -199,15 +199,15 @@ elif [[ -f "$(pwd)/scripts/clone-project-base.cjs" && -f "$(pwd)/package.json" ]
   DOWNLOAD_SUCCESS=true
 fi
 
-# 策略 2: npx degit (极速解包最新 commit，支持 Gitee / GitHub 双源自动测速)
+# 策略 2: pnpm dlx degit (极速解包最新 commit，支持 Gitee / GitHub 双源自动测速)
 if [[ "$DOWNLOAD_SUCCESS" = false ]]; then
-  if command -v npx >/dev/null 2>&1; then
+  if command -v pnpm >/dev/null 2>&1; then
     echo "📦 [1/3] 正在使用 degit 极速拉取最新 commit 源码树 (0MB Git 历史)..."
-    if npx --yes degit gitee:xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
+    if pnpm dlx degit gitee:xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
       SOURCE_DIR="$TMP_BASE/repo"
       DOWNLOAD_SUCCESS=true
       echo "✅ Gitee degit 获取成功！"
-    elif npx --yes degit xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
+    elif pnpm dlx degit xaicd/cooliebase-all#main "$TMP_BASE/repo" --force >/dev/null 2>&1; then
       SOURCE_DIR="$TMP_BASE/repo"
       DOWNLOAD_SUCCESS=true
       echo "✅ GitHub degit 获取成功！"

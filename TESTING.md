@@ -49,7 +49,7 @@ npm run test:all      # test:matrix 串 playwright
    `src/**/__tests__/`**。要跑全量请用 `npm test` 或 `npm run test:matrix`。
 2. **L4 目前跑不起来**：`package.json` 声明了 `test:e2e` / `test:agent`，`playwright.config.ts` 与
    `test/e2e/*.spec.ts` 也在，但 **`@playwright/test` 既不在依赖里也未安装**。启用前需要：
-   `npm i -D @playwright/test && npx playwright install`。
+   `npm i -D @playwright/test && pnpm exec playwright install`。
 3. **部分 L2 测试依赖外部数据库**：`infra-services` / `mp-services` / `oauth2.service` /
    `system-persistence-services` 是 PostgreSQL 集成测试，**未配置 `DATABASE_URL` 时会整体跳过**
    （不是失败）。要真实执行：直接跑 `npm run verify:real-db` —— 它会**自起嵌入式 Postgres**（零容器）、建独立验证库、迁移、种子，再跑全量测试；若已有真实库，设 `DATABASE_URL` 即可复用它。
@@ -59,13 +59,13 @@ npm run test:all      # test:matrix 串 playwright
    （如 `tenant-isolation-plugin.test.ts`、`codegen-engine.rpc.test.ts`）。
 
    ```bash
-   npx tsc -p tsconfig.vitest.json --noEmit   # 诊断用；当前非全绿，未接入门禁
+   pnpm exec tsc -p tsconfig.vitest.json --noEmit   # 诊断用；当前非全绿，未接入门禁
    ```
 
    另有一批更大的欠账在构建触及范围之外：`packages/domains/**/backend/services/*.rpc.ts`
    存在约 200 个类型错误（`Property 'registerHandler' does not exist`、`Cannot find name 'bus'`）。
    这些文件不被任何路由引用，因此 `next build` 不会检查到它们。全量口径：
-   `npx tsc -p tsconfig.vitest.json --noEmit` 若把 `src/**/*.ts` 全量纳入为 293 个错误。
+   `pnpm exec tsc -p tsconfig.vitest.json --noEmit` 若把 `src/**/*.ts` 全量纳入为 293 个错误。
 
 ## 5. 编写约定
 

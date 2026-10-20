@@ -2,7 +2,7 @@
 
 - **生成方式**: `npm run test:summary` —— **本文件由脚本生成，禁止手写**（数字来自真实 vitest JSON reporter）
 - **生成日期**: 2026-10-19
-- **真源**: 全量 `npx vitest run` 的 JSON 报告
+- **真源**: 全量 `pnpm exec vitest run` 的 JSON 报告
 
 > 此前的版本是手写的，声称「14 个测试文件 / 61 个用例 / 55 passed」，实测为
 > 「450 文件 / 869 用例 / 849 passed」—— **差了约 32 倍**。

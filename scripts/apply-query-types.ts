@@ -5,7 +5,7 @@
  * 于是**过滤参数被静默忽略**（实测在 erp_stock 上踩到）。这里补齐，
  * 推导规则与 `import-source-tables.ts` **共用同一份实现**（不重复一套）。
  *
- * 用法: npx tsx scripts/apply-query-types.ts --tables scripts/data/erp-source-tables.ts --export ERP_TABLES [--write]
+ * 用法: pnpm exec tsx scripts/apply-query-types.ts --tables scripts/data/erp-source-tables.ts --export ERP_TABLES [--write]
  */
 import fs from "node:fs"
 import path from "node:path"

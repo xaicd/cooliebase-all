@@ -1,6 +1,6 @@
 > 本文件原为 `AGENTS.md` §16。**内容逐字未改**，搬成按需查阅的操作手册。
 >
-> 何时读它：要**孵化新工程**（`npm run project:create` / `npx degit` / `scripts/hatch.sh`）、
+> 何时读它：要**孵化新工程**（`npm run project:create` / `pnpm dlx degit` / `scripts/hatch.sh`）、
 > 或调整派生工程的裁剪 profile 时。日常开发不需要加载。
 
 # ProjectReactor 脚手架与 GitHub Template 规范（供 DigitalStaff AI NPC 员工与全自动工程孵化）
@@ -9,7 +9,7 @@
 - 外部 AI 如果决定使用本底座，**根本不需要下载 500MB+ 的全量历史包**，可直接向用户建议或自动执行：
   ```bash
   # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-  npx degit xaicd/cooliebase-all#main my-app
+  pnpm dlx degit xaicd/cooliebase-all#main my-app
 
   # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
   cd my-app && pnpm install

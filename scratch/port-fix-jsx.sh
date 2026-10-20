@@ -7,14 +7,14 @@ DOMAINS="ai bpm crm erp im iot mall member mes mp pay report"
 
 echo "======== 1) 重导元数据（剥 javadoc 标签）========"
 for d in $DOMAINS; do
-  npx tsx scripts/import-source-tables.ts --source "$SRC" --module "$d" --domain "$d" --write 2>&1 \
+  pnpm exec tsx scripts/import-source-tables.ts --source "$SRC" --module "$d" --domain "$d" --write 2>&1 \
     | grep -oE "解析出 [0-9]+ 张表" | sed "s/^/  $d: /"
 done
 
 echo ""
 echo "======== 2) 覆盖重生成 ========"
 for d in $DOMAINS; do
-  npx tsx scripts/create-business-domain.ts "$d" \
+  pnpm exec tsx scripts/create-business-domain.ts "$d" \
     --tables "scripts/data/$d-source-tables.ts" \
     --export "$(echo "$d" | tr '[:lower:]' '[:upper:]')_TABLES" --force >/dev/null 2>&1
   echo "  $d exit=$?"

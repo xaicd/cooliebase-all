@@ -7,7 +7,7 @@
  *
  * 逐列手改会没完没了（每次跑测试才暴露一个）——这里一次收敛全部。
  *
- * 用法: DATABASE_URL=... npx tsx scripts/sync-nullability.ts [--write]
+ * 用法: DATABASE_URL=... pnpm exec tsx scripts/sync-nullability.ts [--write]
  */
 import fs from "node:fs"
 import path from "node:path"

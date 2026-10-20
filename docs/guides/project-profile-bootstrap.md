@@ -10,7 +10,7 @@
 
 ```bash
 # 1. 极速拉取干净代码骨架（0MB 历史体积）
-npx degit xaicd/cooliebase-all#main my-app
+pnpm dlx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并安装依赖
 cd my-app && pnpm install

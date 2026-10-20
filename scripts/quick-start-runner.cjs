@@ -90,7 +90,7 @@ if (!fileExists(".env.local")) {
 // Step 4: Prisma
 log("STEP", "4/5 Prisma 初始化...")
 if (fileExists("prisma/schema.prisma")) {
-  run("npx prisma generate", { ignoreError: true })
+  run("pnpm exec prisma generate", { ignoreError: true })
 }
 log("INFO", "Prisma ✓")
 

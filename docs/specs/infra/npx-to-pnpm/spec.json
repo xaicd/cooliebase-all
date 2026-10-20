@@ -1,0 +1,12 @@
+{
+  "name": "npx-to-pnpm",
+  "domain": "infra",
+  "title": "统一包管理器调用：仓内 npx 全部改为 pnpm exec / pnpm dlx",
+  "type": "refactor",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 5,
+  "invariants": 1,
+  "tasks": 5,
+  "updatedAt": "2026-10-20T07:39:36.455Z"
+}

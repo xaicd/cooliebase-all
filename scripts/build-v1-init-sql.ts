@@ -51,7 +51,7 @@ async function main() {
         "prisma 需要影子库重放迁移。本地可先 `docker compose -f deploy/docker-compose.dev.yml up -d postgres`。",
     )
   }
-  const ddl = execSync("npx prisma migrate diff --from-empty --to-migrations prisma/migrations --script", {
+  const ddl = execSync("pnpm exec prisma migrate diff --from-empty --to-migrations prisma/migrations --script", {
     encoding: "utf-8",
     env: { ...process.env, SHADOW_DATABASE_URL: shadowUrl },
   })

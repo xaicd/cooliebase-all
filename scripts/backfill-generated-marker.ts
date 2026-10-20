@@ -8,7 +8,7 @@
  *   去掉标记行后，文件内容与当前生成器的输出**完全一致**  => 是生成物，补标记
  *   否则（有人改过）                                        => 保留不动，它继续留在手写基线里
  *
- * 用法: npx tsx scripts/backfill-generated-marker.ts [--write]
+ * 用法: pnpm exec tsx scripts/backfill-generated-marker.ts [--write]
  */
 import fs from "node:fs"
 import path from "node:path"

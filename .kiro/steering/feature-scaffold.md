@@ -14,7 +14,7 @@ inclusion: auto
 | 事项 | 唯一真源 |
 |---|---|
 | 全链路新功能研发闭环（需求 → 表 → API/权限 → 程序 → 生成 → 多端配置 → 验收） | `.agents/skills/new-feature/SKILL.md` |
-| 受控代码生成入口 | `npm run scaffold`（= `npx tsx ./scripts/scaffold-feature.ts`） |
+| 受控代码生成入口 | `npm run scaffold`（= `pnpm exec tsx ./scripts/scaffold-feature.ts`） |
 | 接口/路由规范 | `docs/guides/api-route-conventions.md` |
 | 特性规格与原型归类 | `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md` |
 | RBAC 角色默认基线 | `packages/shared/backend/lib/rbac-registry/role-permissions.ts` |

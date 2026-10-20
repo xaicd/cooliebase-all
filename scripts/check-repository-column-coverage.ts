@@ -18,7 +18,7 @@
  * 与 `scripts/report-type-drift.ts` 的分工：那个连真实库比**列类型**（需 DB、只报告）；
  * 本脚本纯离线比**列集合**（进 `npm run check`，缺列即失败）。
  *
- * 用法: npx tsx scripts/check-repository-column-coverage.ts [--audit]
+ * 用法: pnpm exec tsx scripts/check-repository-column-coverage.ts [--audit]
  */
 import fs from "node:fs"
 import path from "node:path"

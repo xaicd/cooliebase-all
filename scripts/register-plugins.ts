@@ -1,4 +1,4 @@
-#!/usr/bin/env npx tsx
+#!/usr/bin/env pnpm exec tsx
 /**
  * 把仓内**第一方插件**登记进 `plugin` 表。
  *
@@ -10,7 +10,7 @@
  *   （孵化器警告过"登记前 404、登记后 200"，但**登记这一步此前没有落地实现**，
  *    静态入口 `FIRST_PARTY_PLUGIN_ENTRIES` 定义了却没人消费。）
  *
- * 用法: npx tsx scripts/register-plugins.ts [--dry-run]
+ * 用法: pnpm exec tsx scripts/register-plugins.ts [--dry-run]
  */
 import fs from "node:fs"
 import path from "node:path"

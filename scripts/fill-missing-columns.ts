@@ -8,7 +8,7 @@
  * 逐列手补会没完没了（每次跑测试才暴露一个）。这里一次枚举全部：
  * 连真实库、逐表比对 information_schema 与元数据，把缺的列补进元数据。
  *
- * 用法: DATABASE_URL=... npx tsx scripts/fill-missing-columns.ts [--write]
+ * 用法: DATABASE_URL=... pnpm exec tsx scripts/fill-missing-columns.ts [--write]
  */
 import fs from "node:fs"
 import path from "node:path"

@@ -14,7 +14,7 @@
 
 ### 缺陷现象 (Symptom)
 
-`env -u DATABASE_URL -u DB_DRIVER -u NODE_ENV npx vitest run` 长期为 2 failed files / 6 failed tests。明细：`test/unit/spec-driven-agent-workflow.test.ts` 5 条，报 `Command failed: npx tsx scripts/spec-ops.ts new|build|archive …`；`scripts/lib/__tests__/agent-profile.test.ts` 1 条，报 `expected ['coding','automated-testing',…(2)] to deeply equal ['coding','automated-testing',…(1)]`。该 6 条在本次之前的多轮改动中都做过同环境前后对照，确认非新增，一直被当作 known pre-existing 记录。
+`env -u DATABASE_URL -u DB_DRIVER -u NODE_ENV pnpm exec vitest run` 长期为 2 failed files / 6 failed tests。明细：`test/unit/spec-driven-agent-workflow.test.ts` 5 条，报 `Command failed: pnpm exec tsx scripts/spec-ops.ts new|build|archive …`；`scripts/lib/__tests__/agent-profile.test.ts` 1 条，报 `expected ['coding','automated-testing',…(2)] to deeply equal ['coding','automated-testing',…(1)]`。该 6 条在本次之前的多轮改动中都做过同环境前后对照，确认非新增，一直被当作 known pre-existing 记录。
 
 ### 根因分析 (Root Cause - 5-Whys)
 
@@ -51,8 +51,8 @@
 ## 5. 验收标准清单 (Acceptance Criteria)
 
 1. **THE system SHALL** 验证：`npm run check` exit=0
-2. **THE system SHALL** 验证：`npx vitest run test/unit/spec-driven-agent-workflow.test.ts scripts/lib/__tests__/agent-profile.test.ts` exit=0（6 条由 Red 变绿）
-3. **THE system SHALL** 验证：全量 `npx vitest run` 的 failed tests = 0（此前恒为 6，且要求新增失败也为 0）
+2. **THE system SHALL** 验证：`pnpm exec vitest run test/unit/spec-driven-agent-workflow.test.ts scripts/lib/__tests__/agent-profile.test.ts` exit=0（6 条由 Red 变绿）
+3. **THE system SHALL** 验证：全量 `pnpm exec vitest run` 的 failed tests = 0（此前恒为 6，且要求新增失败也为 0）
 4. **THE system SHALL** 验证：零残留：跑完两个测试文件后 `git status --porcelain` 与跑之前一致
 
 ## 6. 约束条件与技术边界 (Constraints & Non-Goals)

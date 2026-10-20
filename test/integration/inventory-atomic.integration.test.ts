@@ -6,7 +6,7 @@
  * 内存回退永远不会暴露 sql 模板的方言问题 —— 本仓已有过一次
  * "内存全绿、真实库全红" 的教训（见 AGENTS §9.4）。
  *
- * 运行: DATABASE_URL=... DB_DRIVER=postgres npx vitest run test/integration/inventory-atomic.integration.test.ts
+ * 运行: DATABASE_URL=... DB_DRIVER=postgres pnpm exec vitest run test/integration/inventory-atomic.integration.test.ts
  */
 import { describe, it, expect, beforeAll, afterAll } from "vitest"
 

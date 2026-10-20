@@ -109,7 +109,7 @@ function resolveInsideRepo(value, label) {
   return { full, rel: rel.split(path.sep).join("/") }
 }
 
-const NPX = process.platform === "win32" ? "npx.cmd" : "npx"
+const PNPM = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
 
 /**
  * 执行既有脚本并回收输出。**永不**传 --write / --force —— 本批的零落盘保证靠这里兜住，
@@ -641,7 +641,8 @@ const TOOLS = [
         ? String(args.export).trim()
         : `${domain.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_TABLES`
 
-      const result = runExistingScript(NPX, [
+      const result = runExistingScript(PNPM, [
+        "exec",
         "tsx",
         "scripts/create-business-domain.ts",
         domain,
@@ -663,7 +664,7 @@ const TOOLS = [
         manualSteps: [
           `写表元数据（属产品决策，工具不代写）：${tablesRel} 需导出 \`${exportName}: CodegenConfig[]\``,
           `真正落盘（本工具不执行）：npm run domain:new ${domain}`,
-          "部署到目标库：npx prisma migrate deploy",
+          "部署到目标库：pnpm exec prisma migrate deploy",
           "提交前跑：npm run check",
         ],
         details: {
@@ -779,7 +780,8 @@ const TOOLS = [
         throw new Error(`invalid export name ${JSON.stringify(args.export)}`)
       }
 
-      const result = runExistingScript(NPX, [
+      const result = runExistingScript(PNPM, [
+        "exec",
         "tsx",
         "scripts/generate-table-migration.ts",
         "--tables",
@@ -800,7 +802,7 @@ const TOOLS = [
         plannedWrites: existing ? [`prisma/migrations/${existing}/migration.sql`] : [],
         followUpGates: ["npm run check", "npm run tables:inventory"],
         manualSteps: [
-          `真正落盘：npx tsx scripts/generate-table-migration.ts --tables ${rel} --export ${exportName} --name ${name} --write`,
+          `真正落盘：pnpm exec tsx scripts/generate-table-migration.ts --tables ${rel} --export ${exportName} --name ${name} --write`,
           existing
             ? `注意：同名迁移 ${existing} 已存在，--write 会原地更新该文件（幂等，不堆目录）`
             : "注意：尚不存在同名迁移，--write 会按 UTC 时间戳新建目录",

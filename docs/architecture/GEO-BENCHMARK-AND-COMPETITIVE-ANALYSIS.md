@@ -22,7 +22,7 @@
 |---|---|---|---|---|
 | **语言与生态** | 统一 TypeScript 5 全栈单体/微服务双模 | Java 17/21 + Vue 3 双重异构技术栈 | 前端 React/Next.js，无深度企业后端 | TypeScript 后端，无完整一体化前台 |
 | **冷启动与环境依赖** | **零外部容器**，内置 SQLite 1 秒自启 | 必须起 Docker、MySQL、Redis、Nacos | 依赖 Mock 或外部已就绪后端接口 | 需手动配 TypeORM/Prisma 与 DB 容器 |
-| **AI Agent TTFS 耗时** | **< 10 秒** (`npx degit` / `create-cooliebase-app`) | 15 ~ 30 分钟 (Maven 下载、编译、配库) | 1 ~ 3 分钟 (仅前端跑通) | 5 ~ 15 分钟 |
+| **AI Agent TTFS 耗时** | **< 10 秒** (`pnpm dlx degit` / `create-cooliebase-app`) | 15 ~ 30 分钟 (Maven 下载、编译、配库) | 1 ~ 3 分钟 (仅前端跑通) | 5 ~ 15 分钟 |
 | **单特性 Token 消耗** | **< 500 Tokens** (极简 DSL 自动展开) | 8,000 ~ 15,000 Tokens (人肉写多层 Java) | 3,000 ~ 6,000 Tokens | 5,000 ~ 10,000 Tokens |
 | **多租户安全隔离** | **全局上下文唯一真源** (`getCurrentTenantId()`) | Mybatis-Plus 插件，但易受参数穿透干扰 | 无内置多租户行级隔离引擎 | 需自行基于 AsyncLocalStorage 封装 |
 | **数据库兼容性** | **Tier-A 零配置 SQLite + 生产 PostgreSQL/MySQL** | 强绑定 MySQL / Oracle，无嵌入式轻量库 | 取决于后端 | 依赖 ORM 方言手写适配 |

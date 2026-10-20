@@ -15,10 +15,10 @@
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
     【1. 零历史拉取骨架】           ▼
-    npx create-cooliebase-app my-app --profile base --title "XX系统"
+    pnpm dlx create-cooliebase-app my-app --profile base --title "XX系统"
                                     │
     【2. 挂载确定性 MCP 工具】      ▼
-    npx -y @cooliebase/mcp-server (精准检索 17 域与 RPC 契约，Token 消耗 <500)
+    pnpm dlx @cooliebase/mcp-server (精准检索 17 域与 RPC 契约，Token 消耗 <500)
                                     │
     【3. 极简声明式规格展开】      ▼
     npm run speckit:new -> 填写 brief.json -> npm run speckit:build (展开 10~15 类规范)
@@ -38,7 +38,7 @@
 
 ### 选项 A：使用官方脚手架 CLI（推荐）
 ```bash
-npx create-cooliebase-app my-app --title "XX智能业务系统" --profile base --port 3300
+pnpm dlx create-cooliebase-app my-app --title "XX智能业务系统" --profile base --port 3300
 cd my-app && pnpm install
 npm run db:bootstrap:sqlite
 npm run dev
@@ -46,7 +46,7 @@ npm run dev
 
 ### 选项 B：使用 degit 极速拉取
 ```bash
-npx degit xaicd/cooliebase-all#main my-app
+pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "XX智能业务系统"
 npm run db:bootstrap:sqlite

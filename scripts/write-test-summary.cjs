@@ -31,9 +31,9 @@ function fail(message) {
 function runVitest() {
   const out = path.join(ROOT, "node_modules", ".cache", "vitest-summary.json")
   fs.mkdirSync(path.dirname(out), { recursive: true })
-  const npx = process.platform === "win32" ? "npx.cmd" : "npx"
+  const pnpm = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
   const env = (({ DATABASE_URL, DB_DRIVER, NODE_ENV, TENANT_MODE, ...rest }) => rest)(process.env)
-  const result = spawnSync(npx, ["vitest", "run", "--reporter=json", `--outputFile=${out}`], {
+  const result = spawnSync(pnpm, ["exec", "vitest", "run", "--reporter=json", `--outputFile=${out}`], {
     cwd: ROOT,
     encoding: "utf8",
     timeout: 900000,
@@ -100,7 +100,7 @@ const report = `# 软件测试执行总结报告 (Test Summary Report)
 
 - **生成方式**: \`npm run test:summary\` —— **本文件由脚本生成，禁止手写**（数字来自真实 vitest JSON reporter）
 - **生成日期**: ${today}
-- **真源**: 全量 \`npx vitest run\` 的 JSON 报告
+- **真源**: 全量 \`pnpm exec vitest run\` 的 JSON 报告
 
 > 此前的版本是手写的，声称「14 个测试文件 / 61 个用例 / 55 passed」，实测为
 > 「${files.length} 文件 / ${numTotal} 用例 / ${numPassed} passed」—— **差了约 ${Math.round(files.length / 14)} 倍**。

@@ -73,7 +73,7 @@ Injector 的允许写入集合是 manifest 输出集合的子集，冲突或路�
 候选请求失败展示可恢复错误，表单提交失败显示服务端可安全暴露的错误文本并保持输入。缺失的关联候选、权限拒绝、状态变更和 scope 不匹配由后端保留最终错误语义。生成/注入输入无效、输出冲突、manifest 不匹配或路径越界必须产生非零错误；不得静默跳过后声称成功。
 
 ## Testing Strategy
-使用固定 table metadata fixture 测试 CRUD renderer 的输出路径、imports、async Form contract 和 subModule。使用临时目录集成测试覆盖 injector dry-run、冲突、越界拒绝及成功注入。每批真实页面迁移做 Form 行为测试或组件 smoke，覆盖创建、编辑、取消、失败、关联候选状态和成功刷新；执行定向 Vitest、受影响 `npx tsc --noEmit`、生成/注入 smoke 与 `git diff --check`。测试文件被 tsconfig 排除，必须由 Vitest 单独运行。
+使用固定 table metadata fixture 测试 CRUD renderer 的输出路径、imports、async Form contract 和 subModule。使用临时目录集成测试覆盖 injector dry-run、冲突、越界拒绝及成功注入。每批真实页面迁移做 Form 行为测试或组件 smoke，覆盖创建、编辑、取消、失败、关联候选状态和成功刷新；执行定向 Vitest、受影响 `pnpm exec tsc --noEmit`、生成/注入 smoke 与 `git diff --check`。测试文件被 tsconfig 排除，必须由 Vitest 单独运行。
 
 ## Migration Plan
 System 先迁移 users、roles、depts、menus、posts、dicts、tenants、tenant-packages；随后迁移 infra configs、db-configs 和 crm customers。迁移保留现有默认值、不可变键、payload coercion、租户/套餐/菜单边界，特别是 users 的部门/角色/岗位、树表单父级过滤、tenants 的订阅、tenant-packages 的安全菜单和 db-configs 的敏感凭证不回显。job-center 先完成契约判定。

@@ -11,7 +11,7 @@
  * 用法:
  *   git clone --depth 1 --filter=blob:none --sparse https://github.com/YunaiV/cooliebase-vue-pro.git /tmp/yudao
  *   cd /tmp/yudao && git sparse-checkout set --no-cone '/yudao-module-pay'
- *   npx tsx scripts/import-source-tables.ts --source /tmp/yudao --module pay --domain pay --write
+ *   pnpm exec tsx scripts/import-source-tables.ts --source /tmp/yudao --module pay --domain pay --write
  *
  * 说明（边界）:
  *   - 只做"实体 -> 元数据"的机械转换；**不做**业务逻辑移植（那是各域自己的事）
@@ -35,7 +35,7 @@ const moduleName = arg("--module")
 const domain = arg("--domain") ?? moduleName
 
 if (!sourceRoot || !moduleName) {
-  console.error("用法: npx tsx scripts/import-source-tables.ts --source <yudao 克隆路径> --module <模块名> [--domain <本仓域名>] [--write]")
+  console.error("用法: pnpm exec tsx scripts/import-source-tables.ts --source <yudao 克隆路径> --module <模块名> [--domain <本仓域名>] [--write]")
   process.exit(2)
 }
 if (!fs.existsSync(sourceRoot)) {

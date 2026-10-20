@@ -64,7 +64,7 @@ pnpm run build
 ### Step 4: 数据库结构原子迁移
 ```bash
 # 执行数据库幂等迁移
-npx prisma migrate deploy
+pnpm exec prisma migrate deploy
 ```
 
 ### Step 5: 第一方插件静态注册

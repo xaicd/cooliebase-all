@@ -383,4 +383,4 @@ for (const { name, from, to, files } of plan) {
 
 console.log("\n下一步（脚本不做，因为会改生成物与基线）:")
 console.log("  pnpm run domain:contracts && pnpm run domain:seams && pnpm run domain:manifests && pnpm run admin:routes:manifest")
-console.log("  pnpm run check && npx vitest run && pnpm run build")
+console.log("  pnpm run check && pnpm exec vitest run && pnpm run build")

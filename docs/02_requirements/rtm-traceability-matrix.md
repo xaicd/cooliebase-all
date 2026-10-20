@@ -12,7 +12,7 @@
 
 ```bash
 npm run check                      # 13 道静态门禁（退出码 0 才算通过）
-npx vitest run                     # 全量测试（446 文件，0 failed）
+pnpm exec vitest run                     # 全量测试（446 文件，0 failed）
 npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 git 历史推导）
 ```
 

@@ -9,9 +9,9 @@
  * 并在输出里列出（这样"还有哪些域没改造"永远是可见的，不会烂在暗处）。
  *
  * 用法:
- *   npx tsx scripts/generate-rpc-actions.ts            # dry-run，打印统计
- *   npx tsx scripts/generate-rpc-actions.ts --write
- *   npx tsx scripts/generate-rpc-actions.ts --check    # 门禁: 是否漂移
+ *   pnpm exec tsx scripts/generate-rpc-actions.ts            # dry-run，打印统计
+ *   pnpm exec tsx scripts/generate-rpc-actions.ts --write
+ *   pnpm exec tsx scripts/generate-rpc-actions.ts --check    # 门禁: 是否漂移
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -95,7 +95,7 @@ function main() {
 
   if (check) {
     if (fs.readFileSync(CATALOG, "utf8") !== content) {
-      console.error("[rpc-actions] FAIL: rpc-actions.json 与契约代码不一致 —— 跑 npx tsx scripts/generate-rpc-actions.ts --write")
+      console.error("[rpc-actions] FAIL: rpc-actions.json 与契约代码不一致 —— 跑 pnpm exec tsx scripts/generate-rpc-actions.ts --write")
       process.exit(1)
     }
     console.log("[rpc-actions] PASS: 与契约代码一致")

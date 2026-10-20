@@ -469,7 +469,7 @@ const RULES = [
   {
     id: "no-new-npx",
     section: "AGENTS.md §2.1",
-    mode: "ratchet",
+    mode: "enforce",
     description:
       "docs/scripts must not introduce new `npx` — at runtime it can download-and-install a missing package, silently bypassing pnpm-lock.yaml",
     run() {
@@ -493,7 +493,8 @@ const RULES = [
             walk(rel)
             continue
           }
-          if (!/\.(md|sh)$/.test(entry.name)) continue
+          if (!/\.(md|sh|ts|cjs)$/.test(entry.name)) continue
+          if (rel === "scripts/check-engineering-standards.cjs") continue // 规则自身必须提到 npx
           const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {
             if (pattern.test(lines[i])) violations.push({ file: rel, detail: `line ${i + 1}` })
@@ -503,7 +504,7 @@ const RULES = [
       for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
         if (entry.name.startsWith(".")) continue // 根目录的隐藏项统一跳过（.git/.agents 等由别处守）
         if (entry.isDirectory()) walk(entry.name)
-        else if (/\.(md|sh)$/.test(entry.name)) {
+        else if (/\.(md|sh|ts|cjs)$/.test(entry.name)) {
           const lines = fs.readFileSync(path.join(ROOT, entry.name), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {
             if (pattern.test(lines[i])) violations.push({ file: entry.name, detail: `line ${i + 1}` })
@@ -512,6 +513,13 @@ const RULES = [
       }
       // .agents/ 也要扫（skills/rules 里大量命令行示例）
       if (fs.existsSync(path.join(ROOT, ".agents"))) walk(".agents")
+
+      // **package.json 的 scripts 也必须扫** —— 之前只扫文件内容，漏掉了 36 条脚本里的 npx，
+      // 于是"清零"是假的（本仓最怕的假绿）。scripts 是**运行时真调用**，比注释更严重。
+      const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+      for (const [name, command] of Object.entries(pkg.scripts || {})) {
+        if (pattern.test(String(command))) violations.push({ file: "package.json", detail: `scripts.${name}` })
+      }
       return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
     },
   },

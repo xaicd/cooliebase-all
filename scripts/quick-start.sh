@@ -100,7 +100,7 @@ fi
 # Step 4: Prisma generate（可选）
 log_step "4/5 Prisma 初始化..."
 if [ -f "prisma/schema.prisma" ]; then
-  npx prisma generate 2>/dev/null || log_warn "Prisma generate 跳过（内存模式不需要）"
+  pnpm exec prisma generate 2>/dev/null || log_warn "Prisma generate 跳过（内存模式不需要）"
 fi
 log_info "Prisma ✓"
 

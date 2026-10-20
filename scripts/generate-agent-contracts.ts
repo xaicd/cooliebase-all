@@ -13,9 +13,9 @@
  *   · `--dry-run` 只打印将写哪些文件。
  *
  * Usage:
- *   npx tsx scripts/generate-agent-contracts.ts --module wms --dry-run
- *   npx tsx scripts/generate-agent-contracts.ts --module wms
- *   npx tsx scripts/generate-agent-contracts.ts --module wms --force
+ *   pnpm exec tsx scripts/generate-agent-contracts.ts --module wms --dry-run
+ *   pnpm exec tsx scripts/generate-agent-contracts.ts --module wms
+ *   pnpm exec tsx scripts/generate-agent-contracts.ts --module wms --force
  */
 
 import fs from "node:fs"
@@ -29,7 +29,7 @@ function parseArgs(argv: string[]): Options {
   const moduleIndex = argv.indexOf("--module")
   const moduleName = moduleIndex >= 0 ? argv[moduleIndex + 1] : ""
   if (!moduleName) {
-    console.error("[agent-contracts] 用法: npx tsx scripts/generate-agent-contracts.ts --module <域> [--dry-run] [--force]")
+    console.error("[agent-contracts] 用法: pnpm exec tsx scripts/generate-agent-contracts.ts --module <域> [--dry-run] [--force]")
     process.exit(2)
   }
   return { module: moduleName, dryRun: argv.includes("--dry-run"), force: argv.includes("--force") }

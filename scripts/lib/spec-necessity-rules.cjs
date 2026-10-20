@@ -10,7 +10,7 @@
  * 2. **不看模型心情**：纯文本规则匹配，同一条输入永远得到同一个结论。
  * 3. **不追求聪明**：宁可多要求一次规格（代价是几分钟），也不要漏掉一次该走的流程（代价是返工）。
  *
- * 修改本表后请跑 `npx vitest run test/unit/agent-route.test.ts` 确认判定没被意外改变。
+ * 修改本表后请跑 `pnpm exec vitest run test/unit/agent-route.test.ts` 确认判定没被意外改变。
  */
 
 /** 规格类型（与 `npm run speckit:new --type <T>` 对齐） */

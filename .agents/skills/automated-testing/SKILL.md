@@ -57,7 +57,7 @@ describe("EntityService Core Capabilities", () => {
 ## 4. 常用测试与门禁命令
 ```bash
 # 运行指定测试文件
-npx vitest run packages/domains/<domain>/backend/services/__tests__/
+pnpm exec vitest run packages/domains/<domain>/backend/services/__tests__/
 
 # 运行全量单元测试
 npm test

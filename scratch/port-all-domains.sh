@@ -10,7 +10,7 @@ DOMAINS="${DOMAINS:-ai bpm crm erp im iot mall member mes mp pay report}"
 for d in $DOMAINS; do
   echo ""
   echo "================ $d ================"
-  npx tsx scripts/create-business-domain.ts "$d" \
+  pnpm exec tsx scripts/create-business-domain.ts "$d" \
     --tables "scripts/data/$d-source-tables.ts" \
     --export "$(echo "$d" | tr '[:lower:]' '[:upper:]')_TABLES" 2>&1 | grep -vE "^npm warn|^$" | tail -12
   echo "---- $d exit=${PIPESTATUS[0]} ----"

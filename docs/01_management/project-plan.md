@@ -30,7 +30,7 @@
 
 | # | 判据 | 验证方式 |
 |---|---|---|
-| G1 | 基座自身始终绿 | `npm run check` exit=0，且全量 `npx vitest run` 0 failed |
+| G1 | 基座自身始终绿 | `npm run check` exit=0，且全量 `pnpm exec vitest run` 0 failed |
 | G2 | 孵化链路无阻塞 | `npm run project:create -- <dir> --profile base/minimal` → 产物自身 `check` + `build` 通过 |
 | G3 | 新建业务域只有一条命令 | `npm run domain:new <域>` 一条命令完成建表→生成→注册→契约→门禁，无手工补步骤 |
 | G4 | Agent 面与代码一致 | `npm run compat:check` 交叉校验通过（工具/技能/门禁清单无第二真源） |
@@ -42,7 +42,7 @@
 > - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 11 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
 > - **G2 孵化链路** ✅ 已达成 —— 两条入口均已实测：
 >   ① degit 路径端到端：
->   `npx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
+>   `pnpm dlx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
 >   → `build` exit=0 → `pnpm dev`：`/healthz` 200、`/readyz` 200、登录 200、受保护接口带 token 200 / 无 token 401。
 >   （`project:create` 的 reactor/Postgres 路径因本机 Docker 端口不可达，未单独验证。）
 >   ② `project:init --target` 的四种 profile（base 5 域 / minimal 5 / vertical 6 / creator 17）
@@ -74,7 +74,7 @@
 
 | 里程碑 | 判据 | 取证方式 | 状态 |
 |---|---|---|---|
-| **M0 地基绿** | 基座 `check` + 全量测试全绿 | `npm run check`；`npx vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
+| **M0 地基绿** | 基座 `check` + 全量测试全绿 | `npm run check`；`pnpm exec vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
 | **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `npm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 17 MCP tools / 10 gates） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `npm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `npm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
@@ -175,7 +175,7 @@
 
 ## 5. 当前进展快照（2026-10-19）
 
-- **基座**：`npm run check` exit=0；全量 `npx vitest run` 436 files / 816 tests / **0 failed**。
+- **基座**：`npm run check` exit=0；全量 `pnpm exec vitest run` 436 files / 816 tests / **0 failed**。
 - **消费面**：17 domains / 38 skills / 17 MCP tools / 10 gates（`compat:check` 实测）。
 - **供应链**：漏洞 43 → 9（消除了 2 个 critical 中的 1 个；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。

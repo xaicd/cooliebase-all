@@ -6,47 +6,6 @@
     "facade-method-dispatch-mapped": {
       "accepted": {}
     },
-    "no-new-npx": {
-      "accepted": {
-        ".agents/rules/PROJECT-REACTOR.md": 2,
-        ".agents/skills/automated-testing/SKILL.md": 1,
-        ".agents/skills/mcp-builder/SKILL.md": 1,
-        ".agents/skills/mutation-tester/SKILL.md": 2,
-        ".agents/skills/new-business-plugin/SKILL.md": 3,
-        ".agents/skills/plugin-authoring/SKILL.md": 1,
-        ".agents/skills/spec-driven-development/SKILL.md": 5,
-        "AGENTS.md": 2,
-        "CURRENT.md": 1,
-        "docs/01_management/project-plan.md": 4,
-        "docs/02_requirements/non-functional-reqs.md": 1,
-        "docs/02_requirements/rtm-traceability-matrix.md": 1,
-        "docs/05_verification/test-summary-report.md": 1,
-        "docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md": 1,
-        "docs/06_quality_assurance/configuration-audit.md": 1,
-        "docs/07_release/system-deployment-sop.md": 1,
-        "docs/architecture/api-security-persistence-spec.md": 4,
-        "docs/architecture/GEO-AGENT-NATIVE-ONBOARDING-GUIDE.md": 3,
-        "docs/architecture/GEO-BENCHMARK-AND-COMPETITIVE-ANALYSIS.md": 1,
-        "docs/guides/project-profile-bootstrap.md": 1,
-        "docs/specs/infra/client-build-gate/design.md": 1,
-        "docs/specs/infra/client-build-gate/plan.md": 1,
-        "docs/specs/infra/expo-sdk-upgrade/checklist.md": 1,
-        "docs/specs/infra/expo-sdk-upgrade/requirements.md": 1,
-        "docs/specs/infra/expo-sdk-upgrade/spec.md": 1,
-        "docs/specs/infra/stale-test-repair/bugfix.md": 1,
-        "docs/specs/infra/stale-test-repair/checklist.md": 2,
-        "docs/specs/infra/stale-test-repair/requirements.md": 3,
-        "docs/specs/infra/stale-test-repair/spec.md": 3,
-        "packages/tools/create-cooliebase-app/README.md": 2,
-        "README.md": 2,
-        "scratch/port-all-domains.sh": 1,
-        "scratch/port-fix-jsx.sh": 2,
-        "scratch/port-force.sh": 1,
-        "scripts/hatch.sh": 1,
-        "scripts/quick-start.sh": 1,
-        "TESTING.md": 3
-      }
-    },
     "init-sql-seed-columns": {
       "accepted": {}
     }

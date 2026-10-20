@@ -727,7 +727,7 @@ async function autoProvisionDatabase(targetDbName) {
     try {
       console.log(`[REACTOR SQL] 正在自动导入全量基准 SQL 与 27 项迁移...`)
       const targetDbUrl = `postgresql://cooliebase:cooliebase123@localhost:5433/${targetDbName}?schema=public`
-      execSync("npx prisma migrate deploy", {
+      execSync("pnpm exec prisma migrate deploy", {
         cwd: SOURCE_ROOT,
         env: {
           ...process.env,
@@ -745,7 +745,7 @@ async function autoProvisionDatabase(targetDbName) {
       const bootstrapUsername = resolveBootstrap().username
       const bootstrapPassword = resolveBootstrap().password
       const bootstrapSalt = resolveBootstrap().salt
-      execSync("npx tsx scripts/seed-postgresql.ts", {
+      execSync("pnpm exec tsx scripts/seed-postgresql.ts", {
         cwd: SOURCE_ROOT,
         env: {
           ...process.env,

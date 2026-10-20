@@ -11,7 +11,7 @@
 | 指标 | 目标 | 实测 | 度量方式 |
 |---|---|---|---|
 | 静态门禁 `npm run check` | ≤ 60s | **17s** | 本地计时 |
-| 全量测试 `npx vitest run` | ≤ 300s | **194s**（vitest 自报 193.28s） | vitest Duration |
+| 全量测试 `pnpm exec vitest run` | ≤ 300s | **194s**（vitest 自报 193.28s） | vitest Duration |
 | 生产构建 `npm run build` | ≤ 120s | **26s** | 本地计时 |
 | 孵化工程依赖安装 `pnpm install --frozen-lockfile` | ≤ 60s | **8.1s** | 克隆产物内实测 |
 

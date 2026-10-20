@@ -6,7 +6,7 @@
  * 表现是生成的测试往整数列写字符串 -> `invalid input syntax for type integer`
  * （内存回退完全不校验类型，所以只有真实库才暴露）。
  *
- * 用法: DATABASE_URL=... npx tsx scripts/report-type-drift.ts
+ * 用法: DATABASE_URL=... pnpm exec tsx scripts/report-type-drift.ts
  */
 import path from "node:path"
 import { Client } from "pg"

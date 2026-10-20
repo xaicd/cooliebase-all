@@ -1,12 +1,12 @@
-#!/usr/bin/env npx tsx
+#!/usr/bin/env pnpm exec tsx
 /**
  * Autonomous Heartbeat Daemon CLI (自主巡检与自愈守护中枢 CLI)
  *
  * 用法:
- *   npx tsx scripts/agent-autopilot-daemon.ts          # 单次主动巡检与自愈 (默认)
- *   npx tsx scripts/agent-autopilot-daemon.ts --heal   # 强制触发全面自愈动作
- *   npx tsx scripts/agent-autopilot-daemon.ts --json   # 仅以纯 JSON 形式输出遥测结果
- *   npx tsx scripts/agent-autopilot-daemon.ts --daemon # 常驻守护模式 (默认 30s 周期)
+ *   pnpm exec tsx scripts/agent-autopilot-daemon.ts          # 单次主动巡检与自愈 (默认)
+ *   pnpm exec tsx scripts/agent-autopilot-daemon.ts --heal   # 强制触发全面自愈动作
+ *   pnpm exec tsx scripts/agent-autopilot-daemon.ts --json   # 仅以纯 JSON 形式输出遥测结果
+ *   pnpm exec tsx scripts/agent-autopilot-daemon.ts --daemon # 常驻守护模式 (默认 30s 周期)
  */
 
 import { runAutopilotCycle, type AutopilotHeartbeat } from "../packages/shared/backend/lib/agent-autopilot"

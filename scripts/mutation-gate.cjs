@@ -99,8 +99,8 @@ function assertClean(rel) {
 }
 
 function runTests(tests) {
-  const npx = process.platform === "win32" ? "npx.cmd" : "npx"
-  const result = spawnSync(npx, ["vitest", "run", ...tests], {
+  const pnpm = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
+  const result = spawnSync(pnpm, ["exec", "vitest", "run", ...tests], {
     cwd: ROOT,
     encoding: "utf8",
     timeout: TEST_TIMEOUT_MS,

@@ -22,6 +22,6 @@
 
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
 - [ ] `npm run check` exit=0
-- [ ] `npx vitest run test/unit/spec-driven-agent-workflow.test.ts scripts/lib/__tests__/agent-profile.test.ts` exit=0（6 条由 Red 变绿）
-- [ ] 全量 `npx vitest run` 的 failed tests = 0（此前恒为 6，且要求新增失败也为 0）
+- [ ] `pnpm exec vitest run test/unit/spec-driven-agent-workflow.test.ts scripts/lib/__tests__/agent-profile.test.ts` exit=0（6 条由 Red 变绿）
+- [ ] 全量 `pnpm exec vitest run` 的 failed tests = 0（此前恒为 6，且要求新增失败也为 0）
 - [ ] 零残留：跑完两个测试文件后 `git status --porcelain` 与跑之前一致

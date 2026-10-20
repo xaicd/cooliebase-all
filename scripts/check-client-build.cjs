@@ -28,7 +28,7 @@ const CLIENT_REL = "clients/expo"
 const EXPORT_TIMEOUT_MS = 600000
 const LOG_TAIL_CHARS = 4000
 
-const NPX = process.platform === "win32" ? "npx.cmd" : "npx"
+const PNPM = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
 
 function clientDir() {
   return path.join(ROOT, ...CLIENT_REL.split("/"))
@@ -72,8 +72,8 @@ function main() {
   let result
   try {
     result = spawnSync(
-      NPX,
-      ["expo", "export", "-p", "web", "--output-dir", outDir],
+      PNPM,
+      ["exec", "expo", "export", "-p", "web", "--output-dir", outDir],
       { cwd: client, encoding: "utf8", timeout: EXPORT_TIMEOUT_MS, shell: false },
     )
 

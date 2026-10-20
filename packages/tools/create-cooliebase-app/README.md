@@ -6,14 +6,14 @@ Zero-Git-History instant scaffolding CLI for **cooliebase-all** enterprise Next.
 
 ### 交互式创建
 ```bash
-npx create-cooliebase-app
+pnpm dlx create-cooliebase-app
 # 或
 pnpm create cooliebase-app
 ```
 
 ### 单行静默创建 (适合 AI Agent 与 CI 自动化)
 ```bash
-npx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base --port 3300
+pnpm dlx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base --port 3300
 ```
 
 ## 📐 规格 Profile 说明

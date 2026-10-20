@@ -15,7 +15,7 @@
  *
  * 另有**有意约定**单列（`id` / 数值型 `*_id`），不计入缺陷。
  *
- * 用法: npx tsx scripts/report-validator-reachability.ts
+ * 用法: pnpm exec tsx scripts/report-validator-reachability.ts
  */
 import fs from "node:fs"
 import path from "node:path"

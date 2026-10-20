@@ -11,9 +11,9 @@
  * —— ID 在 API 边界以字符串传输是本仓约定，不是漂移。它们会被计数但不改写。
  *
  * 用法:
- *   npx tsx scripts/align-validator-types.ts --domain ai            # dry-run（默认）
- *   npx tsx scripts/align-validator-types.ts --domain ai --write
- *   npx tsx scripts/align-validator-types.ts --domain ai --repo-columns   # 同时对齐仓储列集合
+ *   pnpm exec tsx scripts/align-validator-types.ts --domain ai            # dry-run（默认）
+ *   pnpm exec tsx scripts/align-validator-types.ts --domain ai --write
+ *   pnpm exec tsx scripts/align-validator-types.ts --domain ai --repo-columns   # 同时对齐仓储列集合
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -31,7 +31,7 @@ const write = argv.includes("--write")
 const NUMERIC_TYPES = new Set(["int", "bigint", "smallint", "decimal", "numeric", "float", "double", "double precision", "real"])
 
 if (!domain && !argv.includes("--all")) {
-  console.error("用法: npx tsx scripts/align-validator-types.ts (--domain <域> | --all) [--write]")
+  console.error("用法: pnpm exec tsx scripts/align-validator-types.ts (--domain <域> | --all) [--write]")
   process.exit(2)
 }
 

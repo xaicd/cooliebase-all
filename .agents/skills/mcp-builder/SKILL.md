@@ -138,7 +138,7 @@ Review for:
 
 **TypeScript:**
 - Run `npm run build` to verify compilation
-- Test with MCP Inspector: `npx @modelcontextprotocol/inspector`
+- Test with MCP Inspector: `pnpm dlx @modelcontextprotocol/inspector`
 
 **Python:**
 - Verify syntax: `python -m py_compile your_server.py`

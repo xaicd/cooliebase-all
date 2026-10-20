@@ -148,9 +148,9 @@ async function main() {
     }
     await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
     await query(endpoint.url, `CREATE DATABASE "${DB}"`)
-    sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL })
-    sh("npx", ["tsx", "scripts/seed-postgresql.ts"], { DATABASE_URL: URL, DB_DRIVER: "postgresql", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT })
-    sh("npx", ["tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL })
+    sh("pnpm", ["exec", "prisma", "migrate", "deploy"], { DATABASE_URL: URL })
+    sh("pnpm", ["exec", "tsx", "scripts/seed-postgresql.ts"], { DATABASE_URL: URL, DB_DRIVER: "postgresql", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT })
+    sh("pnpm", ["exec", "tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL })
 
     const envLocal = path.join(ROOT, ".env.local")
     envLocalBackup = fs.existsSync(envLocal) ? fs.readFileSync(envLocal, "utf8") : null

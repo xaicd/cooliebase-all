@@ -18,7 +18,7 @@
  *   - 不提交、不推送
  *
  * 用法:
- *   npx tsx scripts/create-business-domain.ts <域> [--export SHOP_TABLES] [--tables scripts/data/shop-tables.ts] [--dry-run]
+ *   pnpm exec tsx scripts/create-business-domain.ts <域> [--export SHOP_TABLES] [--tables scripts/data/shop-tables.ts] [--dry-run]
  */
 import fs from "node:fs"
 import path from "node:path"
@@ -56,7 +56,7 @@ function run(command: string, args: string[]) {
 
 function main() {
   if (!domain || domain.startsWith("--")) {
-    fail("用法: npx tsx scripts/create-business-domain.ts <域> [--tables <元数据文件>] [--export <导出名>] [--dry-run]")
+    fail("用法: pnpm exec tsx scripts/create-business-domain.ts <域> [--tables <元数据文件>] [--export <导出名>] [--dry-run]")
   }
 
   const tablesFile = arg("--tables") ?? `scripts/data/${domain}-tables.ts`
@@ -151,7 +151,7 @@ function main() {
   console.log(`    pnpm run check               # 门禁（含表定义覆盖）`)
   console.log(`    pnpm run build               # 编译`)
   console.log(`    pnpm run domain:pack ${domain}   # 打包`)
-  console.log(`    npx prisma migrate deploy    # 建表到目标库（库由部署决定）`)
+  console.log(`    pnpm exec prisma migrate deploy    # 建表到目标库（库由部署决定）`)
   console.log(`    pnpm run dev                 # 运行；首次需 POST /api/v1/admin/plugins 登记插件`)
   console.log(`\n✓ ${domain} 已生成并注册。接口面是插件挂载点 /api/v1/plugins/cooliebase.${domain}/api/**`)
 }

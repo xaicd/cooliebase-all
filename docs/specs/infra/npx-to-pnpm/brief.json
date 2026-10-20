@@ -1,0 +1,172 @@
+{
+  "name": "npx-to-pnpm",
+  "domain": "infra",
+  "title": "统一包管理器调用：仓内 npx 全部改为 pnpm exec / pnpm dlx",
+  "type": "refactor",
+  "goal": "消除仓内 `npx` 调用：`npx <pkg>` 在包缺失时会**隐式安装**，绕过 `pnpm-lock.yaml` 这一锁文件真源。统一为 `pnpm exec <tool>`（已安装执行器）/ `pnpm dlx <pkg>`（一次性下载），并把它变成 0 容忍门禁。",
+  "debtAnalysis": "实测（`git grep`）：\n- **172 处 `npx`**，分布：`.md` 72 / `.ts` 78 / `.cjs` 20 / `.sh` 9（含 `.agents/`、`.commandcode/` 等隐藏目录，首轮 glob 曾漏掉点目录）。\n- 形态：`vitest` 33 / `tsx` 14 / `degit` 12 / `tsc` 5 / `prisma` 5 / `create-cooliebase-app` 5 / `expo` 3 / `playwright` 1 / `@modelcontextprotocol/inspector` 1。\n- **最严重的是 6 个脚本里的运行时调用**（`spawnSync(\"npx\", …)`）：`build-feature` / `check-client-build` /\n  `clone-project-base` / `deliver` / `load-test` / `mcp/cooliebase-mcp-server` —— 它们会**真的执行 npx**。\n- 一处自相矛盾：`scripts/hatch.sh` 注释写「策略 2: pnpm dlx degit」，代码却用 `npx --yes degit`。",
+  "targetArchitecture": "- 文档 / 脚本 / 运行时**统一**：已安装工具 → `pnpm exec`；一次性远程工具 → `pnpm dlx`。\n- 门禁 `no-new-npx`（`standards:check`）由**棘轮（冻结 37 文件）**升级为 **enforce（0 容忍）**，\n  扫描面从 `.md/.sh` 扩到 `.ts/.cjs`（运行时真调用比文档更严重）；规则自身与历史日志豁免。\n- AGENTS.md §2.1 新增第 7 条，把 `npx` 策略写进宪法（此前只约束了\"安装与锁文件操作\"）。",
+  "roles": [
+    {
+      "role": "业务研发工程师",
+      "can": "在整洁清晰的分层架构下快速扩展新特性"
+    },
+    {
+      "role": "架构委员会/审计员",
+      "can": "确信重构遵循领域边界铁律且无业务行为漂移"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "清点并**分类**所有 npx 形态（本地执行器 vs 一次性下载 vs 运行时调用）"
+    },
+    {
+      "priority": "P0",
+      "text": "文档与 `.sh` 层替换；**隐藏目录也要扫**（首轮 glob 漏了 `.agents/`）"
+    },
+    {
+      "priority": "P0",
+      "text": "**运行时调用**替换为 `pnpm exec`（含 Windows `pnpm.cmd` 分支），并跑相关用例验证"
+    },
+    {
+      "priority": "P1",
+      "text": "`no-new-npx` 升级为 enforce，并做反向对照（新增一处必须失败）"
+    }
+  ],
+  "constraints": [
+    "功能等价：只改**调用方式**，不改命令语义与参数。",
+    "不得用 `AGENT_ROUTE_SKIP=1` 绕过门禁来达成目的。"
+  ],
+  "acceptance": [
+    {
+      "check": "`npm run check` exit=0（14 条规范规则全过）"
+    },
+    {
+      "check": "全量测试 0 失败（465 files / 938 tests 基线）"
+    },
+    {
+      "check": "`git grep '\\bnpx '` 除规则文本与历史日志外**清零**"
+    },
+    {
+      "check": "改过运行时调用的脚本，其相关用例通过（MCP 22 条）"
+    },
+    {
+      "check": "反向对照：往文档里加一处 `npx …` → `standards:check` 必须 FAIL"
+    }
+  ],
+  "nonGoals": [
+    "不在本次重构中增加未经评审的业务新功能"
+  ],
+  "architecture": "<!-- 待填: 目标分层架构图与依赖倒置示意 -->",
+  "entities": [
+    {
+      "table": "<!-- 待填: 涉及的表名 -->",
+      "note": "<!-- 待填 -->"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "行为等价",
+      "how": "替换后逐个跑受影响脚本的用例/门禁，确认输出与通过状态不变"
+    }
+  ],
+  "ui": [
+    "<!-- 待填: 界面结构与交互完全保持等价 -->"
+  ],
+  "ops": [
+    "<!-- 待填: 灰度切换方案与快速回滚预案 -->"
+  ],
+  "risks": [
+    {
+      "risk": "`pnpm exec` 在子进程的不同 cwd 下可能解析不到二进制",
+      "mitigation": "改完立刻跑 clients:build:check 与 MCP 用例；发现解析问题则显式指定工作目录"
+    }
+  ],
+  "screens": [
+    {
+      "name": "重构涉及模块",
+      "wireframe": "保持既有线框不变"
+    }
+  ],
+  "interactions": [
+    "保持既有交互模式不变"
+  ],
+  "states": [
+    "加载中：正常展示。",
+    "空数据：正常展示。",
+    "出错：正常展示。",
+    "成功：正常展示。"
+  ],
+  "candidates": [
+    {
+      "name": "模块化重构方案",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无"
+    }
+  ],
+  "benchmarks": [
+    "Clean Architecture 与 DDD 规范"
+  ],
+  "scan": [
+    "全仓静态分析与依赖引用图"
+  ],
+  "licenseConclusion": "无外部依赖许可风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "清点并分类全部 npx 形态（验证类，不改文件）",
+      "files": [
+        "-"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "文档 / .sh 层替换（含隐藏目录）",
+      "files": [
+        "AGENTS.md",
+        "docs/guides/agent-cli-onboarding.md",
+        ".agents/rules/PROJECT-REACTOR.md",
+        "scripts/hatch.sh",
+        "docs/architecture/GEO-AGENT-NATIVE-ONBOARDING-GUIDE.md"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "运行时调用替换为 pnpm exec（6 个脚本 + 2 个工具脚本）",
+      "files": [
+        "scripts/build-feature.cjs",
+        "scripts/check-client-build.cjs",
+        "scripts/clone-project-base.cjs",
+        "scripts/deliver.cjs",
+        "scripts/load-test.cjs",
+        "scripts/mcp/cooliebase-mcp-server.cjs",
+        "scripts/mutation-gate.cjs",
+        "scripts/write-test-summary.cjs"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "package.json 里 36 条 script 的 npx 替换",
+      "files": [
+        "package.json"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "no-new-npx 升级为 enforce 并覆盖 package.json",
+      "files": [
+        "scripts/check-engineering-standards.cjs",
+        "docs/architecture/artifacts/engineering-standards-baseline.json"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 15
+}

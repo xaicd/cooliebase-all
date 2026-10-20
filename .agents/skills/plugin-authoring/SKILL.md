@@ -346,7 +346,7 @@ node scripts/migrate-domain-to-plugin.cjs <domain> --write    # 落盘（可一�
 
 ```bash
 pnpm run domain:contracts && pnpm run domain:seams && pnpm run domain:manifests && pnpm run admin:routes:manifest
-pnpm run check && npx vitest run && pnpm run build
+pnpm run check && pnpm exec vitest run && pnpm run build
 ```
 
 ### 六条**踩过坑**才写下来的铁律

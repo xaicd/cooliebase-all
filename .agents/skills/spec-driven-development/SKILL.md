@@ -194,21 +194,21 @@ Kiro SDD 在本工程中由统一引擎 `scripts/speckit.ts` 集中驱动，支�
 
 ```bash
 # 0. 规格控制台总览与规格列表
-npx tsx scripts/speckit.ts list                # 查看全域活跃与归档规格状态
+pnpm exec tsx scripts/speckit.ts list                # 查看全域活跃与归档规格状态
 npm run speckit                                 # 查看完整帮助菜单
 npm run speckit:workflows                       # 检视全量 Kiro 工作流配方与步骤链
 
 # 1. 快速初始化任意类型的规格骨架
 npm run speckit:new -- --name <name> --domain <domain> --title "<title>" [--type feature|bugfix|enhancement|refactor|security]
-# 等价于: npx tsx scripts/speckit.ts new --name <name> --domain <domain> --title "<title>" --type <type>
+# 等价于: pnpm exec tsx scripts/speckit.ts new --name <name> --domain <domain> --title "<title>" --type <type>
 
 # 2. 从 brief.json 编译展开生成完备 Markdown 规格资产与任务波次图
 npm run speckit:build -- --name <name>
-# 等价于: npx tsx scripts/speckit.ts build --name <name>
+# 等价于: pnpm exec tsx scripts/speckit.ts build --name <name>
 
 # 3. 实时检查规格完成度与质量卡点
 npm run speckit:check -- --spec <name>
-# 等价于: npx tsx scripts/speckit.ts check --spec <name>
+# 等价于: pnpm exec tsx scripts/speckit.ts check --spec <name>
 
 # 4. 从 Git 历史核验任务大盘与白名单匹配度 (1 Task = 1 Commit)
 npm run speckit:tasks -- --spec <name>
@@ -221,7 +221,7 @@ npm run runbook -- --spec <name> --run
 
 # 6. 割接完毕后一键归档，防止认知污染
 npm run speckit:archive -- --name <name>
-# 等价于: npx tsx scripts/speckit.ts archive --name <name>
+# 等价于: pnpm exec tsx scripts/speckit.ts archive --name <name>
 ```
 
 ---

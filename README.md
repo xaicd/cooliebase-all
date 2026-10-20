@@ -77,10 +77,10 @@ flowchart TD
 
 ```bash
 # 方案 A: 官方专属 CLI 极速派生 (推荐，自动完成初始化与本地库创建)
-npx create-cooliebase-app my-app
+pnpm dlx create-cooliebase-app my-app
 
 # 方案 B: degit 骨架拉取 (10秒内完成，0MB 历史提交)
-npx degit xaicd/cooliebase-all#main my-app
+pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 npm run project:init -- --name "my-app" --title "我的新业务系统"
 npm run dev

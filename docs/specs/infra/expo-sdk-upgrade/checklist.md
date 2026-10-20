@@ -23,5 +23,5 @@
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
 - [ ] `npm run check` exit=0
 - [ ] `npm run clients:build:check` exit=0（每级都要）
-- [ ] 全量 `npx vitest run` 0 failed（每级都要）
+- [ ] 全量 `pnpm exec vitest run` 0 failed（每级都要）
 - [ ] `npm run deps:audit --audit` 实测消减被记录，基线经复核后刷新

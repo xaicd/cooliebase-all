@@ -14,7 +14,7 @@
 
 ## 2. 领域架构边界与调用拓扑 (Architecture Topology & Flows)
 
-新增 `scripts/check-client-build.cjs`：① 若 `clients/expo` 或其 `node_modules` 不存在 → 打印跳过原因并 exit 0；② 否则在 `os.tmpdir()` 下建唯一临时目录，以 `cwd=clients/expo` 执行 `npx expo export -p web --output-dir <tmp>`；③ 断言退出码 0、`<tmp>/index.html` 存在、`_expo/static/js/web/` 下至少一个 `.js`；④ 无论成败都在 finally 里删除临时目录；⑤ 输出结构化结果（跳过/通过/失败 + 耗时 + 产物数），失败时打印导出日志尾部。接线：`npm run clients:build:check` 插入 `npm run check` 链，并在 `write-harness-trace.cjs` 的 gates 与 `compat-manifest.json` 的 `consumptionSurface.gates` 同步声明。
+新增 `scripts/check-client-build.cjs`：① 若 `clients/expo` 或其 `node_modules` 不存在 → 打印跳过原因并 exit 0；② 否则在 `os.tmpdir()` 下建唯一临时目录，以 `cwd=clients/expo` 执行 `pnpm exec expo export -p web --output-dir <tmp>`；③ 断言退出码 0、`<tmp>/index.html` 存在、`_expo/static/js/web/` 下至少一个 `.js`；④ 无论成败都在 finally 里删除临时目录；⑤ 输出结构化结果（跳过/通过/失败 + 耗时 + 产物数），失败时打印导出日志尾部。接线：`npm run clients:build:check` 插入 `npm run check` 链，并在 `write-harness-trace.cjs` 的 gates 与 `compat-manifest.json` 的 `consumptionSurface.gates` 同步声明。
 
 ### 核心业务时序图 (Archify Mermaid Flow)
 ```mermaid

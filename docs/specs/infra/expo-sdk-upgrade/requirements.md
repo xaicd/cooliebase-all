@@ -45,7 +45,7 @@
 
 1. **THE system SHALL** 验证：`npm run check` exit=0
 2. **THE system SHALL** 验证：`npm run clients:build:check` exit=0（每级都要）
-3. **THE system SHALL** 验证：全量 `npx vitest run` 0 failed（每级都要）
+3. **THE system SHALL** 验证：全量 `pnpm exec vitest run` 0 failed（每级都要）
 4. **THE system SHALL** 验证：`npm run deps:audit --audit` 实测消减被记录，基线经复核后刷新
 
 ## 6. 约束条件与技术边界 (Constraints & Non-Goals)

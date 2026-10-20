@@ -175,7 +175,7 @@
 | 4. 看进度 | `npm run speckit:check -- --spec <名>` | 11 阶段 / 6 gate / 任务树 / 缺陷，逐条「还缺什么」 |
 | 5. 建域 | `npm run domain:new <域>` | 建表迁移 + codegen + 注册插件（**按域，不按特性**） |
 | 6. 门禁 | `npm run check` / `build` / `domain:pack <域>` | **退出码** |
-| 7. 建库 | `npx prisma migrate deploy` + 种子 + `npm run plugins:register` | 表 / 菜单 / 授权 / **插件登记**（不登记则插件接口全 404） |
+| 7. 建库 | `pnpm exec prisma migrate deploy` + 种子 + `npm run plugins:register` | 表 / 菜单 / 授权 / **插件登记**（不登记则插件接口全 404） |
 | 8. 业务逻辑 | 写成 Service + 测试 | 复用既有原语（条件更新、状态机、幂等、Red Test） |
 | 9. 任务追溯 | `npm run speckit:tasks -- --spec <名> [--summary\|--task T1]` | **从 git 历史推导**真实完成度；核验原子提交 `[T<ID>]` 与文件白名单（1 Task = 1 Commit） |
 | 10. 上线 | `npm run fingerprint` → `fingerprint:verify` | 确认上线的就是测试过的那份 |
@@ -594,7 +594,7 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 **本地跑 `vitest` 不要设 `DATABASE_URL`，也不要设非 memory 的 `DB_DRIVER`。**
 
 ```bash
-env -u DATABASE_URL -u DB_DRIVER npx vitest run    # 全量绿（数量会变，不写死）
+env -u DATABASE_URL -u DB_DRIVER pnpm exec vitest run    # 全量绿（数量会变，不写死）
 npm run verify:real-db                             # 真实库验证（改过仓储/迁移/多租户后必跑）
 ```
 

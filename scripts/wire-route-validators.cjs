@@ -8,7 +8,7 @@
  *
  * **顺序铁律（RSK-013）**：接线前必须先把该域的三类产物对齐到元数据
  * ——校验器、DTO(`types/*.types.ts`)、前端表单——否则接线会把「今天能跑的数字输入」变成 400。
- * 对齐用 `npx tsx scripts/align-validator-types.ts --domain <域> --write`。
+ * 对齐用 `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`。
  *
  * **本脚本刻意逐文件断言**：任何一处预期形态没匹配到就报错退出，而不是静默跳过 ——
  * 静默跳过会让"接了多少个"变成一个不可信的数字。

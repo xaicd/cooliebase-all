@@ -100,7 +100,7 @@ npm run domain:new <域> --dry-run  # 只校验元数据与表清单
 defaultValueTyped`。
 
 ```bash
-npx tsx scripts/generate-table-migration.ts \
+pnpm exec tsx scripts/generate-table-migration.ts \
   --tables scripts/data/<域>-tables.ts --export <X>_TABLES --name add_<域>_tables --write
 ```
 
@@ -141,7 +141,7 @@ node scripts/migrate-domain-to-plugin.cjs <域> --write
 ```bash
 npm run domain:contracts && npm run domain:seams && npm run domain:manifests && npm run admin:routes:manifest
 pnpm install          # 新插件进了工作区
-pnpm run check && npx vitest run
+pnpm run check && pnpm exec vitest run
 ```
 
 **顺序**：`contracts` 会重写 `module.manifest.json`，必须跑在 `manifests` **之前** —— 反了就会一直报漂移。
@@ -201,7 +201,7 @@ pnpm test:agent                                # L4: 契约驱动的浏览器端
 - [ ] codegen/脚手架产出含 **CRUD + 校验 + 测试**，不是只读骨架
 - [ ] 插件 manifest 的声明面与入口实现面**一一对应**
 - [ ] `pnpm run check` **exit=0**（含 `table-definition-coverage`）
-- [ ] `npx vitest run` 内存模式全绿
+- [ ] `pnpm exec vitest run` 内存模式全绿
 - [ ] `pnpm run build` exit=0
 - [ ] 启动后：登录成功，插件挂载点接口返回 **200**（不是 404/500）
 

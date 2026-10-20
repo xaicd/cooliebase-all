@@ -312,10 +312,10 @@ prisma/
 ### 12.3 建议命令
 
 ```powershell
-npx tsc --noEmit
-npx prisma validate
-npx prisma generate
-npx vitest run packages/shared/backend
+pnpm exec tsc --noEmit
+pnpm exec prisma validate
+pnpm exec prisma generate
+pnpm exec vitest run packages/shared/backend
 npm run build
 ```
 

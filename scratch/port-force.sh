@@ -6,7 +6,7 @@ cd "$(dirname "$0")/.." || exit 1
 for d in ai bpm crm erp im iot mall member mes mp pay report; do
   echo ""
   echo "================ $d (force) ================"
-  npx tsx scripts/create-business-domain.ts "$d" \
+  pnpm exec tsx scripts/create-business-domain.ts "$d" \
     --tables "scripts/data/$d-source-tables.ts" \
     --export "$(echo "$d" | tr '[:lower:]' '[:upper:]')_TABLES" --force 2>&1 | grep -vE "^npm warn|^$" | tail -6
   echo "---- $d exit=${PIPESTATUS[0]} ----"

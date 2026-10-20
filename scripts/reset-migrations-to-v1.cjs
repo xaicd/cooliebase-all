@@ -14,7 +14,7 @@ const v1Dir = path.join(migDir, '20260824000000_init_v1')
 fs.mkdirSync(v1Dir, { recursive: true })
 
 // 3. 提取纯净 DDL
-const ddl = execSync('npx prisma migrate diff --from-empty --to-schema prisma/schema.prisma --script', { encoding: 'utf-8' })
+const ddl = execSync('pnpm exec prisma migrate diff --from-empty --to-schema prisma/schema.prisma --script', { encoding: 'utf-8' })
 fs.writeFileSync(path.join(v1Dir, 'migration.sql'), ddl, 'utf-8')
 
 // 4. 写入 migration_lock.toml

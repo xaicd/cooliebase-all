@@ -10,9 +10,9 @@
  * 并在辩证综合中自循环进化出超越人类传统软件形态的造物引擎。
  *
  * 用法:
- *   npx tsx scripts/socratic-inquiry-engine.ts --goal "<终极目标>" [--domain <域>] [--write]
- *   npx tsx scripts/socratic-inquiry-engine.ts --feature <已有特性名>
- *   npx tsx scripts/socratic-inquiry-engine.ts --interactive
+ *   pnpm exec tsx scripts/socratic-inquiry-engine.ts --goal "<终极目标>" [--domain <域>] [--write]
+ *   pnpm exec tsx scripts/socratic-inquiry-engine.ts --feature <已有特性名>
+ *   pnpm exec tsx scripts/socratic-inquiry-engine.ts --interactive
  */
 
 import fs from "node:fs"

@@ -41,17 +41,17 @@ if (!exists) {
     process.exit(2)
   }
   console.log("▶ 1/4 立规格（生成 brief.json —— 这是唯一需要人/模型写的东西）")
-  run("npx", ["tsx", "scripts/speckit.ts", "new", "--name", name, "--domain", domain, "--title", title])
+  run("pnpm", ["exec", "tsx", "scripts/speckit.ts", "new", "--name", name, "--domain", domain, "--title", title])
 } else {
   console.log("▶ 1/4 规格已存在，跳过立项")
 }
 
 console.log("\n▶ 2/4 校验 brief 是否够展开文档")
-const briefOk = run("npx", ["tsx", "scripts/speckit.ts", "build", "--name", name, "--check"])
+const briefOk = run("pnpm", ["exec", "tsx", "scripts/speckit.ts", "build", "--name", name, "--check"])
 
 if (briefOk) {
   console.log("\n▶ 3/4 展开文档（结构不可能缺）")
-  run("npx", ["tsx", "scripts/speckit.ts", "build", "--name", name])
+  run("pnpm", ["exec", "tsx", "scripts/speckit.ts", "build", "--name", name])
 }
 
 console.log("\n▶ 4/4 交付状态")
@@ -66,7 +66,7 @@ if (!briefOk) {
 } else {
   console.log(`  ① 建域:      npm run domain:new ${featureJson.domain}`)
   console.log(`  ② 门禁:      npm run check && npm run build`)
-  console.log(`  ③ 建库:      npx prisma migrate deploy && 种子`)
+  console.log(`  ③ 建库:      pnpm exec prisma migrate deploy && 种子`)
   console.log(`  ④ 业务逻辑:  写成 Service + 测试（复用条件更新/状态机/幂等原语）`)
   console.log(`  ⑤ 追溯:      npm run task:verify -- --feature ${name} --summary   （提交带 [T1] 标记）`)
   console.log(`  ⑥ 上线:      npm run fingerprint && npm run fingerprint:verify`)

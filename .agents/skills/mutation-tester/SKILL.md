@@ -98,10 +98,10 @@ it('should atomically deduct balance and prevent overdraft', async () => {
 npm run test:matrix
 
 # 2. 针对指定领域执行高强度并发原子测试 (如库存超卖/CAS)
-npx vitest run test/integration/inventory-atomic.integration.test.ts
+pnpm exec vitest run test/integration/inventory-atomic.integration.test.ts
 
 # 3. 针对 RBAC 与租户隔离执行穿透测试
-npx vitest run test/integration/sqlite-rbac.integration.test.ts
+pnpm exec vitest run test/integration/sqlite-rbac.integration.test.ts
 
 # 4. 全仓门禁合规检查
 npm run check

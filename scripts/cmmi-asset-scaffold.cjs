@@ -570,7 +570,7 @@ flowchart TD
 1. 获取制品与锁定依赖 (\`pnpm install --frozen-lockfile\`)
 2. 质量门禁与指纹验证 (\`npm run check\`)
 3. 生产产物编译 (\`pnpm run build\`)
-4. 数据库幂等迁移 (\`npx prisma migrate deploy\`)
+4. 数据库幂等迁移 (\`pnpm exec prisma migrate deploy\`)
 5. 第一方插件静态注册 (\`npm run plugins:register\`)
 6. 启动服务与存活探针核验
 `
@@ -602,7 +602,7 @@ flowchart TD
           steps: [
             { step: 1, action: "traffic_drain", command: "host-exec docker stop cooliebase-next-blue" },
             { step: 2, action: "traffic_switch", command: "host-exec traefik switch-upstream green" },
-            { step: 3, action: "db_downgrade", command: "npx prisma migrate diff --from db --to migration-target" }
+            { step: 3, action: "db_downgrade", command: "pnpm exec prisma migrate diff --from db --to migration-target" }
           ]
         }, null, 2)
       },
