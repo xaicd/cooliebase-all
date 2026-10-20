@@ -28,7 +28,7 @@ L1 各家配置格式不同；**L2 是唯一真正跨 CLI 的一层**，所以�
 | CLI | 读哪个指令文件 | hooks 支持 | 证据 |
 |---|---|---|---|
 | **Command Code (`cmd`)** | `AGENTS.md`（**不读 `CLAUDE.md`**） | ✅ `.commandcode/settings.json`，事件 `PreToolUse` / `PostToolUse` / `Stop` / `SessionStart` | 产品文档 `reference/memory.md`、`reference/hooks.md` |
-| **Claude Code** | `CLAUDE.md`（仓内已有，且已补「第一步」） | ✅ `.claude/settings.json`（事件名以它自己的文档为准） | 未在本仓接入（schema 未取到实证，**不编**） |
+| **Claude Code**（v2.1.304） | `CLAUDE.md`（仓内已有，且已补「第一步」） | ✅ **`.claude/settings.json`（项目级）**，事件 `PreToolUse` / `PostToolUse` / `SessionStart` / `SessionEnd` / `UserPromptSubmit` / `Stop` / `SubagentStop` / `Notification` / `PreCompact` | **取证**：① 你的 `~/.claude/settings.json` 已有同类配置（`hooks.PreToolUse[].matcher` + `hooks[].{type,command}`，与 cmd 同形）；② 二进制（259MB）里 `tool_input.file_path` 8 处、`"Write"`/`"Edit"`/`"MultiEdit"`/`"NotebookEdit"` 齐备、`exit code 2 … (blocking error)` 明文；③ 支持 `$CLAUDE_PROJECT_DIR`（35 处引用） |
 | **Hermes** | **自动注入 `AGENTS.md`**（还有 `SOUL.md`） | ✅ `~/.hermes/config.yaml`，事件 `pre_tool_call` / `post_tool_call` / `pre_llm_call` / `subagent_stop` 等 | `hermes --help` 的 `--ignore-rules` 说明；源码 `agent/shell_hooks.py` |
 | **agy（Antigravity CLI）** | **`AGENTS.md` + `GEMINI.md` + `.agents/rules/*.md`**（三者都读） | ✅ **`.agents/hooks.json`（项目级）**，事件 `PreToolUse` / `PostToolUse` / `PreInvocation` / `PostInvocation` / `Stop` | **从 207MB CLI 二进制内嵌文档直接取证**：`Paths: GEMINI.md, AGENTS.md, .agents/rules/*.md`；`Directory-Based Rules (GEMINI.md / AGENTS.md)`；hooks 配置 `customization root … (e.g., .agents/hooks.json)` |
 
@@ -88,6 +88,8 @@ npm run agent:route -- "<用户的原始需求原文>"
   - `PreToolUse(write|edit)` → `.agents/hooks/spec-gate.sh`
 - **agy（Antigravity）**：`.agents/hooks.json`（**项目级**，随仓分发，无需改全局配置）
   - `PreToolUse` matcher = `write_to_file|replace_file_content|multi_replace_file_content|create_file|write_file|edit_file`
+- **Claude Code**：`.claude/settings.json`（**项目级**）
+  - `PreToolUse` matcher = `Write|Edit|MultiEdit|NotebookEdit`，命令 `"$CLAUDE_PROJECT_DIR"/.agents/hooks/spec-gate.sh`
 - **git（所有 CLI）**：`.githooks/pre-commit` + `git config core.hooksPath .githooks`
 - **入口机检**：`npm run specs:health` 里「入口必须出现 `agent:route`」是 **error** 级
 
@@ -126,11 +128,14 @@ hooks:
 `.agents/hooks/spec-gate.sh` 会先看载荷里有没有 `toolCall` 来**自动选协议** ——
 只实现一种的话，在另一种上就会**静默放行**（本轮实测过：`require()` 读相对路径失败也会静默放行，已修）。
 
-## 6. 尚未接入：Claude Code
+## 6. 四家接入状态一览
 
-`CLAUDE.md` 已经带「第一步：需求分诊」，文本层已覆盖。
-若要在 Claude Code 上也做到**引擎级**拦截，需要 `.claude/settings.json` 的 hooks。
-**其 schema 我没有取到实证，故未写** —— 拿它官方文档来就能补（预期同样是 `PreToolUse` + `exit 2`）。
+| CLI | 文本层（入口文件） | 引擎层（hooks） | 兜底（git） |
+|---|---|---|---|
+| cmd | ✅ `AGENTS.md` | ✅ `.commandcode/settings.json` | ✅ |
+| Claude Code | ✅ `CLAUDE.md` | ✅ `.claude/settings.json` | ✅ |
+| Hermes | ✅ 自动注入 `AGENTS.md` | ⚠️ 需一次性加到 `~/.hermes/config.yaml`（用户级） | ✅ |
+| agy | ✅ `AGENTS.md` + `GEMINI.md` + `.agents/rules/*.md` | ✅ `.agents/hooks.json` | ✅ |
 
 ---
 
@@ -158,6 +163,6 @@ git rm -q --cached packages/__probe__/p.ts && rm -rf packages/__probe__
 
 1. **模型可以不跑 L0** —— 所以才有 L1/L2；而 L1 是单家 CLI 的、L2 只覆盖到提交时。
 2. **L2 是"提交时"拦截**，不是"写文件时"；工作区里仍可能先出现不合规改动。
-3. **Claude Code 的 hooks 未接入**（schema 无实证）；agy 已接入并有取证。
+3. **Hermes 的 hooks 还差一次性配置**（用户级，需你自己加）；其余三家已接入并有取证。
 4. **误判代价不对称**：漏判 → 该立规格的没立（返工）；误判 → 小改被拖住（烦）。
    当前用"宁严勿宽"，若觉得太吵，改规则表而不是绕过它。
