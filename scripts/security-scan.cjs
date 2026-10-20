@@ -93,17 +93,17 @@ async function main() {
     }
     await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
     await query(endpoint.url, `CREATE DATABASE "${DB}"`)
-    sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL })
+    sh("pnpm", ["exec", "prisma", "migrate", "deploy"], { DATABASE_URL: URL })
     // **必须检查种子自己的退出码** —— 它可能建完 admin 之后才失败，
     // 那样 admin-count 会通过而登录永远 401（实测踩到，整整查了一轮）
-    const seed = sh("npx", ["tsx", "scripts/seed-postgresql.ts"], { DATABASE_URL: URL, DB_DRIVER: "postgresql", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT })
+    const seed = sh("pnpm", ["exec", "tsx", "scripts/seed-postgresql.ts"], { DATABASE_URL: URL, DB_DRIVER: "postgresql", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT })
     if (seed.status !== 0) {
       step("种子执行成功", false, "见下方日志尾部")
       console.log((seed.stdout + seed.stderr).split("\n").slice(-12).map((l) => `      ${l}`).join("\n"))
       return
     }
     step("种子执行成功", true)
-    sh("npx", ["tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL })
+    sh("pnpm", ["exec", "tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL })
 
     const envLocal = path.join(ROOT, ".env.local")
     envLocalBackup = fs.existsSync(envLocal) ? fs.readFileSync(envLocal, "utf8") : null

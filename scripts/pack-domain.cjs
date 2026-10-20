@@ -189,7 +189,7 @@ function materialize(plan, outDir) {
 
 function runNext(plan, outDir, mode) {
   const args = mode === "dev" ? ["next", "dev", "-p", String(plan.defaultPort)] : ["next", "build"]
-  const result = spawnSync("npx", args, {
+  const result = spawnSync("pnpm", ["exec", ...args], {
     cwd: outDir,
     stdio: "inherit",
     shell: true,

@@ -110,8 +110,8 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 {
   "mcpServers": {
     "cooliebase-all": {
-      "command": "npx",
-      "args": ["-y", "@cooliebase/mcp-server"]
+      "command": "pnpm",
+      "args": ["dlx", "@cooliebase/mcp-server"]
     }
   }
 }

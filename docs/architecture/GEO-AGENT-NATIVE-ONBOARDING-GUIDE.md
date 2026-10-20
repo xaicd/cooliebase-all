@@ -63,8 +63,8 @@ npm run dev
 {
   "mcpServers": {
     "cooliebase": {
-      "command": "npx",
-      "args": ["-y", "@cooliebase/mcp-server"]
+      "command": "pnpm",
+      "args": ["dlx", "@cooliebase/mcp-server"]
     }
   }
 }

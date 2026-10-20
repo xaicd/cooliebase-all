@@ -5,8 +5,8 @@
  * Zero-Git-History instant scaffolding CLI for cooliebase-all.
  *
  * Usage:
- *   npx create-cooliebase-app my-app
- *   npx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base
+ *   pnpm dlx create-cooliebase-app my-app
+ *   pnpm dlx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base
  *   pnpm create cooliebase-app my-app
  */
 
@@ -26,7 +26,7 @@ const BANNER = `
 function printHelp() {
   console.log(BANNER)
   console.log("用法:")
-  console.log("  npx create-cooliebase-app <工程名或路径> [选项]")
+  console.log("  pnpm dlx create-cooliebase-app <工程名或路径> [选项]")
   console.log("  pnpm create cooliebase-app <工程名或路径> [选项]\n")
   console.log("选项:")
   console.log("  --title <text>     项目中文系统全称 (如: \"XX智慧能源管理中台\")")
@@ -114,7 +114,7 @@ async function main() {
   console.log("\n[1/4] 正在拉取干净代码骨架 (Zero-Git-History)...")
   let pullSuccess = false
   try {
-    const degitRes = spawnSync("npx", ["degit", "xaicd/cooliebase-all#main", targetDir, "--force"], {
+    const degitRes = spawnSync("pnpm", ["dlx", "degit", "xaicd/cooliebase-all#main", targetDir, "--force"], {
       stdio: "inherit"
     })
     if (degitRes.status === 0) pullSuccess = true

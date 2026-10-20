@@ -40,8 +40,9 @@ if (!fs.existsSync(targetScript)) {
 }
 
 const tsxBin = path.join(rootDir, "node_modules", ".bin", process.platform === "win32" ? "tsx.cmd" : "tsx")
-const cmd = fs.existsSync(tsxBin) ? tsxBin : "npx"
-const cmdArgs = fs.existsSync(tsxBin) ? [targetScript, ...scriptArgs] : ["tsx", targetScript, ...scriptArgs]
+const pnpmBin = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
+const cmd = fs.existsSync(tsxBin) ? tsxBin : pnpmBin
+const cmdArgs = fs.existsSync(tsxBin) ? [targetScript, ...scriptArgs] : ["exec", "tsx", targetScript, ...scriptArgs]
 
 const res = spawnSync(cmd, cmdArgs, { stdio: "inherit", shell: true })
 process.exit(res.status ?? 0)

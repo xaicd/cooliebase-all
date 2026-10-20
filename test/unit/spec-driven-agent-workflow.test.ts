@@ -39,8 +39,9 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
 
   it("1. Agent 脚手架生成: 必须按域隔离于 docs/specs/<domain>/<name>，并生成规范资源目录与特化 Brief", () => {
     execFileSync(
-      "npx",
+      "pnpm",
       [
+        "exec",
         "tsx",
         "scripts/speckit.ts",
         "new",
@@ -77,7 +78,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
   })
 
   it("2. Agent 声明式展开: 由 brief 自动展开全套文档，无任何遗漏且具备缺陷特化章节", () => {
-    execFileSync("npx", ["tsx", "scripts/speckit.ts", "build", "--name", SPEC_NAME], {
+    execFileSync("pnpm", ["exec", "tsx", "scripts/speckit.ts", "build", "--name", SPEC_NAME], {
       cwd: ROOT,
       stdio: "ignore",
     })
@@ -120,7 +121,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
   })
 
   it("5. 施工完毕后归档: spec:archive 将完成的规格移入按季度隔离的归档区，且仍支持全生命周期追溯", () => {
-    execFileSync("npx", ["tsx", "scripts/speckit.ts", "archive", "--name", SPEC_NAME], {
+    execFileSync("pnpm", ["exec", "tsx", "scripts/speckit.ts", "archive", "--name", SPEC_NAME], {
       cwd: ROOT,
       stdio: "ignore",
     })

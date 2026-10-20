@@ -7,7 +7,7 @@ import { spawnSync } from "node:child_process"
 import path from "node:path"
 
 const args = process.argv.slice(2)
-const result = spawnSync("npx", ["tsx", path.join(__dirname, "speckit.ts"), "new", ...args], {
+const result = spawnSync("pnpm", ["exec", "tsx", path.join(__dirname, "speckit.ts"), "new", ...args], {
   stdio: "inherit",
   cwd: path.resolve(__dirname, ".."),
 })

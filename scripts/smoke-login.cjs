@@ -103,12 +103,12 @@ async function main() {
   await query(endpoint.url, `DROP DATABASE IF EXISTS "${DB}" WITH (FORCE)`)
   step("建库", true)
 
-  step("迁移", sh("npx", ["prisma", "migrate", "deploy"], { DATABASE_URL: URL }).ok)
-  step("种子", sh("npx", ["tsx", "scripts/seed-postgresql.ts"], {
+  step("迁移", sh("pnpm", ["exec", "prisma", "migrate", "deploy"], { DATABASE_URL: URL }).ok)
+  step("种子", sh("pnpm", ["exec", "tsx", "scripts/seed-postgresql.ts"], {
     DATABASE_URL: URL, DB_DRIVER: "postgresql",
     ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT,
   }).ok)
-  step("登记插件", sh("npx", ["tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL }).ok)
+  step("登记插件", sh("pnpm", ["exec", "tsx", "scripts/register-plugins.ts"], { DATABASE_URL: URL }).ok)
 
   let seededCount = "?"
   try {

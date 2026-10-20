@@ -142,7 +142,7 @@
 
 ```bash
 # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-npx degit xaicd/cooliebase-all#main my-app
+pnpm dlx degit xaicd/cooliebase-all#main my-app
 
 # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
 cd my-app && pnpm install

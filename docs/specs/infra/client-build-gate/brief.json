@@ -60,7 +60,7 @@
     "不做 iOS/Android 原生构建（需要 Xcode/Android SDK，超出本仓可验证范围）；只做 web 导出这条可在 CI 跑的链",
     "不改动客户端应用代码或 Expo 依赖版本"
   ],
-  "architecture": "新增 `scripts/check-client-build.cjs`：① 若 `clients/expo` 或其 `node_modules` 不存在 → 打印跳过原因并 exit 0；② 否则在 `os.tmpdir()` 下建唯一临时目录，以 `cwd=clients/expo` 执行 `npx expo export -p web --output-dir <tmp>`；③ 断言退出码 0、`<tmp>/index.html` 存在、`_expo/static/js/web/` 下至少一个 `.js`；④ 无论成败都在 finally 里删除临时目录；⑤ 输出结构化结果（跳过/通过/失败 + 耗时 + 产物数），失败时打印导出日志尾部。接线：`npm run clients:build:check` 插入 `npm run check` 链，并在 `write-harness-trace.cjs` 的 gates 与 `compat-manifest.json` 的 `consumptionSurface.gates` 同步声明。",
+  "architecture": "新增 `scripts/check-client-build.cjs`：① 若 `clients/expo` 或其 `node_modules` 不存在 → 打印跳过原因并 exit 0；② 否则在 `os.tmpdir()` 下建唯一临时目录，以 `cwd=clients/expo` 执行 `pnpm exec expo export -p web --output-dir <tmp>`；③ 断言退出码 0、`<tmp>/index.html` 存在、`_expo/static/js/web/` 下至少一个 `.js`；④ 无论成败都在 finally 里删除临时目录；⑤ 输出结构化结果（跳过/通过/失败 + 耗时 + 产物数），失败时打印导出日志尾部。接线：`npm run clients:build:check` 插入 `npm run check` 链，并在 `write-harness-trace.cjs` 的 gates 与 `compat-manifest.json` 的 `consumptionSurface.gates` 同步声明。",
   "entities": [
     {
       "table": "-",
@@ -126,7 +126,7 @@
     "仓内既有门禁形态（自管理、退出码即结论、失败打印证据）"
   ],
   "scan": [
-    "本次实测：`npx expo export -p web` exit=0，Metro 打包 4165ms，产物 index.html + 1 个 329kB bundle",
+    "本次实测：`pnpm exec expo export -p web` exit=0，Metro 打包 4165ms，产物 index.html + 1 个 329kB bundle",
     "本次实测：`.github/workflows/ci.yml` 全文件无任何 expo 步骤；根 package.json 无 expo 脚本 → 客户端构建此前**零验证**"
   ],
   "licenseConclusion": "复用既有依赖（expo 已在客户端 workspace 内），零新增第三方依赖，无合规风险",

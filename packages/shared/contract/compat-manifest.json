@@ -54,7 +54,7 @@
     ],
     "hatch": {
       "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
-      "degit": "npx degit xaicd/cooliebase-all#main <my-app>",
+      "degit": "pnpm dlx degit xaicd/cooliebase-all#main <my-app>",
       "inRepo": "npm run project:create -- <target-dir> --profile base"
     },
     "skills": {

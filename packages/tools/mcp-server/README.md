@@ -10,8 +10,8 @@ Model Context Protocol (MCP) stdio server for **cooliebase-all** enterprise full
 {
   "mcpServers": {
     "cooliebase": {
-      "command": "npx",
-      "args": ["-y", "@cooliebase/mcp-server"]
+      "command": "pnpm",
+      "args": ["dlx", "@cooliebase/mcp-server"]
     }
   }
 }

@@ -12,7 +12,7 @@ const PROBE_REPO = "packages/plugins/plugin-ai/backend/repositories/ai-model.rep
 
 function runGate(): { status: number; stdout: string; stderr: string } {
   try {
-    const stdout = execFileSync("npx", ["tsx", GATE], {
+    const stdout = execFileSync("pnpm", ["exec", "tsx", GATE], {
       cwd: ROOT,
       encoding: "utf8",
       stdio: ["ignore", "pipe", "pipe"],

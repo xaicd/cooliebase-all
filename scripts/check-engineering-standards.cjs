@@ -483,8 +483,17 @@ const RULES = [
         ".git/",
         "docs/features/",
         "docs/architecture/artifacts/",
+        ".claude/worktrees/", // git worktree 里的副本，不参与判定
+        ".kiro/steering/ui-ux-pro-max/data/", // 第三方技能数据（Astro/shadcn/Nuxt 的生态建议），改它等于改上游
+        "docs/specs/archive/", // 已归档规格是**历史记录**，会刻意引用旧代码与旧命令
+        "package-lock.json",
       ]
-      const pattern = /\bnpx\s+[a-z@]/i
+      // 三种**可执行**形态都要抓：
+      //   `npx prisma …`（文档/脚本里的命令行）
+      //   `sh("npx", ["prisma", …])` / `spawnSync("npx", …)`（作为参数传给子进程）
+      //   `npx.cmd`（Windows 分支）
+      // 只抓 `npx + 工具名` 会漏掉后两种 —— 实测两次"假清零"都是这么来的。
+      const pattern = /\bnpx\s+[a-z@]|["']npx(?:\.cmd)?["']|\bnpx\.cmd\b/i
       const walk = (dir) => {
         for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
           const rel = dir ? `${dir}/${entry.name}` : entry.name
@@ -493,7 +502,7 @@ const RULES = [
             walk(rel)
             continue
           }
-          if (!/\.(md|sh|ts|cjs)$/.test(entry.name)) continue
+          if (!/\.(md|sh|ts|cjs|json|js|txt)$/.test(entry.name) && !/^Dockerfile/.test(entry.name)) continue
           if (rel === "scripts/check-engineering-standards.cjs") continue // 规则自身必须提到 npx
           const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {

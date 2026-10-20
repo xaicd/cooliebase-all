@@ -116,7 +116,7 @@ async function main() {
   // 而"对整张表断言"的测试（如 transactional-outbox 断言 `listOutbox()` 为空/为 1）
   // 会被并行文件插入的行破坏 —— 实测该文件单独跑 6/6 通过，混跑才失败。
   // 验证入口要的是**可信**，不是快：宁可慢，也不要随机的红。
-  const status = run("npx", ["vitest", "run", "--no-file-parallelism", ...vitestArgs], { env })
+  const status = run("pnpm", ["exec", "vitest", "run", "--no-file-parallelism", ...vitestArgs], { env })
 
   if (!keep) {
     console.log("\n[verify:real-db] 收尾: 删除验证库并关闭数据库 …")

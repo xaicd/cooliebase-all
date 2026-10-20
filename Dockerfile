@@ -42,7 +42,7 @@ COPY --from=deps /app/node_modules ./node_modules
 COPY . .
 
 # Prisma Client is generated during the image build; migrations run separately before app replicas start.
-RUN npx prisma generate
+RUN pnpm exec prisma generate
 
 # Next.js build（standalone 模式）
 ENV NEXT_TELEMETRY_DISABLED=1

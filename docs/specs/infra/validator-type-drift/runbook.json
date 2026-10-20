@@ -27,7 +27,7 @@
     {
       "id": "S4",
       "name": "数据库迁移发布",
-      "command": "npx prisma migrate deploy",
+      "command": "pnpm exec prisma migrate deploy",
       "timeoutMs": 600000,
       "irreversible": true
     },

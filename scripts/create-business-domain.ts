@@ -84,7 +84,7 @@ function main() {
   }
 
   step(2, "生成建表迁移")
-  run("npx", ["tsx", "scripts/generate-table-migration.ts", "--tables", tablesFile, "--export", exportName, "--name", `add_${domain}_tables`, "--write"])
+  run("pnpm", ["exec", "tsx", "scripts/generate-table-migration.ts", "--tables", tablesFile, "--export", exportName, "--name", `add_${domain}_tables`, "--write"])
 
   step(3, "按表生成全栈代码")
   // 默认**不覆盖**已有文件（AGENTS §14.6: 生成器禁止覆盖已有 Service/Repository/Page）。
@@ -126,7 +126,7 @@ function main() {
   // rpc-actions.json 与 domain-service-loaders.ts 是**两个**派生物（后者由前者派生），
   // 少跑一个就会让 domain-loaders:check 失败 —— 实测在全新工程上踩到过。
   // rpc-actions.json 是**上游**（loader 等由它派生），先单独生成
-  run("npx", ["tsx", "scripts/generate-rpc-actions.ts", "--write"])
+  run("pnpm", ["exec", "tsx", "scripts/generate-rpc-actions.ts", "--write"])
   // 其余派生物清单**共用**（scripts/lib/derived-artifacts.cjs）—— 与孵化器同一份。
   // 少跑一个就会让门禁失败（这轮漏过两次: loader、agent 契约注册表）。
   // eslint-disable-next-line @typescript-eslint/no-require-imports
@@ -136,7 +136,7 @@ function main() {
   for (const { script, args, label } of DERIVED_ARTIFACTS) {
     if (!fs.existsSync(path.join(ROOT, script))) continue
     if (script.endsWith(".cjs")) run("node", [script, ...args])
-    else run("npx", ["tsx", script, ...args])
+    else run("pnpm", ["exec", "tsx", script, ...args])
     console.log(`  已重建${label}`)
   }
   // contracts 会重写 module.manifest.json，必须跑在 manifests **之前** —— 反了会一直报漂移。

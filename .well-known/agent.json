@@ -29,13 +29,13 @@
   "hatch": {
     "description": "Zero-git-history instant skeleton derivation",
     "recommended_workflow": [
-      "npx degit xaicd/cooliebase-all#main my-app",
+      "pnpm dlx degit xaicd/cooliebase-all#main my-app",
       "cd my-app && pnpm install",
       "npm run project:init -- --name \"my-app\" --title \"我的新业务系统\"",
       "npm run dev"
     ],
     "one_line_curl": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
-    "degit": "npx degit xaicd/cooliebase-all#main <my-app>",
+    "degit": "pnpm dlx degit xaicd/cooliebase-all#main <my-app>",
     "in_repo_command": "npm run project:create -- <target-dir> --profile base",
     "profiles": [
       "base",

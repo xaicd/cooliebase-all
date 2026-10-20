@@ -6,7 +6,7 @@
     { "id": "S1", "name": "预检: 环境指纹一致（测试过的 == 要上线的）", "command": "npm run fingerprint:verify", "timeoutMs": 60000 },
     { "id": "S2", "name": "预检: 门禁全绿", "command": "npm run check", "timeoutMs": 600000 },
     { "id": "S3", "name": "停写（置只读）", "command": "echo '置只读: 换成真实的开关（如网关切只读路由）'", "timeoutMs": 60000 },
-    { "id": "S4", "name": "执行迁移", "command": "npx prisma migrate deploy", "timeoutMs": 600000, "irreversible": true },
+    { "id": "S4", "name": "执行迁移", "command": "pnpm exec prisma migrate deploy", "timeoutMs": 600000, "irreversible": true },
     { "id": "S5", "name": "起服务并健康检查（插件接口可达）", "command": "node scripts/agent/run-ops.cjs shop.ShopProduct health", "timeoutMs": 120000 },
     { "id": "S6", "name": "业务冒烟: 下单 → 预占 → 回调（关键路径）", "command": "npm run test:agent -- --grep @smoke", "timeoutMs": 600000 },
     { "id": "S7", "name": "放量（10% → 100%）并观察错误率", "command": "echo '放量: 换成真实的权重调整命令'", "timeoutMs": 600000 }

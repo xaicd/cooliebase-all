@@ -29,7 +29,7 @@ describe("delivery 检查器的骨架判定", () => {
     cleanFixtures()
     // 新流程是两步: create-feature 只产 brief；build-feature 由 brief 展开文档。
     // 骨架 brief 里的占位符会被展开进文档 → 骨架判定应当照样拦住（不假绿）。
-    execFileSync("npx", ["tsx", "scripts/create-feature.ts", "--name", "__skeleton_fixture__", "--domain", "fixture", "--title", "骨架夹具"], { cwd: ROOT, stdio: "ignore" })
+    execFileSync("pnpm", ["exec", "tsx", "scripts/create-feature.ts", "--name", "__skeleton_fixture__", "--domain", "fixture", "--title", "骨架夹具"], { cwd: ROOT, stdio: "ignore" })
     execFileSync("node", ["scripts/build-feature.cjs", "--name", "__skeleton_fixture__"], { cwd: ROOT, stdio: "ignore" })
   })
   afterAll(() => cleanFixtures())

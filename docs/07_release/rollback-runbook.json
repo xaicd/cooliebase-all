@@ -34,7 +34,7 @@
       "step": 4,
       "name": "database_rollback",
       "action": "执行数据库回滚与兼容检查",
-      "command": "npx prisma migrate resolve --rolled-back 20261009_v110_update",
+      "command": "pnpm exec prisma migrate resolve --rolled-back 20261009_v110_update",
       "description": "回退当前版本 DDL 变更（注意：需保障前向向下兼容性）",
       "rollbackVerification": "npm run standards:check"
     },
