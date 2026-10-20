@@ -46,14 +46,14 @@
       "summary": "全量验收准则与业务故事对齐"
     },
     "G5_PRE": {
-      "status": "passed",
+      "status": "pending",
       "owner": "实施/SRE",
       "evidence": [
         "runbook-result.json: 5 步，全过，用时 65.9s",
         "docs/architecture/artifacts/security-scan-result.json: 19/19 安全渗透项全过",
-        "docs/architecture/artifacts/load-test-result.json: 3/3 压测容量回归护栏全过"
+        "docs/architecture/artifacts/load-test-result.json: 当前 failed=3/3（本机负载所限，阈值不调低）"
       ],
-      "summary": "环境指纹、割接预案实测、安全扫描与容量压测全绿"
+      "summary": "环境指纹、割接预案实测、安全扫描均通过；**容量压测在本机未达标**（本机负载下 rps 护栏 3/3 未过，受机器负载影响，阈值不调低）——该项需在安静环境或 CI 复验后才可改为 passed。原先的 passed 声明基于当时那次全过的压测产物，该产物已被后续运行覆盖，故当前无证据支持 passed。"
     }
   }
 }

@@ -125,7 +125,7 @@
     "handwritten:check": "node scripts/check-handwritten-files.cjs",
     "handwritten:audit": "node scripts/check-handwritten-files.cjs --audit",
     "handwritten:baseline": "node scripts/check-handwritten-files.cjs --update-baseline",
-    "delivery:check": "node scripts/check-delivery.cjs",
+    "delivery:check": "node scripts/check-delivery.cjs --strict",
     "delivery:status": "node scripts/check-delivery.cjs --json",
     "speckit": "pnpm exec tsx scripts/speckit.ts",
     "speckit:init": "pnpm exec tsx scripts/speckit.ts init",

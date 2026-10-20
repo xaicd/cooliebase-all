@@ -18,6 +18,7 @@ const path = require("node:path")
 const ROOT = path.resolve(__dirname, "..")
 const MANIFEST = path.join(ROOT, "packages", "shared", "contract", "delivery-phases.json")
 const asJson = process.argv.includes("--json")
+const strict = process.argv.includes("--strict")
 const only = process.argv.includes("--phase") ? process.argv[process.argv.indexOf("--phase") + 1] : null
 const feature = process.argv.includes("--feature")
   ? process.argv[process.argv.indexOf("--feature") + 1]
@@ -147,7 +148,11 @@ function inspectEvidence(featureDir, gateIds) {
   const KNOWN = new Set(["passed", "pending", "blocked", "not_applicable"])
   const totals = {}
   const problems = []
-  for (const gate of gateIds) {
+  // 给空 gateIds 时**遍历文件里实际登记的 gate**，而不是什么都不查 ——
+  // 否则调用方传 `[]` 就等于"跳过了全部校验"，正是本仓反复栽的假绿形态
+  // （本次实测：证据账本全量扫描一开始就是这么写成空操作的，被反向对照抓住）。
+  const gates = gateIds.length > 0 ? gateIds : Object.keys(data.gates ?? {})
+  for (const gate of gates) {
     const entry = (data.gates ?? {})[gate]
     if (!entry) {
       problems.push(`${gate} 未登记`)
@@ -210,6 +215,16 @@ function inspectEvidence(featureDir, gateIds) {
         const failed = (result.steps ?? []).filter((step) => !step.ok)
         if (!result.ok || failed.length > 0) {
           problems.push(`G5_PRE 标了 passed，但运行记录显示失败（${failed.map((step) => step.id).join(", ") || "整体未通过"}）`)
+        }
+        // AGENTS §3.4 第 7 条要求三样"**都不超过 7 天**"，此前只对安全扫描与压测做了时效判断，
+        // 割接记录漏了 —— 一条声明 passed 却拿着半年前演练记录的 gate 不该算通过。
+        const raw = result.ranAt ?? result.startedAt ?? result.finishedAt
+        if (raw) {
+          const ageDays = (Date.now() - new Date(raw).getTime()) / 86400000
+          if (ageDays > 7) problems.push(`割接记录已过期 ${ageDays.toFixed(1)} 天（>7 天），请重跑 runbook`)
+        } else if (fs.existsSync(resultPath)) {
+          const ageDays = (Date.now() - fs.statSync(resultPath).mtimeMs) / 86400000
+          if (ageDays > 7) problems.push(`割接记录已过期 ${ageDays.toFixed(1)} 天（>7 天，按文件修改时间），请重跑 runbook`)
         }
       } catch (error) {
         problems.push(`runbook-result.json 不是合法 JSON —— ${error.message}`)
@@ -360,6 +375,18 @@ function main() {
 
   const bugs = scoped ? inspectBugs(specDir) : null
   const tasks = scoped ? inspectTasks(specDir) : null
+  // 默认路径（供 check 链使用）不给 --feature，此前 evidence 恒为 null ——
+  // 于是「自报 passed 必须凭证据」这条规则**在 check 链里从不触发**。
+  // 实测代价：两个规格自报 G5_PRE passed，而其引用的压测产物已是 failed=3/3，
+  // 没有任何门禁发现。这里改为**扫全部规格**。
+  const evidenceSweep = scoped
+    ? null
+    : expand("docs/specs/*/*/evidence.json").map((abs) => {
+        const rel = path.relative(ROOT, abs)
+        const dir = path.dirname(abs)
+        return { spec: path.dirname(rel), problems: inspectEvidence(dir, []).problems.map((text) => `${dir === "" ? "" : ""}${text}`) }
+      }).filter((entry) => entry.problems.length > 0)
+
   const evidence = scoped
     ? inspectEvidence(
         specDir,
@@ -370,10 +397,11 @@ function main() {
     : null
   if (bugs && bugs.malformed > 0) distinctTotal += 1
   if (evidence) distinctTotal += evidence.problems.length
+  if (evidenceSweep) distinctTotal += evidenceSweep.reduce((sum, entry) => sum + entry.problems.length, 0)
   if (tasks) distinctTotal += tasks.orphans.length + (tasks.noWhitelist > 0 ? 1 : 0) + (tasks.empty ? 1 : 0)
 
   if (asJson) {
-    console.log(JSON.stringify({ phases: result, missingTotal: distinctTotal, distinctSkeletons: [...distinctSkeletons], bugs, evidence, tasks }, null, 2))
+    console.log(JSON.stringify({ phases: result, missingTotal: distinctTotal, distinctSkeletons: [...distinctSkeletons], bugs, evidence, evidenceSweep, tasks }, null, 2))
     return
   }
   for (const phase of result) {
@@ -406,6 +434,12 @@ function main() {
     for (const orphan of tasks.orphans) console.log(`   ✗ 孤儿任务: ${orphan}`)
     if (tasks.noWhitelist > 0) console.log(`   ✗ ${tasks.noWhitelist} 条任务没有文件白名单（1 Task = 1 Commit 无从核对）`)
   }
+  if (evidenceSweep) {
+    if (evidenceSweep.length === 0) console.log(`[delivery] 证据账本: ${expand("docs/specs/*/*/evidence.json").length} 份规格无一自报与证据不符`)
+    for (const entry of evidenceSweep) {
+      for (const problem of entry.problems) console.log(`   ✗ ${entry.spec}: ${problem}`)
+    }
+  }
   if (evidence) {
     if (!evidence.present) console.log(`[delivery] 证据: 没有 evidence.json —— gate 无从留痕`)
     else {
@@ -416,6 +450,12 @@ function main() {
       }`)
       for (const problem of evidence.problems) console.log(`   ✗ ${problem}`)
     }
+  }
+  // --strict：门禁用法。此前本脚本**永远 exit 0**（纯报告），却被挂在 check 链里 ——
+  // 即那一步不可能失败。报告用法见 `delivery:status`（无 --strict）。
+  if (strict && distinctTotal > 0) {
+    console.log(`\n[delivery] --strict: ${distinctTotal} 项缺陷 → exit 1`)
+    process.exitCode = 1
   }
   if (bugs) {
     if (!bugs.present) console.log(`[delivery] 提示: 没有 bugs.md —— 缺陷无处记录（npm run feature:new 会生成）`)

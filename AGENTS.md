@@ -219,6 +219,10 @@
    裸 `T1` 会误匹配到「顺口提到」的提交。
 7. **G5 说 passed ⇒ 三样齐全**: 全过的 `runbook-result.json` + 全过的 `security-scan-result.json`
    + 达阈值的 `load-test-result.json`，且**都不超过 7 天**（`not_applicable` 必须给理由）。
+   **这条已机检**（`npm run delivery:check --strict`，在 `check` 链内）：扫**全部规格**的
+   `evidence.json`，自报 `passed` 而证据不支持即失败。此前它只在给了 `--feature` 时才判，
+   而默认路径恒为 null —— 代价是实测两个规格自报 `G5_PRE passed` 而引用的压测产物已是
+   `failed=3/3`，无任何门禁发现。**别把它改回纯报告**：脚本另有 `delivery:status` 专供查询。
 8. **压测的阈值是回归护栏，不是跑分**: 实测 standalone ~25–30k rps，阈值只设 5,000 ——
    目的是拦"吞吐被打成十分之一"。真实容量必须在生产用真实流量压，**本地压不出来也不该假装压出来**。
 9. **压测前必须清端口**: 否则会打到残留的 dev 进程，拿到低一个数量级的数字
