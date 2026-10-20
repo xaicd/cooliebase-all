@@ -23,6 +23,7 @@ export const aiChatConversationCreateSchema = z.object({
   max_tokens: z.coerce.number().finite().optional(),
   max_contexts: z.coerce.number().finite().optional(),
 
+  system_prompt: z.string().trim().optional(),
 }).strict()
 
 export const aiChatConversationUpdateSchema = aiChatConversationCreateSchema.partial().extend({

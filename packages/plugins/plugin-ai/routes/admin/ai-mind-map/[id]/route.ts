@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiMindMapService } from "@/modules/ai/backend/services/ai-mind-map.service"
+import { aiMindMapCreateSchema, aiMindMapPageQuerySchema, aiMindMapUpdateSchema } from "@/modules/ai/backend/validators/ai-mind-map.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiMindMapService.update(id, body)
+    const data = await AiMindMapService.update(id, aiMindMapUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

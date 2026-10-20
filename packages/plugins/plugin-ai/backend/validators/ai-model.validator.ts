@@ -22,6 +22,11 @@ export const aiModelCreateSchema = z.object({
   max_tokens: z.coerce.number().finite().optional(),
   max_contexts: z.coerce.number().finite().optional(),
 
+  model_key: z.string().trim().optional(),
+  provider: z.string().trim().optional(),
+  description: z.string().trim().optional(),
+  input_ratio: z.coerce.number().finite().optional(),
+  output_ratio: z.coerce.number().finite().optional(),
 }).strict()
 
 export const aiModelUpdateSchema = aiModelCreateSchema.partial().extend({

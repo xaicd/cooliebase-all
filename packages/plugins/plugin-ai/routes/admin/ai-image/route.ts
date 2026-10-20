@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server"
 import { AiImageService } from "@/modules/ai/backend/services/ai-image.service"
+import { aiImageCreateSchema, aiImagePageQuerySchema, aiImageUpdateSchema } from "@/modules/ai/backend/validators/ai-image.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-      keyword: searchParams.get("keyword") || undefined,
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = aiImagePageQuerySchema.parse(raw)
     const data = await AiImageService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -19,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await AiImageService.create(body)
+    const data = await AiImageService.create(aiImageCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

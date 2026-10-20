@@ -163,11 +163,13 @@ async function main() {
   const keywordFixed = targets.reduce((sum, dir) => sum + alignPageQueryKeyword(dir, write), 0)
   const dtoFixed = targets.reduce((sum, dir) => sum + alignDtoTypes(dir, write, meta), 0)
   const formFixed = targets.reduce((sum, dir) => sum + alignFrontendForms(dir, write, meta), 0)
+  const createFixed = targets.reduce((sum, dir) => sum + alignCreateSchemaColumns(dir, write, meta), 0)
 
   console.log(`[align-validators] 域 ${domain}${write ? "" : "（dry-run，加 --write 落盘）"}`)
   console.log(`  PageQuerySchema 补 keyword: ${keywordFixed} 处`)
   console.log(`  DTO 类型对齐: ${dtoFixed} 处`)
   console.log(`  前端表单对齐: ${formFixed} 处`)
+  console.log(`  create schema 补可写列: ${createFixed} 处`)
   for (const detail of details) console.log(`  ${detail}`)
   console.log(`  需改: ${changed} 处 · 有意约定跳过: ${convention} 处`)
 }
@@ -271,6 +273,59 @@ function alignFrontendForms(targetDir: string, apply: boolean, meta: Map<string,
     }
 
     if (source !== original && apply) fs.writeFileSync(full, source)
+  }
+  return changed
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 第四类缺口：create schema 必须覆盖仓储的「可写列」
+//
+// 校验器的 create schema 原先只按**表单列**生成，而仓储的可写列是**全部非审计列**。
+// 于是不在表单里的列（如 ai_model.model_key / provider）API 根本传不进来 ——
+// 而表要求它们非空，接线后创建必然失败。实测正是这一步把 ai-model 的路由测试打红。
+// 真源取**仓储的 WRITABLE_COLUMNS**，与 `npm run repo:columns:check` 的口径一致。
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** 按元数据类型给出 Zod 字段构造器（与生成器模板保持一致） */
+function zodForType(declared: string): string {
+  if (NUMERIC_TYPES.has(declared)) return "z.coerce.number().finite()"
+  if (declared === "boolean") return "z.boolean()"
+  return "z.string().trim()"
+}
+
+function alignCreateSchemaColumns(targetDir: string, apply: boolean, meta: Map<string, Map<string, string>>): number {
+  const validatorDir = path.join(targetDir, "backend", "validators")
+  const repoDir = path.join(targetDir, "backend", "repositories")
+  if (!fs.existsSync(validatorDir) || !fs.existsSync(repoDir)) return 0
+
+  let changed = 0
+  for (const file of fs.readdirSync(validatorDir)) {
+    if (!file.endsWith(".validator.ts")) continue
+    const resource = file.replace(".validator.ts", "")
+    const repoFile = path.join(repoDir, `${resource}.repository.ts`)
+    if (!fs.existsSync(repoFile)) continue
+    const repoSource = fs.readFileSync(repoFile, "utf8")
+    const table = repoSource.match(/const TABLE_NAME = "([^"]+)"/)?.[1]
+    const columns = table ? meta.get(table) : undefined
+    if (!columns) continue
+    const writable = (repoSource.match(/const WRITABLE_COLUMNS = \[([^\]]*)\]/)?.[1] ?? "")
+      .split(",").map((item) => item.trim().replace(/^"|"$/g, "")).filter(Boolean)
+    if (writable.length === 0) continue
+
+    const full = path.join(validatorDir, file)
+    const source = fs.readFileSync(full, "utf8")
+    const match = source.match(/export const (\w+CreateSchema) = z\.object\(\{([\s\S]*?)\n\}\)\.strict\(\)/)
+    if (!match) continue
+    const present = new Set([...match[2].matchAll(/^\s{2}(\w+):/gm)].map((m) => m[1]))
+    const missing = writable.filter((column) => !present.has(column))
+    if (missing.length === 0) continue
+
+    const injected = missing
+      .map((column) => `  ${column}: ${zodForType(columns.get(column) ?? "varchar")}.optional(),`)
+      .join("\n")
+    const replacement = `export const ${match[1]} = z.object({${match[2]}\n${injected}\n}).strict()`
+    if (apply) fs.writeFileSync(full, source.replace(match[0], replacement))
+    changed += missing.length
   }
   return changed
 }

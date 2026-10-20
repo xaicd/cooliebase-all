@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiToolService } from "@/modules/ai/backend/services/ai-tool.service"
+import { aiToolCreateSchema, aiToolPageQuerySchema, aiToolUpdateSchema } from "@/modules/ai/backend/validators/ai-tool.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiToolService.update(id, body)
+    const data = await AiToolService.update(id, aiToolUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

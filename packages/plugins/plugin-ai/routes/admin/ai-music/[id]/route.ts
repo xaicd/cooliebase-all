@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiMusicService } from "@/modules/ai/backend/services/ai-music.service"
+import { aiMusicCreateSchema, aiMusicPageQuerySchema, aiMusicUpdateSchema } from "@/modules/ai/backend/validators/ai-music.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiMusicService.update(id, body)
+    const data = await AiMusicService.update(id, aiMusicUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

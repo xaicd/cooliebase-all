@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiKnowledgeService } from "@/modules/ai/backend/services/ai-knowledge.service"
+import { aiKnowledgeCreateSchema, aiKnowledgePageQuerySchema, aiKnowledgeUpdateSchema } from "@/modules/ai/backend/validators/ai-knowledge.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiKnowledgeService.update(id, body)
+    const data = await AiKnowledgeService.update(id, aiKnowledgeUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

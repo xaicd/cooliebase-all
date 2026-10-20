@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiModelService } from "@/modules/ai/backend/services/ai-model.service"
+import { aiModelCreateSchema, aiModelPageQuerySchema, aiModelUpdateSchema } from "@/modules/ai/backend/validators/ai-model.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -21,7 +22,7 @@ export async function PUT(request: Request, context: RouteContext) {
     // 注意：服务签名是 update(id, data, …) —— 传单对象 `{ ...body, id }` 会让 id 收到对象、
     // data 收到 undefined（实测抛 "Cannot read properties of undefined"）。
     // 该形态已由 standards 规则 route-service-update-arity 守着。
-    const data = await AiModelService.update(id, body)
+    const data = await AiModelService.update(id, aiModelUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

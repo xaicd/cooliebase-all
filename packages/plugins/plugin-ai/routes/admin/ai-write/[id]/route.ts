@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiWriteService } from "@/modules/ai/backend/services/ai-write.service"
+import { aiWriteCreateSchema, aiWritePageQuerySchema, aiWriteUpdateSchema } from "@/modules/ai/backend/validators/ai-write.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiWriteService.update(id, body)
+    const data = await AiWriteService.update(id, aiWriteUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

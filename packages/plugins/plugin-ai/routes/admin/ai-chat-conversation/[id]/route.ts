@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { AiChatConversationService } from "@/modules/ai/backend/services/ai-chat-conversation.service"
+import { aiChatConversationCreateSchema, aiChatConversationPageQuerySchema, aiChatConversationUpdateSchema } from "@/modules/ai/backend/validators/ai-chat-conversation.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await AiChatConversationService.update(id, body)
+    const data = await AiChatConversationService.update(id, aiChatConversationUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

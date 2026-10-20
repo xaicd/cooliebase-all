@@ -188,7 +188,7 @@
 | 21. **契约路由覆盖** | `npm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
 | 22. **契约域级覆盖** | `npm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
 | 23. **生成物列覆盖** | `npm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
-| 24. **路由校验覆盖** | `npm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。注意**顺序**：补接线前先跑 `npm run validator:reachability` 对齐该域校验器字段类型，否则接线瞬间会把 RSK-011 的类型漂移变成真实缺陷。 |
+| 24. **路由校验覆盖** | `npm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `npx tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `npm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
 
 
 > **本表列的是「人工决策点」，不是门禁清单。** `npm run check` 当前包含 34 个 npm 步骤，

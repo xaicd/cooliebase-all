@@ -25,6 +25,8 @@ export const aiChatMessageCreateSchema = z.object({
   web_search_pages: z.string().trim().optional(),
   attachment_urls: z.string().trim().optional(),
 
+  role: z.string().trim().optional(),
+  tokens: z.coerce.number().finite().optional(),
 }).strict()
 
 export const aiChatMessageUpdateSchema = aiChatMessageCreateSchema.partial().extend({
