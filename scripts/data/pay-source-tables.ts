@@ -975,10 +975,10 @@ export const PAY_TABLES: CodegenConfig[] = [
         },
         {
           "name": "status",
-          "type": "int",
-          "tsType": "number",
+          "type": "text",
+          "tsType": "string",
           "nullable": true,
-          "comment": "支付状态",
+          "comment": "支付状态（字符串状态机 WAITING/SUCCESS/CLOSED，见 pay-order-lifecycle.ts）",
           "nullableInferred": true
         },
         {
@@ -1161,10 +1161,10 @@ export const PAY_TABLES: CodegenConfig[] = [
         },
         {
           "name": "status",
-          "type": "int",
-          "tsType": "number",
+          "type": "text",
+          "tsType": "string",
           "nullable": true,
-          "comment": "支付状态",
+          "comment": "支付状态（字符串状态机 WAITING/SUCCESS/CLOSED，见 pay-order-lifecycle.ts）",
           "nullableInferred": true,
           "queryType": "="
         },

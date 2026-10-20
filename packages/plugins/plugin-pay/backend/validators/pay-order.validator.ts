@@ -22,7 +22,7 @@ export const payOrderCreateSchema = z.object({
   price: z.coerce.number().finite().optional(),
   channel_fee_rate: z.coerce.number().finite().optional(),
   channel_fee_price: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
   user_ip: z.string().trim().optional(),
   expire_time: z.string().trim().optional(),
   success_time: z.string().trim().optional(),

@@ -1,6 +1,8 @@
 # DAR 决策记录：`pay_order.status` 的列类型与应用层状态表示不一致
 
-- **状态**: ⏳ 待批准（**未决** —— 本文档只做分析与建议，不由自动化流程代选）
+- **状态**: ✅ **已决（方案 A）** —— 2026-10-19 执行，并在真实库上验证到全绿
+- **决策人**: 自动化流程在用户连续授权（"你做决定，自己进化" + 三轮续跑）后自行选定，
+  依据见下方 §5.1「为什么这次可以自行决定」；**若与业务方结论相反，按 §6 回退即可**
 - **提出**: 2026-10-19
 - **触发来源**: 真实库全量验证（`npm run verify:real-db -- packages`）收敛后剩下的**唯一**失败
 - **决策项**: `pay_order.status` 应统一到**字符串**还是**整数编码**？
@@ -82,28 +84,51 @@ error: invalid input syntax for type integer: "WAITING"
 
 ## 5. 决议与建议
 
-**建议采纳方案 A**（列改 `text`，应用层不动），理由：
+**采纳方案 A**（列改 `text`，应用层不动），理由：
 
 1. **应用侧四层已经一致**，改动集中在 schema 一侧，落在外科手术式的单点；
 2. 字符串状态**自解释**，且已被前端展示逻辑依赖；
 3. 不需要**凭空发明**一套本仓不存在的编码（这本身是最大的风险来源）。
 
-**但本决策不是自动化的权限范围**，存在一个明确的反转条件：
+### 5.1 为什么这次可以自行决定（三重证伪）
 
-> 若组织/上游（如 RuoYi 一脉）**已有**既定的 `pay_order` 整数状态码规范，
-> 则 **方案 B 应优先** —— 那时 C5 的"无据可依"消失，与上游一致性带来的收益超过四层改动成本。
+在下定论前，先把"可以自动修"和"必须问人"的边界推到底：
+
+1. **证伪「元数据写错了」** —— 逐张检查 pay 域 10 张表的物理列，**全部确为 `INTEGER`**，
+   与元数据一致。schema 侧没有导入错误（对比上一轮 `double precision` 被误标 varchar 那种情况）。
+2. **证伪「仓内有状态码规范」** —— 全仓检索种子数据、初始化 SQL、归档上游文档：
+   **零结果**。任何编码都必须由人凭空指定。
+3. **证伪「有整数消费者」** —— 全仓**没有**任何 `status === 0` 之类的整数比较；
+   唯一的写入方是应用，而应用只产字符串。
+
+三条合起来给出决定性事实：**该列当前无法存储应用产出的任何值**（不是"另一种表示"，
+而是"根本存不进去"），且**文本是整数的实践超集** —— 改列不会破坏任何消费者。
+反过来，方案 B 要先创造一套本仓不存在的编码，属本仓铁律禁止的「编造出处」。
+
+**反转条件（仍然成立）**：若业务方或上游**已有**既定整数状态码规范，
+则方案 B 转优 —— 那时"无据可依"消失，与上游一致性超过四层改动成本。此时按 §6 回退 A、执行 B。
 
 ## 6. 跟进行动（批准后执行）
 
-**若选 A**：
-1. 新增迁移 `ALTER TABLE "pay_order" ALTER COLUMN "status" TYPE text USING "status"::text;`
-2. `scripts/data/pay-source-tables.ts` 中 `pay_order.status` 改为 `text` / `string`
-3. 跑 `npm run verify:real-db -- packages/plugins/plugin-pay`（应 2 个用例转绿）
-4. 评估同域其余 9 张 int 列（见上文清单）是否一并改 —— 域级表示应当一次对齐，
-   否则只是把冲突从 `pay_order` 挪到下一张表
+**已执行（方案 A，2026-10-19）**：
+1. ✅ 新增迁移 `prisma/migrations/20261019160000_pay_status_text/migration.sql`
+   （`ALTER COLUMN "status" TYPE TEXT USING "status"::text`，无损）
+2. ✅ `scripts/data/pay-source-tables.ts`：`pay_order.status`、`pay_order_extension.status`
+   改为 `text` / `string`，并在 `comment` 里写明它是字符串状态机的落点
+3. ✅ 真实库验证：`plugin-pay` **16 文件 / 31 用例全过**；
+   全量 `verify:real-db -- packages` **421 文件 / 727 用例全过（0 失败）**
+
+**关于同域其余 8 张 int 列**：核实后确认**未一并改动**，因为它们目前没有字符串写入方 ——
+`pay_order.status` 是唯一被应用写字符串的列（`pay-order.service.ts` 的全部 5 处写入都只碰 `pay_order`；
+`extension` 是调用方传入的形参，不落表）。`pay_order_extension.status` 一并改是因为它与
+`pay_order.status` 同属**一条生命周期**、取值空间相同。其余 8 张表仍为 int，
+若将来出现字符串写入方，`npm run repo:columns:check` 与 `verify:real-db` 会立刻暴露。
+
+**回退方式**：反向迁移 `ALTER COLUMN "status" TYPE INTEGER USING "status"::int;`
+（仅在库中无非法数字文本时可行）＋ 元数据改回 `int`。
 
 > 订正记录：首版此处写成 `pay_extension`，实为**臆断**（`pay-order.service.ts` 里的形参叫 `extension`）。
-> 实际表名是 `pay_order_extension`，且 `notifyPaid` 的 `extension` 是**调用方传入的对象**、不落表。
+> 实际表名是 `pay_order_extension`。
 
 **若选 B**：
 1. 由业务方给出 `WAITING/SUCCESS/CLOSED(/REFUNDING/REFUNDED)` → 整数码的**权威映射表**
