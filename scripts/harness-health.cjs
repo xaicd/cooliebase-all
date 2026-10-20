@@ -22,6 +22,7 @@
  *   node scripts/harness-health.cjs --trim              # 心跳文件压到最近 500 行
  */
 const fs = require("node:fs")
+const { spawnSync } = require("node:child_process")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
@@ -111,6 +112,22 @@ for (const kind of kinds) {
 }
 
 const KEEP_LINES = 2000
+// ── git 兜底是否启用（`core.hooksPath` 是本机配置，不可提交 → 新克隆默认没有）────────
+{
+  const hooksPath = spawnSync("git", ["config", "--local", "--get", "core.hooksPath"], {
+    cwd: ROOT,
+    encoding: "utf8",
+  })
+  const value = hooksPath.status === 0 ? hooksPath.stdout.trim() : ""
+  const preCommit = path.join(ROOT, ".githooks", "pre-commit")
+  const executable = fs.existsSync(preCommit) && (fs.statSync(preCommit).mode & 0o111) !== 0
+  const ok = value === ".githooks" && executable
+  console.log(
+    `  ${ok ? "✅" : "⚠️"} git 兜底    core.hooksPath=${value || "（未设置）"} · pre-commit ${executable ? "可执行" : "不可执行"}` +
+      (ok ? "" : " → 跑 `npm run setup:hooks`（或重新 pnpm install）"),
+  )
+}
+
 if (trim && fs.existsSync(HEARTBEAT)) {
   const lines = fs.readFileSync(HEARTBEAT, "utf8").split("\n").filter(Boolean)
   if (lines.length > KEEP_LINES) {

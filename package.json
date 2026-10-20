@@ -100,7 +100,7 @@
     "tables:metadata-draft": "node scripts/draft-missing-table-metadata.cjs",
     "tables:migration": "tsx scripts/generate-table-migration.ts",
     "verify:real-db": "node scripts/verify-real-db.cjs",
-    "postinstall": "prisma generate",
+    "postinstall": "prisma generate && node scripts/setup-git-hooks.cjs",
     "domains:capabilities": "node scripts/scan-domain-capabilities.cjs",
     "domains:parity": "node scripts/scan-source-parity.cjs",
     "domain:new": "tsx scripts/create-business-domain.ts",
@@ -192,7 +192,8 @@
     "agent:routes:check": "node scripts/check-agent-routes.cjs",
     "agent:routes:audit": "node scripts/check-agent-routes.cjs --audit",
     "agent:coverage:check": "node scripts/check-agent-contract-coverage.cjs",
-    "agent:coverage:audit": "node scripts/check-agent-contract-coverage.cjs --audit"
+    "agent:coverage:audit": "node scripts/check-agent-contract-coverage.cjs --audit",
+    "setup:hooks": "node scripts/setup-git-hooks.cjs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

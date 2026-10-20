@@ -193,6 +193,7 @@
 | I7 | §15 强制落地 | 用户原始输入自动入库（此前只有条文） | ✅ | `agent:route` 自动写 `docs/features/sprint-prod/{MMDD}.md` |
 | I8 | Hermes 接入 | 幂等安装（dry-run / 备份 / 拒绝重复键） | 🟡 | `npm run harness:hermes-hook -- --write` **待执行**（用户级全局配置，不擅自改） |
 | I9 | 入口一致性机检 | 6 个入口都必须出现 `agent:route` | ✅ | `npm run specs:health`（error 级） |
+| I10 | **git 兜底可移植** | `core.hooksPath` 是本机配置、不可提交 → 新克隆默认没有 | ✅ | `npm run setup:hooks`（幂等；已接 `postinstall`）；`npm run harness:health` 报告启用状态 |
 
 ## 5. 当前进展快照（2026-10-20）
 

@@ -121,7 +121,8 @@
       "agent:route",
       "harness:health",
       "harness:hermes-hook",
-      "plan:freshness"
+      "plan:freshness",
+      "setup:hooks"
     ]
   },
   "compatibility": {
