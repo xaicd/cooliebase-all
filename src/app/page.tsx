@@ -36,7 +36,7 @@ export default function HomePage() {
   const commands = {
     "quick-start": `git clone ${repoCloneUrl}\ncd cooliebase-all\npnpm install\npnpm run quick-start`,
     "docker": `docker compose -f deploy/docker-compose.prod.yml up -d`,
-    "domain": `# 独立提取并运行指定业务域 (如 pay 支付域)\nnpm run domain:up -- pay`
+    "domain": `# 独立提取并运行指定业务域 (如 pay 支付域)\npnpm run domain:up -- pay`
   }
 
   const handleCopy = (text: string) => {

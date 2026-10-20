@@ -4,11 +4,11 @@
 #
 # 一体（单进程，Facade=SDK）：
 #   docker compose -f deploy/docker-compose.domains.yml up --build
-#   npm run runtime:all
+#   pnpm run runtime:all
 # 拆出 pay（BFF HTTP 反代 + Facade RPC）：
 #   docker compose -f deploy/docker-compose.domains.yml --profile pay up --build
-#   npm run runtime:split
-#   npm run domain:up -- pay
+#   pnpm run runtime:split
+#   pnpm run domain:up -- pay
 # ============================================================
 
 name: cooliebase-domains

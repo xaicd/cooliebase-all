@@ -1,7 +1,7 @@
 {
   "version": 1,
   "kind": "engineering-standards-baseline",
-  "note": "Frozen engineering-standards debt. Ratchet rules fail on NEW debt only. Regenerate with `npm run standards:baseline` and review the delta.",
+  "note": "Frozen engineering-standards debt. Ratchet rules fail on NEW debt only. Regenerate with `pnpm run standards:baseline` and review the delta.",
   "rules": {
     "facade-method-dispatch-mapped": {
       "accepted": {}

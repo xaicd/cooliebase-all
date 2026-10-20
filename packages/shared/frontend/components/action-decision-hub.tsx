@@ -200,12 +200,12 @@ export function ActionDecisionHub() {
     // 3. 契约完整性行动卡片
     list.push({
       id: "action-contract-governance",
-      title: "326 份 Agent 契约与无头运营状态",
+      title: "342 份 Agent 契约与无头运营状态",
       domain: "system",
       category: "CONTRACT",
       priority: telemetry?.contracts.valid ? "opportunity" : "warning",
       diagnosis: telemetry?.contracts.valid
-        ? `系统全部 326 份 Agent 契约就绪，覆盖 14 域，支持 npm run agent:ops 无头自动化运维`
+        ? `系统全部 342 份 Agent 契约就绪，覆盖 17 域，支持 pnpm run agent:ops 无头自动化运维`
         : `契约校验警告: ${telemetry?.contracts.error || "存在未收敛端点"}`,
       impactRadius: "全域 Agent-Native 自动化运营、动态本体画布、Playwright E2E 探针",
       suggestedAction: "启动单实体样本数据播种或全量巡检",

@@ -182,6 +182,8 @@ const FILES = [
   "README.md",
   "project-status.md",
   "docs/01_management/project-plan.md",
+  // 用户可见的行动决策卡片：文案里写着「N 份 Agent 契约」，实测曾漂到 326（真值 342）。
+  "packages/shared/frontend/components/action-decision-hub.tsx",
 ]
 const contents = new Map()
 for (const rel of FILES) {

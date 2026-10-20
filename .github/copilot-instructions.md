@@ -6,21 +6,21 @@ This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built
 - Next.js 16 (App Router) + React 19 + TypeScript 5
 - Database: Kysely query builder + SQLite (local development) / PostgreSQL (production)
 - Multi-tenancy: Strictly obtain tenant scope from `getCurrentTenantId()`, never pass explicit tenantId across layers.
-- Project Initialization: Use `npm run project:init` to customize project names, titles, and remotes.
-- Quality Gates: Must pass `npm run check` and `npm run test:unit`.
-- Spec-Driven Architecture: Review `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`. All features, bugfixes, enhancements, and refactors are governed by Spec Bundles in `docs/specs/<domain>/<name>` with `assets/` and `prototypes/`. Commands: `npm run spec:new`, `npm run spec:build`, `npm run spec:check`, `npm run spec:archive`.
+- Project Initialization: Use `pnpm run project:init` to customize project names, titles, and remotes.
+- Quality Gates: Must pass `pnpm run check` and `pnpm run test:unit`.
+- Spec-Driven Architecture: Review `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`. All features, bugfixes, enhancements, and refactors are governed by Spec Bundles in `docs/specs/<domain>/<name>` with `assets/` and `prototypes/`. Commands: `pnpm run spec:new`, `pnpm run spec:build`, `pnpm run spec:check`, `pnpm run spec:archive`.
 - Detailed Rules: Review `AGENTS.md`, `CLAUDE.md`, and `llms.txt`.
 
 ## 第一步（强制）：需求分诊
 
 动手做任何需求之前，先跑：
 
-    npm run agent:route -- "<用户的原始需求原文>"
+    pnpm run agent:route -- "<用户的原始需求原文>"
 
 它会给出**确定性判定**，而不是靠模型自行揣测：
 
-- `SPEC_REQUIRED` → 先 `npm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
-- `DIRECT_OK` → 可直接改（改完仍须 `npm run check` 全绿）
+- `SPEC_REQUIRED` → 先 `pnpm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
+- `DIRECT_OK` → 可直接改（改完仍须 `pnpm run check` 全绿）
 - `NOT_A_REQUIREMENT` → 这句话不是一个需求（确认 / 授权 / 上下文陈述 / 调研提问 / 续作指令），既不立规格也不改代码
 
 它同时把用户原始输入记入 `docs/features/sprint-prod/{MMDD}.md`（AGENTS §15）。

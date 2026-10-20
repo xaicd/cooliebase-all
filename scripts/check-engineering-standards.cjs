@@ -8,7 +8,7 @@
  *   report   printed for humans, never fails (needs judgement, not a boolean)
  *
  * Usage:
- *   node scripts/check-engineering-standards.cjs               # gate (used by npm run check)
+ *   node scripts/check-engineering-standards.cjs               # gate (used by pnpm run check)
  *   node scripts/check-engineering-standards.cjs --json        # machine-readable, for MCP
  *   node scripts/check-engineering-standards.cjs --audit       # print every rule, never fail
  *   node scripts/check-engineering-standards.cjs --write-baseline
@@ -568,7 +568,7 @@ const RULES = [
             walk(rel)
             continue
           }
-          if (!/\.(md|sh|ts|cjs|json|js|txt|bat)$/.test(entry.name)) continue
+          if (!/\.(md|sh|ts|tsx|cjs|mjs|js|json|txt|bat|yml|yaml)$/.test(entry.name)) continue
           if (rel === "scripts/check-engineering-standards.cjs") continue // 规则自身必须提到该模式
           const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {
@@ -579,7 +579,7 @@ const RULES = [
       for (const entry of fs.readdirSync(ROOT, { withFileTypes: true })) {
         if (entry.name.startsWith(".")) continue // 隐藏项（.git/.claude/.next-* 等）统一跳过
         if (entry.isDirectory()) walk(entry.name)
-        else if (/\.(md|sh|ts|cjs|bat)$/.test(entry.name)) {
+        else if (/\.(md|sh|ts|cjs|bat|yml|yaml)$/.test(entry.name)) {
           const lines = fs.readFileSync(path.join(ROOT, entry.name), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {
             if (pattern.test(lines[i])) violations.push({ file: entry.name, detail: `line ${i + 1}` })
@@ -587,6 +587,10 @@ const RULES = [
         }
       }
       if (fs.existsSync(path.join(ROOT, ".agents"))) walk(".agents")
+      // **`.github` 必须显式走**：根目录循环会跳过所有隐藏项（`entry.name.startsWith(".")`），
+      // 于是 CI 工作流**整块不在扫描面** —— 而它恰恰是最该统一用 pnpm 的地方。
+      // （这条规则的第一版就漏了这个洞：扩展名没含 yml，且 .github 被隐藏项规则跳过。）
+      if (fs.existsSync(path.join(ROOT, ".github"))) walk(".github")
 
       // `package.json` 的 scripts 是**运行时真调用**，比注释更严重 —— 同 `no-new-npx` 的教训。
       const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
@@ -791,7 +795,7 @@ if (writeBaseline) {
   const baseline = {
     version: 1,
     kind: "engineering-standards-baseline",
-    note: "Frozen engineering-standards debt. Ratchet rules fail on NEW debt only. Regenerate with `npm run standards:baseline` and review the delta.",
+    note: "Frozen engineering-standards debt. Ratchet rules fail on NEW debt only. Regenerate with `pnpm run standards:baseline` and review the delta.",
     rules,
   }
   const full = abs(BASELINE_REL)
@@ -902,7 +906,7 @@ if (failures.length > 0) {
       for (const debt of newDebt) {
         console.error(`    - ${debt.file}: ${debt.count} violation(s), baseline accepts ${debt.allowed}`)
       }
-      console.error(`    fix the new debt, or re-baseline with "npm run standards:baseline" and review the delta`)
+      console.error(`    fix the new debt, or re-baseline with "pnpm run standards:baseline" and review the delta`)
     }
   }
   process.exit(1)
