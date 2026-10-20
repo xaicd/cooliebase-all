@@ -27,12 +27,14 @@ if [ "${AGENT_ROUTE_SKIP:-0}" = "1" ]; then exit 0; fi
 
 INPUT=$(cat)
 
-# 解析「文件路径」与「协议类型」——逻辑在独立的 .agents/hooks/parse-payload.js 里。
-# 之前内联在 node -e 里，正则中的单引号会把 shell 字符串提前闭合（踩过多次），故拆开。
-PARSED=$(printf '%s' "$INPUT" | node "$(dirname "$0")/parse-payload.js" 2>/dev/null || printf '{"file":"","protocol":"exit2"}')
-
-FILE_PATH=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).file||"")}catch{}})')
-PROTOCOL=$(printf '%s' "$PARSED" | node -e 'let s="";process.stdin.on("data",c=>s+=c).on("end",()=>{try{process.stdout.write(JSON.parse(s).protocol||"exit2")}catch{process.stdout.write("exit2")}})')
+# 解析「文件路径」与「协议类型」——逻辑在独立的 .agents/hooks/parse-payload.js。
+# 输出格式固定为一行 `file<TAB>protocol`，**只起一个 node 进程**：
+# 早期版本用 3 个 `node -e`（解析 + 取 file + 取 protocol），实测单次 hook 高达 185ms，
+# 而它会在**每次** write/edit/shell 调用上执行 —— 太贵。
+PARSED=$(printf '%s' "$INPUT" | node "$(dirname "$0")/parse-payload.js" 2>/dev/null || printf '\texit2')
+FILE_PATH="${PARSED%%$'\t'*}"
+PROTOCOL="${PARSED##*$'\t'}"
+[ -z "$PROTOCOL" ] && PROTOCOL="exit2"
 
 # 不是写受保护路径 → 不表态
 if [ -z "$FILE_PATH" ]; then exit 0; fi

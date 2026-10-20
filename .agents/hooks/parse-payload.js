@@ -24,7 +24,7 @@ process.stdin.on("end", () => {
   try {
     payload = JSON.parse(Buffer.concat(chunks).toString("utf8"))
   } catch {
-    process.stdout.write(JSON.stringify({ file: "", protocol: "exit2" }))
+    process.stdout.write("\texit2")
     return
   }
 
@@ -82,5 +82,5 @@ process.stdin.on("end", () => {
 
   // 协议：出现 toolCall 即 Antigravity（它读 stdout JSON，不看 exit code）
   const protocol = payload && payload.toolCall ? "antigravity" : "exit2"
-  process.stdout.write(JSON.stringify({ file, protocol }))
+  process.stdout.write(file + "\t" + protocol)
 })
