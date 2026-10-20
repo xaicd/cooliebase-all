@@ -10,7 +10,7 @@ All engineering rules and architectural standards are unified in `.agents/rules/
 - **Unified Spec & Prototype Standard**: `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`
 - **Project Refactor & Init**: `.agents/rules/PROJECT-INIT-AND-REFACTOR.md`
 - **Multi-Tenant Isolation**: `.agents/rules/MULTI-TENANT-ISOLATION.md`
-- **10 Quality Gates**: `AGENTS.md`
+- **20 Quality Gates（数字以 package.json 的 check 脚本为准）**: `AGENTS.md`
 
 ## Key Developer Commands
 - **Check All Gates**: `npm run check` (Runs all 10 engineering standards, seam checks, compat checks, admin route audits)
@@ -36,3 +36,21 @@ All engineering rules and architectural standards are unified in `.agents/rules/
 - Compat Manifest: `packages/shared/contract/compat-manifest.json`
 - Agent Profile: `packages/shared/contract/agent-profile.json`
 - Seam Graph: `packages/shared/contract/seam-graph.json`
+
+## 第一步（强制）：需求分诊
+
+动手做任何需求之前，先跑：
+
+    npm run agent:route -- "<用户的原始需求原文>"
+
+它会给出**确定性判定**，而不是靠模型自行揣测：
+
+- `SPEC_REQUIRED` → 先 `npm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
+- `DIRECT_OK` → 可直接改（改完仍须 `npm run check` 全绿）
+
+它同时把用户原始输入记入 `docs/features/sprint-prod/{MMDD}.md`（AGENTS §15）。
+判定规则真源：`scripts/lib/spec-necessity-rules.cjs` —— 规则表可审阅、可修改；
+**认为判错了就改规则表**（并跑 `test/unit/agent-route.test.ts`），而不是绕过它。
+
+> 为什么强制：此前入口文件写的是"所有 feature/bugfix/enhancement/refactor 都归规格管"，
+> 等于**全都需要、也等于没有判断** —— 小改被流程拖住、大改靠自觉。

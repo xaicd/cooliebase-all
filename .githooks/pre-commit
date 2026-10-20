@@ -1,0 +1,55 @@
+#!/usr/bin/env bash
+# 跨 CLI 的兜底：任何 agent（cmd / Claude Code / agy / Hermes / 人手）提交都要过这一关。
+#
+# 为什么必须有这一层：hooks 是**每家 CLI 一套**的，入口文件的约束又只是"提醒模型"——
+# 只有 git 是**所有** agent 共同的必经之路。这一层不依赖任何 CLI 是否支持 hooks。
+#
+# 判定（与 .commandcode/hooks/guard-spec.sh 同源，避免两处规则漂移）：
+#   暂存区触及受保护路径（packages/ · prisma/ · src/app/api/）
+#   且上一条需求分诊为 SPEC_REQUIRED
+#   且还没有比该记录更新的规格包
+#   → 拒绝提交。
+#
+# 逃生阀：AGENT_ROUTE_SKIP=1 git commit ... （请只在确认判定有误时使用，
+# 并回头修正 scripts/lib/spec-necessity-rules.cjs 的规则表）
+set -euo pipefail
+
+if [ "${AGENT_ROUTE_SKIP:-0}" = "1" ]; then
+  echo "[spec-gate] 已按 AGENT_ROUTE_SKIP=1 跳过"
+  exit 0
+fi
+
+ROOT=$(git rev-parse --show-toplevel)
+RECORD="$ROOT/docs/architecture/artifacts/agent-route-last.json"
+
+PROTECTED=$(git diff --cached --name-only --diff-filter=ACMR \
+  | grep -E '^(packages/|prisma/|src/app/api/)' | head -5 || true)
+if [ -z "$PROTECTED" ]; then
+  exit 0   # 没触及受保护路径 → 不管
+fi
+
+if [ ! -f "$RECORD" ]; then
+  echo "[spec-gate] 拦截：本次提交触及受保护路径，但没有需求分诊记录。"
+  echo "           先跑：npm run agent:route -- \"<用户的原始需求>\""
+  echo "           （确认判定有误时可用 AGENT_ROUTE_SKIP=1 跳过，并回头修正规则表）"
+  exit 1
+fi
+
+VERDICT=$(node -e 'try{process.stdout.write(require(process.argv[1]).verdict||"")}catch{}' "$RECORD")
+if [ "$VERDICT" != "SPEC_REQUIRED" ]; then
+  exit 0   # 判为可直接改 → 放行
+fi
+
+NEWER=$(find "$ROOT/docs/specs" -name brief.json -newer "$RECORD" 2>/dev/null | head -1 || true)
+if [ -n "$NEWER" ]; then
+  exit 0   # 已有比该记录更新的规格包 → 说明走了流程
+fi
+
+echo "[spec-gate] 拦截：上一条需求被判为**需要规格**（SPEC_REQUIRED），但还没有对应规格包。"
+echo "           触及的受保护路径："
+printf '             %s\n' $PROTECTED
+echo "           先执行："
+echo "             npm run speckit:new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\""
+echo "           分诊输出里已给出建议的 --type；规则真源 scripts/lib/spec-necessity-rules.cjs。"
+echo "           确认判定有误时：AGENT_ROUTE_SKIP=1 git commit ...（并回头改规则表，而不是绕过）"
+exit 1

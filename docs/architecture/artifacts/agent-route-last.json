@@ -1,0 +1,14 @@
+{
+  "at": "2026-10-20T05:13:03.894Z",
+  "verdict": "DIRECT_OK",
+  "specType": "feature",
+  "requirement": "同步一下文档里的门禁数字",
+  "requirementHash": "f891a712eb4463e2",
+  "matched": [],
+  "exempted": [
+    "typo-doc"
+  ],
+  "rulesVersion": "scripts/lib/spec-necessity-rules.cjs",
+  "loggedAt": "docs/features/sprint-prod/1020.md",
+  "logIndex": 1
+}

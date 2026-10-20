@@ -1,0 +1,19 @@
+{
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "./.commandcode/hooks/route-contract.sh", "timeout": 10 }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "write|edit",
+        "hooks": [
+          { "type": "command", "command": "./.commandcode/hooks/guard-spec.sh", "timeout": 10 }
+        ]
+      }
+    ]
+  }
+}
