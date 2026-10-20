@@ -80,6 +80,7 @@
     "upstream:audit": "node scripts/upstream-radar.cjs --audit",
     "standards:check": "node scripts/check-engineering-standards.cjs",
     "repo:columns:check": "tsx scripts/check-repository-column-coverage.ts",
+    "validator:reachability": "tsx scripts/report-validator-reachability.ts",
     "standards:baseline": "node scripts/check-engineering-standards.cjs --write-baseline",
     "deps:audit": "node scripts/check-deps-audit.cjs",
     "deps:audit:baseline": "node scripts/check-deps-audit.cjs --write-baseline",

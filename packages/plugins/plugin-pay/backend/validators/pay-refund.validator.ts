@@ -11,12 +11,12 @@ export const payRefundPageQuerySchema = z.object({
 
 export const payRefundCreateSchema = z.object({
   no: z.string().trim().optional(),
-  app_id: z.coerce.number().finite().optional(),
-  channel_id: z.coerce.number().finite().optional(),
+  app_id: z.string().trim().optional(),
+  channel_id: z.string().trim().optional(),
   channel_code: z.string().trim().optional(),
-  order_id: z.coerce.number().finite().optional(),
+  order_id: z.string().trim().optional(),
   order_no: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   user_type: z.coerce.number().finite().optional(),
   merchant_order_id: z.string().trim().optional(),
   merchant_refund_id: z.string().trim().optional(),

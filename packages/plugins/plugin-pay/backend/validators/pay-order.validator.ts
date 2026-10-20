@@ -10,10 +10,10 @@ export const payOrderPageQuerySchema = z.object({
 }).strict()
 
 export const payOrderCreateSchema = z.object({
-  app_id: z.coerce.number().finite().optional(),
-  channel_id: z.coerce.number().finite().optional(),
+  app_id: z.string().trim().optional(),
+  channel_id: z.string().trim().optional(),
   channel_code: z.string().trim().optional(),
-  user_id: z.coerce.number().finite().optional(),
+  user_id: z.string().trim().optional(),
   user_type: z.coerce.number().finite().optional(),
   merchant_order_id: z.string().trim().optional(),
   subject: z.string().trim().optional(),
@@ -26,7 +26,7 @@ export const payOrderCreateSchema = z.object({
   user_ip: z.string().trim().optional(),
   expire_time: z.string().trim().optional(),
   success_time: z.string().trim().optional(),
-  extension_id: z.coerce.number().finite().optional(),
+  extension_id: z.string().trim().optional(),
   no: z.string().trim().optional(),
   refund_price: z.coerce.number().finite().optional(),
   channel_user_id: z.string().trim().optional(),

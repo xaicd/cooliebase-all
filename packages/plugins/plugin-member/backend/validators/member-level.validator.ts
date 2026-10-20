@@ -16,7 +16,7 @@ export const memberLevelCreateSchema = z.object({
   discount_percent: z.coerce.number().finite().optional(),
   icon: z.string().trim().optional(),
   background_url: z.string().trim().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
 
 }).strict()
 

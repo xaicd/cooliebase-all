@@ -10,13 +10,13 @@ export const aiModelPageQuerySchema = z.object({
 }).strict()
 
 export const aiModelCreateSchema = z.object({
-  key_id: z.coerce.number().finite().optional(),
+  key_id: z.string().trim().optional(),
   name: z.string().trim().optional(),
   model: z.string().trim().optional(),
   platform: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
   sort: z.coerce.number().finite().optional(),
-  status: z.coerce.number().finite().optional(),
+  status: z.string().trim().optional(),
   temperature: z.coerce.number().finite().optional(),
   max_tokens: z.coerce.number().finite().optional(),
   max_contexts: z.coerce.number().finite().optional(),
