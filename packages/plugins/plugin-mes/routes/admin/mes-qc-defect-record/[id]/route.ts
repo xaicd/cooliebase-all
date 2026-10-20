@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesQcDefectRecordService } from "@/modules/mes/backend/services/mes-qc-defect-record.service"
+import { mesQcDefectRecordCreateSchema, mesQcDefectRecordPageQuerySchema, mesQcDefectRecordUpdateSchema } from "@/modules/mes/backend/validators/mes-qc-defect-record.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesQcDefectRecordService.update(id, body)
+    const data = await MesQcDefectRecordService.update(id, mesQcDefectRecordUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

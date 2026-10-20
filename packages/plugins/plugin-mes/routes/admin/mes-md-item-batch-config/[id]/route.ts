@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesMdItemBatchConfigService } from "@/modules/mes/backend/services/mes-md-item-batch-config.service"
+import { mesMdItemBatchConfigCreateSchema, mesMdItemBatchConfigPageQuerySchema, mesMdItemBatchConfigUpdateSchema } from "@/modules/mes/backend/validators/mes-md-item-batch-config.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesMdItemBatchConfigService.update(id, body)
+    const data = await MesMdItemBatchConfigService.update(id, mesMdItemBatchConfigUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

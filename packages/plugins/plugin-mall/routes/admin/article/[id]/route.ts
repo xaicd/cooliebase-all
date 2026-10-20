@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ArticleService } from "@/modules/mall/backend/services/article.service"
+import { articleCreateSchema, articlePageQuerySchema, articleUpdateSchema } from "@/modules/mall/backend/validators/article.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ArticleService.update(id, body)
+    const data = await ArticleService.update(id, articleUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

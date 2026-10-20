@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesMdUnitMeasureService } from "@/modules/mes/backend/services/mes-md-unit-measure.service"
+import { mesMdUnitMeasureCreateSchema, mesMdUnitMeasurePageQuerySchema, mesMdUnitMeasureUpdateSchema } from "@/modules/mes/backend/validators/mes-md-unit-measure.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesMdUnitMeasureService.update(id, body)
+    const data = await MesMdUnitMeasureService.update(id, mesMdUnitMeasureUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

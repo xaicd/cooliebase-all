@@ -24,7 +24,13 @@ const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
 const BASELINE = path.join(ROOT, "docs", "architecture", "artifacts", "route-validation-baseline.json")
-const PARSE = /\.(?:safe)?[Pp]arse\(/
+/**
+ * 校验的三种实现方式，缺一不可：
+ *  · `.parse(` / `.safeParse(` —— 直接调 Zod；
+ *  · `parseActionQuery(` / `parseActionBody(` —— 经**共享助手**用 contract action schema 校验
+ *    （118 个文件在用；漏掉它们会把"已经校好了"记成欠债，实测 20 条假欠债）。
+ */
+const PARSE = /\.(?:safe)?[Pp]arse\(|parseAction(?:Query|Body)\(/
 
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out
@@ -53,21 +59,35 @@ function scan() {
   for (const root of roots) {
     for (const file of walk(root)) {
       const source = fs.readFileSync(file, "utf8")
-      const methods = new Set(
-        [...source.matchAll(/export (?:const|async function) (GET|POST|PUT|PATCH|DELETE)\b/g)].map((m) => m[1]),
-      )
-      const writes = ["POST", "PUT", "PATCH", "DELETE"].filter((method) => methods.has(method))
-      if (writes.length === 0) continue
-      const readsBody = /\.json\(\)/.test(source)
-      if (!readsBody) continue
-      total += 1
-      const relative = path.relative(ROOT, file)
-      if (PARSE.test(source)) {
-        compliant += 1
-      } else {
-        const domain = relative.match(/plugin-([a-z]+)\//)?.[1] ?? (relative.startsWith("src/") ? "src" : "?")
-        violations.push({ id: relative, domain, methods: writes })
+
+      // **逐方法判定**：整文件判定会漏掉「GET 用了共享助手、POST 仍裸传」这种情况 ——
+      // 那正是最需要拦下的形态（读路由看着有校验，写路由其实是裸的）。
+      const methodBlocks = new Map()
+      for (const match of source.matchAll(
+        /export (?:const|async function) (GET|POST|PUT|PATCH|DELETE)\b[\s\S]*?(?=\nexport (?:const|async function) |\n\/\/ ─|$)/g,
+      )) {
+        methodBlocks.set(match[1], match[0])
       }
+
+      const unvalidated = []
+      let writeRoutes = 0
+      for (const method of ["POST", "PUT", "PATCH", "DELETE"]) {
+        const block = methodBlocks.get(method)
+        if (!block) continue
+        if (!/\.json\(\)/.test(block)) continue // 不读 body 的写方法（如纯 DELETE）不在范围内
+        writeRoutes += 1
+        if (!PARSE.test(block)) unvalidated.push(method)
+      }
+      if (writeRoutes === 0) continue
+
+      total += 1
+      if (unvalidated.length === 0) {
+        compliant += 1
+        continue
+      }
+      const relative = path.relative(ROOT, file)
+      const domain = relative.match(/plugin-([a-z]+)\//)?.[1] ?? (relative.startsWith("src/") ? "src" : "?")
+      violations.push({ id: relative, domain, methods: unvalidated })
     }
   }
   violations.sort((a, b) => (a.id < b.id ? -1 : 1))

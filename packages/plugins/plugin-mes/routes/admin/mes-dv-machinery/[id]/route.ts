@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesDvMachineryService } from "@/modules/mes/backend/services/mes-dv-machinery.service"
+import { mesDvMachineryCreateSchema, mesDvMachineryPageQuerySchema, mesDvMachineryUpdateSchema } from "@/modules/mes/backend/validators/mes-dv-machinery.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesDvMachineryService.update(id, body)
+    const data = await MesDvMachineryService.update(id, mesDvMachineryUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

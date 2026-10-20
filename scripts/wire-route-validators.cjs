@@ -112,7 +112,10 @@ for (const resource of fs.readdirSync(routesDir)) {
 
     // ② GET：手工拼装的 query → schema.parse
     if (kind === "collection") {
-      const wired = replaceQueryBlock(source, schemas.page)
+      // GET 可能**已经**通过共享助手接好了（`parseActionQuery(SCHEMAS[...], request)`）——
+      // 那种情况不该重写，也不该报错；继续把 POST/PUT 接上即可（实测 mes-pro-work-order 即如此）。
+      const alreadyWiredGet = /parseActionQuery\s*\(/.test(source)
+      const wired = alreadyWiredGet ? source : replaceQueryBlock(source, schemas.page)
       if (wired) {
         source = wired
       } else if (!source.includes(`${schemas.page}.parse`)) {

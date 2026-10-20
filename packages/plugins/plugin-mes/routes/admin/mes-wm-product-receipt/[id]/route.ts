@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesWmProductReceiptService } from "@/modules/mes/backend/services/mes-wm-product-receipt.service"
+import { mesWmProductReceiptCreateSchema, mesWmProductReceiptPageQuerySchema, mesWmProductReceiptUpdateSchema } from "@/modules/mes/backend/validators/mes-wm-product-receipt.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesWmProductReceiptService.update(id, body)
+    const data = await MesWmProductReceiptService.update(id, mesWmProductReceiptUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesWmOutsourceReceiptDetailService } from "@/modules/mes/backend/services/mes-wm-outsource-receipt-detail.service"
+import { mesWmOutsourceReceiptDetailCreateSchema, mesWmOutsourceReceiptDetailPageQuerySchema, mesWmOutsourceReceiptDetailUpdateSchema } from "@/modules/mes/backend/validators/mes-wm-outsource-receipt-detail.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesWmOutsourceReceiptDetailService.update(id, body)
+    const data = await MesWmOutsourceReceiptDetailService.update(id, mesWmOutsourceReceiptDetailUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

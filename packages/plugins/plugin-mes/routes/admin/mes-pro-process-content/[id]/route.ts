@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesProProcessContentService } from "@/modules/mes/backend/services/mes-pro-process-content.service"
+import { mesProProcessContentCreateSchema, mesProProcessContentPageQuerySchema, mesProProcessContentUpdateSchema } from "@/modules/mes/backend/validators/mes-pro-process-content.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesProProcessContentService.update(id, body)
+    const data = await MesProProcessContentService.update(id, mesProProcessContentUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

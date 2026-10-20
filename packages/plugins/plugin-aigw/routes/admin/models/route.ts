@@ -26,7 +26,8 @@ export const PUT = withAdminRoute(async (request) => {
   const id = searchParams.get("id")
   if (!id) throw new Error("缺少模型 ID")
   const body = await request.json()
-  await AigwModelService.update(id, body)
+  // PUT 与本文件 POST 用**同一个写 schema** —— POST 已校验、PUT 却裸传是漏接（§4.1）。
+  await AigwModelService.update(id, aigwModelWriteSchema.parse(body))
   return NextResponse.json({ success: true })
 }, { permission: PERMISSIONS.AIGW_MODEL_UPDATE })
 

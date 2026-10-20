@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { SeckillActivityService } from "@/modules/mall/backend/services/seckill-activity.service"
+import { seckillActivityCreateSchema, seckillActivityPageQuerySchema, seckillActivityUpdateSchema } from "@/modules/mall/backend/validators/seckill-activity.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await SeckillActivityService.update(id, body)
+    const data = await SeckillActivityService.update(id, seckillActivityUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

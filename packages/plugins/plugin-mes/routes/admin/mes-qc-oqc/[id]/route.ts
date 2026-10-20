@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesQcOqcService } from "@/modules/mes/backend/services/mes-qc-oqc.service"
+import { mesQcOqcCreateSchema, mesQcOqcPageQuerySchema, mesQcOqcUpdateSchema } from "@/modules/mes/backend/validators/mes-qc-oqc.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesQcOqcService.update(id, body)
+    const data = await MesQcOqcService.update(id, mesQcOqcUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

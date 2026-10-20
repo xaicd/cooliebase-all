@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesQcIndicatorService } from "@/modules/mes/backend/services/mes-qc-indicator.service"
+import { mesQcIndicatorCreateSchema, mesQcIndicatorPageQuerySchema, mesQcIndicatorUpdateSchema } from "@/modules/mes/backend/validators/mes-qc-indicator.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesQcIndicatorService.update(id, body)
+    const data = await MesQcIndicatorService.update(id, mesQcIndicatorUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesWmReturnIssueService } from "@/modules/mes/backend/services/mes-wm-return-issue.service"
+import { mesWmReturnIssueCreateSchema, mesWmReturnIssuePageQuerySchema, mesWmReturnIssueUpdateSchema } from "@/modules/mes/backend/validators/mes-wm-return-issue.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesWmReturnIssueService.update(id, body)
+    const data = await MesWmReturnIssueService.update(id, mesWmReturnIssueUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

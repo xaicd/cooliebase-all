@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesProAndonRecordService } from "@/modules/mes/backend/services/mes-pro-andon-record.service"
+import { mesProAndonRecordCreateSchema, mesProAndonRecordPageQuerySchema, mesProAndonRecordUpdateSchema } from "@/modules/mes/backend/validators/mes-pro-andon-record.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesProAndonRecordService.update(id, body)
+    const data = await MesProAndonRecordService.update(id, mesProAndonRecordUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

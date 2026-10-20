@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { BargainActivityService } from "@/modules/mall/backend/services/bargain-activity.service"
+import { bargainActivityCreateSchema, bargainActivityPageQuerySchema, bargainActivityUpdateSchema } from "@/modules/mall/backend/validators/bargain-activity.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await BargainActivityService.update(id, body)
+    const data = await BargainActivityService.update(id, bargainActivityUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

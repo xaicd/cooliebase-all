@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesMdWorkstationToolService } from "@/modules/mes/backend/services/mes-md-workstation-tool.service"
+import { mesMdWorkstationToolCreateSchema, mesMdWorkstationToolPageQuerySchema, mesMdWorkstationToolUpdateSchema } from "@/modules/mes/backend/validators/mes-md-workstation-tool.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesMdWorkstationToolService.update(id, body)
+    const data = await MesMdWorkstationToolService.update(id, mesMdWorkstationToolUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

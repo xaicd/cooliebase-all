@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ProductCategoryService } from "@/modules/mall/backend/services/product-category.service"
+import { productCategoryCreateSchema, productCategoryPageQuerySchema, productCategoryUpdateSchema } from "@/modules/mall/backend/validators/product-category.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ProductCategoryService.update(id, body)
+    const data = await ProductCategoryService.update(id, productCategoryUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

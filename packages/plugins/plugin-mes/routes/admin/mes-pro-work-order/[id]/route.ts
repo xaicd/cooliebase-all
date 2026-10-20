@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesProWorkOrderService } from "@/modules/mes/backend/services/mes-pro-work-order.service"
+import { mesProWorkOrderCreateSchema, mesProWorkOrderPageQuerySchema, mesProWorkOrderUpdateSchema } from "@/modules/mes/backend/validators/mes-pro-work-order.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesProWorkOrderService.update(id, body)
+    const data = await MesProWorkOrderService.update(id, mesProWorkOrderUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

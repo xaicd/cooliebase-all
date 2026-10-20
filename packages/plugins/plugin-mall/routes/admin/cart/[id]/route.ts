@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { CartService } from "@/modules/mall/backend/services/cart.service"
+import { cartCreateSchema, cartPageQuerySchema, cartUpdateSchema } from "@/modules/mall/backend/validators/cart.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await CartService.update(id, body)
+    const data = await CartService.update(id, cartUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesDvSubjectService } from "@/modules/mes/backend/services/mes-dv-subject.service"
+import { mesDvSubjectCreateSchema, mesDvSubjectPageQuerySchema, mesDvSubjectUpdateSchema } from "@/modules/mes/backend/validators/mes-dv-subject.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesDvSubjectService.update(id, body)
+    const data = await MesDvSubjectService.update(id, mesDvSubjectUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

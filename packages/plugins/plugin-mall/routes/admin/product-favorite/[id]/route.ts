@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { ProductFavoriteService } from "@/modules/mall/backend/services/product-favorite.service"
+import { productFavoriteCreateSchema, productFavoritePageQuerySchema, productFavoriteUpdateSchema } from "@/modules/mall/backend/validators/product-favorite.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await ProductFavoriteService.update(id, body)
+    const data = await ProductFavoriteService.update(id, productFavoriteUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

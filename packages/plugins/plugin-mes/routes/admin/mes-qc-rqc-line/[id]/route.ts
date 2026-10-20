@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server"
 import { MesQcRqcLineService } from "@/modules/mes/backend/services/mes-qc-rqc-line.service"
+import { mesQcRqcLineCreateSchema, mesQcRqcLinePageQuerySchema, mesQcRqcLineUpdateSchema } from "@/modules/mes/backend/validators/mes-qc-rqc-line.validator"
 
 type RouteContext = { params: Promise<{ id: string }> }
 
@@ -18,7 +19,7 @@ export async function PUT(request: Request, context: RouteContext) {
   try {
     const { id } = await context.params
     const body = await request.json()
-    const data = await MesQcRqcLineService.update(id, body)
+    const data = await MesQcRqcLineService.update(id, mesQcRqcLineUpdateSchema.parse({ ...body, id }))
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message }, { status: 400 })

@@ -1,14 +1,13 @@
 import { NextResponse } from "next/server"
 import { MesWmProductSalesDetailService } from "@/modules/mes/backend/services/mes-wm-product-sales-detail.service"
+import { mesWmProductSalesDetailCreateSchema, mesWmProductSalesDetailPageQuerySchema, mesWmProductSalesDetailUpdateSchema } from "@/modules/mes/backend/validators/mes-wm-product-sales-detail.validator"
 
 export async function GET(request: Request) {
   try {
     const { searchParams } = new URL(request.url)
-    const input = {
-      page: Number(searchParams.get("page") || 1),
-      pageSize: Number(searchParams.get("pageSize") || 20),
-      keyword: searchParams.get("keyword") || undefined,
-    }
+    const raw: Record<string, unknown> = {}
+    searchParams.forEach((value, key) => { raw[key] = value })
+    const input = mesWmProductSalesDetailPageQuerySchema.parse(raw)
     const data = await MesWmProductSalesDetailService.page(input)
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
@@ -19,7 +18,7 @@ export async function GET(request: Request) {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const data = await MesWmProductSalesDetailService.create(body)
+    const data = await MesWmProductSalesDetailService.create(mesWmProductSalesDetailCreateSchema.parse(body))
     return NextResponse.json({ success: true, data }, { status: 201 })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "创建失败" }, { status: 400 })

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { z } from "zod"
 import fs from "node:fs"
 import path from "node:path"
 import { runAutopilotCycle } from "@/shared/backend/lib/agent-autopilot"
@@ -17,6 +18,8 @@ function verifyInternalToken(request: Request): boolean {
  * GET /api/internal/autopilot
  * 获取系统最新自主巡检与自愈守护心跳遥测快照
  */
+const autopilotBodySchema = z.object({ heal: z.boolean().optional() })
+
 export async function GET(request: Request) {
   if (!verifyInternalToken(request)) {
     return NextResponse.json({ success: false, error: "Unauthorized: invalid internal token" }, { status: 401 })
@@ -47,8 +50,10 @@ export async function POST(request: Request) {
   }
 
   try {
-    const body = await request.json().catch(() => ({}))
-    const forceHeal = Boolean(body.heal)
+    // 内部端点也要在边界校验入参：这里是内部令牌保护的操作触发器，
+    // 但"内部"不等于"可以裸读 body"（§4.1 对所有写路由生效）。
+    const { heal } = autopilotBodySchema.parse(await request.json().catch(() => ({})))
+    const forceHeal = Boolean(heal)
     const report = await runAutopilotCycle({ forceHeal })
     return NextResponse.json({
       success: true,
