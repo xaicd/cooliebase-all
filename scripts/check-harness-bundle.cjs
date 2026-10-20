@@ -136,11 +136,15 @@ if (skillsSource !== profile.npc?.skillsDir) {
 if (surface.skills?.mirror) {
   fail("consumptionSurface.skills must not declare mirror; .agents/skills is the single truth")
 }
-const skillsCheck = String(surface.skills?.check || "").replace(/^npm run\s+/, "")
+// 该字段的契约是「指出一个存在的技能脚本」；历史数据带 npm 的 run 前缀，
+// 而本仓 AGENTS §2.1 的规范形态是 pnpm。**两者都要认** ——
+// 只认 npm（原实现）会在把数据统一成 pnpm 后直接把 check 打红（实测）。
+const stripRunner = (value) => String(value || "").trim().replace(/^(?:npm|pnpm)\s+run\s+/, "")
+const skillsCheck = stripRunner(surface.skills?.check)
 if (skillsCheck && !pkg.scripts?.[skillsCheck]) {
   fail(`consumptionSurface.skills.check must name an existing npm script, got "${surface.skills?.check}"`)
 }
-const skillsSync = String(surface.skills?.sync || "").replace(/^npm run\s+/, "")
+const skillsSync = stripRunner(surface.skills?.sync)
 if (!skillsSync || !pkg.scripts?.[skillsSync]) {
   fail(`consumptionSurface.skills.sync must name an existing npm script, got "${surface.skills?.sync}"`)
 }

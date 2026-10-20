@@ -190,7 +190,6 @@
         "docs/specs/system/cmmi-governance/tasks.md": 1,
         "package.json": 3,
         "packages/shared/backend/lib/outbox-kysely-store.ts": 1,
-        "packages/shared/contract/agent-profile.json": 8,
         "packages/shared/contract/compat-manifest.json": 7,
         "packages/shared/contract/delivery-phases.json": 2,
         "packages/tools/create-cooliebase-app/bin/index.js": 2,

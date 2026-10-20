@@ -65,14 +65,14 @@
     "compatManifest": "packages/shared/contract/compat-manifest.json",
     "declaredIn": "packages/shared/contract/compat-manifest.json",
     "mcp": {
-      "start": "npm run mcp:serve",
+      "start": "pnpm run mcp:serve",
       "transport": "stdio",
       "declaredIn": "packages/shared/contract/compat-manifest.json"
     },
     "skills": {
       "source": ".agents/skills",
-      "check": "npm run skills:check",
-      "sync": "npm run skills:sync"
+      "check": "pnpm run skills:check",
+      "sync": "pnpm run skills:sync"
     }
   },
   "seams": [
@@ -109,17 +109,17 @@
     "sprintProd": "docs/features/sprint-prod/",
     "gateArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
     "writer": "scripts/write-harness-trace.cjs",
-    "note": "Human log is append-only sprint-prod. Gate stamp is written by npm run check. Session events stay in DigitalStaff."
+    "note": "Human log is append-only sprint-prod. Gate stamp is written by pnpm run check. Session events stay in DigitalStaff."
   },
   "npc": {
-    "hatchCommand": "npm run project:create -- <target-path> [--profile minimal|standard|vertical|creator] [--bundle mall,crm]",
+    "hatchCommand": "pnpm run project:create -- <target-path> [--profile minimal|standard|vertical|creator] [--bundle mall,crm]",
     "identityFile": "packages/shared/contract/project-profile.json",
     "brandingDir": "public/branding/",
     "businessZone": ["packages/domains/<domain>/", "src/app/api/v1/admin/<domain>/", "src/app/(admin-pages)/admin/<domain>/", "clients/<channel>/modules/<domain>/"],
     "coreZone": ["packages/shared/", "packages/domains/system/", "packages/domains/infra/", "scripts/", "deploy/", "prisma/data/"],
-    "gates": ["npm run check", "npm run harness:check"],
-    "strictGates": ["npm run cooliebase:matrix:check:strict", "npm run cooliebase:governance:check:strict"],
-    "seamCommand": "npm run domain:seams",
+    "gates": ["pnpm run check", "pnpm run harness:check"],
+    "strictGates": ["pnpm run cooliebase:matrix:check:strict", "pnpm run cooliebase:governance:check:strict"],
+    "seamCommand": "pnpm run domain:seams",
     "skillsDir": ".agents/skills",
     "forbiddenSkillSources": ["crush", "pod"],
     "layers": {
