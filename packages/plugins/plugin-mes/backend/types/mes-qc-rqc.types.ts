@@ -3,13 +3,13 @@ export interface MesQcRqcDO {
   id: number
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
   type?: number
-  item_id?: number
+  item_id?: string
   batch_code?: string
   check_quantity?: number
   qualified_quantity?: number
@@ -22,7 +22,7 @@ export interface MesQcRqcDO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -37,13 +37,13 @@ export interface MesQcRqcVO {
   id: number
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
   type?: number
-  item_id?: number
+  item_id?: string
   batch_code?: string
   check_quantity?: number
   qualified_quantity?: number
@@ -56,7 +56,7 @@ export interface MesQcRqcVO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -70,13 +70,13 @@ export interface MesQcRqcVO {
 export interface MesQcRqcCreateDTO {
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
   type?: number
-  item_id?: number
+  item_id?: string
   batch_code?: string
   check_quantity?: number
   qualified_quantity?: number
@@ -89,7 +89,7 @@ export interface MesQcRqcCreateDTO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
 }

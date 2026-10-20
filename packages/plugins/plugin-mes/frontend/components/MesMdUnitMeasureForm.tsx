@@ -129,14 +129,14 @@ export function MesMdUnitMeasureForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-unit-measure-primary_id" className="block text-xs text-slate-600 mb-1">主单位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-unit-measure-primary_id"
             data-testid="field-primary_id"
             data-agent-target="mes-md-unit-measure:field:primary_id"
             data-agent-state={formData.primary_id == null || formData.primary_id === "" ? "empty" : "filled"}
             aria-label="主单位编号"
-            value={formData.primary_id != null ? String(formData.primary_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, primary_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.primary_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, primary_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入主单位编号"
             

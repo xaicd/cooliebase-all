@@ -76,14 +76,14 @@ export function MesCalTeamMemberForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-cal-team-member-team_id" className="block text-xs text-slate-600 mb-1">班组编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-team-member-team_id"
             data-testid="field-team_id"
             data-agent-target="mes-cal-team-member:field:team_id"
             data-agent-state={formData.team_id == null || formData.team_id === "" ? "empty" : "filled"}
             aria-label="班组编号"
-            value={formData.team_id != null ? String(formData.team_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, team_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.team_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, team_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入班组编号"
             
@@ -93,14 +93,14 @@ export function MesCalTeamMemberForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-cal-team-member-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-team-member-user_id"
             data-testid="field-user_id"
             data-agent-target="mes-cal-team-member:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             

@@ -2,7 +2,7 @@
 export interface PayWalletTransactionDO {
   id: number
   no?: string
-  wallet_id?: number
+  wallet_id?: string
   biz_type?: number
   biz_id?: string
   title?: string
@@ -19,7 +19,7 @@ export interface PayWalletTransactionDO {
 export interface PayWalletTransactionVO {
   id: number
   no?: string
-  wallet_id?: number
+  wallet_id?: string
   biz_type?: number
   biz_id?: string
   title?: string
@@ -35,7 +35,7 @@ export interface PayWalletTransactionVO {
 
 export interface PayWalletTransactionCreateDTO {
   no?: string
-  wallet_id?: number
+  wallet_id?: string
   biz_type?: number
   biz_id?: string
   title?: string

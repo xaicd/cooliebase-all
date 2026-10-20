@@ -169,14 +169,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-user_id"
             data-testid="field-user_id"
             data-agent-target="after-sale:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -237,14 +237,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-order_id" className="block text-xs text-slate-600 mb-1">交易订单编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-order_id"
             data-testid="field-order_id"
             data-agent-target="after-sale:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="交易订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入交易订单编号"
             
@@ -271,14 +271,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-order_item_id" className="block text-xs text-slate-600 mb-1">交易订单项编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-order_item_id"
             data-testid="field-order_item_id"
             data-agent-target="after-sale:field:order_item_id"
             data-agent-state={formData.order_item_id == null || formData.order_item_id === "" ? "empty" : "filled"}
             aria-label="交易订单项编号"
-            value={formData.order_item_id != null ? String(formData.order_item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入交易订单项编号"
             
@@ -288,14 +288,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-spu_id" className="block text-xs text-slate-600 mb-1">商品 SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-spu_id"
             data-testid="field-spu_id"
             data-agent-target="after-sale:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="商品 SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SPU 编号"
             
@@ -322,14 +322,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-sku_id" className="block text-xs text-slate-600 mb-1">商品 SKU 编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-sku_id"
             data-testid="field-sku_id"
             data-agent-target="after-sale:field:sku_id"
             data-agent-state={formData.sku_id == null || formData.sku_id === "" ? "empty" : "filled"}
             aria-label="商品 SKU 编号"
-            value={formData.sku_id != null ? String(formData.sku_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sku_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SKU 编号"
             
@@ -407,14 +407,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-audit_user_id" className="block text-xs text-slate-600 mb-1">审批人</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-audit_user_id"
             data-testid="field-audit_user_id"
             data-agent-target="after-sale:field:audit_user_id"
             data-agent-state={formData.audit_user_id == null || formData.audit_user_id === "" ? "empty" : "filled"}
             aria-label="审批人"
-            value={formData.audit_user_id != null ? String(formData.audit_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, audit_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.audit_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, audit_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入审批人"
             
@@ -458,14 +458,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-pay_refund_id" className="block text-xs text-slate-600 mb-1">支付退款编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-pay_refund_id"
             data-testid="field-pay_refund_id"
             data-agent-target="after-sale:field:pay_refund_id"
             data-agent-state={formData.pay_refund_id == null || formData.pay_refund_id === "" ? "empty" : "filled"}
             aria-label="支付退款编号"
-            value={formData.pay_refund_id != null ? String(formData.pay_refund_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pay_refund_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pay_refund_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pay_refund_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付退款编号"
             
@@ -492,14 +492,14 @@ export function AfterSaleForm({ open, initialData, onClose, onSuccess }: AfterSa
         <div>
           <label htmlFor="after-sale-logistics_id" className="block text-xs text-slate-600 mb-1">退货物流公司编号</label>
           <input
-            type="number"
+            type="text"
             id="after-sale-logistics_id"
             data-testid="field-logistics_id"
             data-agent-target="after-sale:field:logistics_id"
             data-agent-state={formData.logistics_id == null || formData.logistics_id === "" ? "empty" : "filled"}
             aria-label="退货物流公司编号"
-            value={formData.logistics_id != null ? String(formData.logistics_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, logistics_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.logistics_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, logistics_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入退货物流公司编号"
             

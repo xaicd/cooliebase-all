@@ -3,8 +3,8 @@ export interface MesWmProductReceiptDO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -20,8 +20,8 @@ export interface MesWmProductReceiptVO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -36,8 +36,8 @@ export interface MesWmProductReceiptVO {
 export interface MesWmProductReceiptCreateDTO {
   code?: string
   name?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   receipt_date?: string
   status?: number
   remark?: string

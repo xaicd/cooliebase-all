@@ -80,14 +80,14 @@ export function TradeOrderLogForm({ open, initialData, onClose, onSuccess }: Tra
         <div>
           <label htmlFor="trade-order-log-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-log-user_id"
             data-testid="field-user_id"
             data-agent-target="trade-order-log:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -114,14 +114,14 @@ export function TradeOrderLogForm({ open, initialData, onClose, onSuccess }: Tra
         <div>
           <label htmlFor="trade-order-log-order_id" className="block text-xs text-slate-600 mb-1">订单号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-log-order_id"
             data-testid="field-order_id"
             data-agent-target="trade-order-log:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="订单号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入订单号"
             

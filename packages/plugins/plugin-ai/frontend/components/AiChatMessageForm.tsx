@@ -86,14 +86,14 @@ export function AiChatMessageForm({ open, initialData, onClose, onSuccess }: AiC
         <div>
           <label htmlFor="ai-chat-message-conversation_id" className="block text-xs text-slate-600 mb-1">对话编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-chat-message-conversation_id"
             data-testid="field-conversation_id"
             data-agent-target="ai-chat-message:field:conversation_id"
             data-agent-state={formData.conversation_id == null || formData.conversation_id === "" ? "empty" : "filled"}
             aria-label="对话编号"
-            value={formData.conversation_id != null ? String(formData.conversation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, conversation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.conversation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, conversation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入对话编号"
             
@@ -103,14 +103,14 @@ export function AiChatMessageForm({ open, initialData, onClose, onSuccess }: AiC
         <div>
           <label htmlFor="ai-chat-message-reply_id" className="block text-xs text-slate-600 mb-1">回复消息编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-chat-message-reply_id"
             data-testid="field-reply_id"
             data-agent-target="ai-chat-message:field:reply_id"
             data-agent-state={formData.reply_id == null || formData.reply_id === "" ? "empty" : "filled"}
             aria-label="回复消息编号"
-            value={formData.reply_id != null ? String(formData.reply_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, reply_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.reply_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, reply_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入回复消息编号"
             
@@ -137,14 +137,14 @@ export function AiChatMessageForm({ open, initialData, onClose, onSuccess }: AiC
         <div>
           <label htmlFor="ai-chat-message-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-chat-message-user_id"
             data-testid="field-user_id"
             data-agent-target="ai-chat-message:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -154,14 +154,14 @@ export function AiChatMessageForm({ open, initialData, onClose, onSuccess }: AiC
         <div>
           <label htmlFor="ai-chat-message-role_id" className="block text-xs text-slate-600 mb-1">角色编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-chat-message-role_id"
             data-testid="field-role_id"
             data-agent-target="ai-chat-message:field:role_id"
             data-agent-state={formData.role_id == null || formData.role_id === "" ? "empty" : "filled"}
             aria-label="角色编号"
-            value={formData.role_id != null ? String(formData.role_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, role_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.role_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, role_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入角色编号"
             
@@ -188,14 +188,14 @@ export function AiChatMessageForm({ open, initialData, onClose, onSuccess }: AiC
         <div>
           <label htmlFor="ai-chat-message-model_id" className="block text-xs text-slate-600 mb-1">模型编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-chat-message-model_id"
             data-testid="field-model_id"
             data-agent-target="ai-chat-message:field:model_id"
             data-agent-state={formData.model_id == null || formData.model_id === "" ? "empty" : "filled"}
             aria-label="模型编号"
-            value={formData.model_id != null ? String(formData.model_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, model_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.model_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, model_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入模型编号"
             

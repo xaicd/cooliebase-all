@@ -134,14 +134,14 @@ export function ErpFinanceReceiptForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-finance-receipt-finance_user_id" className="block text-xs text-slate-600 mb-1">财务人员编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-finance-receipt-finance_user_id"
             data-testid="field-finance_user_id"
             data-agent-target="erp-finance-receipt:field:finance_user_id"
             data-agent-state={formData.finance_user_id == null || formData.finance_user_id === "" ? "empty" : "filled"}
             aria-label="财务人员编号"
-            value={formData.finance_user_id != null ? String(formData.finance_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, finance_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.finance_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, finance_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入财务人员编号"
             
@@ -151,14 +151,14 @@ export function ErpFinanceReceiptForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-finance-receipt-customer_id" className="block text-xs text-slate-600 mb-1">客户编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-finance-receipt-customer_id"
             data-testid="field-customer_id"
             data-agent-target="erp-finance-receipt:field:customer_id"
             data-agent-state={formData.customer_id == null || formData.customer_id === "" ? "empty" : "filled"}
             aria-label="客户编号"
-            value={formData.customer_id != null ? String(formData.customer_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.customer_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户编号"
             
@@ -168,14 +168,14 @@ export function ErpFinanceReceiptForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-finance-receipt-account_id" className="block text-xs text-slate-600 mb-1">收款账户编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-finance-receipt-account_id"
             data-testid="field-account_id"
             data-agent-target="erp-finance-receipt:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="收款账户编号"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入收款账户编号"
             

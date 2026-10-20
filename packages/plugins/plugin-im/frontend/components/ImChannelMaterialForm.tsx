@@ -80,14 +80,14 @@ export function ImChannelMaterialForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="im-channel-material-channel_id" className="block text-xs text-slate-600 mb-1">频道编号</label>
           <input
-            type="number"
+            type="text"
             id="im-channel-material-channel_id"
             data-testid="field-channel_id"
             data-agent-target="im-channel-material:field:channel_id"
             data-agent-state={formData.channel_id == null || formData.channel_id === "" ? "empty" : "filled"}
             aria-label="频道编号"
-            value={formData.channel_id != null ? String(formData.channel_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.channel_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入频道编号"
             

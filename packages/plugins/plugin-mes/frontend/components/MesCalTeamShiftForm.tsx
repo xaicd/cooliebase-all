@@ -79,14 +79,14 @@ export function MesCalTeamShiftForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-cal-team-shift-plan_id" className="block text-xs text-slate-600 mb-1">排班计划编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-team-shift-plan_id"
             data-testid="field-plan_id"
             data-agent-target="mes-cal-team-shift:field:plan_id"
             data-agent-state={formData.plan_id == null || formData.plan_id === "" ? "empty" : "filled"}
             aria-label="排班计划编号"
-            value={formData.plan_id != null ? String(formData.plan_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.plan_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入排班计划编号"
             
@@ -96,14 +96,14 @@ export function MesCalTeamShiftForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-cal-team-shift-team_id" className="block text-xs text-slate-600 mb-1">班组编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-team-shift-team_id"
             data-testid="field-team_id"
             data-agent-target="mes-cal-team-shift:field:team_id"
             data-agent-state={formData.team_id == null || formData.team_id === "" ? "empty" : "filled"}
             aria-label="班组编号"
-            value={formData.team_id != null ? String(formData.team_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, team_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.team_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, team_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入班组编号"
             
@@ -113,14 +113,14 @@ export function MesCalTeamShiftForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-cal-team-shift-shift_id" className="block text-xs text-slate-600 mb-1">班次编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-team-shift-shift_id"
             data-testid="field-shift_id"
             data-agent-target="mes-cal-team-shift:field:shift_id"
             data-agent-state={formData.shift_id == null || formData.shift_id === "" ? "empty" : "filled"}
             aria-label="班次编号"
-            value={formData.shift_id != null ? String(formData.shift_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, shift_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.shift_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, shift_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入班次编号"
             

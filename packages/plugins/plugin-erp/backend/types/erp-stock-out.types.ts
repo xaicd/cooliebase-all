@@ -2,7 +2,7 @@
 export interface ErpStockOutDO {
   id: number
   no?: string
-  customer_id?: number
+  customer_id?: string
   out_time?: string
   total_count?: number
   total_price?: number
@@ -20,7 +20,7 @@ export interface ErpStockOutDO {
 export interface ErpStockOutVO {
   id: number
   no?: string
-  customer_id?: number
+  customer_id?: string
   out_time?: string
   total_count?: number
   total_price?: number
@@ -37,7 +37,7 @@ export interface ErpStockOutVO {
 
 export interface ErpStockOutCreateDTO {
   no?: string
-  customer_id?: number
+  customer_id?: string
   out_time?: string
   total_count?: number
   total_price?: number

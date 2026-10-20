@@ -5,7 +5,7 @@ export interface MesWmWarehouseDO {
   name?: string
   address?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   frozen?: boolean
   remark?: string
   tenant_id: string
@@ -22,7 +22,7 @@ export interface MesWmWarehouseVO {
   name?: string
   address?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   frozen?: boolean
   remark?: string
   tenant_id: string
@@ -38,7 +38,7 @@ export interface MesWmWarehouseCreateDTO {
   name?: string
   address?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   frozen?: boolean
   remark?: string
 }

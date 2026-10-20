@@ -79,14 +79,14 @@ export function CrmBusinessProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="crm-business-product-business_id" className="block text-xs text-slate-600 mb-1">商机编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-product-business_id"
             data-testid="field-business_id"
             data-agent-target="crm-business-product:field:business_id"
             data-agent-state={formData.business_id == null || formData.business_id === "" ? "empty" : "filled"}
             aria-label="商机编号"
-            value={formData.business_id != null ? String(formData.business_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, business_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.business_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, business_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商机编号"
             
@@ -96,14 +96,14 @@ export function CrmBusinessProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="crm-business-product-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-product-product_id"
             data-testid="field-product_id"
             data-agent-target="crm-business-product:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             

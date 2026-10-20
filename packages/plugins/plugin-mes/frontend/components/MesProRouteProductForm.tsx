@@ -79,14 +79,14 @@ export function MesProRouteProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-pro-route-product-route_id" className="block text-xs text-slate-600 mb-1">工艺路线编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-route_id"
             data-testid="field-route_id"
             data-agent-target="mes-pro-route-product:field:route_id"
             data-agent-state={formData.route_id == null || formData.route_id === "" ? "empty" : "filled"}
             aria-label="工艺路线编号"
-            value={formData.route_id != null ? String(formData.route_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.route_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工艺路线编号"
             
@@ -96,14 +96,14 @@ export function MesProRouteProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-pro-route-product-item_id" className="block text-xs text-slate-600 mb-1">产品物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-pro-route-product:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="产品物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料编号"
             

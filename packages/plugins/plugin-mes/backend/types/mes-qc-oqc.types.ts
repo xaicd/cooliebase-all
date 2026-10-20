@@ -3,14 +3,14 @@ export interface MesQcOqcDO {
   id: number
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  client_id?: number
+  client_id?: string
   batch_code?: string
-  item_id?: number
+  item_id?: string
   min_check_quantity?: number
   max_unqualified_quantity?: number
   out_quantity?: number
@@ -26,7 +26,7 @@ export interface MesQcOqcDO {
   check_result?: number
   out_date?: string
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -41,14 +41,14 @@ export interface MesQcOqcVO {
   id: number
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  client_id?: number
+  client_id?: string
   batch_code?: string
-  item_id?: number
+  item_id?: string
   min_check_quantity?: number
   max_unqualified_quantity?: number
   out_quantity?: number
@@ -64,7 +64,7 @@ export interface MesQcOqcVO {
   check_result?: number
   out_date?: string
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -78,14 +78,14 @@ export interface MesQcOqcVO {
 export interface MesQcOqcCreateDTO {
   code?: string
   name?: string
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  client_id?: number
+  client_id?: string
   batch_code?: string
-  item_id?: number
+  item_id?: string
   min_check_quantity?: number
   max_unqualified_quantity?: number
   out_quantity?: number
@@ -101,7 +101,7 @@ export interface MesQcOqcCreateDTO {
   check_result?: number
   out_date?: string
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
 }

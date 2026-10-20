@@ -84,14 +84,14 @@ export function PayDemoOrderForm({ open, initialData, onClose, onSuccess }: PayD
         <div>
           <label htmlFor="pay-demo-order-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-demo-order-user_id"
             data-testid="field-user_id"
             data-agent-target="pay-demo-order:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -101,14 +101,14 @@ export function PayDemoOrderForm({ open, initialData, onClose, onSuccess }: PayD
         <div>
           <label htmlFor="pay-demo-order-spu_id" className="block text-xs text-slate-600 mb-1">商品编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-demo-order-spu_id"
             data-testid="field-spu_id"
             data-agent-target="pay-demo-order:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="商品编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品编号"
             
@@ -167,14 +167,14 @@ export function PayDemoOrderForm({ open, initialData, onClose, onSuccess }: PayD
         <div>
           <label htmlFor="pay-demo-order-pay_order_id" className="block text-xs text-slate-600 mb-1">支付订单编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-demo-order-pay_order_id"
             data-testid="field-pay_order_id"
             data-agent-target="pay-demo-order:field:pay_order_id"
             data-agent-state={formData.pay_order_id == null || formData.pay_order_id === "" ? "empty" : "filled"}
             aria-label="支付订单编号"
-            value={formData.pay_order_id != null ? String(formData.pay_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pay_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pay_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pay_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付订单编号"
             
@@ -218,14 +218,14 @@ export function PayDemoOrderForm({ open, initialData, onClose, onSuccess }: PayD
         <div>
           <label htmlFor="pay-demo-order-pay_refund_id" className="block text-xs text-slate-600 mb-1">支付退款单号</label>
           <input
-            type="number"
+            type="text"
             id="pay-demo-order-pay_refund_id"
             data-testid="field-pay_refund_id"
             data-agent-target="pay-demo-order:field:pay_refund_id"
             data-agent-state={formData.pay_refund_id == null || formData.pay_refund_id === "" ? "empty" : "filled"}
             aria-label="支付退款单号"
-            value={formData.pay_refund_id != null ? String(formData.pay_refund_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pay_refund_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pay_refund_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pay_refund_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付退款单号"
             

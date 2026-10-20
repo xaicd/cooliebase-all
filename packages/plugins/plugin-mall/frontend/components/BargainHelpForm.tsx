@@ -77,14 +77,14 @@ export function BargainHelpForm({ open, initialData, onClose, onSuccess }: Barga
         <div>
           <label htmlFor="bargain-help-activity_id" className="block text-xs text-slate-600 mb-1">砍价活动编号</label>
           <input
-            type="number"
+            type="text"
             id="bargain-help-activity_id"
             data-testid="field-activity_id"
             data-agent-target="bargain-help:field:activity_id"
             data-agent-state={formData.activity_id == null || formData.activity_id === "" ? "empty" : "filled"}
             aria-label="砍价活动编号"
-            value={formData.activity_id != null ? String(formData.activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入砍价活动编号"
             
@@ -94,14 +94,14 @@ export function BargainHelpForm({ open, initialData, onClose, onSuccess }: Barga
         <div>
           <label htmlFor="bargain-help-record_id" className="block text-xs text-slate-600 mb-1">砍价记录编号</label>
           <input
-            type="number"
+            type="text"
             id="bargain-help-record_id"
             data-testid="field-record_id"
             data-agent-target="bargain-help:field:record_id"
             data-agent-state={formData.record_id == null || formData.record_id === "" ? "empty" : "filled"}
             aria-label="砍价记录编号"
-            value={formData.record_id != null ? String(formData.record_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, record_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.record_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, record_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入砍价记录编号"
             
@@ -111,14 +111,14 @@ export function BargainHelpForm({ open, initialData, onClose, onSuccess }: Barga
         <div>
           <label htmlFor="bargain-help-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="bargain-help-user_id"
             data-testid="field-user_id"
             data-agent-target="bargain-help:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             

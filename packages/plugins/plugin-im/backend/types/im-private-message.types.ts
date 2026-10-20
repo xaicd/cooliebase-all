@@ -2,8 +2,8 @@
 export interface ImPrivateMessageDO {
   id: number
   client_message_id?: string
-  sender_id?: number
-  receiver_id?: number
+  sender_id?: string
+  receiver_id?: string
   type?: number
   content?: string
   status?: number
@@ -20,8 +20,8 @@ export interface ImPrivateMessageDO {
 export interface ImPrivateMessageVO {
   id: number
   client_message_id?: string
-  sender_id?: number
-  receiver_id?: number
+  sender_id?: string
+  receiver_id?: string
   type?: number
   content?: string
   status?: number
@@ -37,8 +37,8 @@ export interface ImPrivateMessageVO {
 
 export interface ImPrivateMessageCreateDTO {
   client_message_id?: string
-  sender_id?: number
-  receiver_id?: number
+  sender_id?: string
+  receiver_id?: string
   type?: number
   content?: string
   status?: number

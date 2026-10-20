@@ -98,14 +98,14 @@ export function ErpStockInForm({ open, initialData, onClose, onSuccess }: ErpSto
         <div>
           <label htmlFor="erp-stock-in-supplier_id" className="block text-xs text-slate-600 mb-1">供应商编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-in-supplier_id"
             data-testid="field-supplier_id"
             data-agent-target="erp-stock-in:field:supplier_id"
             data-agent-state={formData.supplier_id == null || formData.supplier_id === "" ? "empty" : "filled"}
             aria-label="供应商编号"
-            value={formData.supplier_id != null ? String(formData.supplier_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, supplier_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.supplier_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, supplier_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商编号"
             

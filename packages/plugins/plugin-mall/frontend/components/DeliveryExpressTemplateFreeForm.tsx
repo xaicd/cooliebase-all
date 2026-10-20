@@ -77,14 +77,14 @@ export function DeliveryExpressTemplateFreeForm({ open, initialData, onClose, on
         <div>
           <label htmlFor="delivery-express-template-free-template_id" className="block text-xs text-slate-600 mb-1">配送模板编号</label>
           <input
-            type="number"
+            type="text"
             id="delivery-express-template-free-template_id"
             data-testid="field-template_id"
             data-agent-target="delivery-express-template-free:field:template_id"
             data-agent-state={formData.template_id == null || formData.template_id === "" ? "empty" : "filled"}
             aria-label="配送模板编号"
-            value={formData.template_id != null ? String(formData.template_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.template_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入配送模板编号"
             

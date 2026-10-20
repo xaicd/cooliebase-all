@@ -92,14 +92,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-activity_id" className="block text-xs text-slate-600 mb-1">拼团活动编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-activity_id"
             data-testid="field-activity_id"
             data-agent-target="combination-record:field:activity_id"
             data-agent-state={formData.activity_id == null || formData.activity_id === "" ? "empty" : "filled"}
             aria-label="拼团活动编号"
-            value={formData.activity_id != null ? String(formData.activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入拼团活动编号"
             
@@ -126,14 +126,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-spu_id" className="block text-xs text-slate-600 mb-1">SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-spu_id"
             data-testid="field-spu_id"
             data-agent-target="combination-record:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入SPU 编号"
             
@@ -177,14 +177,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-sku_id" className="block text-xs text-slate-600 mb-1">SKU 编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-sku_id"
             data-testid="field-sku_id"
             data-agent-target="combination-record:field:sku_id"
             data-agent-state={formData.sku_id == null || formData.sku_id === "" ? "empty" : "filled"}
             aria-label="SKU 编号"
-            value={formData.sku_id != null ? String(formData.sku_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sku_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入SKU 编号"
             
@@ -211,14 +211,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-user_id"
             data-testid="field-user_id"
             data-agent-target="combination-record:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -262,14 +262,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-head_id" className="block text-xs text-slate-600 mb-1">团长编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-head_id"
             data-testid="field-head_id"
             data-agent-target="combination-record:field:head_id"
             data-agent-state={formData.head_id == null || formData.head_id === "" ? "empty" : "filled"}
             aria-label="团长编号"
-            value={formData.head_id != null ? String(formData.head_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, head_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.head_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, head_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入团长编号"
             
@@ -296,14 +296,14 @@ export function CombinationRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="combination-record-order_id" className="block text-xs text-slate-600 mb-1">订单编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-record-order_id"
             data-testid="field-order_id"
             data-agent-target="combination-record:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入订单编号"
             

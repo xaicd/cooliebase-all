@@ -6,15 +6,15 @@ export interface IotDeviceDO {
   serial_number?: string
   pic_url?: string
   group_ids?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   device_type?: number
-  gateway_id?: number
+  gateway_id?: string
   state?: number
   online_time?: string
   offline_time?: string
   active_time?: string
-  firmware_id?: number
+  firmware_id?: string
   device_secret?: string
   latitude?: number
   longitude?: number
@@ -34,15 +34,15 @@ export interface IotDeviceVO {
   serial_number?: string
   pic_url?: string
   group_ids?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   device_type?: number
-  gateway_id?: number
+  gateway_id?: string
   state?: number
   online_time?: string
   offline_time?: string
   active_time?: string
-  firmware_id?: number
+  firmware_id?: string
   device_secret?: string
   latitude?: number
   longitude?: number
@@ -61,15 +61,15 @@ export interface IotDeviceCreateDTO {
   serial_number?: string
   pic_url?: string
   group_ids?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   device_type?: number
-  gateway_id?: number
+  gateway_id?: string
   state?: number
   online_time?: string
   offline_time?: string
   active_time?: string
-  firmware_id?: number
+  firmware_id?: string
   device_secret?: string
   latitude?: number
   longitude?: number

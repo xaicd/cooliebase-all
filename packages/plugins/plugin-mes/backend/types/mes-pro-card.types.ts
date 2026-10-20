@@ -2,8 +2,8 @@
 export interface MesProCardDO {
   id: number
   code?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   batch_code?: string
   transfered_quantity?: number
   status?: number
@@ -19,8 +19,8 @@ export interface MesProCardDO {
 export interface MesProCardVO {
   id: number
   code?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   batch_code?: string
   transfered_quantity?: number
   status?: number
@@ -35,8 +35,8 @@ export interface MesProCardVO {
 
 export interface MesProCardCreateDTO {
   code?: string
-  work_order_id?: number
-  item_id?: number
+  work_order_id?: string
+  item_id?: string
   batch_code?: string
   transfered_quantity?: number
   status?: number

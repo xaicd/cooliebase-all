@@ -2,7 +2,7 @@
 export interface CrmProductCategoryDO {
   id: number
   name?: string
-  parent_id?: number
+  parent_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -14,7 +14,7 @@ export interface CrmProductCategoryDO {
 export interface CrmProductCategoryVO {
   id: number
   name?: string
-  parent_id?: number
+  parent_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -25,7 +25,7 @@ export interface CrmProductCategoryVO {
 
 export interface CrmProductCategoryCreateDTO {
   name?: string
-  parent_id?: number
+  parent_id?: string
 }
 
 export interface CrmProductCategoryUpdateDTO extends Partial<CrmProductCategoryCreateDTO> {

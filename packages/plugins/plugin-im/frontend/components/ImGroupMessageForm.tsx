@@ -101,14 +101,14 @@ export function ImGroupMessageForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-message-sender_id" className="block text-xs text-slate-600 mb-1">发送人编号</label>
           <input
-            type="number"
+            type="text"
             id="im-group-message-sender_id"
             data-testid="field-sender_id"
             data-agent-target="im-group-message:field:sender_id"
             data-agent-state={formData.sender_id == null || formData.sender_id === "" ? "empty" : "filled"}
             aria-label="发送人编号"
-            value={formData.sender_id != null ? String(formData.sender_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sender_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sender_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sender_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发送人编号"
             
@@ -118,14 +118,14 @@ export function ImGroupMessageForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-message-group_id" className="block text-xs text-slate-600 mb-1">群编号</label>
           <input
-            type="number"
+            type="text"
             id="im-group-message-group_id"
             data-testid="field-group_id"
             data-agent-target="im-group-message:field:group_id"
             data-agent-state={formData.group_id == null || formData.group_id === "" ? "empty" : "filled"}
             aria-label="群编号"
-            value={formData.group_id != null ? String(formData.group_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.group_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入群编号"
             

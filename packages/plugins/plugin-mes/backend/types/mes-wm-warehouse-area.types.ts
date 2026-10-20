@@ -3,7 +3,7 @@ export interface MesWmWarehouseAreaDO {
   id: number
   code?: string
   name?: string
-  location_id?: number
+  location_id?: string
   area?: number
   max_load?: number
   position_x?: number
@@ -26,7 +26,7 @@ export interface MesWmWarehouseAreaVO {
   id: number
   code?: string
   name?: string
-  location_id?: number
+  location_id?: string
   area?: number
   max_load?: number
   position_x?: number
@@ -48,7 +48,7 @@ export interface MesWmWarehouseAreaVO {
 export interface MesWmWarehouseAreaCreateDTO {
   code?: string
   name?: string
-  location_id?: number
+  location_id?: string
   area?: number
   max_load?: number
   position_x?: number

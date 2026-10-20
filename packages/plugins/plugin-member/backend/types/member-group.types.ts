@@ -3,7 +3,7 @@ export interface MemberGroupDO {
   id: number
   name?: string
   remark?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -16,7 +16,7 @@ export interface MemberGroupVO {
   id: number
   name?: string
   remark?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -28,7 +28,7 @@ export interface MemberGroupVO {
 export interface MemberGroupCreateDTO {
   name?: string
   remark?: string
-  status?: number
+  status?: string
 }
 
 export interface MemberGroupUpdateDTO extends Partial<MemberGroupCreateDTO> {

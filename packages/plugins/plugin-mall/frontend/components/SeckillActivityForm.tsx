@@ -85,14 +85,14 @@ export function SeckillActivityForm({ open, initialData, onClose, onSuccess }: S
         <div>
           <label htmlFor="seckill-activity-spu_id" className="block text-xs text-slate-600 mb-1">秒杀活动商品</label>
           <input
-            type="number"
+            type="text"
             id="seckill-activity-spu_id"
             data-testid="field-spu_id"
             data-agent-target="seckill-activity:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="秒杀活动商品"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入秒杀活动商品"
             

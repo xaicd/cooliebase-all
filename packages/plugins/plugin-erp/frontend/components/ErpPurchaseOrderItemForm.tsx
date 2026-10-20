@@ -84,14 +84,14 @@ export function ErpPurchaseOrderItemForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="erp-purchase-order-item-order_id" className="block text-xs text-slate-600 mb-1">采购订单编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-order-item-order_id"
             data-testid="field-order_id"
             data-agent-target="erp-purchase-order-item:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="采购订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入采购订单编号"
             
@@ -101,14 +101,14 @@ export function ErpPurchaseOrderItemForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="erp-purchase-order-item-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-order-item-product_id"
             data-testid="field-product_id"
             data-agent-target="erp-purchase-order-item:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -118,14 +118,14 @@ export function ErpPurchaseOrderItemForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="erp-purchase-order-item-product_unit_id" className="block text-xs text-slate-600 mb-1">产品单位单位</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-order-item-product_unit_id"
             data-testid="field-product_unit_id"
             data-agent-target="erp-purchase-order-item:field:product_unit_id"
             data-agent-state={formData.product_unit_id == null || formData.product_unit_id === "" ? "empty" : "filled"}
             aria-label="产品单位单位"
-            value={formData.product_unit_id != null ? String(formData.product_unit_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_unit_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品单位单位"
             

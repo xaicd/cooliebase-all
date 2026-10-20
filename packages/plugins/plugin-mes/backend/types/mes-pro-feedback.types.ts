@@ -5,12 +5,12 @@ export interface MesProFeedbackDO {
   type?: number
   channel?: string
   feedback_time?: string
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  work_order_id?: number
-  task_id?: number
-  item_id?: number
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  work_order_id?: string
+  task_id?: string
+  item_id?: string
   expire_date?: string
   lot_number?: string
   scheduled_quantity?: number
@@ -21,8 +21,8 @@ export interface MesProFeedbackDO {
   labor_scrap_quantity?: number
   material_scrap_quantity?: number
   other_scrap_quantity?: number
-  feedback_user_id?: number
-  approve_user_id?: number
+  feedback_user_id?: string
+  approve_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -39,12 +39,12 @@ export interface MesProFeedbackVO {
   type?: number
   channel?: string
   feedback_time?: string
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  work_order_id?: number
-  task_id?: number
-  item_id?: number
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  work_order_id?: string
+  task_id?: string
+  item_id?: string
   expire_date?: string
   lot_number?: string
   scheduled_quantity?: number
@@ -55,8 +55,8 @@ export interface MesProFeedbackVO {
   labor_scrap_quantity?: number
   material_scrap_quantity?: number
   other_scrap_quantity?: number
-  feedback_user_id?: number
-  approve_user_id?: number
+  feedback_user_id?: string
+  approve_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -72,12 +72,12 @@ export interface MesProFeedbackCreateDTO {
   type?: number
   channel?: string
   feedback_time?: string
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  work_order_id?: number
-  task_id?: number
-  item_id?: number
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  work_order_id?: string
+  task_id?: string
+  item_id?: string
   expire_date?: string
   lot_number?: string
   scheduled_quantity?: number
@@ -88,8 +88,8 @@ export interface MesProFeedbackCreateDTO {
   labor_scrap_quantity?: number
   material_scrap_quantity?: number
   other_scrap_quantity?: number
-  feedback_user_id?: number
-  approve_user_id?: number
+  feedback_user_id?: string
+  approve_user_id?: string
   status?: number
   remark?: string
 }

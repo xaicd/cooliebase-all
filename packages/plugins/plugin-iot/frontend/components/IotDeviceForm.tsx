@@ -176,14 +176,14 @@ export function IotDeviceForm({ open, initialData, onClose, onSuccess }: IotDevi
         <div>
           <label htmlFor="iot-device-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-device-product_id"
             data-testid="field-product_id"
             data-agent-target="iot-device:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -227,14 +227,14 @@ export function IotDeviceForm({ open, initialData, onClose, onSuccess }: IotDevi
         <div>
           <label htmlFor="iot-device-gateway_id" className="block text-xs text-slate-600 mb-1">网关设备编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-device-gateway_id"
             data-testid="field-gateway_id"
             data-agent-target="iot-device:field:gateway_id"
             data-agent-state={formData.gateway_id == null || formData.gateway_id === "" ? "empty" : "filled"}
             aria-label="网关设备编号"
-            value={formData.gateway_id != null ? String(formData.gateway_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, gateway_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.gateway_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, gateway_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入网关设备编号"
             
@@ -312,14 +312,14 @@ export function IotDeviceForm({ open, initialData, onClose, onSuccess }: IotDevi
         <div>
           <label htmlFor="iot-device-firmware_id" className="block text-xs text-slate-600 mb-1">固件编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-device-firmware_id"
             data-testid="field-firmware_id"
             data-agent-target="iot-device:field:firmware_id"
             data-agent-state={formData.firmware_id == null || formData.firmware_id === "" ? "empty" : "filled"}
             aria-label="固件编号"
-            value={formData.firmware_id != null ? String(formData.firmware_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, firmware_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.firmware_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, firmware_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入固件编号"
             

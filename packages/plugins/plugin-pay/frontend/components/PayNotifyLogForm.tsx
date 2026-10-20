@@ -77,14 +77,14 @@ export function PayNotifyLogForm({ open, initialData, onClose, onSuccess }: PayN
         <div>
           <label htmlFor="pay-notify-log-task_id" className="block text-xs text-slate-600 mb-1">通知任务编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-notify-log-task_id"
             data-testid="field-task_id"
             data-agent-target="pay-notify-log:field:task_id"
             data-agent-state={formData.task_id == null || formData.task_id === "" ? "empty" : "filled"}
             aria-label="通知任务编号"
-            value={formData.task_id != null ? String(formData.task_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.task_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入通知任务编号"
             

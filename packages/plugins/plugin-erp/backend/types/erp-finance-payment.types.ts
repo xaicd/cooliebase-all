@@ -4,9 +4,9 @@ export interface ErpFinancePaymentDO {
   no?: string
   status?: number
   payment_time?: string
-  finance_user_id?: number
-  supplier_id?: number
-  account_id?: number
+  finance_user_id?: string
+  supplier_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   payment_price?: number
@@ -24,9 +24,9 @@ export interface ErpFinancePaymentVO {
   no?: string
   status?: number
   payment_time?: string
-  finance_user_id?: number
-  supplier_id?: number
-  account_id?: number
+  finance_user_id?: string
+  supplier_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   payment_price?: number
@@ -43,9 +43,9 @@ export interface ErpFinancePaymentCreateDTO {
   no?: string
   status?: number
   payment_time?: string
-  finance_user_id?: number
-  supplier_id?: number
-  account_id?: number
+  finance_user_id?: string
+  supplier_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   payment_price?: number

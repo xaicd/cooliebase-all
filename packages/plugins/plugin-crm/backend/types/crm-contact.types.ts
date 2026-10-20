@@ -2,11 +2,11 @@
 export interface CrmContactDO {
   id: number
   name?: string
-  customer_id?: number
+  customer_id?: string
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   mobile?: string
   telephone?: string
   email?: string
@@ -17,7 +17,7 @@ export interface CrmContactDO {
   sex?: number
   master?: boolean
   post?: string
-  parent_id?: number
+  parent_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -30,11 +30,11 @@ export interface CrmContactDO {
 export interface CrmContactVO {
   id: number
   name?: string
-  customer_id?: number
+  customer_id?: string
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   mobile?: string
   telephone?: string
   email?: string
@@ -45,7 +45,7 @@ export interface CrmContactVO {
   sex?: number
   master?: boolean
   post?: string
-  parent_id?: number
+  parent_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -57,11 +57,11 @@ export interface CrmContactVO {
 
 export interface CrmContactCreateDTO {
   name?: string
-  customer_id?: number
+  customer_id?: string
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   mobile?: string
   telephone?: string
   email?: string
@@ -72,7 +72,7 @@ export interface CrmContactCreateDTO {
   sex?: number
   master?: boolean
   post?: string
-  parent_id?: number
+  parent_id?: string
   remark?: string
 }
 

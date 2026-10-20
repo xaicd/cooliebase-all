@@ -2,8 +2,8 @@
 export interface ImGroupMessageDO {
   id: number
   client_message_id?: string
-  sender_id?: number
-  group_id?: number
+  sender_id?: string
+  group_id?: string
   type?: number
   content?: string
   status?: number
@@ -23,8 +23,8 @@ export interface ImGroupMessageDO {
 export interface ImGroupMessageVO {
   id: number
   client_message_id?: string
-  sender_id?: number
-  group_id?: number
+  sender_id?: string
+  group_id?: string
   type?: number
   content?: string
   status?: number
@@ -43,8 +43,8 @@ export interface ImGroupMessageVO {
 
 export interface ImGroupMessageCreateDTO {
   client_message_id?: string
-  sender_id?: number
-  group_id?: number
+  sender_id?: string
+  group_id?: string
   type?: number
   content?: string
   status?: number

@@ -152,14 +152,14 @@ export function IotProductForm({ open, initialData, onClose, onSuccess }: IotPro
         <div>
           <label htmlFor="iot-product-category_id" className="block text-xs text-slate-600 mb-1">产品分类编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-product-category_id"
             data-testid="field-category_id"
             data-agent-target="iot-product:field:category_id"
             data-agent-state={formData.category_id == null || formData.category_id === "" ? "empty" : "filled"}
             aria-label="产品分类编号"
-            value={formData.category_id != null ? String(formData.category_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.category_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品分类编号"
             

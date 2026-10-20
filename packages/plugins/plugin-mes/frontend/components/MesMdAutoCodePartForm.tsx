@@ -84,14 +84,14 @@ export function MesMdAutoCodePartForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-md-auto-code-part-rule_id" className="block text-xs text-slate-600 mb-1">规则 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-auto-code-part-rule_id"
             data-testid="field-rule_id"
             data-agent-target="mes-md-auto-code-part:field:rule_id"
             data-agent-state={formData.rule_id == null || formData.rule_id === "" ? "empty" : "filled"}
             aria-label="规则 ID"
-            value={formData.rule_id != null ? String(formData.rule_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, rule_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.rule_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, rule_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入规则 ID"
             

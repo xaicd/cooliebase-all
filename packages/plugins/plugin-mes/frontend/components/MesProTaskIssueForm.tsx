@@ -87,14 +87,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-task_id" className="block text-xs text-slate-600 mb-1">生产任务编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-task_id"
             data-testid="field-task_id"
             data-agent-target="mes-pro-task-issue:field:task_id"
             data-agent-state={formData.task_id == null || formData.task_id === "" ? "empty" : "filled"}
             aria-label="生产任务编号"
-            value={formData.task_id != null ? String(formData.task_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.task_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产任务编号"
             
@@ -104,14 +104,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-work_order_id" className="block text-xs text-slate-600 mb-1">生产工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-pro-task-issue:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="生产工单编号"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产工单编号"
             
@@ -121,14 +121,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-workstation_id" className="block text-xs text-slate-600 mb-1">工作站编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-pro-task-issue:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站编号"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站编号"
             
@@ -155,14 +155,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-source_doc_id" className="block text-xs text-slate-600 mb-1">来源单据编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-source_doc_id"
             data-testid="field-source_doc_id"
             data-agent-target="mes-pro-task-issue:field:source_doc_id"
             data-agent-state={formData.source_doc_id == null || formData.source_doc_id === "" ? "empty" : "filled"}
             aria-label="来源单据编号"
-            value={formData.source_doc_id != null ? String(formData.source_doc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.source_doc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源单据编号"
             
@@ -172,14 +172,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-source_line_id" className="block text-xs text-slate-600 mb-1">来源单据行编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-source_line_id"
             data-testid="field-source_line_id"
             data-agent-target="mes-pro-task-issue:field:source_line_id"
             data-agent-state={formData.source_line_id == null || formData.source_line_id === "" ? "empty" : "filled"}
             aria-label="来源单据行编号"
-            value={formData.source_line_id != null ? String(formData.source_line_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, source_line_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.source_line_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, source_line_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源单据行编号"
             
@@ -223,14 +223,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-item_id" className="block text-xs text-slate-600 mb-1">产品物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-pro-task-issue:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="产品物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料编号"
             
@@ -240,14 +240,14 @@ export function MesProTaskIssueForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-task-issue-unit_measure_id" className="block text-xs text-slate-600 mb-1">单位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-task-issue-unit_measure_id"
             data-testid="field-unit_measure_id"
             data-agent-target="mes-pro-task-issue:field:unit_measure_id"
             data-agent-state={formData.unit_measure_id == null || formData.unit_measure_id === "" ? "empty" : "filled"}
             aria-label="单位编号"
-            value={formData.unit_measure_id != null ? String(formData.unit_measure_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.unit_measure_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入单位编号"
             

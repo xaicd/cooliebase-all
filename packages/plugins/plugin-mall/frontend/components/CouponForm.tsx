@@ -89,14 +89,14 @@ export function CouponForm({ open, initialData, onClose, onSuccess }: CouponForm
         <div>
           <label htmlFor="coupon-template_id" className="block text-xs text-slate-600 mb-1">优惠劵模板编号</label>
           <input
-            type="number"
+            type="text"
             id="coupon-template_id"
             data-testid="field-template_id"
             data-agent-target="coupon:field:template_id"
             data-agent-state={formData.template_id == null || formData.template_id === "" ? "empty" : "filled"}
             aria-label="优惠劵模板编号"
-            value={formData.template_id != null ? String(formData.template_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.template_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入优惠劵模板编号"
             
@@ -140,14 +140,14 @@ export function CouponForm({ open, initialData, onClose, onSuccess }: CouponForm
         <div>
           <label htmlFor="coupon-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="coupon-user_id"
             data-testid="field-user_id"
             data-agent-target="coupon:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -327,14 +327,14 @@ export function CouponForm({ open, initialData, onClose, onSuccess }: CouponForm
         <div>
           <label htmlFor="coupon-use_order_id" className="block text-xs text-slate-600 mb-1">使用订单号</label>
           <input
-            type="number"
+            type="text"
             id="coupon-use_order_id"
             data-testid="field-use_order_id"
             data-agent-target="coupon:field:use_order_id"
             data-agent-state={formData.use_order_id == null || formData.use_order_id === "" ? "empty" : "filled"}
             aria-label="使用订单号"
-            value={formData.use_order_id != null ? String(formData.use_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, use_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.use_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, use_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入使用订单号"
             

@@ -2,19 +2,19 @@
 export interface MesWmPackageDO {
   id: number
   code?: string
-  parent_id?: number
+  parent_id?: string
   package_date?: string
   sales_order_code?: string
   invoice_code?: string
-  client_id?: number
+  client_id?: string
   length?: number
   width?: number
   height?: number
-  size_unit_id?: number
+  size_unit_id?: string
   net_weight?: number
   gross_weight?: number
-  weight_unit_id?: number
-  inspector_user_id?: number
+  weight_unit_id?: string
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -28,19 +28,19 @@ export interface MesWmPackageDO {
 export interface MesWmPackageVO {
   id: number
   code?: string
-  parent_id?: number
+  parent_id?: string
   package_date?: string
   sales_order_code?: string
   invoice_code?: string
-  client_id?: number
+  client_id?: string
   length?: number
   width?: number
   height?: number
-  size_unit_id?: number
+  size_unit_id?: string
   net_weight?: number
   gross_weight?: number
-  weight_unit_id?: number
-  inspector_user_id?: number
+  weight_unit_id?: string
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -53,19 +53,19 @@ export interface MesWmPackageVO {
 
 export interface MesWmPackageCreateDTO {
   code?: string
-  parent_id?: number
+  parent_id?: string
   package_date?: string
   sales_order_code?: string
   invoice_code?: string
-  client_id?: number
+  client_id?: string
   length?: number
   width?: number
   height?: number
-  size_unit_id?: number
+  size_unit_id?: string
   net_weight?: number
   gross_weight?: number
-  weight_unit_id?: number
-  inspector_user_id?: number
+  weight_unit_id?: string
+  inspector_user_id?: string
   status?: number
   remark?: string
 }

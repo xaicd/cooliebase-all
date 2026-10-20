@@ -94,14 +94,14 @@ export function CrmPermissionForm({ open, initialData, onClose, onSuccess }: Crm
         <div>
           <label htmlFor="crm-permission-biz_id" className="block text-xs text-slate-600 mb-1">数据编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-permission-biz_id"
             data-testid="field-biz_id"
             data-agent-target="crm-permission:field:biz_id"
             data-agent-state={formData.biz_id == null || formData.biz_id === "" ? "empty" : "filled"}
             aria-label="数据编号"
-            value={formData.biz_id != null ? String(formData.biz_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入数据编号"
             
@@ -111,14 +111,14 @@ export function CrmPermissionForm({ open, initialData, onClose, onSuccess }: Crm
         <div>
           <label htmlFor="crm-permission-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-permission-user_id"
             data-testid="field-user_id"
             data-agent-target="crm-permission:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             

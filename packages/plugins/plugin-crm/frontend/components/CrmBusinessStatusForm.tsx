@@ -77,14 +77,14 @@ export function CrmBusinessStatusForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="crm-business-status-type_id" className="block text-xs text-slate-600 mb-1">状态类型编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-status-type_id"
             data-testid="field-type_id"
             data-agent-target="crm-business-status:field:type_id"
             data-agent-state={formData.type_id == null || formData.type_id === "" ? "empty" : "filled"}
             aria-label="状态类型编号"
-            value={formData.type_id != null ? String(formData.type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入状态类型编号"
             

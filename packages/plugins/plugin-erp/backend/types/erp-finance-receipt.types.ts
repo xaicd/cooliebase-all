@@ -4,9 +4,9 @@ export interface ErpFinanceReceiptDO {
   no?: string
   status?: number
   receipt_time?: string
-  finance_user_id?: number
-  customer_id?: number
-  account_id?: number
+  finance_user_id?: string
+  customer_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   receipt_price?: number
@@ -24,9 +24,9 @@ export interface ErpFinanceReceiptVO {
   no?: string
   status?: number
   receipt_time?: string
-  finance_user_id?: number
-  customer_id?: number
-  account_id?: number
+  finance_user_id?: string
+  customer_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   receipt_price?: number
@@ -43,9 +43,9 @@ export interface ErpFinanceReceiptCreateDTO {
   no?: string
   status?: number
   receipt_time?: string
-  finance_user_id?: number
-  customer_id?: number
-  account_id?: number
+  finance_user_id?: string
+  customer_id?: string
+  account_id?: string
   total_price?: number
   discount_price?: number
   receipt_price?: number

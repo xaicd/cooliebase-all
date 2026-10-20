@@ -3,8 +3,8 @@ export interface MesWmOutsourceIssueDO {
   id: number
   code?: string
   name?: string
-  vendor_id?: number
-  work_order_id?: number
+  vendor_id?: string
+  work_order_id?: string
   issue_date?: string
   status?: number
   remark?: string
@@ -20,8 +20,8 @@ export interface MesWmOutsourceIssueVO {
   id: number
   code?: string
   name?: string
-  vendor_id?: number
-  work_order_id?: number
+  vendor_id?: string
+  work_order_id?: string
   issue_date?: string
   status?: number
   remark?: string
@@ -36,8 +36,8 @@ export interface MesWmOutsourceIssueVO {
 export interface MesWmOutsourceIssueCreateDTO {
   code?: string
   name?: string
-  vendor_id?: number
-  work_order_id?: number
+  vendor_id?: string
+  work_order_id?: string
   issue_date?: string
   status?: number
   remark?: string

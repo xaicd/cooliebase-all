@@ -2,10 +2,10 @@
 export interface PayTransferDO {
   id: number
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_transfer_id?: string
   subject?: string
@@ -33,10 +33,10 @@ export interface PayTransferDO {
 export interface PayTransferVO {
   id: number
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_transfer_id?: string
   subject?: string
@@ -63,10 +63,10 @@ export interface PayTransferVO {
 
 export interface PayTransferCreateDTO {
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_transfer_id?: string
   subject?: string

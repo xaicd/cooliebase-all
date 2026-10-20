@@ -79,14 +79,14 @@ export function ImChannelMessageForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="im-channel-message-channel_id" className="block text-xs text-slate-600 mb-1">频道编号</label>
           <input
-            type="number"
+            type="text"
             id="im-channel-message-channel_id"
             data-testid="field-channel_id"
             data-agent-target="im-channel-message:field:channel_id"
             data-agent-state={formData.channel_id == null || formData.channel_id === "" ? "empty" : "filled"}
             aria-label="频道编号"
-            value={formData.channel_id != null ? String(formData.channel_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.channel_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入频道编号"
             
@@ -96,14 +96,14 @@ export function ImChannelMessageForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="im-channel-message-material_id" className="block text-xs text-slate-600 mb-1">关联素材编号</label>
           <input
-            type="number"
+            type="text"
             id="im-channel-message-material_id"
             data-testid="field-material_id"
             data-agent-target="im-channel-message:field:material_id"
             data-agent-state={formData.material_id == null || formData.material_id === "" ? "empty" : "filled"}
             aria-label="关联素材编号"
-            value={formData.material_id != null ? String(formData.material_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入关联素材编号"
             

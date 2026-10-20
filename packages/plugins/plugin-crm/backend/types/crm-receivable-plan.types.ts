@@ -2,13 +2,13 @@
 export interface CrmReceivablePlanDO {
   id: number
   period?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number
-  receivable_id?: number
+  receivable_id?: string
   remind_days?: number
   remind_time?: string
   remark?: string
@@ -23,13 +23,13 @@ export interface CrmReceivablePlanDO {
 export interface CrmReceivablePlanVO {
   id: number
   period?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number
-  receivable_id?: number
+  receivable_id?: string
   remind_days?: number
   remind_time?: string
   remark?: string
@@ -43,13 +43,13 @@ export interface CrmReceivablePlanVO {
 
 export interface CrmReceivablePlanCreateDTO {
   period?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number
-  receivable_id?: number
+  receivable_id?: string
   remind_days?: number
   remind_time?: string
   remark?: string

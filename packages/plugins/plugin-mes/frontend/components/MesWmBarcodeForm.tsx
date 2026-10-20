@@ -82,14 +82,14 @@ export function MesWmBarcodeForm({ open, initialData, onClose, onSuccess }: MesW
         <div>
           <label htmlFor="mes-wm-barcode-config_id" className="block text-xs text-slate-600 mb-1">条码配置编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-barcode-config_id"
             data-testid="field-config_id"
             data-agent-target="mes-wm-barcode:field:config_id"
             data-agent-state={formData.config_id == null || formData.config_id === "" ? "empty" : "filled"}
             aria-label="条码配置编号"
-            value={formData.config_id != null ? String(formData.config_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, config_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.config_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, config_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入条码配置编号"
             
@@ -150,14 +150,14 @@ export function MesWmBarcodeForm({ open, initialData, onClose, onSuccess }: MesW
         <div>
           <label htmlFor="mes-wm-barcode-biz_id" className="block text-xs text-slate-600 mb-1">业务编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-barcode-biz_id"
             data-testid="field-biz_id"
             data-agent-target="mes-wm-barcode:field:biz_id"
             data-agent-state={formData.biz_id == null || formData.biz_id === "" ? "empty" : "filled"}
             aria-label="业务编号"
-            value={formData.biz_id != null ? String(formData.biz_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入业务编号"
             

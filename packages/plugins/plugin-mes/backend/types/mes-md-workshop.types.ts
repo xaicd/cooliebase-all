@@ -4,7 +4,7 @@ export interface MesMdWorkshopDO {
   code?: string
   name?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -20,7 +20,7 @@ export interface MesMdWorkshopVO {
   code?: string
   name?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -35,7 +35,7 @@ export interface MesMdWorkshopCreateDTO {
   code?: string
   name?: string
   area?: number
-  charge_user_id?: number
+  charge_user_id?: string
   status?: number
   remark?: string
 }

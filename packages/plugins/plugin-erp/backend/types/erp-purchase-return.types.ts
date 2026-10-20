@@ -3,10 +3,10 @@ export interface ErpPurchaseReturnDO {
   id: number
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number
@@ -30,10 +30,10 @@ export interface ErpPurchaseReturnVO {
   id: number
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number
@@ -56,10 +56,10 @@ export interface ErpPurchaseReturnVO {
 export interface ErpPurchaseReturnCreateDTO {
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number

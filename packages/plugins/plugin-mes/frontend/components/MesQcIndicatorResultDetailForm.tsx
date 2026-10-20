@@ -77,14 +77,14 @@ export function MesQcIndicatorResultDetailForm({ open, initialData, onClose, onS
         <div>
           <label htmlFor="mes-qc-indicator-result-detail-result_id" className="block text-xs text-slate-600 mb-1">关联检验结果 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-indicator-result-detail-result_id"
             data-testid="field-result_id"
             data-agent-target="mes-qc-indicator-result-detail:field:result_id"
             data-agent-state={formData.result_id == null || formData.result_id === "" ? "empty" : "filled"}
             aria-label="关联检验结果 ID"
-            value={formData.result_id != null ? String(formData.result_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, result_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.result_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, result_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入关联检验结果 ID"
             
@@ -94,14 +94,14 @@ export function MesQcIndicatorResultDetailForm({ open, initialData, onClose, onS
         <div>
           <label htmlFor="mes-qc-indicator-result-detail-indicator_id" className="block text-xs text-slate-600 mb-1">检测指标 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-indicator-result-detail-indicator_id"
             data-testid="field-indicator_id"
             data-agent-target="mes-qc-indicator-result-detail:field:indicator_id"
             data-agent-state={formData.indicator_id == null || formData.indicator_id === "" ? "empty" : "filled"}
             aria-label="检测指标 ID"
-            value={formData.indicator_id != null ? String(formData.indicator_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.indicator_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检测指标 ID"
             

@@ -2,7 +2,7 @@
 export interface CrmPerformanceConfigDO {
   id: number
   biz_type?: number
-  object_id?: number
+  object_id?: string
   object_type?: number
   year?: number
   year_target_price?: number
@@ -29,7 +29,7 @@ export interface CrmPerformanceConfigDO {
 export interface CrmPerformanceConfigVO {
   id: number
   biz_type?: number
-  object_id?: number
+  object_id?: string
   object_type?: number
   year?: number
   year_target_price?: number
@@ -55,7 +55,7 @@ export interface CrmPerformanceConfigVO {
 
 export interface CrmPerformanceConfigCreateDTO {
   biz_type?: number
-  object_id?: number
+  object_id?: string
   object_type?: number
   year?: number
   year_target_price?: number

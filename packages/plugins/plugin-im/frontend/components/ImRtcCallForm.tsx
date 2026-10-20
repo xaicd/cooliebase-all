@@ -134,14 +134,14 @@ export function ImRtcCallForm({ open, initialData, onClose, onSuccess }: ImRtcCa
         <div>
           <label htmlFor="im-rtc-call-inviter_user_id" className="block text-xs text-slate-600 mb-1">发起人用户编号</label>
           <input
-            type="number"
+            type="text"
             id="im-rtc-call-inviter_user_id"
             data-testid="field-inviter_user_id"
             data-agent-target="im-rtc-call:field:inviter_user_id"
             data-agent-state={formData.inviter_user_id == null || formData.inviter_user_id === "" ? "empty" : "filled"}
             aria-label="发起人用户编号"
-            value={formData.inviter_user_id != null ? String(formData.inviter_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, inviter_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.inviter_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, inviter_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发起人用户编号"
             
@@ -151,14 +151,14 @@ export function ImRtcCallForm({ open, initialData, onClose, onSuccess }: ImRtcCa
         <div>
           <label htmlFor="im-rtc-call-group_id" className="block text-xs text-slate-600 mb-1">群编号；私聊为 NULL</label>
           <input
-            type="number"
+            type="text"
             id="im-rtc-call-group_id"
             data-testid="field-group_id"
             data-agent-target="im-rtc-call:field:group_id"
             data-agent-state={formData.group_id == null || formData.group_id === "" ? "empty" : "filled"}
             aria-label="群编号；私聊为 NULL"
-            value={formData.group_id != null ? String(formData.group_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.group_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入群编号；私聊为 NULL"
             

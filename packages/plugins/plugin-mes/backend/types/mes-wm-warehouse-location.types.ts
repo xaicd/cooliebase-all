@@ -3,7 +3,7 @@ export interface MesWmWarehouseLocationDO {
   id: number
   code?: string
   name?: string
-  warehouse_id?: number
+  warehouse_id?: string
   area?: number
   frozen?: boolean
   remark?: string
@@ -19,7 +19,7 @@ export interface MesWmWarehouseLocationVO {
   id: number
   code?: string
   name?: string
-  warehouse_id?: number
+  warehouse_id?: string
   area?: number
   frozen?: boolean
   remark?: string
@@ -34,7 +34,7 @@ export interface MesWmWarehouseLocationVO {
 export interface MesWmWarehouseLocationCreateDTO {
   code?: string
   name?: string
-  warehouse_id?: number
+  warehouse_id?: string
   area?: number
   frozen?: boolean
   remark?: string

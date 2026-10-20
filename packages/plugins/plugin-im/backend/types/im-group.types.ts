@@ -2,7 +2,7 @@
 export interface ImGroupDO {
   id: number
   name?: string
-  owner_user_id?: number
+  owner_user_id?: string
   avatar?: string
   notice?: string
   join_approval?: boolean
@@ -24,7 +24,7 @@ export interface ImGroupDO {
 export interface ImGroupVO {
   id: number
   name?: string
-  owner_user_id?: number
+  owner_user_id?: string
   avatar?: string
   notice?: string
   join_approval?: boolean
@@ -45,7 +45,7 @@ export interface ImGroupVO {
 
 export interface ImGroupCreateDTO {
   name?: string
-  owner_user_id?: number
+  owner_user_id?: string
   avatar?: string
   notice?: string
   join_approval?: boolean

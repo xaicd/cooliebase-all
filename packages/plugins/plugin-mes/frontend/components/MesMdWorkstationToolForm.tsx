@@ -77,14 +77,14 @@ export function MesMdWorkstationToolForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-md-workstation-tool-workstation_id" className="block text-xs text-slate-600 mb-1">工作站编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-tool-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-md-workstation-tool:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站编号"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站编号"
             
@@ -94,14 +94,14 @@ export function MesMdWorkstationToolForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-md-workstation-tool-tool_type_id" className="block text-xs text-slate-600 mb-1">工具类型编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-tool-tool_type_id"
             data-testid="field-tool_type_id"
             data-agent-target="mes-md-workstation-tool:field:tool_type_id"
             data-agent-state={formData.tool_type_id == null || formData.tool_type_id === "" ? "empty" : "filled"}
             aria-label="工具类型编号"
-            value={formData.tool_type_id != null ? String(formData.tool_type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, tool_type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.tool_type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, tool_type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工具类型编号"
             

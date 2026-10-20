@@ -5,7 +5,7 @@ export interface AiApiKeyDO {
   api_key?: string
   platform?: string
   url?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -20,7 +20,7 @@ export interface AiApiKeyVO {
   api_key?: string
   platform?: string
   url?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -34,7 +34,7 @@ export interface AiApiKeyCreateDTO {
   api_key?: string
   platform?: string
   url?: string
-  status?: number
+  status?: string
 }
 
 export interface AiApiKeyUpdateDTO extends Partial<AiApiKeyCreateDTO> {

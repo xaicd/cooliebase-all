@@ -4,7 +4,7 @@ export interface IotOtaFirmwareDO {
   name?: string
   description?: string
   version?: string
-  product_id?: number
+  product_id?: string
   file_url?: string
   file_size?: number
   file_digest_algorithm?: string
@@ -22,7 +22,7 @@ export interface IotOtaFirmwareVO {
   name?: string
   description?: string
   version?: string
-  product_id?: number
+  product_id?: string
   file_url?: string
   file_size?: number
   file_digest_algorithm?: string
@@ -39,7 +39,7 @@ export interface IotOtaFirmwareCreateDTO {
   name?: string
   description?: string
   version?: string
-  product_id?: number
+  product_id?: string
   file_url?: string
   file_size?: number
   file_digest_algorithm?: string

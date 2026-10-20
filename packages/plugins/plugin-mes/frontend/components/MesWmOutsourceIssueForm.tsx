@@ -114,14 +114,14 @@ export function MesWmOutsourceIssueForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="mes-wm-outsource-issue-vendor_id" className="block text-xs text-slate-600 mb-1">供应商ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-outsource-issue-vendor_id"
             data-testid="field-vendor_id"
             data-agent-target="mes-wm-outsource-issue:field:vendor_id"
             data-agent-state={formData.vendor_id == null || formData.vendor_id === "" ? "empty" : "filled"}
             aria-label="供应商ID"
-            value={formData.vendor_id != null ? String(formData.vendor_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.vendor_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商ID"
             
@@ -131,14 +131,14 @@ export function MesWmOutsourceIssueForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="mes-wm-outsource-issue-work_order_id" className="block text-xs text-slate-600 mb-1">生产工单ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-outsource-issue-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-wm-outsource-issue:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="生产工单ID"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产工单ID"
             

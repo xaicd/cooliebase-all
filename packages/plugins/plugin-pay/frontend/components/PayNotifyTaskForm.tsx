@@ -85,14 +85,14 @@ export function PayNotifyTaskForm({ open, initialData, onClose, onSuccess }: Pay
         <div>
           <label htmlFor="pay-notify-task-app_id" className="block text-xs text-slate-600 mb-1">应用编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-notify-task-app_id"
             data-testid="field-app_id"
             data-agent-target="pay-notify-task:field:app_id"
             data-agent-state={formData.app_id == null || formData.app_id === "" ? "empty" : "filled"}
             aria-label="应用编号"
-            value={formData.app_id != null ? String(formData.app_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.app_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入应用编号"
             
@@ -119,14 +119,14 @@ export function PayNotifyTaskForm({ open, initialData, onClose, onSuccess }: Pay
         <div>
           <label htmlFor="pay-notify-task-data_id" className="block text-xs text-slate-600 mb-1">数据编号，根据不同 type 进行关联：</label>
           <input
-            type="number"
+            type="text"
             id="pay-notify-task-data_id"
             data-testid="field-data_id"
             data-agent-target="pay-notify-task:field:data_id"
             data-agent-state={formData.data_id == null || formData.data_id === "" ? "empty" : "filled"}
             aria-label="数据编号，根据不同 type 进行关联："
-            value={formData.data_id != null ? String(formData.data_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, data_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.data_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, data_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入数据编号，根据不同 type 进行关联："
             

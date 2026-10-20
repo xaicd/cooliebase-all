@@ -4,8 +4,8 @@ export interface MesMdItemDO {
   code?: string
   name?: string
   specification?: string
-  unit_measure_id?: number
-  item_type_id?: number
+  unit_measure_id?: string
+  item_type_id?: string
   status?: number
   safe_stock_flag?: boolean
   min_stock?: number
@@ -26,8 +26,8 @@ export interface MesMdItemVO {
   code?: string
   name?: string
   specification?: string
-  unit_measure_id?: number
-  item_type_id?: number
+  unit_measure_id?: string
+  item_type_id?: string
   status?: number
   safe_stock_flag?: boolean
   min_stock?: number
@@ -47,8 +47,8 @@ export interface MesMdItemCreateDTO {
   code?: string
   name?: string
   specification?: string
-  unit_measure_id?: number
-  item_type_id?: number
+  unit_measure_id?: string
+  item_type_id?: string
   status?: number
   safe_stock_flag?: boolean
   min_stock?: number

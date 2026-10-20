@@ -80,14 +80,14 @@ export function MesWmProductReceiptLineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-wm-product-receipt-line-receipt_id" className="block text-xs text-slate-600 mb-1">收货单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-line-receipt_id"
             data-testid="field-receipt_id"
             data-agent-target="mes-wm-product-receipt-line:field:receipt_id"
             data-agent-state={formData.receipt_id == null || formData.receipt_id === "" ? "empty" : "filled"}
             aria-label="收货单编号"
-            value={formData.receipt_id != null ? String(formData.receipt_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, receipt_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.receipt_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, receipt_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入收货单编号"
             
@@ -97,14 +97,14 @@ export function MesWmProductReceiptLineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-wm-product-receipt-line-item_id" className="block text-xs text-slate-600 mb-1">物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-line-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-product-receipt-line:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料编号"
             
@@ -114,14 +114,14 @@ export function MesWmProductReceiptLineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-wm-product-receipt-line-material_stock_id" className="block text-xs text-slate-600 mb-1">库存物资记录编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-line-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-product-receipt-line:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存物资记录编号"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存物资记录编号"
             
@@ -148,14 +148,14 @@ export function MesWmProductReceiptLineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-wm-product-receipt-line-batch_id" className="block text-xs text-slate-600 mb-1">批次编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-line-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-product-receipt-line:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次编号"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次编号"
             

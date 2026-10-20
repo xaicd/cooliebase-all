@@ -3,11 +3,11 @@ export interface ErpSaleReturnDO {
   id: number
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number
@@ -31,11 +31,11 @@ export interface ErpSaleReturnVO {
   id: number
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number
@@ -58,11 +58,11 @@ export interface ErpSaleReturnVO {
 export interface ErpSaleReturnCreateDTO {
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   return_time?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
   total_count?: number
   total_price?: number

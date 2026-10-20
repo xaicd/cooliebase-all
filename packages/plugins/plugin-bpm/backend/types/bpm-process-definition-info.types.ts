@@ -8,7 +8,7 @@ export interface BpmProcessDefinitionInfoDO {
   icon?: string
   description?: string
   form_type?: number
-  form_id?: number
+  form_id?: string
   form_conf?: string
   form_fields?: string
   form_custom_create_path?: string
@@ -47,7 +47,7 @@ export interface BpmProcessDefinitionInfoVO {
   icon?: string
   description?: string
   form_type?: number
-  form_id?: number
+  form_id?: string
   form_conf?: string
   form_fields?: string
   form_custom_create_path?: string
@@ -85,7 +85,7 @@ export interface BpmProcessDefinitionInfoCreateDTO {
   icon?: string
   description?: string
   form_type?: number
-  form_id?: number
+  form_id?: string
   form_conf?: string
   form_fields?: string
   form_custom_create_path?: string

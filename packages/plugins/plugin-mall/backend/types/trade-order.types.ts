@@ -4,7 +4,7 @@ export interface TradeOrderDO {
   no?: string
   type?: number
   terminal?: number
-  user_id?: number
+  user_id?: string
   user_ip?: string
   user_remark?: string
   status?: number
@@ -14,8 +14,8 @@ export interface TradeOrderDO {
   cancel_type?: number
   remark?: string
   comment_status?: boolean
-  brokerage_user_id?: number
-  pay_order_id?: number
+  brokerage_user_id?: string
+  pay_order_id?: string
   pay_status?: boolean
   pay_time?: string
   pay_channel_code?: string
@@ -25,7 +25,7 @@ export interface TradeOrderDO {
   adjust_price?: number
   pay_price?: number
   delivery_type?: number
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string
@@ -33,11 +33,11 @@ export interface TradeOrderDO {
   receiver_mobile?: string
   receiver_area_id?: number
   receiver_detail_address?: string
-  pick_up_store_id?: number
+  pick_up_store_id?: string
   pick_up_verify_code?: string
   refund_status?: number
   refund_price?: number
-  coupon_id?: number
+  coupon_id?: string
   coupon_price?: number
   use_point?: number
   point_price?: number
@@ -46,13 +46,13 @@ export interface TradeOrderDO {
   vip_price?: number
   give_coupon_template_counts?: string
   give_coupon_ids?: string
-  seckill_activity_id?: number
-  bargain_activity_id?: number
-  bargain_record_id?: number
-  combination_activity_id?: number
-  combination_head_id?: number
-  combination_record_id?: number
-  point_activity_id?: number
+  seckill_activity_id?: string
+  bargain_activity_id?: string
+  bargain_record_id?: string
+  combination_activity_id?: string
+  combination_head_id?: string
+  combination_record_id?: string
+  point_activity_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -66,7 +66,7 @@ export interface TradeOrderVO {
   no?: string
   type?: number
   terminal?: number
-  user_id?: number
+  user_id?: string
   user_ip?: string
   user_remark?: string
   status?: number
@@ -76,8 +76,8 @@ export interface TradeOrderVO {
   cancel_type?: number
   remark?: string
   comment_status?: boolean
-  brokerage_user_id?: number
-  pay_order_id?: number
+  brokerage_user_id?: string
+  pay_order_id?: string
   pay_status?: boolean
   pay_time?: string
   pay_channel_code?: string
@@ -87,7 +87,7 @@ export interface TradeOrderVO {
   adjust_price?: number
   pay_price?: number
   delivery_type?: number
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string
@@ -95,11 +95,11 @@ export interface TradeOrderVO {
   receiver_mobile?: string
   receiver_area_id?: number
   receiver_detail_address?: string
-  pick_up_store_id?: number
+  pick_up_store_id?: string
   pick_up_verify_code?: string
   refund_status?: number
   refund_price?: number
-  coupon_id?: number
+  coupon_id?: string
   coupon_price?: number
   use_point?: number
   point_price?: number
@@ -108,13 +108,13 @@ export interface TradeOrderVO {
   vip_price?: number
   give_coupon_template_counts?: string
   give_coupon_ids?: string
-  seckill_activity_id?: number
-  bargain_activity_id?: number
-  bargain_record_id?: number
-  combination_activity_id?: number
-  combination_head_id?: number
-  combination_record_id?: number
-  point_activity_id?: number
+  seckill_activity_id?: string
+  bargain_activity_id?: string
+  bargain_record_id?: string
+  combination_activity_id?: string
+  combination_head_id?: string
+  combination_record_id?: string
+  point_activity_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -127,7 +127,7 @@ export interface TradeOrderCreateDTO {
   no?: string
   type?: number
   terminal?: number
-  user_id?: number
+  user_id?: string
   user_ip?: string
   user_remark?: string
   status?: number
@@ -137,8 +137,8 @@ export interface TradeOrderCreateDTO {
   cancel_type?: number
   remark?: string
   comment_status?: boolean
-  brokerage_user_id?: number
-  pay_order_id?: number
+  brokerage_user_id?: string
+  pay_order_id?: string
   pay_status?: boolean
   pay_time?: string
   pay_channel_code?: string
@@ -148,7 +148,7 @@ export interface TradeOrderCreateDTO {
   adjust_price?: number
   pay_price?: number
   delivery_type?: number
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string
@@ -156,11 +156,11 @@ export interface TradeOrderCreateDTO {
   receiver_mobile?: string
   receiver_area_id?: number
   receiver_detail_address?: string
-  pick_up_store_id?: number
+  pick_up_store_id?: string
   pick_up_verify_code?: string
   refund_status?: number
   refund_price?: number
-  coupon_id?: number
+  coupon_id?: string
   coupon_price?: number
   use_point?: number
   point_price?: number
@@ -169,13 +169,13 @@ export interface TradeOrderCreateDTO {
   vip_price?: number
   give_coupon_template_counts?: string
   give_coupon_ids?: string
-  seckill_activity_id?: number
-  bargain_activity_id?: number
-  bargain_record_id?: number
-  combination_activity_id?: number
-  combination_head_id?: number
-  combination_record_id?: number
-  point_activity_id?: number
+  seckill_activity_id?: string
+  bargain_activity_id?: string
+  bargain_record_id?: string
+  combination_activity_id?: string
+  combination_head_id?: string
+  combination_record_id?: string
+  point_activity_id?: string
 }
 
 export interface TradeOrderUpdateDTO extends Partial<TradeOrderCreateDTO> {

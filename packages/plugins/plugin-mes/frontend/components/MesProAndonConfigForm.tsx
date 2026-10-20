@@ -112,14 +112,14 @@ export function MesProAndonConfigForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-config-handler_role_id" className="block text-xs text-slate-600 mb-1">处置人角色编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-config-handler_role_id"
             data-testid="field-handler_role_id"
             data-agent-target="mes-pro-andon-config:field:handler_role_id"
             data-agent-state={formData.handler_role_id == null || formData.handler_role_id === "" ? "empty" : "filled"}
             aria-label="处置人角色编号"
-            value={formData.handler_role_id != null ? String(formData.handler_role_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, handler_role_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.handler_role_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, handler_role_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入处置人角色编号"
             
@@ -129,14 +129,14 @@ export function MesProAndonConfigForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-config-handler_user_id" className="block text-xs text-slate-600 mb-1">处置人编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-config-handler_user_id"
             data-testid="field-handler_user_id"
             data-agent-target="mes-pro-andon-config:field:handler_user_id"
             data-agent-state={formData.handler_user_id == null || formData.handler_user_id === "" ? "empty" : "filled"}
             aria-label="处置人编号"
-            value={formData.handler_user_id != null ? String(formData.handler_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, handler_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.handler_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, handler_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入处置人编号"
             

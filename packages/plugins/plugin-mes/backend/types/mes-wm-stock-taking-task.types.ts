@@ -5,8 +5,8 @@ export interface MesWmStockTakingTaskDO {
   name?: string
   taking_date?: string
   type?: number
-  user_id?: number
-  plan_id?: number
+  user_id?: string
+  plan_id?: string
   blind_flag?: boolean
   frozen?: boolean
   start_time?: string
@@ -27,8 +27,8 @@ export interface MesWmStockTakingTaskVO {
   name?: string
   taking_date?: string
   type?: number
-  user_id?: number
-  plan_id?: number
+  user_id?: string
+  plan_id?: string
   blind_flag?: boolean
   frozen?: boolean
   start_time?: string
@@ -48,8 +48,8 @@ export interface MesWmStockTakingTaskCreateDTO {
   name?: string
   taking_date?: string
   type?: number
-  user_id?: number
-  plan_id?: number
+  user_id?: string
+  plan_id?: string
   blind_flag?: boolean
   frozen?: boolean
   start_time?: string

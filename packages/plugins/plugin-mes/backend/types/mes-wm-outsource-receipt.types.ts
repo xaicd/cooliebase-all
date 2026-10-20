@@ -3,8 +3,8 @@ export interface MesWmOutsourceReceiptDO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  vendor_id?: number
+  work_order_id?: string
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -20,8 +20,8 @@ export interface MesWmOutsourceReceiptVO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  vendor_id?: number
+  work_order_id?: string
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -36,8 +36,8 @@ export interface MesWmOutsourceReceiptVO {
 export interface MesWmOutsourceReceiptCreateDTO {
   code?: string
   name?: string
-  work_order_id?: number
-  vendor_id?: number
+  work_order_id?: string
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string

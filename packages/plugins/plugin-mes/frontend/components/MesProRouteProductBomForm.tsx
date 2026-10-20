@@ -79,14 +79,14 @@ export function MesProRouteProductBomForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-pro-route-product-bom-route_id" className="block text-xs text-slate-600 mb-1">工艺路线编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-bom-route_id"
             data-testid="field-route_id"
             data-agent-target="mes-pro-route-product-bom:field:route_id"
             data-agent-state={formData.route_id == null || formData.route_id === "" ? "empty" : "filled"}
             aria-label="工艺路线编号"
-            value={formData.route_id != null ? String(formData.route_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.route_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工艺路线编号"
             
@@ -96,14 +96,14 @@ export function MesProRouteProductBomForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-pro-route-product-bom-process_id" className="block text-xs text-slate-600 mb-1">工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-bom-process_id"
             data-testid="field-process_id"
             data-agent-target="mes-pro-route-product-bom:field:process_id"
             data-agent-state={formData.process_id == null || formData.process_id === "" ? "empty" : "filled"}
             aria-label="工序编号"
-            value={formData.process_id != null ? String(formData.process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工序编号"
             
@@ -113,14 +113,14 @@ export function MesProRouteProductBomForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-pro-route-product-bom-product_id" className="block text-xs text-slate-600 mb-1">产品物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-bom-product_id"
             data-testid="field-product_id"
             data-agent-target="mes-pro-route-product-bom:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品物料编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料编号"
             
@@ -130,14 +130,14 @@ export function MesProRouteProductBomForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-pro-route-product-bom-item_id" className="block text-xs text-slate-600 mb-1">BOM 物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-product-bom-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-pro-route-product-bom:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="BOM 物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入BOM 物料编号"
             

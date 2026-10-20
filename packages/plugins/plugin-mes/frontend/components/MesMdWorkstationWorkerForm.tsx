@@ -77,14 +77,14 @@ export function MesMdWorkstationWorkerForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-md-workstation-worker-workstation_id" className="block text-xs text-slate-600 mb-1">工作站编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-worker-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-md-workstation-worker:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站编号"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站编号"
             
@@ -94,14 +94,14 @@ export function MesMdWorkstationWorkerForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-md-workstation-worker-post_id" className="block text-xs text-slate-600 mb-1">岗位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-worker-post_id"
             data-testid="field-post_id"
             data-agent-target="mes-md-workstation-worker:field:post_id"
             data-agent-state={formData.post_id == null || formData.post_id === "" ? "empty" : "filled"}
             aria-label="岗位编号"
-            value={formData.post_id != null ? String(formData.post_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, post_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.post_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, post_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入岗位编号"
             

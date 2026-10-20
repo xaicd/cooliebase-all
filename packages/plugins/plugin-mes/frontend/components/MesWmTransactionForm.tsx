@@ -124,14 +124,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-biz_id" className="block text-xs text-slate-600 mb-1">来源业务主单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-biz_id"
             data-testid="field-biz_id"
             data-agent-target="mes-wm-transaction:field:biz_id"
             data-agent-state={formData.biz_id == null || formData.biz_id === "" ? "empty" : "filled"}
             aria-label="来源业务主单 ID"
-            value={formData.biz_id != null ? String(formData.biz_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源业务主单 ID"
             
@@ -158,14 +158,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-biz_line_id" className="block text-xs text-slate-600 mb-1">来源业务行 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-biz_line_id"
             data-testid="field-biz_line_id"
             data-agent-target="mes-wm-transaction:field:biz_line_id"
             data-agent-state={formData.biz_line_id == null || formData.biz_line_id === "" ? "empty" : "filled"}
             aria-label="来源业务行 ID"
-            value={formData.biz_line_id != null ? String(formData.biz_line_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_line_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_line_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_line_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源业务行 ID"
             
@@ -175,14 +175,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-material_stock_id" className="block text-xs text-slate-600 mb-1">库存记录 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-transaction:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存记录 ID"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存记录 ID"
             
@@ -192,14 +192,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-related_transaction_id" className="block text-xs text-slate-600 mb-1">关联的事务 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-related_transaction_id"
             data-testid="field-related_transaction_id"
             data-agent-target="mes-wm-transaction:field:related_transaction_id"
             data-agent-state={formData.related_transaction_id == null || formData.related_transaction_id === "" ? "empty" : "filled"}
             aria-label="关联的事务 ID"
-            value={formData.related_transaction_id != null ? String(formData.related_transaction_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, related_transaction_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.related_transaction_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, related_transaction_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入关联的事务 ID"
             
@@ -209,14 +209,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-item_id" className="block text-xs text-slate-600 mb-1">物料 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-transaction:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料 ID"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料 ID"
             
@@ -243,14 +243,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-batch_id" className="block text-xs text-slate-600 mb-1">批次 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-transaction:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次 ID"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次 ID"
             
@@ -277,14 +277,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="mes-wm-transaction:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库 ID"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库 ID"
             
@@ -294,14 +294,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-location_id" className="block text-xs text-slate-600 mb-1">库区 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-location_id"
             data-testid="field-location_id"
             data-agent-target="mes-wm-transaction:field:location_id"
             data-agent-state={formData.location_id == null || formData.location_id === "" ? "empty" : "filled"}
             aria-label="库区 ID"
-            value={formData.location_id != null ? String(formData.location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库区 ID"
             
@@ -311,14 +311,14 @@ export function MesWmTransactionForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-transaction-area_id" className="block text-xs text-slate-600 mb-1">库位 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transaction-area_id"
             data-testid="field-area_id"
             data-agent-target="mes-wm-transaction:field:area_id"
             data-agent-state={formData.area_id == null || formData.area_id === "" ? "empty" : "filled"}
             aria-label="库位 ID"
-            value={formData.area_id != null ? String(formData.area_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.area_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库位 ID"
             

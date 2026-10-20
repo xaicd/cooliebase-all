@@ -81,14 +81,14 @@ export function ErpFinanceReceiptItemForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="erp-finance-receipt-item-receipt_id" className="block text-xs text-slate-600 mb-1">收款单编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-finance-receipt-item-receipt_id"
             data-testid="field-receipt_id"
             data-agent-target="erp-finance-receipt-item:field:receipt_id"
             data-agent-state={formData.receipt_id == null || formData.receipt_id === "" ? "empty" : "filled"}
             aria-label="收款单编号"
-            value={formData.receipt_id != null ? String(formData.receipt_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, receipt_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.receipt_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, receipt_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入收款单编号"
             
@@ -115,14 +115,14 @@ export function ErpFinanceReceiptItemForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="erp-finance-receipt-item-biz_id" className="block text-xs text-slate-600 mb-1">业务编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-finance-receipt-item-biz_id"
             data-testid="field-biz_id"
             data-agent-target="erp-finance-receipt-item:field:biz_id"
             data-agent-state={formData.biz_id == null || formData.biz_id === "" ? "empty" : "filled"}
             aria-label="业务编号"
-            value={formData.biz_id != null ? String(formData.biz_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入业务编号"
             

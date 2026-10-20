@@ -177,14 +177,14 @@ export function MesProWorkOrderForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-work-order-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-work-order-product_id"
             data-testid="field-product_id"
             data-agent-target="mes-pro-work-order:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -262,14 +262,14 @@ export function MesProWorkOrderForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-work-order-client_id" className="block text-xs text-slate-600 mb-1">客户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-work-order-client_id"
             data-testid="field-client_id"
             data-agent-target="mes-pro-work-order:field:client_id"
             data-agent-state={formData.client_id == null || formData.client_id === "" ? "empty" : "filled"}
             aria-label="客户编号"
-            value={formData.client_id != null ? String(formData.client_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.client_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户编号"
             
@@ -279,14 +279,14 @@ export function MesProWorkOrderForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-work-order-vendor_id" className="block text-xs text-slate-600 mb-1">供应商编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-work-order-vendor_id"
             data-testid="field-vendor_id"
             data-agent-target="mes-pro-work-order:field:vendor_id"
             data-agent-state={formData.vendor_id == null || formData.vendor_id === "" ? "empty" : "filled"}
             aria-label="供应商编号"
-            value={formData.vendor_id != null ? String(formData.vendor_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.vendor_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商编号"
             
@@ -330,14 +330,14 @@ export function MesProWorkOrderForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-pro-work-order-parent_id" className="block text-xs text-slate-600 mb-1">父工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-work-order-parent_id"
             data-testid="field-parent_id"
             data-agent-target="mes-pro-work-order:field:parent_id"
             data-agent-state={formData.parent_id == null || formData.parent_id === "" ? "empty" : "filled"}
             aria-label="父工单编号"
-            value={formData.parent_id != null ? String(formData.parent_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.parent_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入父工单编号"
             

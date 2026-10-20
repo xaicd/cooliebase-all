@@ -97,14 +97,14 @@ export function MesQcDefectRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-qc-defect-record-qc_id" className="block text-xs text-slate-600 mb-1">检验单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-defect-record-qc_id"
             data-testid="field-qc_id"
             data-agent-target="mes-qc-defect-record:field:qc_id"
             data-agent-state={formData.qc_id == null || formData.qc_id === "" ? "empty" : "filled"}
             aria-label="检验单 ID"
-            value={formData.qc_id != null ? String(formData.qc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, qc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.qc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, qc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检验单 ID"
             
@@ -114,14 +114,14 @@ export function MesQcDefectRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-qc-defect-record-line_id" className="block text-xs text-slate-600 mb-1">检验行 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-defect-record-line_id"
             data-testid="field-line_id"
             data-agent-target="mes-qc-defect-record:field:line_id"
             data-agent-state={formData.line_id == null || formData.line_id === "" ? "empty" : "filled"}
             aria-label="检验行 ID"
-            value={formData.line_id != null ? String(formData.line_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, line_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.line_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, line_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检验行 ID"
             

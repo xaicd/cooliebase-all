@@ -5,26 +5,26 @@ export interface AfterSaleDO {
   status?: number
   way?: number
   type?: number
-  user_id?: number
+  user_id?: string
   apply_reason?: string
   apply_description?: string
   apply_pic_urls?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  order_item_id?: number
-  spu_id?: number
+  order_item_id?: string
+  spu_id?: string
   spu_name?: string
-  sku_id?: number
+  sku_id?: string
   properties?: string
   pic_url?: string
   count?: number
   audit_time?: string
-  audit_user_id?: number
+  audit_user_id?: string
   audit_reason?: string
   refund_price?: number
-  pay_refund_id?: number
+  pay_refund_id?: string
   refund_time?: string
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string
@@ -43,26 +43,26 @@ export interface AfterSaleVO {
   status?: number
   way?: number
   type?: number
-  user_id?: number
+  user_id?: string
   apply_reason?: string
   apply_description?: string
   apply_pic_urls?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  order_item_id?: number
-  spu_id?: number
+  order_item_id?: string
+  spu_id?: string
   spu_name?: string
-  sku_id?: number
+  sku_id?: string
   properties?: string
   pic_url?: string
   count?: number
   audit_time?: string
-  audit_user_id?: number
+  audit_user_id?: string
   audit_reason?: string
   refund_price?: number
-  pay_refund_id?: number
+  pay_refund_id?: string
   refund_time?: string
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string
@@ -80,26 +80,26 @@ export interface AfterSaleCreateDTO {
   status?: number
   way?: number
   type?: number
-  user_id?: number
+  user_id?: string
   apply_reason?: string
   apply_description?: string
   apply_pic_urls?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  order_item_id?: number
-  spu_id?: number
+  order_item_id?: string
+  spu_id?: string
   spu_name?: string
-  sku_id?: number
+  sku_id?: string
   properties?: string
   pic_url?: string
   count?: number
   audit_time?: string
-  audit_user_id?: number
+  audit_user_id?: string
   audit_reason?: string
   refund_price?: number
-  pay_refund_id?: number
+  pay_refund_id?: string
   refund_time?: string
-  logistics_id?: number
+  logistics_id?: string
   logistics_no?: string
   delivery_time?: string
   receive_time?: string

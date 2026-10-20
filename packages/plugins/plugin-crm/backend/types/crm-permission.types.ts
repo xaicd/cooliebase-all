@@ -2,8 +2,8 @@
 export interface CrmPermissionDO {
   id: number
   biz_type?: number
-  biz_id?: number
-  user_id?: number
+  biz_id?: string
+  user_id?: string
   level?: number
   tenant_id: string
   created_by?: string
@@ -16,8 +16,8 @@ export interface CrmPermissionDO {
 export interface CrmPermissionVO {
   id: number
   biz_type?: number
-  biz_id?: number
-  user_id?: number
+  biz_id?: string
+  user_id?: string
   level?: number
   tenant_id: string
   created_by?: string
@@ -29,8 +29,8 @@ export interface CrmPermissionVO {
 
 export interface CrmPermissionCreateDTO {
   biz_type?: number
-  biz_id?: number
-  user_id?: number
+  biz_id?: string
+  user_id?: string
   level?: number
 }
 

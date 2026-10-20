@@ -81,14 +81,14 @@ export function KeFuMessageForm({ open, initialData, onClose, onSuccess }: KeFuM
         <div>
           <label htmlFor="ke-fu-message-conversation_id" className="block text-xs text-slate-600 mb-1">会话编号</label>
           <input
-            type="number"
+            type="text"
             id="ke-fu-message-conversation_id"
             data-testid="field-conversation_id"
             data-agent-target="ke-fu-message:field:conversation_id"
             data-agent-state={formData.conversation_id == null || formData.conversation_id === "" ? "empty" : "filled"}
             aria-label="会话编号"
-            value={formData.conversation_id != null ? String(formData.conversation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, conversation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.conversation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, conversation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入会话编号"
             
@@ -98,14 +98,14 @@ export function KeFuMessageForm({ open, initialData, onClose, onSuccess }: KeFuM
         <div>
           <label htmlFor="ke-fu-message-sender_id" className="block text-xs text-slate-600 mb-1">发送人编号</label>
           <input
-            type="number"
+            type="text"
             id="ke-fu-message-sender_id"
             data-testid="field-sender_id"
             data-agent-target="ke-fu-message:field:sender_id"
             data-agent-state={formData.sender_id == null || formData.sender_id === "" ? "empty" : "filled"}
             aria-label="发送人编号"
-            value={formData.sender_id != null ? String(formData.sender_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sender_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sender_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sender_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发送人编号"
             
@@ -132,14 +132,14 @@ export function KeFuMessageForm({ open, initialData, onClose, onSuccess }: KeFuM
         <div>
           <label htmlFor="ke-fu-message-receiver_id" className="block text-xs text-slate-600 mb-1">接收人编号</label>
           <input
-            type="number"
+            type="text"
             id="ke-fu-message-receiver_id"
             data-testid="field-receiver_id"
             data-agent-target="ke-fu-message:field:receiver_id"
             data-agent-state={formData.receiver_id == null || formData.receiver_id === "" ? "empty" : "filled"}
             aria-label="接收人编号"
-            value={formData.receiver_id != null ? String(formData.receiver_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, receiver_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.receiver_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, receiver_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入接收人编号"
             

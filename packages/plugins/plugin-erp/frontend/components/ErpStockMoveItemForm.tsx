@@ -82,14 +82,14 @@ export function ErpStockMoveItemForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="erp-stock-move-item-move_id" className="block text-xs text-slate-600 mb-1">调拨编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-move-item-move_id"
             data-testid="field-move_id"
             data-agent-target="erp-stock-move-item:field:move_id"
             data-agent-state={formData.move_id == null || formData.move_id === "" ? "empty" : "filled"}
             aria-label="调拨编号"
-            value={formData.move_id != null ? String(formData.move_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, move_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.move_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, move_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入调拨编号"
             
@@ -99,14 +99,14 @@ export function ErpStockMoveItemForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="erp-stock-move-item-from_warehouse_id" className="block text-xs text-slate-600 mb-1">调出仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-move-item-from_warehouse_id"
             data-testid="field-from_warehouse_id"
             data-agent-target="erp-stock-move-item:field:from_warehouse_id"
             data-agent-state={formData.from_warehouse_id == null || formData.from_warehouse_id === "" ? "empty" : "filled"}
             aria-label="调出仓库编号"
-            value={formData.from_warehouse_id != null ? String(formData.from_warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, from_warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.from_warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, from_warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入调出仓库编号"
             
@@ -116,14 +116,14 @@ export function ErpStockMoveItemForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="erp-stock-move-item-to_warehouse_id" className="block text-xs text-slate-600 mb-1">调入仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-move-item-to_warehouse_id"
             data-testid="field-to_warehouse_id"
             data-agent-target="erp-stock-move-item:field:to_warehouse_id"
             data-agent-state={formData.to_warehouse_id == null || formData.to_warehouse_id === "" ? "empty" : "filled"}
             aria-label="调入仓库编号"
-            value={formData.to_warehouse_id != null ? String(formData.to_warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, to_warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.to_warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, to_warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入调入仓库编号"
             
@@ -133,14 +133,14 @@ export function ErpStockMoveItemForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="erp-stock-move-item-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-move-item-product_id"
             data-testid="field-product_id"
             data-agent-target="erp-stock-move-item:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -150,14 +150,14 @@ export function ErpStockMoveItemForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="erp-stock-move-item-product_unit_id" className="block text-xs text-slate-600 mb-1">产品单位编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-move-item-product_unit_id"
             data-testid="field-product_unit_id"
             data-agent-target="erp-stock-move-item:field:product_unit_id"
             data-agent-state={formData.product_unit_id == null || formData.product_unit_id === "" ? "empty" : "filled"}
             aria-label="产品单位编号"
-            value={formData.product_unit_id != null ? String(formData.product_unit_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_unit_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品单位编号"
             

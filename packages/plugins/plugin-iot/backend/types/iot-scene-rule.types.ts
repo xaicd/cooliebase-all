@@ -8,25 +8,25 @@ export interface IotSceneRuleDO {
   triggers?: string
   actions?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   value?: string
   cron_expression?: string
   condition_groups?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   param?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   params?: string
-  alert_config_id?: number
+  alert_config_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -44,25 +44,25 @@ export interface IotSceneRuleVO {
   triggers?: string
   actions?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   value?: string
   cron_expression?: string
   condition_groups?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   param?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   params?: string
-  alert_config_id?: number
+  alert_config_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -79,25 +79,25 @@ export interface IotSceneRuleCreateDTO {
   triggers?: string
   actions?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   value?: string
   cron_expression?: string
   condition_groups?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   operator?: string
   param?: string
   type?: number
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   params?: string
-  alert_config_id?: number
+  alert_config_id?: string
 }
 
 export interface IotSceneRuleUpdateDTO extends Partial<IotSceneRuleCreateDTO> {

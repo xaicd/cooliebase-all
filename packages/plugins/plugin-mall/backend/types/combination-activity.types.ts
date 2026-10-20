@@ -2,7 +2,7 @@
 export interface CombinationActivityDO {
   id: number
   name?: string
-  spu_id?: number
+  spu_id?: string
   total_limit_count?: number
   single_limit_count?: number
   start_time?: string
@@ -22,7 +22,7 @@ export interface CombinationActivityDO {
 export interface CombinationActivityVO {
   id: number
   name?: string
-  spu_id?: number
+  spu_id?: string
   total_limit_count?: number
   single_limit_count?: number
   start_time?: string
@@ -41,7 +41,7 @@ export interface CombinationActivityVO {
 
 export interface CombinationActivityCreateDTO {
   name?: string
-  spu_id?: number
+  spu_id?: string
   total_limit_count?: number
   single_limit_count?: number
   start_time?: string

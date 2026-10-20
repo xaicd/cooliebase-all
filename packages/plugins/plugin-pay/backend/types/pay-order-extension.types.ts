@@ -2,11 +2,11 @@
 export interface PayOrderExtensionDO {
   id: number
   no?: string
-  order_id?: number
-  channel_id?: number
+  order_id?: string
+  channel_id?: string
   channel_code?: string
   user_ip?: string
-  status?: number
+  status?: string
   channel_extras?: string
   channel_error_code?: string
   channel_error_msg?: string
@@ -22,11 +22,11 @@ export interface PayOrderExtensionDO {
 export interface PayOrderExtensionVO {
   id: number
   no?: string
-  order_id?: number
-  channel_id?: number
+  order_id?: string
+  channel_id?: string
   channel_code?: string
   user_ip?: string
-  status?: number
+  status?: string
   channel_extras?: string
   channel_error_code?: string
   channel_error_msg?: string
@@ -41,11 +41,11 @@ export interface PayOrderExtensionVO {
 
 export interface PayOrderExtensionCreateDTO {
   no?: string
-  order_id?: number
-  channel_id?: number
+  order_id?: string
+  channel_id?: string
   channel_code?: string
   user_ip?: string
-  status?: number
+  status?: string
   channel_extras?: string
   channel_error_code?: string
   channel_error_msg?: string

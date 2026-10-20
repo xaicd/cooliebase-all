@@ -3,7 +3,7 @@ export interface IotOtaTaskDO {
   id: number
   name?: string
   description?: string
-  firmware_id?: number
+  firmware_id?: string
   status?: number
   device_scope?: number
   device_total_count?: number
@@ -20,7 +20,7 @@ export interface IotOtaTaskVO {
   id: number
   name?: string
   description?: string
-  firmware_id?: number
+  firmware_id?: string
   status?: number
   device_scope?: number
   device_total_count?: number
@@ -36,7 +36,7 @@ export interface IotOtaTaskVO {
 export interface IotOtaTaskCreateDTO {
   name?: string
   description?: string
-  firmware_id?: number
+  firmware_id?: string
   status?: number
   device_scope?: number
   device_total_count?: number

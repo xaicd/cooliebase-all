@@ -4,7 +4,7 @@ export interface IotThingModelDO {
   identifier?: string
   name?: string
   description?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   type?: number
   property?: string
@@ -23,7 +23,7 @@ export interface IotThingModelVO {
   identifier?: string
   name?: string
   description?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   type?: number
   property?: string
@@ -41,7 +41,7 @@ export interface IotThingModelCreateDTO {
   identifier?: string
   name?: string
   description?: string
-  product_id?: number
+  product_id?: string
   product_key?: string
   type?: number
   property?: string

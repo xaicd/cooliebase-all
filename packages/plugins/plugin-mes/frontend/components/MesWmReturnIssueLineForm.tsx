@@ -83,14 +83,14 @@ export function MesWmReturnIssueLineForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-return-issue-line-issue_id" className="block text-xs text-slate-600 mb-1">退料单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-issue-line-issue_id"
             data-testid="field-issue_id"
             data-agent-target="mes-wm-return-issue-line:field:issue_id"
             data-agent-state={formData.issue_id == null || formData.issue_id === "" ? "empty" : "filled"}
             aria-label="退料单 ID"
-            value={formData.issue_id != null ? String(formData.issue_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, issue_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.issue_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, issue_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入退料单 ID"
             
@@ -100,14 +100,14 @@ export function MesWmReturnIssueLineForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-return-issue-line-material_stock_id" className="block text-xs text-slate-600 mb-1">库存记录 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-issue-line-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-return-issue-line:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存记录 ID"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存记录 ID"
             
@@ -117,14 +117,14 @@ export function MesWmReturnIssueLineForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-return-issue-line-item_id" className="block text-xs text-slate-600 mb-1">物料 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-issue-line-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-return-issue-line:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料 ID"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料 ID"
             
@@ -151,14 +151,14 @@ export function MesWmReturnIssueLineForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-return-issue-line-batch_id" className="block text-xs text-slate-600 mb-1">批次 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-issue-line-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-return-issue-line:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次 ID"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次 ID"
             
@@ -185,14 +185,14 @@ export function MesWmReturnIssueLineForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-return-issue-line-rqc_id" className="block text-xs text-slate-600 mb-1">退货检验单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-issue-line-rqc_id"
             data-testid="field-rqc_id"
             data-agent-target="mes-wm-return-issue-line:field:rqc_id"
             data-agent-state={formData.rqc_id == null || formData.rqc_id === "" ? "empty" : "filled"}
             aria-label="退货检验单 ID"
-            value={formData.rqc_id != null ? String(formData.rqc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, rqc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.rqc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, rqc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入退货检验单 ID"
             

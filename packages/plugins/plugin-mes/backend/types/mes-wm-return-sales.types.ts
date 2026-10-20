@@ -4,7 +4,7 @@ export interface MesWmReturnSalesDO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   return_date?: string
   return_reason?: string
   status?: number
@@ -22,7 +22,7 @@ export interface MesWmReturnSalesVO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   return_date?: string
   return_reason?: string
   status?: number
@@ -39,7 +39,7 @@ export interface MesWmReturnSalesCreateDTO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   return_date?: string
   return_reason?: string
   status?: number

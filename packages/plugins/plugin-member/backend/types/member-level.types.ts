@@ -7,7 +7,7 @@ export interface MemberLevelDO {
   discount_percent?: number
   icon?: string
   background_url?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -24,7 +24,7 @@ export interface MemberLevelVO {
   discount_percent?: number
   icon?: string
   background_url?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -40,7 +40,7 @@ export interface MemberLevelCreateDTO {
   discount_percent?: number
   icon?: string
   background_url?: string
-  status?: number
+  status?: string
 }
 
 export interface MemberLevelUpdateDTO extends Partial<MemberLevelCreateDTO> {

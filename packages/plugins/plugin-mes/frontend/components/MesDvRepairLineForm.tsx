@@ -79,14 +79,14 @@ export function MesDvRepairLineForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-dv-repair-line-repair_id" className="block text-xs text-slate-600 mb-1">维修工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-line-repair_id"
             data-testid="field-repair_id"
             data-agent-target="mes-dv-repair-line:field:repair_id"
             data-agent-state={formData.repair_id == null || formData.repair_id === "" ? "empty" : "filled"}
             aria-label="维修工单编号"
-            value={formData.repair_id != null ? String(formData.repair_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, repair_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.repair_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, repair_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入维修工单编号"
             
@@ -96,14 +96,14 @@ export function MesDvRepairLineForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-dv-repair-line-subject_id" className="block text-xs text-slate-600 mb-1">点检保养项目编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-line-subject_id"
             data-testid="field-subject_id"
             data-agent-target="mes-dv-repair-line:field:subject_id"
             data-agent-state={formData.subject_id == null || formData.subject_id === "" ? "empty" : "filled"}
             aria-label="点检保养项目编号"
-            value={formData.subject_id != null ? String(formData.subject_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, subject_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.subject_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, subject_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入点检保养项目编号"
             

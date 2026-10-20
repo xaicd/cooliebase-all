@@ -84,14 +84,14 @@ export function MesProRouteProcessForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-pro-route-process-route_id" className="block text-xs text-slate-600 mb-1">工艺路线编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-process-route_id"
             data-testid="field-route_id"
             data-agent-target="mes-pro-route-process:field:route_id"
             data-agent-state={formData.route_id == null || formData.route_id === "" ? "empty" : "filled"}
             aria-label="工艺路线编号"
-            value={formData.route_id != null ? String(formData.route_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.route_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, route_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工艺路线编号"
             
@@ -101,14 +101,14 @@ export function MesProRouteProcessForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-pro-route-process-process_id" className="block text-xs text-slate-600 mb-1">工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-process-process_id"
             data-testid="field-process_id"
             data-agent-target="mes-pro-route-process:field:process_id"
             data-agent-state={formData.process_id == null || formData.process_id === "" ? "empty" : "filled"}
             aria-label="工序编号"
-            value={formData.process_id != null ? String(formData.process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工序编号"
             
@@ -135,14 +135,14 @@ export function MesProRouteProcessForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-pro-route-process-next_process_id" className="block text-xs text-slate-600 mb-1">下一道工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-route-process-next_process_id"
             data-testid="field-next_process_id"
             data-agent-target="mes-pro-route-process:field:next_process_id"
             data-agent-state={formData.next_process_id == null || formData.next_process_id === "" ? "empty" : "filled"}
             aria-label="下一道工序编号"
-            value={formData.next_process_id != null ? String(formData.next_process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, next_process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.next_process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, next_process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入下一道工序编号"
             

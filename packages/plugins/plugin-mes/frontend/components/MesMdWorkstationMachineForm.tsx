@@ -77,14 +77,14 @@ export function MesMdWorkstationMachineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-md-workstation-machine-workstation_id" className="block text-xs text-slate-600 mb-1">工作站编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-machine-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-md-workstation-machine:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站编号"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站编号"
             
@@ -94,14 +94,14 @@ export function MesMdWorkstationMachineForm({ open, initialData, onClose, onSucc
         <div>
           <label htmlFor="mes-md-workstation-machine-machinery_id" className="block text-xs text-slate-600 mb-1">设备编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-machine-machinery_id"
             data-testid="field-machinery_id"
             data-agent-target="mes-md-workstation-machine:field:machinery_id"
             data-agent-state={formData.machinery_id == null || formData.machinery_id === "" ? "empty" : "filled"}
             aria-label="设备编号"
-            value={formData.machinery_id != null ? String(formData.machinery_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.machinery_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备编号"
             

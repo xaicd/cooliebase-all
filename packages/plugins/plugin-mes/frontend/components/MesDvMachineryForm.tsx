@@ -151,14 +151,14 @@ export function MesDvMachineryForm({ open, initialData, onClose, onSuccess }: Me
         <div>
           <label htmlFor="mes-dv-machinery-machinery_type_id" className="block text-xs text-slate-600 mb-1">设备类型编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-machinery-machinery_type_id"
             data-testid="field-machinery_type_id"
             data-agent-target="mes-dv-machinery:field:machinery_type_id"
             data-agent-state={formData.machinery_type_id == null || formData.machinery_type_id === "" ? "empty" : "filled"}
             aria-label="设备类型编号"
-            value={formData.machinery_type_id != null ? String(formData.machinery_type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.machinery_type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备类型编号"
             
@@ -168,14 +168,14 @@ export function MesDvMachineryForm({ open, initialData, onClose, onSuccess }: Me
         <div>
           <label htmlFor="mes-dv-machinery-workshop_id" className="block text-xs text-slate-600 mb-1">所属车间编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-machinery-workshop_id"
             data-testid="field-workshop_id"
             data-agent-target="mes-dv-machinery:field:workshop_id"
             data-agent-state={formData.workshop_id == null || formData.workshop_id === "" ? "empty" : "filled"}
             aria-label="所属车间编号"
-            value={formData.workshop_id != null ? String(formData.workshop_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workshop_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workshop_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workshop_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入所属车间编号"
             

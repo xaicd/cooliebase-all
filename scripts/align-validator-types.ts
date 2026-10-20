@@ -161,9 +161,13 @@ async function main() {
   }
 
   const keywordFixed = targets.reduce((sum, dir) => sum + alignPageQueryKeyword(dir, write), 0)
+  const dtoFixed = targets.reduce((sum, dir) => sum + alignDtoTypes(dir, write, meta), 0)
+  const formFixed = targets.reduce((sum, dir) => sum + alignFrontendForms(dir, write, meta), 0)
 
   console.log(`[align-validators] 域 ${domain}${write ? "" : "（dry-run，加 --write 落盘）"}`)
   console.log(`  PageQuerySchema 补 keyword: ${keywordFixed} 处`)
+  console.log(`  DTO 类型对齐: ${dtoFixed} 处`)
+  console.log(`  前端表单对齐: ${formFixed} 处`)
   for (const detail of details) console.log(`  ${detail}`)
   console.log(`  需改: ${changed} 处 · 有意约定跳过: ${convention} 处`)
 }
@@ -172,3 +176,101 @@ main().catch((error) => {
   console.error(`[align-validators] 执行失败: ${String(error?.stack ?? error)}`)
   process.exit(1)
 })
+
+// ─────────────────────────────────────────────────────────────────────────────
+// 产物链的其余环节：DTO 类型与前端表单（RSK-013）
+//
+// 与校验器同根：元数据单向流动、生成物停在旧版本。只对齐校验器而不同时处理这两者，
+// 会出现「接线的一瞬间，今天能跑的数字输入变成 400」——因为表单仍发 number，
+// 而 PG 的 text 列此前正是靠隐式转换兜住的。
+//
+// 两者必须**同时**对齐：只改 DTO 会让表单那行 `Number(...)` 变成 TS 类型错误。
+// ─────────────────────────────────────────────────────────────────────────────
+
+/** DTO 类型：文本列不得声明为 number */
+function alignDtoTypes(targetDir: string, apply: boolean, meta: Map<string, Map<string, string>>): number {
+  const typeDir = path.join(targetDir, "backend", "types")
+  const repoDir = path.join(targetDir, "backend", "repositories")
+  if (!fs.existsSync(typeDir) || !fs.existsSync(repoDir)) return 0
+
+  const tableOf = new Map<string, string>()
+  for (const file of fs.readdirSync(repoDir)) {
+    if (!file.endsWith(".repository.ts")) continue
+    const table = fs.readFileSync(path.join(repoDir, file), "utf8").match(/const TABLE_NAME = "([^"]+)"/)?.[1]
+    if (table) tableOf.set(file.replace(".repository.ts", ""), table)
+  }
+
+  let changed = 0
+  for (const file of fs.readdirSync(typeDir)) {
+    if (!file.endsWith(".types.ts")) continue
+    const columns = meta.get(tableOf.get(file.replace(".types.ts", "")) ?? "")
+    if (!columns) continue
+    const full = path.join(typeDir, file)
+    const source = fs.readFileSync(full, "utf8")
+    let next = source
+    for (const match of source.matchAll(/^(\s{2})(\w+)(\??): (number|string)(;?)\s*$/gm)) {
+      const [whole, indent, column, optional, current, semi] = match
+      const declared = columns.get(column)
+      if (!declared || declared === "timestamp" || declared === "boolean") continue
+      if (column === "id" || (column.endsWith("_id") && NUMERIC_TYPES.has(declared))) continue
+      const wantsNumber = NUMERIC_TYPES.has(declared)
+      if (wantsNumber === (current === "number")) continue
+      next = next.replace(whole, `${indent}${column}${optional}: ${wantsNumber ? "number" : "string"}${semi}`)
+      changed += 1
+    }
+    if (next !== source && apply) fs.writeFileSync(full, next)
+  }
+  return changed
+}
+
+/** 前端表单：文本列不得用 number 输入与 Number() 转换 */
+function alignFrontendForms(targetDir: string, apply: boolean, meta: Map<string, Map<string, string>>): number {
+  const componentDir = path.join(targetDir, "frontend", "components")
+  const repoDir = path.join(targetDir, "backend", "repositories")
+  if (!fs.existsSync(componentDir) || !fs.existsSync(repoDir)) return 0
+
+  const tableOf = new Map<string, string>()
+  for (const file of fs.readdirSync(repoDir)) {
+    if (!file.endsWith(".repository.ts")) continue
+    const table = fs.readFileSync(path.join(repoDir, file), "utf8").match(/const TABLE_NAME = "([^"]+)"/)?.[1]
+    if (table) tableOf.set(file.replace(".repository.ts", ""), table)
+  }
+
+  let changed = 0
+  for (const file of fs.readdirSync(componentDir)) {
+    if (!file.endsWith("Form.tsx")) continue
+    const resource = file.replace("Form.tsx", "").replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase()
+    const columns = meta.get(tableOf.get(resource) ?? "")
+    if (!columns) continue
+    const full = path.join(componentDir, file)
+    let source = fs.readFileSync(full, "utf8")
+    const original = source
+
+    for (const [column, declared] of columns) {
+      if (declared === "timestamp" || declared === "boolean") continue
+      if (NUMERIC_TYPES.has(declared)) continue // 真数值列，保持原样
+      if (column === "id" || (column.endsWith("_id") && NUMERIC_TYPES.has(declared))) continue
+
+      const conversions = [
+        // ① 输入控件类型
+        [`            type="number"\n            id="${resource}-${column}"`, `            type="text"\n            id="${resource}-${column}"`],
+        // ② 取值：String(...) → 原值
+        [`value={formData.${column} != null ? String(formData.${column}) : ""}`, `value={formData.${column} ?? ""}`],
+        // ③ 赋值：Number(...) → 原值
+        [
+          `{ ...prev, ${column}: e.target.value === "" ? undefined : Number(e.target.value) }`,
+          `{ ...prev, ${column}: e.target.value }`,
+        ],
+      ]
+      for (const [old, replacement] of conversions) {
+        if (source.includes(old)) {
+          source = source.replace(old, replacement)
+          changed += 1
+        }
+      }
+    }
+
+    if (source !== original && apply) fs.writeFileSync(full, source)
+  }
+  return changed
+}

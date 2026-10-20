@@ -94,14 +94,14 @@ export function CrmOwnerRecordForm({ open, initialData, onClose, onSuccess }: Cr
         <div>
           <label htmlFor="crm-owner-record-biz_id" className="block text-xs text-slate-600 mb-1">CRM 业务编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-owner-record-biz_id"
             data-testid="field-biz_id"
             data-agent-target="crm-owner-record:field:biz_id"
             data-agent-state={formData.biz_id == null || formData.biz_id === "" ? "empty" : "filled"}
             aria-label="CRM 业务编号"
-            value={formData.biz_id != null ? String(formData.biz_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.biz_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, biz_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入CRM 业务编号"
             
@@ -111,14 +111,14 @@ export function CrmOwnerRecordForm({ open, initialData, onClose, onSuccess }: Cr
         <div>
           <label htmlFor="crm-owner-record-pre_owner_user_id" className="block text-xs text-slate-600 mb-1">变更前负责人</label>
           <input
-            type="number"
+            type="text"
             id="crm-owner-record-pre_owner_user_id"
             data-testid="field-pre_owner_user_id"
             data-agent-target="crm-owner-record:field:pre_owner_user_id"
             data-agent-state={formData.pre_owner_user_id == null || formData.pre_owner_user_id === "" ? "empty" : "filled"}
             aria-label="变更前负责人"
-            value={formData.pre_owner_user_id != null ? String(formData.pre_owner_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pre_owner_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pre_owner_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pre_owner_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入变更前负责人"
             
@@ -128,14 +128,14 @@ export function CrmOwnerRecordForm({ open, initialData, onClose, onSuccess }: Cr
         <div>
           <label htmlFor="crm-owner-record-post_owner_user_id" className="block text-xs text-slate-600 mb-1">变更后负责人</label>
           <input
-            type="number"
+            type="text"
             id="crm-owner-record-post_owner_user_id"
             data-testid="field-post_owner_user_id"
             data-agent-target="crm-owner-record:field:post_owner_user_id"
             data-agent-state={formData.post_owner_user_id == null || formData.post_owner_user_id === "" ? "empty" : "filled"}
             aria-label="变更后负责人"
-            value={formData.post_owner_user_id != null ? String(formData.post_owner_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, post_owner_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.post_owner_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, post_owner_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入变更后负责人"
             

@@ -6,14 +6,14 @@ export interface AiChatRoleDO {
   category?: string
   description?: string
   system_message?: string
-  user_id?: number
-  model_id?: number
+  user_id?: string
+  model_id?: string
   knowledge_ids?: string
   tool_ids?: string
   mcp_client_names?: string
   public_status?: boolean
   sort?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -29,14 +29,14 @@ export interface AiChatRoleVO {
   category?: string
   description?: string
   system_message?: string
-  user_id?: number
-  model_id?: number
+  user_id?: string
+  model_id?: string
   knowledge_ids?: string
   tool_ids?: string
   mcp_client_names?: string
   public_status?: boolean
   sort?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -51,14 +51,14 @@ export interface AiChatRoleCreateDTO {
   category?: string
   description?: string
   system_message?: string
-  user_id?: number
-  model_id?: number
+  user_id?: string
+  model_id?: string
   knowledge_ids?: string
   tool_ids?: string
   mcp_client_names?: string
   public_status?: boolean
   sort?: number
-  status?: number
+  status?: string
 }
 
 export interface AiChatRoleUpdateDTO extends Partial<AiChatRoleCreateDTO> {

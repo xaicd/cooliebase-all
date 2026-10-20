@@ -82,14 +82,14 @@ export function ImGroupRequestForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-request-group_id" className="block text-xs text-slate-600 mb-1">群编号</label>
           <input
-            type="number"
+            type="text"
             id="im-group-request-group_id"
             data-testid="field-group_id"
             data-agent-target="im-group-request:field:group_id"
             data-agent-state={formData.group_id == null || formData.group_id === "" ? "empty" : "filled"}
             aria-label="群编号"
-            value={formData.group_id != null ? String(formData.group_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.group_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, group_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入群编号"
             
@@ -99,14 +99,14 @@ export function ImGroupRequestForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-request-user_id" className="block text-xs text-slate-600 mb-1">申请人 / 被邀请人用户编号</label>
           <input
-            type="number"
+            type="text"
             id="im-group-request-user_id"
             data-testid="field-user_id"
             data-agent-target="im-group-request:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="申请人 / 被邀请人用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入申请人 / 被邀请人用户编号"
             
@@ -116,14 +116,14 @@ export function ImGroupRequestForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-request-inviter_user_id" className="block text-xs text-slate-600 mb-1">邀请人用户编号</label>
           <input
-            type="number"
+            type="text"
             id="im-group-request-inviter_user_id"
             data-testid="field-inviter_user_id"
             data-agent-target="im-group-request:field:inviter_user_id"
             data-agent-state={formData.inviter_user_id == null || formData.inviter_user_id === "" ? "empty" : "filled"}
             aria-label="邀请人用户编号"
-            value={formData.inviter_user_id != null ? String(formData.inviter_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, inviter_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.inviter_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, inviter_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入邀请人用户编号"
             
@@ -184,14 +184,14 @@ export function ImGroupRequestForm({ open, initialData, onClose, onSuccess }: Im
         <div>
           <label htmlFor="im-group-request-handle_user_id" className="block text-xs text-slate-600 mb-1">处理人用户编号（群主或管理员）</label>
           <input
-            type="number"
+            type="text"
             id="im-group-request-handle_user_id"
             data-testid="field-handle_user_id"
             data-agent-target="im-group-request:field:handle_user_id"
             data-agent-state={formData.handle_user_id == null || formData.handle_user_id === "" ? "empty" : "filled"}
             aria-label="处理人用户编号（群主或管理员）"
-            value={formData.handle_user_id != null ? String(formData.handle_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, handle_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.handle_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, handle_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入处理人用户编号（群主或管理员）"
             

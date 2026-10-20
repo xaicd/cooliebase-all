@@ -83,14 +83,14 @@ export function ErpStockCheckItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-stock-check-item-check_id" className="block text-xs text-slate-600 mb-1">盘点编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-check-item-check_id"
             data-testid="field-check_id"
             data-agent-target="erp-stock-check-item:field:check_id"
             data-agent-state={formData.check_id == null || formData.check_id === "" ? "empty" : "filled"}
             aria-label="盘点编号"
-            value={formData.check_id != null ? String(formData.check_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, check_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.check_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, check_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入盘点编号"
             
@@ -100,14 +100,14 @@ export function ErpStockCheckItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-stock-check-item-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-check-item-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="erp-stock-check-item:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库编号"
             
@@ -117,14 +117,14 @@ export function ErpStockCheckItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-stock-check-item-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-check-item-product_id"
             data-testid="field-product_id"
             data-agent-target="erp-stock-check-item:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -134,14 +134,14 @@ export function ErpStockCheckItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-stock-check-item-product_unit_id" className="block text-xs text-slate-600 mb-1">产品单位编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-stock-check-item-product_unit_id"
             data-testid="field-product_unit_id"
             data-agent-target="erp-stock-check-item:field:product_unit_id"
             data-agent-state={formData.product_unit_id == null || formData.product_unit_id === "" ? "empty" : "filled"}
             aria-label="产品单位编号"
-            value={formData.product_unit_id != null ? String(formData.product_unit_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_unit_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品单位编号"
             

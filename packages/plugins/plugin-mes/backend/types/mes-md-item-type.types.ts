@@ -3,7 +3,7 @@ export interface MesMdItemTypeDO {
   id: number
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   item_or_product?: string
   sort?: number
   status?: number
@@ -20,7 +20,7 @@ export interface MesMdItemTypeVO {
   id: number
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   item_or_product?: string
   sort?: number
   status?: number
@@ -36,7 +36,7 @@ export interface MesMdItemTypeVO {
 export interface MesMdItemTypeCreateDTO {
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   item_or_product?: string
   sort?: number
   status?: number

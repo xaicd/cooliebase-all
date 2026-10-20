@@ -3,8 +3,8 @@ export interface MesProAndonConfigDO {
   id: number
   reason?: string
   level?: number
-  handler_role_id?: number
-  handler_user_id?: number
+  handler_role_id?: string
+  handler_user_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -18,8 +18,8 @@ export interface MesProAndonConfigVO {
   id: number
   reason?: string
   level?: number
-  handler_role_id?: number
-  handler_user_id?: number
+  handler_role_id?: string
+  handler_user_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -32,8 +32,8 @@ export interface MesProAndonConfigVO {
 export interface MesProAndonConfigCreateDTO {
   reason?: string
   level?: number
-  handler_role_id?: number
-  handler_user_id?: number
+  handler_role_id?: string
+  handler_user_id?: string
   remark?: string
 }
 

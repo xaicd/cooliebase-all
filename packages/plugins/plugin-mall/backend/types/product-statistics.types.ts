@@ -2,7 +2,7 @@
 export interface ProductStatisticsDO {
   id: number
   time?: string
-  spu_id?: number
+  spu_id?: string
   browse_count?: number
   browse_user_count?: number
   favorite_count?: number
@@ -24,7 +24,7 @@ export interface ProductStatisticsDO {
 export interface ProductStatisticsVO {
   id: number
   time?: string
-  spu_id?: number
+  spu_id?: string
   browse_count?: number
   browse_user_count?: number
   favorite_count?: number
@@ -45,7 +45,7 @@ export interface ProductStatisticsVO {
 
 export interface ProductStatisticsCreateDTO {
   time?: string
-  spu_id?: number
+  spu_id?: string
   browse_count?: number
   browse_user_count?: number
   favorite_count?: number

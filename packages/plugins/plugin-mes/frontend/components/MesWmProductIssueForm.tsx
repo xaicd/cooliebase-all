@@ -116,14 +116,14 @@ export function MesWmProductIssueForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-product-issue-workstation_id" className="block text-xs text-slate-600 mb-1">工作站 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-wm-product-issue:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站 ID"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站 ID"
             
@@ -133,14 +133,14 @@ export function MesWmProductIssueForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-product-issue-work_order_id" className="block text-xs text-slate-600 mb-1">生产工单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-wm-product-issue:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="生产工单 ID"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产工单 ID"
             
@@ -150,14 +150,14 @@ export function MesWmProductIssueForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-product-issue-task_id" className="block text-xs text-slate-600 mb-1">生产任务 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-task_id"
             data-testid="field-task_id"
             data-agent-target="mes-wm-product-issue:field:task_id"
             data-agent-state={formData.task_id == null || formData.task_id === "" ? "empty" : "filled"}
             aria-label="生产任务 ID"
-            value={formData.task_id != null ? String(formData.task_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.task_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产任务 ID"
             

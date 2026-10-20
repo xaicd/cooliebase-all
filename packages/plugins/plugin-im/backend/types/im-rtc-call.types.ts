@@ -4,8 +4,8 @@ export interface ImRtcCallDO {
   room?: string
   conversation_type?: number
   media_type?: number
-  inviter_user_id?: number
-  group_id?: number
+  inviter_user_id?: string
+  group_id?: string
   status?: number
   end_reason?: number
   start_time?: string
@@ -24,8 +24,8 @@ export interface ImRtcCallVO {
   room?: string
   conversation_type?: number
   media_type?: number
-  inviter_user_id?: number
-  group_id?: number
+  inviter_user_id?: string
+  group_id?: string
   status?: number
   end_reason?: number
   start_time?: string
@@ -43,8 +43,8 @@ export interface ImRtcCallCreateDTO {
   room?: string
   conversation_type?: number
   media_type?: number
-  inviter_user_id?: number
-  group_id?: number
+  inviter_user_id?: string
+  group_id?: string
   status?: number
   end_reason?: number
   start_time?: string

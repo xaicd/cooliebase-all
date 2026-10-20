@@ -2,7 +2,7 @@
 export interface ErpStockDO {
   id: number
   product_id?: number
-  warehouse_id?: number
+  warehouse_id?: string
   count?: number
   tenant_id: string
   created_by?: string
@@ -15,7 +15,7 @@ export interface ErpStockDO {
 export interface ErpStockVO {
   id: number
   product_id?: number
-  warehouse_id?: number
+  warehouse_id?: string
   count?: number
   tenant_id: string
   created_by?: string
@@ -27,7 +27,7 @@ export interface ErpStockVO {
 
 export interface ErpStockCreateDTO {
   product_id?: number
-  warehouse_id?: number
+  warehouse_id?: string
   count?: number
 }
 

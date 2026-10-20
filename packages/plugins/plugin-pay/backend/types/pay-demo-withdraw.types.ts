@@ -7,7 +7,7 @@ export interface PayDemoWithdrawDO {
   user_name?: string
   type?: number
   status?: number
-  pay_transfer_id?: number
+  pay_transfer_id?: string
   transfer_channel_code?: string
   transfer_time?: string
   transfer_error_msg?: string
@@ -27,7 +27,7 @@ export interface PayDemoWithdrawVO {
   user_name?: string
   type?: number
   status?: number
-  pay_transfer_id?: number
+  pay_transfer_id?: string
   transfer_channel_code?: string
   transfer_time?: string
   transfer_error_msg?: string
@@ -46,7 +46,7 @@ export interface PayDemoWithdrawCreateDTO {
   user_name?: string
   type?: number
   status?: number
-  pay_transfer_id?: number
+  pay_transfer_id?: string
   transfer_channel_code?: string
   transfer_time?: string
   transfer_error_msg?: string

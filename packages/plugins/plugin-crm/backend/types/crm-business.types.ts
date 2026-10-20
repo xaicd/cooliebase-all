@@ -2,13 +2,13 @@
 export interface CrmBusinessDO {
   id: number
   name?: string
-  customer_id?: number
+  customer_id?: string
   follow_up_status?: boolean
   contact_last_time?: string
   contact_next_time?: string
-  owner_user_id?: number
-  status_type_id?: number
-  status_id?: number
+  owner_user_id?: string
+  status_type_id?: string
+  status_id?: string
   end_status?: number
   end_remark?: string
   deal_time?: string
@@ -27,13 +27,13 @@ export interface CrmBusinessDO {
 export interface CrmBusinessVO {
   id: number
   name?: string
-  customer_id?: number
+  customer_id?: string
   follow_up_status?: boolean
   contact_last_time?: string
   contact_next_time?: string
-  owner_user_id?: number
-  status_type_id?: number
-  status_id?: number
+  owner_user_id?: string
+  status_type_id?: string
+  status_id?: string
   end_status?: number
   end_remark?: string
   deal_time?: string
@@ -51,13 +51,13 @@ export interface CrmBusinessVO {
 
 export interface CrmBusinessCreateDTO {
   name?: string
-  customer_id?: number
+  customer_id?: string
   follow_up_status?: boolean
   contact_last_time?: string
   contact_next_time?: string
-  owner_user_id?: number
-  status_type_id?: number
-  status_id?: number
+  owner_user_id?: string
+  status_type_id?: string
+  status_id?: string
   end_status?: number
   end_remark?: string
   deal_time?: string

@@ -81,14 +81,14 @@ export function ImRtcParticipantForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="im-rtc-participant-call_id" className="block text-xs text-slate-600 mb-1">通话编号</label>
           <input
-            type="number"
+            type="text"
             id="im-rtc-participant-call_id"
             data-testid="field-call_id"
             data-agent-target="im-rtc-participant:field:call_id"
             data-agent-state={formData.call_id == null || formData.call_id === "" ? "empty" : "filled"}
             aria-label="通话编号"
-            value={formData.call_id != null ? String(formData.call_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, call_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.call_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, call_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入通话编号"
             
@@ -115,14 +115,14 @@ export function ImRtcParticipantForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="im-rtc-participant-user_id" className="block text-xs text-slate-600 mb-1">参与者用户编号</label>
           <input
-            type="number"
+            type="text"
             id="im-rtc-participant-user_id"
             data-testid="field-user_id"
             data-agent-target="im-rtc-participant:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="参与者用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入参与者用户编号"
             

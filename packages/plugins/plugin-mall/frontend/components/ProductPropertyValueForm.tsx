@@ -76,14 +76,14 @@ export function ProductPropertyValueForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="product-property-value-property_id" className="block text-xs text-slate-600 mb-1">属性项的编号</label>
           <input
-            type="number"
+            type="text"
             id="product-property-value-property_id"
             data-testid="field-property_id"
             data-agent-target="product-property-value:field:property_id"
             data-agent-state={formData.property_id == null || formData.property_id === "" ? "empty" : "filled"}
             aria-label="属性项的编号"
-            value={formData.property_id != null ? String(formData.property_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, property_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.property_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, property_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入属性项的编号"
             

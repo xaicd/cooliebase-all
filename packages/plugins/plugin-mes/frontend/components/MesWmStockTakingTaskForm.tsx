@@ -153,14 +153,14 @@ export function MesWmStockTakingTaskForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-stock-taking-task-user_id" className="block text-xs text-slate-600 mb-1">盘点人编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-user_id"
             data-testid="field-user_id"
             data-agent-target="mes-wm-stock-taking-task:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="盘点人编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入盘点人编号"
             
@@ -170,14 +170,14 @@ export function MesWmStockTakingTaskForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-wm-stock-taking-task-plan_id" className="block text-xs text-slate-600 mb-1">盘点计划编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-plan_id"
             data-testid="field-plan_id"
             data-agent-target="mes-wm-stock-taking-task:field:plan_id"
             data-agent-state={formData.plan_id == null || formData.plan_id === "" ? "empty" : "filled"}
             aria-label="盘点计划编号"
-            value={formData.plan_id != null ? String(formData.plan_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.plan_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入盘点计划编号"
             

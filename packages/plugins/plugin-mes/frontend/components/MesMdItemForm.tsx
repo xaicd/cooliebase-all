@@ -136,14 +136,14 @@ export function MesMdItemForm({ open, initialData, onClose, onSuccess }: MesMdIt
         <div>
           <label htmlFor="mes-md-item-unit_measure_id" className="block text-xs text-slate-600 mb-1">计量单位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-item-unit_measure_id"
             data-testid="field-unit_measure_id"
             data-agent-target="mes-md-item:field:unit_measure_id"
             data-agent-state={formData.unit_measure_id == null || formData.unit_measure_id === "" ? "empty" : "filled"}
             aria-label="计量单位编号"
-            value={formData.unit_measure_id != null ? String(formData.unit_measure_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.unit_measure_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入计量单位编号"
             
@@ -153,14 +153,14 @@ export function MesMdItemForm({ open, initialData, onClose, onSuccess }: MesMdIt
         <div>
           <label htmlFor="mes-md-item-item_type_id" className="block text-xs text-slate-600 mb-1">物料分类编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-item-item_type_id"
             data-testid="field-item_type_id"
             data-agent-target="mes-md-item:field:item_type_id"
             data-agent-state={formData.item_type_id == null || formData.item_type_id === "" ? "empty" : "filled"}
             aria-label="物料分类编号"
-            value={formData.item_type_id != null ? String(formData.item_type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料分类编号"
             

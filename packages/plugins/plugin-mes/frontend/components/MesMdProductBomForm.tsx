@@ -78,14 +78,14 @@ export function MesMdProductBomForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-md-product-bom-item_id" className="block text-xs text-slate-600 mb-1">物料产品编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-product-bom-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-md-product-bom:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料产品编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料产品编号"
             
@@ -95,14 +95,14 @@ export function MesMdProductBomForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-md-product-bom-bom_item_id" className="block text-xs text-slate-600 mb-1">BOM物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-product-bom-bom_item_id"
             data-testid="field-bom_item_id"
             data-agent-target="mes-md-product-bom:field:bom_item_id"
             data-agent-state={formData.bom_item_id == null || formData.bom_item_id === "" ? "empty" : "filled"}
             aria-label="BOM物料编号"
-            value={formData.bom_item_id != null ? String(formData.bom_item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, bom_item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.bom_item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, bom_item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入BOM物料编号"
             

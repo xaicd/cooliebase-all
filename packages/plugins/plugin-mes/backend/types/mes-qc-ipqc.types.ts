@@ -4,16 +4,16 @@ export interface MesQcIpqcDO {
   code?: string
   name?: string
   type?: number
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  process_id?: string
+  item_id?: string
   check_quantity?: number
   qualified_quantity?: number
   unqualified_quantity?: number
@@ -28,7 +28,7 @@ export interface MesQcIpqcDO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -44,16 +44,16 @@ export interface MesQcIpqcVO {
   code?: string
   name?: string
   type?: number
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  process_id?: string
+  item_id?: string
   check_quantity?: number
   qualified_quantity?: number
   unqualified_quantity?: number
@@ -68,7 +68,7 @@ export interface MesQcIpqcVO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -83,16 +83,16 @@ export interface MesQcIpqcCreateDTO {
   code?: string
   name?: string
   type?: number
-  template_id?: number
+  template_id?: string
   source_doc_type?: number
-  source_doc_id?: number
-  source_line_id?: number
+  source_doc_id?: string
+  source_line_id?: string
   source_doc_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  process_id?: string
+  item_id?: string
   check_quantity?: number
   qualified_quantity?: number
   unqualified_quantity?: number
@@ -107,7 +107,7 @@ export interface MesQcIpqcCreateDTO {
   minor_quantity?: number
   check_result?: number
   inspect_date?: string
-  inspector_user_id?: number
+  inspector_user_id?: string
   status?: number
   remark?: string
 }

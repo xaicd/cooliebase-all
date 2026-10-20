@@ -3,9 +3,9 @@ export interface MesWmProductIssueDO {
   id: number
   code?: string
   name?: string
-  workstation_id?: number
-  work_order_id?: number
-  task_id?: number
+  workstation_id?: string
+  work_order_id?: string
+  task_id?: string
   issue_date?: string
   required_time?: string
   status?: number
@@ -22,9 +22,9 @@ export interface MesWmProductIssueVO {
   id: number
   code?: string
   name?: string
-  workstation_id?: number
-  work_order_id?: number
-  task_id?: number
+  workstation_id?: string
+  work_order_id?: string
+  task_id?: string
   issue_date?: string
   required_time?: string
   status?: number
@@ -40,9 +40,9 @@ export interface MesWmProductIssueVO {
 export interface MesWmProductIssueCreateDTO {
   code?: string
   name?: string
-  workstation_id?: number
-  work_order_id?: number
-  task_id?: number
+  workstation_id?: string
+  work_order_id?: string
+  task_id?: string
   issue_date?: string
   required_time?: string
   status?: number

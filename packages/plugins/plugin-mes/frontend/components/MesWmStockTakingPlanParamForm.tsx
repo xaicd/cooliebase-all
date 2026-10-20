@@ -79,14 +79,14 @@ export function MesWmStockTakingPlanParamForm({ open, initialData, onClose, onSu
         <div>
           <label htmlFor="mes-wm-stock-taking-plan-param-plan_id" className="block text-xs text-slate-600 mb-1">盘点方案编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-plan-param-plan_id"
             data-testid="field-plan_id"
             data-agent-target="mes-wm-stock-taking-plan-param:field:plan_id"
             data-agent-state={formData.plan_id == null || formData.plan_id === "" ? "empty" : "filled"}
             aria-label="盘点方案编号"
-            value={formData.plan_id != null ? String(formData.plan_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.plan_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入盘点方案编号"
             
@@ -113,14 +113,14 @@ export function MesWmStockTakingPlanParamForm({ open, initialData, onClose, onSu
         <div>
           <label htmlFor="mes-wm-stock-taking-plan-param-value_id" className="block text-xs text-slate-600 mb-1">参数值编号，例如仓库、库区、库位、物料、批次的主键 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-plan-param-value_id"
             data-testid="field-value_id"
             data-agent-target="mes-wm-stock-taking-plan-param:field:value_id"
             data-agent-state={formData.value_id == null || formData.value_id === "" ? "empty" : "filled"}
             aria-label="参数值编号，例如仓库、库区、库位、物料、批次的主键 ID"
-            value={formData.value_id != null ? String(formData.value_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, value_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.value_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, value_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入参数值编号，例如仓库、库区、库位、物料、批次的主键 ID"
             

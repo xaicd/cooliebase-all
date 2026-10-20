@@ -185,14 +185,14 @@ export function PayDemoWithdrawForm({ open, initialData, onClose, onSuccess }: P
         <div>
           <label htmlFor="pay-demo-withdraw-pay_transfer_id" className="block text-xs text-slate-600 mb-1">转账单编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-demo-withdraw-pay_transfer_id"
             data-testid="field-pay_transfer_id"
             data-agent-target="pay-demo-withdraw:field:pay_transfer_id"
             data-agent-state={formData.pay_transfer_id == null || formData.pay_transfer_id === "" ? "empty" : "filled"}
             aria-label="转账单编号"
-            value={formData.pay_transfer_id != null ? String(formData.pay_transfer_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pay_transfer_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pay_transfer_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pay_transfer_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入转账单编号"
             

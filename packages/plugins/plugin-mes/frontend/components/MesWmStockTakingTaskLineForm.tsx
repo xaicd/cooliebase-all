@@ -85,14 +85,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-task_id" className="block text-xs text-slate-600 mb-1">盘点任务编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-task_id"
             data-testid="field-task_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:task_id"
             data-agent-state={formData.task_id == null || formData.task_id === "" ? "empty" : "filled"}
             aria-label="盘点任务编号"
-            value={formData.task_id != null ? String(formData.task_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.task_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入盘点任务编号"
             
@@ -102,14 +102,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-material_stock_id" className="block text-xs text-slate-600 mb-1">库存编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存编号"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存编号"
             
@@ -119,14 +119,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-item_id" className="block text-xs text-slate-600 mb-1">物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料编号"
             
@@ -136,14 +136,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-batch_id" className="block text-xs text-slate-600 mb-1">批次编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次编号"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次编号"
             
@@ -204,14 +204,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库编号"
             
@@ -221,14 +221,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-location_id" className="block text-xs text-slate-600 mb-1">库位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-location_id"
             data-testid="field-location_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:location_id"
             data-agent-state={formData.location_id == null || formData.location_id === "" ? "empty" : "filled"}
             aria-label="库位编号"
-            value={formData.location_id != null ? String(formData.location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库位编号"
             
@@ -238,14 +238,14 @@ export function MesWmStockTakingTaskLineForm({ open, initialData, onClose, onSuc
         <div>
           <label htmlFor="mes-wm-stock-taking-task-line-area_id" className="block text-xs text-slate-600 mb-1">库区编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-stock-taking-task-line-area_id"
             data-testid="field-area_id"
             data-agent-target="mes-wm-stock-taking-task-line:field:area_id"
             data-agent-state={formData.area_id == null || formData.area_id === "" ? "empty" : "filled"}
             aria-label="库区编号"
-            value={formData.area_id != null ? String(formData.area_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.area_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库区编号"
             

@@ -135,14 +135,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-template_id" className="block text-xs text-slate-600 mb-1">检验模板 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-template_id"
             data-testid="field-template_id"
             data-agent-target="mes-qc-oqc:field:template_id"
             data-agent-state={formData.template_id == null || formData.template_id === "" ? "empty" : "filled"}
             aria-label="检验模板 ID"
-            value={formData.template_id != null ? String(formData.template_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.template_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检验模板 ID"
             
@@ -169,14 +169,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-source_doc_id" className="block text-xs text-slate-600 mb-1">来源单据 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-source_doc_id"
             data-testid="field-source_doc_id"
             data-agent-target="mes-qc-oqc:field:source_doc_id"
             data-agent-state={formData.source_doc_id == null || formData.source_doc_id === "" ? "empty" : "filled"}
             aria-label="来源单据 ID"
-            value={formData.source_doc_id != null ? String(formData.source_doc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.source_doc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源单据 ID"
             
@@ -186,14 +186,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-source_line_id" className="block text-xs text-slate-600 mb-1">来源单据行 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-source_line_id"
             data-testid="field-source_line_id"
             data-agent-target="mes-qc-oqc:field:source_line_id"
             data-agent-state={formData.source_line_id == null || formData.source_line_id === "" ? "empty" : "filled"}
             aria-label="来源单据行 ID"
-            value={formData.source_line_id != null ? String(formData.source_line_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, source_line_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.source_line_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, source_line_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源单据行 ID"
             
@@ -220,14 +220,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-client_id" className="block text-xs text-slate-600 mb-1">客户 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-client_id"
             data-testid="field-client_id"
             data-agent-target="mes-qc-oqc:field:client_id"
             data-agent-state={formData.client_id == null || formData.client_id === "" ? "empty" : "filled"}
             aria-label="客户 ID"
-            value={formData.client_id != null ? String(formData.client_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.client_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户 ID"
             
@@ -254,14 +254,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-item_id" className="block text-xs text-slate-600 mb-1">产品物料 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-qc-oqc:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="产品物料 ID"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料 ID"
             
@@ -526,14 +526,14 @@ export function MesQcOqcForm({ open, initialData, onClose, onSuccess }: MesQcOqc
         <div>
           <label htmlFor="mes-qc-oqc-inspector_user_id" className="block text-xs text-slate-600 mb-1">检测人员用户 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-oqc-inspector_user_id"
             data-testid="field-inspector_user_id"
             data-agent-target="mes-qc-oqc:field:inspector_user_id"
             data-agent-state={formData.inspector_user_id == null || formData.inspector_user_id === "" ? "empty" : "filled"}
             aria-label="检测人员用户 ID"
-            value={formData.inspector_user_id != null ? String(formData.inspector_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, inspector_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.inspector_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, inspector_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检测人员用户 ID"
             

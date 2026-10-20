@@ -2,8 +2,8 @@
 export interface MesQcDefectRecordDO {
   id: number
   qc_type?: number
-  qc_id?: number
-  line_id?: number
+  qc_id?: string
+  line_id?: string
   name?: string
   level?: number
   quantity?: number
@@ -19,8 +19,8 @@ export interface MesQcDefectRecordDO {
 export interface MesQcDefectRecordVO {
   id: number
   qc_type?: number
-  qc_id?: number
-  line_id?: number
+  qc_id?: string
+  line_id?: string
   name?: string
   level?: number
   quantity?: number
@@ -35,8 +35,8 @@ export interface MesQcDefectRecordVO {
 
 export interface MesQcDefectRecordCreateDTO {
   qc_type?: number
-  qc_id?: number
-  line_id?: number
+  qc_id?: string
+  line_id?: string
   name?: string
   level?: number
   quantity?: number

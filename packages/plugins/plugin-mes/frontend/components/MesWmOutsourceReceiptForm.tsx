@@ -114,14 +114,14 @@ export function MesWmOutsourceReceiptForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-wm-outsource-receipt-work_order_id" className="block text-xs text-slate-600 mb-1">外协工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-outsource-receipt-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-wm-outsource-receipt:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="外协工单编号"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入外协工单编号"
             
@@ -131,14 +131,14 @@ export function MesWmOutsourceReceiptForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-wm-outsource-receipt-vendor_id" className="block text-xs text-slate-600 mb-1">供应商编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-outsource-receipt-vendor_id"
             data-testid="field-vendor_id"
             data-agent-target="mes-wm-outsource-receipt:field:vendor_id"
             data-agent-state={formData.vendor_id == null || formData.vendor_id === "" ? "empty" : "filled"}
             aria-label="供应商编号"
-            value={formData.vendor_id != null ? String(formData.vendor_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.vendor_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商编号"
             

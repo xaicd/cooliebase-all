@@ -5,7 +5,7 @@ export interface IotProductDO {
   product_key?: string
   product_secret?: string
   register_enabled?: boolean
-  category_id?: number
+  category_id?: string
   icon?: string
   pic_url?: string
   description?: string
@@ -28,7 +28,7 @@ export interface IotProductVO {
   product_key?: string
   product_secret?: string
   register_enabled?: boolean
-  category_id?: number
+  category_id?: string
   icon?: string
   pic_url?: string
   description?: string
@@ -50,7 +50,7 @@ export interface IotProductCreateDTO {
   product_key?: string
   product_secret?: string
   register_enabled?: boolean
-  category_id?: number
+  category_id?: string
   icon?: string
   pic_url?: string
   description?: string

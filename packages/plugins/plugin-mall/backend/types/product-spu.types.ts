@@ -5,8 +5,8 @@ export interface ProductSpuDO {
   keyword?: string
   introduction?: string
   description?: string
-  category_id?: number
-  brand_id?: number
+  category_id?: string
+  brand_id?: string
   pic_url?: string
   slider_pic_urls?: string
   sort?: number
@@ -17,7 +17,7 @@ export interface ProductSpuDO {
   cost_price?: number
   stock?: number
   delivery_types?: string
-  delivery_template_id?: number
+  delivery_template_id?: string
   give_integral?: number
   sub_commission_type?: boolean
   sales_count?: number
@@ -37,8 +37,8 @@ export interface ProductSpuVO {
   keyword?: string
   introduction?: string
   description?: string
-  category_id?: number
-  brand_id?: number
+  category_id?: string
+  brand_id?: string
   pic_url?: string
   slider_pic_urls?: string
   sort?: number
@@ -49,7 +49,7 @@ export interface ProductSpuVO {
   cost_price?: number
   stock?: number
   delivery_types?: string
-  delivery_template_id?: number
+  delivery_template_id?: string
   give_integral?: number
   sub_commission_type?: boolean
   sales_count?: number
@@ -68,8 +68,8 @@ export interface ProductSpuCreateDTO {
   keyword?: string
   introduction?: string
   description?: string
-  category_id?: number
-  brand_id?: number
+  category_id?: string
+  brand_id?: string
   pic_url?: string
   slider_pic_urls?: string
   sort?: number
@@ -80,7 +80,7 @@ export interface ProductSpuCreateDTO {
   cost_price?: number
   stock?: number
   delivery_types?: string
-  delivery_template_id?: number
+  delivery_template_id?: string
   give_integral?: number
   sub_commission_type?: boolean
   sales_count?: number

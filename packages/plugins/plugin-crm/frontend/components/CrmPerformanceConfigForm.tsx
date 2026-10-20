@@ -107,14 +107,14 @@ export function CrmPerformanceConfigForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="crm-performance-config-object_id" className="block text-xs text-slate-600 mb-1">目标对象编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-performance-config-object_id"
             data-testid="field-object_id"
             data-agent-target="crm-performance-config:field:object_id"
             data-agent-state={formData.object_id == null || formData.object_id === "" ? "empty" : "filled"}
             aria-label="目标对象编号"
-            value={formData.object_id != null ? String(formData.object_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, object_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.object_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, object_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入目标对象编号"
             

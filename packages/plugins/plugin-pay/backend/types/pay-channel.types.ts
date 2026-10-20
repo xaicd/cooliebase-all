@@ -5,7 +5,7 @@ export interface PayChannelDO {
   status?: number
   fee_rate?: number
   remark?: string
-  app_id?: number
+  app_id?: string
   config?: string
   tenant_id: string
   created_by?: string
@@ -21,7 +21,7 @@ export interface PayChannelVO {
   status?: number
   fee_rate?: number
   remark?: string
-  app_id?: number
+  app_id?: string
   config?: string
   tenant_id: string
   created_by?: string
@@ -36,7 +36,7 @@ export interface PayChannelCreateDTO {
   status?: number
   fee_rate?: number
   remark?: string
-  app_id?: number
+  app_id?: string
   config?: string
 }
 

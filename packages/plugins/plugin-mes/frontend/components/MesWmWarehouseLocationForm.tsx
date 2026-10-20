@@ -113,14 +113,14 @@ export function MesWmWarehouseLocationForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-warehouse-location-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-warehouse-location-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="mes-wm-warehouse-location:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库编号"
             

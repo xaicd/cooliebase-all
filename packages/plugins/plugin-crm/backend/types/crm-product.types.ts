@@ -6,9 +6,9 @@ export interface CrmProductDO {
   unit: number
   price?: number
   status?: number
-  category_id?: number
+  category_id?: string
   description?: string
-  owner_user_id?: number
+  owner_user_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -24,9 +24,9 @@ export interface CrmProductVO {
   unit: number
   price?: number
   status?: number
-  category_id?: number
+  category_id?: string
   description?: string
-  owner_user_id?: number
+  owner_user_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -41,9 +41,9 @@ export interface CrmProductCreateDTO {
   unit: number
   price?: number
   status?: number
-  category_id?: number
+  category_id?: string
   description?: string
-  owner_user_id?: number
+  owner_user_id?: string
 }
 
 export interface CrmProductUpdateDTO extends Partial<CrmProductCreateDTO> {

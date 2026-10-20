@@ -4,7 +4,7 @@ export interface MesMdUnitMeasureDO {
   code?: string
   name?: string
   primary_flag?: boolean
-  primary_id?: number
+  primary_id?: string
   change_rate?: number
   status?: number
   remark?: string
@@ -21,7 +21,7 @@ export interface MesMdUnitMeasureVO {
   code?: string
   name?: string
   primary_flag?: boolean
-  primary_id?: number
+  primary_id?: string
   change_rate?: number
   status?: number
   remark?: string
@@ -37,7 +37,7 @@ export interface MesMdUnitMeasureCreateDTO {
   code?: string
   name?: string
   primary_flag?: boolean
-  primary_id?: number
+  primary_id?: string
   change_rate?: number
   status?: number
   remark?: string

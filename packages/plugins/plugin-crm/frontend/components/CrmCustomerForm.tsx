@@ -176,14 +176,14 @@ export function CrmCustomerForm({ open, initialData, onClose, onSuccess }: CrmCu
         <div>
           <label htmlFor="crm-customer-owner_user_id" className="block text-xs text-slate-600 mb-1">负责人的用户编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-customer-owner_user_id"
             data-testid="field-owner_user_id"
             data-agent-target="crm-customer:field:owner_user_id"
             data-agent-state={formData.owner_user_id == null || formData.owner_user_id === "" ? "empty" : "filled"}
             aria-label="负责人的用户编号"
-            value={formData.owner_user_id != null ? String(formData.owner_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.owner_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入负责人的用户编号"
             

@@ -134,14 +134,14 @@ export function MesWmReturnVendorForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-return-vendor-vendor_id" className="block text-xs text-slate-600 mb-1">供应商 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-return-vendor-vendor_id"
             data-testid="field-vendor_id"
             data-agent-target="mes-wm-return-vendor:field:vendor_id"
             data-agent-state={formData.vendor_id == null || formData.vendor_id === "" ? "empty" : "filled"}
             aria-label="供应商 ID"
-            value={formData.vendor_id != null ? String(formData.vendor_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.vendor_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商 ID"
             

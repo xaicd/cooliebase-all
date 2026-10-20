@@ -116,14 +116,14 @@ export function MesWmItemReceiptForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-item-receipt-iqc_id" className="block text-xs text-slate-600 mb-1">来料检验单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-receipt-iqc_id"
             data-testid="field-iqc_id"
             data-agent-target="mes-wm-item-receipt:field:iqc_id"
             data-agent-state={formData.iqc_id == null || formData.iqc_id === "" ? "empty" : "filled"}
             aria-label="来料检验单编号"
-            value={formData.iqc_id != null ? String(formData.iqc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, iqc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.iqc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, iqc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来料检验单编号"
             
@@ -133,14 +133,14 @@ export function MesWmItemReceiptForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-item-receipt-notice_id" className="block text-xs text-slate-600 mb-1">到货通知单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-receipt-notice_id"
             data-testid="field-notice_id"
             data-agent-target="mes-wm-item-receipt:field:notice_id"
             data-agent-state={formData.notice_id == null || formData.notice_id === "" ? "empty" : "filled"}
             aria-label="到货通知单编号"
-            value={formData.notice_id != null ? String(formData.notice_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, notice_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.notice_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, notice_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入到货通知单编号"
             
@@ -167,14 +167,14 @@ export function MesWmItemReceiptForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-wm-item-receipt-vendor_id" className="block text-xs text-slate-600 mb-1">供应商编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-receipt-vendor_id"
             data-testid="field-vendor_id"
             data-agent-target="mes-wm-item-receipt:field:vendor_id"
             data-agent-state={formData.vendor_id == null || formData.vendor_id === "" ? "empty" : "filled"}
             aria-label="供应商编号"
-            value={formData.vendor_id != null ? String(formData.vendor_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.vendor_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, vendor_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商编号"
             

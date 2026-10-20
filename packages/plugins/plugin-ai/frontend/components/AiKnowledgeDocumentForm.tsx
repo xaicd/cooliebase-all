@@ -82,14 +82,14 @@ export function AiKnowledgeDocumentForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="ai-knowledge-document-knowledge_id" className="block text-xs text-slate-600 mb-1">知识库编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-knowledge-document-knowledge_id"
             data-testid="field-knowledge_id"
             data-agent-target="ai-knowledge-document:field:knowledge_id"
             data-agent-state={formData.knowledge_id == null || formData.knowledge_id === "" ? "empty" : "filled"}
             aria-label="知识库编号"
-            value={formData.knowledge_id != null ? String(formData.knowledge_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, knowledge_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.knowledge_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, knowledge_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入知识库编号"
             
@@ -218,14 +218,14 @@ export function AiKnowledgeDocumentForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="ai-knowledge-document-status" className="block text-xs text-slate-600 mb-1">状态</label>
           <input
-            type="number"
+            type="text"
             id="ai-knowledge-document-status"
             data-testid="field-status"
             data-agent-target="ai-knowledge-document:field:status"
             data-agent-state={formData.status == null || formData.status === "" ? "empty" : "filled"}
             aria-label="状态"
-            value={formData.status != null ? String(formData.status) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入状态"
             

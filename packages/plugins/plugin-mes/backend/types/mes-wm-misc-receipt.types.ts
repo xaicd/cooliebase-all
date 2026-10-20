@@ -5,7 +5,7 @@ export interface MesWmMiscReceiptDO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   receipt_date?: string
   status?: number
@@ -24,7 +24,7 @@ export interface MesWmMiscReceiptVO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   receipt_date?: string
   status?: number
@@ -42,7 +42,7 @@ export interface MesWmMiscReceiptCreateDTO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   receipt_date?: string
   status?: number

@@ -94,14 +94,14 @@ export function PayOrderForm({ open, initialData, onClose, onSuccess }: PayOrder
         <div>
           <label htmlFor="pay-order-app_id" className="block text-xs text-slate-600 mb-1">应用编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-order-app_id"
             data-testid="field-app_id"
             data-agent-target="pay-order:field:app_id"
             data-agent-state={formData.app_id == null || formData.app_id === "" ? "empty" : "filled"}
             aria-label="应用编号"
-            value={formData.app_id != null ? String(formData.app_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.app_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入应用编号"
             
@@ -111,14 +111,14 @@ export function PayOrderForm({ open, initialData, onClose, onSuccess }: PayOrder
         <div>
           <label htmlFor="pay-order-channel_id" className="block text-xs text-slate-600 mb-1">渠道编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-order-channel_id"
             data-testid="field-channel_id"
             data-agent-target="pay-order:field:channel_id"
             data-agent-state={formData.channel_id == null || formData.channel_id === "" ? "empty" : "filled"}
             aria-label="渠道编号"
-            value={formData.channel_id != null ? String(formData.channel_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.channel_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入渠道编号"
             
@@ -145,14 +145,14 @@ export function PayOrderForm({ open, initialData, onClose, onSuccess }: PayOrder
         <div>
           <label htmlFor="pay-order-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-order-user_id"
             data-testid="field-user_id"
             data-agent-target="pay-order:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -298,14 +298,14 @@ export function PayOrderForm({ open, initialData, onClose, onSuccess }: PayOrder
         <div>
           <label htmlFor="pay-order-status" className="block text-xs text-slate-600 mb-1">支付状态</label>
           <input
-            type="number"
+            type="text"
             id="pay-order-status"
             data-testid="field-status"
             data-agent-target="pay-order:field:status"
             data-agent-state={formData.status == null || formData.status === "" ? "empty" : "filled"}
             aria-label="支付状态"
-            value={formData.status != null ? String(formData.status) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付状态"
             
@@ -366,14 +366,14 @@ export function PayOrderForm({ open, initialData, onClose, onSuccess }: PayOrder
         <div>
           <label htmlFor="pay-order-extension_id" className="block text-xs text-slate-600 mb-1">支付成功的订单拓展单编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-order-extension_id"
             data-testid="field-extension_id"
             data-agent-target="pay-order:field:extension_id"
             data-agent-state={formData.extension_id == null || formData.extension_id === "" ? "empty" : "filled"}
             aria-label="支付成功的订单拓展单编号"
-            value={formData.extension_id != null ? String(formData.extension_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, extension_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.extension_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, extension_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付成功的订单拓展单编号"
             

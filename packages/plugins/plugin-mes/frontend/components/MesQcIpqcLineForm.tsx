@@ -85,14 +85,14 @@ export function MesQcIpqcLineForm({ open, initialData, onClose, onSuccess }: Mes
         <div>
           <label htmlFor="mes-qc-ipqc-line-ipqc_id" className="block text-xs text-slate-600 mb-1">过程检验单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-ipqc-line-ipqc_id"
             data-testid="field-ipqc_id"
             data-agent-target="mes-qc-ipqc-line:field:ipqc_id"
             data-agent-state={formData.ipqc_id == null || formData.ipqc_id === "" ? "empty" : "filled"}
             aria-label="过程检验单 ID"
-            value={formData.ipqc_id != null ? String(formData.ipqc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, ipqc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.ipqc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, ipqc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入过程检验单 ID"
             
@@ -102,14 +102,14 @@ export function MesQcIpqcLineForm({ open, initialData, onClose, onSuccess }: Mes
         <div>
           <label htmlFor="mes-qc-ipqc-line-indicator_id" className="block text-xs text-slate-600 mb-1">检测指标 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-ipqc-line-indicator_id"
             data-testid="field-indicator_id"
             data-agent-target="mes-qc-ipqc-line:field:indicator_id"
             data-agent-state={formData.indicator_id == null || formData.indicator_id === "" ? "empty" : "filled"}
             aria-label="检测指标 ID"
-            value={formData.indicator_id != null ? String(formData.indicator_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.indicator_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入检测指标 ID"
             
@@ -170,14 +170,14 @@ export function MesQcIpqcLineForm({ open, initialData, onClose, onSuccess }: Mes
         <div>
           <label htmlFor="mes-qc-ipqc-line-unit_measure_id" className="block text-xs text-slate-600 mb-1">计量单位 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-ipqc-line-unit_measure_id"
             data-testid="field-unit_measure_id"
             data-agent-target="mes-qc-ipqc-line:field:unit_measure_id"
             data-agent-state={formData.unit_measure_id == null || formData.unit_measure_id === "" ? "empty" : "filled"}
             aria-label="计量单位 ID"
-            value={formData.unit_measure_id != null ? String(formData.unit_measure_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.unit_measure_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入计量单位 ID"
             

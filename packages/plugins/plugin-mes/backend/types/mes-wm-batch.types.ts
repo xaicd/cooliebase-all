@@ -2,19 +2,19 @@
 export interface MesWmBatchDO {
   id: number
   code?: string
-  item_id?: number
+  item_id?: string
   produce_date?: string
   expire_date?: string
   receipt_date?: string
-  vendor_id?: number
-  client_id?: number
+  vendor_id?: string
+  client_id?: string
   sales_order_code?: string
   purchase_order_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  tool_id?: number
-  mold_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  tool_id?: string
+  mold_id?: string
   lot_number?: string
   quality_status?: number
   remark?: string
@@ -29,19 +29,19 @@ export interface MesWmBatchDO {
 export interface MesWmBatchVO {
   id: number
   code?: string
-  item_id?: number
+  item_id?: string
   produce_date?: string
   expire_date?: string
   receipt_date?: string
-  vendor_id?: number
-  client_id?: number
+  vendor_id?: string
+  client_id?: string
   sales_order_code?: string
   purchase_order_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  tool_id?: number
-  mold_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  tool_id?: string
+  mold_id?: string
   lot_number?: string
   quality_status?: number
   remark?: string
@@ -55,19 +55,19 @@ export interface MesWmBatchVO {
 
 export interface MesWmBatchCreateDTO {
   code?: string
-  item_id?: number
+  item_id?: string
   produce_date?: string
   expire_date?: string
   receipt_date?: string
-  vendor_id?: number
-  client_id?: number
+  vendor_id?: string
+  client_id?: string
   sales_order_code?: string
   purchase_order_code?: string
-  work_order_id?: number
-  task_id?: number
-  workstation_id?: number
-  tool_id?: number
-  mold_id?: number
+  work_order_id?: string
+  task_id?: string
+  workstation_id?: string
+  tool_id?: string
+  mold_id?: string
   lot_number?: string
   quality_status?: number
   remark?: string

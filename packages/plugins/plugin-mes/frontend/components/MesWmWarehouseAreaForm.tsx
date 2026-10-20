@@ -120,14 +120,14 @@ export function MesWmWarehouseAreaForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-wm-warehouse-area-location_id" className="block text-xs text-slate-600 mb-1">库区编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-warehouse-area-location_id"
             data-testid="field-location_id"
             data-agent-target="mes-wm-warehouse-area:field:location_id"
             data-agent-state={formData.location_id == null || formData.location_id === "" ? "empty" : "filled"}
             aria-label="库区编号"
-            value={formData.location_id != null ? String(formData.location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库区编号"
             

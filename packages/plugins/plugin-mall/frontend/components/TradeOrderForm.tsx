@@ -176,14 +176,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-user_id"
             data-testid="field-user_id"
             data-agent-target="trade-order:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -344,14 +344,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-brokerage_user_id" className="block text-xs text-slate-600 mb-1">推广人编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-brokerage_user_id"
             data-testid="field-brokerage_user_id"
             data-agent-target="trade-order:field:brokerage_user_id"
             data-agent-state={formData.brokerage_user_id == null || formData.brokerage_user_id === "" ? "empty" : "filled"}
             aria-label="推广人编号"
-            value={formData.brokerage_user_id != null ? String(formData.brokerage_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, brokerage_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.brokerage_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, brokerage_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入推广人编号"
             
@@ -361,14 +361,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-pay_order_id" className="block text-xs text-slate-600 mb-1">支付订单编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-pay_order_id"
             data-testid="field-pay_order_id"
             data-agent-target="trade-order:field:pay_order_id"
             data-agent-state={formData.pay_order_id == null || formData.pay_order_id === "" ? "empty" : "filled"}
             aria-label="支付订单编号"
-            value={formData.pay_order_id != null ? String(formData.pay_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pay_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pay_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pay_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入支付订单编号"
             
@@ -529,14 +529,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-logistics_id" className="block text-xs text-slate-600 mb-1">发货物流公司编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-logistics_id"
             data-testid="field-logistics_id"
             data-agent-target="trade-order:field:logistics_id"
             data-agent-state={formData.logistics_id == null || formData.logistics_id === "" ? "empty" : "filled"}
             aria-label="发货物流公司编号"
-            value={formData.logistics_id != null ? String(formData.logistics_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, logistics_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.logistics_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, logistics_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发货物流公司编号"
             
@@ -665,14 +665,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-pick_up_store_id" className="block text-xs text-slate-600 mb-1">自提门店编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-pick_up_store_id"
             data-testid="field-pick_up_store_id"
             data-agent-target="trade-order:field:pick_up_store_id"
             data-agent-state={formData.pick_up_store_id == null || formData.pick_up_store_id === "" ? "empty" : "filled"}
             aria-label="自提门店编号"
-            value={formData.pick_up_store_id != null ? String(formData.pick_up_store_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, pick_up_store_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.pick_up_store_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, pick_up_store_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入自提门店编号"
             
@@ -733,14 +733,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-coupon_id" className="block text-xs text-slate-600 mb-1">优惠劵编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-coupon_id"
             data-testid="field-coupon_id"
             data-agent-target="trade-order:field:coupon_id"
             data-agent-state={formData.coupon_id == null || formData.coupon_id === "" ? "empty" : "filled"}
             aria-label="优惠劵编号"
-            value={formData.coupon_id != null ? String(formData.coupon_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, coupon_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.coupon_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, coupon_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入优惠劵编号"
             
@@ -886,14 +886,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-seckill_activity_id" className="block text-xs text-slate-600 mb-1">秒杀活动编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-seckill_activity_id"
             data-testid="field-seckill_activity_id"
             data-agent-target="trade-order:field:seckill_activity_id"
             data-agent-state={formData.seckill_activity_id == null || formData.seckill_activity_id === "" ? "empty" : "filled"}
             aria-label="秒杀活动编号"
-            value={formData.seckill_activity_id != null ? String(formData.seckill_activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, seckill_activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.seckill_activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, seckill_activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入秒杀活动编号"
             
@@ -903,14 +903,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-bargain_activity_id" className="block text-xs text-slate-600 mb-1">砍价活动编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-bargain_activity_id"
             data-testid="field-bargain_activity_id"
             data-agent-target="trade-order:field:bargain_activity_id"
             data-agent-state={formData.bargain_activity_id == null || formData.bargain_activity_id === "" ? "empty" : "filled"}
             aria-label="砍价活动编号"
-            value={formData.bargain_activity_id != null ? String(formData.bargain_activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, bargain_activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.bargain_activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, bargain_activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入砍价活动编号"
             
@@ -920,14 +920,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-bargain_record_id" className="block text-xs text-slate-600 mb-1">砍价记录编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-bargain_record_id"
             data-testid="field-bargain_record_id"
             data-agent-target="trade-order:field:bargain_record_id"
             data-agent-state={formData.bargain_record_id == null || formData.bargain_record_id === "" ? "empty" : "filled"}
             aria-label="砍价记录编号"
-            value={formData.bargain_record_id != null ? String(formData.bargain_record_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, bargain_record_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.bargain_record_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, bargain_record_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入砍价记录编号"
             
@@ -937,14 +937,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-combination_activity_id" className="block text-xs text-slate-600 mb-1">拼团活动编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-combination_activity_id"
             data-testid="field-combination_activity_id"
             data-agent-target="trade-order:field:combination_activity_id"
             data-agent-state={formData.combination_activity_id == null || formData.combination_activity_id === "" ? "empty" : "filled"}
             aria-label="拼团活动编号"
-            value={formData.combination_activity_id != null ? String(formData.combination_activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, combination_activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.combination_activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, combination_activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入拼团活动编号"
             
@@ -954,14 +954,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-combination_head_id" className="block text-xs text-slate-600 mb-1">拼团团长编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-combination_head_id"
             data-testid="field-combination_head_id"
             data-agent-target="trade-order:field:combination_head_id"
             data-agent-state={formData.combination_head_id == null || formData.combination_head_id === "" ? "empty" : "filled"}
             aria-label="拼团团长编号"
-            value={formData.combination_head_id != null ? String(formData.combination_head_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, combination_head_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.combination_head_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, combination_head_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入拼团团长编号"
             
@@ -971,14 +971,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-combination_record_id" className="block text-xs text-slate-600 mb-1">拼团记录编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-combination_record_id"
             data-testid="field-combination_record_id"
             data-agent-target="trade-order:field:combination_record_id"
             data-agent-state={formData.combination_record_id == null || formData.combination_record_id === "" ? "empty" : "filled"}
             aria-label="拼团记录编号"
-            value={formData.combination_record_id != null ? String(formData.combination_record_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, combination_record_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.combination_record_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, combination_record_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入拼团记录编号"
             
@@ -988,14 +988,14 @@ export function TradeOrderForm({ open, initialData, onClose, onSuccess }: TradeO
         <div>
           <label htmlFor="trade-order-point_activity_id" className="block text-xs text-slate-600 mb-1">积分商城活动的编号</label>
           <input
-            type="number"
+            type="text"
             id="trade-order-point_activity_id"
             data-testid="field-point_activity_id"
             data-agent-target="trade-order:field:point_activity_id"
             data-agent-state={formData.point_activity_id == null || formData.point_activity_id === "" ? "empty" : "filled"}
             aria-label="积分商城活动的编号"
-            value={formData.point_activity_id != null ? String(formData.point_activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, point_activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.point_activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, point_activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入积分商城活动的编号"
             

@@ -3,11 +3,11 @@ export interface AiKnowledgeDO {
   id: number
   name?: string
   description?: string
-  embedding_model_id?: number
+  embedding_model_id?: string
   embedding_model?: string
   top_k?: number
   similarity_threshold?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -20,11 +20,11 @@ export interface AiKnowledgeVO {
   id: number
   name?: string
   description?: string
-  embedding_model_id?: number
+  embedding_model_id?: string
   embedding_model?: string
   top_k?: number
   similarity_threshold?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -36,11 +36,11 @@ export interface AiKnowledgeVO {
 export interface AiKnowledgeCreateDTO {
   name?: string
   description?: string
-  embedding_model_id?: number
+  embedding_model_id?: string
   embedding_model?: string
   top_k?: number
   similarity_threshold?: number
-  status?: number
+  status?: string
 }
 
 export interface AiKnowledgeUpdateDTO extends Partial<AiKnowledgeCreateDTO> {

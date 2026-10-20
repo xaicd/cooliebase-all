@@ -79,14 +79,14 @@ export function MesDvMaintenRecordForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-dv-mainten-record-plan_id" className="block text-xs text-slate-600 mb-1">计划编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-mainten-record-plan_id"
             data-testid="field-plan_id"
             data-agent-target="mes-dv-mainten-record:field:plan_id"
             data-agent-state={formData.plan_id == null || formData.plan_id === "" ? "empty" : "filled"}
             aria-label="计划编号"
-            value={formData.plan_id != null ? String(formData.plan_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.plan_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入计划编号"
             
@@ -96,14 +96,14 @@ export function MesDvMaintenRecordForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-dv-mainten-record-machinery_id" className="block text-xs text-slate-600 mb-1">设备编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-mainten-record-machinery_id"
             data-testid="field-machinery_id"
             data-agent-target="mes-dv-mainten-record:field:machinery_id"
             data-agent-state={formData.machinery_id == null || formData.machinery_id === "" ? "empty" : "filled"}
             aria-label="设备编号"
-            value={formData.machinery_id != null ? String(formData.machinery_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.machinery_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备编号"
             
@@ -130,14 +130,14 @@ export function MesDvMaintenRecordForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="mes-dv-mainten-record-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-mainten-record-user_id"
             data-testid="field-user_id"
             data-agent-target="mes-dv-mainten-record:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             

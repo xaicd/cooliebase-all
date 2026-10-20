@@ -90,14 +90,14 @@ export function MpAutoReplyForm({ open, initialData, onClose, onSuccess }: MpAut
         <div>
           <label htmlFor="mp-auto-reply-account_id" className="block text-xs text-slate-600 mb-1">公众号账号的编号</label>
           <input
-            type="number"
+            type="text"
             id="mp-auto-reply-account_id"
             data-testid="field-account_id"
             data-agent-target="mp-auto-reply:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="公众号账号的编号"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入公众号账号的编号"
             

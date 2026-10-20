@@ -4,7 +4,7 @@ export interface MesWmReturnVendorDO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   return_date?: string
   return_reason?: string
   transport_code?: string
@@ -24,7 +24,7 @@ export interface MesWmReturnVendorVO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   return_date?: string
   return_reason?: string
   transport_code?: string
@@ -43,7 +43,7 @@ export interface MesWmReturnVendorCreateDTO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   return_date?: string
   return_reason?: string
   transport_code?: string

@@ -80,14 +80,14 @@ export function CombinationProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="combination-product-activity_id" className="block text-xs text-slate-600 mb-1">拼团活动编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-product-activity_id"
             data-testid="field-activity_id"
             data-agent-target="combination-product:field:activity_id"
             data-agent-state={formData.activity_id == null || formData.activity_id === "" ? "empty" : "filled"}
             aria-label="拼团活动编号"
-            value={formData.activity_id != null ? String(formData.activity_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.activity_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, activity_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入拼团活动编号"
             
@@ -97,14 +97,14 @@ export function CombinationProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="combination-product-spu_id" className="block text-xs text-slate-600 mb-1">商品 SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-product-spu_id"
             data-testid="field-spu_id"
             data-agent-target="combination-product:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="商品 SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SPU 编号"
             
@@ -114,14 +114,14 @@ export function CombinationProductForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="combination-product-sku_id" className="block text-xs text-slate-600 mb-1">商品 SKU 编号</label>
           <input
-            type="number"
+            type="text"
             id="combination-product-sku_id"
             data-testid="field-sku_id"
             data-agent-target="combination-product:field:sku_id"
             data-agent-state={formData.sku_id == null || formData.sku_id === "" ? "empty" : "filled"}
             aria-label="商品 SKU 编号"
-            value={formData.sku_id != null ? String(formData.sku_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sku_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SKU 编号"
             

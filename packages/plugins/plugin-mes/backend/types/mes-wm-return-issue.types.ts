@@ -3,8 +3,8 @@ export interface MesWmReturnIssueDO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
+  work_order_id?: string
+  workstation_id?: string
   type?: number
   return_date?: string
   status?: number
@@ -21,8 +21,8 @@ export interface MesWmReturnIssueVO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
+  work_order_id?: string
+  workstation_id?: string
   type?: number
   return_date?: string
   status?: number
@@ -38,8 +38,8 @@ export interface MesWmReturnIssueVO {
 export interface MesWmReturnIssueCreateDTO {
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
+  work_order_id?: string
+  workstation_id?: string
   type?: number
   return_date?: string
   status?: number

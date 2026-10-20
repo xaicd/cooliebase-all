@@ -85,14 +85,14 @@ export function ArticleForm({ open, initialData, onClose, onSuccess }: ArticleFo
         <div>
           <label htmlFor="article-category_id" className="block text-xs text-slate-600 mb-1">分类编号 ArticleCategoryDO#id</label>
           <input
-            type="number"
+            type="text"
             id="article-category_id"
             data-testid="field-category_id"
             data-agent-target="article:field:category_id"
             data-agent-state={formData.category_id == null || formData.category_id === "" ? "empty" : "filled"}
             aria-label="分类编号 ArticleCategoryDO#id"
-            value={formData.category_id != null ? String(formData.category_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.category_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入分类编号 ArticleCategoryDO#id"
             
@@ -102,14 +102,14 @@ export function ArticleForm({ open, initialData, onClose, onSuccess }: ArticleFo
         <div>
           <label htmlFor="article-spu_id" className="block text-xs text-slate-600 mb-1">关联商品编号 ProductSpuDO#id</label>
           <input
-            type="number"
+            type="text"
             id="article-spu_id"
             data-testid="field-spu_id"
             data-agent-target="article:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="关联商品编号 ProductSpuDO#id"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入关联商品编号 ProductSpuDO#id"
             

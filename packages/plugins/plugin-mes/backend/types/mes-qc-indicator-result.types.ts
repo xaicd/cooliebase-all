@@ -2,9 +2,9 @@
 export interface MesQcIndicatorResultDO {
   id: number
   code?: string
-  qc_id?: number
+  qc_id?: string
   qc_type?: number
-  item_id?: number
+  item_id?: string
   sn?: string
   remark?: string
   tenant_id: string
@@ -18,9 +18,9 @@ export interface MesQcIndicatorResultDO {
 export interface MesQcIndicatorResultVO {
   id: number
   code?: string
-  qc_id?: number
+  qc_id?: string
   qc_type?: number
-  item_id?: number
+  item_id?: string
   sn?: string
   remark?: string
   tenant_id: string
@@ -33,9 +33,9 @@ export interface MesQcIndicatorResultVO {
 
 export interface MesQcIndicatorResultCreateDTO {
   code?: string
-  qc_id?: number
+  qc_id?: string
   qc_type?: number
-  item_id?: number
+  item_id?: string
   sn?: string
   remark?: string
 }

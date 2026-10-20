@@ -119,14 +119,14 @@ export function ErpProductForm({ open, initialData, onClose, onSuccess }: ErpPro
         <div>
           <label htmlFor="erp-product-category_id" className="block text-xs text-slate-600 mb-1">产品分类编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-product-category_id"
             data-testid="field-category_id"
             data-agent-target="erp-product:field:category_id"
             data-agent-state={formData.category_id == null || formData.category_id === "" ? "empty" : "filled"}
             aria-label="产品分类编号"
-            value={formData.category_id != null ? String(formData.category_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.category_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品分类编号"
             
@@ -136,14 +136,14 @@ export function ErpProductForm({ open, initialData, onClose, onSuccess }: ErpPro
         <div>
           <label htmlFor="erp-product-unit_id" className="block text-xs text-slate-600 mb-1">单位编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-product-unit_id"
             data-testid="field-unit_id"
             data-agent-target="erp-product:field:unit_id"
             data-agent-state={formData.unit_id == null || formData.unit_id === "" ? "empty" : "filled"}
             aria-label="单位编号"
-            value={formData.unit_id != null ? String(formData.unit_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, unit_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.unit_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, unit_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入单位编号"
             

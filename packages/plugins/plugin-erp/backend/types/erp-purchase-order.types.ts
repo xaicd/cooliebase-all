@@ -3,8 +3,8 @@ export interface ErpPurchaseOrderDO {
   id: number
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   order_time?: string
   total_count?: number
   total_price?: number
@@ -29,8 +29,8 @@ export interface ErpPurchaseOrderVO {
   id: number
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   order_time?: string
   total_count?: number
   total_price?: number
@@ -54,8 +54,8 @@ export interface ErpPurchaseOrderVO {
 export interface ErpPurchaseOrderCreateDTO {
   no?: string
   status?: number
-  supplier_id?: number
-  account_id?: number
+  supplier_id?: string
+  account_id?: string
   order_time?: string
   total_count?: number
   total_price?: number

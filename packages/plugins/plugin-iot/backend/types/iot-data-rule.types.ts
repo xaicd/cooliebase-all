@@ -7,8 +7,8 @@ export interface IotDataRuleDO {
   source_configs?: string
   sink_ids?: string
   method?: string
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   tenant_id: string
   created_by?: string
@@ -26,8 +26,8 @@ export interface IotDataRuleVO {
   source_configs?: string
   sink_ids?: string
   method?: string
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
   tenant_id: string
   created_by?: string
@@ -44,8 +44,8 @@ export interface IotDataRuleCreateDTO {
   source_configs?: string
   sink_ids?: string
   method?: string
-  product_id?: number
-  device_id?: number
+  product_id?: string
+  device_id?: string
   identifier?: string
 }
 

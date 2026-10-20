@@ -120,14 +120,14 @@ export function MesWmProductSalesForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-product-sales-client_id" className="block text-xs text-slate-600 mb-1">客户ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-sales-client_id"
             data-testid="field-client_id"
             data-agent-target="mes-wm-product-sales:field:client_id"
             data-agent-state={formData.client_id == null || formData.client_id === "" ? "empty" : "filled"}
             aria-label="客户ID"
-            value={formData.client_id != null ? String(formData.client_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.client_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, client_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户ID"
             
@@ -154,14 +154,14 @@ export function MesWmProductSalesForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-product-sales-notice_id" className="block text-xs text-slate-600 mb-1">发货通知单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-sales-notice_id"
             data-testid="field-notice_id"
             data-agent-target="mes-wm-product-sales:field:notice_id"
             data-agent-state={formData.notice_id == null || formData.notice_id === "" ? "empty" : "filled"}
             aria-label="发货通知单 ID"
-            value={formData.notice_id != null ? String(formData.notice_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, notice_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.notice_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, notice_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发货通知单 ID"
             

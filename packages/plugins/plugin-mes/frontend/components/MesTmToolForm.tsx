@@ -153,14 +153,14 @@ export function MesTmToolForm({ open, initialData, onClose, onSuccess }: MesTmTo
         <div>
           <label htmlFor="mes-tm-tool-tool_type_id" className="block text-xs text-slate-600 mb-1">工具类型编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-tm-tool-tool_type_id"
             data-testid="field-tool_type_id"
             data-agent-target="mes-tm-tool:field:tool_type_id"
             data-agent-state={formData.tool_type_id == null || formData.tool_type_id === "" ? "empty" : "filled"}
             aria-label="工具类型编号"
-            value={formData.tool_type_id != null ? String(formData.tool_type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, tool_type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.tool_type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, tool_type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工具类型编号"
             

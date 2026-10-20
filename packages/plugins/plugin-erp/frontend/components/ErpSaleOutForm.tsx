@@ -125,14 +125,14 @@ export function ErpSaleOutForm({ open, initialData, onClose, onSuccess }: ErpSal
         <div>
           <label htmlFor="erp-sale-out-customer_id" className="block text-xs text-slate-600 mb-1">客户编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-out-customer_id"
             data-testid="field-customer_id"
             data-agent-target="erp-sale-out:field:customer_id"
             data-agent-state={formData.customer_id == null || formData.customer_id === "" ? "empty" : "filled"}
             aria-label="客户编号"
-            value={formData.customer_id != null ? String(formData.customer_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.customer_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户编号"
             
@@ -142,14 +142,14 @@ export function ErpSaleOutForm({ open, initialData, onClose, onSuccess }: ErpSal
         <div>
           <label htmlFor="erp-sale-out-account_id" className="block text-xs text-slate-600 mb-1">结算账户编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-out-account_id"
             data-testid="field-account_id"
             data-agent-target="erp-sale-out:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="结算账户编号"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入结算账户编号"
             
@@ -159,14 +159,14 @@ export function ErpSaleOutForm({ open, initialData, onClose, onSuccess }: ErpSal
         <div>
           <label htmlFor="erp-sale-out-sale_user_id" className="block text-xs text-slate-600 mb-1">销售员编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-out-sale_user_id"
             data-testid="field-sale_user_id"
             data-agent-target="erp-sale-out:field:sale_user_id"
             data-agent-state={formData.sale_user_id == null || formData.sale_user_id === "" ? "empty" : "filled"}
             aria-label="销售员编号"
-            value={formData.sale_user_id != null ? String(formData.sale_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sale_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sale_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sale_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入销售员编号"
             
@@ -193,14 +193,14 @@ export function ErpSaleOutForm({ open, initialData, onClose, onSuccess }: ErpSal
         <div>
           <label htmlFor="erp-sale-out-order_id" className="block text-xs text-slate-600 mb-1">销售订单编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-out-order_id"
             data-testid="field-order_id"
             data-agent-target="erp-sale-out:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="销售订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入销售订单编号"
             

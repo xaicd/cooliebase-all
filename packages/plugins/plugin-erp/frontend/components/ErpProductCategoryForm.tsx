@@ -78,14 +78,14 @@ export function ErpProductCategoryForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="erp-product-category-parent_id" className="block text-xs text-slate-600 mb-1">父分类编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-product-category-parent_id"
             data-testid="field-parent_id"
             data-agent-target="erp-product-category:field:parent_id"
             data-agent-state={formData.parent_id == null || formData.parent_id === "" ? "empty" : "filled"}
             aria-label="父分类编号"
-            value={formData.parent_id != null ? String(formData.parent_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.parent_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入父分类编号"
             

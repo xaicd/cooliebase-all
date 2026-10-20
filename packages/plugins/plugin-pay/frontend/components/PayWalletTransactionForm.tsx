@@ -97,14 +97,14 @@ export function PayWalletTransactionForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="pay-wallet-transaction-wallet_id" className="block text-xs text-slate-600 mb-1">钱包编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-wallet-transaction-wallet_id"
             data-testid="field-wallet_id"
             data-agent-target="pay-wallet-transaction:field:wallet_id"
             data-agent-state={formData.wallet_id == null || formData.wallet_id === "" ? "empty" : "filled"}
             aria-label="钱包编号"
-            value={formData.wallet_id != null ? String(formData.wallet_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, wallet_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.wallet_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, wallet_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入钱包编号"
             

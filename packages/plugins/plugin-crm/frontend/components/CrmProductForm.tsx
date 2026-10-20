@@ -166,14 +166,14 @@ export function CrmProductForm({ open, initialData, onClose, onSuccess }: CrmPro
         <div>
           <label htmlFor="crm-product-category_id" className="block text-xs text-slate-600 mb-1">产品分类 ID</label>
           <input
-            type="number"
+            type="text"
             id="crm-product-category_id"
             data-testid="field-category_id"
             data-agent-target="crm-product:field:category_id"
             data-agent-state={formData.category_id == null || formData.category_id === "" ? "empty" : "filled"}
             aria-label="产品分类 ID"
-            value={formData.category_id != null ? String(formData.category_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.category_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品分类 ID"
             
@@ -200,14 +200,14 @@ export function CrmProductForm({ open, initialData, onClose, onSuccess }: CrmPro
         <div>
           <label htmlFor="crm-product-owner_user_id" className="block text-xs text-slate-600 mb-1">负责人的用户编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-product-owner_user_id"
             data-testid="field-owner_user_id"
             data-agent-target="crm-product:field:owner_user_id"
             data-agent-state={formData.owner_user_id == null || formData.owner_user_id === "" ? "empty" : "filled"}
             aria-label="负责人的用户编号"
-            value={formData.owner_user_id != null ? String(formData.owner_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.owner_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入负责人的用户编号"
             

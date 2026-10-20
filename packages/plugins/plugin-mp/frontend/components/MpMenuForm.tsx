@@ -94,14 +94,14 @@ export function MpMenuForm({ open, initialData, onClose, onSuccess }: MpMenuForm
         <div>
           <label htmlFor="mp-menu-account_id" className="block text-xs text-slate-600 mb-1">公众号账号的编号</label>
           <input
-            type="number"
+            type="text"
             id="mp-menu-account_id"
             data-testid="field-account_id"
             data-agent-target="mp-menu:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="公众号账号的编号"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入公众号账号的编号"
             
@@ -162,14 +162,14 @@ export function MpMenuForm({ open, initialData, onClose, onSuccess }: MpMenuForm
         <div>
           <label htmlFor="mp-menu-parent_id" className="block text-xs text-slate-600 mb-1">父菜单编号</label>
           <input
-            type="number"
+            type="text"
             id="mp-menu-parent_id"
             data-testid="field-parent_id"
             data-agent-target="mp-menu:field:parent_id"
             data-agent-state={formData.parent_id == null || formData.parent_id === "" ? "empty" : "filled"}
             aria-label="父菜单编号"
-            value={formData.parent_id != null ? String(formData.parent_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.parent_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, parent_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入父菜单编号"
             

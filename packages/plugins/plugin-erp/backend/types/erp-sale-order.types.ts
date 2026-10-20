@@ -3,9 +3,9 @@ export interface ErpSaleOrderDO {
   id: number
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   order_time?: string
   total_count?: number
   total_price?: number
@@ -30,9 +30,9 @@ export interface ErpSaleOrderVO {
   id: number
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   order_time?: string
   total_count?: number
   total_price?: number
@@ -56,9 +56,9 @@ export interface ErpSaleOrderVO {
 export interface ErpSaleOrderCreateDTO {
   no?: string
   status?: number
-  customer_id?: number
-  account_id?: number
-  sale_user_id?: number
+  customer_id?: string
+  account_id?: string
+  sale_user_id?: string
   order_time?: string
   total_count?: number
   total_price?: number

@@ -83,14 +83,14 @@ export function BpmProcessInstanceCopyForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="bpm-process-instance-copy-start_user_id" className="block text-xs text-slate-600 mb-1">发起人 Id</label>
           <input
-            type="number"
+            type="text"
             id="bpm-process-instance-copy-start_user_id"
             data-testid="field-start_user_id"
             data-agent-target="bpm-process-instance-copy:field:start_user_id"
             data-agent-state={formData.start_user_id == null || formData.start_user_id === "" ? "empty" : "filled"}
             aria-label="发起人 Id"
-            value={formData.start_user_id != null ? String(formData.start_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, start_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.start_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, start_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发起人 Id"
             
@@ -219,14 +219,14 @@ export function BpmProcessInstanceCopyForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="bpm-process-instance-copy-user_id" className="block text-xs text-slate-600 mb-1">用户编号（被抄送的用户编号）</label>
           <input
-            type="number"
+            type="text"
             id="bpm-process-instance-copy-user_id"
             data-testid="field-user_id"
             data-agent-target="bpm-process-instance-copy:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号（被抄送的用户编号）"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号（被抄送的用户编号）"
             

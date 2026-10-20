@@ -2,9 +2,9 @@
 export interface CrmOwnerRecordDO {
   id: number
   biz_type?: number
-  biz_id?: number
-  pre_owner_user_id?: number
-  post_owner_user_id?: number
+  biz_id?: string
+  pre_owner_user_id?: string
+  post_owner_user_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -16,9 +16,9 @@ export interface CrmOwnerRecordDO {
 export interface CrmOwnerRecordVO {
   id: number
   biz_type?: number
-  biz_id?: number
-  pre_owner_user_id?: number
-  post_owner_user_id?: number
+  biz_id?: string
+  pre_owner_user_id?: string
+  post_owner_user_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -29,9 +29,9 @@ export interface CrmOwnerRecordVO {
 
 export interface CrmOwnerRecordCreateDTO {
   biz_type?: number
-  biz_id?: number
-  pre_owner_user_id?: number
-  post_owner_user_id?: number
+  biz_id?: string
+  pre_owner_user_id?: string
+  post_owner_user_id?: string
 }
 
 export interface CrmOwnerRecordUpdateDTO extends Partial<CrmOwnerRecordCreateDTO> {

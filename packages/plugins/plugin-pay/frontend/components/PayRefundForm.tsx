@@ -112,14 +112,14 @@ export function PayRefundForm({ open, initialData, onClose, onSuccess }: PayRefu
         <div>
           <label htmlFor="pay-refund-app_id" className="block text-xs text-slate-600 mb-1">应用编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-refund-app_id"
             data-testid="field-app_id"
             data-agent-target="pay-refund:field:app_id"
             data-agent-state={formData.app_id == null || formData.app_id === "" ? "empty" : "filled"}
             aria-label="应用编号"
-            value={formData.app_id != null ? String(formData.app_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.app_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, app_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入应用编号"
             
@@ -129,14 +129,14 @@ export function PayRefundForm({ open, initialData, onClose, onSuccess }: PayRefu
         <div>
           <label htmlFor="pay-refund-channel_id" className="block text-xs text-slate-600 mb-1">渠道编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-refund-channel_id"
             data-testid="field-channel_id"
             data-agent-target="pay-refund:field:channel_id"
             data-agent-state={formData.channel_id == null || formData.channel_id === "" ? "empty" : "filled"}
             aria-label="渠道编号"
-            value={formData.channel_id != null ? String(formData.channel_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.channel_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, channel_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入渠道编号"
             
@@ -163,14 +163,14 @@ export function PayRefundForm({ open, initialData, onClose, onSuccess }: PayRefu
         <div>
           <label htmlFor="pay-refund-order_id" className="block text-xs text-slate-600 mb-1">订单编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-refund-order_id"
             data-testid="field-order_id"
             data-agent-target="pay-refund:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入订单编号"
             
@@ -197,14 +197,14 @@ export function PayRefundForm({ open, initialData, onClose, onSuccess }: PayRefu
         <div>
           <label htmlFor="pay-refund-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="pay-refund-user_id"
             data-testid="field-user_id"
             data-agent-target="pay-refund:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             

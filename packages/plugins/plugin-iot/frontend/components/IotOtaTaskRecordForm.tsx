@@ -80,14 +80,14 @@ export function IotOtaTaskRecordForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="iot-ota-task-record-firmware_id" className="block text-xs text-slate-600 mb-1">固件编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-ota-task-record-firmware_id"
             data-testid="field-firmware_id"
             data-agent-target="iot-ota-task-record:field:firmware_id"
             data-agent-state={formData.firmware_id == null || formData.firmware_id === "" ? "empty" : "filled"}
             aria-label="固件编号"
-            value={formData.firmware_id != null ? String(formData.firmware_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, firmware_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.firmware_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, firmware_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入固件编号"
             
@@ -97,14 +97,14 @@ export function IotOtaTaskRecordForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="iot-ota-task-record-task_id" className="block text-xs text-slate-600 mb-1">任务编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-ota-task-record-task_id"
             data-testid="field-task_id"
             data-agent-target="iot-ota-task-record:field:task_id"
             data-agent-state={formData.task_id == null || formData.task_id === "" ? "empty" : "filled"}
             aria-label="任务编号"
-            value={formData.task_id != null ? String(formData.task_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.task_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, task_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入任务编号"
             
@@ -114,14 +114,14 @@ export function IotOtaTaskRecordForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="iot-ota-task-record-device_id" className="block text-xs text-slate-600 mb-1">设备编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-ota-task-record-device_id"
             data-testid="field-device_id"
             data-agent-target="iot-ota-task-record:field:device_id"
             data-agent-state={formData.device_id == null || formData.device_id === "" ? "empty" : "filled"}
             aria-label="设备编号"
-            value={formData.device_id != null ? String(formData.device_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, device_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.device_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, device_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备编号"
             
@@ -131,14 +131,14 @@ export function IotOtaTaskRecordForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="iot-ota-task-record-from_firmware_id" className="block text-xs text-slate-600 mb-1">来源的固件编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-ota-task-record-from_firmware_id"
             data-testid="field-from_firmware_id"
             data-agent-target="iot-ota-task-record:field:from_firmware_id"
             data-agent-state={formData.from_firmware_id == null || formData.from_firmware_id === "" ? "empty" : "filled"}
             aria-label="来源的固件编号"
-            value={formData.from_firmware_id != null ? String(formData.from_firmware_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, from_firmware_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.from_firmware_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, from_firmware_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源的固件编号"
             

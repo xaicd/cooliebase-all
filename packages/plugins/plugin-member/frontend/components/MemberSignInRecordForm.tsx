@@ -77,14 +77,14 @@ export function MemberSignInRecordForm({ open, initialData, onClose, onSuccess }
         <div>
           <label htmlFor="member-sign-in-record-user_id" className="block text-xs text-slate-600 mb-1">签到用户</label>
           <input
-            type="number"
+            type="text"
             id="member-sign-in-record-user_id"
             data-testid="field-user_id"
             data-agent-target="member-sign-in-record:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="签到用户"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入签到用户"
             

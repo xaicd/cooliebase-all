@@ -90,14 +90,14 @@ export function ProductSkuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-sku-spu_id" className="block text-xs text-slate-600 mb-1">SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="product-sku-spu_id"
             data-testid="field-spu_id"
             data-agent-target="product-sku:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入SPU 编号"
             
@@ -311,14 +311,14 @@ export function ProductSkuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-sku-property_id" className="block text-xs text-slate-600 mb-1">属性编号</label>
           <input
-            type="number"
+            type="text"
             id="product-sku-property_id"
             data-testid="field-property_id"
             data-agent-target="product-sku:field:property_id"
             data-agent-state={formData.property_id == null || formData.property_id === "" ? "empty" : "filled"}
             aria-label="属性编号"
-            value={formData.property_id != null ? String(formData.property_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, property_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.property_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, property_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入属性编号"
             
@@ -345,14 +345,14 @@ export function ProductSkuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-sku-value_id" className="block text-xs text-slate-600 mb-1">属性值编号</label>
           <input
-            type="number"
+            type="text"
             id="product-sku-value_id"
             data-testid="field-value_id"
             data-agent-target="product-sku:field:value_id"
             data-agent-state={formData.value_id == null || formData.value_id === "" ? "empty" : "filled"}
             aria-label="属性值编号"
-            value={formData.value_id != null ? String(formData.value_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, value_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.value_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, value_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入属性值编号"
             

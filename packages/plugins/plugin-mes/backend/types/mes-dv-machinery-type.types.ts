@@ -3,7 +3,7 @@ export interface MesDvMachineryTypeDO {
   id: number
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   status?: number
   sort?: number
   remark?: string
@@ -19,7 +19,7 @@ export interface MesDvMachineryTypeVO {
   id: number
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   status?: number
   sort?: number
   remark?: string
@@ -34,7 +34,7 @@ export interface MesDvMachineryTypeVO {
 export interface MesDvMachineryTypeCreateDTO {
   code?: string
   name?: string
-  parent_id?: number
+  parent_id?: string
   status?: number
   sort?: number
   remark?: string

@@ -3,17 +3,17 @@ export interface MesProTaskDO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  item_id?: string
   quantity?: number
   produced_quantity?: number
   qualify_quantity?: number
   unqualify_quantity?: number
   changed_quantity?: number
-  client_id?: number
+  client_id?: string
   start_time?: string
   duration?: number
   end_time?: string
@@ -34,17 +34,17 @@ export interface MesProTaskVO {
   id: number
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  item_id?: string
   quantity?: number
   produced_quantity?: number
   qualify_quantity?: number
   unqualify_quantity?: number
   changed_quantity?: number
-  client_id?: number
+  client_id?: string
   start_time?: string
   duration?: number
   end_time?: string
@@ -64,17 +64,17 @@ export interface MesProTaskVO {
 export interface MesProTaskCreateDTO {
   code?: string
   name?: string
-  work_order_id?: number
-  workstation_id?: number
-  route_id?: number
-  process_id?: number
-  item_id?: number
+  work_order_id?: string
+  workstation_id?: string
+  route_id?: string
+  process_id?: string
+  item_id?: string
   quantity?: number
   produced_quantity?: number
   qualify_quantity?: number
   unqualify_quantity?: number
   changed_quantity?: number
-  client_id?: number
+  client_id?: string
   start_time?: string
   duration?: number
   end_time?: string

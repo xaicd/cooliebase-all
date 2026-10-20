@@ -105,14 +105,14 @@ export function CrmBusinessForm({ open, initialData, onClose, onSuccess }: CrmBu
         <div>
           <label htmlFor="crm-business-customer_id" className="block text-xs text-slate-600 mb-1">客户编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-customer_id"
             data-testid="field-customer_id"
             data-agent-target="crm-business:field:customer_id"
             data-agent-state={formData.customer_id == null || formData.customer_id === "" ? "empty" : "filled"}
             aria-label="客户编号"
-            value={formData.customer_id != null ? String(formData.customer_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.customer_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, customer_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入客户编号"
             
@@ -171,14 +171,14 @@ export function CrmBusinessForm({ open, initialData, onClose, onSuccess }: CrmBu
         <div>
           <label htmlFor="crm-business-owner_user_id" className="block text-xs text-slate-600 mb-1">负责人的用户编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-owner_user_id"
             data-testid="field-owner_user_id"
             data-agent-target="crm-business:field:owner_user_id"
             data-agent-state={formData.owner_user_id == null || formData.owner_user_id === "" ? "empty" : "filled"}
             aria-label="负责人的用户编号"
-            value={formData.owner_user_id != null ? String(formData.owner_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.owner_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, owner_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入负责人的用户编号"
             
@@ -188,14 +188,14 @@ export function CrmBusinessForm({ open, initialData, onClose, onSuccess }: CrmBu
         <div>
           <label htmlFor="crm-business-status_type_id" className="block text-xs text-slate-600 mb-1">商机状态组编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-status_type_id"
             data-testid="field-status_type_id"
             data-agent-target="crm-business:field:status_type_id"
             data-agent-state={formData.status_type_id == null || formData.status_type_id === "" ? "empty" : "filled"}
             aria-label="商机状态组编号"
-            value={formData.status_type_id != null ? String(formData.status_type_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status_type_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status_type_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status_type_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商机状态组编号"
             
@@ -205,14 +205,14 @@ export function CrmBusinessForm({ open, initialData, onClose, onSuccess }: CrmBu
         <div>
           <label htmlFor="crm-business-status_id" className="block text-xs text-slate-600 mb-1">商机状态编号</label>
           <input
-            type="number"
+            type="text"
             id="crm-business-status_id"
             data-testid="field-status_id"
             data-agent-target="crm-business:field:status_id"
             data-agent-state={formData.status_id == null || formData.status_id === "" ? "empty" : "filled"}
             aria-label="商机状态编号"
-            value={formData.status_id != null ? String(formData.status_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商机状态编号"
             

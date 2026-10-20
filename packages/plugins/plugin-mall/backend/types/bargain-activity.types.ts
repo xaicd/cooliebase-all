@@ -5,8 +5,8 @@ export interface BargainActivityDO {
   start_time?: string
   end_time?: string
   status?: number
-  spu_id?: number
-  sku_id?: number
+  spu_id?: string
+  sku_id?: string
   bargain_first_price?: number
   bargain_min_price?: number
   stock?: number
@@ -30,8 +30,8 @@ export interface BargainActivityVO {
   start_time?: string
   end_time?: string
   status?: number
-  spu_id?: number
-  sku_id?: number
+  spu_id?: string
+  sku_id?: string
   bargain_first_price?: number
   bargain_min_price?: number
   stock?: number
@@ -54,8 +54,8 @@ export interface BargainActivityCreateDTO {
   start_time?: string
   end_time?: string
   status?: number
-  spu_id?: number
-  sku_id?: number
+  spu_id?: string
+  sku_id?: string
   bargain_first_price?: number
   bargain_min_price?: number
   stock?: number

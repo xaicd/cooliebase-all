@@ -6,16 +6,16 @@ export interface MesProWorkOrderDO {
   type?: number
   order_source_type?: number
   order_source_code?: string
-  product_id?: number
+  product_id?: string
   quantity?: number
   quantity_produced?: number
   quantity_changed?: number
   quantity_scheduled?: number
-  client_id?: number
-  vendor_id?: number
+  client_id?: string
+  vendor_id?: string
   batch_code?: string
   request_date?: string
-  parent_id?: number
+  parent_id?: string
   finish_date?: string
   cancel_date?: string
   status?: number
@@ -35,16 +35,16 @@ export interface MesProWorkOrderVO {
   type?: number
   order_source_type?: number
   order_source_code?: string
-  product_id?: number
+  product_id?: string
   quantity?: number
   quantity_produced?: number
   quantity_changed?: number
   quantity_scheduled?: number
-  client_id?: number
-  vendor_id?: number
+  client_id?: string
+  vendor_id?: string
   batch_code?: string
   request_date?: string
-  parent_id?: number
+  parent_id?: string
   finish_date?: string
   cancel_date?: string
   status?: number
@@ -63,16 +63,16 @@ export interface MesProWorkOrderCreateDTO {
   type?: number
   order_source_type?: number
   order_source_code?: string
-  product_id?: number
+  product_id?: string
   quantity?: number
   quantity_produced?: number
   quantity_changed?: number
   quantity_scheduled?: number
-  client_id?: number
-  vendor_id?: number
+  client_id?: string
+  vendor_id?: string
   batch_code?: string
   request_date?: string
-  parent_id?: number
+  parent_id?: string
   finish_date?: string
   cancel_date?: string
   status?: number

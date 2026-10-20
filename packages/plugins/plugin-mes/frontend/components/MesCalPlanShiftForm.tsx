@@ -79,14 +79,14 @@ export function MesCalPlanShiftForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-cal-plan-shift-plan_id" className="block text-xs text-slate-600 mb-1">排班计划编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-cal-plan-shift-plan_id"
             data-testid="field-plan_id"
             data-agent-target="mes-cal-plan-shift:field:plan_id"
             data-agent-state={formData.plan_id == null || formData.plan_id === "" ? "empty" : "filled"}
             aria-label="排班计划编号"
-            value={formData.plan_id != null ? String(formData.plan_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.plan_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, plan_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入排班计划编号"
             

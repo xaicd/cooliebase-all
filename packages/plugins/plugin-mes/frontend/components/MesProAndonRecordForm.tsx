@@ -84,14 +84,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-config_id" className="block text-xs text-slate-600 mb-1">安灯配置编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-config_id"
             data-testid="field-config_id"
             data-agent-target="mes-pro-andon-record:field:config_id"
             data-agent-state={formData.config_id == null || formData.config_id === "" ? "empty" : "filled"}
             aria-label="安灯配置编号"
-            value={formData.config_id != null ? String(formData.config_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, config_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.config_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, config_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入安灯配置编号"
             
@@ -101,14 +101,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-workstation_id" className="block text-xs text-slate-600 mb-1">工作站编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-workstation_id"
             data-testid="field-workstation_id"
             data-agent-target="mes-pro-andon-record:field:workstation_id"
             data-agent-state={formData.workstation_id == null || formData.workstation_id === "" ? "empty" : "filled"}
             aria-label="工作站编号"
-            value={formData.workstation_id != null ? String(formData.workstation_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workstation_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workstation_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工作站编号"
             
@@ -118,14 +118,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-user_id" className="block text-xs text-slate-600 mb-1">发起用户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-user_id"
             data-testid="field-user_id"
             data-agent-target="mes-pro-andon-record:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="发起用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入发起用户编号"
             
@@ -135,14 +135,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-work_order_id" className="block text-xs text-slate-600 mb-1">生产工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-pro-andon-record:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="生产工单编号"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产工单编号"
             
@@ -152,14 +152,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-process_id" className="block text-xs text-slate-600 mb-1">工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-process_id"
             data-testid="field-process_id"
             data-agent-target="mes-pro-andon-record:field:process_id"
             data-agent-state={formData.process_id == null || formData.process_id === "" ? "empty" : "filled"}
             aria-label="工序编号"
-            value={formData.process_id != null ? String(formData.process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工序编号"
             
@@ -237,14 +237,14 @@ export function MesProAndonRecordForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-pro-andon-record-handler_user_id" className="block text-xs text-slate-600 mb-1">处置人编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-pro-andon-record-handler_user_id"
             data-testid="field-handler_user_id"
             data-agent-target="mes-pro-andon-record:field:handler_user_id"
             data-agent-state={formData.handler_user_id == null || formData.handler_user_id === "" ? "empty" : "filled"}
             aria-label="处置人编号"
-            value={formData.handler_user_id != null ? String(formData.handler_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, handler_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.handler_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, handler_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入处置人编号"
             

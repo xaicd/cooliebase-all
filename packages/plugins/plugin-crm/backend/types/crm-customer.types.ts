@@ -6,7 +6,7 @@ export interface CrmCustomerDO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   owner_time?: string
   lock_status?: boolean
   deal_status?: boolean
@@ -36,7 +36,7 @@ export interface CrmCustomerVO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   owner_time?: string
   lock_status?: boolean
   deal_status?: boolean
@@ -65,7 +65,7 @@ export interface CrmCustomerCreateDTO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   owner_time?: string
   lock_status?: boolean
   deal_status?: boolean

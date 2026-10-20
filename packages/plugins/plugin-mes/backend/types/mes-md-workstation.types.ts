@@ -4,11 +4,11 @@ export interface MesMdWorkstationDO {
   code?: string
   name?: string
   address?: string
-  workshop_id?: number
-  process_id?: number
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  workshop_id?: string
+  process_id?: string
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -24,11 +24,11 @@ export interface MesMdWorkstationVO {
   code?: string
   name?: string
   address?: string
-  workshop_id?: number
-  process_id?: number
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  workshop_id?: string
+  process_id?: string
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   status?: number
   remark?: string
   tenant_id: string
@@ -43,11 +43,11 @@ export interface MesMdWorkstationCreateDTO {
   code?: string
   name?: string
   address?: string
-  workshop_id?: number
-  process_id?: number
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  workshop_id?: string
+  process_id?: string
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   status?: number
   remark?: string
 }

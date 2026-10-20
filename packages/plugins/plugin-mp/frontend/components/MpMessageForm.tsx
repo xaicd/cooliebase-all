@@ -100,14 +100,14 @@ export function MpMessageForm({ open, initialData, onClose, onSuccess }: MpMessa
         <div>
           <label htmlFor="mp-message-msg_id" className="block text-xs text-slate-600 mb-1">微信公众号消息 id</label>
           <input
-            type="number"
+            type="text"
             id="mp-message-msg_id"
             data-testid="field-msg_id"
             data-agent-target="mp-message:field:msg_id"
             data-agent-state={formData.msg_id == null || formData.msg_id === "" ? "empty" : "filled"}
             aria-label="微信公众号消息 id"
-            value={formData.msg_id != null ? String(formData.msg_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, msg_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.msg_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, msg_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入微信公众号消息 id"
             
@@ -117,14 +117,14 @@ export function MpMessageForm({ open, initialData, onClose, onSuccess }: MpMessa
         <div>
           <label htmlFor="mp-message-account_id" className="block text-xs text-slate-600 mb-1">公众号账号的 ID</label>
           <input
-            type="number"
+            type="text"
             id="mp-message-account_id"
             data-testid="field-account_id"
             data-agent-target="mp-message:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="公众号账号的 ID"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入公众号账号的 ID"
             
@@ -151,14 +151,14 @@ export function MpMessageForm({ open, initialData, onClose, onSuccess }: MpMessa
         <div>
           <label htmlFor="mp-message-user_id" className="block text-xs text-slate-600 mb-1">公众号粉丝的编号</label>
           <input
-            type="number"
+            type="text"
             id="mp-message-user_id"
             data-testid="field-user_id"
             data-agent-target="mp-message:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="公众号粉丝的编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入公众号粉丝的编号"
             

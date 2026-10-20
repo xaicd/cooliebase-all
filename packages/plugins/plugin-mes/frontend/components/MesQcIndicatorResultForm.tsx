@@ -96,14 +96,14 @@ export function MesQcIndicatorResultForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-qc-indicator-result-qc_id" className="block text-xs text-slate-600 mb-1">关联质检单 ID（IQC/IPQC/OQC/RQC 的 id）</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-indicator-result-qc_id"
             data-testid="field-qc_id"
             data-agent-target="mes-qc-indicator-result:field:qc_id"
             data-agent-state={formData.qc_id == null || formData.qc_id === "" ? "empty" : "filled"}
             aria-label="关联质检单 ID（IQC/IPQC/OQC/RQC 的 id）"
-            value={formData.qc_id != null ? String(formData.qc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, qc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.qc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, qc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入关联质检单 ID（IQC/IPQC/OQC/RQC 的 id）"
             
@@ -130,14 +130,14 @@ export function MesQcIndicatorResultForm({ open, initialData, onClose, onSuccess
         <div>
           <label htmlFor="mes-qc-indicator-result-item_id" className="block text-xs text-slate-600 mb-1">产品物料 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-indicator-result-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-qc-indicator-result:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="产品物料 ID"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料 ID"
             

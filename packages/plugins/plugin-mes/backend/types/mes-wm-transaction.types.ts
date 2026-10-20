@@ -3,18 +3,18 @@ export interface MesWmTransactionDO {
   id: number
   type?: number
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   biz_code?: string
-  biz_line_id?: number
-  material_stock_id?: number
-  related_transaction_id?: number
-  item_id?: number
+  biz_line_id?: string
+  material_stock_id?: string
+  related_transaction_id?: string
+  item_id?: string
   quantity?: number
-  batch_id?: number
+  batch_id?: string
   batch_code?: string
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   transaction_time?: string
   erp_time?: string
   receipt_time?: string
@@ -30,18 +30,18 @@ export interface MesWmTransactionVO {
   id: number
   type?: number
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   biz_code?: string
-  biz_line_id?: number
-  material_stock_id?: number
-  related_transaction_id?: number
-  item_id?: number
+  biz_line_id?: string
+  material_stock_id?: string
+  related_transaction_id?: string
+  item_id?: string
   quantity?: number
-  batch_id?: number
+  batch_id?: string
   batch_code?: string
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   transaction_time?: string
   erp_time?: string
   receipt_time?: string
@@ -56,18 +56,18 @@ export interface MesWmTransactionVO {
 export interface MesWmTransactionCreateDTO {
   type?: number
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   biz_code?: string
-  biz_line_id?: number
-  material_stock_id?: number
-  related_transaction_id?: number
-  item_id?: number
+  biz_line_id?: string
+  material_stock_id?: string
+  related_transaction_id?: string
+  item_id?: string
   quantity?: number
-  batch_id?: number
+  batch_id?: string
   batch_code?: string
-  warehouse_id?: number
-  location_id?: number
-  area_id?: number
+  warehouse_id?: string
+  location_id?: string
+  area_id?: string
   transaction_time?: string
   erp_time?: string
   receipt_time?: string

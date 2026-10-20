@@ -78,14 +78,14 @@ export function MesWmProductIssueLineForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-wm-product-issue-line-issue_id" className="block text-xs text-slate-600 mb-1">领料单 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-line-issue_id"
             data-testid="field-issue_id"
             data-agent-target="mes-wm-product-issue-line:field:issue_id"
             data-agent-state={formData.issue_id == null || formData.issue_id === "" ? "empty" : "filled"}
             aria-label="领料单 ID"
-            value={formData.issue_id != null ? String(formData.issue_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, issue_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.issue_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, issue_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入领料单 ID"
             
@@ -95,14 +95,14 @@ export function MesWmProductIssueLineForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-wm-product-issue-line-item_id" className="block text-xs text-slate-600 mb-1">物料 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-line-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-product-issue-line:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料 ID"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料 ID"
             
@@ -129,14 +129,14 @@ export function MesWmProductIssueLineForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="mes-wm-product-issue-line-batch_id" className="block text-xs text-slate-600 mb-1">批次 ID</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-issue-line-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-product-issue-line:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次 ID"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次 ID"
             

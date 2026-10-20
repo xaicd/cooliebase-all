@@ -114,14 +114,14 @@ export function MesWmProductReceiptForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="mes-wm-product-receipt-work_order_id" className="block text-xs text-slate-600 mb-1">生产工单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-work_order_id"
             data-testid="field-work_order_id"
             data-agent-target="mes-wm-product-receipt:field:work_order_id"
             data-agent-state={formData.work_order_id == null || formData.work_order_id === "" ? "empty" : "filled"}
             aria-label="生产工单编号"
-            value={formData.work_order_id != null ? String(formData.work_order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.work_order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, work_order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入生产工单编号"
             
@@ -131,14 +131,14 @@ export function MesWmProductReceiptForm({ open, initialData, onClose, onSuccess 
         <div>
           <label htmlFor="mes-wm-product-receipt-item_id" className="block text-xs text-slate-600 mb-1">产品物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-product-receipt-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-product-receipt:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="产品物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品物料编号"
             

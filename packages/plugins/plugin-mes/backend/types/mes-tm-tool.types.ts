@@ -5,7 +5,7 @@ export interface MesTmToolDO {
   name?: string
   brand?: string
   specification?: string
-  tool_type_id?: number
+  tool_type_id?: string
   quantity?: number
   available_quantity?: number
   mainten_type?: number
@@ -27,7 +27,7 @@ export interface MesTmToolVO {
   name?: string
   brand?: string
   specification?: string
-  tool_type_id?: number
+  tool_type_id?: string
   quantity?: number
   available_quantity?: number
   mainten_type?: number
@@ -48,7 +48,7 @@ export interface MesTmToolCreateDTO {
   name?: string
   brand?: string
   specification?: string
-  tool_type_id?: number
+  tool_type_id?: string
   quantity?: number
   available_quantity?: number
   mainten_type?: number

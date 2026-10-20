@@ -124,14 +124,14 @@ export function ErpPurchaseReturnForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-purchase-return-supplier_id" className="block text-xs text-slate-600 mb-1">供应商编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-return-supplier_id"
             data-testid="field-supplier_id"
             data-agent-target="erp-purchase-return:field:supplier_id"
             data-agent-state={formData.supplier_id == null || formData.supplier_id === "" ? "empty" : "filled"}
             aria-label="供应商编号"
-            value={formData.supplier_id != null ? String(formData.supplier_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, supplier_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.supplier_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, supplier_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入供应商编号"
             
@@ -141,14 +141,14 @@ export function ErpPurchaseReturnForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-purchase-return-account_id" className="block text-xs text-slate-600 mb-1">结算账户编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-return-account_id"
             data-testid="field-account_id"
             data-agent-target="erp-purchase-return:field:account_id"
             data-agent-state={formData.account_id == null || formData.account_id === "" ? "empty" : "filled"}
             aria-label="结算账户编号"
-            value={formData.account_id != null ? String(formData.account_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.account_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, account_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入结算账户编号"
             
@@ -175,14 +175,14 @@ export function ErpPurchaseReturnForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-purchase-return-order_id" className="block text-xs text-slate-600 mb-1">采购订单编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-purchase-return-order_id"
             data-testid="field-order_id"
             data-agent-target="erp-purchase-return:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="采购订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入采购订单编号"
             

@@ -84,14 +84,14 @@ export function ErpSaleReturnItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-sale-return-item-return_id" className="block text-xs text-slate-600 mb-1">销售退货编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-return-item-return_id"
             data-testid="field-return_id"
             data-agent-target="erp-sale-return-item:field:return_id"
             data-agent-state={formData.return_id == null || formData.return_id === "" ? "empty" : "filled"}
             aria-label="销售退货编号"
-            value={formData.return_id != null ? String(formData.return_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, return_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.return_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, return_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入销售退货编号"
             
@@ -101,14 +101,14 @@ export function ErpSaleReturnItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-sale-return-item-order_item_id" className="block text-xs text-slate-600 mb-1">销售订单项编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-return-item-order_item_id"
             data-testid="field-order_item_id"
             data-agent-target="erp-sale-return-item:field:order_item_id"
             data-agent-state={formData.order_item_id == null || formData.order_item_id === "" ? "empty" : "filled"}
             aria-label="销售订单项编号"
-            value={formData.order_item_id != null ? String(formData.order_item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入销售订单项编号"
             
@@ -118,14 +118,14 @@ export function ErpSaleReturnItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-sale-return-item-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-return-item-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="erp-sale-return-item:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库编号"
             
@@ -135,14 +135,14 @@ export function ErpSaleReturnItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-sale-return-item-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-return-item-product_id"
             data-testid="field-product_id"
             data-agent-target="erp-sale-return-item:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -152,14 +152,14 @@ export function ErpSaleReturnItemForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="erp-sale-return-item-product_unit_id" className="block text-xs text-slate-600 mb-1">产品单位单位</label>
           <input
-            type="number"
+            type="text"
             id="erp-sale-return-item-product_unit_id"
             data-testid="field-product_unit_id"
             data-agent-target="erp-sale-return-item:field:product_unit_id"
             data-agent-state={formData.product_unit_id == null || formData.product_unit_id === "" ? "empty" : "filled"}
             aria-label="产品单位单位"
-            value={formData.product_unit_id != null ? String(formData.product_unit_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_unit_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_unit_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品单位单位"
             

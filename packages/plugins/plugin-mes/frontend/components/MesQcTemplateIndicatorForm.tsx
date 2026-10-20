@@ -82,14 +82,14 @@ export function MesQcTemplateIndicatorForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-qc-template-indicator-template_id" className="block text-xs text-slate-600 mb-1">质检方案编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-template-indicator-template_id"
             data-testid="field-template_id"
             data-agent-target="mes-qc-template-indicator:field:template_id"
             data-agent-state={formData.template_id == null || formData.template_id === "" ? "empty" : "filled"}
             aria-label="质检方案编号"
-            value={formData.template_id != null ? String(formData.template_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.template_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, template_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入质检方案编号"
             
@@ -99,14 +99,14 @@ export function MesQcTemplateIndicatorForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-qc-template-indicator-indicator_id" className="block text-xs text-slate-600 mb-1">质检指标编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-template-indicator-indicator_id"
             data-testid="field-indicator_id"
             data-agent-target="mes-qc-template-indicator:field:indicator_id"
             data-agent-state={formData.indicator_id == null || formData.indicator_id === "" ? "empty" : "filled"}
             aria-label="质检指标编号"
-            value={formData.indicator_id != null ? String(formData.indicator_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.indicator_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, indicator_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入质检指标编号"
             
@@ -150,14 +150,14 @@ export function MesQcTemplateIndicatorForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-qc-template-indicator-unit_measure_id" className="block text-xs text-slate-600 mb-1">计量单位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-qc-template-indicator-unit_measure_id"
             data-testid="field-unit_measure_id"
             data-agent-target="mes-qc-template-indicator:field:unit_measure_id"
             data-agent-state={formData.unit_measure_id == null || formData.unit_measure_id === "" ? "empty" : "filled"}
             aria-label="计量单位编号"
-            value={formData.unit_measure_id != null ? String(formData.unit_measure_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.unit_measure_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, unit_measure_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入计量单位编号"
             

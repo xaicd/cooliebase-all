@@ -146,14 +146,14 @@ export function AiApiKeyForm({ open, initialData, onClose, onSuccess }: AiApiKey
         <div>
           <label htmlFor="ai-api-key-status" className="block text-xs text-slate-600 mb-1">状态</label>
           <input
-            type="number"
+            type="text"
             id="ai-api-key-status"
             data-testid="field-status"
             data-agent-target="ai-api-key:field:status"
             data-agent-state={formData.status == null || formData.status === "" ? "empty" : "filled"}
             aria-label="状态"
-            value={formData.status != null ? String(formData.status) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入状态"
             

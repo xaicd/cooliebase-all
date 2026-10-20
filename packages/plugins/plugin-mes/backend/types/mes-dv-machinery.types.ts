@@ -5,8 +5,8 @@ export interface MesDvMachineryDO {
   name?: string
   brand?: string
   specification?: string
-  machinery_type_id?: number
-  workshop_id?: number
+  machinery_type_id?: string
+  workshop_id?: string
   status?: number
   last_mainten_time?: string
   last_check_time?: string
@@ -25,8 +25,8 @@ export interface MesDvMachineryVO {
   name?: string
   brand?: string
   specification?: string
-  machinery_type_id?: number
-  workshop_id?: number
+  machinery_type_id?: string
+  workshop_id?: string
   status?: number
   last_mainten_time?: string
   last_check_time?: string
@@ -44,8 +44,8 @@ export interface MesDvMachineryCreateDTO {
   name?: string
   brand?: string
   specification?: string
-  machinery_type_id?: number
-  workshop_id?: number
+  machinery_type_id?: string
+  workshop_id?: string
   status?: number
   last_mainten_time?: string
   last_check_time?: string

@@ -134,14 +134,14 @@ export function MesMdWorkstationForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-workstation-workshop_id" className="block text-xs text-slate-600 mb-1">所在车间编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-workshop_id"
             data-testid="field-workshop_id"
             data-agent-target="mes-md-workstation:field:workshop_id"
             data-agent-state={formData.workshop_id == null || formData.workshop_id === "" ? "empty" : "filled"}
             aria-label="所在车间编号"
-            value={formData.workshop_id != null ? String(formData.workshop_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, workshop_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.workshop_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, workshop_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入所在车间编号"
             
@@ -151,14 +151,14 @@ export function MesMdWorkstationForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-workstation-process_id" className="block text-xs text-slate-600 mb-1">工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-process_id"
             data-testid="field-process_id"
             data-agent-target="mes-md-workstation:field:process_id"
             data-agent-state={formData.process_id == null || formData.process_id === "" ? "empty" : "filled"}
             aria-label="工序编号"
-            value={formData.process_id != null ? String(formData.process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工序编号"
             
@@ -168,14 +168,14 @@ export function MesMdWorkstationForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-workstation-warehouse_id" className="block text-xs text-slate-600 mb-1">线边库编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="mes-md-workstation:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="线边库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入线边库编号"
             
@@ -185,14 +185,14 @@ export function MesMdWorkstationForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-workstation-location_id" className="block text-xs text-slate-600 mb-1">库区编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-location_id"
             data-testid="field-location_id"
             data-agent-target="mes-md-workstation:field:location_id"
             data-agent-state={formData.location_id == null || formData.location_id === "" ? "empty" : "filled"}
             aria-label="库区编号"
-            value={formData.location_id != null ? String(formData.location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库区编号"
             
@@ -202,14 +202,14 @@ export function MesMdWorkstationForm({ open, initialData, onClose, onSuccess }: 
         <div>
           <label htmlFor="mes-md-workstation-area_id" className="block text-xs text-slate-600 mb-1">库位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-workstation-area_id"
             data-testid="field-area_id"
             data-agent-target="mes-md-workstation:field:area_id"
             data-agent-state={formData.area_id == null || formData.area_id === "" ? "empty" : "filled"}
             aria-label="库位编号"
-            value={formData.area_id != null ? String(formData.area_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.area_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库位编号"
             

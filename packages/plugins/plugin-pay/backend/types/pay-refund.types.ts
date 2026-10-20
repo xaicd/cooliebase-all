@@ -2,12 +2,12 @@
 export interface PayRefundDO {
   id: number
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_order_id?: string
   merchant_refund_id?: string
@@ -34,12 +34,12 @@ export interface PayRefundDO {
 export interface PayRefundVO {
   id: number
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_order_id?: string
   merchant_refund_id?: string
@@ -65,12 +65,12 @@ export interface PayRefundVO {
 
 export interface PayRefundCreateDTO {
   no?: string
-  app_id?: number
-  channel_id?: number
+  app_id?: string
+  channel_id?: string
   channel_code?: string
-  order_id?: number
+  order_id?: string
   order_no?: string
-  user_id?: number
+  user_id?: string
   user_type?: number
   merchant_order_id?: string
   merchant_refund_id?: string

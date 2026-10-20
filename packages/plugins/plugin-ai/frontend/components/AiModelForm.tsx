@@ -83,14 +83,14 @@ export function AiModelForm({ open, initialData, onClose, onSuccess }: AiModelFo
         <div>
           <label htmlFor="ai-model-key_id" className="block text-xs text-slate-600 mb-1">API 秘钥编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-model-key_id"
             data-testid="field-key_id"
             data-agent-target="ai-model:field:key_id"
             data-agent-state={formData.key_id == null || formData.key_id === "" ? "empty" : "filled"}
             aria-label="API 秘钥编号"
-            value={formData.key_id != null ? String(formData.key_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, key_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.key_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, key_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入API 秘钥编号"
             
@@ -185,14 +185,14 @@ export function AiModelForm({ open, initialData, onClose, onSuccess }: AiModelFo
         <div>
           <label htmlFor="ai-model-status" className="block text-xs text-slate-600 mb-1">状态</label>
           <input
-            type="number"
+            type="text"
             id="ai-model-status"
             data-testid="field-status"
             data-agent-target="ai-model:field:status"
             data-agent-state={formData.status == null || formData.status === "" ? "empty" : "filled"}
             aria-label="状态"
-            value={formData.status != null ? String(formData.status) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.status ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, status: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入状态"
             

@@ -83,14 +83,14 @@ export function IotDeviceModbusConfigForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="iot-device-modbus-config-product_id" className="block text-xs text-slate-600 mb-1">产品编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-device-modbus-config-product_id"
             data-testid="field-product_id"
             data-agent-target="iot-device-modbus-config:field:product_id"
             data-agent-state={formData.product_id == null || formData.product_id === "" ? "empty" : "filled"}
             aria-label="产品编号"
-            value={formData.product_id != null ? String(formData.product_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.product_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, product_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入产品编号"
             
@@ -100,14 +100,14 @@ export function IotDeviceModbusConfigForm({ open, initialData, onClose, onSucces
         <div>
           <label htmlFor="iot-device-modbus-config-device_id" className="block text-xs text-slate-600 mb-1">设备编号</label>
           <input
-            type="number"
+            type="text"
             id="iot-device-modbus-config-device_id"
             data-testid="field-device_id"
             data-agent-target="iot-device-modbus-config:field:device_id"
             data-agent-state={formData.device_id == null || formData.device_id === "" ? "empty" : "filled"}
             aria-label="设备编号"
-            value={formData.device_id != null ? String(formData.device_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, device_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.device_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, device_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备编号"
             

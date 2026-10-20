@@ -3,15 +3,15 @@ export interface MesDvRepairDO {
   id: number
   code?: string
   name?: string
-  machinery_id?: number
+  machinery_id?: string
   require_date?: string
   finish_date?: string
   confirm_date?: string
   result?: number
-  accepted_user_id?: number
-  confirm_user_id?: number
+  accepted_user_id?: string
+  confirm_user_id?: string
   source_doc_type?: number
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   status?: number
   remark?: string
@@ -27,15 +27,15 @@ export interface MesDvRepairVO {
   id: number
   code?: string
   name?: string
-  machinery_id?: number
+  machinery_id?: string
   require_date?: string
   finish_date?: string
   confirm_date?: string
   result?: number
-  accepted_user_id?: number
-  confirm_user_id?: number
+  accepted_user_id?: string
+  confirm_user_id?: string
   source_doc_type?: number
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   status?: number
   remark?: string
@@ -50,15 +50,15 @@ export interface MesDvRepairVO {
 export interface MesDvRepairCreateDTO {
   code?: string
   name?: string
-  machinery_id?: number
+  machinery_id?: string
   require_date?: string
   finish_date?: string
   confirm_date?: string
   result?: number
-  accepted_user_id?: number
-  confirm_user_id?: number
+  accepted_user_id?: string
+  confirm_user_id?: string
   source_doc_type?: number
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   status?: number
   remark?: string

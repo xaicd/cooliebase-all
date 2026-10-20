@@ -4,7 +4,7 @@ export interface MesWmArrivalNoticeDO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   arrival_date?: string
   contact_name?: string
   contact_telephone?: string
@@ -23,7 +23,7 @@ export interface MesWmArrivalNoticeVO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   arrival_date?: string
   contact_name?: string
   contact_telephone?: string
@@ -41,7 +41,7 @@ export interface MesWmArrivalNoticeCreateDTO {
   code?: string
   name?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   arrival_date?: string
   contact_name?: string
   contact_telephone?: string

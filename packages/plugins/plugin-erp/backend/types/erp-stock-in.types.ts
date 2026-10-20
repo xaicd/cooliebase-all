@@ -2,7 +2,7 @@
 export interface ErpStockInDO {
   id: number
   no?: string
-  supplier_id?: number
+  supplier_id?: string
   in_time?: string
   total_count?: number
   total_price?: number
@@ -20,7 +20,7 @@ export interface ErpStockInDO {
 export interface ErpStockInVO {
   id: number
   no?: string
-  supplier_id?: number
+  supplier_id?: string
   in_time?: string
   total_count?: number
   total_price?: number
@@ -37,7 +37,7 @@ export interface ErpStockInVO {
 
 export interface ErpStockInCreateDTO {
   no?: string
-  supplier_id?: number
+  supplier_id?: string
   in_time?: string
   total_count?: number
   total_price?: number

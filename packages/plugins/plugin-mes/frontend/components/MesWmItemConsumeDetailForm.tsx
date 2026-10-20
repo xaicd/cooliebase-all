@@ -84,14 +84,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-consume_id" className="block text-xs text-slate-600 mb-1">消耗记录编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-consume_id"
             data-testid="field-consume_id"
             data-agent-target="mes-wm-item-consume-detail:field:consume_id"
             data-agent-state={formData.consume_id == null || formData.consume_id === "" ? "empty" : "filled"}
             aria-label="消耗记录编号"
-            value={formData.consume_id != null ? String(formData.consume_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, consume_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.consume_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, consume_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入消耗记录编号"
             
@@ -101,14 +101,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-line_id" className="block text-xs text-slate-600 mb-1">消耗记录行编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-line_id"
             data-testid="field-line_id"
             data-agent-target="mes-wm-item-consume-detail:field:line_id"
             data-agent-state={formData.line_id == null || formData.line_id === "" ? "empty" : "filled"}
             aria-label="消耗记录行编号"
-            value={formData.line_id != null ? String(formData.line_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, line_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.line_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, line_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入消耗记录行编号"
             
@@ -118,14 +118,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-material_stock_id" className="block text-xs text-slate-600 mb-1">库存台账编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-item-consume-detail:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存台账编号"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存台账编号"
             
@@ -135,14 +135,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-item_id" className="block text-xs text-slate-600 mb-1">物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-item-consume-detail:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料编号"
             
@@ -169,14 +169,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-batch_id" className="block text-xs text-slate-600 mb-1">批次编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-item-consume-detail:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次编号"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次编号"
             
@@ -203,14 +203,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-warehouse_id" className="block text-xs text-slate-600 mb-1">仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-warehouse_id"
             data-testid="field-warehouse_id"
             data-agent-target="mes-wm-item-consume-detail:field:warehouse_id"
             data-agent-state={formData.warehouse_id == null || formData.warehouse_id === "" ? "empty" : "filled"}
             aria-label="仓库编号"
-            value={formData.warehouse_id != null ? String(formData.warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入仓库编号"
             
@@ -220,14 +220,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-location_id" className="block text-xs text-slate-600 mb-1">库区编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-location_id"
             data-testid="field-location_id"
             data-agent-target="mes-wm-item-consume-detail:field:location_id"
             data-agent-state={formData.location_id == null || formData.location_id === "" ? "empty" : "filled"}
             aria-label="库区编号"
-            value={formData.location_id != null ? String(formData.location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库区编号"
             
@@ -237,14 +237,14 @@ export function MesWmItemConsumeDetailForm({ open, initialData, onClose, onSucce
         <div>
           <label htmlFor="mes-wm-item-consume-detail-area_id" className="block text-xs text-slate-600 mb-1">库位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-item-consume-detail-area_id"
             data-testid="field-area_id"
             data-agent-target="mes-wm-item-consume-detail:field:area_id"
             data-agent-state={formData.area_id == null || formData.area_id === "" ? "empty" : "filled"}
             aria-label="库位编号"
-            value={formData.area_id != null ? String(formData.area_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.area_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, area_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库位编号"
             

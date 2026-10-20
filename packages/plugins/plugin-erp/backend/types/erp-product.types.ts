@@ -3,8 +3,8 @@ export interface ErpProductDO {
   id: number
   name?: string
   bar_code?: string
-  category_id?: number
-  unit_id?: number
+  category_id?: string
+  unit_id?: string
   status?: number
   standard?: string
   remark?: string
@@ -25,8 +25,8 @@ export interface ErpProductVO {
   id: number
   name?: string
   bar_code?: string
-  category_id?: number
-  unit_id?: number
+  category_id?: string
+  unit_id?: string
   status?: number
   standard?: string
   remark?: string
@@ -46,8 +46,8 @@ export interface ErpProductVO {
 export interface ErpProductCreateDTO {
   name?: string
   bar_code?: string
-  category_id?: number
-  unit_id?: number
+  category_id?: string
+  unit_id?: string
   status?: number
   standard?: string
   remark?: string

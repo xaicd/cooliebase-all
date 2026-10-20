@@ -3,7 +3,7 @@ export interface AiToolDO {
   id: number
   name?: string
   description?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -16,7 +16,7 @@ export interface AiToolVO {
   id: number
   name?: string
   description?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -28,7 +28,7 @@ export interface AiToolVO {
 export interface AiToolCreateDTO {
   name?: string
   description?: string
-  status?: number
+  status?: string
 }
 
 export interface AiToolUpdateDTO extends Partial<AiToolCreateDTO> {

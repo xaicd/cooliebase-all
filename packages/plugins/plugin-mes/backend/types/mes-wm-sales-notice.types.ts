@@ -4,7 +4,7 @@ export interface MesWmSalesNoticeDO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   sales_date?: string
   recipient_name?: string
   recipient_telephone?: string
@@ -24,7 +24,7 @@ export interface MesWmSalesNoticeVO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   sales_date?: string
   recipient_name?: string
   recipient_telephone?: string
@@ -43,7 +43,7 @@ export interface MesWmSalesNoticeCreateDTO {
   code?: string
   name?: string
   sales_order_code?: string
-  client_id?: number
+  client_id?: string
   sales_date?: string
   recipient_name?: string
   recipient_telephone?: string

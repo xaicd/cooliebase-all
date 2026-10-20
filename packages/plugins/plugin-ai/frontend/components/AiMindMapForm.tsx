@@ -80,14 +80,14 @@ export function AiMindMapForm({ open, initialData, onClose, onSuccess }: AiMindM
         <div>
           <label htmlFor="ai-mind-map-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-mind-map-user_id"
             data-testid="field-user_id"
             data-agent-target="ai-mind-map:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -114,14 +114,14 @@ export function AiMindMapForm({ open, initialData, onClose, onSuccess }: AiMindM
         <div>
           <label htmlFor="ai-mind-map-model_id" className="block text-xs text-slate-600 mb-1">模型编号</label>
           <input
-            type="number"
+            type="text"
             id="ai-mind-map-model_id"
             data-testid="field-model_id"
             data-agent-target="ai-mind-map:field:model_id"
             data-agent-state={formData.model_id == null || formData.model_id === "" ? "empty" : "filled"}
             aria-label="模型编号"
-            value={formData.model_id != null ? String(formData.model_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, model_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.model_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, model_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入模型编号"
             

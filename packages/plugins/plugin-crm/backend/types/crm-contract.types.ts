@@ -3,10 +3,10 @@ export interface CrmContractDO {
   id: number
   name?: string
   no?: string
-  customer_id?: number
-  business_id?: number
+  customer_id?: string
+  business_id?: string
   contact_last_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   process_instance_id?: string
   audit_status?: number
   order_date?: string
@@ -15,8 +15,8 @@ export interface CrmContractDO {
   total_product_price?: number
   discount_percent?: number
   total_price?: number
-  sign_contact_id?: number
-  sign_user_id?: number
+  sign_contact_id?: string
+  sign_user_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -30,10 +30,10 @@ export interface CrmContractVO {
   id: number
   name?: string
   no?: string
-  customer_id?: number
-  business_id?: number
+  customer_id?: string
+  business_id?: string
   contact_last_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   process_instance_id?: string
   audit_status?: number
   order_date?: string
@@ -42,8 +42,8 @@ export interface CrmContractVO {
   total_product_price?: number
   discount_percent?: number
   total_price?: number
-  sign_contact_id?: number
-  sign_user_id?: number
+  sign_contact_id?: string
+  sign_user_id?: string
   remark?: string
   tenant_id: string
   created_by?: string
@@ -56,10 +56,10 @@ export interface CrmContractVO {
 export interface CrmContractCreateDTO {
   name?: string
   no?: string
-  customer_id?: number
-  business_id?: number
+  customer_id?: string
+  business_id?: string
   contact_last_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   process_instance_id?: string
   audit_status?: number
   order_date?: string
@@ -68,8 +68,8 @@ export interface CrmContractCreateDTO {
   total_product_price?: number
   discount_percent?: number
   total_price?: number
-  sign_contact_id?: number
-  sign_user_id?: number
+  sign_contact_id?: string
+  sign_user_id?: string
   remark?: string
 }
 

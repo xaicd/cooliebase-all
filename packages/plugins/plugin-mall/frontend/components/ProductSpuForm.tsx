@@ -163,14 +163,14 @@ export function ProductSpuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-spu-category_id" className="block text-xs text-slate-600 mb-1">商品分类编号</label>
           <input
-            type="number"
+            type="text"
             id="product-spu-category_id"
             data-testid="field-category_id"
             data-agent-target="product-spu:field:category_id"
             data-agent-state={formData.category_id == null || formData.category_id === "" ? "empty" : "filled"}
             aria-label="商品分类编号"
-            value={formData.category_id != null ? String(formData.category_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.category_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, category_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品分类编号"
             
@@ -180,14 +180,14 @@ export function ProductSpuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-spu-brand_id" className="block text-xs text-slate-600 mb-1">商品品牌编号</label>
           <input
-            type="number"
+            type="text"
             id="product-spu-brand_id"
             data-testid="field-brand_id"
             data-agent-target="product-spu:field:brand_id"
             data-agent-state={formData.brand_id == null || formData.brand_id === "" ? "empty" : "filled"}
             aria-label="商品品牌编号"
-            value={formData.brand_id != null ? String(formData.brand_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, brand_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.brand_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, brand_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品品牌编号"
             
@@ -365,14 +365,14 @@ export function ProductSpuForm({ open, initialData, onClose, onSuccess }: Produc
         <div>
           <label htmlFor="product-spu-delivery_template_id" className="block text-xs text-slate-600 mb-1">物流配置模板编号</label>
           <input
-            type="number"
+            type="text"
             id="product-spu-delivery_template_id"
             data-testid="field-delivery_template_id"
             data-agent-target="product-spu:field:delivery_template_id"
             data-agent-state={formData.delivery_template_id == null || formData.delivery_template_id === "" ? "empty" : "filled"}
             aria-label="物流配置模板编号"
-            value={formData.delivery_template_id != null ? String(formData.delivery_template_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, delivery_template_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.delivery_template_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, delivery_template_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物流配置模板编号"
             

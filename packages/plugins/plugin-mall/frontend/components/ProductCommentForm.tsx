@@ -94,14 +94,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-user_id" className="block text-xs text-slate-600 mb-1">评价人的用户编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-user_id"
             data-testid="field-user_id"
             data-agent-target="product-comment:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="评价人的用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入评价人的用户编号"
             
@@ -160,14 +160,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-order_id" className="block text-xs text-slate-600 mb-1">交易订单编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-order_id"
             data-testid="field-order_id"
             data-agent-target="product-comment:field:order_id"
             data-agent-state={formData.order_id == null || formData.order_id === "" ? "empty" : "filled"}
             aria-label="交易订单编号"
-            value={formData.order_id != null ? String(formData.order_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入交易订单编号"
             
@@ -177,14 +177,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-order_item_id" className="block text-xs text-slate-600 mb-1">交易订单项编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-order_item_id"
             data-testid="field-order_item_id"
             data-agent-target="product-comment:field:order_item_id"
             data-agent-state={formData.order_item_id == null || formData.order_item_id === "" ? "empty" : "filled"}
             aria-label="交易订单项编号"
-            value={formData.order_item_id != null ? String(formData.order_item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.order_item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, order_item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入交易订单项编号"
             
@@ -194,14 +194,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-spu_id" className="block text-xs text-slate-600 mb-1">商品 SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-spu_id"
             data-testid="field-spu_id"
             data-agent-target="product-comment:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="商品 SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SPU 编号"
             
@@ -228,14 +228,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-sku_id" className="block text-xs text-slate-600 mb-1">商品 SKU 编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-sku_id"
             data-testid="field-sku_id"
             data-agent-target="product-comment:field:sku_id"
             data-agent-state={formData.sku_id == null || formData.sku_id === "" ? "empty" : "filled"}
             aria-label="商品 SKU 编号"
-            value={formData.sku_id != null ? String(formData.sku_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.sku_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, sku_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SKU 编号"
             
@@ -394,14 +394,14 @@ export function ProductCommentForm({ open, initialData, onClose, onSuccess }: Pr
         <div>
           <label htmlFor="product-comment-reply_user_id" className="block text-xs text-slate-600 mb-1">回复管理员编号</label>
           <input
-            type="number"
+            type="text"
             id="product-comment-reply_user_id"
             data-testid="field-reply_user_id"
             data-agent-target="product-comment:field:reply_user_id"
             data-agent-state={formData.reply_user_id == null || formData.reply_user_id === "" ? "empty" : "filled"}
             aria-label="回复管理员编号"
-            value={formData.reply_user_id != null ? String(formData.reply_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, reply_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.reply_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, reply_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入回复管理员编号"
             

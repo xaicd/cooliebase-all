@@ -2,7 +2,7 @@
 export interface CrmFollowUpRecordDO {
   id: number
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   type?: number
   content?: string
   next_time?: string
@@ -21,7 +21,7 @@ export interface CrmFollowUpRecordDO {
 export interface CrmFollowUpRecordVO {
   id: number
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   type?: number
   content?: string
   next_time?: string
@@ -39,7 +39,7 @@ export interface CrmFollowUpRecordVO {
 
 export interface CrmFollowUpRecordCreateDTO {
   biz_type?: number
-  biz_id?: number
+  biz_id?: string
   type?: number
   content?: string
   next_time?: string

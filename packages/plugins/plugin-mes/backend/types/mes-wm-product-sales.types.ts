@@ -3,9 +3,9 @@ export interface MesWmProductSalesDO {
   id: number
   code?: string
   name?: string
-  client_id?: number
+  client_id?: string
   sales_order_code?: string
-  notice_id?: number
+  notice_id?: string
   sales_date?: string
   contact_name?: string
   contact_telephone?: string
@@ -26,9 +26,9 @@ export interface MesWmProductSalesVO {
   id: number
   code?: string
   name?: string
-  client_id?: number
+  client_id?: string
   sales_order_code?: string
-  notice_id?: number
+  notice_id?: string
   sales_date?: string
   contact_name?: string
   contact_telephone?: string
@@ -48,9 +48,9 @@ export interface MesWmProductSalesVO {
 export interface MesWmProductSalesCreateDTO {
   code?: string
   name?: string
-  client_id?: number
+  client_id?: string
   sales_order_code?: string
-  notice_id?: number
+  notice_id?: string
   sales_date?: string
   contact_name?: string
   contact_telephone?: string

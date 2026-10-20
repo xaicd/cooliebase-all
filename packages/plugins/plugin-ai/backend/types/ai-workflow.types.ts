@@ -5,7 +5,7 @@ export interface AiWorkflowDO {
   code?: string
   graph?: string
   remark?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -20,7 +20,7 @@ export interface AiWorkflowVO {
   code?: string
   graph?: string
   remark?: string
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -34,7 +34,7 @@ export interface AiWorkflowCreateDTO {
   code?: string
   graph?: string
   remark?: string
-  status?: number
+  status?: string
 }
 
 export interface AiWorkflowUpdateDTO extends Partial<AiWorkflowCreateDTO> {

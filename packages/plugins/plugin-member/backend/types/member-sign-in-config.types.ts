@@ -4,7 +4,7 @@ export interface MemberSignInConfigDO {
   day?: number
   point?: number
   experience?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -18,7 +18,7 @@ export interface MemberSignInConfigVO {
   day?: number
   point?: number
   experience?: number
-  status?: number
+  status?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -31,7 +31,7 @@ export interface MemberSignInConfigCreateDTO {
   day?: number
   point?: number
   experience?: number
-  status?: number
+  status?: string
 }
 
 export interface MemberSignInConfigUpdateDTO extends Partial<MemberSignInConfigCreateDTO> {

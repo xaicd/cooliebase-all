@@ -3,9 +3,9 @@ export interface MesWmSnDO {
   id: number
   uuid?: string
   code?: string
-  item_id?: number
+  item_id?: string
   batch_code?: string
-  work_order_id?: number
+  work_order_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -18,9 +18,9 @@ export interface MesWmSnVO {
   id: number
   uuid?: string
   code?: string
-  item_id?: number
+  item_id?: string
   batch_code?: string
-  work_order_id?: number
+  work_order_id?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -32,9 +32,9 @@ export interface MesWmSnVO {
 export interface MesWmSnCreateDTO {
   uuid?: string
   code?: string
-  item_id?: number
+  item_id?: string
   batch_code?: string
-  work_order_id?: number
+  work_order_id?: string
 }
 
 export interface MesWmSnUpdateDTO extends Partial<MesWmSnCreateDTO> {

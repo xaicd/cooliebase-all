@@ -75,14 +75,14 @@ export function ProductFavoriteForm({ open, initialData, onClose, onSuccess }: P
         <div>
           <label htmlFor="product-favorite-user_id" className="block text-xs text-slate-600 mb-1">用户编号</label>
           <input
-            type="number"
+            type="text"
             id="product-favorite-user_id"
             data-testid="field-user_id"
             data-agent-target="product-favorite:field:user_id"
             data-agent-state={formData.user_id == null || formData.user_id === "" ? "empty" : "filled"}
             aria-label="用户编号"
-            value={formData.user_id != null ? String(formData.user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入用户编号"
             
@@ -92,14 +92,14 @@ export function ProductFavoriteForm({ open, initialData, onClose, onSuccess }: P
         <div>
           <label htmlFor="product-favorite-spu_id" className="block text-xs text-slate-600 mb-1">商品 SPU 编号</label>
           <input
-            type="number"
+            type="text"
             id="product-favorite-spu_id"
             data-testid="field-spu_id"
             data-agent-target="product-favorite:field:spu_id"
             data-agent-state={formData.spu_id == null || formData.spu_id === "" ? "empty" : "filled"}
             aria-label="商品 SPU 编号"
-            value={formData.spu_id != null ? String(formData.spu_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.spu_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, spu_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入商品 SPU 编号"
             

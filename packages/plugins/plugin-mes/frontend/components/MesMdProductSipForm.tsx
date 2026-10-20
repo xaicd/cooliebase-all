@@ -80,14 +80,14 @@ export function MesMdProductSipForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-md-product-sip-item_id" className="block text-xs text-slate-600 mb-1">物料产品编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-product-sip-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-md-product-sip:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料产品编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料产品编号"
             
@@ -114,14 +114,14 @@ export function MesMdProductSipForm({ open, initialData, onClose, onSuccess }: M
         <div>
           <label htmlFor="mes-md-product-sip-process_id" className="block text-xs text-slate-600 mb-1">工序编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-md-product-sip-process_id"
             data-testid="field-process_id"
             data-agent-target="mes-md-product-sip:field:process_id"
             data-agent-state={formData.process_id == null || formData.process_id === "" ? "empty" : "filled"}
             aria-label="工序编号"
-            value={formData.process_id != null ? String(formData.process_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.process_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, process_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入工序编号"
             

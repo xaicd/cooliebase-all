@@ -2,10 +2,10 @@
 export interface CrmReceivableDO {
   id: number
   no?: string
-  plan_id?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  plan_id?: string
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number
@@ -23,10 +23,10 @@ export interface CrmReceivableDO {
 export interface CrmReceivableVO {
   id: number
   no?: string
-  plan_id?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  plan_id?: string
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number
@@ -43,10 +43,10 @@ export interface CrmReceivableVO {
 
 export interface CrmReceivableCreateDTO {
   no?: string
-  plan_id?: number
-  customer_id?: number
-  contract_id?: number
-  owner_user_id?: number
+  plan_id?: string
+  customer_id?: string
+  contract_id?: string
+  owner_user_id?: string
   return_time?: string
   return_type?: number
   price?: number

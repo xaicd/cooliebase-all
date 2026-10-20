@@ -3,10 +3,10 @@ export interface MesWmItemReceiptDO {
   id: number
   code?: string
   name?: string
-  iqc_id?: number
-  notice_id?: number
+  iqc_id?: string
+  notice_id?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -22,10 +22,10 @@ export interface MesWmItemReceiptVO {
   id: number
   code?: string
   name?: string
-  iqc_id?: number
-  notice_id?: number
+  iqc_id?: string
+  notice_id?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string
@@ -40,10 +40,10 @@ export interface MesWmItemReceiptVO {
 export interface MesWmItemReceiptCreateDTO {
   code?: string
   name?: string
-  iqc_id?: number
-  notice_id?: number
+  iqc_id?: string
+  notice_id?: string
   purchase_order_code?: string
-  vendor_id?: number
+  vendor_id?: string
   receipt_date?: string
   status?: number
   remark?: string

@@ -121,14 +121,14 @@ export function MesDvRepairForm({ open, initialData, onClose, onSuccess }: MesDv
         <div>
           <label htmlFor="mes-dv-repair-machinery_id" className="block text-xs text-slate-600 mb-1">设备编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-machinery_id"
             data-testid="field-machinery_id"
             data-agent-target="mes-dv-repair:field:machinery_id"
             data-agent-state={formData.machinery_id == null || formData.machinery_id === "" ? "empty" : "filled"}
             aria-label="设备编号"
-            value={formData.machinery_id != null ? String(formData.machinery_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.machinery_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, machinery_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入设备编号"
             
@@ -206,14 +206,14 @@ export function MesDvRepairForm({ open, initialData, onClose, onSuccess }: MesDv
         <div>
           <label htmlFor="mes-dv-repair-accepted_user_id" className="block text-xs text-slate-600 mb-1">维修人用户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-accepted_user_id"
             data-testid="field-accepted_user_id"
             data-agent-target="mes-dv-repair:field:accepted_user_id"
             data-agent-state={formData.accepted_user_id == null || formData.accepted_user_id === "" ? "empty" : "filled"}
             aria-label="维修人用户编号"
-            value={formData.accepted_user_id != null ? String(formData.accepted_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, accepted_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.accepted_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, accepted_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入维修人用户编号"
             
@@ -223,14 +223,14 @@ export function MesDvRepairForm({ open, initialData, onClose, onSuccess }: MesDv
         <div>
           <label htmlFor="mes-dv-repair-confirm_user_id" className="block text-xs text-slate-600 mb-1">验收人用户编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-confirm_user_id"
             data-testid="field-confirm_user_id"
             data-agent-target="mes-dv-repair:field:confirm_user_id"
             data-agent-state={formData.confirm_user_id == null || formData.confirm_user_id === "" ? "empty" : "filled"}
             aria-label="验收人用户编号"
-            value={formData.confirm_user_id != null ? String(formData.confirm_user_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, confirm_user_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.confirm_user_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, confirm_user_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入验收人用户编号"
             
@@ -257,14 +257,14 @@ export function MesDvRepairForm({ open, initialData, onClose, onSuccess }: MesDv
         <div>
           <label htmlFor="mes-dv-repair-source_doc_id" className="block text-xs text-slate-600 mb-1">来源单据编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-dv-repair-source_doc_id"
             data-testid="field-source_doc_id"
             data-agent-target="mes-dv-repair:field:source_doc_id"
             data-agent-state={formData.source_doc_id == null || formData.source_doc_id === "" ? "empty" : "filled"}
             aria-label="来源单据编号"
-            value={formData.source_doc_id != null ? String(formData.source_doc_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.source_doc_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, source_doc_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入来源单据编号"
             

@@ -14,7 +14,7 @@ export interface MpUserDO {
   city?: string
   remark?: string
   tag_ids?: string
-  account_id?: number
+  account_id?: string
   app_id?: string
   tenant_id: string
   created_by?: string
@@ -39,7 +39,7 @@ export interface MpUserVO {
   city?: string
   remark?: string
   tag_ids?: string
-  account_id?: number
+  account_id?: string
   app_id?: string
   tenant_id: string
   created_by?: string
@@ -63,7 +63,7 @@ export interface MpUserCreateDTO {
   city?: string
   remark?: string
   tag_ids?: string
-  account_id?: number
+  account_id?: string
   app_id?: string
 }
 

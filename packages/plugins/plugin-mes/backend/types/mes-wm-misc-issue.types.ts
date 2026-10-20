@@ -5,7 +5,7 @@ export interface MesWmMiscIssueDO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   issue_date?: string
   status?: number
@@ -24,7 +24,7 @@ export interface MesWmMiscIssueVO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   issue_date?: string
   status?: number
@@ -42,7 +42,7 @@ export interface MesWmMiscIssueCreateDTO {
   name?: string
   type?: number
   source_doc_type?: string
-  source_doc_id?: number
+  source_doc_id?: string
   source_doc_code?: string
   issue_date?: string
   status?: number

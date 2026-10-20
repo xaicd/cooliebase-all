@@ -6,9 +6,9 @@ export interface CrmClueDO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   transform_status?: boolean
-  customer_id?: number
+  customer_id?: string
   mobile?: string
   telephone?: string
   qq?: string
@@ -35,9 +35,9 @@ export interface CrmClueVO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   transform_status?: boolean
-  customer_id?: number
+  customer_id?: string
   mobile?: string
   telephone?: string
   qq?: string
@@ -63,9 +63,9 @@ export interface CrmClueCreateDTO {
   contact_last_time?: string
   contact_last_content?: string
   contact_next_time?: string
-  owner_user_id?: number
+  owner_user_id?: string
   transform_status?: boolean
-  customer_id?: number
+  customer_id?: string
   mobile?: string
   telephone?: string
   qq?: string

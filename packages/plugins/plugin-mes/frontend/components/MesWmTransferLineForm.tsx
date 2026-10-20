@@ -82,14 +82,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-transfer_id" className="block text-xs text-slate-600 mb-1">转移单编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-transfer_id"
             data-testid="field-transfer_id"
             data-agent-target="mes-wm-transfer-line:field:transfer_id"
             data-agent-state={formData.transfer_id == null || formData.transfer_id === "" ? "empty" : "filled"}
             aria-label="转移单编号"
-            value={formData.transfer_id != null ? String(formData.transfer_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, transfer_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.transfer_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, transfer_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入转移单编号"
             
@@ -99,14 +99,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-material_stock_id" className="block text-xs text-slate-600 mb-1">库存记录编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-material_stock_id"
             data-testid="field-material_stock_id"
             data-agent-target="mes-wm-transfer-line:field:material_stock_id"
             data-agent-state={formData.material_stock_id == null || formData.material_stock_id === "" ? "empty" : "filled"}
             aria-label="库存记录编号"
-            value={formData.material_stock_id != null ? String(formData.material_stock_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.material_stock_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, material_stock_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入库存记录编号"
             
@@ -116,14 +116,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-item_id" className="block text-xs text-slate-600 mb-1">物料编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-item_id"
             data-testid="field-item_id"
             data-agent-target="mes-wm-transfer-line:field:item_id"
             data-agent-state={formData.item_id == null || formData.item_id === "" ? "empty" : "filled"}
             aria-label="物料编号"
-            value={formData.item_id != null ? String(formData.item_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.item_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, item_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入物料编号"
             
@@ -150,14 +150,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-batch_id" className="block text-xs text-slate-600 mb-1">批次编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-batch_id"
             data-testid="field-batch_id"
             data-agent-target="mes-wm-transfer-line:field:batch_id"
             data-agent-state={formData.batch_id == null || formData.batch_id === "" ? "empty" : "filled"}
             aria-label="批次编号"
-            value={formData.batch_id != null ? String(formData.batch_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.batch_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, batch_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入批次编号"
             
@@ -167,14 +167,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-from_warehouse_id" className="block text-xs text-slate-600 mb-1">移出仓库编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-from_warehouse_id"
             data-testid="field-from_warehouse_id"
             data-agent-target="mes-wm-transfer-line:field:from_warehouse_id"
             data-agent-state={formData.from_warehouse_id == null || formData.from_warehouse_id === "" ? "empty" : "filled"}
             aria-label="移出仓库编号"
-            value={formData.from_warehouse_id != null ? String(formData.from_warehouse_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, from_warehouse_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.from_warehouse_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, from_warehouse_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入移出仓库编号"
             
@@ -184,14 +184,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-from_location_id" className="block text-xs text-slate-600 mb-1">移出库区编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-from_location_id"
             data-testid="field-from_location_id"
             data-agent-target="mes-wm-transfer-line:field:from_location_id"
             data-agent-state={formData.from_location_id == null || formData.from_location_id === "" ? "empty" : "filled"}
             aria-label="移出库区编号"
-            value={formData.from_location_id != null ? String(formData.from_location_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, from_location_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.from_location_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, from_location_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入移出库区编号"
             
@@ -201,14 +201,14 @@ export function MesWmTransferLineForm({ open, initialData, onClose, onSuccess }:
         <div>
           <label htmlFor="mes-wm-transfer-line-from_area_id" className="block text-xs text-slate-600 mb-1">移出库位编号</label>
           <input
-            type="number"
+            type="text"
             id="mes-wm-transfer-line-from_area_id"
             data-testid="field-from_area_id"
             data-agent-target="mes-wm-transfer-line:field:from_area_id"
             data-agent-state={formData.from_area_id == null || formData.from_area_id === "" ? "empty" : "filled"}
             aria-label="移出库位编号"
-            value={formData.from_area_id != null ? String(formData.from_area_id) : ""}
-            onChange={(e) => setFormData((prev) => ({ ...prev, from_area_id: e.target.value === "" ? undefined : Number(e.target.value) }))}
+            value={formData.from_area_id ?? ""}
+            onChange={(e) => setFormData((prev) => ({ ...prev, from_area_id: e.target.value }))}
             className="w-full px-3 py-1.5 border border-slate-300 rounded text-xs focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
             placeholder="请输入移出库位编号"
             
