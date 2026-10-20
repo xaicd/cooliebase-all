@@ -114,6 +114,19 @@ describe("跨 CLI 规格守卫（exit 2 协议）", () => {
     expect(runHook({ tool_input: { command: "npm run check" } })).toBe(0)
   })
 
+  it("★ 非写工具（如读文件）→ 放行，但仍要留心跳（证明 hook 真的被这家 CLI 调用）", () => {
+    writeRecord("SPEC_REQUIRED")
+    const heartbeat = path.join(TMP, "hb-kind.jsonl")
+    expect(
+      runHook({ tool_display_name: "READ", tool_input: { absolute_path: `${ROOT}/packages/x.ts` } }, {
+        AGENT_ROUTE_HEARTBEAT: heartbeat,
+      }),
+    ).toBe(0)
+    const event = JSON.parse(fs.readFileSync(heartbeat, "utf8").trim()) as Record<string, string>
+    expect(event.kind).toBe("cmd")
+    expect(event.decision).toBe("allow")
+  })
+
   it("非受保护路径 → 放行", () => {
     writeRecord("SPEC_REQUIRED")
     expect(runHook({ tool_input: { file_path: `${ROOT}/docs/notes.md` } })).toBe(0)

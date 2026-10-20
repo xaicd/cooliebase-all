@@ -44,17 +44,30 @@ process.stdin.on("end", () => {
     "toolCall.args.Path",
   ]
 
+  // 工具名：用于区分「读」与「写」。
+  // 踩过的坑：`tool_input.absolute_path` 是**读**工具的字段，若不分读写就会把
+  // "读一个受保护目录下的文件"误判成写入并拦下（实测）。
+  const toolName = String(
+    pick(payload, "tool_name") ||
+      pick(payload, "toolCall.name") ||
+      pick(payload, "tool_display_name") ||
+      "",
+  )
+  const isReadTool = /^(read|read_file|view_file|view|glob|grep|ls|list)/i.test(toolName)
+
   let file = ""
-  for (const candidate of candidates) {
-    const value = pick(payload, candidate)
-    if (typeof value === "string" && value) {
-      file = value
-      break
+  if (!isReadTool) {
+    for (const candidate of candidates) {
+      const value = pick(payload, candidate)
+      if (typeof value === "string" && value) {
+        file = value
+        break
+      }
     }
   }
 
   // ── 用 shell 写文件也要能拦 ────────────────────────────────────────────────
-  if (!file) {
+  if (!file && !isReadTool) {
     const command =
       pick(payload, "tool_input.command") ||
       pick(payload, "args.command") ||

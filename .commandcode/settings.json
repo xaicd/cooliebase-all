@@ -3,15 +3,22 @@
     "SessionStart": [
       {
         "hooks": [
-          { "type": "command", "command": "./.commandcode/hooks/route-contract.sh", "timeout": 10 }
+          {
+            "type": "command",
+            "command": "./.commandcode/hooks/route-contract.sh",
+            "timeout": 10
+          }
         ]
       }
     ],
     "PreToolUse": [
       {
-        "matcher": "write|edit|shell",
         "hooks": [
-          { "type": "command", "command": "./.agents/hooks/spec-gate.sh", "timeout": 10 }
+          {
+            "type": "command",
+            "command": "./.agents/hooks/spec-gate.sh",
+            "timeout": 10
+          }
         ]
       }
     ]

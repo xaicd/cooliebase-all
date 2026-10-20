@@ -34,7 +34,7 @@ const arg = (name, fallback) => {
 const HEARTBEAT = process.env.AGENT_ROUTE_HEARTBEAT ?? path.join(ROOT, "docs", "architecture", "artifacts", "harness-heartbeat.jsonl")
 const windowMinutes = Number(arg("--window", "1440"))
 const requireKinds = (arg("--require", "") || "").split(",").map((s) => s.trim()).filter(Boolean)
-const trim = argv.includes("--trim")
+const trim = argv.includes("--trim") || !argv.includes("--no-trim") // 默认自动收敛
 
 /** 各家配置在哪（用于交叉核对"配了但没跑过"） */
 const CONFIGS = [
@@ -110,10 +110,13 @@ for (const kind of kinds) {
   console.log(`  ${mark} ${kind.padEnd(8)} ${detail}${note}`)
 }
 
+const KEEP_LINES = 2000
 if (trim && fs.existsSync(HEARTBEAT)) {
-  const lines = fs.readFileSync(HEARTBEAT, "utf8").split("\n").filter(Boolean).slice(-500)
-  fs.writeFileSync(HEARTBEAT, `${lines.join("\n")}\n`)
-  console.log(`  [trim] 已压缩为最近 ${lines.length} 行`)
+  const lines = fs.readFileSync(HEARTBEAT, "utf8").split("\n").filter(Boolean)
+  if (lines.length > KEEP_LINES) {
+    fs.writeFileSync(HEARTBEAT, `${lines.slice(-KEEP_LINES).join("\n")}\n`)
+    console.log(`  [trim] 心跳 ${lines.length} → ${KEEP_LINES} 行（默认自动收敛，--no-trim 可关闭）`)
+  }
 }
 
 if (requireKinds.length > 0) {
