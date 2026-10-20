@@ -5,7 +5,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.commandcode/hooks/route-contract.sh",
+            "command": "\"$COMMANDCODE_PROJECT_DIR\"/.commandcode/hooks/route-contract.sh",
             "timeout": 10
           }
         ]
@@ -16,7 +16,7 @@
         "hooks": [
           {
             "type": "command",
-            "command": "./.agents/hooks/spec-gate.sh",
+            "command": "\"$COMMANDCODE_PROJECT_DIR\"/.agents/hooks/spec-gate.sh",
             "timeout": 10
           }
         ]

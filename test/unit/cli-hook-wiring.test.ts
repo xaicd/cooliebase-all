@@ -49,7 +49,7 @@ describe("各家 CLI hook 接线", () => {
       for (const command of list) {
         // 取出命令里的脚本路径（去掉 $VAR 与引号），断言本仓确实有它
         const script = command
-          .replace(/"\$CLAUDE_PROJECT_DIR"\/?/g, "")
+          .replace(/"\$(?:CLAUDE|COMMANDCODE)_PROJECT_DIR"\/?/g, "")
           .replace(/^\.\//, "")
           .trim()
         const candidates = [
