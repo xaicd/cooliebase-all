@@ -10,7 +10,7 @@
 | 领域 | 当前状态 | 判据 | 证据 / 下一步 |
 |---|---|---|---|
 | **基座与域架构（R0）** | `TEST_PASSED` | 17 域登记、跨域只走 Facade、seam 图不漂移 | `npm run check` exit=0 |
-| **Agent 消费面（R2）** | `TEST_PASSED` | MCP 工具不落盘、Skills 与代码一致、提示可重建 | `compat:check`（17 domains / 38 skills / 17 MCP tools / 10 gates） |
+| **Agent 消费面（R2）** | `TEST_PASSED` | MCP 工具不落盘、Skills 与代码一致、提示可重建 | `compat:check`（17 domains / 38 skills / 17 MCP tools / **20 gates**） |
 | **供应链安全（M2）** | `TEST_PASSED` | 只拦新增漏洞；存量入台账 | `deps:audit`（43 → 9） |
 | **客户端构建（M3）** | `TEST_PASSED` | 导出产物存在 + 零污染 + 裁剪跳过 | `clients:build:check` |
 | **孵化与建域（R1）** | `TEST_PASSED` | degit 快照端到端（install→init→check→build→dev→登录）+ `domain:new` 连跑两次幂等 | ✅ 2026-10-19（`project:create` reactor/Postgres 路径未验） |

@@ -123,6 +123,16 @@ const ASSERTIONS = [
     requiredIn: ["llms.txt"],
   },
   {
+    id: "gate-count-en",
+    // 只认英文 `N gates`：**窄口径、无歧义**（project-status / project-plan 用的就是它）。
+    // 中文「N 道质量门禁」必须继续排除 —— 那是 CMMI 06 的口径，与 compat 交付门禁不是一回事，
+    // 两处历史上都产生过误报（见上面 gate-count 的注释）。
+    pattern: /(\d+)\s*gates\b/g,
+    expected: gateCount,
+    label: "门禁数（英文写法）",
+    requiredIn: [],
+  },
+  {
     id: "domain-count",
     pattern: /(\d+)\s*(?:个)?\s*原生业务域/g,
     expected: domainCount,
@@ -156,7 +166,18 @@ const ASSERTIONS = [
   },
 ]
 
-const FILES = ["llms.txt", "llms-full.txt", "AGENTS.md", "README.md"]
+// 计划与状态页同样会声称数字，之前不在扫描面 → 「10 gates」漂了很久没人发现。
+// 章节号自洽检查只适用于"自己引用自己"的文档；跨文档引用（`§15` 指 AGENTS.md）不适用。
+const SELF_REF_FILES = ["AGENTS.md"]
+
+const FILES = [
+  "llms.txt",
+  "llms-full.txt",
+  "AGENTS.md",
+  "README.md",
+  "project-status.md",
+  "docs/01_management/project-plan.md",
+]
 const contents = new Map()
 for (const rel of FILES) {
   const full = path.join(ROOT, rel)
@@ -227,6 +248,10 @@ for (const rel of FILES) {
   const text = contents.get(rel)
   if (!text) continue
   if (!/^#{1,4}\s+\d/m.test(text)) continue
+  // **只对自引用文档**做章节号自洽检查（当前就是 AGENTS.md）。
+  // 计划/状态页里的 `§15`、`§9.4` 指的是 **AGENTS.md 的章节**，不是它们自己的 ——
+  // 对它们做同一检查只会产出假阳性（实测：加入 project-plan.md 后立刻误报 2 处）。
+  if (!SELF_REF_FILES.includes(rel)) continue
   problems.push(...sectionRefProblems(rel, text))
 }
 

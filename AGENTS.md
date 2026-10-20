@@ -378,7 +378,8 @@ CI 前置检查：
 9. npm run deps:audit（依赖 CVE 棘轮：与基线比对**只拦新增**。注意"冻结"≠"无漏洞"；已接受风险台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）
 10. npm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 
-一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述 9 道门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+一键门禁：`npm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+**门禁数量不写死**：真源是 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates`（`npm run compat:check` 会打印当前条数），`check` 链的步骤数以 `package.json` 的 `check` 脚本为准。
 
 注意：`gen/**` 被 `.gitignore` 排除，干净检出上 `domain:check` / `microservice:check` 依赖的 Go 桩须由 `contracts:sync` 先生成，故这两道门禁不可单独在干净检出上直接执行。
 

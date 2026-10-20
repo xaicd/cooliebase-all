@@ -39,7 +39,7 @@
 | G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **大部分解除**：`smoke:login`（10/10）与 `security:scan`（20/20）已在本机**零容器**验证通过（嵌入式 Postgres，`DATABASE_URL` 优先）。**仍未通过**：`load:test` 的 rps 护栏在本机不过（机器负载 6.8/13/16、colima VM 占 243% CPU；受控对照证明数据库不是变量），以及 `verify:real-db` 需真实库 |
 
 > **判据达成情况（2026-10-19 实测）**：
-> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 11 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
+> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 20 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
 > - **G2 孵化链路** ✅ 已达成 —— 两条入口均已实测：
 >   ① degit 路径端到端：
 >   `pnpm dlx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
@@ -64,7 +64,7 @@
 |---|---|---|---|
 | **R0** | 地基：域、契约、门禁 | 17 域登记；跨域只走 Facade；`check` 链可一键跑；`compat:check` 交叉校验生效 | ✅ 已达成（本轮实测 `check` exit=0） |
 | **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | 🟡 部分达成（`clients` 跳过已实测；其余 profile 待逐仓复验） |
-| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 17 工具 + 零落盘反向对照 + `compat:check` 10 gates） |
+| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 17 工具 + 零落盘反向对照 + `compat:check` 20 gates） |
 | **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | 🟡 部分达成（`smoke:login` **10/10**、`security:scan` **20/20** 已可在本机**零容器**跑通；`load:test` 能跑但本机 rps 护栏不过——受机器负载影响，memory 1850 vs embedded 2005 vs 基线 26877，**不调低阈值**；真实库与压测仍需按发布节奏复验） |
 | **R4** | 可运营：SRE 与持续运营资产 | SLO/灾备/复盘/对账/巡检资产齐备，且**未发生时留空**而不是放假 Demo | ❓ 待核验（目录存在，内容真实性未逐项核实） |
 
@@ -75,7 +75,7 @@
 | 里程碑 | 判据 | 取证方式 | 状态 |
 |---|---|---|---|
 | **M0 地基绿** | 基座 `check` + 全量测试全绿 | `npm run check`；`pnpm exec vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
-| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `npm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 17 MCP tools / 10 gates） |
+| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `npm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 17 MCP tools / **20 gates**） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `npm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `npm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
 | **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-19（degit 路径；reactor/Postgres 路径未验） |
