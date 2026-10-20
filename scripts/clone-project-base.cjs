@@ -838,10 +838,52 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   reactorCopy(SOURCE_ROOT, resolvedTarget, ctx)
   applyHatchPatches(resolvedTarget, plan, sourceCatalog, targetName)
 
+  // **裁剪后必须重生成 wiki** —— 与 `project-init.cjs` 的既有做法一致。
+  // hatch 裁剪会删掉被裁域的代码（如 `packages/plugins/plugin-bpm/`），但
+  // `wiki/domains/*.md` 是**生成物**、不会自己消失，于是仍指向已删路径 →
+  // 产物自身 `gen:paths:check` 必红。
+  // 实测（2026-10-20，minimal profile）：产物 `pnpm run check` exit=1，
+  // 报 `wiki/domains/bpm.md:3 — 引用了不存在的路径: packages/plugins/plugin-bpm/`。
+  // 注意这是**同一类缺陷的第二处**：第一处在 `project-init` 的归档清理路径，已修。
+  // **裁剪后还必须重写"规模声明"** —— 同一类缺陷的第三处。
+  // `llms.txt` / `llms-full.txt` / `AGENTS.md` / `README.md` 是**手写**的，里面写着基座规模
+  // （「17 原生业务域」「342 份契约」）；裁剪后真值只剩 5 域 / 16 契约，于是产物自己的
+  // `llms:check` 必红（实测：9 处断言失败）。
+  // 改写由 `check-llms-sync.cjs --restamp` 完成 —— **判真值与改写是同一个脚本**，避免第二真源。
+  const llmsSync = path.join(resolvedTarget, "scripts", "check-llms-sync.cjs")
+  if (fs.existsSync(llmsSync)) {
+    try {
+      const out = execSync("node scripts/check-llms-sync.cjs --restamp", { cwd: resolvedTarget, encoding: "utf8" })
+      const line = String(out).split("\n").filter(Boolean).pop() ?? ""
+      console.log(`[REACTOR FACTS] ✓ 已按裁剪后的真源重写规模声明（${line.trim()}）`)
+    } catch (error) {
+      console.log(`[REACTOR FACTS WARN] 重写规模声明失败: ${String(error?.message ?? error).split("\n")[0]}`)
+    }
+  }
+
+  const wikiSync = path.join(resolvedTarget, "scripts", "sync-openwiki.cjs")
+  if (fs.existsSync(wikiSync)) {
+    try {
+      execSync("node scripts/sync-openwiki.cjs --write", { cwd: resolvedTarget, stdio: "pipe" })
+      console.log("[REACTOR WIKI] ✓ 已按裁剪后的域目录重生成 wiki（消除指向被裁域的悬空引用）")
+    } catch (error) {
+      console.log(`[REACTOR WIKI WARN] 重生成 wiki 失败: ${String(error?.message ?? error).split("\n")[0]}`)
+    }
+  }
+
   // **先连库，再写 .env**（顺序很关键）。
   // 此前顺序相反：连不上也照样写下 `DB_DRIVER=postgresql` + 不可达 URL，然后打印 SUCCESS ——
   // 孵化出的工程**起不来**却被宣称就绪（实测）。宁可这里**明确失败**，也不要产出坏工程。
-  const db = await autoProvisionDatabase(targetDbName)
+  // `--no-provision-db`：调用方自己决定数据库（`project:init --target` 走 **SQLite**，
+  // 它委派到本脚本只是为了克隆+裁剪，**不该被 Postgres 拦住**）。
+  // 这是实测出来的：fail-loud 守卫上线后 `project:init --target` 直接中止 ——
+  // 那条路本来是零容器 SQLite，却因为这里必须连上 Postgres 而断掉。
+  const db = options.noProvisionDb
+    ? { ok: true, url: null, skipped: true }
+    : await autoProvisionDatabase(targetDbName)
+  if (options.noProvisionDb) {
+    console.log("[REACTOR DB] 已跳过数据库准备（--no-provision-db）—— 由调用方决定（project:init 走 SQLite）")
+  }
   if (!db.ok) {
     console.log("")
     console.log("  ✗ 无法准备 PostgreSQL 数据库 —— **已中止**，未生成 .env（避免产出起不来的工程）。")
@@ -863,12 +905,15 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   const srcEnv = path.join(SOURCE_ROOT, ".env")
   const bootstrap = resolveBootstrap()
   const required = {
-    DATABASE_URL: db.url,
-    DB_DRIVER: "postgresql",
     PORT: String(targetPort),
     JWT_SECRET: require("node:crypto").randomBytes(32).toString("hex"),
     TENANT_MODE: "disabled",
     TENANT_PLATFORM_USERNAMES: bootstrap.username,
+  }
+  // 只有**真的准备了**数据库才写库相关配置；跳过后留给调用方（否则会把 SQLite 覆盖成 postgres）。
+  if (db.url) {
+    required.DATABASE_URL = db.url
+    required.DB_DRIVER = "postgresql"
   }
   const kept = []
   const seen = new Set()
@@ -955,11 +1000,12 @@ function main() {
     if (!parsed.target) {
       console.error("[REACTOR] 缺少目标路径。用法:")
       console.error("  node scripts/clone-project-base.cjs <目标路径> [--profile base|minimal|standard] [--bundle a,b]")
+      console.error("       [--no-provision-db]   跳过数据库准备（由调用方负责，project:init --target 走 SQLite 时用）")
       process.exitCode = 2
       return Promise.resolve()
     }
     const targetArg = parsed.target
-    return runProjectReactor(targetArg, plan, catalog, { dryRun: parsed.dryRun })
+    return runProjectReactor(targetArg, plan, catalog, { dryRun: parsed.dryRun, noProvisionDb: parsed.noProvisionDb })
   } catch (err) {
     console.error("[REACTOR ERROR]", err.stack || err.message || err)
     process.exitCode = 1

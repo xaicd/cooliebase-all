@@ -420,6 +420,8 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     console.log(`\n[project-init] 正在派生克隆底座到目标目录: ${opts.target} ...`)
     const cloneScript = path.join(ROOT, "scripts", "clone-project-base.cjs")
     const cloneArgs = [cloneScript, opts.target, "--profile", opts.profile]
+    // 本入口产物走 **SQLite**（见下方 updateEnvFiles），克隆阶段不该被 Postgres 拦住。
+    cloneArgs.push("--no-provision-db")
     if (Array.isArray(opts.bundle) && opts.bundle.length > 0) cloneArgs.push("--bundle", opts.bundle.join(","))
     execFileSync("node", cloneArgs, { stdio: "inherit" })
     const targetDir = path.resolve(process.cwd(), opts.target)

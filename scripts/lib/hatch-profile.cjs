@@ -39,6 +39,11 @@ function parseArgv(argv) {
     bundle: [],
     help: false,
     dryRun: false,
+    /**
+     * 跳过数据库准备。给 `project:init --target` 用：它委派本脚本只为"克隆 + 裁剪"，
+     * 产物走 **SQLite**，不该被 Postgres 拦住（实测：否则这条零容器路线直接中止）。
+     */
+    noProvisionDb: false,
   }
 
   for (let i = 0; i < args.length; i += 1) {
@@ -49,6 +54,10 @@ function parseArgv(argv) {
     }
     if (arg === "--dry-run") {
       out.dryRun = true
+      continue
+    }
+    if (arg === "--no-provision-db") {
+      out.noProvisionDb = true
       continue
     }
     if (arg === "--profile") {

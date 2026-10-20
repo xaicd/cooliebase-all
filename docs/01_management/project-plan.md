@@ -49,7 +49,11 @@
 >   ① degit 路径端到端：
 >   `pnpm dlx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
 >   → `build` exit=0 → `pnpm dev`：`/healthz` 200、`/readyz` 200、登录 200、受保护接口带 token 200 / 无 token 401。
->   ③ `project:create` 的 reactor/Postgres 路径 **✅ 已实测**（零 Docker）：此前它把
+>   ④ **两条入口的产物都跑通了它们自己的 `check`**（2026-10-20，minimal profile）：
+  `project:create` → `create=0 / install=0 / **check=0**`；`project:init --target` → `init=0 / install=0 / **check=0**`。
+  这条此前**不成立**：`project:create` 的产物 `check` **exit=1**，报 374 处悬空引用 —— 裁剪删掉了域代码，
+  而 **wiki 词条（生成物）与 llms/README 的「规模声明」（手写）不会自己消失**（详见 WBS I17）。
+  ③ `project:create` 的 reactor/Postgres 路径 **✅ 已实测**（零 Docker）：此前它把
   `postgresql://cooliebase:…@localhost:5433` **写死在三处**，只在"本机恰有 5433 Docker Postgres"时成立；
   现改为 `PROJECT_PG_ADMIN_URL` 可指到任意可达 Postgres。实测（嵌入式 Postgres）：
   `exit=0` · 目标库真实建出 · 生成 `.env` 的 `DATABASE_URL` 指向**那台可达实例**而非 5433。
@@ -76,7 +80,7 @@
 | 阶段 | 主题 | 出口条件（全部满足才进入下一阶段） | 当前 |
 |---|---|---|---|
 | **R0** | 地基：域、契约、门禁 | 17 域登记；跨域只走 Facade；`check` 链可一键跑；`compat:check` 交叉校验生效 | ✅ 已达成（本轮实测 `check` exit=0） |
-| **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | ✅ 已达成（2026-10-20 复核）—— 三条判据均有实测，与 **D4/D5** 一致：① 四种 profile（base/minimal/vertical/creator）各跑 `install`+`check`+`build` **全绿**；② `clients/**` 缺席时门禁**跳过而非失败**（SKIP 分支实测）。**原先的「唯一未验」已消除**：`project:create` 的 reactor/Postgres 路径已改为**可指到任意可达 Postgres**，并在嵌入式 Postgres 上**实测跑通**（零 Docker，见 G2①）。← 此前的「其余 profile 待逐仓复验」与 D4 的 ✅ **自相矛盾**，属陈旧状态 |
+| **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | ✅ 已达成（2026-10-20 复核）—— 三条判据均有实测，与 **D4/D5** 一致：① 四种 profile（base/minimal/vertical/creator）各跑 `install`+`check`+`build` **全绿**；② `clients/**` 缺席时门禁**跳过而非失败**（SKIP 分支实测）。**原先的「唯一未验」已消除**：reactor/Postgres 路径已可指到任意可达 Postgres（零 Docker 实测跑通）；**且两条入口的产物都实测跑通了自身 `check`**（见 G2④，此前 `project:create` 的产物是红的）。← 此前的「其余 profile 待逐仓复验」与 D4 的 ✅ **自相矛盾**，属陈旧状态 |
 | **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 17 工具 + 零落盘反向对照 + `compat:check` 20 gates） |
 | **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | ✅ 达成 —— `build`/`fingerprint`/`smoke:login`(10/10)/`security:scan`(20/20)/`verify:real-db`(45 文件 192 用例)/`load:test`(3/3, 18.5k–23.6k rps) 六项**本机零容器全部 exit=0** |
 | **R4** | 可运营：SRE 与持续运营资产 | SLO/灾备/复盘/对账/巡检资产齐备，且**未发生时留空**而不是放假 Demo | ✅ 已核实（2026-10-20）—— **未发生即留空**成立：`06_incidents_postmortem/`、`security-reports/`、`09_operations/`、`09_operations/02_data_ops/` 均为空 `.gitkeep`，无假 Demo；唯一实质资产是 SLO 矩阵，其 §3 原把 `v1.1.0` 历史快照写得像现状，已标注为「历史快照，非当前」并改为**指向产物** `load-test-result.json` |
@@ -213,6 +217,7 @@
 | I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 此前 `EVOLUTION-ROADMAP-2026.md` **全仓零引用**（它自己也不引用任何文档）；现互引并登记 AGENTS §13 |
 | I15 | **压测判定分三态** | 记录运行时负载，区分 `passed`/`inconclusive`/`failed` | ✅ | 此前不达标只报「失败」，无法区分「真回归」与「机器被压住」。现产物自证环境（`environment.loadavg1`/`busyRatio`）；**inconclusive 同样非零退出**；单测 5 条含反向对照 |
 | I16 | **孵化不再依赖 Docker** | `project:create` 的 PG 地址可覆盖；连不上即**中止**不产坏工程 | ✅ | 此前写死 `localhost:5433` 且**忽略环境**；实测：嵌入式 PG 下 `exit=0`、目标库真实建出；不可达时 `exit=1` 且不写 postgres 配置 |
+| I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
 
 ## 5. 当前进展快照（2026-10-20）
 

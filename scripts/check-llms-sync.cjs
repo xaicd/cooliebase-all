@@ -22,6 +22,11 @@ const path = require("path")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
 const asJson = process.argv.includes("--json")
+// --restamp：把声明**改写**为真值（而非只报错）。
+// 为什么要有它：裁剪后的派生工程里，llms.txt / README / AGENTS 仍写着基座的规模
+// （如「17 原生业务域」「342 份契约」），而真值只有 5 域 / 16 契约 —— 产物自己的 `check` 必红。
+// 由**同一个脚本**既判真值又改写，才不会出现第二个真源。
+const restamp = process.argv.includes("--restamp")
 
 function fail(message) {
   if (asJson) console.error(JSON.stringify({ ok: false, error: message }, null, 2))
@@ -208,6 +213,8 @@ function sectionRefProblems(file, text) {
 
 const problems = []
 const results = []
+/** restamp 模式下的改写缓冲：rel -> 新内容 */
+const rewritten = new Map()
 
 for (const assertion of ASSERTIONS) {
   const hitsByFile = new Map()
@@ -221,9 +228,15 @@ for (const assertion of ASSERTIONS) {
       total += 1
       const found = Number(match[1])
       if (found !== assertion.expected) {
-        problems.push(
-          `${rel}: 「${match[0].trim()}」= ${found}，真值 ${assertion.expected}（${assertion.label}）`,
-        )
+        if (restamp) {
+          const current = rewritten.get(rel) ?? text
+          // 只换数字，保留原有措辞 —— 不做整句重写，避免动到人写的表述。
+          rewritten.set(rel, current.replace(assertion.pattern, (m, digits) => m.replace(digits, String(assertion.expected))))
+        } else {
+          problems.push(
+            `${rel}: 「${match[0].trim()}」= ${found}，真值 ${assertion.expected}（${assertion.label}）`,
+          )
+        }
       }
     }
     hitsByFile.set(rel, fileHits)
@@ -266,6 +279,19 @@ if (llmsText && /--profile/.test(llmsText)) {
 }
 
 const truth = { mcpToolCount, gateCount, domainCount, skillCount, agentContractCount, profiles }
+
+if (restamp) {
+  let changed = 0
+  for (const [rel, next] of rewritten) {
+    const before = contents.get(rel)
+    if (typeof before !== "string" || before === next) continue
+    fs.writeFileSync(path.join(ROOT, rel), next, "utf8")
+    changed += 1
+    console.log(`[llms:restamp] 已按真源改写 ${rel}`)
+  }
+  console.log(`[llms:restamp] 完成：${changed} 个文件被改写（真值: ${domainCount} 域 / ${agentContractCount} 契约 / ${gateCount} 门禁 / ${mcpToolCount} 工具 / ${skillCount} 技能）`)
+  process.exit(0)
+}
 
 if (problems.length > 0) {
   if (asJson) {

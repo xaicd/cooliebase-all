@@ -833,6 +833,41 @@ function main() {
 
   let driftCount = 0;
 
+  // 生成器**只写不删** → 某一个域被裁掉后，它的 `wiki/domains/<域>.md` 会**永远留着**，
+  // 继续引用已不存在的 `packages/plugins/plugin-<域>/` —— 于是派生工程里
+  // `gen:paths:check` 必红。实测（2026-10-20，`project:create --profile minimal`）：
+  // 产物 `pnpm run check` exit=1，报 374 处悬空引用，全部来自被裁域的 wiki 页面。
+  //
+  // 这里把生成器**自己拥有**的目录认出来，凡是本目录下**不在**本次生成清单里的 `.md`
+  // 都算陈旧：`--write` 时删除，check 时计为漂移（此前 check 对它们完全失明）。
+  const ownedDirs = new Set(
+    [...generatedFiles.keys()].map((rel) => path.dirname(rel)).filter((dir) => dir !== "."),
+  )
+  const staleFiles = []
+  for (const dir of ownedDirs) {
+    const absDir = path.join(WIKI_DIR, dir)
+    if (!fs.existsSync(absDir)) continue
+    for (const name of fs.readdirSync(absDir)) {
+      if (!name.endsWith(".md")) continue
+      const rel = `${dir}/${name}`
+      if (!generatedFiles.has(rel)) staleFiles.push(rel)
+    }
+  }
+
+  if (staleFiles.length > 0) {
+    if (checkOnly) {
+      for (const rel of staleFiles) {
+        console.error(`[openwiki:check] 陈旧词条（已无对应元数据，应删除）: wiki/${rel}`)
+        driftCount++
+      }
+    } else {
+      for (const rel of staleFiles) {
+        fs.rmSync(path.join(WIKI_DIR, rel), { force: true })
+        console.log(`[openwiki:sync] 已删除陈旧词条: wiki/${rel}`)
+      }
+    }
+  }
+
   for (const [relPath, expectedContent] of generatedFiles.entries()) {
     const fullPath = path.join(WIKI_DIR, relPath);
     const dir = path.dirname(fullPath);
