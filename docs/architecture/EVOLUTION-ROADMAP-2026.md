@@ -5,6 +5,11 @@
 > **制定角色**: 产品总监 (CPO) × 首席架构师 (Lead Architect)  
 > **核心哲学**: 高阶反向思维 (High-Order Inverse Thinking) × DeepSeek Harness 机制 × CMMI Spec-First 物理资产交付  
 
+> **与其它真源的关系（重要）**：本文件只管**能力向演化**（四环同心）。
+> 「要交付什么、怎么算做完」以 `docs/01_management/project-plan.md` 为准 —— 本文件**不重复** WBS 与成功判据；
+> 当前阶段状态看 `project-status.md`，已发布能力看 `CURRENT.md`。
+> 本节之前本文件在全仓**零引用**，任何 Agent 都找不到它；现已与计划页互引。
+
 ---
 
 ## 一、 顶层演进愿景

@@ -731,6 +731,8 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 18. docs/architecture/cooliebase-all-client-channels.md
 19. docs/guides/project-profile-bootstrap.md
 20. docs/architecture/cooliebase-all-harness-evolution.md
+21. docs/01_management/project-plan.md（全周期计划：目标/路线图/里程碑/WBS）
+22. docs/architecture/EVOLUTION-ROADMAP-2026.md（能力向演化路线，四环同心）
 
 ## 14. 代码生成器架构规范
 
