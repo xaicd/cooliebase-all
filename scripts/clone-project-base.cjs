@@ -698,12 +698,32 @@ function resolveBootstrap() {
   }
 }
 
+/**
+ * 外部 PostgreSQL 的**管理连接串**。
+ *
+ * 为什么要有覆盖入口：本函数此前把 `postgresql://cooliebase:cooliebase123@localhost:5433/...`
+ * **写死在三处**（连接 / 迁移 / 生成的 `.env`），于是这条路**只能**在
+ * "本机恰好有一台 5433 的 Docker Postgres" 时才成立 —— 而 Docker 不可用（如 colima
+ * 端口不可达）时，脚本不报错、继续写下 postgres 配置，孵化出的工程**起不来**。
+ *
+ * 注意**刻意不读 `DATABASE_URL`**：它在本仓常被指向 sqlite 文件或另一个库，
+ * 拿它去 CREATE DATABASE 可能落到别人的实例上。故用专用变量。
+ */
+function resolvePgAdminUrl() {
+  return process.env.PROJECT_PG_ADMIN_URL || "postgresql://cooliebase:cooliebase123@localhost:5433/postgres"
+}
+function pgUrlFor(adminUrl, dbName) {
+  const u = new URL(adminUrl)
+  u.pathname = `/${dbName}`
+  return `${u.toString()}?schema=public`
+}
+
 async function autoProvisionDatabase(targetDbName) {
   console.log("----------------------------------------------------------------")
   console.log(`[REACTOR DB] 正在连接 PostgreSQL 并自动初始化数据库: ${targetDbName}...`)
 
   const client = new Client({
-    connectionString: "postgresql://cooliebase:cooliebase123@localhost:5433/postgres",
+    connectionString: resolvePgAdminUrl(),
   })
 
   let dbReady = false
@@ -711,7 +731,10 @@ async function autoProvisionDatabase(targetDbName) {
     await client.connect()
     const check = await client.query("SELECT 1 FROM pg_database WHERE datname = $1", [targetDbName])
     if (check.rows.length === 0) {
-      await client.query(`CREATE DATABASE "${targetDbName}" OWNER cooliebase`)
+      // **不写 `OWNER cooliebase`**：那要求实例上恰好存在 `cooliebase` 角色 ——
+      // 嵌入式 Postgres 只有 `postgres`，于是报 `role "cooliebase" does not exist`（实测）。
+      // 省略后默认归**当前连接角色**所有，Docker 与嵌入式两条路都成立。
+      await client.query(`CREATE DATABASE "${targetDbName}"`)
       console.log(`[REACTOR DB] ✅ 成功创建新数据库: "${targetDbName}"`)
     } else {
       console.log(`[REACTOR DB] 数据库 "${targetDbName}" 已存在，准备检查与部署 SQL`)
@@ -723,10 +746,12 @@ async function autoProvisionDatabase(targetDbName) {
     try { await client.end() } catch {}
   }
 
+  // 提到函数作用域：原先只在 try 内 `const`，块外引用会 ReferenceError（实测被验证脚本抓到）
+  const targetDbUrl = pgUrlFor(resolvePgAdminUrl(), targetDbName)
+
   if (dbReady) {
     try {
       console.log(`[REACTOR SQL] 正在自动导入全量基准 SQL 与 27 项迁移...`)
-      const targetDbUrl = `postgresql://cooliebase:cooliebase123@localhost:5433/${targetDbName}?schema=public`
       execSync("pnpm exec prisma migrate deploy", {
         cwd: SOURCE_ROOT,
         env: {
@@ -766,8 +791,11 @@ async function autoProvisionDatabase(targetDbName) {
       console.log("  （本地开发用。生产请通过 ADMIN_BOOTSTRAP_* 环境变量注入，勿沿用此随机值。）")
     } catch (migrateErr) {
       console.log(`[REACTOR SQL WARN] 自动部署迁移提示: ${migrateErr.message}`)
+      return { ok: false, url: targetDbUrl }
     }
+    return { ok: true, url: targetDbUrl }
   }
+  return { ok: false, url: null }
 }
 
 /**
@@ -810,6 +838,24 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   reactorCopy(SOURCE_ROOT, resolvedTarget, ctx)
   applyHatchPatches(resolvedTarget, plan, sourceCatalog, targetName)
 
+  // **先连库，再写 .env**（顺序很关键）。
+  // 此前顺序相反：连不上也照样写下 `DB_DRIVER=postgresql` + 不可达 URL，然后打印 SUCCESS ——
+  // 孵化出的工程**起不来**却被宣称就绪（实测）。宁可这里**明确失败**，也不要产出坏工程。
+  const db = await autoProvisionDatabase(targetDbName)
+  if (!db.ok) {
+    console.log("")
+    console.log("  ✗ 无法准备 PostgreSQL 数据库 —— **已中止**，未生成 .env（避免产出起不来的工程）。")
+    console.log(`    尝试的管理连接: ${resolvePgAdminUrl()}`)
+    console.log("")
+    console.log("  三条路，任选其一：")
+    console.log("    ① 指到任意可达的 Postgres（无需 Docker）:")
+    console.log("         PROJECT_PG_ADMIN_URL=postgresql://user:pass@host:5432/postgres npm run project:create -- <目录>")
+    console.log("    ② 起本机 PostgreSQL 后重试（历史默认 5433）。")
+    console.log("    ③ **零容器**路线：改用 `npm run project:init -- --target <目录> --profile base`")
+    console.log("       （走 SQLite，自带库文件，不依赖任何外部服务）。")
+    process.exit(1)
+  }
+
   // .env 不能只是"把源仓库的 .env 拷过来" —— 里面可能有**源仓库本地的取值**
   // （如 TENANT_PLATFORM_USERNAMES 指向某个本机账号），新工程继承了就会
   // "起得来、登不进去"（实测）。必需的项这里显式写死，其余保留源的作为基底。
@@ -817,7 +863,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   const srcEnv = path.join(SOURCE_ROOT, ".env")
   const bootstrap = resolveBootstrap()
   const required = {
-    DATABASE_URL: `postgresql://cooliebase:cooliebase123@localhost:5433/${targetDbName}?schema=public`,
+    DATABASE_URL: db.url,
     DB_DRIVER: "postgresql",
     PORT: String(targetPort),
     JWT_SECRET: require("node:crypto").randomBytes(32).toString("hex"),
@@ -845,8 +891,6 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   //  于是平台管理员被当成租户账号、报"必须填写租户标识"）。
   // .env.local 本就是 gitignored 的本地配置，放这里既优先又不入库。
   fs.writeFileSync(path.join(resolvedTarget, ".env.local"), Object.entries(required).map(([k, v]) => `${k}=${v}`).join("\n") + "\n", "utf8")
-
-  await autoProvisionDatabase(targetDbName)
 
   console.log("================================================================")
   console.log("[SUCCESS] 项目重构与一键初始化完成。")
