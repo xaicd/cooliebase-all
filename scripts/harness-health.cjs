@@ -45,6 +45,13 @@ const CONFIGS = [
 ]
 
 function configured(kind) {
+  // Hermes 的 hooks **只能**配在用户级 `~/.hermes/config.yaml`（不在本仓）。
+  // 判据：该文件里是否出现本仓安装器写入的标记块。
+  if (kind === "hermes") {
+    const file = path.join(require("node:os").homedir(), ".hermes", "config.yaml")
+    if (!fs.existsSync(file)) return null
+    return fs.readFileSync(file, "utf8").includes("cooliebase-all spec-gate") ? "~/.hermes/config.yaml" : null
+  }
   const entry = CONFIGS.find(([name]) => name === kind)
   if (!entry) return null
   return fs.existsSync(path.join(ROOT, entry[1])) ? entry[1] : null

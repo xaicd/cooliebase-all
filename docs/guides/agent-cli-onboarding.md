@@ -95,7 +95,7 @@ npm run agent:route -- "<用户的原始需求原文>"
 
 ---
 
-## 4. 尚未接入：Hermes（需要你自己加一次配置）
+## 4. Hermes（**已在本机安装并验证**）
 
 Hermes 的 hooks **只能**配置在用户级 `~/.hermes/config.yaml`（源码 `_parse_hooks_block` 只读 config，
 没有项目级入口）。那是**会影响你所有项目**的全局配置，所以本仓**不擅自修改**，
@@ -157,8 +157,26 @@ hooks:
 |---|---|---|---|
 | cmd | ✅ `AGENTS.md` | ✅ `.commandcode/settings.json` | ✅ |
 | Claude Code | ✅ `CLAUDE.md` | ✅ `.claude/settings.json` | ✅ |
-| Hermes | ✅ 自动注入 `AGENTS.md` | ⚠️ 需一次性加到 `~/.hermes/config.yaml`（用户级） | ✅ |
+| **Hermes** | ✅ 自动注入 `AGENTS.md` | ✅ **`~/.hermes/config.yaml`（已安装 + 已 allowlist）** | ✅ |
 | agy | ✅ `AGENTS.md` + `GEMINI.md` + `.agents/rules/*.md` | ✅ `.agents/hooks.json` | ✅ |
+
+### Hermes 安装的三步（换机时照做）
+
+```bash
+npm run harness:hermes-hook -- --write   # ① 写入 config（幂等、先备份、已有 hooks 段则拒绝）
+# ② 放行 allowlist：`hermes --accept-hooks` 一次，或精确写 ~/.hermes/shell-hooks-allowlist.json
+# ③ 验证
+hermes hooks list      # 应显示 allowlisted
+hermes hooks doctor    # 应全 ✓（会跑一次真实合成载荷）
+hermes hooks test pre_tool_call --for-tool write_file --payload-file <带受保护路径的 JSON>
+```
+
+**实测（2026-10-20）**：Hermes 把我们的 `exit 2 + stderr` 解析为
+`{"action": "block", "message": "[spec-gate] …"}` —— 拦截真的生效。
+
+> 注意 allowlist 的粒度：`hooks_auto_accept: true` 会放行**所有**未来钩子；
+> 精确写入 `shell-hooks-allowlist.json` 只放行这一个（`_entry_matches` 只比对 event + command）。
+> 脚本被改动后需重新批准（doctor 会提示 `script changed since approval`）。
 
 ---
 

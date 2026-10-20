@@ -36,6 +36,15 @@ function fail(message) {
   process.exit(1)
 }
 
+// 显式打印**识别到的宿主机**：路径是按当前机器推导的（不是写死某台机器）。
+// 换机（mac / cwall / aja-pc …）时一眼能看出它指到了哪。
+console.log("[install-hermes-hook] 当前宿主机:", {
+  host: require("node:os").hostname(),
+  platform: `${process.platform}-${process.arch}`,
+  repo: ROOT,
+})
+console.log("[install-hermes-hook] 目标配置:", configPath)
+
 if (!fs.existsSync(configPath)) fail(`找不到 Hermes 配置: ${configPath}`)
 if (!fs.existsSync(gate)) fail(`找不到守卫脚本: ${gate}（先在本仓根目录执行）`)
 
@@ -70,7 +79,6 @@ function block() {
   ].join("\n")
 }
 
-console.log("[install-hermes-hook] 目标配置:", configPath)
 console.log("[install-hermes-hook] 将追加:\n")
 console.log(block())
 
