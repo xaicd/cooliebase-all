@@ -1,0 +1,12 @@
+{
+  "name": "validator-type-drift",
+  "domain": "infra",
+  "title": "生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入",
+  "type": "bugfix",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 4,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-10-20T02:38:56.673Z"
+}
