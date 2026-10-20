@@ -100,7 +100,7 @@ flowchart TD
 - [ ] 所有节点和连接是否通过了 Schema 校验，不存在任何悬空（Dangling）孤儿节点？
 - [ ] 架构分层是否严格对应工程实际拓扑（Client -> Gateway -> BFF -> Plugin -> DB）？
 - [ ] 是否输出了可独立离线浏览的交互式 HTML 制品（包含亮色/暗色自适应）？
-- [ ] 门禁验证：`npm run check` 确保文档索引与架构设计无破损。
+- [ ] 门禁验证：`pnpm run check` 确保文档索引与架构设计无破损。
 
 ---
 

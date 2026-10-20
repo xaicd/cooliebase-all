@@ -65,8 +65,8 @@ $$\text{期初余额} + \text{借方净变动} - \text{贷方净变动} = \text{
    - 资金账本和对账单必须严格挂载 `tenant_id` 过滤器与 8 大审计底座字段。
    - 运营人员仅可查看其所属租户的对账明细，平台超级管理员在审计视图中必须保留完整不可篡改的操作审计日志。
 3. **自动化运营命令联动**：
-   - 使用运营体检工具：`npm run agent:ops -- pay.order health`
-   - 对账差错扫描与数据样例：`npm run agent:ops -- pay.reconciliation seed-sample`
+   - 使用运营体检工具：`pnpm run agent:ops -- pay.order health`
+   - 对账差错扫描与数据样例：`pnpm run agent:ops -- pay.reconciliation seed-sample`
 
 ---
 
@@ -76,7 +76,7 @@ $$\text{期初余额} + \text{借方净变动} - \text{贷方净变动} = \text{
 - [ ] 资金变动流水是否具备借贷双方记账平衡断言（复式记账）？
 - [ ] 针对长款、短款、金额异常是否定义了闭环状态机与自动化修复策略？
 - [ ] 所有对账凭证是否包含不可伪造的创建人、时间戳与数字校验指纹？
-- [ ] 运行 `npm run check` 确保对账服务符合架构治理门禁。
+- [ ] 运行 `pnpm run check` 确保对账服务符合架构治理门禁。
 
 ---
 

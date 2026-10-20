@@ -47,7 +47,7 @@ deleted      BOOLEAN NOT NULL DEFAULT FALSE   -- 软删除标记 (0/1 或 false/
 4. **required 兜底**：`TENANT_MODE=required` 时缺租户直接抛错（`requireTenantId()`），把静默全量返回变成显性 bug。
 
 ## 6. 全量初始化与最新 SQL 构建标准（唯一官方标准入口）
-- **唯一官方生成命令**：`npm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`）。
+- **唯一官方生成命令**：`pnpm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`）。
 - **职责**：提取 Prisma 纯净 DDL 并拓扑排序装配全域 Seed 数据，自动编译输出 `sql/init/cooliebase_all_next_v1.0.0_postgresql.sql`。
 - **严禁项**：严禁私自手写临时 scratch 脚本导出/篡改初始化 SQL，必须通过维护 `scripts/build-v1-init-sql.ts` 形成统一资产。
 

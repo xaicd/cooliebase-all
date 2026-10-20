@@ -63,7 +63,7 @@ pnpm exec vitest run packages/domains/<domain>/backend/services/__tests__/
 npm test
 
 # 运行全链路治理门禁检查
-npm run check
+pnpm run check
 ```
 
 ## 5. 绝对禁止项

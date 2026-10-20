@@ -14,7 +14,7 @@ description: 制定与治理服务等级目标与错误预算（Google SRE SLI/S
 - **稳定性设计与容量规划**：新服务/插件上线前设定可用性与延迟保障目标。
 - **配置告警策略**：基于错误预算多窗口燃烧率（Multiwindow, Multi-Burn-Rate）配置精准告警，消灭告警风暴与疲劳。
 - **发布节奏控制**：当错误预算耗尽（Budget Depleted）时，自动触发发布冻结并转入稳定性修复。
-- **容量与压测评估**：设定本地与生产压测护栏（如 `npm run load:test` 必须达到 RPS $\ge 5,000$, p95 $\le 20\text{ms}$）。
+- **容量与压测评估**：设定本地与生产压测护栏（如 `pnpm run load:test` 必须达到 RPS $\ge 5,000$, p95 $\le 20\text{ms}$）。
 
 ---
 
@@ -53,7 +53,7 @@ flowchart LR
 
 1. **压测护栏联动**：
    - 生产环境压测基于真实流量护栏；
-   - 本地独立压测命令：`npm run load:test`
+   - 本地独立压测命令：`pnpm run load:test`
    - 容量底线：单机独立进程吞吐量必须 $\ge 5,000\text{ RPS}$，p95 延迟 $\le 20\text{ms}$，HTTP 失败率严格为 $0\%$。
 2. **边缘网关与熔断联动**：
    - 当特定业务插件的错误预算燃烧率超标时，边缘网关（Traefik）按 `plugin.manifest.json` 中声明的 `resilience` 策略自动触发降级或短路熔断。
@@ -68,7 +68,7 @@ flowchart LR
 - [ ] 延迟 SLI 是否采用了分位数（p95 / p99），而非易被极端值掩盖的平均值（Average）？
 - [ ] 告警规则是否配置了多窗口多燃烧率（短期与长期结合），避免误报风暴？
 - [ ] 压测验证是否跑通生产产物编译模式并满足容量基线？
-- [ ] 门禁执行：`npm run load:test` 是否顺利通过？
+- [ ] 门禁执行：`pnpm run load:test` 是否顺利通过？
 
 ---
 

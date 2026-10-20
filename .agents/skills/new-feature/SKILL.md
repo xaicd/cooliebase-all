@@ -119,13 +119,13 @@ flowchart TD
 ### 第 7 步：迁移部署、测试与文档归档 (Verification & Delivery)
 1. **数据库迁移执行与自动备份**：
    ```bash
-   npm run db:migrate
-   npm run db:backup
+   pnpm run db:migrate
+   pnpm run db:backup
    ```
 2. **契约生成与门禁检查**：
    ```bash
-   npm run domain:contracts
-   npm run domain:manifests
-   npm run check
+   pnpm run domain:contracts
+   pnpm run domain:manifests
+   pnpm run check
    ```
 3. **自动化单元测试**：编写并运行 `packages/{domainDir}/backend/services/__tests__/{entity}.service.test.ts` 确保 100% 绿灯。

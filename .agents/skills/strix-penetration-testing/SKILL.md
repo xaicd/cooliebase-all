@@ -85,7 +85,7 @@ host-exec "strix --target http://localhost:3200 --deep"
 - [ ] 报告中确认存在的高危漏洞（High / Critical）是否具备完整的 PoC 复现步骤？
 - [ ] 针对已发现的漏洞，是否通过补全 Validator、CAS 锁或租户过滤器完成修复？
 - [ ] 修复代码是否补充了真实数据库集成测试（`test/integration/`）防范再次退化？
-- [ ] 门禁联动：结合基础渗透扫描 `npm run security:scan` 确保所有基线检查项 100% 通过。
+- [ ] 门禁联动：结合基础渗透扫描 `pnpm run security:scan` 确保所有基线检查项 100% 通过。
 
 ---
 

@@ -25,7 +25,7 @@ description: 遵循 Kiro 原生规范驱动开发 (Spec-Driven Development, SDD)
 
 ## 2. 五大规格类型矩阵 (Spec Types Taxonomy)
 
-根据需求本质，严格选择对应的规格类型。运行 `npm run speckit:new -- --name <name> --domain <domain> --title "<title>" --type <type>` 自动初始化对应骨架：
+根据需求本质，严格选择对应的规格类型。运行 `pnpm run speckit:new -- --name <name> --domain <domain> --title "<title>" --type <type>` 自动初始化对应骨架：
 
 | 规格类型 | 核心关注点 | 核心规格产物 | 专属不变量与验收门槛 |
 |---|---|---|---|
@@ -86,19 +86,19 @@ flowchart TD
 
 ```bash
 # 1. 查看全量工作流配方清单与参数
-npm run workflow:list
+pnpm run workflow:list
 
-# 2. 静态语法、DAG 依赖无环性与 Agent 角色合法性门禁检查 (已接入 npm run check)
-npm run workflow:check
+# 2. 静态语法、DAG 依赖无环性与 Agent 角色合法性门禁检查 (已接入 pnpm run check)
+pnpm run workflow:check
 
 # 3. 模拟展开：变量代换预览、输出 Mermaid DAG 编排图与各 Agent 指令
-npm run workflow:dry-run -- --recipe <recipe> --name <spec> --domain <domain> --title "<title>"
+pnpm run workflow:dry-run -- --recipe <recipe> --name <spec> --domain <domain> --title "<title>"
 
 # 4. 驱动执行：自动执行脚手架并落盘工作流执行记录
-npm run workflow:run -- --recipe <recipe> --name <spec> --domain <domain> --title "<title>"
+pnpm run workflow:run -- --recipe <recipe> --name <spec> --domain <domain> --title "<title>"
 
 # 5. 快速生成新的工作流配方模板
-npm run workflow:new -- --name <recipe-name> --description "<desc>"
+pnpm run workflow:new -- --name <recipe-name> --description "<desc>"
 ```
 
 ---
@@ -183,7 +183,7 @@ npm run workflow:new -- --name <recipe-name> --description "<desc>"
 - [ ] **T3**: 运行全量质量门禁与安全扫描
   - 上游依赖：T2 (Wave 3)
   - 文件白名单：`-`
-  - 交付验收：`npm run check` 退出码 0，`npm run test:matrix` 100% 通过。
+  - 交付验收：`pnpm run check` 退出码 0，`pnpm run test:matrix` 100% 通过。
 ```
 
 ---
@@ -195,32 +195,32 @@ Kiro SDD 在本工程中由统一引擎 `scripts/speckit.ts` 集中驱动，支�
 ```bash
 # 0. 规格控制台总览与规格列表
 pnpm exec tsx scripts/speckit.ts list                # 查看全域活跃与归档规格状态
-npm run speckit                                 # 查看完整帮助菜单
-npm run speckit:workflows                       # 检视全量 Kiro 工作流配方与步骤链
+pnpm run speckit                                 # 查看完整帮助菜单
+pnpm run speckit:workflows                       # 检视全量 Kiro 工作流配方与步骤链
 
 # 1. 快速初始化任意类型的规格骨架
-npm run speckit:new -- --name <name> --domain <domain> --title "<title>" [--type feature|bugfix|enhancement|refactor|security]
+pnpm run speckit:new -- --name <name> --domain <domain> --title "<title>" [--type feature|bugfix|enhancement|refactor|security]
 # 等价于: pnpm exec tsx scripts/speckit.ts new --name <name> --domain <domain> --title "<title>" --type <type>
 
 # 2. 从 brief.json 编译展开生成完备 Markdown 规格资产与任务波次图
-npm run speckit:build -- --name <name>
+pnpm run speckit:build -- --name <name>
 # 等价于: pnpm exec tsx scripts/speckit.ts build --name <name>
 
 # 3. 实时检查规格完成度与质量卡点
-npm run speckit:check -- --spec <name>
+pnpm run speckit:check -- --spec <name>
 # 等价于: pnpm exec tsx scripts/speckit.ts check --spec <name>
 
 # 4. 从 Git 历史核验任务大盘与白名单匹配度 (1 Task = 1 Commit)
-npm run speckit:tasks -- --spec <name>
-npm run speckit:tasks -- --spec <name> --task T1
+pnpm run speckit:tasks -- --spec <name>
+pnpm run speckit:tasks -- --spec <name> --task T1
 
 # 5. 上线割接与回滚 SOP 实操
-npm run runbook -- --spec <name> --check
-npm run runbook -- --spec <name> --dry-run
-npm run runbook -- --spec <name> --run
+pnpm run runbook -- --spec <name> --check
+pnpm run runbook -- --spec <name> --dry-run
+pnpm run runbook -- --spec <name> --run
 
 # 6. 割接完毕后一键归档，防止认知污染
-npm run speckit:archive -- --name <name>
+pnpm run speckit:archive -- --name <name>
 # 等价于: pnpm exec tsx scripts/speckit.ts archive --name <name>
 ```
 
@@ -228,8 +228,8 @@ npm run speckit:archive -- --name <name>
 
 ## 7. 避坑指南与红线
 
-1. ❌ **严禁人肉手写重复文档**：永远先编辑 `brief.json`，运行 `npm run speckit:build` 自动渲染展开，保持架构与工程一致性。
+1. ❌ **严禁人肉手写重复文档**：永远先编辑 `brief.json`，运行 `pnpm run speckit:build` 自动渲染展开，保持架构与工程一致性。
 2. ❌ **严禁跳过 Red Test 直接修复 Bug**：对于 `bugfix` 类型，必须先写复现单测见红（Red），修复后见绿（Green），方可提交代码。
 3. ❌ **严禁破坏 Preserved Behavior**：修补缺陷时严禁随意变更既有接口字段定义、响应结构或成功路径业务流转。
 4. ❌ **严禁随意使用伪 Mock**：集成测试与契约测试必须基于真实 SQLite 数据库运行，杜绝测试空洞与假绿。
-5. ❌ **严禁未归档遗留死文档**：功能交付发布后，必须执行 `npm run speckit:archive` 归档至对应季度目录。
+5. ❌ **严禁未归档遗留死文档**：功能交付发布后，必须执行 `pnpm run speckit:archive` 归档至对应季度目录。

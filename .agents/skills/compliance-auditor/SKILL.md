@@ -53,26 +53,26 @@ flowchart TD
 
 | 序号 | 审计命令 | 审计目标与防守底线 |
 |---|---|---|
-| 1 | `npm run domain:manifests:check` | 验证各领域 manifest 契约合法性 |
-| 2 | `npm run contracts:sync` | 校验前后端及 RPC 契约定义同步无漂移 |
-| 3 | `npm run rpc:actions:check` | 校验跨域 RPC 动作定义合规 |
-| 4 | `npm run domain:loaders:check` | 校验第一方业务插件与领域加载器 |
-| 5 | `npm run domain:check` | 领域边界分层守卫（禁止跨域非法 import） |
-| 6 | `npm run microservice:check` | 微服务/拆分单体架构调用面隔离检查 |
-| 7 | `npm run harness:check` | DeepSeek Harness 环境组合基线守卫 |
-| 8 | `npm run admin:routes:check` | 管理后台 Route 与 BFF 映射完整性 |
-| 9 | `npm run admin:pages:check` | 管理后台 Page 双轨页面规范与模板守卫 |
-| 10 | `npm run foundation:ontology:check` | 本体域实体元数据与权限码全息索引核验 |
-| 11 | `npm run skills:check` | Agent Skills 唯一真源与格式规范校验 |
-| 12 | `npm run compat:check` | 客户端与下游契约兼容性清单校验 |
-| 13 | `npm run surface:check` | 对外消费暴露面合规审查 |
-| 14 | `npm run openwiki:check` | OpenWiki 百科全景文档动态同步校验 |
-| 15 | `npm run standards:check` | 架构与代码编码通用规范静态扫描 |
-| 16 | `npm run agent:native:check` | Agent Native 协议运行时接口健康检查 |
-| 17 | `npm run agent:contracts:check` | Agent 契约模型与元数据完整性 |
-| 18 | `npm run agent:page-schemas:check` | 极简 DSL / Schema 驱动页面完整性 |
-| 19 | `npm run handwritten:check` | 杜绝手写低质重复样板代码审查 |
-| 20 | `npm run specs:health` | 业务需求规格健康度与追溯性体检 |
+| 1 | `pnpm run domain:manifests:check` | 验证各领域 manifest 契约合法性 |
+| 2 | `pnpm run contracts:sync` | 校验前后端及 RPC 契约定义同步无漂移 |
+| 3 | `pnpm run rpc:actions:check` | 校验跨域 RPC 动作定义合规 |
+| 4 | `pnpm run domain:loaders:check` | 校验第一方业务插件与领域加载器 |
+| 5 | `pnpm run domain:check` | 领域边界分层守卫（禁止跨域非法 import） |
+| 6 | `pnpm run microservice:check` | 微服务/拆分单体架构调用面隔离检查 |
+| 7 | `pnpm run harness:check` | DeepSeek Harness 环境组合基线守卫 |
+| 8 | `pnpm run admin:routes:check` | 管理后台 Route 与 BFF 映射完整性 |
+| 9 | `pnpm run admin:pages:check` | 管理后台 Page 双轨页面规范与模板守卫 |
+| 10 | `pnpm run foundation:ontology:check` | 本体域实体元数据与权限码全息索引核验 |
+| 11 | `pnpm run skills:check` | Agent Skills 唯一真源与格式规范校验 |
+| 12 | `pnpm run compat:check` | 客户端与下游契约兼容性清单校验 |
+| 13 | `pnpm run surface:check` | 对外消费暴露面合规审查 |
+| 14 | `pnpm run openwiki:check` | OpenWiki 百科全景文档动态同步校验 |
+| 15 | `pnpm run standards:check` | 架构与代码编码通用规范静态扫描 |
+| 16 | `pnpm run agent:native:check` | Agent Native 协议运行时接口健康检查 |
+| 17 | `pnpm run agent:contracts:check` | Agent 契约模型与元数据完整性 |
+| 18 | `pnpm run agent:page-schemas:check` | 极简 DSL / Schema 驱动页面完整性 |
+| 19 | `pnpm run handwritten:check` | 杜绝手写低质重复样板代码审查 |
+| 20 | `pnpm run specs:health` | 业务需求规格健康度与追溯性体检 |
 
 ---
 
@@ -80,24 +80,24 @@ flowchart TD
 
 ```bash
 # 1. 运行全量质量门禁总检 (必须 0 错误)
-npm run check
+pnpm run check
 
 # 2. 运行全链路真实数据库测试矩阵 (必须 100% 通过)
-npm run test:matrix
+pnpm run test:matrix
 
 # 3. 运行安全渗透基线扫描
-npm run security:scan
+pnpm run security:scan
 
 # 4. 验证发布制品指纹一致性
-npm run fingerprint:verify
+pnpm run fingerprint:verify
 ```
 
 ---
 
 ## 5. 检查清单与门禁
 
-- [ ] `npm run check` 全量门禁是否全部通过且退出码为 0？
-- [ ] 真实数据库集成测试（`npm run test:matrix`）是否 100% 通过（0 跳过）？
+- [ ] `pnpm run check` 全量门禁是否全部通过且退出码为 0？
+- [ ] 真实数据库集成测试（`pnpm run test:matrix`）是否 100% 通过（0 跳过）？
 - [ ] `brief.json` 中的验收准则与测试用例是否形成了 1:1 双向追溯（RTM）？
 - [ ] 代码库中是否存在任何 `.env` 敏感凭据、未跟踪的大文件或临时目录？
 - [ ] 是否在发布前成功执行并归档了 PCA/FCA 审计报告？

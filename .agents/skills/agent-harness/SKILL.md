@@ -32,11 +32,11 @@ NPC = Model + DigitalStaff Native + 本仓库 Workspace Bundle
 
 1. [ ] 原始需求已追加 `docs/features/sprint-prod/{MMDD}.md`。
 2. [ ] 先读 `agent-profile.json`，确认 `kind=workspace-bundle`。
-3. [ ] 孵化只走 `npm run project:create -- <路径> [--profile ...] [--bundle ...]`。
+3. [ ] 孵化只走 `pnpm run project:create -- <路径> [--profile ...] [--bundle ...]`。
 4. [ ] 身份只改 `project-profile.json` + `public/branding/`。
 5. [ ] 业务改动留在 Business Zone；跨域走 Facade。
 6. [ ] Prompt 按 ASSEMBLY.md 分段加载，不整篇灌 AGENTS.md。
-7. [ ] 结束后 `npm run check`。通用能力反哺走五要素清单。
+7. [ ] 结束后 `pnpm run check`。通用能力反哺走五要素清单。
 
 ## 5. 从 dsh 只学这些
 
@@ -45,10 +45,10 @@ NPC = Model + DigitalStaff Native + 本仓库 Workspace Bundle
 ## 6. 门禁命令
 
 ```bash
-npm run project:create -- <目标路径> [--profile minimal|standard|vertical|creator] [--bundle mall,crm]
-npm run domain:seams
-npm run harness:check
-npm run check
+pnpm run project:create -- <目标路径> [--profile minimal|standard|vertical|creator] [--bundle mall,crm]
+pnpm run domain:seams
+pnpm run harness:check
+pnpm run check
 ```
 
 `--profile/--bundle`、seam 图与门禁轨迹已落地。`minimal` 仍保留 online/ai/aigw 伴生域。P4 由 DigitalStaff 读取本仓契约。
@@ -58,5 +58,5 @@ npm run check
 1. 把 DeepSeek Harness / Cordis 当运行时依赖引入。
 2. 在本仓库托管 LLM 循环或替换 DigitalStaff Native。
 3. 在 catalog 之外另写一套域名。
-4. 用 Skill 批准跳过 `npm run check`。
+4. 用 Skill 批准跳过 `pnpm run check`。
 5. 业务项目改 Core Zone 冒充“智能进化”。

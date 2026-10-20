@@ -84,7 +84,7 @@ description: 事故免责复盘与根因分析（Google SRE Blameless Postmortem
 
 1. **CAPA 闭环机制**：
    - 所有的代码修复动作必须伴随针对性的真实数据库集成测试（`test/integration/`）。
-   - 验证命令：`npm run test:matrix` 与 `npm run check`。
+   - 验证命令：`pnpm run test:matrix` 与 `pnpm run check`。
 2. **知识资产沉淀**：
    - 复盘产物归档于 `docs/08_sre/06_incidents_postmortem/`，并同步更新 OpenWiki 故障案例库。
 

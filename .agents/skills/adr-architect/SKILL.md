@@ -76,8 +76,8 @@ stateDiagram-v2
   - 制定 Outbox 定时清理与死信队列重试策略，纳入 SRE 监控。
 
 ## 5. 合规与校验手段 (Compliance & Verification)
-- 运行 `npm run microservice:check` 验证不存在跨域 Service 直接 import。
-- 自动化契约验证：`npm run rpc:actions:check` 确保事件 Payload 符合 JSON Schema。
+- 运行 `pnpm run microservice:check` 验证不存在跨域 Service 直接 import。
+- 自动化契约验证：`pnpm run rpc:actions:check` 确保事件 Payload 符合 JSON Schema。
 ```
 
 ---
@@ -89,7 +89,7 @@ stateDiagram-v2
    - 任何涉及多租户的数据访问必须依托 Kysely AST 或 `withAdminRoute`，不可手写未加 tenant 限制的 raw SQL。
    - 所有外部 HTTP 暴露必须保持 `/api/v{n}/` 版本化，禁止破坏存量客户端契约。
 2. **ADR 变更门禁**：
-   - 任何标记为 ACCEPTED 的 ADR，必须有对应的自动化门禁（如 `npm run microservice:check`）进行代码级防御。
+   - 任何标记为 ACCEPTED 的 ADR，必须有对应的自动化门禁（如 `pnpm run microservice:check`）进行代码级防御。
 
 ---
 
@@ -99,7 +99,7 @@ stateDiagram-v2
 - [ ] 状态标记是否严谨（PROPOSED / ACCEPTED 等）并注明决策日期与参与人？
 - [ ] 是否详细记录了至少 2 个备选方案及各自的利弊权衡？
 - [ ] 是否明确列出了 Positive、Negative 及风险缓解措施（Trade-offs）？
-- [ ] 是否在 `npm run check` 门禁中具备对应的自动化代码约束？
+- [ ] 是否在 `pnpm run check` 门禁中具备对应的自动化代码约束？
 
 ---
 

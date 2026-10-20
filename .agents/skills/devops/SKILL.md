@@ -29,7 +29,7 @@ FROM node:24-alpine AS builder
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build
+RUN pnpm run build
 
 # 3. 生产极小化运行阶段 (仅包含 Standalone 产物)
 FROM node:24-alpine AS runner

@@ -72,7 +72,7 @@ Skill 编写规范见 [skill-authoring/SKILL.md](./skill-authoring/SKILL.md)。
 
 1. **通用层（可选参考）**：格式 [agentskills.io](https://agentskills.io)；目录 [skills.sh](https://skills.sh)。UI：[nextlevelbuilder/ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill)、[vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills)。API/架构用社区 REST 与 ADR Skill，细节以本仓库为准。
 2. **项目层（强制）**：本目录 + `AGENTS.md` + `docs/guides` + `docs/architecture`。
-3. **证据层**：扫描产物、测试、`npm run check`。未落地不得标 DONE。
+3. **证据层**：扫描产物、测试、`pnpm run check`。未落地不得标 DONE。
 
 ---
 
@@ -133,5 +133,5 @@ H5 / uni-app / Flutter / desktop-pc 走同一管道。渠道契约：`packages/s
 ## 7. 压测与渗透
 
 执行层的现状与技能联动:
-* **渗透扫描** —— `npm run security:scan`（20 项自动化基础安全基线扫描，接进 CI + G5；本机零容器可跑），高阶自主红队渗透演练遵循 `strix-penetration-testing/SKILL.md`（60k★ usestrix/strix 多智能体验证 PoC 确证与自动修补）。
-* **压测护栏** —— `npm run load:test` 容量回归护栏，与 `sre-slo-manager/SKILL.md` 联动对齐。
+* **渗透扫描** —— `pnpm run security:scan`（20 项自动化基础安全基线扫描，接进 CI + G5；本机零容器可跑），高阶自主红队渗透演练遵循 `strix-penetration-testing/SKILL.md`（60k★ usestrix/strix 多智能体验证 PoC 确证与自动修补）。
+* **压测护栏** —— `pnpm run load:test` 容量回归护栏，与 `sre-slo-manager/SKILL.md` 联动对齐。

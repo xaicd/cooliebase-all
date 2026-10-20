@@ -46,5 +46,5 @@ node scripts/project-init.cjs \
 3. **环境变量更新**：自动同步 `.env` 与 `.env.local` 中的 `NEXT_PUBLIC_APP_TITLE`, `DB_NAME`, `SQLITE_DB_PATH`, `PORT`；
 4. **Git 远程仓库绑定**：如果提供了 `--git` 参数，自动执行 `git remote set-url origin` 或 `git remote add origin`；
 5. **契约图谱重新编译**：自动执行 `node scripts/write-seam-graph.cjs` 与 `node scripts/write-domain-manifests.cjs`；
-6. **本地轻量数据库自检**：重构后执行 `npm run db:bootstrap:sqlite` 生成新项目的专属 SQLite 库；
-7. **全自动化门禁自检**：重构完成后运行 `npm run check` 确保 10 项工程门禁依然 100% 通过。
+6. **本地轻量数据库自检**：重构后执行 `pnpm run db:bootstrap:sqlite` 生成新项目的专属 SQLite 库；
+7. **全自动化门禁自检**：重构完成后运行 `pnpm run check` 确保 10 项工程门禁依然 100% 通过。

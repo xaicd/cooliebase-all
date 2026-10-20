@@ -23,4 +23,4 @@ description: 编写、修改、评审本仓库 Agent Skill。接到“加 skill 
 1. 把个人 `~/.cursor/skills` 当项目真源。
 2. 一个 Skill 同时写 UI、SQL、K8s 细节。
 3. 未注册就宣称“已有规范”。
-4. 用 Skill 批准跳过 `npm run check`。
+4. 用 Skill 批准跳过 `pnpm run check`。

@@ -12,12 +12,12 @@ description: 从一句业务需求（如"做个电商平台"）到新业务域�
 
 最短路径:
 
-    npm run feature:new -- --name <名> --domain <域> --title "<标题>"   # 产 brief.json
+    pnpm run feature:new -- --name <名> --domain <域> --title "<标题>"   # 产 brief.json
     # 填 brief（模型只写这一份）
-    npm run feature:build -- --name <名>                                 # 展开 6 文档 + evidence + runbook
-    npm run delivery:check -- --feature <名>                             # 逐条「还缺什么」
-    npm run domain:new <域>                                              # 建域
-    npm run check && npm run task:verify -- --feature <名> --summary      # 门禁 + 从 git 追溯
+    pnpm run feature:build -- --name <名>                                 # 展开 6 文档 + evidence + runbook
+    pnpm run delivery:check -- --feature <名>                             # 逐条「还缺什么」
+    pnpm run domain:new <域>                                              # 建域
+    pnpm run check && pnpm run task:verify -- --feature <名> --summary      # 门禁 + 从 git 追溯
 
 **记住两半**: 规划链在 `docs/features/<名>/`，实现在 `<域>` 的目录 ——
 特性目录里不放业务代码。
@@ -64,10 +64,10 @@ import { defineStateMachine } from "@/shared/backend/lib/state-machine"
 ## 2. 定形态（先决定，别默认整仓）
 
 ```bash
-npm run project:create -- <路径>                     # base（默认）: 只要 system+infra，最轻
-npm run project:create -- <路径> --profile minimal   # + online/ai/aigw（要低代码在线表单就选它）
-npm run project:create -- <路径> --profile standard  # 整仓 17 个域
-npm run project:create -- <路径> --bundle mall,crm   # 只要地基 + 指定业务域
+pnpm run project:create -- <路径>                     # base（默认）: 只要 system+infra，最轻
+pnpm run project:create -- <路径> --profile minimal   # + online/ai/aigw（要低代码在线表单就选它）
+pnpm run project:create -- <路径> --profile standard  # 整仓 17 个域
+pnpm run project:create -- <路径> --bundle mall,crm   # 只要地基 + 指定业务域
 ```
 
 **新项目默认只带 `system` + `infra`** —— 加载/运行/预览都快，定制扩展也快；要什么再加。
@@ -84,8 +84,8 @@ npm run project:create -- <路径> --bundle mall,crm   # 只要地基 + 指定�
 写下表元数据之后，**其余步骤由一条命令串起来**（每步幂等、可重复运行）：
 
 ```bash
-npm run domain:new <域>          # 校验元数据 -> 生成迁移 -> codegen -> 注册插件 -> 重生成 -> 打印后续
-npm run domain:new <域> --dry-run  # 只校验元数据与表清单
+pnpm run domain:new <域>          # 校验元数据 -> 生成迁移 -> codegen -> 注册插件 -> 重生成 -> 打印后续
+pnpm run domain:new <域> --dry-run  # 只校验元数据与表清单
 ```
 
 它**不做**三件事（都要人或 CI 决定）：不写元数据（字段类型是产品决策）、
@@ -111,7 +111,7 @@ pnpm exec tsx scripts/generate-table-migration.ts \
 ## 5. 生成完整代码（低代码，别手抄 CRUD）
 
 ```bash
-npm run scaffold -- --pack service-pattern --module <域>/<功能> --entity <X> ...
+pnpm run scaffold -- --pack service-pattern --module <域>/<功能> --entity <X> ...
 ```
 
 或用 codegen 引擎按表批量生成（`CodegenEngineService.generateCodes(config)`），
@@ -139,7 +139,7 @@ node scripts/migrate-domain-to-plugin.cjs <域> --write
 ## 7. 重生成 + 门禁（顺序不能错）
 
 ```bash
-npm run domain:contracts && npm run domain:seams && npm run domain:manifests && npm run admin:routes:manifest
+pnpm run domain:contracts && pnpm run domain:seams && pnpm run domain:manifests && pnpm run admin:routes:manifest
 pnpm install          # 新插件进了工作区
 pnpm run check && pnpm exec vitest run
 ```
@@ -150,7 +150,7 @@ pnpm run check && pnpm exec vitest run
 
 ```bash
 pnpm run build                    # 编译
-npm run domain:pack <域>          # 打包 -> dist/domain-packs/<域>
+pnpm run domain:pack <域>          # 打包 -> dist/domain-packs/<域>
 pnpm run dev                      # 运行（或 ./start.sh app）
 ```
 
@@ -176,20 +176,20 @@ pnpm run dev                      # 运行（或 ./start.sh app）
 | 移动端 | testID 用 `[Screen]__[Component]__[Action]`（如 `mes.mes-cal-holiday__Form__Submit`） |
 
 **严禁**让 agent 依赖无文本 CSS 或坐标定位。
-门禁: `npm run agent:native:check`（ratchet，只拦新增）。
+门禁: `pnpm run agent:native:check`（ratchet，只拦新增）。
 
 ### 9.2 Agent 操作契约（随代码产出）
 
 每张表产出 `<插件根>/agent/<kebab>.agent.json`：页面路由、接口面、鉴权、选择器、
 无障碍标签、旅程、运营动作，外加 `agentNative` 段（上面的属性规范，机器可读）。
-汇总: `npm run agent:contracts` → `docs/agent/contracts.json`。
+汇总: `pnpm run agent:contracts` → `docs/agent/contracts.json`。
 
 ### 9.3 两个通用 runner（消费契约，无需逐域写代码）
 
 ```bash
-npm run agent:ops:health                       # 全量接口体检（结构断言）
-npm run agent:ops -- <域>.<实体> seed-sample    # 造样例数据（运营）
-npm run agent:ops -- <域>.<实体> purge-sample   # 清本契约造的样例
+pnpm run agent:ops:health                       # 全量接口体检（结构断言）
+pnpm run agent:ops -- <域>.<实体> seed-sample    # 造样例数据（运营）
+pnpm run agent:ops -- <域>.<实体> purge-sample   # 清本契约造的样例
 pnpm test:agent                                # L4: 契约驱动的浏览器端到端旅程
 ```
 
@@ -211,10 +211,10 @@ pnpm test:agent                                # L4: 契约驱动的浏览器端
 2. 写死路径（`packages/domains/...`）—— 用共享解析器；写死的后果通常**不是报错，而是静默失效**。
 3. 把定制业务放进**基座**（基座只建 CoolieBase 原生域）。
 4. 生成物手改 —— 一律让生成器重建。
-5. 跳过 `npm run check`。
+5. 跳过 `pnpm run check`。
 
 ## 11. 权威文档
 
 `AGENTS.md`（§3.2 目录与插件、§9.5 表定义真源、§14 代码生成、§17 基座边界、§19 零浪费）、
-`npm run domains:parity -- --source <上游克隆路径>`（与源框架的能力对账；**只输出到 stdout、不落盘**，且需要先克隆上游仓库 —— 此前这里写的是一个**并不存在**的产物路径 `docs/architecture/artifacts/source-parity-report.md`）、
-`npm run domains:capabilities`（按域盘点）。
+`pnpm run domains:parity -- --source <上游克隆路径>`（与源框架的能力对账；**只输出到 stdout、不落盘**，且需要先克隆上游仓库 —— 此前这里写的是一个**并不存在**的产物路径 `docs/architecture/artifacts/source-parity-report.md`）、
+`pnpm run domains:capabilities`（按域盘点）。

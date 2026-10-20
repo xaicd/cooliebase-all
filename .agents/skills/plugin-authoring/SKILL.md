@@ -27,7 +27,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 | 默认形态 | 同进程 | `merged` | `isolated` |
 | 声明面 | `contract/module.manifest.json`（**派生生成**，勿手改） | `plugin.manifest.json`（**生成**，勿手改）+ `domain` 域级特征段 | `plugin.manifest.json`（**手写**） |
 | 数据库 | 自有表 + 迁移 | 自有表 + 迁移 | **禁止直连 DB**，走宿主扩展表 |
-| 可独立部署 | ✅ `npm run domain:up -- <name>` | ✅ 同上（proxy 按 `publicPrefixes` 转发） | 实例内启停 |
+| 可独立部署 | ✅ `pnpm run domain:up -- <name>` | ✅ 同上（proxy 按 `publicPrefixes` 转发） | 实例内启停 |
 
 **判断规则：**
 
@@ -381,7 +381,7 @@ pnpm run check && pnpm exec vitest run && pnpm run build
 | `public` 声明 + 无 token | **不被宿主拦**（处理器自己的 401 不算：那是业务自身的凭据校验） |
 | 未声明的路由 | **404**，且带精确原因 |
 
-另外抽查 1-2 个**已插件化的域**确认无回归；并确认 `npm run domain:up -- <domain>`
+另外抽查 1-2 个**已插件化的域**确认无回归；并确认 `pnpm run domain:up -- <domain>`
 的独立部署仍工作（proxy 的转发在鉴权与路由**之前**，不受删文件影响）。
 
 ### AI 侧怎么拿到这些信息（别靠记忆）
