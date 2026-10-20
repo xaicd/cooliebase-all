@@ -198,3 +198,6 @@ docs/specs/**/prototypes/axure/resources/
 # Python 编译产物（.kiro/steering/ui-ux-pro-max 的脚本会生成）—— 机器相关字节码不入库
 __pycache__/
 *.pyc
+
+# 需求分诊的**本机瞬时状态**（每次运行都变；不是产物，不进版本库）
+docs/architecture/artifacts/agent-route-last.json
