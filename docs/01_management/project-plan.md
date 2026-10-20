@@ -196,7 +196,10 @@
 
 ## 5. 当前进展快照（2026-10-20）
 
-- **基座**：`pnpm run check` exit=0（**14 条规范规则**）；全量 `pnpm exec vitest run` **465 files / 938 tests / 0 failed**。
+- **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
+  **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
+  （它们随每次加用例/规则而变化，写死必然漂 —— 本仓已连续四轮栽在这上面）。
+  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / 17 MCP tools / 20 gates / 342 契约。
 - **消费面**：17 domains / 38 skills / 17 MCP tools / **20 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）

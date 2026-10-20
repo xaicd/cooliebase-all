@@ -95,7 +95,7 @@
 
 前置门禁先落地（`npm run clients:build:check`，见 `docs/specs/infra/client-build-gate/`），
 随后按 `docs/specs/infra/expo-sdk-upgrade/` 逐级执行：**每级一次原子提交**，每级都跑
-构建门禁 + 全量 `check` + 全量测试（436 files / 816 tests）。
+构建门禁 + 全量 `check` + 全量测试（**数量不写死**，以 `pnpm exec vitest run` 输出为准）。
 
 | 级别 | 漏洞总数 | runtime / client | 本级主要变更 |
 |---|---|---|---|
