@@ -35,10 +35,51 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - name: 门禁（契约 / 边界 / 规范 / 结构守卫）
         run: pnpm run check
-      - name: 单元与集成测试（内存模式）
-        run: env -u DATABASE_URL -u DB_DRIVER pnpm exec vitest run
+      # 用 test:clean 而不是手写 `env -u`：后者**漏了 NODE_ENV**，
+      # 在 NODE_ENV=production 的环境里会让业务代码走生产分支 → 实测误红。
+      # 且 `env -u` 是 POSIX-only；test:clean 是跨平台的。
+      - name: 单元与集成测试（干净环境）
+        run: pnpm run test:clean
+      - name: L3 契约层测试
+        run: pnpm run test:contract
       - name: 生产构建
         run: pnpm run build
+
+  # 外部 onboarding：模拟 degit（**无 .git**）→ 安装 → 初始化 → 全量门禁
+  #
+  # 为什么必须有：README 曾声称这条链路「已实测验证」，而实际跑起来是坏的 ——
+  #   ① `project:init` 不 `git init` → 无 `.git` 的派生工程在 `docs:commands:check` 上直接红；
+  #   ② 删了归档区却没重生成 wiki → `gen:paths:check` 引用已删路径。
+  # 两处都只在"从零开始"的路径上暴露，本仓自己的 `check` 永远看不到。
+  #
+  # 只在 push 到 main / 手动触发时跑（PR 反馈要保持快）。
+  onboarding:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - name: 模拟 degit（取已提交状态，且**没有 .git**）
+        run: |
+          mkdir -p /tmp/derived
+          git archive HEAD | tar -x -C /tmp/derived
+          test ! -d /tmp/derived/.git
+      - name: 安装依赖
+        run: cd /tmp/derived && pnpm install --frozen-lockfile
+      - name: 初始化派生工程（应自动建 git 仓库）
+        run: |
+          cd /tmp/derived
+          node scripts/project-init.cjs --in-place --name ci-demo --title "CI Demo"
+          test -d .git
+          test -n "$(git ls-files)"
+      - name: 派生工程必须通过全量门禁
+        run: cd /tmp/derived && pnpm run check
 
   # 平台可用性: 建库 → 迁移 → 种子 → 登记插件 → 起服务 → 登录 → 受保护接口
   smoke:
