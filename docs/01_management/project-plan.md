@@ -112,7 +112,7 @@
 | B7 | 版本策略机检 | 模板版本两处同步；最新 tag 有发布说明；解耦须有据 | ✅ | `npm run version:check`（含两条反向对照） |
 | B8 | 路由校验覆盖（§4.1） | 写路由且读 body 就必须接 Zod；棘轮只拦新增 | ✅ | `npm run routes:validation:check`（已接线 **709/854**，剩 145 条全为非标准端点） |
 | B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `npm run repo:columns:check`（323 仓储 / 324 表，0 违规） |
-| B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce，14 条规范规则之一；反向对照三条） |
+| B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce；条数以 `standards:check` 输出为准；反向对照三条） |
 | B11 | **WBS 时效性** | 能力面变化（新增 script / 门禁 / 域）必须在同一次提交里更新计划 | ✅ | `npm run plan:freshness`（pre-commit 内执行；硬失败=能力面，软提示=触及 `packages/`） |
 
 ### WS-C Agent 消费面
