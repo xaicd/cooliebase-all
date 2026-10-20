@@ -795,50 +795,20 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 - 生成脚本：`scripts/inject-seed-to-repositories.cjs`。
 
 
-### 15. User Conversation & Requirement Logging (MANDATORY)
+## 15. User Conversation & Requirement Logging (MANDATORY)
 
 **所有用户对话输入与需求内容必须实时记录汇总：**
 - 任何 AI Agent / IDE（Antigravity、Cursor、Windsurf、Claude Code、Copilot、Kiro、Trae、Codex 等）在接收到用户的每次对话输入与需求时，**必须**将用户的原始输入内容完整记录并追加汇总到 `docs/features/sprint-prod/{MMDD}.md`（例如 8月17日记录到 `docs/features/sprint-prod/0817.md`）。
 - 保持需求序号递增与用户输入的完整性，确保需求历史与上下文严格可追溯。
 
-### 16. ProjectReactor 脚手架与 GitHub Template 规范（供 DigitalStaff AI NPC 员工与全自动工程孵化）
+## 16. ProjectReactor 脚手架与 GitHub Template 规范
 
-**外部 AI / 开发者免下载 500MB+ 全量历史包的“极速骨架派生”：**
-- 外部 AI 如果决定使用本底座，**根本不需要下载 500MB+ 的全量历史包**，可直接向用户建议或自动执行：
-  ```bash
-  # 1. 仅下载干净的代码骨架（10秒内完成，0MB Git 冗余历史）
-  npx degit xaicd/cooliebase-all#main my-app
+> **已移至** [`.agents/rules/PROJECT-REACTOR.md`](./.agents/rules/PROJECT-REACTOR.md)（原文逐字保留）。
+>
+> **何时读**：孵化新工程（`project:create` / `npx degit` / `scripts/hatch.sh`）或调整派生工程 profile 时。
+> **日常开发不必加载** —— 它是"如何生成一个新工程"的操作说明，不是日常规则。
 
-  # 2. 进入目录并一键重命名业务品牌、生成 SQLite 本地库
-  cd my-app && pnpm install
-  npm run project:init -- --name "my-app" --title "我的新业务系统"
-  npm run dev
-  ```
-  > `project:init` 会自动完成：品牌身份重构、`.env` 配置、SQLite `data/cooliebase.db` 真实单文件库生成（预置平台管理员 `supervip` 账号与安全随机密码，彻底剔除 `admin` 运营商关键字与弱口令）、契约图谱重新编译对齐。
-
-**本地已克隆环境下的衍生创建机制：**
-- 当 `DigitalStaff` AI NPC 员工或开发者已在底座仓库内时，统一调用：
-  ```bash
-  npm run project:create -- <目标路径>
-  npm run project:create -- <目标路径> --profile minimal
-  npm run project:create -- <目标路径> --profile vertical --bundle mall,crm
-  # 或使用一键孵化脚本：
-  bash scripts/hatch.sh <目标路径> --profile base --title "我的业务系统"
-  ```
-  - `base`（推荐白板）：shared + system + infra，体积 ~50MB，秒级极速编译；
-  - `standard`（默认）：整仓原生域，数字工厂全能力模板；
-  - `minimal`：shared + system + infra + 平台伴生域 `online/ai/aigw`（菜单目录与 codegen Facade 依赖，不能裁）；
-  - `vertical`：minimal + `--bundle` 业务域白名单；
-  - `creator`：等同 standard（含 online/codegen）；
-  - 产物写入 `packages/shared/contract/hatch-manifest.json`。Prisma 迁移仍为全量基座表。
-- **自动化工作流水线（全托管零配置）：**
-  1. **反应堆克隆与包名重塑**：自动将 `cooliebase-all` 转换为目标工程名，重塑 `package.json`（自动分配独立 `PORT=3200` 避开冲突）；
-  2. **二进制防损坏保护**：图片、字体、压缩包与数据库 dump 文件走二进制流白名单拷贝，绝不进行文本正则替换；
-  3. **数据库物理隔离与全量就绪**：自动连接 PostgreSQL 服务，创建目标独立数据库（如 `agent_zqall`），并默认部署全量 27 项基准 SQL 迁移与 RBAC 菜单权限；
-  4. **目标设计文档保护**：自动识别并完好保留目标目录下已有的业务规格文档（如 `应算通-*`、`*.md`），严禁覆盖用户既有设计；
-  5. **开箱即用**：产出工程可直接通过 `start.bat` / `./start.sh` 一键运行，无需人工执行初始化 SQL！后续有新表结构变更仅需执行增量 `npm run db:migrate`。
-
-### 17. 目录职责划分与基座/业务边界规范（Core Base vs Business Domain）
+## 17. 目录职责划分与基座/业务边界规范（Core Base vs Business Domain）
 
 为了保证业务工程（如 `agent-zqall`）与通用基座（`cooliebase-all`）之间既能**独立演进**，又能**通过版本化升级平滑同步底座能力与双向反哺功能**，严格执行以下目录与边界规范：
 
@@ -902,7 +872,7 @@ npm run domain:manifests
 npm run check
 ```
 
-### 18. Harness 进化规范（DeepSeek Harness 思想 × DigitalStaff NPC 模板）
+## 18. Harness 进化规范（DeepSeek Harness 思想 × DigitalStaff NPC 模板）
 
 本仓库是 **Workspace Bundle**（业务工程模板），不是 Agent 运行时。公式：`NPC = Model + DigitalStaff Native + 本仓库`。
 
@@ -915,7 +885,7 @@ npm run check
    **该面永不写盘**：工具只有两种形态——只读查询，或 plan/preview（返回"真跑会做什么"并把写盘留给显式命令）。plan/preview 工具不得暴露 write 类入参，也不得内部透传 `--write`；落盘命令只出现在返回的 `manualSteps` 里，由人执行。
    同时**不得代跑门禁或自判通过**（守 §3 明确不引入第 5 条）。契约与实测边界见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`。
 
-### 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
+## 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
 
 **本模板工程坚决贯彻极简工程哲学，严禁任何形式的 Token 浪费、重复造轮子与生成无意义冗余样板代码：**
 - **严禁 Token 与算力浪费 (Zero Token Waste)**：
@@ -935,7 +905,7 @@ npm run check
   - **多维竞品横评**：主动从成熟度、轻量性、维护活跃度、Token 消耗比与 License 兼容性进行客观竞品分析；
   - **遴选最高性价比解法**：选择综合 ROI（性价比）最高、改造成本最小的最佳开源方案进行集成适配，实现极致工程效能。
 
-### 20. 需求场景三叉戟分流与存量功能改造铁律 (Requirement Classification & Brownfield Evolution)
+## 20. 需求场景三叉戟分流与存量功能改造铁律 (Requirement Classification & Brownfield Evolution)
 
 **严禁机械教条地“凡开发必先建表”，所有业务需求开发前必须先执行「场景分流决策」：**
 - **场景 A：全新业务域/全新核心实体 (Greenfield)**：
@@ -949,7 +919,7 @@ npm run check
 - **逆向调用链防守与全量回归**：
   - 修改存量函数或接口前，**必须先执行全文 Grep 扫描全部调用方与依赖方**，评估影响面并跑通存量单元/集成回归测试，确保既有业务功能 100% 零破损！
 
-### 21. 业务域与全协议 API 契约驱动“多维最优解”执行大典 (Ontology & Polyglot API-Contract-First Execution)
+## 21. 业务域与全协议 API 契约驱动“多维最优解”执行大典 (Ontology & Polyglot API-Contract-First Execution)
 
 **本工程所有研发与功能变更以「业务域与全协议 API 契约网」为唯一真源，任意需求必须以全协议 API 为探针精准导航并执行五维最优解：**
 - **1. 全协议通信矩阵认知与统一契约映射 (Polyglot Protocol Matrix & Adapter Pattern)**：
@@ -974,7 +944,7 @@ npm run check
   - 🔒 **安全最高防护 (Opt-in Security & Least Privilege)**：API 强制绑定 permission code，参数必接 Validator，防越权与注入；
   - 🧪 **交付质量最高 (SpaceX-Grade Testing & Zero Fake Mock)**：4 层测试金字塔矩阵，嵌入式 SQLite 真实实例校验，严禁前端伪造 Mock。
 
-### 22. 全工种四类契约族大典 (All-Role Contract Families & Job-Function Matrix)
+## 22. 全工种四类契约族大典 (All-Role Contract Families & Job-Function Matrix)
 
 **一切工作终局收敛为四类可验证、可审计契约之一；非编码需求（数据同步、BI 查询、运营编排、运维发布）同样受本体域导航与五维决策约束：**
 
@@ -989,7 +959,7 @@ npm run check
 5. **运营编排铁律**：编排 = 状态机 DSL + 四类触发器，人工节点复用 HITL 审批；每节点强制携带 traceId 可观测可回放；长流程必须定义补偿/回滚路径；定时任务必须分布式幂等锁防重入。工具决策顺序：`bpm` 域内置编排 ➔ n8n/Node-RED（轻量）➔ Temporal/Camunda（企业级）。
 6. **五维决策普适化与专属质量门禁**：五维帕累托从编码需求普适至全工种；每族契约配专属门禁——数据族 = 对账通过 + 血缘完整 + 质量规则 100% 执行；流程族 = 沙箱演练 + 回滚演练双通过；预案族 = 预演环境演练 + 回滚计时达标；API 族 = 4 层测试全绿。本体域一等公民同步扩展登记**数据资产**（表/管道/指标/报表）、**流程拓扑**与**预案库**。
 
-### 23. 全局高阶反向思维与 AI-Driven 基座 Harness 进化规范 (High-Order Inverse Thinking & DeepSeek Harness Invariants)
+## 23. 全局高阶反向思维与 AI-Driven 基座 Harness 进化规范 (High-Order Inverse Thinking & DeepSeek Harness Invariants)
 
 作为面向生产级的重型业务开发模板，本工程深度吸收 Palantir 体系与 DeepSeek Harness (dsh) 核心架构精髓，对代码、单测、接口执行全生命周期自动化守卫监督：
 
@@ -1008,7 +978,7 @@ npm run check
    - 守卫规则物理落盘于 `.agents/rules/HIGH-ORDER-INVERSE-THINKING.md` 并通过 `.agents/context/ASSEMBLY.md` 首帧注入；
    - 执行 `node scripts/guard-high-order-invariants.cjs` 实施工程守卫扫描，保障重型业务模板的纯洁性与确定性演进。
 
-### 24. 0-1 软件工程交付资产与 8 要素 Brief 派单规范 (Spec-First Artifacts & Brief Dispatching)
+## 24. 0-1 软件工程交付资产与 8 要素 Brief 派单规范 (Spec-First Artifacts & Brief Dispatching)
 
 吸收 Coolie 商业级软件工厂核心实践，杜绝大模型“口头完成”与“将运行时业务数据当成工程产物”：
 
@@ -1021,7 +991,7 @@ npm run check
    - 任何状态转为完成，必须挂载不可变工程产物（Git SHA、契约文件、测试结果、SRE 巡检台账、对账平账单）。
    - 规范落地于 `.agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md` 与 `docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md`。
 
-### 25. 单一真源与全生命周期过程资产防污染规范 (Single Source of Truth & Process Asset Anti-Pollution)
+## 25. 单一真源与全生命周期过程资产防污染规范 (Single Source of Truth & Process Asset Anti-Pollution)
 
 1. **技能单一真源法则**：
    - 全仓技能有且仅有唯一真源：`.agents/skills/<name>/SKILL.md`（共 38 个技能），严禁在 `docs/skills/` 等建立任何镜像或重复目录；
