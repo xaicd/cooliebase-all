@@ -41,7 +41,13 @@ function routeJson(requirement: string) {
     AGENT_ROUTE_ARTIFACT: path.join(TMP, "last.json"),
   }
   const stdout = execFileSync("node", [SCRIPT, "--json", requirement], { cwd: ROOT, encoding: "utf8", env })
-  return JSON.parse(stdout) as { verdict: string; specType: string; matched: string[]; exempted: string[] }
+  return JSON.parse(stdout) as {
+    verdict: string
+    specType: string
+    matched: string[]
+    exempted: string[]
+    noTask: string[]
+  }
 }
 
 describe("需求分诊：是否需要走规格流程", () => {
@@ -93,6 +99,50 @@ describe("需求分诊：是否需要走规格流程", () => {
     expect(content).toMatch(/### 2\./)
     expect(content).toMatch(/第一条：补一个测试/)
     expect(content).toMatch(/需求原文/)
+  })
+
+  /**
+   * ★ 以下 6 条来自**真实历史输入的回测**（不是编的用例）。
+   *
+   * 初版分类器在 11 条真实对话上**全部**判 SPEC_REQUIRED —— 因为 fail-safe 把
+   * "没命中任何规则"也当成需要规格，于是「干」「你做决定」这些根本不是需求的输入也要立规格。
+   * **全都需要规格 = 没人会遵守 = 机制自己死掉**。故引入第三类 `NOT_A_REQUIREMENT`，
+   * 并把这几条真实输入固化成回归测试。
+   */
+  it("★ 回测：「干」这类纯确认 → 不是需求（不立规格、也不改代码）", () => {
+    expect(routeJson("干").verdict).toBe("NOT_A_REQUIREMENT")
+  })
+
+  it("★ 回测：「你做决定,自己进化」→ 授权，不是需求", () => {
+    const result = routeJson("你做决定,自己进化")
+    expect(result.verdict).toBe("NOT_A_REQUIREMENT")
+    expect(result.noTask).toContain("autonomy-grant")
+  })
+
+  it("★ 回测：「现在情况是我主要使用 cmd/Claude Code,不是 IDE」→ 上下文陈述，不是需求", () => {
+    expect(routeJson("现在情况是 我主要使用 cmd,claude code, agy,Hermes 终端啊,不是ide").verdict).toBe(
+      "NOT_A_REQUIREMENT",
+    )
+  })
+
+  it("★ 回测：「继续做,直到满足你的目标」→ 续作指令，不是需求", () => {
+    expect(routeJson("继续做,直到 满足你的目标").verdict).toBe("NOT_A_REQUIREMENT")
+  })
+
+  it("★ 回测：「你看看隔壁仓库最近更新了啥」→ 调研提问，不是需求", () => {
+    expect(routeJson("你看看 隔壁 coolie 最近更新了啥, 开发规范,交付规范 是否有值得学习的地方").verdict).toBe(
+      "NOT_A_REQUIREMENT",
+    )
+  })
+
+  it("★ 回测：名词「开发」不得被当成「新增能力」（曾把「让开发自己决定」误判为需要规格）", () => {
+    const result = routeJson("你把变更放入一个文档说明，让他们的项目开发自己决定吧")
+    expect(result.verdict).toBe("DIRECT_OK")
+    expect(result.matched).not.toContain("feature-word")
+  })
+
+  it("★ 回测：但「继续跑真实库测试并按域修复分歧」仍按任务处理（续作词不得盖过真实任务）", () => {
+    expect(routeJson("继续跑真实库域级测试并按域修复分歧").verdict).toBe("SPEC_REQUIRED")
   })
 
   it("机器可读记录含判定与命中规则（供 hooks / 门禁核对跑没跑过）", () => {

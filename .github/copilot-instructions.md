@@ -21,6 +21,7 @@ This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built
 
 - `SPEC_REQUIRED` → 先 `npm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
 - `DIRECT_OK` → 可直接改（改完仍须 `npm run check` 全绿）
+- `NOT_A_REQUIREMENT` → 这句话不是一个需求（确认 / 授权 / 上下文陈述 / 调研提问 / 续作指令），既不立规格也不改代码
 
 它同时把用户原始输入记入 `docs/features/sprint-prod/{MMDD}.md`（AGENTS §15）。
 判定规则真源：`scripts/lib/spec-necessity-rules.cjs` —— 规则表可审阅、可修改；

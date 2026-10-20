@@ -24,7 +24,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 const crypto = require("node:crypto")
 
-const { SPEC_SIGNALS, DIRECT_SIGNALS, TYPE_SIGNALS } = require("./lib/spec-necessity-rules.cjs")
+const { SPEC_SIGNALS, DIRECT_SIGNALS, NO_TASK_SIGNALS, TYPE_SIGNALS } = require("./lib/spec-necessity-rules.cjs")
 
 const ROOT = path.resolve(__dirname, "..")
 const argv = process.argv.slice(2)
@@ -51,9 +51,22 @@ function match(text, signals) {
 const specHits = match(requirement, SPEC_SIGNALS)
 const directHits = match(requirement, DIRECT_SIGNALS)
 const typeHits = match(requirement, TYPE_SIGNALS)
+const noTaskHits = match(requirement, NO_TASK_SIGNALS)
 
 // 判定：命中任一 SPEC 信号 → 需要规格；两边都不命中 → **宁严勿宽**，也要规格。
-const verdict = specHits.length > 0 || directHits.length === 0 ? "SPEC_REQUIRED" : "DIRECT_OK"
+// 三值判定。顺序很关键：
+//   ① 命中 SPEC 信号 → 需要规格（最高优先，豁免/非任务都不能盖过它）；
+//   ② 根本没命中任何任务信号，且看起来不是需求 → NOT_A_REQUIREMENT（不立规格、也不改代码）；
+//   ③ 命中豁免 → DIRECT_OK；
+//   ④ 其余（是任务但判不准）→ 宁严勿宽，要求规格。
+const verdict =
+  specHits.length > 0
+    ? "SPEC_REQUIRED"
+    : noTaskHits.length > 0 && directHits.length === 0
+      ? "NOT_A_REQUIREMENT"
+      : directHits.length > 0
+        ? "DIRECT_OK"
+        : "SPEC_REQUIRED"
 const specType = typeHits[0]?.type ?? "feature"
 
 /** 归一化一个可用的规格标识名（kebab-case，取需求里的中文/英文片段） */
@@ -74,6 +87,7 @@ const record = {
   requirementHash: crypto.createHash("sha256").update(requirement).digest("hex").slice(0, 16),
   matched: specHits.map((hit) => hit.id),
   exempted: directHits.map((hit) => hit.id),
+  noTask: noTaskHits.map((hit) => hit.id),
   rulesVersion: "scripts/lib/spec-necessity-rules.cjs",
 }
 
@@ -109,7 +123,12 @@ if (json) {
   process.exit(0)
 }
 
-console.log(`\n[agent-route] 分诊结论: ${verdict}${verdict === "SPEC_REQUIRED" ? "（需要规格）" : "（可直接改）"}`)
+const VERDICT_LABEL = {
+  SPEC_REQUIRED: "（需要规格）",
+  DIRECT_OK: "（可直接改）",
+  NOT_A_REQUIREMENT: "（不是需求 ‑ 不立规格、也不改代码）",
+}
+console.log(`\n[agent-route] 分诊结论: ${verdict}${VERDICT_LABEL[verdict] ?? ""}`)
 console.log(`  规格类型: ${specType}`)
 console.log(`  需求: ${requirement}`)
 if (specHits.length > 0) {
@@ -120,14 +139,20 @@ if (directHits.length > 0) {
   console.log("  命中「可豁免」的规则（不因自身要求规格）:")
   for (const hit of directHits) console.log(`    · [${hit.id}] ${hit.kind} —— ${hit.reason}`)
 }
-if (specHits.length === 0 && directHits.length === 0) {
+if (noTaskHits.length > 0 && specHits.length === 0) {
+  console.log("  命中「不是需求」的规则:")
+  for (const hit of noTaskHits) console.log(`    · [${hit.id}] ${hit.kind} —— ${hit.reason}`)
+}
+if (specHits.length === 0 && directHits.length === 0 && noTaskHits.length === 0) {
   console.log("  未命中任何规则 → **宁严勿宽**，按需要规格处理（判不准时多走一步流程，优于漏掉一次）")
 }
 if (loggedAt) console.log(`\n  §15 记录: ${loggedAt}（第 ${record.logIndex} 条）`)
 console.log(`  机器可读: ${artifact.startsWith(ROOT) ? path.relative(ROOT, artifact) : artifact}`)
 
 console.log("\n  下一步:")
-if (verdict === "SPEC_REQUIRED") {
+if (verdict === "NOT_A_REQUIREMENT") {
+  console.log("    无需立规格、也无需改动代码。若确有此需求，请把要做什么说清楚再跑一次分诊。")
+} else if (verdict === "SPEC_REQUIRED") {
   console.log(`    npm run speckit:new -- --name ${suggestName()} --domain <域> --type ${specType} --title "<标题>"`)
   console.log("    然后编辑 brief.json → npm run speckit:build -- --name <名> → npm run speckit:check -- --spec <名>")
 } else {

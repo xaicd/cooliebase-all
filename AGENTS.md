@@ -165,7 +165,7 @@
 
 | 步骤 | 命令 | 产物 / 证据 |
 |---|---|---|
-| **0. 需求分诊（强制第一步）** | `npm run agent:route -- "<用户原始需求>"` | **确定性**判定要不要立规格（`SPEC_REQUIRED` / `DIRECT_OK`）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `docs/architecture/artifacts/agent-route-last.json`。 |
+| **0. 需求分诊（强制第一步）** | `npm run agent:route -- "<用户原始需求>"` | **三值确定性**判定（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`——后者指确认、授权、上下文陈述、调研提问、续作指令等**根本不是需求**的输入）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `docs/architecture/artifacts/agent-route-last.json`。 |
 | 1. 规格立项 | `npm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature\|bugfix\|enhancement\|refactor\|security]` | `brief.json` + `assets/` + `prototypes/`（**按域隔离于 docs/specs/<域>/<名>，由 Spec-Kit 原生引擎 scripts/speckit.ts 统一驱动**） |
 | 2. 填 brief | 编辑 `docs/specs/<域>/<名>/brief.json` | 目标/角色/故事/约束/验收/不变量/表/任务（bugfix 特化 symptom/rootCause/RedTest） |
 | 3. 展开 | `npm run speckit:build -- --name <名>` | 10~15 份标准资产 + `evidence.json` + `runbook.json`（**由 Spec-Kit 引擎 scripts/speckit.ts 展开，结构不可能缺**） |
