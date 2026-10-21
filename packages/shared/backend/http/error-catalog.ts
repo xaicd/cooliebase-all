@@ -26,6 +26,7 @@ export const ERROR_CATALOG = {
   CONFLICT: { status: 409, messageKey: "resource.conflict", defaultMessage: "资源状态冲突，请刷新后重试", category: "RESOURCE", retryable: false, description: "The request conflicts with the current resource state." },
   RATE_LIMITED: { status: 429, messageKey: "throttling.rate_limited", defaultMessage: "请求过于频繁，请稍后重试", category: "THROTTLING", retryable: true, description: "The caller exceeded a configured rate limit." },
   DEPENDENCY_UNAVAILABLE: { status: 503, messageKey: "dependency.unavailable", defaultMessage: "服务暂时不可用，请稍后重试", category: "DEPENDENCY", retryable: true, description: "A required dependency such as a database, cache, or upstream service is unavailable." },
+  NOT_IMPLEMENTED: { status: 501, messageKey: "system.not_implemented", defaultMessage: "该接口尚未实现，请勿依赖其返回", category: "SYSTEM", retryable: false, description: "The endpoint exists but has no implementation yet. It must NOT be treated as success." },
   INTERNAL_ERROR: { status: 500, messageKey: "system.internal_error", defaultMessage: "系统异常，请稍后重试", category: "SYSTEM", retryable: false, description: "An unexpected server error occurred. Do not retry non-idempotent writes automatically." },
 } as const satisfies Record<string, ErrorDefinition>
 
