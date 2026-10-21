@@ -430,6 +430,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "ACTIVE",
+        "DISABLED"
+      ],
+      "labels": {
+        "ACTIVE": "启用",
+        "DISABLED": "停用"
+      },
+      "description": "帐号状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

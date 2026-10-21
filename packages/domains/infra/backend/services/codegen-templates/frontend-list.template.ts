@@ -38,9 +38,16 @@ export function generateListPage(config: CodegenConfig): CodegenOutput {
     `                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">${jsxText(c.comment) || c.name}</th>`
   ).join("\n")
 
-  const tableCells = displayCols.map((c) =>
-    `                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.${c.name} ?? "-")}>{String(item.${c.name} ?? "-")}</td>`
-  ).join("\n")
+  const tableCells = displayCols.map((c) => {
+    if (!c.enumValues?.length) {
+      return `                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.${c.name} ?? "-")}>{String(item.${c.name} ?? "-")}</td>`
+    }
+    const labels = JSON.stringify(c.enumLabels ?? {})
+    const primary = JSON.stringify(c.enumValues[0])
+    return `                  <td className="px-4 py-2.5 text-xs text-slate-700">
+                    <EnumBadge value={item.${c.name}} labels={${labels}} primary={${primary}} />
+                  </td>`
+  }).join("\n")
 
   const advancedActions = (config.advanced as any)?.actions
   const isReadOnly = Array.isArray(advancedActions) && advancedActions.length === 0
@@ -52,6 +59,20 @@ import { ${className}Api } from "../api/${kebab}.api"
 import { ${className}Form } from "../components/${className}Form"
 import { Pagination } from "@/modules/shared/frontend/components/pagination"
 import type { ${className}VO, ${className}PageQuery } from "@/modules/${moduleName}${sub}/backend/types/${kebab}.types"
+
+function EnumBadge({ value, labels, primary }: { value: unknown; labels: Record<string, string>; primary?: string }) {
+  if (value === null || value === undefined || value === "") return <span className="text-slate-400">-</span>
+  const key = String(value)
+  const tone =
+    key === primary
+      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+      : "bg-slate-100 text-slate-600 border-slate-200"
+  return (
+    <span className={"inline-flex items-center px-2 py-0.5 rounded-md border text-[11px] font-medium " + tone}>
+      {labels[key] ?? key}
+    </span>
+  )
+}
 
 export function ${className}ListPage() {
   ${isReadOnly ? `// 当前发布版本未启用新增、编辑或删除动作，仅可查询。\n` : ""}  const [data, setData] = useState<${className}VO[]>([])

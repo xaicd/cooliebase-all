@@ -273,9 +273,7 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "=",
-"enumValues": ["ACTIVE", "DISABLED"],
-"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
+          "queryType": "="
         },
         {
           "name": "tenant_id",

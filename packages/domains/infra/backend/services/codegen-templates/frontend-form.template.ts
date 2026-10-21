@@ -15,6 +15,27 @@ export function generateFormComponent(config: CodegenConfig): CodegenOutput {
 
   const formFields = writeCols.map((c) => {
     const label = jsxText(c.comment) || c.name
+    if (c.enumValues?.length) {
+      const options = c.enumValues
+        .map((v) => `          <option value="${v}">${jsxText(c.enumLabels?.[v] ?? "") || v}</option>`)
+        .join("\n")
+      return `        <div>
+          <label htmlFor="${kebab}-${c.name}" className="block text-xs text-slate-600 mb-1">${label}${c.formValidation === "required" || !c.nullable ? " *" : ""}</label>
+          <select
+            id="${kebab}-${c.name}"
+            data-testid="field-${c.name}"
+            data-agent-target="${kebab}:field:${c.name}"
+            data-agent-state={formData.${c.name} ? "filled" : "empty"}
+            aria-label="${label}"
+            value={String(formData.${c.name} ?? "")}
+            onChange={(e) => setFormData((prev) => ({ ...prev, ${c.name}: e.target.value }))}
+            className="w-full px-2.5 py-1.5 text-xs border border-slate-200 rounded-lg bg-white focus:outline-none focus:ring-1 focus:ring-blue-500"
+          >
+            <option value="">请选择</option>
+${options}
+          </select>
+        </div>`
+    }
     if (c.tsType === "boolean") {
       return `        <div className="flex items-center gap-2">
           <input

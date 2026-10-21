@@ -30,9 +30,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "active", type: "boolean", tsType: "boolean", nullable: false, comment: "启用状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 2. 物料主数据
   {
     moduleName: "wms",
@@ -54,9 +54,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "物料状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 3. 物料分类
   {
     moduleName: "wms",
@@ -77,9 +77,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 4. 物料品牌
   {
     moduleName: "wms",
@@ -98,9 +98,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 5. 货主管理
   {
     moduleName: "wms",
@@ -120,9 +120,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 6. 入库单
   {
     moduleName: "wms",
@@ -143,9 +143,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "单据状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 7. 出库单
   {
     moduleName: "wms",
@@ -166,9 +166,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "单据状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 8. 移库单
   {
     moduleName: "wms",
@@ -188,9 +188,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "单据状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 9. 盘点单
   {
     moduleName: "wms",
@@ -209,9 +209,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "单据状态" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 10. 实时库存
   {
     moduleName: "wms",
@@ -231,9 +231,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "locked_qty", type: "int", tsType: "number", nullable: false, comment: "锁定数量" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "update_time", type: "timestamp", tsType: "string", nullable: false, comment: "更新时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 11. 库存变动历史流水
   {
     moduleName: "wms",
@@ -255,9 +255,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "ref_order_no", type: "varchar", tsType: "string", nullable: true, comment: "关联单号", queryType: "LIKE" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "记录时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 12. 入库单明细
   {
     moduleName: "wms",
@@ -277,9 +277,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "batch_no", type: "varchar", tsType: "string", nullable: true, comment: "批次号" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 13. 出库单明细
   {
     moduleName: "wms",
@@ -299,9 +299,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "batch_no", type: "varchar", tsType: "string", nullable: true, comment: "批次号" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 14. 移库单明细
   {
     moduleName: "wms",
@@ -319,9 +319,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "qty", type: "int", tsType: "number", nullable: false, comment: "移库数量" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 15. 盘点单明细
   {
     moduleName: "wms",
@@ -341,9 +341,9 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "diff_qty", type: "int", tsType: "number", nullable: false, comment: "差异数量" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
   // 16. 物料规格 SKU
   {
     moduleName: "wms",
@@ -363,7 +363,7 @@ export const WMS_TABLES: CodegenConfig[] = [
         { name: "price", type: "decimal", tsType: "number", nullable: true, comment: "参考单价" },
         { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
         { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
-      ],
-    },
-  },
+      ]
+        }
+        },
 ]
