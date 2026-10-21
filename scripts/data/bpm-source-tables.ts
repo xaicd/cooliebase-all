@@ -55,7 +55,10 @@ export const BPM_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "分类状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "enumValues": ["DRAFT", "ACTIVE", "ARCHIVED"],
+          "enumLabels": { "DRAFT": "草稿", "ACTIVE": "启用", "ARCHIVED": "已归档" },
+          "enumTerminal": ["ARCHIVED"]
         },
         {
           "name": "sort",

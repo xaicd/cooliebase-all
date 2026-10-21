@@ -14,6 +14,10 @@ export interface ConfiguredColumn {
   precision?: number
   scale?: number
   enumValues?: string[]
+  /** 值 → 中文标签（可选）。给 agent 与前端共用同一套口径。 */
+  enumLabels?: Record<string, string>
+  /** 终态值（可选）：到达这些状态后不再有合法迁移。 */
+  enumTerminal?: string[]
   defaultValueTyped?: unknown
   /**
    * 建表时的 SQL 默认值**表达式**（如 `CURRENT_TIMESTAMP`）。

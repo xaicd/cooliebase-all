@@ -20,7 +20,10 @@
         "path": "/bpm-category",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "code",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增BPM 流程分类",
       "edit": "编辑BPM 流程分类"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "分类名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "code",
+        "label": "分类标志",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "status",
+        "label": "分类状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -185,6 +207,25 @@
         "bpm.bpm-category__ListItem__Open",
         "bpm.bpm-category__Form__Submit"
       ]
+    }
+  },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "DRAFT",
+        "ACTIVE",
+        "ARCHIVED"
+      ],
+      "labels": {
+        "DRAFT": "草稿",
+        "ACTIVE": "启用",
+        "ARCHIVED": "已归档"
+      },
+      "terminal": [
+        "ARCHIVED"
+      ],
+      "description": "分类状态"
     }
   },
   "journey": [

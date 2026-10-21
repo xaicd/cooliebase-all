@@ -140,6 +140,29 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
     },
 
     // ---- 旅程（供 L4 用例与探索式 agent 共用）----
+    // ---- 字段词汇表（供 agent 理解"这个实体有哪些可枚举状态"）----
+    // 为什么必须有：实测 **0/340 份契约**曾暴露任何枚举 —— agent 读到
+    // `status: "ACTIVE"` 时不知道还有哪些值、哪个是终态，只能去读代码或猜。
+    // 枚举就是 agent 的动作空间。只输出**有枚举声明**的列，保持契约精简。
+    // **只在有枚举声明时才输出** —— 否则 340 份契约会各多一个空的 `enums: {}`，纯噪音。
+    ...(() => {
+      const enums = Object.fromEntries(
+        (config.table.columns ?? [])
+          .filter((column) => Array.isArray(column.enumValues) && column.enumValues.length > 0)
+          .map((column) => [
+            column.name,
+            {
+              type: "enum",
+              values: column.enumValues,
+              ...(column.enumLabels ? { labels: column.enumLabels } : {}),
+              ...(column.enumTerminal ? { terminal: column.enumTerminal } : {}),
+              ...(column.comment ? { description: jsxText(column.comment) } : {}),
+            },
+          ]),
+      )
+      return Object.keys(enums).length > 0 ? { enums } : {}
+    })(),
+
     journey: ["goto", "assertTitle", "search", "openCreateForm", "fillForm", "submitForm", "edit", "delete"],
 
     // ---- 运营动作（agent-device / 定时任务可直接执行）----
