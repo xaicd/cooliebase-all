@@ -257,7 +257,11 @@ if [[ "$PROFILE" == "next-base" ]]; then
   PROFILE="base"
 fi
 
-REACTOR_ARGS=("$TARGET_DIR" "--profile" "$PROFILE")
+# **不要求 Postgres**：克隆+裁剪阶段本就不需要数据库。
+# 此前不带这个开关，reactor 会去连 Postgres；连不上就（在 fail-loud 之后）**直接中止** ——
+# 实测：`bash scripts/hatch.sh /tmp/x --profile minimal` 在没有 Postgres 的机器上 exit=1。
+# 产物走 SQLite（零配置），由下面的 bootstrap 步骤准备。
+REACTOR_ARGS=("$TARGET_DIR" "--profile" "$PROFILE" "--no-provision-db")
 if [[ -n "$BUNDLE" ]]; then
   REACTOR_ARGS+=("--bundle" "$BUNDLE")
 fi
@@ -274,6 +278,71 @@ if [[ -f "$TARGET_DIR/.env" ]]; then
     content = content.replace(/NEXT_PUBLIC_APP_TITLE=.*$/m, 'NEXT_PUBLIC_APP_TITLE=' + process.argv[3]);
     fs.writeFileSync(envFile, content, 'utf8');
   " "$TARGET_DIR/.env" "$PORT" "$TITLE"
+fi
+
+# 安装依赖（`--install` 此前只是设了变量、**从没人读它** —— 死开关）
+if [[ "$AUTO_INSTALL" == true ]]; then
+  echo "📦 安装依赖..."
+  (cd "$TARGET_DIR" && pnpm install --frozen-lockfile)
+fi
+
+# 零配置 SQLite 本地库：装好依赖后跑 bootstrap（与 `project:init` 同一套做法）。
+# **必须显式传路径**：bootstrap 默认 `data/cooliebase.db`，与 .env 里的派生路径不一致时，
+# 应用会连到一个从未被种子的空库 —— 表现为"工程起得来、但登录永远 401"（实测过）。
+# **`--no-provision-db` 之后必须由调用方写库配置** —— reactor 跳过准备就不会写，
+# 而 `.env` 里没有任何 DB 项时应用会退回**内存库**，bootstrap 却把库建在 `data/cooliebase.db`：
+# 两边对不上，就又变成"工程起得来、登录永远 401"（实测：本脚本第一版正是这样）。
+# 这里与 `project:init` 对齐，写 sqlite 三件套（三者指向**同一个**库文件）。
+DB_FILE="data/${PROJECT_NAME}.db"
+if [[ -f "$TARGET_DIR/.env" ]]; then
+  for kv in "DB_DRIVER=sqlite" "DATABASE_URL=file:./${DB_FILE}" "SQLITE_DB_PATH=${DB_FILE}"; do
+    k="${kv%%=*}"
+    if grep -qE "^${k}=" "$TARGET_DIR/.env" 2>/dev/null; then
+      sed -i '' -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env" 2>/dev/null || sed -i -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env"
+    else
+      printf '%s\n' "$kv" >> "$TARGET_DIR/.env"
+    fi
+    if [[ -f "$TARGET_DIR/.env.local" ]]; then
+      if grep -qE "^${k}=" "$TARGET_DIR/.env.local" 2>/dev/null; then
+        sed -i '' -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env.local" 2>/dev/null || sed -i -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env.local"
+      else
+        printf '%s\n' "$kv" >> "$TARGET_DIR/.env.local"
+      fi
+    fi
+  done
+fi
+
+# 注意 `set -euo pipefail`：`grep` 找不到时会返回 1，配合 pipefail 会**直接终止脚本**。
+# 本仓 AGENTS 记过同一类坑（`[ cond ] && cmd` 让脚本静默退出），这里补 `|| true` 兜住。
+SQLITE_PATH="$DB_FILE"
+if [[ -f "$TARGET_DIR/scripts/bootstrap-sqlite.ts" ]]; then
+  if [[ -d "$TARGET_DIR/node_modules" ]]; then
+    echo "🗄️  初始化零配置 SQLite 本地库 (${SQLITE_PATH})..."
+    (cd "$TARGET_DIR" && SQLITE_DB_PATH="$SQLITE_PATH" pnpm exec tsx scripts/bootstrap-sqlite.ts)
+  else
+    echo ""
+    echo "  ⚠️ 目标工程尚未安装依赖，已跳过 SQLite 初始化。安装后执行（**务必带路径**）："
+    echo "     cd $(basename "$TARGET_DIR") && pnpm install"
+    echo "     SQLITE_DB_PATH=${SQLITE_PATH} pnpm exec tsx scripts/bootstrap-sqlite.ts"
+    echo "  （或用 --install 让本脚本在安装后自动完成这一步）"
+  fi
+fi
+
+# `--port` 此前**不生效**：它只被写进 `.env` 的 `PORT`，而产物的 `dev` 脚本**写死了**
+# `next dev -p 3200`（实测：传 `--port 3300`，应用仍跑在 3200）。
+# 这里把 `dev` / `start` 脚本里的端口改成目标端口，让参数真的起作用。
+if [[ -f "$TARGET_DIR/package.json" ]]; then
+  node -e "
+    const fs = require('fs');
+    const p = process.argv[1], port = process.argv[2];
+    const pkg = JSON.parse(fs.readFileSync(p, 'utf8'));
+    for (const name of ['dev', 'start']) {
+      if (typeof pkg.scripts?.[name] === 'string') {
+        pkg.scripts[name] = pkg.scripts[name].replace(/-p\s+\d+/, '-p ' + port);
+      }
+    }
+    fs.writeFileSync(p, JSON.stringify(pkg, null, 2) + '\n', 'utf8');
+  " "$TARGET_DIR/package.json" "$PORT"
 fi
 
 # 检查/补充独立 Git 仓库

@@ -13,7 +13,7 @@
 const fs = require("node:fs")
 const path = require("node:path")
 const readline = require("node:readline")
-const { execSync, spawnSync } = require("node:child_process")
+const { execFileSync, execSync, spawnSync } = require("node:child_process")
 
 const BANNER = `
    ___                   _   _ _   _          _   
@@ -141,15 +141,14 @@ async function main() {
   // 2. 原地重构项目身份
   console.log("\n[2/4] 正在根据业务参数重构项目身份与配置契约...")
   try {
-    const initCmd = [
+    // **必须用 execFileSync + 参数数组**，不能拼 shell 字符串：
+    // `title` 是用户输入，拼进 shell 会让 `--title="x"; rm -rf ~; "` 变成任意命令执行
+    // （同时，标题里带引号也会被拼坏）。发布到 npm 之前这条必须是无注入的。
+    execFileSync(
       "node",
-      "scripts/project-init.cjs",
-      "--in-place",
-      `--name="${projectName}"`,
-      `--title="${title}"`,
-      `--port=${port}`
-    ]
-    execSync(initCmd.join(" "), { cwd: targetDir, stdio: "inherit" })
+      ["scripts/project-init.cjs", "--in-place", `--name=${projectName}`, `--title=${title}`, `--port=${port}`],
+      { cwd: targetDir, stdio: "inherit" }
+    )
   } catch (e) {
     console.warn("⚠️ 自动重塑项目参数出现提示，继续初始化：", e.message)
   }
