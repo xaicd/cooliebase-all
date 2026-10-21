@@ -105,6 +105,32 @@ jobs:
       - name: 孵化端到端（两条入口 × minimal，各自跑通自身 check）
         run: pnpm run hatch:e2e
 
+  # Windows 冒烟：`start.bat` / `create-project.bat` 与 Windows 路径处理**至今零验证**。
+  #
+  # 为什么必须单列：本仓大量代码用 `spawn("pnpm", …)`、`path.join`、CRLF 文本处理 ——
+  # 这些在 macOS 上永远绿，在 Windows 上可能直接 ENOENT / 路径错。实测过一例：
+  # `hatch:e2e` 里裸 `spawn("pnpm")`，Windows 上必须 `pnpm.cmd`（已修）。
+  #
+  # 注意：`.bat` 是**交互式**的（含 `pause`），CI 里不能直接跑 —— 这里验的是它们背后的
+  # **非交互链路**（门禁链 + 孵化产物），而不是菜单本身。
+  windows:
+    if: github.event_name != 'pull_request'
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 12
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      - name: 门禁链（Windows 路径 / 换行 / 子进程解析）
+        run: pnpm run check
+      - name: 孵化产物（Windows 上的 spawn pnpm 与路径拼接）
+        run: pnpm run hatch:e2e -- --only init --fast
+
   # 平台可用性: 建库 → 迁移 → 种子 → 登记插件 → 起服务 → 登录 → 受保护接口
   smoke:
     runs-on: ubuntu-latest

@@ -30,6 +30,10 @@ const os = require("node:os")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
+// Windows 上 Node **不能**直接 spawn(PNPM) —— 必须 "pnpm.cmd"（或 shell:true）。
+// 本仓其它脚本（check-client-build / check-deps-audit / generate-sbom）都是这么写的，
+// 我这份漏了 —— 那会在 windows-latest 上直接 ENOENT。
+const PNPM = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
 const argv = process.argv.slice(2)
 const hasFlag = (name) => argv.includes(`--${name}`)
 const valueOf = (name, fallback) => {
@@ -93,14 +97,14 @@ async function runEntry(kind) {
   }
 
   if (!skipInstall) {
-    const installCode = step("产物依赖安装", "pnpm", ["install", "--frozen-lockfile"], target)
+    const installCode = step("产物依赖安装", PNPM, ["install", "--frozen-lockfile"], target)
     if (installCode !== 0) {
       failures.push(`${kind}: 产物 pnpm install 失败 (exit=${installCode})`)
       return
     }
   }
 
-  const checkCode = step("产物自身 check（静态判据）", "pnpm", ["run", "check"], target)
+  const checkCode = step("产物自身 check（静态判据）", PNPM, ["run", "check"], target)
   if (checkCode !== 0) {
     failures.push(`${kind}: 产物自身 check 失败 (exit=${checkCode}) —— 孵化出的是**坏工程**`)
   }
@@ -112,14 +116,14 @@ async function runEntry(kind) {
   // 第三条判据：产物**自带**的库能不能登录（不注入外部库）
   await verifyOutOfTheBox(target, kind)
 
-  const buildCode = step("产物生产构建", "pnpm", ["run", "build"], target)
+  const buildCode = step("产物生产构建", PNPM, ["run", "build"], target)
   if (buildCode !== 0) {
     failures.push(`${kind}: 产物 build 失败 (exit=${buildCode})`)
   }
 
   // 起服务 → 建库/迁移/种子/登记插件 → **登录 200** → 受保护接口 200。
   // 产物自带这条入口（与基座同源），所以这里不另写断言，直接复用 —— 避免第二真源。
-  const smokeCode = step("产物 smoke:login（起服务 + 登录）", "pnpm", ["run", "smoke:login"], target)
+  const smokeCode = step("产物 smoke:login（起服务 + 登录）", PNPM, ["run", "smoke:login"], target)
   if (smokeCode !== 0) {
     failures.push(`${kind}: 产物 smoke:login 失败 (exit=${smokeCode}) —— 工程起不来或登不进去`)
   }
@@ -166,7 +170,7 @@ async function verifyOutOfTheBox(target, label) {
 
   // ① 照文档 bootstrap（只在依赖已装、且脚本存在时）
   if (sqlitePath && fsMod.existsSync(pathMod.join(target, "scripts", "bootstrap-sqlite.ts"))) {
-    const r = spawnSync("pnpm", ["exec", "tsx", "scripts/bootstrap-sqlite.ts"], {
+    const r = spawnSync(PNPM, ["exec", "tsx", "scripts/bootstrap-sqlite.ts"], {
       cwd: target, stdio: "inherit", env: { ...process.env, SQLITE_DB_PATH: sqlitePath },
     })
     if ((r.status ?? 1) !== 0) { failures.push(`${label}: 产物 bootstrap 失败 (exit=${r.status})`); return }
@@ -187,7 +191,7 @@ async function verifyOutOfTheBox(target, label) {
   const cleanEnv = { ...process.env }
   for (const key of ["DB_DRIVER", "DATABASE_URL", "NODE_ENV", "TENANT_MODE", "TENANT_PLATFORM_USERNAMES"]) delete cleanEnv[key]
   process.stdout.write(`\n[hatch-e2e] === 产物开箱验活（${base}）===\n`)
-  const child = spawn("pnpm", ["run", "dev"], { cwd: target, env: cleanEnv, stdio: "ignore", detached: true })
+  const child = spawn(PNPM, ["run", "dev"], { cwd: target, env: cleanEnv, stdio: "ignore", detached: true })
   const stop = () => { try { process.kill(-child.pid, "SIGKILL") } catch { try { child.kill("SIGKILL") } catch {} } }
   try {
     let up = false
