@@ -144,6 +144,8 @@ const RULES = [
         ...walk("test", (name) => testFilePattern.test(name)),
         ...walk(DOMAINS, (name) => testFilePattern.test(name)),
         ...walk(PLUGINS, (name) => testFilePattern.test(name)),
+        ...walk(SHARED, (name) => testFilePattern.test(name)),
+        ...walk(SRC, (name) => testFilePattern.test(name)),
         ...walk("scripts", (name) => testFilePattern.test(name)),
       ]
       const patterns = [
