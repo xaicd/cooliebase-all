@@ -109,6 +109,9 @@ async function runEntry(kind) {
   // 而 M4 的判据正是「产物能启动并跑通自身门禁」—— 裁剪掉的域可能让构建或启动挂在运行时。
   if (fast) return
 
+  // 第三条判据：产物**自带**的库能不能登录（不注入外部库）
+  await verifyOutOfTheBox(target, kind)
+
   const buildCode = step("产物生产构建", "pnpm", ["run", "build"], target)
   if (buildCode !== 0) {
     failures.push(`${kind}: 产物 build 失败 (exit=${buildCode})`)
@@ -119,6 +122,97 @@ async function runEntry(kind) {
   const smokeCode = step("产物 smoke:login（起服务 + 登录）", "pnpm", ["run", "smoke:login"], target)
   if (smokeCode !== 0) {
     failures.push(`${kind}: 产物 smoke:login 失败 (exit=${smokeCode}) —— 工程起不来或登不进去`)
+  }
+}
+
+
+/**
+ * 第三条判据：**产物自带的库能不能登录**（不注入任何外部库）。
+ *
+ * 为什么必须单独验：`check` 是静态的；`smoke:login` 会**自起嵌入式库**、绕开产物自己的库。
+ * 两条都盖不住"产物开箱是否真能用"。这里严格照**文档给的步骤**走：
+ *   安装 → 跑文档里的 bootstrap（带产物自己的 SQLITE_DB_PATH）→ 干净环境起 dev → 用 .env.local 的账号登录。
+ *
+ * 用**干净环境**是关键：shell 里导出的 DB_DRIVER / DATABASE_URL / NODE_ENV / TENANT_*
+ * 会覆盖产物配置（实测会导致"起得来但登录 401"），那验的就不是产物了。
+ */
+async function verifyOutOfTheBox(target, label) {
+  const fsMod = require("node:fs")
+  const pathMod = require("node:path")
+  const { spawn, spawnSync } = require("node:child_process")
+
+  const readEnv = (file) => {
+    const abs = pathMod.join(target, file)
+    return fsMod.existsSync(abs) ? fsMod.readFileSync(abs, "utf8") : ""
+  }
+  const pick = (text, key) => (new RegExp(`^${key}=(.*)$`, "m").exec(text)?.[1] ?? "").trim()
+
+  const envFile = readEnv(".env")
+  const envLocal = readEnv(".env.local")
+  const sqlitePath = pick(envFile, "SQLITE_DB_PATH") || pick(envLocal, "SQLITE_DB_PATH")
+  const devScript = JSON.parse(fsMod.readFileSync(pathMod.join(target, "package.json"), "utf8")).scripts?.dev ?? ""
+  const port = Number(/-p\s+(\d+)/.exec(devScript)?.[1] ?? 0)
+  const base = `http://127.0.0.1:${port || 3200}`
+
+  // 只对**自带持久库**的产物做开箱验活。`project:create` 用的是 PostgreSQL，
+  // 而在 e2e 里那台是**嵌入式、随 reactor 进程结束而消失**的 —— 产物 `.env` 里
+  // 留下的是一个**已关闭的端口**，登录必然 401。那不是产物缺陷，是"临时库不能当交付库"
+  // 的固有事实（AGENTS 也写了：embed 只用于瞬时校验）。
+  // 故：非 sqlite 产物**显式跳过并说明理由**（与 `clients` 缺席时的处理同族：跳过而非失败）。
+  if (!sqlitePath) {
+    process.stdout.write(`[hatch-e2e] SKIP ${label} 开箱验活：产物使用 PostgreSQL（e2e 内为临时嵌入式实例，进程结束即消失），无法作为持久库验证登录。\n`)
+    return
+  }
+
+  // ① 照文档 bootstrap（只在依赖已装、且脚本存在时）
+  if (sqlitePath && fsMod.existsSync(pathMod.join(target, "scripts", "bootstrap-sqlite.ts"))) {
+    const r = spawnSync("pnpm", ["exec", "tsx", "scripts/bootstrap-sqlite.ts"], {
+      cwd: target, stdio: "inherit", env: { ...process.env, SQLITE_DB_PATH: sqlitePath },
+    })
+    if ((r.status ?? 1) !== 0) { failures.push(`${label}: 产物 bootstrap 失败 (exit=${r.status})`); return }
+  }
+
+  // **必须在 bootstrap 之后重读**：bootstrap 会生成随机管理员密码并**写进 .env.local**。
+  // （首次实现我在 bootstrap 之前读了一次，于是永远读到空凭据 —— 被这条判据自己抓出来。）
+  const envLocalAfter = readEnv(".env.local")
+  const user = pick(envLocalAfter, "ADMIN_BOOTSTRAP_USERNAME") || pick(envFile, "ADMIN_BOOTSTRAP_USERNAME")
+  const pass = pick(envLocalAfter, "ADMIN_BOOTSTRAP_PASSWORD") || pick(envFile, "ADMIN_BOOTSTRAP_PASSWORD")
+
+  if (!user || !pass) {
+    failures.push(`${label}: 产物缺少引导凭据（.env.local 里没有 ADMIN_BOOTSTRAP_*）—— 无法验证开箱登录`)
+    return
+  }
+
+  // ② 干净环境起 dev
+  const cleanEnv = { ...process.env }
+  for (const key of ["DB_DRIVER", "DATABASE_URL", "NODE_ENV", "TENANT_MODE", "TENANT_PLATFORM_USERNAMES"]) delete cleanEnv[key]
+  process.stdout.write(`\n[hatch-e2e] === 产物开箱验活（${base}）===\n`)
+  const child = spawn("pnpm", ["run", "dev"], { cwd: target, env: cleanEnv, stdio: "ignore", detached: true })
+  const stop = () => { try { process.kill(-child.pid, "SIGKILL") } catch { try { child.kill("SIGKILL") } catch {} } }
+  try {
+    let up = false
+    for (let i = 0; i < 90; i += 1) {
+      try { const r = await fetch(`${base}/healthz`); if (r.ok) { up = true; break } } catch {}
+      await new Promise((res) => setTimeout(res, 1000))
+    }
+    if (!up) { failures.push(`${label}: 产物 dev 起来后 /healthz 未在 90s 内返回 200`); return }
+
+    const res = await fetch(`${base}/api/v1/admin/system/auth`, {
+      method: "POST", headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: user, password: pass }),
+    })
+    const body = await res.json().catch(() => null)
+    const token = body?.data?.token
+    if (res.status !== 200 || !token) {
+      failures.push(`${label}: 产物开箱登录失败（HTTP ${res.status}）—— 库/凭据未就绪，属"能起但登不进去"`)
+      return
+    }
+    const guarded = await fetch(`${base}/api/v1/admin/system/users`, { headers: { Authorization: `Bearer ${token}` } })
+    if (!guarded.ok) { failures.push(`${label}: 登录成功但受保护接口 ${guarded.status}`); return }
+    process.stdout.write(`[hatch-e2e] ✓ ${label} 开箱可用：/healthz 200 · 登录 200 · 受保护接口 ${guarded.status}\n`)
+  } finally {
+    stop()
+    await new Promise((res) => setTimeout(res, 500))
   }
 }
 

@@ -914,6 +914,13 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   if (db.url) {
     required.DATABASE_URL = db.url
     required.DB_DRIVER = "postgresql"
+    // **引导凭据必须落盘**：此前只 `console.log` 打印一次（"管理员登录凭据"框），
+    // 客户漏看一眼就**永远登不进去**（实测：`hatch:e2e` 的开箱判据当场抓到
+    // `create` 产物没有 ADMIN_BOOTSTRAP_*，而 `init` 产物有 —— 两个入口行为不一致）。
+    // `.env.local` 本就是 gitignored 的本地配置，`project:init` 也写在这里，两者对齐。
+    required.ADMIN_BOOTSTRAP_USERNAME = bootstrap.username
+    required.ADMIN_BOOTSTRAP_PASSWORD = bootstrap.password
+    required.ADMIN_BOOTSTRAP_SALT = bootstrap.salt
   }
   const kept = []
   const seen = new Set()
