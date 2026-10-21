@@ -88,7 +88,7 @@
         "cooliebase_table_migration_plan",
         "cooliebase_api_probe"
       ],
-      "count": 17
+      "count": 18
     },
     "evolution": {
       "traceArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
@@ -116,7 +116,8 @@
       "agent:routes:check",
       "agent:coverage:check",
       "repo:columns:check",
-      "routes:validation:check"
+      "routes:validation:check",
+      "docs:claims:check"
     ],
     "commands": [
       "agent:route",

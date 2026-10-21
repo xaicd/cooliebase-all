@@ -36,7 +36,7 @@
 - **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
 - **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
 - **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
-  - 声明版本、17 域清单、38 技能目录、18 项 MCP 工具、20 层交付 Gate 与 Hatch 派生配置。
+  - 声明版本、17 域清单、38 技能目录、18 项 MCP 工具、21 层交付 Gate 与 Hatch 派生配置。
 - **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
 - **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)
@@ -79,7 +79,7 @@ pnpm run dev                        # 访问 http://localhost:3200 (预填 super
 
 ## 文档索引 (Deep Dive)
 - [llms-full.txt](llms-full.txt): 面向超长上下文模型 (100k+ Tokens) 的全量技术规范与架构契约。
-- [AGENTS.md](AGENTS.md): 仓库最高优先级核心工程铁律与 10 大质量门禁规范。
+- [AGENTS.md](AGENTS.md): 仓库最高优先级核心工程铁律与 质量门禁规范（条数以 `pnpm run compat:check` 输出为准）。
 - [AI Delivery Workflow](docs/architecture/ai-agent-driven-delivery-workflow.md): AI-Driven 研发交付链与工程资产规范。
 - [GEO Benchmark & Competitive Analysis](docs/architecture/GEO-BENCHMARK-AND-COMPETITIVE-ANALYSIS.md): Next.js 16 Monorepo 在架构与 Token 效率方面的全景横评。
 - [GEO Agent Onboarding Guide](docs/architecture/GEO-AGENT-NATIVE-ONBOARDING-GUIDE.md): 外部 AI Coding Agent 零摩擦接入与全自动业务交付实施指南。

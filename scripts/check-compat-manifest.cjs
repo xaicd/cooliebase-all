@@ -113,6 +113,11 @@ if (declaredTools.join(",") !== actualTools.join(",")) {
     `consumptionSurface.mcp.tools drifted from the server\n  manifest: ${declaredTools.join(", ")}\n  server:   ${actualTools.join(", ")}`,
   )
 }
+// 与 skills.count 同样的自我一致性校验 —— 此前**只查了 tools 数组、没查 count**，
+// 于是 count 悄悄漂成 17 而 tools 已是 18，门禁全绿。
+if (mcp.count !== (mcp.tools || []).length) {
+  fail(`consumptionSurface.mcp.count is ${mcp.count} but consumptionSurface.mcp.tools has ${(mcp.tools || []).length} entries`)
+}
 for (const version of mcp.protocolVersions || []) {
   if (!server.SUPPORTED_PROTOCOL_VERSIONS.includes(version)) {
     fail(`consumptionSurface.mcp.protocolVersions lists "${version}" but the server does not support it`)
