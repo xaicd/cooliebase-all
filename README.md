@@ -97,7 +97,13 @@ pnpm run dev
 >
 > ⚠️ **环境变量优先级**：`process.env` > `.env.local` > `.env`。若你的 shell 里已经导出过
 > `DB_DRIVER` / `DATABASE_URL` / `TENANT_PLATFORM_USERNAMES` / `NODE_ENV`，它们会**覆盖**工程内的配置，
-> 典型现象是「工程起得来、`/readyz` 200，但登录永远 401」。排查时先 `env | grep -E 'DB_DRIVER|TENANT_|NODE_ENV'`。
+> 典型现象是「工程起得来、`/readyz` 200，但登录永远 401」。
+>
+> **排查第一步：`curl -s localhost:3200/readyz | jq .data`** —— 它会**如实报出当前实际生效的**
+> `db.driver`（`memory` / `sqlite` / `postgresql`）、`nodeEnv`、`tenant.mode` 与 `platformUsers`，
+> 并在容易误导时给出 `hints`（例如「当前使用内存库…先检查 shell 是否导出了 DB_DRIVER」）。
+> 如果你以为在用 `sqlite`、它却报 `memory`，那就是环境变量覆盖 —— 而不必去怀疑密码。
+> 其次再 `env | grep -E 'DB_DRIVER|TENANT_|NODE_ENV'`。
 > `pnpm run start`（standalone）**不读取** `.env.local`，生产部署请由容器/编排注入环境变量。
 
 > **自动化完成的核心事项**：

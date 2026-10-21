@@ -690,7 +690,11 @@ const RULES = [
       // 端到端：拉起器**实际解析出**的端口（--check 既只读又足够快）
       try {
         const out = spawnSync("node", ["scripts/run-all.cjs", "--check"], { cwd: ROOT, encoding: "utf8", timeout: 20000 })
-        const resolved = [...new Set([...String(out.stdout ?? "").matchAll(/端口\s+(\d+)/g)].map((m) => Number(m[1])))]
+        // **只认配置值那一行**（`端口: 后端 X / 前端 Y`）。
+        // 早先我对整段输出抓 `/端口\s+(\d+)/` —— 而 `--check` 还会**探测端口占用**
+        // 并打印"实际端口"，占用情况一变结果就变 → 门禁**不稳定**（实测偶发 FAIL）。
+        const configured = String(out.stdout ?? "").match(/端口:\s*后端\s*(\d+)\s*\/\s*前端\s*(\d+)/)
+        const resolved = configured ? [Number(configured[1]), Number(configured[2])] : []
         for (const port of resolved) {
           if (port !== devPort) {
             violations.push({ file: "scripts/run-all.cjs", detail: `解析出端口 ${port}，与 dev 的 ${devPort} / 网关的 ${[...snippetPorts].join("/")} 不一致` })
