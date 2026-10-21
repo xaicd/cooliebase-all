@@ -1,0 +1,26 @@
+# deploy/caddy/cooliebase-all.caddy
+# 项目: cooliebase-all
+# 动态 API 路由前缀: /cooliebase-all-api
+# 独立服务端口: 3200
+
+handle /cooliebase-all-api/* {
+	reverse_proxy 127.0.0.1:3200 {
+		header_up Host {host}
+		header_up X-Real-IP {remote_host}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Forwarded-Proto {scheme}
+	}
+}
+
+redir /services/cooliebase-all /services/cooliebase-all/ 308
+handle /services/cooliebase-all/* {
+	@api path /services/cooliebase-all/cooliebase-all-api/* /services/cooliebase-all/api/*
+	handle @api {
+		uri strip_prefix /services/cooliebase-all
+		reverse_proxy 127.0.0.1:3200
+	}
+	handle {
+		uri strip_prefix /services/cooliebase-all
+		reverse_proxy 127.0.0.1:3200
+	}
+}

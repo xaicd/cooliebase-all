@@ -1,0 +1,12 @@
+{
+  "name": "fullstack-launcher-caddy",
+  "domain": "infra",
+  "title": "全栈拉起器与 Caddy 网关部署片段",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 4,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-10-21T00:55:21.046Z"
+}

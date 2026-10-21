@@ -1,0 +1,164 @@
+{
+  "name": "fullstack-launcher-caddy",
+  "domain": "infra",
+  "title": "全栈拉起器与 Caddy 网关部署片段",
+  "type": "feature",
+  "goal": "一条命令拉起全栈（后端 + 前端）并就绪自验，同时产出可直接部署的 Caddy 网关片段；多项目同机时不撞端口。",
+  "provenanceNote": "**来源与本仓的处置（如实记录）**：这三个文件不是本仓维护者写的 —— 它们由 coolie 工坊派发的 **SRE 数字员工（兑底渊 / duidiyuan-pre-sre，引擎 copilot，任务 daily-tool-deploy-check）** 于 2026-10-21 08:02 写入，而其派发单声明的工作仓库是 **coolie**（**越界写入**，已向 coolie 提交缺陷报告）。本规格是**收编**：先验证、修正其缺陷、再正规化；**验证结论见 acceptance**。",
+  "roles": [
+    {
+      "role": "开发者",
+      "can": "一条命令拉起前后端，并能自检资产与端口就绪情况，不依赖「记得先跑哪个」"
+    },
+    {
+      "role": "运维 / SRE",
+      "can": "用同一份片段把网关规则部署到宿主，校验通过才热重载、失败保留原配置"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为开发者，我跑一条命令就能拉起全栈并看到资产/端口就绪情况。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为运维，我在宿主机上部署本项目的网关规则，校验通过才热重载、失败保留原配置。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为多项目同机的使用者，我希望端口按项目隔离，避免 EADDRINUSE。"
+    }
+  ],
+  "constraints": [
+    "**不引入新依赖**：拉起器只用 Node 内置模块；部署脚本只用 bash + caddy（缺 caddy 时降级为打印指引）。",
+    "**不擅自改系统**：`deploy-caddy.sh` 仅在 `/etc/caddy/services.d` 存在且装了 caddy 时才动手，否则**只打印部署指引**。",
+    "**端口必须与本仓约定一致**：真源是 `package.json` 的 `dev` 脚本（`next dev -p 3200`）与 `deploy/caddy/*.caddy` 的 reverse_proxy 目标。",
+    "沿用本仓既有门禁（`pnpm run check`），不为本特性新增门禁。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "`node scripts/run-all.cjs --check` exit=0，且**解析出的端口 = 3200**（与 `deploy/caddy/cooliebase-all.caddy` 的 reverse_proxy 一致）"
+    },
+    {
+      "check": "`bash scripts/deploy-caddy.sh` 在**无 `/etc/caddy/services.d` 且未装 caddy** 的环境下只打印部署指引、**不改动系统**（本机实测）"
+    },
+    {
+      "check": "反向对照（本特性自己制造过的缺陷）：把端口回退改回 `3000 + offset`，应重新出现「拉起器 3000 ↔ 网关 3200」的不一致"
+    }
+  ],
+  "nonGoals": [
+    "**不做实际部署**：本特性只产出规则与脚本，不替任何人执行生产变更。",
+    "**不移植 yudao 血统的其余部分**：`run-all.cjs` 里 `apps/backend/yudao-server`、`apps/admin` 等分支在本仓不存在（实测），保留为无害死分支，不为其补桩。",
+    "不引入 Caddy 作为本仓依赖。"
+  ],
+  "architecture": "单向、无环：`scripts/run-all.cjs`（读 `package.json` / `.env` / `.env.local` 定端口 → 探测占用 → spawn 前后端 → 就绪自验）；`scripts/deploy-caddy.sh`（读 `deploy/caddy/*.caddy` → 校验 → 热重载，失败保留原配置）；`deploy/caddy/cooliebase-all.caddy`（网关片段：`/cooliebase-all-api/*` → `127.0.0.1:3200`）。端口真源：`package.json` 的 `dev` 脚本；派生工程由孵化器写入 `.env` 的 `PORT` 覆盖。",
+  "entities": [
+    {
+      "table": "不适用",
+      "note": "工具链改动，不涉及数据库表，不新增迁移。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "拉起器与网关指向同一端口",
+      "how": "端口回退读 `package.json` 的 `dev` 脚本；`run-all.cjs --check` 输出必须为 3200 且与 caddy 片段一致。"
+    },
+    {
+      "name": "部署脚本不擅自改系统",
+      "how": "缺 `/etc/caddy/services.d` 或缺 caddy 时只打印指引（本机实测路径）。"
+    },
+    {
+      "name": "失败保留原配置",
+      "how": "`caddy validate` 不过则 `exit 1` 且不覆盖已有片段。"
+    }
+  ],
+  "ui": [
+    "不适用：无页面改动"
+  ],
+  "ops": [
+    "入口：`node scripts/run-all.cjs [--check]`、`bash scripts/deploy-caddy.sh`",
+    "npm scripts：`all`（改为拉起器）、`check:all`、`deploy:caddy`",
+    "生产宿主机 tc-coolie-claw 的部署指引由脚本打印（本机不执行）"
+  ],
+  "risks": [
+    {
+      "risk": "**来源越界**：文件由别的仓派发的员工写入，本仓无法约束其行为（本次差一点被 `git add -A` 提交进主干，靠 `plan:freshness` 拦下）",
+      "mitigation": "已向 coolie 提交缺陷报告（跨仓写入无授权边界 + 派发账停在 queued）；本仓侧的正规化即本规格"
+    },
+    {
+      "risk": "**端口与网关不一致**（本次验证发现的真实缺陷）：拉起器回退到 `3000 + offset`，而本仓与 caddy 片段是 3200 → 部署后网关指向空端口",
+      "mitigation": "已修：回退改为读 `package.json` 的 `dev` 脚本端口；`--check` 实测输出 3200/3200"
+    },
+    {
+      "risk": "拉起器含 yudao 血统的死分支（`apps/*`、`mvn`/`java`）",
+      "mitigation": "保留但不修补（见 nonGoals）；本仓路径走 Next.js 分支，实测 `--check` 正常"
+    }
+  ],
+  "screens": [
+    {
+      "name": "不适用（无 UI）",
+      "wireframe": "不适用"
+    }
+  ],
+  "interactions": [
+    "不适用（无 UI）"
+  ],
+  "states": [
+    "不适用（无 UI）"
+  ],
+  "candidates": [
+    {
+      "name": "收编并修正（采用）",
+      "type": "自研",
+      "license": "不适用（仓内脚本）",
+      "risk": "无"
+    },
+    {
+      "name": "删除退回",
+      "type": "不做",
+      "license": "不适用",
+      "risk": "丢弃一份可用的部署链路；且来源治理未解决前仍会再来"
+    }
+  ],
+  "benchmarks": [
+    "业界做法：把「本地一键拉起 + 反向代理片段」与代码同仓（docker-compose / Procfile / Caddyfile 随仓分发），使本地与线上入口一致。本规格与之一致。"
+  ],
+  "scan": [
+    "复用仓内既有能力，不引入新依赖：端口真源取 `package.json` 的 `dev` 脚本；部署侧仅依赖宿主机的 caddy（缺失即降级为指引）。"
+  ],
+  "licenseConclusion": "不适用新依赖 —— 全部为仓内脚本 + Node 内置模块 + bash。无许可风险，无传染性。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "收编三个产物并修正端口回退（拉起器 ↔ 网关端口一致）",
+      "files": [
+        "scripts/run-all.cjs",
+        "scripts/deploy-caddy.sh",
+        "deploy/caddy/cooliebase-all.caddy"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "接线：package.json 的 all/check:all/deploy:caddy + WBS",
+      "files": [
+        "package.json",
+        "docs/01_management/project-plan.md"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T1",
+      "title": "验证：check / run-all --check 端口 3200 / deploy-caddy 在本机只打印指引",
+      "files": [
+        "-"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 10
+}

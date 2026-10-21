@@ -220,6 +220,7 @@
 | I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
 | I18 | **孵化端到端固化** | 产物的 `check` 由常规入口守，而非「某次验过」 | ✅ | 新增 `pnpm run hatch:e2e`（两条入口 × minimal，各自 install + 产物 `check` + `build` + `smoke:login` 起服务登录）+ 独立 CI job；反向对照：关掉 restamp → 产物 `check` 红 → 该入口 `exit=1`（**门禁确实能失败**） |
 | I19 | **profile 矩阵复验** | **两条入口 × 5 profile** 的产物各自 `check` 全绿 | ✅ | 实测 **10/10 PASS**（init 侧 5/5 + create 侧 5/5）；过程中发现 harness 未传 `--bundle` 导致 `vertical` 误报（已修，并注明**那是 harness 的调用问题、不是产物问题**） |
+| I20 | **全栈拉起与网关部署** | 一条命令拉起全栈并就绪自验；网关片段可部署且失败保留原配置 | ✅ | 收编 coolie 派发员工越界写入的产物（规格 `fullstack-launcher-caddy`）；**验证中发现并修正端口不一致**（拉起器原回退 3000，而网关指向 3200 → 部署后会指到空端口）；实测验：`--check` 输出 3200/3200、`deploy-caddy.sh` 本机只打印指引不改系统 |
 
 ## 5. 当前进展快照（2026-10-20）
 
