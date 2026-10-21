@@ -275,3 +275,37 @@ describe("MCP: 写类工具（plan/preview，零落盘）", () => {
     })
   })
 })
+
+
+/**
+ * 全接口探测工具（`cooliebase_api_probe`）。
+ *
+ * 它存在的理由：`/healthz` 只证明"进程活着"，证明不了**342 个契约对应的接口**是否可用
+ * 或是否漂移。本工具按 `docs/agent/contracts.json` 逐个调 list 并断言响应结构
+ * （`items[]` + 数字 `total`），能抓到浅探抓不到的契约漂移。
+ *
+ * 两条硬约束在这里被钉死：
+ *   1. **零写**：入参只有 baseUrl / contract / limit，没有任何写类字段；
+ *   2. **连不上不崩**：如实返回 `reachable:false` + 提示，而不是抛异常。
+ */
+describe("全接口探测: cooliebase_api_probe", () => {
+  const tool = () => TOOLS.find((t: { name: string }) => t.name === "cooliebase_api_probe")
+
+  it("已注册，且入参**不含任何写类字段**（零写契约）", () => {
+    const t = tool()
+    expect(t, "缺 cooliebase_api_probe —— MCP 面与全接口探测脱节").toBeTruthy()
+    const props = Object.keys(t.inputSchema.properties ?? {})
+    expect(props.sort()).toEqual(["baseUrl", "contract", "limit"])
+    expect(t.inputSchema.additionalProperties).toBe(false)
+    // 反向对照：这些词一旦出现，说明工具可能落盘
+    for (const forbidden of ["write", "apply", "seed", "purge", "create", "update", "delete"]) {
+      expect(props.join(",")).not.toContain(forbidden)
+    }
+  })
+
+  it("应用不可达时如实返回，而非抛异常", () => {
+    const result = tool().run({ baseUrl: "http://127.0.0.1:19999" })
+    expect(result.reachable).toBe(false)
+    expect(String(result.hint ?? "")).toContain("pnpm run dev")
+  })
+})

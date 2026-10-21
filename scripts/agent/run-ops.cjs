@@ -23,6 +23,9 @@ const ROOT = path.resolve(__dirname, "..", "..")
 const REGISTRY = path.join(ROOT, "docs", "agent", "contracts.json")
 
 const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
+// `--json`：机器可读报告。MCP 的 `cooliebase_api_probe` 就是 spawn 本脚本并解析它 ——
+// **探测逻辑只有这一份**，不另写一套（避免第二个真源）。
+const asJson = process.argv.includes("--json")
 const username = process.env.COOLIEBASE_AGENT_USERNAME || "admin"
 const password = process.env.COOLIEBASE_AGENT_PASSWORD || ""
 
@@ -159,17 +162,41 @@ async function main() {
 
   const token = await login()
   let failed = 0
+  const results = []
   for (const contract of targets) {
     const label = `${contract.domain}.${contract.entity}`
     try {
       const result = await runOp(contract, target === "health" ? "health" : op, token)
       if (!result.ok) failed++
-      console.log(`  ${result.ok ? "✓" : "✗"} ${label} ${op === "health" ? "health" : op} — ${result.detail}`)
-      if (targets.length > 1 && !result.ok) console.log(`    ↑ 契约: ${contract.__source}`)
+      results.push({ contract: label, kebab: contract.kebab, ok: result.ok, detail: result.detail, source: contract.__source })
+      if (!asJson) {
+        console.log(`  ${result.ok ? "✓" : "✗"} ${label} ${op === "health" ? "health" : op} — ${result.detail}`)
+        if (targets.length > 1 && !result.ok) console.log(`    ↑ 契约: ${contract.__source}`)
+      }
     } catch (error) {
       failed++
-      console.log(`  ✗ ${label} ${op} — ${error.message}`)
+      results.push({ contract: label, kebab: contract.kebab, ok: false, detail: error.message, source: contract.__source })
+      if (!asJson) console.log(`  ✗ ${label} ${op} — ${error.message}`)
     }
+  }
+  if (asJson) {
+    // **必须等写完再退出**：`process.exit()` 会丢弃尚未刷入管道的 stdout ——
+    // 实测 342 条契约的报告约 70KB，直接 exit 会在 65518 字节处**截断成非法 JSON**
+    // （下游 `JSON.parse` 报 Unterminated string，而脚本看着"正常结束"）。
+    // 用 write 的回调确保 flush 后再退出。
+    const payload = JSON.stringify({
+      ok: failed === 0,
+      baseUrl,
+      op: target === "health" ? "health" : op,
+      authenticated: Boolean(token),
+      readOnly: (target === "health" || op === "health"),
+      total: targets.length,
+      passed: targets.length - failed,
+      failed,
+      results,
+    }, null, 2)
+    await new Promise((resolve) => process.stdout.write(payload + "\n", resolve))
+    process.exit(failed > 0 ? 1 : 0)
   }
   if (failed > 0) {
     console.error(`\n[agent:ops] ${failed}/${targets.length} 失败`)

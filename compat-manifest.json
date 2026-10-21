@@ -85,7 +85,8 @@
         "cooliebase_skills_list",
         "cooliebase_spec_list",
         "cooliebase_standards_report",
-        "cooliebase_table_migration_plan"
+        "cooliebase_table_migration_plan",
+        "cooliebase_api_probe"
       ],
       "count": 17
     },

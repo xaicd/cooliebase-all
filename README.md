@@ -145,7 +145,7 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 | [`llms.txt`](llms.txt) | LLMs.txt RFC | 专为大模型量身定制的高密度架构全景与执行导航（<15KB） |
 | [`wiki/index.md`](wiki/index.md) | OpenWiki 标准 | 专供 AI Agent 消费的高内聚动态全息架构与 17 领域维基百科 |
 | [`compat-manifest.json`](compat-manifest.json) | 机器特征契约 | 17 域能力画像、38 个技能、全量 API 路由与 RPC action 元数据 |
-| [`agent-profile.json`](agent-profile.json) | DigitalStaff 规范 | AI 智能体画像、NPC L0~L8 角色映射、17 大内置 MCP 工具定义 |
+| [`agent-profile.json`](agent-profile.json) | DigitalStaff 规范 | AI 智能体画像、NPC L0~L8 角色映射、18 大内置 MCP 工具定义 |
 | [`.well-known/agent.json`](.well-known/agent.json) | RFC 8615 行业标准 | 开放标准化 Agent 发现协议，第三方智能体（如 Coolie）可自动化握手 |
 
 > **实时 HTTP 探针**：服务启动后支持根路径直接探活：  

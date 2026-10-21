@@ -106,7 +106,7 @@ log("INFO", "══════════════════════�
 console.log("")
 
 // 启动 next dev（非阻塞方式让 Ctrl+C 正常工作）
-const child = spawn(process.platform === "win32" ? "npm.cmd" : "npm", ["run", "dev"], {
+const child = spawn(process.platform === "win32" ? "pnpm.cmd" : "pnpm", ["run", "dev"], {
   cwd: ROOT,
   stdio: "inherit",
   shell: true,

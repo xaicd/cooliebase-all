@@ -1,5 +1,0 @@
-const { spawnSync } = require("node:child_process")
-const args = process.argv.slice(2)
-if (args.length === 0) process.exit(0)
-const res = spawnSync("npm", ["run", ...args], { stdio: "inherit", shell: true })
-process.exit(res.status ?? 0)

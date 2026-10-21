@@ -317,8 +317,9 @@ const TOOLS = [
       if (!script) {
         throw new Error(`gate "${gate}" is not whitelisted; allowed: ${Object.keys(GATES).join(", ")}`)
       }
-      const npm = process.platform === "win32" ? "npm.cmd" : "npm"
-      const result = spawnSync(npm, ["run", "--silent", script], {
+      // 本仓包管理器是 pnpm（AGENTS §2.1）；此前这里用 npm —— 数组形态逃过了 no-new-npm-run 的文本匹配
+      const runner = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
+      const result = spawnSync(runner, ["run", "--silent", script], {
         cwd: ROOT,
         encoding: "utf8",
         timeout: GATE_TIMEOUT_MS,
@@ -333,6 +334,68 @@ const TOOLS = [
         passed: result.status === 0,
         output: truncate(output, 12000),
       }
+    },
+  },
+  {
+    name: "cooliebase_api_probe",
+    description:
+      "Read-only health probe across EVERY declared API contract (docs/agent/contracts.json, ~342 entries): calls each contract's list endpoint and asserts the response shape (items[] + numeric total), so it catches contract drift that a shallow /healthz probe cannot. Never writes. Requires the app to be running; set baseUrl or COOLIEBASE_AGENT_BASE_URL. Authentication uses COOLIEBASE_AGENT_USERNAME / COOLIEBASE_AGENT_PASSWORD from the environment — when absent it reports authenticated:false and every probe returns 401 (routes exist and are guarded, but health is unverified).",
+    inputSchema: {
+      type: "object",
+      properties: {
+        baseUrl: {
+          type: "string",
+          description: "Target app base URL. Defaults to COOLIEBASE_AGENT_BASE_URL or http://localhost:3200.",
+        },
+        contract: {
+          type: "string",
+          description: "Probe a single contract only, e.g. \"system.SystemUser\" or \"system-user\". Omit to probe all.",
+        },
+        limit: {
+          type: "number",
+          description: "Cap the number of contracts probed (useful for a quick smoke). Omit for all.",
+        },
+      },
+      additionalProperties: false,
+    },
+    run(args) {
+      const baseUrl = String(args.baseUrl || process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").trim()
+      const contract = args.contract ? String(args.contract).trim() : ""
+      const limit = Number.isFinite(Number(args.limit)) && Number(args.limit) > 0 ? Math.floor(Number(args.limit)) : 0
+      const cliArgs = ["scripts/agent/run-ops.cjs"]
+      if (contract) cliArgs.push(contract)
+      cliArgs.push("health", "--json")
+
+      const result = spawnSync(process.execPath, cliArgs, {
+        cwd: ROOT,
+        encoding: "utf8",
+        timeout: 180_000,
+        env: { ...process.env, COOLIEBASE_AGENT_BASE_URL: baseUrl },
+      })
+      const stdout = String(result.stdout || "").trim()
+      const stderr = String(result.stderr || "").trim()
+
+      // 预检失败（应用没在跑）时 run-ops 以 exit=2 退出并给可读提示 —— 这里**不抛异常**，
+      // 而是把"连不上"如实返回（和 /readyz 的自诊断一个取向：让调用方看见真相）。
+      if (result.status === 2 && !stdout) {
+        return {
+          reachable: false,
+          baseUrl,
+          hint: "应用未运行或不可达。先 `pnpm run dev`，或用 baseUrl 指向已启动的实例。",
+          detail: truncate(stderr, 2000),
+        }
+      }
+      let report
+      try {
+        report = JSON.parse(stdout)
+      } catch {
+        return { reachable: true, baseUrl, parsed: false, exitCode: result.status, detail: truncate(`${stdout}\n${stderr}`, 4000) }
+      }
+      if (limit > 0 && Array.isArray(report.results)) {
+        report.results = report.results.slice(0, limit)
+        report.truncatedTo = limit
+      }
+      return { reachable: true, baseUrl, ...report, readOnly: true, exitCode: result.status }
     },
   },
   {

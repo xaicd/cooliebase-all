@@ -24,7 +24,7 @@
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
 - **MCP 原生支持 (Model Context Protocol)**:
-  - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 17 个确定性工具），消除全库扫描 Token 浪费。
+  - 内置 `scripts/mcp/cooliebase-mcp-server.cjs`（提供 `cooliebase_domain_list`, `cooliebase_action_lookup`, `cooliebase_gate_run` 等 18 个确定性工具），消除全库扫描 Token 浪费。
 - **全自动项目重塑引擎 (ProjectReactor CLI)**:
   - 原地重塑: `pnpm run project:init`，一键重塑包名、中文系统标题、端口、Git Remote 与品牌版权。
   - 派生裁剪: 支持 `--profile base` / `minimal` / `standard` / `vertical` / `creator` 五种形态（vertical 可再 `--bundle <域>`），自动剔除冗余业务域，并自动 `git init` 记录任务痕迹。
@@ -36,7 +36,7 @@
 - **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
 - **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
 - **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
-  - 声明版本、17 域清单、38 技能目录、17 项 MCP 工具、20 层交付 Gate 与 Hatch 派生配置。
+  - 声明版本、17 域清单、38 技能目录、18 项 MCP 工具、20 层交付 Gate 与 Hatch 派生配置。
 - **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
 - **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)

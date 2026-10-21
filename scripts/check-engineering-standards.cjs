@@ -568,7 +568,10 @@ const RULES = [
         ".well-known/",
       ]
       // 只认"可执行指引"形态：`npm run <script>`。裸提 `npm`（如"包管理器统一为 pnpm"）不算。
-      const pattern = /(?<![pP])npm\s+run\s/
+      // 两种形态都要抓（`no-new-npx` 的教训：只抓文本形态会漏掉"作为参数传给子进程"）：
+      //   `npm run <script>`            —— 文档/脚本里的命令行
+      //   `spawnSync("npm", ["run", …)` —— 数组形态（实测：`gate_run` 就这么写的，此前漏检）
+      const pattern = /(?<![pP])npm\s+run\s|["']npm(?:\.cmd)?["']\s*,\s*\[\s*["']run["']/
       const walk = (dir) => {
         for (const entry of fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true })) {
           const rel = dir ? `${dir}/${entry.name}` : entry.name

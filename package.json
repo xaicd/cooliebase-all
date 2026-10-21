@@ -45,7 +45,7 @@
     "contracts:audit-logs:check": "tsx scripts/check-audit-log-contracts.ts",
     "audit-logs:retention": "tsx scripts/run-audit-log-retention.ts",
     "init": "echo '[cooliebase-all] 本地最小启动无需基础设施初始化；如需接入仓库根初始化，请执行 npm run init:root'",
-    "init:root": "node ./scripts/run-root-npm.cjs docker:dev:core && node ./scripts/run-root-npm.cjs db:init:force",
+    "init:root": "node ./scripts/run-root-script.cjs docker:dev:core && node ./scripts/run-root-script.cjs db:init:force",
     "all": "node scripts/run-all.cjs",
     "init:all": "bash scripts/lifecycle.sh . install",
     "test:all": "vitest run test/unit test/integration && playwright test",
