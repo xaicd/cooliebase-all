@@ -222,7 +222,24 @@
 | I19 | **profile 矩阵复验** | **两条入口 × 5 profile** 的产物各自 `check` 全绿 | ✅ | 实测 **10/10 PASS**（init 侧 5/5 + create 侧 5/5）；过程中发现 harness 未传 `--bundle` 导致 `vertical` 误报（已修，并注明**那是 harness 的调用问题、不是产物问题**） |
 | I20 | **全栈拉起与网关部署** | 一条命令拉起全栈并就绪自验；网关片段可部署且失败保留原配置 | ✅ | 收编 coolie 派发员工越界写入的产物（规格 `fullstack-launcher-caddy`）；**验证中发现并修正端口不一致**（拉起器原回退 3000，而网关指向 3200 → 部署后会指到空端口）；实测验：`--check` 输出 3200/3200、`deploy-caddy.sh` 本机只打印指引不改系统 |
 
-## 5. 当前进展快照（2026-10-20）
+### WS-J 文档真实性 · 测试覆盖 · 门禁可失败（2026-10-21 新增）
+
+> 主线：**本轮所有结论都先实测再落文档**。四项工作的共同点是「门禁看着有、实际是空的」。
+
+| ID | 工作项 | 验收 | 状态 | 证据 |
+|---|---|---|---|---|
+| J1 | 文档写死的数字可机检 | 7 类计数（活跃规格 / 需求日志 / 门禁 / MCP 工具 / 插件 / Skills / 规范规则）与真源逐项对照 | ✅ | `pnpm run docs:claims:check`（只扫 `docs/01_management` + `docs/02_requirements`；**反向对照实测 exit 1**） |
+| J2 | 测试文件不得「没人跑」 | 每个已跟踪 `*.test.ts` 至少被一个具名入口选中 | ✅ | 实测 **480 个文件中原有 426 个**不被任何具名入口选中（只靠全量 `test`）→ 修入口后 **0**；守卫 `test/unit/test-entry-coverage.test.ts`（3 条，含反向对照） |
+| J3 | L3 契约层进主门禁链 | `check` 链包含 `test:contract` | ✅ | 此前只在 CI 的 `gates` job，**门禁绿 ≠ L3 跑过** |
+| J4 | 空转规则无盲区 | 扫描面覆盖 `packages/shared/**` 与 `src/**` | ✅ | 此前扫 `test`/`domains`/`plugins`/`scripts`，**漏了这两处**；反向对照：往 `packages/shared` 注入恒真断言 → 补面前 PASS（假绿）/ 补面后 FAIL |
+| J5 | 文档数字与真源对齐 | 8 处陈旧数字修正 | ✅ | 活跃规格 8→12 · 需求日志 3→5 · 门禁 13→20→21 · 规则 11→17 · 计划快照 10→12 |
+| J6 | compat 自我一致性 | `mcp.count` 必须等于 `mcp.tools` 条数 | ✅ | 实测 `count` 写 17 而 `tools` 已 18；根因是该校验只做了 `skills.count`、**同一模式漏了 mcp** —— 已补 |
+
+**本轮的元教训（记进 §6）**：四次误判里三次是「用推测代替检索」；
+另有一次是**反向对照本身设计错了**（只缩一个入口、其它入口仍在覆盖 → "通过"是假阳性）。
+**反向对照必须真的移除被检对象**，否则是自我安慰。
+
+## 5. 当前进展快照（2026-10-21）
 
 - **统一生命周期入口**：新增 `pnpm run all`, `init:all`, `test:all` 与 `scripts/lifecycle.sh` 独立全生命周期执行器。
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
@@ -242,6 +259,9 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **文档真实性**：新增 `pnpm run docs:claims:check`（7 类计数对标真源，**反向对照实测 exit 1**）；
+  门禁 20 → **21**；`compat` 自身 `mcp.count` 漂移已修并补校验。
+- **测试入口覆盖**：480 个测试文件中**原有 426 个不被任何具名入口选中**，已修至 **0** 并加守卫测试。
 - **Harness**：本轮 32 个提交；风险台账新增 RSK-011/012/013 并全部收敛到「已知边界 + 机检」。
 
 ---
@@ -258,6 +278,14 @@
 | 6 | ~~04_implementation 仅 1 个文件、01_management 仅 3 个~~ **（本条本身有误）** | `docs/04_implementation/`、`docs/01_management/` | ✅ 实测两处**各 4 个**真实文件（含 `sbom.json` 616 组件、代码审查清单、插件架构蓝图）。**不写死**，复算：`find docs/0*/ -type f ! -name .gitkeep | wc -l`。`09_operations` 为 0 属 §25「未发生留空」合规，**不补水字数** |
 | 7 | 风险台账全部标"已受控"，但依赖 CVE、空壳测试两类此前并无门禁 | `risk-register.md` | ✅ 本轮补登 2 条并修正状态口径 |
 
+| 8 | 活跃规格数写「8 份」（计划 H1 / RTM §4 / `1019.md`），实测 **12** | `docs/01_management/`、`docs/02_requirements/` | ✅ 已改为真源实测值 + 附复算命令 |
+| 9 | 需求日志写「3 份」，实测 **5** | `1019.md` | ✅ 同上 |
+| 10 | 静态门禁写 13，实测 **20**（本轮又 +1 → 21）；规范规则写 11，实测 **17** | NFR §5 | ✅ 改为真源实测值；并由新增的 `docs:claims:check` 看守 |
+| 11 | NFR 自相矛盾：`:64` 称数字「由 `llms:check` 守着」，`:65` 又自认「本文件不在被检列表内」 | NFR §5 | ✅ 合并为一句诚实表述（**自我豁免式漂移**的典型） |
+| 12 | RTM §5 写「SRS/URS **尚未落地**」，与计划 H1 的「**刻意不产出**（决策）」互斥 | RTM §5 | ✅ 统一为决策口径并写明理由 |
+| 13 | 426 个测试文件**不被任何具名入口选中**（480 中仅 54 被选中） | `package.json` 的 `test:*` | ✅ 修入口（`test:unit/matrix/all` 覆盖 `packages`+`scripts`+`src`）→ 0；并加守卫测试防复发 |
+| 14 | `compat-manifest` 自身不一致：`mcp.count` 写 17 而 `mcp.tools` 已 18 | `compat-manifest.json` | ✅ 补 `mcp.count === tools.length` 校验（与既有 `skills.count` 同款，此前**只做了 skills**） |
+| 15 | 空转规则声称 enforce，实际不扫 `packages/shared` 与 `src` | `check-engineering-standards.cjs` | ✅ 补扫描面；反向对照证明补前后判据不同 |
 ---
 
 ## 7. 维护规则
