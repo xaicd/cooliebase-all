@@ -4,6 +4,10 @@
 # 独立服务端口: 3200
 
 handle /cooliebase-all-api/* {
+	# **必须 strip 前缀**：本仓接口根是 `/api/v1/**`，不是 `/cooliebase-all-api/**`。
+	# 实测（2026-10-21，本地 caddy + 真实应用）：不 strip 时该入口**全部 404**；
+	# strip 后同一个请求落到 `/api/v1/admin/system/users` → **401**（路由存在、待鉴权）。
+	uri strip_prefix /cooliebase-all-api
 	reverse_proxy 127.0.0.1:3200 {
 		header_up Host {host}
 		header_up X-Real-IP {remote_host}
