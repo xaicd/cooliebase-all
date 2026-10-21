@@ -93,11 +93,22 @@ for (const envFile of ['.env', '.env.local', 'apps/admin/.env', 'apps/miniapp/.e
   }
 }
 
-// 默认回退与动态衍生 (若无指定端口则优先使用隔离端口，否则 fallback 到标准端口)
+// 默认回退与动态衍生。
+//
+// **前端端口的真源是本仓 `package.json` 的 dev 脚本**（如 `next dev -p 3200`）。
+// 此前回退到 `3000 + portOffset`（yudao 血统的"多项目同机隔离端口"），
+// 与本仓约定、以及 `deploy/caddy/*.caddy` 的 reverse_proxy 目标**不一致** ——
+// 实测：本仓解析出 3000，而 Caddy 片段指向 3200 → **部署后网关指到空端口**。
+// 派生工程不受影响：孵化器会把 `PORT` 写进它们的 `.env`，在上面那段就被读到了。
+// 该一致性由 `standards:check` 的 `launcher-gateway-port-consistency` 机检，防止再次悄悄漂移。
 if (!apiPrefix) apiPrefix = `/${projectSlug}/admin-api`;
 if (!appApiPrefix) appApiPrefix = `/${projectSlug}/app-api`;
-if (!backendPort || isNaN(backendPort)) backendPort = 48000 + portOffset;
-if (!frontendPort || isNaN(frontendPort)) frontendPort = 3000 + portOffset;
+if (!frontendPort || isNaN(frontendPort)) {
+  const devScript = require("./../package.json").scripts?.dev || "";
+  const devPort = devScript.match(/-p\s+(\d+)/);
+  frontendPort = devPort ? Number(devPort[1]) : 3000 + portOffset;
+}
+if (!backendPort || isNaN(backendPort)) backendPort = frontendPort;
 
 function probeTcpPort(port, host = '127.0.0.1', timeout = 1000) {
   return new Promise((resolve) => {

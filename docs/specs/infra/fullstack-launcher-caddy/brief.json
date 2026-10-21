@@ -95,6 +95,10 @@
     {
       "risk": "拉起器含 yudao 血统的死分支（`apps/*`、`mvn`/`java`）",
       "mitigation": "保留但不修补（见 nonGoals）；本仓路径走 Next.js 分支，实测 `--check` 正常"
+    },
+    {
+      "risk": "**未决**：网关片段以 `/cooliebase-all-api/*` 反代且未 strip_prefix，而本仓接口是 `/api/v1/**` → 照此规则会 404（yudao 血统残留）",
+      "mitigation": "**不在本规格内擅自改**：需先定本仓的网关契约（是暴露 /api/v1 直通，还是保留 /<slug>-api 并 strip_prefix 后再映射）。已如实记为未决，避免假称修好。"
     }
   ],
   "screens": [

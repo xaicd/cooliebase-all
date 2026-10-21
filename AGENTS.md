@@ -403,7 +403,7 @@ CI 前置检查：
 | `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `pnpm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
-当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-20 的**快照**（共 14 条）：
+当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-21 的**快照**（共 15 条）：
 
 | 规则 | 模式 | 约束 |
 |---|---|---|
@@ -418,6 +418,8 @@ CI 前置检查：
 | `no-vacuous-test-assertions` | enforce | 禁止字面恒真断言（如 `expect(true).toBe(true)`） |
 | `route-service-update-arity` | enforce | route 层 `Service.update` 的参数形态须与服务**真实签名**一致（先解析签名再判定，故不误报定制服务） |
 | `frontend-api-url-shape` | enforce | 生成的 api 客户端更新/删除须走 item 路径（`/base/:id`）；PUT 打集合、DELETE 用 `?id=` 路由无实现 |
+| `no-duplicate-json-keys` | enforce | JSON 配置禁重复键（`JSON.parse` 静默取最后一个，前面那份成死代码） |
+| `launcher-gateway-port-consistency` | enforce | 拉起器 / 网关片段 / `package.json` 的端口必须一致（否则网关指向空端口） |
 | `no-new-npm-run` | ratchet | §2.1 脚本调用统一 `pnpm run`（存量 218 文件冻结，**只拦新增**） |
 | `facade-method-dispatch-mapped` | ratchet | Facade 方法派发映射 |
 | `init-sql-seed-columns` | ratchet | 初始化 SQL 种子列 |

@@ -18,6 +18,7 @@ const fs = require("fs")
 const path = require("path")
 const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
 const { findDuplicateKeys } = require("./lib/json-duplicate-keys.cjs")
+const { spawnSync } = require("node:child_process")
 
 const BASELINE_REL = "docs/architecture/artifacts/engineering-standards-baseline.json"
 const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-domain-governance.md"
@@ -647,6 +648,56 @@ const RULES = [
           continue
         }
         for (const d of dups) violations.push({ file: rel, detail: "k " + d.key + " @L" + d.line + " (首次 @L" + d.firstLine + ")" })
+      }
+      return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
+    },
+  },
+  {
+    id: "launcher-gateway-port-consistency",
+    section: "AGENTS.md §2.1",
+    mode: "enforce",
+    description:
+      "the launcher, the gateway snippet and package.json must agree on the service port — otherwise the gateway proxies to a dead port",
+    run() {
+      // 为什么需要：`scripts/run-all.cjs` 的端口回退曾回落到 `3000 + portOffset`
+      // （yudao 血统的多项目隔离端口），而 `deploy/caddy/*.caddy` 的 reverse_proxy 指向 3200
+      // → **部署后网关指到空端口**（实测）。
+      //
+      // 更值得记的是：这条判据我先写进了规格的 acceptance，**却没做成机检** ——
+      // 结果一小时内就被一次并发提交覆盖回旧值，而 `check` 依然是绿的。
+      // **写了判据不机检，等于没写**（本仓反复栽的同一课）。
+      const violations = []
+      const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+      const devPort = Number(String(pkg.scripts?.dev || "").match(/-p\s+(\d+)/)?.[1] ?? 0)
+      if (!devPort) return [{ file: "package.json", detail: "dev 脚本里找不到 `-p <port>`，无法比对" }]
+
+      const caddyDir = path.join(ROOT, "deploy", "caddy")
+      const snippets = fs.existsSync(caddyDir)
+        ? fs.readdirSync(caddyDir).filter((n) => n.endsWith(".caddy"))
+        : []
+      if (snippets.length === 0) return []
+      const snippetPorts = new Set()
+      for (const name of snippets) {
+        const text = fs.readFileSync(path.join(caddyDir, name), "utf8")
+        for (const m of text.matchAll(/reverse_proxy\s+127\.0\.0\.1:(\d+)/g)) snippetPorts.add(Number(m[1]))
+      }
+      for (const port of snippetPorts) {
+        if (port !== devPort) {
+          violations.push({ file: "deploy/caddy", detail: `网关指向 ${port}，而 package.json 的 dev 是 ${devPort}` })
+        }
+      }
+
+      // 端到端：拉起器**实际解析出**的端口（--check 既只读又足够快）
+      try {
+        const out = spawnSync("node", ["scripts/run-all.cjs", "--check"], { cwd: ROOT, encoding: "utf8", timeout: 20000 })
+        const resolved = [...new Set([...String(out.stdout ?? "").matchAll(/端口\s+(\d+)/g)].map((m) => Number(m[1])))]
+        for (const port of resolved) {
+          if (port !== devPort) {
+            violations.push({ file: "scripts/run-all.cjs", detail: `解析出端口 ${port}，与 dev 的 ${devPort} / 网关的 ${[...snippetPorts].join("/")} 不一致` })
+          }
+        }
+      } catch (error) {
+        violations.push({ file: "scripts/run-all.cjs", detail: `无法运行 --check: ${String(error?.message ?? error).split("\n")[0]}` })
       }
       return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
     },
