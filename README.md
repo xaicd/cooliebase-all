@@ -75,20 +75,28 @@ flowchart TD
 
 外部 AI Agent 或开发者在接入或使用本底座时，**无需下载 500MB+ 全量历史提交包**，可在 10 秒内直接派生一个干净、合规、零外部依赖的全新客户业务工程：
 
-> ⚠️ **方案 A 尚未发布到 npm**：`pnpm dlx create-cooliebase-app` 现在会 **404**（实测 2026-10-21）。
-> 发布前请用下面的「方案 B」（**已实测端到端可用**），或在**本仓内**直接跑
-> `node packages/tools/create-cooliebase-app/bin/index.js my-app`（同样实测可用）。
-
 ```bash
-# 方案 B: degit 骨架拉取（当前推荐，10 秒内完成，0MB 历史提交）
+# 方案 A: 一行命令派生（**推荐**；不需要 npm、不需要 Postgres）
+curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh \
+  | bash -s -- my-app --profile minimal --install
+
+# 方案 B: 自己控制每一步（degit，10 秒内完成，0MB 历史提交）
 pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 pnpm run project:init -- --name "my-app" --title "我的新业务系统"
 pnpm run dev
-
-# 方案 A（**发布到 npm 之后**才可用，再启用下面这行）:
-# pnpm dlx create-cooliebase-app my-app
 ```
+
+> **两个方案都实测过端到端可用**（2026-10-21）：
+> 方案 A `--profile minimal --install` → `/healthz` **200**、**登录 200 + token**、受保护接口 **200**；
+> 产物 `.env` 的 `DB_DRIVER/DATABASE_URL/SQLITE_DB_PATH` 三者指向**同一个**库文件。
+>
+> ⚠️ 方案 A 的 `--install` 别省：它会顺带初始化 SQLite 库并把随机管理员密码写进 `.env.local`；
+> 省略则需自己 `pnpm install` 后按提示执行 `SQLITE_DB_PATH=... pnpm exec tsx scripts/bootstrap-sqlite.ts`。
+>
+> 注：`packages/tools/create-cooliebase-app` 是**仓内工具**（未发布到 npm，`pnpm dlx` 会 404）——
+> 只在本仓里用 `node packages/tools/create-cooliebase-app/bin/index.js <dir>`。
+
 > **实测记录**
 >
 > - **2026-10-20 复跑**（无 `.git` 克隆模拟 degit）：`pnpm install` → `project:init` → `pnpm run check`（**exit 0**）。

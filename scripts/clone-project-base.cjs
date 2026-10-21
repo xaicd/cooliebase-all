@@ -10,7 +10,10 @@
 const fs = require("node:fs")
 const path = require("node:path")
 const { execSync, spawnSync } = require("node:child_process")
-const { Client } = require("pg")
+// **不要在这里 require("pg")**：`hatch.sh` 会从 degit 的**裸克隆**（没有 node_modules）
+// 里直接跑本脚本，模块级 require 第三方包会直接 MODULE_NOT_FOUND ——
+// 实测：`curl .../hatch.sh | bash -s -- my-app` 就是这么崩的（EXIT=1，产物都没建出来）。
+// `pg` 只在 `autoProvisionDatabase()` 里用，用到时再引入。
 const {
   parseArgv,
   helpText,
@@ -722,6 +725,7 @@ async function autoProvisionDatabase(targetDbName) {
   console.log("----------------------------------------------------------------")
   console.log(`[REACTOR DB] 正在连接 PostgreSQL 并自动初始化数据库: ${targetDbName}...`)
 
+  const { Client } = require("pg")
   const client = new Client({
     connectionString: resolvePgAdminUrl(),
   })
