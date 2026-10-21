@@ -56,9 +56,9 @@ describe("JSON 重复键检测", () => {
     const headPkg = execFileSync("git", ["show", "HEAD:package.json"], { cwd: ROOT, encoding: "utf8" })
     const dups = findDuplicateKeys(headPkg)
     // HEAD 里 `test:all` 曾重复（后经本波修正）；若将来 HEAD 已修好，转而在工作区造一个
-    const sample = dups.length > 0
-      ? headPkg
-      : execFileSync("node", ["-e", 'process.stdout.write(JSON.stringify({a:1,a:2},null,2))'], { encoding: "utf8" })
+    // HEAD 那份曾含重复（本波已修）；若将来 HEAD 已干净，就**用字符串字面量**造样本 ——
+    // 不能用 JS 对象字面量（`{a:1,a:2}` 在 JS 里本身就会丢掉重复键，样本会是空的）。
+    const sample = dups.length > 0 ? headPkg : '{\n  "a": 1,\n  "a": 2\n}'
     expect(findDuplicateKeys(sample).length, "样本必须确实含重复键，否则这条对照是空的").toBeGreaterThan(0)
 
     // 未注入时门禁为绿
