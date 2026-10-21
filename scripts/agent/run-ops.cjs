@@ -26,6 +26,10 @@ const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200
 // `--json`：机器可读报告。MCP 的 `cooliebase_api_probe` 就是 spawn 本脚本并解析它 ——
 // **探测逻辑只有这一份**，不另写一套（避免第二个真源）。
 const asJson = process.argv.includes("--json")
+// `--record`：把 `--json` 报告落成**留痕产物**（与 security-scan / load-test 同族）。
+// **只在 CLI 显式要求时写**；MCP 工具永不落盘（AGENTS §18 的零写契约）。
+const record = process.argv.includes("--record")
+const ARTIFACT_REL = "docs/architecture/artifacts/api-probe-result.json"
 const username = process.env.COOLIEBASE_AGENT_USERNAME || "admin"
 const password = process.env.COOLIEBASE_AGENT_PASSWORD || ""
 
@@ -179,13 +183,43 @@ async function main() {
       if (!asJson) console.log(`  ✗ ${label} ${op} — ${error.message}`)
     }
   }
+  // **三态判定**：认证过才有资格谈健康；没认证就老实说"未验证"。
+  // 否则一次无凭据的跑批会把 342 个 401 记成"全挂了"，比不记录更误导。
+  const verdict = token ? (failed === 0 ? "passed" : "failed") : "unverified"
+
+  if (record) {
+    const artifact = {
+      schema: "cooliebase.api-probe/v1",
+      ranAt: new Date().toISOString(),
+      baseUrl,
+      op: target === "health" ? "health" : op,
+      readOnly: true,
+      authenticated: Boolean(token),
+      verdict,
+      note: token
+        ? "已认证：逐个契约调 list 并断言响应结构（items[] + 数字 total）。"
+        : "**未认证**：所有探测返回 401 —— 这只证明路由存在且被守卫，**不能**当作健康结论。设置 COOLIEBASE_AGENT_USERNAME/PASSWORD 后重跑。",
+      total: targets.length,
+      passed: targets.length - failed,
+      failed,
+      results,
+    }
+    const fs = require("node:fs")
+    const path = require("node:path")
+    const abs = path.join(ROOT, ARTIFACT_REL)
+    fs.mkdirSync(path.dirname(abs), { recursive: true })
+    fs.writeFileSync(abs, JSON.stringify(artifact, null, 2) + "\n", "utf8")
+    if (!asJson) console.error(`[agent:ops] 已落盘: ${ARTIFACT_REL}（verdict=${verdict}）`)
+  }
+
   if (asJson) {
     // **必须等写完再退出**：`process.exit()` 会丢弃尚未刷入管道的 stdout ——
     // 实测 342 条契约的报告约 70KB，直接 exit 会在 65518 字节处**截断成非法 JSON**
     // （下游 `JSON.parse` 报 Unterminated string，而脚本看着"正常结束"）。
     // 用 write 的回调确保 flush 后再退出。
     const payload = JSON.stringify({
-      ok: failed === 0,
+      ok: verdict === "passed",
+      verdict,
       baseUrl,
       op: target === "health" ? "health" : op,
       authenticated: Boolean(token),
