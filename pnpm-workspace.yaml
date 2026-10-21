@@ -30,3 +30,10 @@ allowBuilds:
 # 故用 override 把 vite 抬到修补版 —— **有补丁就升，不登记为已接受风险**。
 overrides:
   vite: ^7.3.7
+
+# 从 .npmrc 迁来：**pnpm 12 不再读 .npmrc 里的这两项**（实测 `pnpm config get` 返回 undefined，
+# 即"写了但没生效"）。这里的键用 camelCase。
+# 两者都与 pnpm 的默认值一致（不因 peer 缺失/不匹配直接失败；自动安装 peers），
+# 显式写出来是为了让"我们的意图"可见，而不是靠默认值碰巧一致。
+strictPeerDependencies: false
+autoInstallPeers: true
