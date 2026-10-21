@@ -542,9 +542,9 @@ pnpm run check                 # 门禁产出证据 + 轨迹
 
 | 层 | 入口 | 覆盖范围（目录锚定） |
 |---|---|---|
-| L1 单测 | `pnpm run test:unit` | `test/unit/` |
+| L1 单测 | `pnpm run test:unit` | `test/unit/` **+ `packages/**/__tests__/` + `scripts/**/__tests__/` + `src/**/__tests__/`**（域与插件的单测在这里；此前它们**不在任何具名入口内**，只靠全量 `test` 兜底 —— 已修） |
 | L2 集成 | `pnpm run test:integration` | `test/integration/` |
-| L3 契约 | `pnpm run test:contract` | `packages/shared/contract/__tests__/`（**契约产物**一致性） |
+| L3 契约 | `pnpm run test:contract` | `packages/shared/contract`（**契约产物**一致性；选择器写父目录，命中 `__tests__/` 下的 3 个文件 —— 与脚本逐字一致） |
 | L4 E2E | `pnpm run test:e2e` / `test:agent` | `test/e2e/` / `test/agent/`（Playwright） |
 | 全量 | `pnpm run test` | 全部（含各域 `packages/**/__tests__/`） |
 
