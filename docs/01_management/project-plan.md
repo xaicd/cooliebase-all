@@ -250,7 +250,7 @@
 | 3 | 版本代号 `v1.1.0` 与实际 `1.2.0` 不符 | `project-charter.md` | ✅ 改为指向契约，不再写死 |
 | 4 | "20 道门禁"与实际不符（`check` 链 26 个步骤、契约声明 10 条 gate） | `project-charter.md`、`risk-register.md` | ✅ 改为指向真源，不写死数字 |
 | 5 | "100% 由真实数据库支撑"与 §9.4 矛盾（默认内存模式，真实库是独立入口） | `project-charter.md` | ✅ 改为如实表述 |
-| 6 | 04_implementation 仅 1 个文件、01_management 仅 3 个，覆盖度不足 | `docs/04_implementation/`、`docs/01_management/` | ⬜ 待补（本文件先补规划面） |
+| 6 | ~~04_implementation 仅 1 个文件、01_management 仅 3 个~~ **（本条本身有误）** | `docs/04_implementation/`、`docs/01_management/` | ✅ 实测两处**各 4 个**真实文件（含 `sbom.json` 616 组件、代码审查清单、插件架构蓝图）。**不写死**，复算：`find docs/0*/ -type f ! -name .gitkeep | wc -l`。`09_operations` 为 0 属 §25「未发生留空」合规，**不补水字数** |
 | 7 | 风险台账全部标"已受控"，但依赖 CVE、空壳测试两类此前并无门禁 | `risk-register.md` | ✅ 本轮补登 2 条并修正状态口径 |
 
 ---
