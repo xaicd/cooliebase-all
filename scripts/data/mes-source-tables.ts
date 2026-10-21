@@ -3528,7 +3528,9 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "是否启用",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "remark",

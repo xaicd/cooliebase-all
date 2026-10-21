@@ -12607,6 +12607,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -12938,6 +12952,20 @@
             "erp.erp-customer__ListItem__Open",
             "erp.erp-customer__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
         }
       },
       "journey": [
@@ -14657,6 +14685,20 @@
             "erp.erp-product-category__ListItem__Open",
             "erp.erp-product-category__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
         }
       },
       "journey": [
@@ -21969,6 +22011,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -22241,6 +22297,20 @@
             "erp.erp-warehouse__ListItem__Open",
             "erp.erp-warehouse__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
         }
       },
       "journey": [
@@ -40633,6 +40703,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "开启状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -55923,6 +56007,20 @@
             "mes.mes-md-product-bom__ListItem__Open",
             "mes.mes-md-product-bom__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "ACTIVE",
+            "DISABLED"
+          ],
+          "labels": {
+            "ACTIVE": "启用",
+            "DISABLED": "停用"
+          },
+          "description": "是否启用"
         }
       },
       "journey": [

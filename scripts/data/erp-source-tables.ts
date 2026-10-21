@@ -55,7 +55,9 @@ export const ERP_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "sort",
@@ -210,7 +212,9 @@ export const ERP_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "sort",
@@ -1166,7 +1170,9 @@ export const ERP_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "tenant_id",
@@ -5223,7 +5229,9 @@ export const ERP_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "sort",
@@ -5414,7 +5422,9 @@ export const ERP_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "开启状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+"enumValues": ["ACTIVE", "DISABLED"],
+"enumLabels": { "ACTIVE": "启用", "DISABLED": "停用" }
         },
         {
           "name": "default_status",
