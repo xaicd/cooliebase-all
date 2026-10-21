@@ -924,7 +924,8 @@ export const IM_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "好友状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "im_friend_status"
         },
         {
           "name": "add_time",
@@ -1223,7 +1224,8 @@ export const IM_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "群状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "im_group_status"
         },
         {
           "name": "dissolved_time",
@@ -1992,7 +1994,8 @@ export const IM_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "通话状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "im_rtc_call_status"
         },
         {
           "name": "end_reason",
@@ -2138,7 +2141,8 @@ export const IM_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "参与状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "im_rtc_participant_status"
         },
         {
           "name": "invite_time",

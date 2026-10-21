@@ -349,6 +349,24 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1",
+        "2",
+        "3"
+      ],
+      "labels": {
+        "0": "草稿",
+        "1": "已确认",
+        "2": "已完成",
+        "3": "已取消"
+      },
+      "description": "工单状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

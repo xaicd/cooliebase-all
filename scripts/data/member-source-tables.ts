@@ -403,7 +403,8 @@ export const MEMBER_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "im_group_status"
         },
         {
           "name": "tenant_id",

@@ -279,6 +279,24 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3",
+        "4"
+      ],
+      "labels": {
+        "1": "在库",
+        "2": "领用中",
+        "3": "维修中",
+        "4": "报废"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

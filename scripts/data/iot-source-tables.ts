@@ -1546,7 +1546,8 @@ export const IOT_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "升级状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "iot_ota_task_record_status"
         },
         {
           "name": "progress",

@@ -376,6 +376,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "20",
+        "10"
+      ],
+      "labels": {
+        "0": "等待退款",
+        "10": "退款成功",
+        "20": "退款失败"
+      },
+      "description": "退款状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

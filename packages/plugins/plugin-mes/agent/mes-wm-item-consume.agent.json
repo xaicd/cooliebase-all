@@ -250,6 +250,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "4"
+      ],
+      "labels": {
+        "0": "草稿",
+        "4": "已完成"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

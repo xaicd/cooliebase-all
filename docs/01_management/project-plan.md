@@ -235,6 +235,7 @@
 | J5 | 文档数字与真源对齐 | 8 处陈旧数字修正 | ✅ | 活跃规格 8→12 · 需求日志 3→5 · 门禁 13→20→21 · 规则 11→17 · 计划快照 10→12 |
 | J6 | compat 自我一致性 | `mcp.count` 必须等于 `mcp.tools` 条数 | ✅ | 实测 `count` 写 17 而 `tools` 已 18；根因是该校验只做了 `skills.count`、**同一模式漏了 mcp** —— 已补 |
 
+| J7 | 枚举由**源头数据字典**驱动 | `dictType` 声明链接；取值来自 `system_dict_data` 生成物 | ✅ | 新增 `scripts/generate-dict-catalog.cjs`（源头 SQL → 210 类型 / 1031 取值）+ `dict:catalog:check` 进 `check` 链（篡改生成物 exit 1，已实测）；`resolveColumnEnum()` 接入契约/校验器/表单/列表四处；**158 张有 status 列 → 43 张唯一命中字典**，契约带 `enums` 1 → **44 份** |
 **本轮的元教训（记进 §6）**：四次误判里三次是「用推测代替检索」；
 另有一次是**反向对照本身设计错了**（只缩一个入口、其它入口仍在覆盖 → "通过"是假阳性）。
 **反向对照必须真的移除被检对象**，否则是自我安慰。
@@ -259,6 +260,9 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **枚举真源**：`status` 这类列的取值真源确认为**数据字典**（`sql/init/...sql` 的 `system_dict_data`，
+  210 类型 / 1031 取值）。新增 `pnpm run dict:catalog:check`（生成物与源头不一致即 exit 1）与
+  `scripts/data/system-dict-catalog.ts`；`dictType` 只声明链接、**不复制取值**。43 张表已落地。
 - **文档真实性**：新增 `pnpm run docs:claims:check`（7 类计数对标真源，**反向对照实测 exit 1**）；
   门禁 20 → **21**；`compat` 自身 `mcp.count` 漂移已修并补校验。
 - **测试入口覆盖**：480 个测试文件中**原有 426 个不被任何具名入口选中**，已修至 **0** 并加守卫测试。

@@ -286,6 +286,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1",
+        "2"
+      ],
+      "labels": {
+        "0": "待结算",
+        "1": "已结算",
+        "2": "已取消"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

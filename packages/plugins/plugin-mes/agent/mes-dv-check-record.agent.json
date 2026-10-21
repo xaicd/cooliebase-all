@@ -225,6 +225,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "10",
+        "20"
+      ],
+      "labels": {
+        "10": "待点检",
+        "20": "已完成"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

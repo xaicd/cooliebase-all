@@ -252,6 +252,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1"
+      ],
+      "labels": {
+        "0": "草稿",
+        "1": "已启用"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

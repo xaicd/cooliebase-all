@@ -349,6 +349,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1",
+        "2"
+      ],
+      "labels": {
+        "0": "拼团中",
+        "1": "拼团成功",
+        "2": "拼团失败"
+      },
+      "description": "开团状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

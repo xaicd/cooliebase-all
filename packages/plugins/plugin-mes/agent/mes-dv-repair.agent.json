@@ -304,6 +304,24 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1",
+        "2",
+        "4"
+      ],
+      "labels": {
+        "0": "草稿",
+        "1": "维修中",
+        "2": "待验收",
+        "4": "已确认"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

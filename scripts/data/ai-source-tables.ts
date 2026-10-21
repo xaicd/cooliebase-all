@@ -749,7 +749,8 @@ export const AI_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "生成状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "ai_image_status"
         },
         {
           "name": "finish_time",
@@ -1680,7 +1681,8 @@ export const AI_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "音乐状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "ai_music_status"
         },
         {
           "name": "generate_mode",
@@ -1852,7 +1854,8 @@ export const AI_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_tm_tool_status"
         },
         {
           "name": "tenant_id",

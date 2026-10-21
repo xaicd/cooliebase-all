@@ -1606,6 +1606,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "10",
+            "20",
+            "30"
+          ],
+          "labels": {
+            "10": "进行中",
+            "20": "已完成",
+            "30": "已失败"
+          },
+          "description": "生成状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -3378,6 +3394,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "10",
+            "20",
+            "30"
+          ],
+          "labels": {
+            "10": "进行中",
+            "20": "已完成",
+            "30": "已失败"
+          },
+          "description": "音乐状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -3596,6 +3628,24 @@
             "ai.ai-tool__ListItem__Open",
             "ai.ai-tool__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "labels": {
+            "1": "在库",
+            "2": "领用中",
+            "3": "维修中",
+            "4": "报废"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -24267,6 +24317,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1"
+          ],
+          "labels": {
+            "0": "正常",
+            "1": "已删除"
+          },
+          "description": "好友状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -24845,6 +24909,20 @@
             "im.im-group__ListItem__Open",
             "im.im-group__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1"
+          ],
+          "labels": {
+            "0": "正常",
+            "1": "已解散"
+          },
+          "description": "群状态"
         }
       },
       "journey": [
@@ -26339,6 +26417,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "10",
+            "20",
+            "30"
+          ],
+          "labels": {
+            "10": "创建",
+            "20": "进行中",
+            "30": "已结束"
+          },
+          "description": "通话状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -26609,6 +26703,26 @@
             "im.im-rtc-participant__ListItem__Open",
             "im.im-rtc-participant__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "10",
+            "20",
+            "30",
+            "40",
+            "50"
+          ],
+          "labels": {
+            "10": "邀请中",
+            "20": "已加入",
+            "30": "已拒绝",
+            "40": "未应答",
+            "50": "已离开"
+          },
+          "description": "参与状态"
         }
       },
       "journey": [
@@ -30146,6 +30260,30 @@
             "iot.iot-ota-task-record__ListItem__Open",
             "iot.iot-ota-task-record__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "10",
+            "20",
+            "30",
+            "40",
+            "50",
+            "tt"
+          ],
+          "labels": {
+            "0": "待推送",
+            "10": "已推送",
+            "20": "升级中",
+            "30": "升级成功",
+            "40": "升级失败",
+            "50": "升级取消",
+            "tt": "ttt"
+          },
+          "description": "升级状态"
         }
       },
       "journey": [
@@ -33746,6 +33884,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "labels": {
+            "1": "砍价中",
+            "2": "砍价成功",
+            "3": "砍价失败"
+          },
+          "description": "砍价状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -34066,6 +34220,22 @@
             "mall.brokerage-record__ListItem__Open",
             "mall.brokerage-record__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2"
+          ],
+          "labels": {
+            "0": "待结算",
+            "1": "已结算",
+            "2": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -34675,6 +34845,26 @@
             "mall.brokerage-withdraw__ListItem__Open",
             "mall.brokerage-withdraw__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "10",
+            "11",
+            "20",
+            "21"
+          ],
+          "labels": {
+            "0": "审核中",
+            "10": "审核通过",
+            "11": "提现成功",
+            "20": "审核不通过",
+            "21": "提现失败"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -35860,6 +36050,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2"
+          ],
+          "labels": {
+            "0": "拼团中",
+            "1": "拼团成功",
+            "2": "拼团失败"
+          },
+          "description": "开团状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -36216,6 +36422,22 @@
             "mall.coupon__ListItem__Open",
             "mall.coupon__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "labels": {
+            "1": "未使用",
+            "2": "已使用",
+            "3": "已过期"
+          },
+          "description": "优惠码状态"
         }
       },
       "journey": [
@@ -42417,6 +42639,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "0",
+            "-1"
+          ],
+          "labels": {
+            "0": "仓库中",
+            "1": "销售中",
+            "-1": "回收站"
+          },
+          "description": "商品状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -46821,6 +47059,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1"
+          ],
+          "labels": {
+            "0": "正常",
+            "1": "已解散"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -49248,6 +49500,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "已确认"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -50706,6 +50972,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "已启用"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -51407,6 +51687,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "10",
+            "20"
+          ],
+          "labels": {
+            "10": "待点检",
+            "20": "已完成"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -51947,6 +52241,22 @@
             "mes.mes-dv-machinery__ListItem__Open",
             "mes.mes-dv-machinery__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "labels": {
+            "1": "停机",
+            "2": "生产中",
+            "3": "维护中"
+          },
+          "description": "设备状态"
         }
       },
       "journey": [
@@ -53054,6 +53364,24 @@
             "mes.mes-dv-repair__ListItem__Open",
             "mes.mes-dv-repair__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "维修中",
+            "2": "待验收",
+            "4": "已确认"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -59951,6 +60279,24 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "审批中",
+            "3": "待检验",
+            "4": "已完成"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -61900,6 +62246,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "任务状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -62623,6 +62985,24 @@
             "mes.mes-pro-work-order__ListItem__Open",
             "mes.mes-pro-work-order__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "已确认",
+            "2": "已完成",
+            "3": "已取消"
+          },
+          "description": "工单状态"
         }
       },
       "journey": [
@@ -68785,6 +69165,24 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3",
+            "4"
+          ],
+          "labels": {
+            "1": "在库",
+            "2": "领用中",
+            "3": "维修中",
+            "4": "报废"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -69318,6 +69716,24 @@
             "mes.mes-wm-arrival-notice__ListItem__Open",
             "mes.mes-wm-arrival-notice__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待质检",
+            "3": "待入库",
+            "4": "已完成"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -70789,6 +71205,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "4": "已完成"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -71649,6 +72079,26 @@
             "mes.mes-wm-item-receipt__ListItem__Open",
             "mes.mes-wm-item-receipt__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待上架",
+            "3": "待执行入库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -72851,6 +73301,24 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "3": "待出库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -73772,6 +74240,24 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "3": "待执行入库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -74630,6 +75116,26 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待拣货",
+            "3": "待执行出库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "单据状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -75470,6 +75976,28 @@
             "mes.mes-wm-outsource-receipt__ListItem__Open",
             "mes.mes-wm-outsource-receipt__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "待检验",
+            "2": "待上架",
+            "3": "待执行入库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -76440,6 +76968,20 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "4": "已完成"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -77003,6 +77545,26 @@
             "mes.mes-wm-product-issue__ListItem__Open",
             "mes.mes-wm-product-issue__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待拣货",
+            "3": "待执行领出",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -77847,6 +78409,22 @@
             "mes.mes-wm-product-produce__ListItem__Open",
             "mes.mes-wm-product-produce__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -78725,6 +79303,26 @@
             "mes.mes-wm-product-receipt__ListItem__Open",
             "mes.mes-wm-product-receipt__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待上架",
+            "3": "待执行入库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -79621,6 +80219,28 @@
             "mes.mes-wm-product-sales__ListItem__Open",
             "mes.mes-wm-product-sales__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5",
+            "1"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "待检测",
+            "2": "待拣货",
+            "3": "待出库",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -80535,6 +81155,28 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "待检验",
+            "2": "待上架",
+            "3": "待执行退料",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -81431,6 +82073,28 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "待检验",
+            "2": "待执行",
+            "3": "待上架",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -82320,6 +82984,26 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "2": "待拣货",
+            "3": "待执行退货",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -83182,6 +83866,22 @@
             "mes.mes-wm-sales-notice__ListItem__Open",
             "mes.mes-wm-sales-notice__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "3",
+            "4"
+          ],
+          "labels": {
+            "0": "草稿",
+            "3": "待出库",
+            "4": "已完成"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -84878,6 +85578,22 @@
           ]
         }
       },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "1",
+            "2",
+            "3"
+          ],
+          "labels": {
+            "1": "正常",
+            "2": "盘盈",
+            "3": "盘亏"
+          },
+          "description": "盘点状态"
+        }
+      },
       "journey": [
         "goto",
         "assertTitle",
@@ -85889,6 +86605,28 @@
             "mes.mes-wm-transfer__ListItem__Open",
             "mes.mes-wm-transfer__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "1",
+            "2",
+            "3",
+            "4",
+            "5"
+          ],
+          "labels": {
+            "0": "草稿",
+            "1": "待确认",
+            "2": "待上架",
+            "3": "待执行",
+            "4": "已完成",
+            "5": "已取消"
+          },
+          "description": "状态"
         }
       },
       "journey": [
@@ -92765,6 +93503,22 @@
             "pay.pay-refund__ListItem__Open",
             "pay.pay-refund__Form__Submit"
           ]
+        }
+      },
+      "enums": {
+        "status": {
+          "type": "enum",
+          "values": [
+            "0",
+            "20",
+            "10"
+          ],
+          "labels": {
+            "0": "等待退款",
+            "10": "退款成功",
+            "20": "退款失败"
+          },
+          "description": "退款状态"
         }
       },
       "journey": [

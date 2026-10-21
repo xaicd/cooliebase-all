@@ -322,6 +322,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "labels": {
+        "1": "未使用",
+        "2": "已使用",
+        "3": "已过期"
+      },
+      "description": "优惠码状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

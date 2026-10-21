@@ -1,4 +1,4 @@
-import { type CodegenConfig, type CodegenOutput, domainBaseDir, formColumns, queryColumns, toCamel, toKebab, jsxText } from "./common"
+import { domainBaseDir, formColumns, jsxText, queryColumns, resolveColumnEnum, toCamel, toKebab, type CodegenConfig, type CodegenOutput } from "./common"
 
 /**
  * Agent 操作契约（机器可读）。
@@ -148,13 +148,14 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
     ...(() => {
       const enums = Object.fromEntries(
         (config.table.columns ?? [])
-          .filter((column) => Array.isArray(column.enumValues) && column.enumValues.length > 0)
-          .map((column) => [
+          .map((column) => [column, resolveColumnEnum(column)] as const)
+          .filter(([, resolved]) => resolved !== undefined)
+          .map(([column, resolved]) => [
             column.name,
             {
               type: "enum",
-              values: column.enumValues,
-              ...(column.enumLabels ? { labels: column.enumLabels } : {}),
+              values: resolved!.values,
+              ...(Object.keys(resolved!.labels).length ? { labels: resolved!.labels } : {}),
               ...(column.enumTerminal ? { terminal: column.enumTerminal } : {}),
               ...(column.comment ? { description: jsxText(column.comment) } : {}),
             },

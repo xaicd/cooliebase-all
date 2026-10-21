@@ -286,6 +286,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "labels": {
+        "1": "正常",
+        "2": "盘盈",
+        "3": "盘亏"
+      },
+      "description": "盘点状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

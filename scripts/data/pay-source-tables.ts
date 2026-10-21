@@ -1370,7 +1370,8 @@ export const PAY_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "退款状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "pay_refund_status"
         },
         {
           "name": "pay_price",

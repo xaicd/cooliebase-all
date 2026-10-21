@@ -184,6 +184,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1"
+      ],
+      "labels": {
+        "0": "正常",
+        "1": "已解散"
+      },
+      "description": "状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

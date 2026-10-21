@@ -376,6 +376,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "1",
+        "0",
+        "-1"
+      ],
+      "labels": {
+        "0": "仓库中",
+        "1": "销售中",
+        "-1": "回收站"
+      },
+      "description": "商品状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

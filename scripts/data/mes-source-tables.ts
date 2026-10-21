@@ -191,7 +191,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_cal_plan_status"
         },
         {
           "name": "remark",
@@ -880,7 +881,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_dv_check_plan_status"
         },
         {
           "name": "remark",
@@ -1197,7 +1199,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_dv_check_record_status"
         },
         {
           "name": "remark",
@@ -1450,7 +1453,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "设备状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_dv_machinery_status"
         },
         {
           "name": "last_mainten_time",
@@ -2014,7 +2018,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_dv_repair_status"
         },
         {
           "name": "remark",
@@ -5634,7 +5639,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_pro_feedback_status"
         },
         {
           "name": "remark",
@@ -6654,7 +6660,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "任务状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_pro_task_status"
         },
         {
           "name": "remark",
@@ -7084,7 +7091,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "工单状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_pro_work_order_status"
         },
         {
           "name": "remark",
@@ -10533,7 +10541,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_tm_tool_status"
         },
         {
           "name": "remark",
@@ -10801,7 +10810,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_arrival_notice_status"
         },
         {
           "name": "remark",
@@ -11571,7 +11581,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_item_consume_status"
         },
         {
           "name": "remark",
@@ -12009,7 +12020,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_item_receipt_status"
         },
         {
           "name": "remark",
@@ -12630,7 +12642,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_misc_issue_status"
         },
         {
           "name": "remark",
@@ -13110,7 +13123,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_misc_receipt_status"
         },
         {
           "name": "remark",
@@ -13534,7 +13548,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "单据状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_outsource_issue_status"
         },
         {
           "name": "remark",
@@ -13949,7 +13964,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_outsource_receipt_status"
         },
         {
           "name": "remark",
@@ -14486,7 +14502,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_package_status"
         },
         {
           "name": "remark",
@@ -14767,7 +14784,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_product_issue_status"
         },
         {
           "name": "remark",
@@ -15189,7 +15207,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_product_produce_status"
         },
         {
           "name": "remark",
@@ -15636,7 +15655,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_product_receipt_status"
         },
         {
           "name": "remark",
@@ -16099,7 +16119,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_product_sales_status"
         },
         {
           "name": "remark",
@@ -16571,7 +16592,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_return_issue_status"
         },
         {
           "name": "remark",
@@ -17034,7 +17056,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_return_sales_status"
         },
         {
           "name": "remark",
@@ -17496,7 +17519,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_return_vendor_status"
         },
         {
           "name": "remark",
@@ -17941,7 +17965,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_sales_notice_status"
         },
         {
           "name": "remark",
@@ -18804,7 +18829,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "盘点状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "mes_wm_stock_taking_task_line_status"
         },
         {
           "name": "remark",
@@ -19373,7 +19399,8 @@ export const MES_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "mes_wm_transfer_status"
         },
         {
           "name": "remark",

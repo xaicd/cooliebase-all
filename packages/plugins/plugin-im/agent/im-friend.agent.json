@@ -254,6 +254,20 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "0",
+        "1"
+      ],
+      "labels": {
+        "0": "正常",
+        "1": "已删除"
+      },
+      "description": "好友状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

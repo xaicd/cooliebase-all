@@ -6,6 +6,7 @@ import {
   queryColumns,
   toKebab,
   jsxText,
+  resolveColumnEnum,
 } from "./common"
 
 export function generateListPage(config: CodegenConfig): CodegenOutput {
@@ -39,11 +40,12 @@ export function generateListPage(config: CodegenConfig): CodegenOutput {
   ).join("\n")
 
   const tableCells = displayCols.map((c) => {
-    if (!c.enumValues?.length) {
+    const resolvedEnum = resolveColumnEnum(c)
+    if (!resolvedEnum) {
       return `                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.${c.name} ?? "-")}>{String(item.${c.name} ?? "-")}</td>`
     }
-    const labels = JSON.stringify(c.enumLabels ?? {})
-    const primary = JSON.stringify(c.enumValues[0])
+    const labels = JSON.stringify(resolvedEnum.labels)
+    const primary = JSON.stringify(resolvedEnum.values[0])
     return `                  <td className="px-4 py-2.5 text-xs text-slate-700">
                     <EnumBadge value={item.${c.name}} labels={${labels}} primary={${primary}} />
                   </td>`

@@ -254,6 +254,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "10",
+        "20",
+        "30"
+      ],
+      "labels": {
+        "10": "创建",
+        "20": "进行中",
+        "30": "已结束"
+      },
+      "description": "通话状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

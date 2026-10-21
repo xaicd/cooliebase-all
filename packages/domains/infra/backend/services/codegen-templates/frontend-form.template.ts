@@ -5,6 +5,7 @@ import {
   getFrontendPath,
   toKebab,
   jsxText,
+  resolveColumnEnum,
 } from "./common"
 
 export function generateFormComponent(config: CodegenConfig): CodegenOutput {
@@ -15,9 +16,10 @@ export function generateFormComponent(config: CodegenConfig): CodegenOutput {
 
   const formFields = writeCols.map((c) => {
     const label = jsxText(c.comment) || c.name
-    if (c.enumValues?.length) {
-      const options = c.enumValues
-        .map((v) => `          <option value="${v}">${jsxText(c.enumLabels?.[v] ?? "") || v}</option>`)
+    const resolvedEnum = resolveColumnEnum(c)
+    if (resolvedEnum) {
+      const options = resolvedEnum.values
+        .map((v) => `          <option value="${v}">${jsxText(resolvedEnum.labels[v] ?? "") || v}</option>`)
         .join("\n")
       return `        <div>
           <label htmlFor="${kebab}-${c.name}" className="block text-xs text-slate-600 mb-1">${label}${c.formValidation === "required" || !c.nullable ? " *" : ""}</label>

@@ -1,5 +1,7 @@
 // Common types and helpers for codegen templates
 
+import { dictEntry } from "../../../../../../scripts/data/system-dict-catalog"
+
 export interface ConfiguredColumn {
   name: string
   type: string
@@ -16,6 +18,14 @@ export interface ConfiguredColumn {
   enumValues?: string[]
   /** 值 → 中文标签（可选）。给 agent 与前端共用同一套口径。 */
   enumLabels?: Record<string, string>
+  /**
+   * 数据字典类型（如 `common_status`）。
+   *
+   * **取值不在这里复制**：真源是 `sql/init/...sql` 的 `system_dict_data`，
+   * 由 `scripts/generate-dict-catalog.cjs` 生成目录，`resolveColumnEnum()` 在生成代码时解析。
+   * 字典改了只需重跑生成器 —— 复制一份到元数据里，那份就一定会漂（§25）。
+   */
+  dictType?: string
   /** 终态值（可选）：到达这些状态后不再有合法迁移。 */
   enumTerminal?: string[]
   defaultValueTyped?: unknown
@@ -193,4 +203,26 @@ export function persistOrderColumn(config: CodegenConfig): string {
   if (columns.includes("create_time")) return "create_time"
   if (columns.includes("created_at")) return "created_at"
   return "id"
+}
+
+/**
+ * 解析列的枚举口径 —— **字面声明优先**，其次查数据字典。
+ *
+ * 元数据里两种写法都支持：
+ *   · `enumValues` / `enumLabels` —— 直接声明（适合字典里还没有的列）；
+ *   · `dictType` —— 指向 `system_dict_data` 的字典键（**推荐**，单一真源）。
+ *
+ * 两者都没有 → 返回 undefined，模板就会退化成普通文本/输入框。
+ */
+export function resolveColumnEnum(
+  column: ConfiguredColumn,
+): { values: string[]; labels: Record<string, string> } | undefined {
+  if (column.enumValues?.length) {
+    return { values: column.enumValues, labels: column.enumLabels ?? {} }
+  }
+  const entry = dictEntry(column.dictType)
+  if (!entry?.options.length) return undefined
+  const values = entry.options.map((o) => o.value)
+  const labels = Object.fromEntries(entry.options.map((o) => [o.value, o.label]))
+  return { values, labels }
 }

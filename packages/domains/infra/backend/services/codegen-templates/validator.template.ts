@@ -1,16 +1,4 @@
-import {
-  type CodegenConfig,
-  type CodegenMasterDetailChild,
-  type CodegenOutput,
-  type ConfiguredColumn,
-  formColumns,
-  getBackendPath,
-  isManagedColumn,
-  queryColumns,
-  toCamel,
-  toKebab,
-  toPascal,
-} from "./common"
+import { formColumns, getBackendPath, isManagedColumn, queryColumns, resolveColumnEnum, toCamel, toKebab, toPascal, type CodegenConfig, type CodegenMasterDetailChild, type CodegenOutput, type ConfiguredColumn } from "./common"
 
 function zodSchemaForColumn(column: ConfiguredColumn, required: boolean): string {
   if (column.widget === "JSON" || column.type === "json") return "z.unknown()"
@@ -20,7 +8,10 @@ function zodSchemaForColumn(column: ConfiguredColumn, required: boolean): string
       : column.tsType === "boolean"
         ? "z.preprocess((value) => value === \"true\" ? true : value === \"false\" ? false : value, z.boolean())"
         : "z.string().trim()"
-  if (column.enumValues?.length) schema += `.refine((value) => ${JSON.stringify(column.enumValues)}.includes(value as string), "${column.comment || column.name} 值无效")`
+  {
+    const resolved = resolveColumnEnum(column)
+    if (resolved) schema += `.refine((value) => ${JSON.stringify(resolved.values)}.includes(String(value)), "${column.comment || column.name} 值无效（允许：${resolved.values.join("/")}）")`
+  }
   const maxLength = column.validation?.maxLength ?? column.maxLength
   if (column.tsType === "string" && maxLength) schema += `.max(${maxLength}, "${column.comment || column.name} 长度不能超过 ${maxLength}")`
   if (column.validation?.minLength !== undefined) schema += `.min(${column.validation.minLength}, "${column.comment || column.name} 长度不足")`

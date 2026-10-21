@@ -306,6 +306,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "10",
+        "20",
+        "30"
+      ],
+      "labels": {
+        "10": "进行中",
+        "20": "已完成",
+        "30": "已失败"
+      },
+      "description": "生成状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",

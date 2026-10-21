@@ -1160,7 +1160,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "商品状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "product_spu_status"
         },
         {
           "name": "spec_type",
@@ -2271,7 +2272,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "砍价状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "promotion_bargain_record_status"
         },
         {
           "name": "end_time",
@@ -2743,7 +2745,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "tsType": "number",
           "nullable": true,
           "comment": "开团状态",
-          "nullableInferred": true
+          "nullableInferred": true,
+          "dictType": "promotion_combination_record_status"
         },
         {
           "name": "order_id",
@@ -2897,7 +2900,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "优惠码状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "promotion_coupon_status"
         },
         {
           "name": "user_id",
@@ -5454,7 +5458,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "brokerage_record_status"
         },
         {
           "name": "frozen_days",
@@ -5768,7 +5773,8 @@ export const MALL_TABLES: CodegenConfig[] = [
           "nullable": true,
           "comment": "状态",
           "nullableInferred": true,
-          "queryType": "="
+          "queryType": "=",
+          "dictType": "brokerage_withdraw_status"
         },
         {
           "name": "audit_reason",

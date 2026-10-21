@@ -259,6 +259,22 @@
       ]
     }
   },
+  "enums": {
+    "status": {
+      "type": "enum",
+      "values": [
+        "1",
+        "2",
+        "3"
+      ],
+      "labels": {
+        "1": "砍价中",
+        "2": "砍价成功",
+        "3": "砍价失败"
+      },
+      "description": "砍价状态"
+    }
+  },
   "journey": [
     "goto",
     "assertTitle",
