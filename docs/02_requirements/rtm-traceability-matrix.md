@@ -59,7 +59,9 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 
 合计测试文件 **446**（15 个插件域合计 362；其余在 `shared` / `system` / `infra` / `test/`）。
 
-## 4. 活跃规格（8 份，`docs/specs/<域>/<名>/`）
+## 4. 活跃规格（12 份，`docs/specs/<域>/<名>/`）
+
+> 复算：`ls docs/specs/*/*/brief.json | wc -l`
 
 | 域 | 规格 | 完成度判据 |
 |---|---|---|
@@ -81,6 +83,9 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 3. **L3 契约层无独立 npm 入口** —— 契约测试存在但随全量套件跑（见项目计划 E1）。
 4. **REQ-G06 的运行时漏洞为"冻结"而非"清零"** —— 9 条已接受风险仍在，
    台账见依赖策略文档；"冻结"≠"无漏洞"。
-5. **`02_requirements` 的 SRS / URS 尚未落地** —— 本表与 NFR 已落，SRS/URS 仍是待填。
+5. **`02_requirements` 的 SRS / URS 是「刻意不产出」（决策，非待填）** —— 需求真源是分散的
+   `docs/specs/<域>/<名>/brief.json`（12 份）与 `docs/features/sprint-prod/*.md`（5 份）；
+   再落一份单体 SRS 就是**第二真源**（§25），只给空骨架又违反「骨架不算完成」。
+   决策与理由见 `docs/01_management/project-plan.md` H1 与本仓 `cmmi:asset` 的 `srs`/`urs` 模板。
 6. **跨切面需求的"反向对照"密度不均** —— G07/G08/G11 有反向对照测试，
    G06/G09 靠门禁自证（`--self-check`），其余依赖常规断言。
