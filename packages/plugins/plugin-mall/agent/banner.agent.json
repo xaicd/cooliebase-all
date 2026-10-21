@@ -20,7 +20,9 @@
         "path": "/banner",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "title",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增banner",
       "edit": "编辑banner"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "title",
+        "label": "标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "title",

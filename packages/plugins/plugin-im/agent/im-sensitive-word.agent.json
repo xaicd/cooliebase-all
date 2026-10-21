@@ -20,7 +20,8 @@
         "path": "/im-sensitive-word",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增IM 敏感词",
       "edit": "编辑IM 敏感词"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "word",

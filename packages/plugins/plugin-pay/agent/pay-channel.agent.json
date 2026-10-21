@@ -3,11 +3,11 @@
   "domain": "pay",
   "entity": "PayChannel",
   "kebab": "pay-channel",
-  "businessName": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 PayAppDO : PayChannelDO = 1 : n",
+  "businessName": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
   "permissionPrefix": "pay:pay_channel",
   "page": {
     "route": "/admin/pay/pay-channel",
-    "title": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 PayAppDO : PayChannelDO = 1 : n管理",
+    "title": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P管理",
     "titleSelector": "[data-testid=\"pay-channel-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/pay-channel",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "status",
+          "app_id"
         ]
       },
       "get": {
@@ -73,12 +76,31 @@
     "formClose": "[data-testid=\"pay-channel-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 PayAppDO : PayChannelDO = 1 : n列表",
+    "tableLabel": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P列表",
     "dialogLabel": {
-      "create": "新增支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 PayAppDO : PayChannelDO = 1 : n",
-      "edit": "编辑支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 PayAppDO : PayChannelDO = 1 : n"
+      "create": "新增支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
+      "edit": "编辑支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "渠道编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "应用编号",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -115,7 +137,7 @@
       {
         "name": "app_id",
         "label": "应用编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-app_id",
         "selector": "[data-testid=\"field-app_id\"]"

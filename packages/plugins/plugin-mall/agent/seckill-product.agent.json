@@ -20,7 +20,11 @@
         "path": "/seckill-product",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "activity_id",
+          "config_ids",
+          "spu_id",
+          "sku_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增秒杀参与商品",
       "edit": "编辑秒杀参与商品"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "activity_id",
+        "label": "秒杀活动 id",
+        "testId": "search-activity_id",
+        "selector": "[data-testid=\"search-activity_id\"]"
+      },
+      {
+        "name": "config_ids",
+        "label": "秒杀时段 id",
+        "testId": "search-config_ids",
+        "selector": "[data-testid=\"search-config_ids\"]"
+      },
+      {
+        "name": "spu_id",
+        "label": "商品 SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "sku_id",
+        "label": "商品 SKU 编号",
+        "testId": "search-sku_id",
+        "selector": "[data-testid=\"search-sku_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "activity_id",
         "label": "秒杀活动 id",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-activity_id",
         "selector": "[data-testid=\"field-activity_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "spu_id",
         "label": "商品 SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "sku_id",
         "label": "商品 SKU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sku_id",
         "selector": "[data-testid=\"field-sku_id\"]"

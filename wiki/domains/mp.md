@@ -42,7 +42,7 @@
 |---|---|---|---|---|
 | `MpAccount` | 公众号账号 | `/admin/mp/mp-account` | `mp:mp_account` | [`mp-account.agent.json`](../../packages/plugins/plugin-mp/agent/mp-account.agent.json) |
 | `MpAutoReply` | 公众号消息自动回复 | `/admin/mp/mp-auto-reply` | `mp:mp_auto_reply` | [`mp-auto-reply.agent.json`](../../packages/plugins/plugin-mp/agent/mp-auto-reply.agent.json) |
-| `MpMaterial` | 公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_ | `/admin/mp/mp-material` | `mp:mp_material` | [`mp-material.agent.json`](../../packages/plugins/plugin-mp/agent/mp-material.agent.json) |
+| `MpMaterial` | 公众号素材 DO1. a href=https://developers.wei | `/admin/mp/mp-material` | `mp:mp_material` | [`mp-material.agent.json`](../../packages/plugins/plugin-mp/agent/mp-material.agent.json) |
 | `MpMenu` | 公众号菜单 | `/admin/mp/mp-menu` | `mp:mp_menu` | [`mp-menu.agent.json`](../../packages/plugins/plugin-mp/agent/mp-menu.agent.json) |
 | `MpMessage` | 公众号消息 | `/admin/mp/mp-message` | `mp:mp_message` | [`mp-message.agent.json`](../../packages/plugins/plugin-mp/agent/mp-message.agent.json) |
 | `MpMessageTemplate` | 公众号模版消息 | `/admin/mp/mp-message-template` | `mp:mp_message_template` | [`mp-message-template.agent.json`](../../packages/plugins/plugin-mp/agent/mp-message-template.agent.json) |

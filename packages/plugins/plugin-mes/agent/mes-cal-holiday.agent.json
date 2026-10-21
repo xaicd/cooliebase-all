@@ -20,7 +20,8 @@
         "path": "/mes-cal-holiday",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "type"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增MES 假期设置",
       "edit": "编辑MES 假期设置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "type",
+        "label": "日期类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      }
+    ],
     "fields": [
       {
         "name": "day",

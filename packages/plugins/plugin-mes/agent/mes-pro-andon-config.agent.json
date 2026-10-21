@@ -20,7 +20,10 @@
         "path": "/mes-pro-andon-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "level",
+          "handler_role_id",
+          "handler_user_id"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增MES 安灯呼叫配置",
       "edit": "编辑MES 安灯呼叫配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "level",
+        "label": "级别",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      },
+      {
+        "name": "handler_role_id",
+        "label": "处置人角色编号",
+        "testId": "search-handler_role_id",
+        "selector": "[data-testid=\"search-handler_role_id\"]"
+      },
+      {
+        "name": "handler_user_id",
+        "label": "处置人编号",
+        "testId": "search-handler_user_id",
+        "selector": "[data-testid=\"search-handler_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "reason",
@@ -99,7 +121,7 @@
       {
         "name": "handler_role_id",
         "label": "处置人角色编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-handler_role_id",
         "selector": "[data-testid=\"field-handler_role_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "handler_user_id",
         "label": "处置人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-handler_user_id",
         "selector": "[data-testid=\"field-handler_user_id\"]"

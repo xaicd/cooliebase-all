@@ -20,7 +20,11 @@
         "path": "/iot-alert-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "config_id",
+          "scene_rule_id",
+          "product_id",
+          "device_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增IoT 告警记录",
       "edit": "编辑IoT 告警记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "config_id",
+        "label": "告警名称",
+        "testId": "search-config_id",
+        "selector": "[data-testid=\"search-config_id\"]"
+      },
+      {
+        "name": "scene_rule_id",
+        "label": "场景规则编号",
+        "testId": "search-scene_rule_id",
+        "selector": "[data-testid=\"search-scene_rule_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "device_id",
+        "label": "设备编号",
+        "testId": "search-device_id",
+        "selector": "[data-testid=\"search-device_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "config_id",
         "label": "告警名称",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-config_id",
         "selector": "[data-testid=\"field-config_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "scene_rule_id",
         "label": "场景规则编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-scene_rule_id",
         "selector": "[data-testid=\"field-scene_rule_id\"]"
@@ -115,7 +144,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -123,7 +152,7 @@
       {
         "name": "device_id",
         "label": "设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-device_id",
         "selector": "[data-testid=\"field-device_id\"]"

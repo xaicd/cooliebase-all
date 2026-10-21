@@ -20,7 +20,8 @@
         "path": "/member-sign-in-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增签到规则",
       "edit": "编辑签到规则"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "day",
@@ -107,7 +115,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

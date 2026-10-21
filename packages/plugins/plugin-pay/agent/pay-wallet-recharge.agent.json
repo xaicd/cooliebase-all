@@ -20,7 +20,11 @@
         "path": "/pay-wallet-recharge",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "wallet_id",
+          "package_id",
+          "pay_order_id",
+          "pay_refund_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增会员钱包充值",
       "edit": "编辑会员钱包充值"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "wallet_id",
+        "label": "钱包编号",
+        "testId": "search-wallet_id",
+        "selector": "[data-testid=\"search-wallet_id\"]"
+      },
+      {
+        "name": "package_id",
+        "label": "充值套餐编号",
+        "testId": "search-package_id",
+        "selector": "[data-testid=\"search-package_id\"]"
+      },
+      {
+        "name": "pay_order_id",
+        "label": "支付订单编号",
+        "testId": "search-pay_order_id",
+        "selector": "[data-testid=\"search-pay_order_id\"]"
+      },
+      {
+        "name": "pay_refund_id",
+        "label": "支付退款单编号",
+        "testId": "search-pay_refund_id",
+        "selector": "[data-testid=\"search-pay_refund_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "wallet_id",
         "label": "钱包编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-wallet_id",
         "selector": "[data-testid=\"field-wallet_id\"]"
@@ -115,7 +144,7 @@
       {
         "name": "package_id",
         "label": "充值套餐编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-package_id",
         "selector": "[data-testid=\"field-package_id\"]"
@@ -131,7 +160,7 @@
       {
         "name": "pay_order_id",
         "label": "支付订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_order_id",
         "selector": "[data-testid=\"field-pay_order_id\"]"
@@ -155,7 +184,7 @@
       {
         "name": "pay_refund_id",
         "label": "支付退款单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_refund_id",
         "selector": "[data-testid=\"field-pay_refund_id\"]"

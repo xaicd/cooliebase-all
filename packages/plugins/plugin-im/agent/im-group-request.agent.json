@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImGroupRequest",
   "kebab": "im-group-request",
-  "businessName": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply 接口落库（inviterUserId=null，handleResult=UNHANDLED），",
+  "businessName": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
   "permissionPrefix": "im:im_group_request",
   "page": {
     "route": "/admin/im/im-group-request",
-    "title": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply 接口落库（inviterUserId=null，handleResult=UNHANDLED），管理",
+    "title": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply管理",
     "titleSelector": "[data-testid=\"im-group-request-title\"]"
   },
   "api": {
@@ -20,7 +20,11 @@
         "path": "/im-group-request",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "group_id",
+          "user_id",
+          "inviter_user_id",
+          "handle_user_id"
         ]
       },
       "get": {
@@ -73,17 +77,42 @@
     "formClose": "[data-testid=\"im-group-request-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply 接口落库（inviterUserId=null，handleResult=UNHANDLED），列表",
+    "tableLabel": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply列表",
     "dialogLabel": {
-      "create": "新增IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply 接口落库（inviterUserId=null，handleResult=UNHANDLED），",
-      "edit": "编辑IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply 接口落库（inviterUserId=null，handleResult=UNHANDLED），"
+      "create": "新增IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
+      "edit": "编辑IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "group_id",
+        "label": "群编号",
+        "testId": "search-group_id",
+        "selector": "[data-testid=\"search-group_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "申请人 / 被邀请人用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "inviter_user_id",
+        "label": "邀请人用户编号",
+        "testId": "search-inviter_user_id",
+        "selector": "[data-testid=\"search-inviter_user_id\"]"
+      },
+      {
+        "name": "handle_user_id",
+        "label": "处理人用户编号（群主或管理员）",
+        "testId": "search-handle_user_id",
+        "selector": "[data-testid=\"search-handle_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "group_id",
         "label": "群编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-group_id",
         "selector": "[data-testid=\"field-group_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "user_id",
         "label": "申请人 / 被邀请人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "inviter_user_id",
         "label": "邀请人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-inviter_user_id",
         "selector": "[data-testid=\"field-inviter_user_id\"]"
@@ -131,7 +160,7 @@
       {
         "name": "handle_user_id",
         "label": "处理人用户编号（群主或管理员）",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-handle_user_id",
         "selector": "[data-testid=\"field-handle_user_id\"]"

@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImChannel",
   "kebab": "im-channel",
-  "businessName": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消息- 是业务码（API / 字典外露），id 是数字主键给前端会话 targetId 用",
+  "businessName": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
   "permissionPrefix": "im:im_channel",
   "page": {
     "route": "/admin/im/im-channel",
-    "title": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消息- 是业务码（API / 字典外露），id 是数字主键给前端会话 targetId 用管理",
+    "title": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消管理",
     "titleSelector": "[data-testid=\"im-channel-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-channel",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -73,12 +76,31 @@
     "formClose": "[data-testid=\"im-channel-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消息- 是业务码（API / 字典外露），id 是数字主键给前端会话 targetId 用列表",
+    "tableLabel": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消列表",
     "dialogLabel": {
-      "create": "新增IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消息- 是业务码（API / 字典外露），id 是数字主键给前端会话 targetId 用",
-      "edit": "编辑IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消息- 是业务码（API / 字典外露），id 是数字主键给前端会话 targetId 用"
+      "create": "新增IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
+      "edit": "编辑IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "频道业务码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "频道名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",

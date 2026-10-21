@@ -3,11 +3,11 @@
   "domain": "mes",
   "entity": "MesQcDefectRecord",
   "kebab": "mes-qc-defect-record",
-  "businessName": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、OQC、RQC），多模块复用",
+  "businessName": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、",
   "permissionPrefix": "mes:mes_qc_defect_record",
   "page": {
     "route": "/admin/mes/mes-qc-defect-record",
-    "title": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、OQC、RQC），多模块复用管理",
+    "title": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、管理",
     "titleSelector": "[data-testid=\"mes-qc-defect-record-title\"]"
   },
   "api": {
@@ -20,7 +20,11 @@
         "path": "/mes-qc-defect-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "qc_id",
+          "line_id",
+          "name",
+          "level"
         ]
       },
       "get": {
@@ -73,12 +77,37 @@
     "formClose": "[data-testid=\"mes-qc-defect-record-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、OQC、RQC），多模块复用列表",
+    "tableLabel": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、列表",
     "dialogLabel": {
-      "create": "新增MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、OQC、RQC），多模块复用",
-      "edit": "编辑MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、OQC、RQC），多模块复用"
+      "create": "新增MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、",
+      "edit": "编辑MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "qc_id",
+        "label": "检验单 ID",
+        "testId": "search-qc_id",
+        "selector": "[data-testid=\"search-qc_id\"]"
+      },
+      {
+        "name": "line_id",
+        "label": "检验行 ID",
+        "testId": "search-line_id",
+        "selector": "[data-testid=\"search-line_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "缺陷描述",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "level",
+        "label": "缺陷等级",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      }
+    ],
     "fields": [
       {
         "name": "qc_type",
@@ -91,7 +120,7 @@
       {
         "name": "qc_id",
         "label": "检验单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-qc_id",
         "selector": "[data-testid=\"field-qc_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "line_id",
         "label": "检验行 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-line_id",
         "selector": "[data-testid=\"field-line_id\"]"

@@ -20,7 +20,11 @@
         "path": "/crm-receivable-plan",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "customer_id",
+          "contract_id",
+          "owner_user_id",
+          "receivable_id"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增CRM 回款计划",
       "edit": "编辑CRM 回款计划"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "contract_id",
+        "label": "合同编号",
+        "testId": "search-contract_id",
+        "selector": "[data-testid=\"search-contract_id\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "负责人编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      },
+      {
+        "name": "receivable_id",
+        "label": "回款编号，关联",
+        "testId": "search-receivable_id",
+        "selector": "[data-testid=\"search-receivable_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "period",
@@ -91,7 +120,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "contract_id",
         "label": "合同编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-contract_id",
         "selector": "[data-testid=\"field-contract_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "owner_user_id",
         "label": "负责人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"
@@ -139,7 +168,7 @@
       {
         "name": "receivable_id",
         "label": "回款编号，关联",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-receivable_id",
         "selector": "[data-testid=\"field-receivable_id\"]"

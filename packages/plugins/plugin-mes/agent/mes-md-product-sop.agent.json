@@ -20,7 +20,10 @@
         "path": "/mes-md-product-sop",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "item_id",
+          "process_id",
+          "title"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 产品SOP",
       "edit": "编辑MES 产品SOP"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "item_id",
+        "label": "物料产品编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "process_id",
+        "label": "工序编号",
+        "testId": "search-process_id",
+        "selector": "[data-testid=\"search-process_id\"]"
+      },
+      {
+        "name": "title",
+        "label": "标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      }
+    ],
     "fields": [
       {
         "name": "item_id",
         "label": "物料产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "process_id",
         "label": "工序编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-process_id",
         "selector": "[data-testid=\"field-process_id\"]"

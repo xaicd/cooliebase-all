@@ -20,7 +20,10 @@
         "path": "/iot-ota-task",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "firmware_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增IoT OTA 升级任务",
       "edit": "编辑IoT OTA 升级任务"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "任务名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "firmware_id",
+        "label": "固件编号",
+        "testId": "search-firmware_id",
+        "selector": "[data-testid=\"search-firmware_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "任务状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -99,7 +121,7 @@
       {
         "name": "firmware_id",
         "label": "固件编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-firmware_id",
         "selector": "[data-testid=\"field-firmware_id\"]"

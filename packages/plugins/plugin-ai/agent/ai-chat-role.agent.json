@@ -20,7 +20,12 @@
         "path": "/ai-chat-role",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "category",
+          "user_id",
+          "model_id",
+          "knowledge_ids"
         ]
       },
       "get": {
@@ -78,13 +83,44 @@
       "create": "新增AI 聊天角色",
       "edit": "编辑AI 聊天角色"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "角色名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "category",
+        "label": "角色分类",
+        "testId": "search-category",
+        "selector": "[data-testid=\"search-category\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "model_id",
+        "label": "模型编号",
+        "testId": "search-model_id",
+        "selector": "[data-testid=\"search-model_id\"]"
+      },
+      {
+        "name": "knowledge_ids",
+        "label": "引用的知识库编号列表",
+        "testId": "search-knowledge_ids",
+        "selector": "[data-testid=\"search-knowledge_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
         "label": "角色名称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-name",
         "selector": "[data-testid=\"field-name\"]"
       },
@@ -123,7 +159,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "model_id",
         "label": "模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-model_id",
         "selector": "[data-testid=\"field-model_id\"]"
@@ -179,7 +215,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

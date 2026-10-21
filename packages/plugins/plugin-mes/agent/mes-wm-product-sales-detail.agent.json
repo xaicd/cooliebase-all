@@ -20,7 +20,12 @@
         "path": "/mes-wm-product-sales-detail",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "line_id",
+          "sales_id",
+          "item_id",
+          "material_stock_id",
+          "batch_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增MES 销售出库明细",
       "edit": "编辑MES 销售出库明细"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "line_id",
+        "label": "出库单行ID",
+        "testId": "search-line_id",
+        "selector": "[data-testid=\"search-line_id\"]"
+      },
+      {
+        "name": "sales_id",
+        "label": "出库单ID",
+        "testId": "search-sales_id",
+        "selector": "[data-testid=\"search-sales_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "material_stock_id",
+        "label": "库存记录ID",
+        "testId": "search-material_stock_id",
+        "selector": "[data-testid=\"search-material_stock_id\"]"
+      },
+      {
+        "name": "batch_id",
+        "label": "批次 ID",
+        "testId": "search-batch_id",
+        "selector": "[data-testid=\"search-batch_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "line_id",
         "label": "出库单行ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-line_id",
         "selector": "[data-testid=\"field-line_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "sales_id",
         "label": "出库单ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sales_id",
         "selector": "[data-testid=\"field-sales_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "item_id",
         "label": "物料ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "material_stock_id",
         "label": "库存记录ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-material_stock_id",
         "selector": "[data-testid=\"field-material_stock_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "batch_id",
         "label": "批次 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-batch_id",
         "selector": "[data-testid=\"field-batch_id\"]"
@@ -139,7 +175,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "location_id",
         "label": "库区ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-location_id",
         "selector": "[data-testid=\"field-location_id\"]"
@@ -155,7 +191,7 @@
       {
         "name": "area_id",
         "label": "库位ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-area_id",
         "selector": "[data-testid=\"field-area_id\"]"

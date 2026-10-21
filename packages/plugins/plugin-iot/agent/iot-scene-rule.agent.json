@@ -20,7 +20,12 @@
         "path": "/iot-scene-rule",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status",
+          "type",
+          "product_id",
+          "device_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增IoT 场景联动规则",
       "edit": "编辑IoT 场景联动规则"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "场景联动名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "场景联动状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "type",
+        "label": "场景事件类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "device_id",
+        "label": "设备编号",
+        "testId": "search-device_id",
+        "selector": "[data-testid=\"search-device_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -139,7 +175,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "device_id",
         "label": "设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-device_id",
         "selector": "[data-testid=\"field-device_id\"]"
@@ -193,84 +229,12 @@
         "selector": "[data-testid=\"field-condition_groups\"]"
       },
       {
-        "name": "type",
-        "label": "触发条件类型",
-        "type": "number",
-        "required": false,
-        "testId": "field-type",
-        "selector": "[data-testid=\"field-type\"]"
-      },
-      {
-        "name": "product_id",
-        "label": "产品编号",
-        "type": "number",
-        "required": false,
-        "testId": "field-product_id",
-        "selector": "[data-testid=\"field-product_id\"]"
-      },
-      {
-        "name": "device_id",
-        "label": "设备编号",
-        "type": "number",
-        "required": false,
-        "testId": "field-device_id",
-        "selector": "[data-testid=\"field-device_id\"]"
-      },
-      {
-        "name": "identifier",
-        "label": "标识符（属性）",
-        "type": "string",
-        "required": false,
-        "testId": "field-identifier",
-        "selector": "[data-testid=\"field-identifier\"]"
-      },
-      {
-        "name": "operator",
-        "label": "操作符",
-        "type": "string",
-        "required": false,
-        "testId": "field-operator",
-        "selector": "[data-testid=\"field-operator\"]"
-      },
-      {
         "name": "param",
         "label": "参数",
         "type": "string",
         "required": false,
         "testId": "field-param",
         "selector": "[data-testid=\"field-param\"]"
-      },
-      {
-        "name": "type",
-        "label": "执行类型",
-        "type": "number",
-        "required": false,
-        "testId": "field-type",
-        "selector": "[data-testid=\"field-type\"]"
-      },
-      {
-        "name": "product_id",
-        "label": "产品编号",
-        "type": "number",
-        "required": false,
-        "testId": "field-product_id",
-        "selector": "[data-testid=\"field-product_id\"]"
-      },
-      {
-        "name": "device_id",
-        "label": "设备编号",
-        "type": "number",
-        "required": false,
-        "testId": "field-device_id",
-        "selector": "[data-testid=\"field-device_id\"]"
-      },
-      {
-        "name": "identifier",
-        "label": "标识符（服务）",
-        "type": "string",
-        "required": false,
-        "testId": "field-identifier",
-        "selector": "[data-testid=\"field-identifier\"]"
       },
       {
         "name": "params",
@@ -283,7 +247,7 @@
       {
         "name": "alert_config_id",
         "label": "告警配置编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-alert_config_id",
         "selector": "[data-testid=\"field-alert_config_id\"]"

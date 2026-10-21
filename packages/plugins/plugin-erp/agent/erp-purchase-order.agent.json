@@ -20,7 +20,11 @@
         "path": "/erp-purchase-order",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "status",
+          "supplier_id",
+          "account_id"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增ERP 采购订单",
       "edit": "编辑ERP 采购订单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "采购订单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "采购状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "supplier_id",
+        "label": "供应商编号",
+        "testId": "search-supplier_id",
+        "selector": "[data-testid=\"search-supplier_id\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "结算账户编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -99,7 +128,7 @@
       {
         "name": "supplier_id",
         "label": "供应商编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-supplier_id",
         "selector": "[data-testid=\"field-supplier_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "account_id",
         "label": "结算账户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"

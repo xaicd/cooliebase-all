@@ -20,7 +20,12 @@
         "path": "/mes-wm-batch",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "item_id",
+          "vendor_id",
+          "client_id",
+          "work_order_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增批次管理",
       "edit": "编辑批次管理"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "批次编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "vendor_id",
+        "label": "供应商ID",
+        "testId": "search-vendor_id",
+        "selector": "[data-testid=\"search-vendor_id\"]"
+      },
+      {
+        "name": "client_id",
+        "label": "客户ID",
+        "testId": "search-client_id",
+        "selector": "[data-testid=\"search-client_id\"]"
+      },
+      {
+        "name": "work_order_id",
+        "label": "生产工单ID",
+        "testId": "search-work_order_id",
+        "selector": "[data-testid=\"search-work_order_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -91,7 +127,7 @@
       {
         "name": "item_id",
         "label": "物料ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "vendor_id",
         "label": "供应商ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-vendor_id",
         "selector": "[data-testid=\"field-vendor_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "client_id",
         "label": "客户ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-client_id",
         "selector": "[data-testid=\"field-client_id\"]"
@@ -155,7 +191,7 @@
       {
         "name": "work_order_id",
         "label": "生产工单ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-work_order_id",
         "selector": "[data-testid=\"field-work_order_id\"]"
@@ -163,7 +199,7 @@
       {
         "name": "task_id",
         "label": "生产任务ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-task_id",
         "selector": "[data-testid=\"field-task_id\"]"
@@ -171,7 +207,7 @@
       {
         "name": "workstation_id",
         "label": "工作站ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-workstation_id",
         "selector": "[data-testid=\"field-workstation_id\"]"
@@ -179,7 +215,7 @@
       {
         "name": "tool_id",
         "label": "工具ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-tool_id",
         "selector": "[data-testid=\"field-tool_id\"]"
@@ -187,7 +223,7 @@
       {
         "name": "mold_id",
         "label": "模具 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-mold_id",
         "selector": "[data-testid=\"field-mold_id\"]"

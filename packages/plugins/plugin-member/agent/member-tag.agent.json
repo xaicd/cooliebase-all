@@ -20,7 +20,8 @@
         "path": "/member-tag",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增会员标签",
       "edit": "编辑会员标签"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "标签名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

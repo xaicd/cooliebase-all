@@ -20,7 +20,9 @@
         "path": "/crm-contract-product",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "contract_id",
+          "product_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增CRM 合同产品关联表",
       "edit": "编辑CRM 合同产品关联表"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "contract_id",
+        "label": "合同编号",
+        "testId": "search-contract_id",
+        "selector": "[data-testid=\"search-contract_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "contract_id",
         "label": "合同编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-contract_id",
         "selector": "[data-testid=\"field-contract_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"

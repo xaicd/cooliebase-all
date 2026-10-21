@@ -20,7 +20,10 @@
         "path": "/ai-write",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "type",
+          "model_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增AI 写作",
       "edit": "编辑AI 写作"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "写作类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "model_id",
+        "label": "模型编号",
+        "testId": "search-model_id",
+        "selector": "[data-testid=\"search-model_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "model_id",
         "label": "模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-model_id",
         "selector": "[data-testid=\"field-model_id\"]"

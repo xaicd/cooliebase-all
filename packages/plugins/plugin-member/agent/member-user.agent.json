@@ -20,7 +20,12 @@
         "path": "/member-user",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "mobile",
+          "email",
+          "status",
+          "name",
+          "area_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增会员用户 DOuk_mobile 索引：基于 字段",
       "edit": "编辑会员用户 DOuk_mobile 索引：基于 字段"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "mobile",
+        "label": "手机",
+        "testId": "search-mobile",
+        "selector": "[data-testid=\"search-mobile\"]"
+      },
+      {
+        "name": "email",
+        "label": "邮箱",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      },
+      {
+        "name": "status",
+        "label": "帐号状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "name",
+        "label": "真实名字",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "area_id",
+        "label": "所在地",
+        "testId": "search-area_id",
+        "selector": "[data-testid=\"search-area_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "mobile",
@@ -107,8 +143,8 @@
       {
         "name": "status",
         "label": "帐号状态",
-        "type": "number",
-        "required": false,
+        "type": "string",
+        "required": true,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"
       },
@@ -148,7 +184,7 @@
         "name": "nickname",
         "label": "用户昵称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-nickname",
         "selector": "[data-testid=\"field-nickname\"]"
       },
@@ -219,7 +255,7 @@
       {
         "name": "level_id",
         "label": "会员级别编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-level_id",
         "selector": "[data-testid=\"field-level_id\"]"
@@ -235,10 +271,74 @@
       {
         "name": "group_id",
         "label": "用户分组编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-group_id",
         "selector": "[data-testid=\"field-group_id\"]"
+      },
+      {
+        "name": "extra_fields",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-extra_fields",
+        "selector": "[data-testid=\"field-extra_fields\"]"
+      },
+      {
+        "name": "deleted_at",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-deleted_at",
+        "selector": "[data-testid=\"field-deleted_at\"]"
+      },
+      {
+        "name": "remark",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-remark",
+        "selector": "[data-testid=\"field-remark\"]"
+      },
+      {
+        "name": "account",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-account",
+        "selector": "[data-testid=\"field-account\"]"
+      },
+      {
+        "name": "password_hash",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-password_hash",
+        "selector": "[data-testid=\"field-password_hash\"]"
+      },
+      {
+        "name": "password_salt",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-password_salt",
+        "selector": "[data-testid=\"field-password_salt\"]"
+      },
+      {
+        "name": "avatar_url",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-avatar_url",
+        "selector": "[data-testid=\"field-avatar_url\"]"
+      },
+      {
+        "name": "member_level",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-member_level",
+        "selector": "[data-testid=\"field-member_level\"]"
       }
     ]
   },
@@ -309,7 +409,15 @@
         "tag_ids": "member-user:field:tag_ids",
         "level_id": "member-user:field:level_id",
         "experience": "member-user:field:experience",
-        "group_id": "member-user:field:group_id"
+        "group_id": "member-user:field:group_id",
+        "extra_fields": "member-user:field:extra_fields",
+        "deleted_at": "member-user:field:deleted_at",
+        "remark": "member-user:field:remark",
+        "account": "member-user:field:account",
+        "password_hash": "member-user:field:password_hash",
+        "password_salt": "member-user:field:password_salt",
+        "avatar_url": "member-user:field:avatar_url",
+        "member_level": "member-user:field:member_level"
       }
     },
     "mobile": {

@@ -20,7 +20,8 @@
         "path": "/pay-wallet",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id"
         ]
       },
       "get": {
@@ -78,12 +79,19 @@
       "create": "新增会员钱包",
       "edit": "编辑会员钱包"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户 id",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户 id",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

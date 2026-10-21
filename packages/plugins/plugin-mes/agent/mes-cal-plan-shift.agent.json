@@ -20,7 +20,9 @@
         "path": "/mes-cal-plan-shift",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "name"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 计划班次",
       "edit": "编辑MES 计划班次"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "排班计划编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "班次名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "排班计划编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"

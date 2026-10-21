@@ -20,7 +20,11 @@
         "path": "/mes-wm-outsource-receipt-line",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "receipt_id",
+          "item_id",
+          "batch_id",
+          "iqc_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增MES 外协入库单行",
       "edit": "编辑MES 外协入库单行"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "receipt_id",
+        "label": "入库单编号",
+        "testId": "search-receipt_id",
+        "selector": "[data-testid=\"search-receipt_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "batch_id",
+        "label": "批次编号",
+        "testId": "search-batch_id",
+        "selector": "[data-testid=\"search-batch_id\"]"
+      },
+      {
+        "name": "iqc_id",
+        "label": "来料检验单编号",
+        "testId": "search-iqc_id",
+        "selector": "[data-testid=\"search-iqc_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "receipt_id",
         "label": "入库单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-receipt_id",
         "selector": "[data-testid=\"field-receipt_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "item_id",
         "label": "物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "batch_id",
         "label": "批次编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-batch_id",
         "selector": "[data-testid=\"field-batch_id\"]"
@@ -155,7 +184,7 @@
       {
         "name": "iqc_id",
         "label": "来料检验单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-iqc_id",
         "selector": "[data-testid=\"field-iqc_id\"]"

@@ -20,7 +20,12 @@
         "path": "/bpm-process-instance-copy",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "start_user_id",
+          "process_instance_id",
+          "process_definition_id",
+          "category",
+          "activity_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增流程抄送",
       "edit": "编辑流程抄送"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "start_user_id",
+        "label": "发起人 Id",
+        "testId": "search-start_user_id",
+        "selector": "[data-testid=\"search-start_user_id\"]"
+      },
+      {
+        "name": "process_instance_id",
+        "label": "流程实例的编号",
+        "testId": "search-process_instance_id",
+        "selector": "[data-testid=\"search-process_instance_id\"]"
+      },
+      {
+        "name": "process_definition_id",
+        "label": "流程实例的流程定义编号",
+        "testId": "search-process_definition_id",
+        "selector": "[data-testid=\"search-process_definition_id\"]"
+      },
+      {
+        "name": "category",
+        "label": "流程分类",
+        "testId": "search-category",
+        "selector": "[data-testid=\"search-category\"]"
+      },
+      {
+        "name": "activity_id",
+        "label": "流程活动的编号",
+        "testId": "search-activity_id",
+        "selector": "[data-testid=\"search-activity_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "start_user_id",
         "label": "发起人 Id",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-start_user_id",
         "selector": "[data-testid=\"field-start_user_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "user_id",
         "label": "用户编号（被抄送的用户编号）",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

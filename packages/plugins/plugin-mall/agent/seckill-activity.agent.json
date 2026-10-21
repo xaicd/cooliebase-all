@@ -20,7 +20,11 @@
         "path": "/seckill-activity",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "spu_id",
+          "name",
+          "status",
+          "config_ids"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增秒杀活动",
       "edit": "编辑秒杀活动"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "spu_id",
+        "label": "秒杀活动商品",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "秒杀活动名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "活动状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "config_ids",
+        "label": "秒杀时段 id",
+        "testId": "search-config_ids",
+        "selector": "[data-testid=\"search-config_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "spu_id",
         "label": "秒杀活动商品",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"

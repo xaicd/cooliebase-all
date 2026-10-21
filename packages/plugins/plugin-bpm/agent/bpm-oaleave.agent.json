@@ -3,11 +3,11 @@
   "domain": "bpm",
   "entity": "BpmOALeave",
   "kebab": "bpm-oaleave",
-  "businessName": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天",
+  "businessName": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是",
   "permissionPrefix": "bpm:bpm_oaleave",
   "page": {
     "route": "/admin/bpm/bpm-oaleave",
-    "title": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天管理",
+    "title": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 管理",
     "titleSelector": "[data-testid=\"bpm-oaleave-title\"]"
   },
   "api": {
@@ -20,7 +20,11 @@
         "path": "/bpm-oaleave",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "type",
+          "status",
+          "process_instance_id"
         ]
       },
       "get": {
@@ -73,17 +77,42 @@
     "formClose": "[data-testid=\"bpm-oaleave-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天列表",
+    "tableLabel": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是列表",
     "dialogLabel": {
-      "create": "新增OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天",
-      "edit": "编辑OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天"
+      "create": "新增OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是",
+      "edit": "编辑OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "申请人的用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "请假类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "审批结果",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "process_instance_id",
+        "label": "对应的流程编号",
+        "testId": "search-process_instance_id",
+        "selector": "[data-testid=\"search-process_instance_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "申请人的用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

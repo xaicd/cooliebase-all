@@ -20,7 +20,8 @@
         "path": "/mes-md-item-batch-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "item_id"
         ]
       },
       "get": {
@@ -78,12 +79,19 @@
       "create": "新增MES 物料批次属性配置",
       "edit": "编辑MES 物料批次属性配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "item_id",
+        "label": "物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "item_id",
         "label": "物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"

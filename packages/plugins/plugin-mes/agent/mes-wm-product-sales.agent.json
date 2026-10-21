@@ -20,7 +20,12 @@
         "path": "/mes-wm-product-sales",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "client_id",
+          "notice_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 销售出库单",
       "edit": "编辑MES 销售出库单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "出库单号",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "出库单名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "client_id",
+        "label": "客户ID",
+        "testId": "search-client_id",
+        "selector": "[data-testid=\"search-client_id\"]"
+      },
+      {
+        "name": "notice_id",
+        "label": "发货通知单 ID",
+        "testId": "search-notice_id",
+        "selector": "[data-testid=\"search-notice_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -99,7 +135,7 @@
       {
         "name": "client_id",
         "label": "客户ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-client_id",
         "selector": "[data-testid=\"field-client_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "notice_id",
         "label": "发货通知单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-notice_id",
         "selector": "[data-testid=\"field-notice_id\"]"

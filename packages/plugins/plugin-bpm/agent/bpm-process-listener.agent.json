@@ -3,11 +3,11 @@
   "domain": "bpm",
   "entity": "BpmProcessListener",
   "kebab": "bpm-process-listener",
-  "businessName": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版",
+  "businessName": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
   "permissionPrefix": "bpm:bpm_process_listener",
   "page": {
     "route": "/admin/bpm/bpm-process-listener",
-    "title": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版管理",
+    "title": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计管理",
     "titleSelector": "[data-testid=\"bpm-process-listener-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/bpm-process-listener",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status",
+          "type"
         ]
       },
       "get": {
@@ -73,12 +76,31 @@
     "formClose": "[data-testid=\"bpm-process-listener-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版列表",
+    "tableLabel": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计列表",
     "dialogLabel": {
-      "create": "新增BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版",
-      "edit": "编辑BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版"
+      "create": "新增BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
+      "edit": "编辑BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "监听器名字",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "type",
+        "label": "监听类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

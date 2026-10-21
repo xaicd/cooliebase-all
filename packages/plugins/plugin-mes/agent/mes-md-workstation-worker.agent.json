@@ -20,7 +20,9 @@
         "path": "/mes-md-workstation-worker",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "workstation_id",
+          "post_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 人力资源",
       "edit": "编辑MES 人力资源"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "workstation_id",
+        "label": "工作站编号",
+        "testId": "search-workstation_id",
+        "selector": "[data-testid=\"search-workstation_id\"]"
+      },
+      {
+        "name": "post_id",
+        "label": "岗位编号",
+        "testId": "search-post_id",
+        "selector": "[data-testid=\"search-post_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "workstation_id",
         "label": "工作站编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-workstation_id",
         "selector": "[data-testid=\"field-workstation_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "post_id",
         "label": "岗位编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-post_id",
         "selector": "[data-testid=\"field-post_id\"]"

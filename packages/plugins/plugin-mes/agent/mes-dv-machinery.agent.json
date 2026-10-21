@@ -20,7 +20,12 @@
         "path": "/mes-dv-machinery",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "machinery_type_id",
+          "workshop_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 设备台账",
       "edit": "编辑MES 设备台账"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "设备编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "设备名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "machinery_type_id",
+        "label": "设备类型编号",
+        "testId": "search-machinery_type_id",
+        "selector": "[data-testid=\"search-machinery_type_id\"]"
+      },
+      {
+        "name": "workshop_id",
+        "label": "所属车间编号",
+        "testId": "search-workshop_id",
+        "selector": "[data-testid=\"search-workshop_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "设备状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -115,7 +151,7 @@
       {
         "name": "machinery_type_id",
         "label": "设备类型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-machinery_type_id",
         "selector": "[data-testid=\"field-machinery_type_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "workshop_id",
         "label": "所属车间编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-workshop_id",
         "selector": "[data-testid=\"field-workshop_id\"]"

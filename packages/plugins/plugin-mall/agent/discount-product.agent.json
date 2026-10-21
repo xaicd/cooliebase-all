@@ -20,7 +20,10 @@
         "path": "/discount-product",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "activity_id",
+          "spu_id",
+          "sku_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增限时折扣商品",
       "edit": "编辑限时折扣商品"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "activity_id",
+        "label": "限时折扣活动的编号",
+        "testId": "search-activity_id",
+        "selector": "[data-testid=\"search-activity_id\"]"
+      },
+      {
+        "name": "spu_id",
+        "label": "商品 SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "sku_id",
+        "label": "商品 SKU 编号",
+        "testId": "search-sku_id",
+        "selector": "[data-testid=\"search-sku_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "activity_id",
         "label": "限时折扣活动的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-activity_id",
         "selector": "[data-testid=\"field-activity_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "spu_id",
         "label": "商品 SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "sku_id",
         "label": "商品 SKU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sku_id",
         "selector": "[data-testid=\"field-sku_id\"]"

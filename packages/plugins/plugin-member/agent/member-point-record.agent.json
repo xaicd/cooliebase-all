@@ -20,7 +20,11 @@
         "path": "/member-point-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "biz_id",
+          "biz_type",
+          "title"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增用户积分记录",
       "edit": "编辑用户积分记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "业务编码",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "biz_type",
+        "label": "业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "title",
+        "label": "积分标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

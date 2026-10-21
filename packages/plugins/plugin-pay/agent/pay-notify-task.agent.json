@@ -3,11 +3,11 @@
   "domain": "pay",
   "entity": "PayNotifyTask",
   "kebab": "pay-notify-task",
-  "businessName": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直到成功。",
+  "businessName": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直",
   "permissionPrefix": "pay:pay_notify_task",
   "page": {
     "route": "/admin/pay/pay-notify-task",
-    "title": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直到成功。管理",
+    "title": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直管理",
     "titleSelector": "[data-testid=\"pay-notify-task-title\"]"
   },
   "api": {
@@ -20,7 +20,12 @@
         "path": "/pay-notify-task",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "app_id",
+          "type",
+          "data_id",
+          "merchant_order_id",
+          "merchant_refund_id"
         ]
       },
       "get": {
@@ -73,17 +78,48 @@
     "formClose": "[data-testid=\"pay-notify-task-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直到成功。列表",
+    "tableLabel": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直列表",
     "dialogLabel": {
-      "create": "新增支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直到成功。",
-      "edit": "编辑支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直到成功。"
+      "create": "新增支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直",
+      "edit": "编辑支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "app_id",
+        "label": "应用编号",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "通知类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "data_id",
+        "label": "数据编号，根据不同 type 进行关联：",
+        "testId": "search-data_id",
+        "selector": "[data-testid=\"search-data_id\"]"
+      },
+      {
+        "name": "merchant_order_id",
+        "label": "商户订单编号",
+        "testId": "search-merchant_order_id",
+        "selector": "[data-testid=\"search-merchant_order_id\"]"
+      },
+      {
+        "name": "merchant_refund_id",
+        "label": "商户退款编号",
+        "testId": "search-merchant_refund_id",
+        "selector": "[data-testid=\"search-merchant_refund_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "app_id",
         "label": "应用编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-app_id",
         "selector": "[data-testid=\"field-app_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "data_id",
         "label": "数据编号，根据不同 type 进行关联：",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-data_id",
         "selector": "[data-testid=\"field-data_id\"]"

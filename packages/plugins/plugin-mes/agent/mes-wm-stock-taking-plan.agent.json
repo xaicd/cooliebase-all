@@ -20,7 +20,11 @@
         "path": "/mes-wm-stock-taking-plan",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "type",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 盘点方案",
       "edit": "编辑MES 盘点方案"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "方案编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "方案名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "盘点类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",

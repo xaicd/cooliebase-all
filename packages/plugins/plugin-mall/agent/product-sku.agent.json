@@ -20,7 +20,10 @@
         "path": "/product-sku",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "spu_id",
+          "property_id",
+          "value_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增商品 SKU",
       "edit": "编辑商品 SKU"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "spu_id",
+        "label": "SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "property_id",
+        "label": "属性编号",
+        "testId": "search-property_id",
+        "selector": "[data-testid=\"search-property_id\"]"
+      },
+      {
+        "name": "value_id",
+        "label": "属性值编号",
+        "testId": "search-value_id",
+        "selector": "[data-testid=\"search-value_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "spu_id",
         "label": "SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -187,7 +209,7 @@
       {
         "name": "property_id",
         "label": "属性编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-property_id",
         "selector": "[data-testid=\"field-property_id\"]"
@@ -203,7 +225,7 @@
       {
         "name": "value_id",
         "label": "属性值编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-value_id",
         "selector": "[data-testid=\"field-value_id\"]"

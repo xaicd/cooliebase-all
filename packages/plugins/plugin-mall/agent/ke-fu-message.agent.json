@@ -20,7 +20,10 @@
         "path": "/ke-fu-message",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "conversation_id",
+          "sender_id",
+          "receiver_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增客服消息",
       "edit": "编辑客服消息"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "conversation_id",
+        "label": "会话编号",
+        "testId": "search-conversation_id",
+        "selector": "[data-testid=\"search-conversation_id\"]"
+      },
+      {
+        "name": "sender_id",
+        "label": "发送人编号",
+        "testId": "search-sender_id",
+        "selector": "[data-testid=\"search-sender_id\"]"
+      },
+      {
+        "name": "receiver_id",
+        "label": "接收人编号",
+        "testId": "search-receiver_id",
+        "selector": "[data-testid=\"search-receiver_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "conversation_id",
         "label": "会话编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-conversation_id",
         "selector": "[data-testid=\"field-conversation_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "sender_id",
         "label": "发送人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sender_id",
         "selector": "[data-testid=\"field-sender_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "receiver_id",
         "label": "接收人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-receiver_id",
         "selector": "[data-testid=\"field-receiver_id\"]"

@@ -20,7 +20,11 @@
         "path": "/mp-user",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "union_id",
+          "tag_ids",
+          "account_id",
+          "app_id"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增微信公众号粉丝",
       "edit": "编辑微信公众号粉丝"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "union_id",
+        "label": "微信生态唯一标识",
+        "testId": "search-union_id",
+        "selector": "[data-testid=\"search-union_id\"]"
+      },
+      {
+        "name": "tag_ids",
+        "label": "标签编号数组",
+        "testId": "search-tag_ids",
+        "selector": "[data-testid=\"search-tag_ids\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "公众号账号的编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "公众号 appId",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "openid",
@@ -187,7 +216,7 @@
       {
         "name": "account_id",
         "label": "公众号账号的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"

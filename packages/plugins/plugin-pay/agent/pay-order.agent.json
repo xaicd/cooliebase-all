@@ -20,7 +20,12 @@
         "path": "/pay-order",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "app_id",
+          "channel_id",
+          "user_id",
+          "merchant_order_id",
+          "subject"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增支付订单",
       "edit": "编辑支付订单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "app_id",
+        "label": "应用编号",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "channel_id",
+        "label": "渠道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "merchant_order_id",
+        "label": "商户订单编号",
+        "testId": "search-merchant_order_id",
+        "selector": "[data-testid=\"search-merchant_order_id\"]"
+      },
+      {
+        "name": "subject",
+        "label": "商品标题",
+        "testId": "search-subject",
+        "selector": "[data-testid=\"search-subject\"]"
+      }
+    ],
     "fields": [
       {
         "name": "app_id",
         "label": "应用编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-app_id",
         "selector": "[data-testid=\"field-app_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "channel_id",
         "label": "渠道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -178,8 +214,8 @@
       },
       {
         "name": "status",
-        "label": "支付状态",
-        "type": "number",
+        "label": "支付状态（字符串状态机 WAITING/SUCCESS/CLOSED，见 pay-order-lifecycle.ts）",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"
@@ -211,7 +247,7 @@
       {
         "name": "extension_id",
         "label": "支付成功的订单拓展单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-extension_id",
         "selector": "[data-testid=\"field-extension_id\"]"

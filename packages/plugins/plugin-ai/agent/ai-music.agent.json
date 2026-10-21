@@ -20,7 +20,11 @@
         "path": "/ai-music",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "title",
+          "status",
+          "task_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增AI 音乐",
       "edit": "编辑AI 音乐"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "title",
+        "label": "音乐名称",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      },
+      {
+        "name": "status",
+        "label": "音乐状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "task_id",
+        "label": "任务编号",
+        "testId": "search-task_id",
+        "selector": "[data-testid=\"search-task_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -92,7 +121,7 @@
         "name": "title",
         "label": "音乐名称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-title",
         "selector": "[data-testid=\"field-title\"]"
       },
@@ -131,7 +160,7 @@
       {
         "name": "status",
         "label": "音乐状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

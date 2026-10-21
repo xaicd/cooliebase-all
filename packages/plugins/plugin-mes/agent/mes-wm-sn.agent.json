@@ -20,7 +20,10 @@
         "path": "/mes-wm-sn",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "item_id",
+          "work_order_id"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增MES SN 码",
       "edit": "编辑MES SN 码"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "SN 码（唯一）",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "work_order_id",
+        "label": "生产工单编号",
+        "testId": "search-work_order_id",
+        "selector": "[data-testid=\"search-work_order_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "uuid",
@@ -99,7 +121,7 @@
       {
         "name": "item_id",
         "label": "物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -115,7 +137,7 @@
       {
         "name": "work_order_id",
         "label": "生产工单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-work_order_id",
         "selector": "[data-testid=\"field-work_order_id\"]"

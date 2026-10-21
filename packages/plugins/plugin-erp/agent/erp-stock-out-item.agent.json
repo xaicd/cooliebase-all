@@ -20,7 +20,11 @@
         "path": "/erp-stock-out-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "out_id",
+          "warehouse_id",
+          "product_id",
+          "product_unit_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增ERP 其它出库单项",
       "edit": "编辑ERP 其它出库单项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "out_id",
+        "label": "出库编号",
+        "testId": "search-out_id",
+        "selector": "[data-testid=\"search-out_id\"]"
+      },
+      {
+        "name": "warehouse_id",
+        "label": "仓库编号",
+        "testId": "search-warehouse_id",
+        "selector": "[data-testid=\"search-warehouse_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "product_unit_id",
+        "label": "产品单位编号",
+        "testId": "search-product_unit_id",
+        "selector": "[data-testid=\"search-product_unit_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "out_id",
         "label": "出库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-out_id",
         "selector": "[data-testid=\"field-out_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "product_unit_id",
         "label": "产品单位编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_unit_id",
         "selector": "[data-testid=\"field-product_unit_id\"]"

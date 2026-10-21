@@ -20,7 +20,11 @@
         "path": "/mes-md-unit-measure",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "primary_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 计量单位",
       "edit": "编辑MES 计量单位"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "单位编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "单位名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "primary_id",
+        "label": "主单位编号",
+        "testId": "search-primary_id",
+        "selector": "[data-testid=\"search-primary_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -107,7 +136,7 @@
       {
         "name": "primary_id",
         "label": "主单位编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-primary_id",
         "selector": "[data-testid=\"field-primary_id\"]"

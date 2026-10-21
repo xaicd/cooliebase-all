@@ -3,11 +3,11 @@
   "domain": "iot",
   "entity": "IotThingModel",
   "kebab": "iot-thing-model",
-  "businessName": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录",
+  "businessName": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",
   "permissionPrefix": "iot:iot_thing_model",
   "page": {
     "route": "/admin/iot/iot-thing-model",
-    "title": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录管理",
+    "title": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服管理",
     "titleSelector": "[data-testid=\"iot-thing-model-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/iot-thing-model",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "product_id",
+          "type"
         ]
       },
       "get": {
@@ -73,12 +76,31 @@
     "formClose": "[data-testid=\"iot-thing-model-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录列表",
+    "tableLabel": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服列表",
     "dialogLabel": {
-      "create": "新增IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录",
-      "edit": "编辑IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录"
+      "create": "新增IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",
+      "edit": "编辑IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "功能名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品标识",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "功能类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      }
+    ],
     "fields": [
       {
         "name": "identifier",
@@ -107,7 +129,7 @@
       {
         "name": "product_id",
         "label": "产品标识",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"

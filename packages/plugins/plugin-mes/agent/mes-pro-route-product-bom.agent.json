@@ -20,7 +20,11 @@
         "path": "/mes-pro-route-product-bom",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "route_id",
+          "process_id",
+          "product_id",
+          "item_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增MES 工艺路线产品 BOM",
       "edit": "编辑MES 工艺路线产品 BOM"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "route_id",
+        "label": "工艺路线编号",
+        "testId": "search-route_id",
+        "selector": "[data-testid=\"search-route_id\"]"
+      },
+      {
+        "name": "process_id",
+        "label": "工序编号",
+        "testId": "search-process_id",
+        "selector": "[data-testid=\"search-process_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品物料编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "BOM 物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "route_id",
         "label": "工艺路线编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-route_id",
         "selector": "[data-testid=\"field-route_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "process_id",
         "label": "工序编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-process_id",
         "selector": "[data-testid=\"field-process_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "product_id",
         "label": "产品物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "item_id",
         "label": "BOM 物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"

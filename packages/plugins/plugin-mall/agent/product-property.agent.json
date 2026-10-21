@@ -20,7 +20,8 @@
         "path": "/product-property",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增商品属性项",
       "edit": "编辑商品属性项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

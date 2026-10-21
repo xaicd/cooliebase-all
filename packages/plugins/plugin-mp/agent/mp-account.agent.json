@@ -20,7 +20,9 @@
         "path": "/mp-account",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "app_id"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增公众号账号",
       "edit": "编辑公众号账号"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "公众号名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "公众号 appid",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

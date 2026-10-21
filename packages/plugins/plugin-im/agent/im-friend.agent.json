@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImFriend",
   "kebab": "im-friend",
-  "businessName": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（userId=A, friendUserId=B 和 userId=B, friendUserId=A）- 状态管理",
+  "businessName": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
   "permissionPrefix": "im:im_friend",
   "page": {
     "route": "/admin/im/im-friend",
-    "title": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（userId=A, friendUserId=B 和 userId=B, friendUserId=A）- 状态管理管理",
+    "title": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u管理",
     "titleSelector": "[data-testid=\"im-friend-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-friend",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "friend_user_id",
+          "status"
         ]
       },
       "get": {
@@ -73,17 +76,36 @@
     "formClose": "[data-testid=\"im-friend-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（userId=A, friendUserId=B 和 userId=B, friendUserId=A）- 状态管理列表",
+    "tableLabel": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u列表",
     "dialogLabel": {
-      "create": "新增IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（userId=A, friendUserId=B 和 userId=B, friendUserId=A）- 状态管理",
-      "edit": "编辑IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（userId=A, friendUserId=B 和 userId=B, friendUserId=A）- 状态管理"
+      "create": "新增IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
+      "edit": "编辑IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "friend_user_id",
+        "label": "好友用户编号",
+        "testId": "search-friend_user_id",
+        "selector": "[data-testid=\"search-friend_user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "好友状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "friend_user_id",
         "label": "好友用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-friend_user_id",
         "selector": "[data-testid=\"field-friend_user_id\"]"

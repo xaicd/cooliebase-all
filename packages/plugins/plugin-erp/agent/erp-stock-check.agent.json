@@ -20,7 +20,9 @@
         "path": "/erp-stock-check",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增ERP 库存盘点单",
       "edit": "编辑ERP 库存盘点单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "盘点单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",

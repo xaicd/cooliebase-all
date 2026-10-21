@@ -3,11 +3,11 @@
   "domain": "pay",
   "entity": "PayNotifyLog",
   "kebab": "pay-notify-log",
-  "businessName": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排查问题",
+  "businessName": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
   "permissionPrefix": "pay:pay_notify_log",
   "page": {
     "route": "/admin/pay/pay-notify-log",
-    "title": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排查问题管理",
+    "title": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排管理",
     "titleSelector": "[data-testid=\"pay-notify-log-title\"]"
   },
   "api": {
@@ -20,7 +20,9 @@
         "path": "/pay-notify-log",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "task_id",
+          "status"
         ]
       },
       "get": {
@@ -73,17 +75,30 @@
     "formClose": "[data-testid=\"pay-notify-log-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排查问题列表",
+    "tableLabel": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排列表",
     "dialogLabel": {
-      "create": "新增商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排查问题",
-      "edit": "编辑商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排查问题"
+      "create": "新增商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
+      "edit": "编辑商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "task_id",
+        "label": "通知任务编号",
+        "testId": "search-task_id",
+        "selector": "[data-testid=\"search-task_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "支付通知状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "task_id",
         "label": "通知任务编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-task_id",
         "selector": "[data-testid=\"field-task_id\"]"

@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImChannelMaterial",
   "kebab": "im-channel-material",
-  "businessName": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 关联多条 - 富文本仅在素材详情接口按需返回，推送 payload 不带，避免压爆 WebSocket 通道",
+  "businessName": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N",
   "permissionPrefix": "im:im_channel_material",
   "page": {
     "route": "/admin/im/im-channel-material",
-    "title": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 关联多条 - 富文本仅在素材详情接口按需返回，推送 payload 不带，避免压爆 WebSocket 通道管理",
+    "title": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 管理",
     "titleSelector": "[data-testid=\"im-channel-material-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-channel-material",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "channel_id",
+          "type",
+          "title"
         ]
       },
       "get": {
@@ -73,17 +76,36 @@
     "formClose": "[data-testid=\"im-channel-material-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 关联多条 - 富文本仅在素材详情接口按需返回，推送 payload 不带，避免压爆 WebSocket 通道列表",
+    "tableLabel": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N列表",
     "dialogLabel": {
-      "create": "新增IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 关联多条 - 富文本仅在素材详情接口按需返回，推送 payload 不带，避免压爆 WebSocket 通道",
-      "edit": "编辑IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 关联多条 - 富文本仅在素材详情接口按需返回，推送 payload 不带，避免压爆 WebSocket 通道"
+      "create": "新增IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N",
+      "edit": "编辑IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "channel_id",
+        "label": "频道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "素材内容类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "title",
+        "label": "标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      }
+    ],
     "fields": [
       {
         "name": "channel_id",
         "label": "频道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"

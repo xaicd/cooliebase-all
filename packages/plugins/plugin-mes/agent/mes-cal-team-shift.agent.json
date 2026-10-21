@@ -20,7 +20,10 @@
         "path": "/mes-cal-team-shift",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "team_id",
+          "shift_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 班组排班",
       "edit": "编辑MES 班组排班"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "排班计划编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "team_id",
+        "label": "班组编号",
+        "testId": "search-team_id",
+        "selector": "[data-testid=\"search-team_id\"]"
+      },
+      {
+        "name": "shift_id",
+        "label": "班次编号",
+        "testId": "search-shift_id",
+        "selector": "[data-testid=\"search-shift_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "排班计划编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "team_id",
         "label": "班组编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-team_id",
         "selector": "[data-testid=\"field-team_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "shift_id",
         "label": "班次编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-shift_id",
         "selector": "[data-testid=\"field-shift_id\"]"

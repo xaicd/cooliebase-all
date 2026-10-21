@@ -20,7 +20,12 @@
         "path": "/mes-wm-return-issue-line",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "issue_id",
+          "material_stock_id",
+          "item_id",
+          "batch_id",
+          "rqc_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增MES 生产退料单行",
       "edit": "编辑MES 生产退料单行"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "issue_id",
+        "label": "退料单 ID",
+        "testId": "search-issue_id",
+        "selector": "[data-testid=\"search-issue_id\"]"
+      },
+      {
+        "name": "material_stock_id",
+        "label": "库存记录 ID",
+        "testId": "search-material_stock_id",
+        "selector": "[data-testid=\"search-material_stock_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料 ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "batch_id",
+        "label": "批次 ID",
+        "testId": "search-batch_id",
+        "selector": "[data-testid=\"search-batch_id\"]"
+      },
+      {
+        "name": "rqc_id",
+        "label": "退货检验单 ID",
+        "testId": "search-rqc_id",
+        "selector": "[data-testid=\"search-rqc_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "issue_id",
         "label": "退料单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-issue_id",
         "selector": "[data-testid=\"field-issue_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "material_stock_id",
         "label": "库存记录 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-material_stock_id",
         "selector": "[data-testid=\"field-material_stock_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "item_id",
         "label": "物料 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "batch_id",
         "label": "批次 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-batch_id",
         "selector": "[data-testid=\"field-batch_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "rqc_id",
         "label": "退货检验单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-rqc_id",
         "selector": "[data-testid=\"field-rqc_id\"]"

@@ -20,7 +20,8 @@
         "path": "/mes-md-auto-code-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "rule_id"
         ]
       },
       "get": {
@@ -78,12 +79,19 @@
       "create": "新增MES 编码生成记录",
       "edit": "编辑MES 编码生成记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "rule_id",
+        "label": "规则 ID",
+        "testId": "search-rule_id",
+        "selector": "[data-testid=\"search-rule_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "rule_id",
         "label": "规则 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-rule_id",
         "selector": "[data-testid=\"field-rule_id\"]"

@@ -20,7 +20,10 @@
         "path": "/erp-account",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "no",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增ERP 结算账户",
       "edit": "编辑ERP 结算账户"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "账户名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "no",
+        "label": "账户编码",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "开启状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

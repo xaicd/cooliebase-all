@@ -20,7 +20,12 @@
         "path": "/mp-message",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "msg_id",
+          "account_id",
+          "app_id",
+          "user_id",
+          "type"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增公众号消息",
       "edit": "编辑公众号消息"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "msg_id",
+        "label": "微信公众号消息 id",
+        "testId": "search-msg_id",
+        "selector": "[data-testid=\"search-msg_id\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "公众号账号的 ID",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "公众号 appid",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "公众号粉丝的编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "消息类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      }
+    ],
     "fields": [
       {
         "name": "msg_id",
         "label": "微信公众号消息 id",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-msg_id",
         "selector": "[data-testid=\"field-msg_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "account_id",
         "label": "公众号账号的 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "user_id",
         "label": "公众号粉丝的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -289,36 +325,12 @@
         "selector": "[data-testid=\"field-event_key\"]"
       },
       {
-        "name": "title",
-        "label": "图文消息标题",
-        "type": "string",
-        "required": false,
-        "testId": "field-title",
-        "selector": "[data-testid=\"field-title\"]"
-      },
-      {
-        "name": "description",
-        "label": "图文消息描述",
-        "type": "string",
-        "required": false,
-        "testId": "field-description",
-        "selector": "[data-testid=\"field-description\"]"
-      },
-      {
         "name": "pic_url",
         "label": "图片链接",
         "type": "string",
         "required": false,
         "testId": "field-pic_url",
         "selector": "[data-testid=\"field-pic_url\"]"
-      },
-      {
-        "name": "url",
-        "label": "点击图文消息跳转链接",
-        "type": "string",
-        "required": false,
-        "testId": "field-url",
-        "selector": "[data-testid=\"field-url\"]"
       }
     ]
   },

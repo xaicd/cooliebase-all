@@ -20,7 +20,12 @@
         "path": "/trade-order-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "order_id",
+          "cart_id",
+          "spu_id",
+          "sku_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增交易订单项",
       "edit": "编辑交易订单项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "order_id",
+        "label": "订单编号",
+        "testId": "search-order_id",
+        "selector": "[data-testid=\"search-order_id\"]"
+      },
+      {
+        "name": "cart_id",
+        "label": "购物车项编号",
+        "testId": "search-cart_id",
+        "selector": "[data-testid=\"search-cart_id\"]"
+      },
+      {
+        "name": "spu_id",
+        "label": "商品 SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "sku_id",
+        "label": "商品 SKU 编号",
+        "testId": "search-sku_id",
+        "selector": "[data-testid=\"search-sku_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "order_id",
         "label": "订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "cart_id",
         "label": "购物车项编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-cart_id",
         "selector": "[data-testid=\"field-cart_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "spu_id",
         "label": "商品 SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "sku_id",
         "label": "商品 SKU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sku_id",
         "selector": "[data-testid=\"field-sku_id\"]"
@@ -243,7 +279,7 @@
       {
         "name": "after_sale_id",
         "label": "售后单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-after_sale_id",
         "selector": "[data-testid=\"field-after_sale_id\"]"
@@ -259,7 +295,7 @@
       {
         "name": "property_id",
         "label": "属性编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-property_id",
         "selector": "[data-testid=\"field-property_id\"]"
@@ -275,7 +311,7 @@
       {
         "name": "value_id",
         "label": "属性值编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-value_id",
         "selector": "[data-testid=\"field-value_id\"]"

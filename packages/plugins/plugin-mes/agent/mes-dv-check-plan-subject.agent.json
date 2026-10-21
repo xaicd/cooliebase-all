@@ -20,7 +20,9 @@
         "path": "/mes-dv-check-plan-subject",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "subject_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 点检保养方案项目",
       "edit": "编辑MES 点检保养方案项目"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "方案编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "subject_id",
+        "label": "项目编号",
+        "testId": "search-subject_id",
+        "selector": "[data-testid=\"search-subject_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "方案编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "subject_id",
         "label": "项目编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-subject_id",
         "selector": "[data-testid=\"field-subject_id\"]"

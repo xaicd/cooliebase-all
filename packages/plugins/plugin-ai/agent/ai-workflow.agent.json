@@ -20,7 +20,10 @@
         "path": "/ai-workflow",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "code",
+          "status"
         ]
       },
       "get": {
@@ -78,13 +81,32 @@
       "create": "新增AI 工作流",
       "edit": "编辑AI 工作流"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "工作流名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "code",
+        "label": "工作流标识",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
         "label": "工作流名称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-name",
         "selector": "[data-testid=\"field-name\"]"
       },
@@ -115,7 +137,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

@@ -20,7 +20,10 @@
         "path": "/mes-qc-oqc-line",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "oqc_id",
+          "indicator_id",
+          "unit_measure_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 出货检验单行",
       "edit": "编辑MES 出货检验单行"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "oqc_id",
+        "label": "出货检验单 ID",
+        "testId": "search-oqc_id",
+        "selector": "[data-testid=\"search-oqc_id\"]"
+      },
+      {
+        "name": "indicator_id",
+        "label": "检测指标 ID",
+        "testId": "search-indicator_id",
+        "selector": "[data-testid=\"search-indicator_id\"]"
+      },
+      {
+        "name": "unit_measure_id",
+        "label": "计量单位 ID",
+        "testId": "search-unit_measure_id",
+        "selector": "[data-testid=\"search-unit_measure_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "oqc_id",
         "label": "出货检验单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-oqc_id",
         "selector": "[data-testid=\"field-oqc_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "indicator_id",
         "label": "检测指标 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-indicator_id",
         "selector": "[data-testid=\"field-indicator_id\"]"
@@ -123,7 +145,7 @@
       {
         "name": "unit_measure_id",
         "label": "计量单位 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-unit_measure_id",
         "selector": "[data-testid=\"field-unit_measure_id\"]"

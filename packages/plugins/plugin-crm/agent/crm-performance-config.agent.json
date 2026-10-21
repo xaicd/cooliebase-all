@@ -20,7 +20,9 @@
         "path": "/crm-performance-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "biz_type",
+          "object_id"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增CRM 业绩目标",
       "edit": "编辑CRM 业绩目标"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "biz_type",
+        "label": "目标类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "object_id",
+        "label": "目标对象编号",
+        "testId": "search-object_id",
+        "selector": "[data-testid=\"search-object_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "biz_type",
@@ -91,7 +106,7 @@
       {
         "name": "object_id",
         "label": "目标对象编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-object_id",
         "selector": "[data-testid=\"field-object_id\"]"

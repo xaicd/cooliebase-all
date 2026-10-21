@@ -20,7 +20,12 @@
         "path": "/mes-md-vendor",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "level",
+          "email",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 供应商",
       "edit": "编辑MES 供应商"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "供应商编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "供应商名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "level",
+        "label": "供应商等级",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      },
+      {
+        "name": "email",
+        "label": "供应商邮箱地址",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",

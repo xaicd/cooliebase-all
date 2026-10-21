@@ -20,7 +20,11 @@
         "path": "/brokerage-withdraw",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "type",
+          "status",
+          "pay_transfer_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增佣金提现",
       "edit": "编辑佣金提现"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "提现类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "pay_transfer_id",
+        "label": "转账单编号",
+        "testId": "search-pay_transfer_id",
+        "selector": "[data-testid=\"search-pay_transfer_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -195,7 +224,7 @@
       {
         "name": "pay_transfer_id",
         "label": "转账单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_transfer_id",
         "selector": "[data-testid=\"field-pay_transfer_id\"]"

@@ -20,7 +20,11 @@
         "path": "/mes-dv-check-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "machinery_id",
+          "user_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增MES 设备点检记录",
       "edit": "编辑MES 设备点检记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "点检计划编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "machinery_id",
+        "label": "设备编号",
+        "testId": "search-machinery_id",
+        "selector": "[data-testid=\"search-machinery_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "点检人编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "点检计划编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "machinery_id",
         "label": "设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-machinery_id",
         "selector": "[data-testid=\"field-machinery_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "user_id",
         "label": "点检人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

@@ -20,7 +20,12 @@
         "path": "/crm-follow-up-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "biz_type",
+          "biz_id",
+          "type",
+          "business_ids",
+          "contact_ids"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增跟进记录 DO用于记录客户、联系人的每一次跟进",
       "edit": "编辑跟进记录 DO用于记录客户、联系人的每一次跟进"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "biz_type",
+        "label": "数据类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "数据编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "跟进类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "business_ids",
+        "label": "关联的商机编号数组",
+        "testId": "search-business_ids",
+        "selector": "[data-testid=\"search-business_ids\"]"
+      },
+      {
+        "name": "contact_ids",
+        "label": "关联的联系人编号数组",
+        "testId": "search-contact_ids",
+        "selector": "[data-testid=\"search-contact_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "biz_type",
@@ -91,7 +127,7 @@
       {
         "name": "biz_id",
         "label": "数据编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_id",
         "selector": "[data-testid=\"field-biz_id\"]"

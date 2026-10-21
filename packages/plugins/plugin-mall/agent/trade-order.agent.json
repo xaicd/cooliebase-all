@@ -20,7 +20,12 @@
         "path": "/trade-order",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "type",
+          "user_id",
+          "status",
+          "brokerage_user_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增交易订单",
       "edit": "编辑交易订单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "订单流水号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "type",
+        "label": "订单类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "订单状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "brokerage_user_id",
+        "label": "推广人编号",
+        "testId": "search-brokerage_user_id",
+        "selector": "[data-testid=\"search-brokerage_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -107,7 +143,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -187,7 +223,7 @@
       {
         "name": "brokerage_user_id",
         "label": "推广人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-brokerage_user_id",
         "selector": "[data-testid=\"field-brokerage_user_id\"]"
@@ -195,7 +231,7 @@
       {
         "name": "pay_order_id",
         "label": "支付订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_order_id",
         "selector": "[data-testid=\"field-pay_order_id\"]"
@@ -275,7 +311,7 @@
       {
         "name": "logistics_id",
         "label": "发货物流公司编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-logistics_id",
         "selector": "[data-testid=\"field-logistics_id\"]"
@@ -339,7 +375,7 @@
       {
         "name": "pick_up_store_id",
         "label": "自提门店编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pick_up_store_id",
         "selector": "[data-testid=\"field-pick_up_store_id\"]"
@@ -371,7 +407,7 @@
       {
         "name": "coupon_id",
         "label": "优惠劵编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-coupon_id",
         "selector": "[data-testid=\"field-coupon_id\"]"
@@ -443,7 +479,7 @@
       {
         "name": "seckill_activity_id",
         "label": "秒杀活动编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-seckill_activity_id",
         "selector": "[data-testid=\"field-seckill_activity_id\"]"
@@ -451,7 +487,7 @@
       {
         "name": "bargain_activity_id",
         "label": "砍价活动编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-bargain_activity_id",
         "selector": "[data-testid=\"field-bargain_activity_id\"]"
@@ -459,7 +495,7 @@
       {
         "name": "bargain_record_id",
         "label": "砍价记录编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-bargain_record_id",
         "selector": "[data-testid=\"field-bargain_record_id\"]"
@@ -467,7 +503,7 @@
       {
         "name": "combination_activity_id",
         "label": "拼团活动编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-combination_activity_id",
         "selector": "[data-testid=\"field-combination_activity_id\"]"
@@ -475,7 +511,7 @@
       {
         "name": "combination_head_id",
         "label": "拼团团长编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-combination_head_id",
         "selector": "[data-testid=\"field-combination_head_id\"]"
@@ -483,7 +519,7 @@
       {
         "name": "combination_record_id",
         "label": "拼团记录编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-combination_record_id",
         "selector": "[data-testid=\"field-combination_record_id\"]"
@@ -491,7 +527,7 @@
       {
         "name": "point_activity_id",
         "label": "积分商城活动的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-point_activity_id",
         "selector": "[data-testid=\"field-point_activity_id\"]"

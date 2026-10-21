@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImRtcCall",
   "kebab": "im-rtc-call",
-  "businessName": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED → RUNNING → ENDED；和明细表 通过 关联",
+  "businessName": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
   "permissionPrefix": "im:im_rtc_call",
   "page": {
     "route": "/admin/im/im-rtc-call",
-    "title": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED → RUNNING → ENDED；和明细表 通过 关联管理",
+    "title": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →管理",
     "titleSelector": "[data-testid=\"im-rtc-call-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-rtc-call",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "inviter_user_id",
+          "group_id",
+          "status"
         ]
       },
       "get": {
@@ -73,12 +76,31 @@
     "formClose": "[data-testid=\"im-rtc-call-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED → RUNNING → ENDED；和明细表 通过 关联列表",
+    "tableLabel": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →列表",
     "dialogLabel": {
-      "create": "新增IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED → RUNNING → ENDED；和明细表 通过 关联",
-      "edit": "编辑IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED → RUNNING → ENDED；和明细表 通过 关联"
+      "create": "新增IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
+      "edit": "编辑IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "inviter_user_id",
+        "label": "发起人用户编号",
+        "testId": "search-inviter_user_id",
+        "selector": "[data-testid=\"search-inviter_user_id\"]"
+      },
+      {
+        "name": "group_id",
+        "label": "群编号；私聊为 NULL",
+        "testId": "search-group_id",
+        "selector": "[data-testid=\"search-group_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "通话状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "room",
@@ -107,7 +129,7 @@
       {
         "name": "inviter_user_id",
         "label": "发起人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-inviter_user_id",
         "selector": "[data-testid=\"field-inviter_user_id\"]"
@@ -115,7 +137,7 @@
       {
         "name": "group_id",
         "label": "群编号；私聊为 NULL",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-group_id",
         "selector": "[data-testid=\"field-group_id\"]"

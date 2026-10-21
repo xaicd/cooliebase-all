@@ -3,11 +3,11 @@
   "domain": "mall",
   "entity": "DiyTemplate",
   "kebab": "diy-template",
-  "businessName": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个",
+  "businessName": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2.",
   "permissionPrefix": "mall:diy_template",
   "page": {
     "route": "/admin/mall/diy-template",
-    "title": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个管理",
+    "title": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 管理",
     "titleSelector": "[data-testid=\"diy-template-title\"]"
   },
   "api": {
@@ -20,7 +20,8 @@
         "path": "/diy-template",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name"
         ]
       },
       "get": {
@@ -73,12 +74,19 @@
     "formClose": "[data-testid=\"diy-template-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个列表",
+    "tableLabel": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2.列表",
     "dialogLabel": {
-      "create": "新增装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个",
-      "edit": "编辑装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个"
+      "create": "新增装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2.",
+      "edit": "编辑装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2."
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "模板名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

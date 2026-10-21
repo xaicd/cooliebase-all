@@ -20,7 +20,11 @@
         "path": "/mes-md-workshop",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "charge_user_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 车间",
       "edit": "编辑MES 车间"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "车间编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "车间名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "charge_user_id",
+        "label": "负责人用户编号",
+        "testId": "search-charge_user_id",
+        "selector": "[data-testid=\"search-charge_user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -107,7 +136,7 @@
       {
         "name": "charge_user_id",
         "label": "负责人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-charge_user_id",
         "selector": "[data-testid=\"field-charge_user_id\"]"

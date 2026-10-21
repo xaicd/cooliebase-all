@@ -20,7 +20,10 @@
         "path": "/mes-qc-template-indicator",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "template_id",
+          "indicator_id",
+          "unit_measure_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 质检方案-检测指标项",
       "edit": "编辑MES 质检方案-检测指标项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "template_id",
+        "label": "质检方案编号",
+        "testId": "search-template_id",
+        "selector": "[data-testid=\"search-template_id\"]"
+      },
+      {
+        "name": "indicator_id",
+        "label": "质检指标编号",
+        "testId": "search-indicator_id",
+        "selector": "[data-testid=\"search-indicator_id\"]"
+      },
+      {
+        "name": "unit_measure_id",
+        "label": "计量单位编号",
+        "testId": "search-unit_measure_id",
+        "selector": "[data-testid=\"search-unit_measure_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "template_id",
         "label": "质检方案编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-template_id",
         "selector": "[data-testid=\"field-template_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "indicator_id",
         "label": "质检指标编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-indicator_id",
         "selector": "[data-testid=\"field-indicator_id\"]"
@@ -115,7 +137,7 @@
       {
         "name": "unit_measure_id",
         "label": "计量单位编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-unit_measure_id",
         "selector": "[data-testid=\"field-unit_measure_id\"]"

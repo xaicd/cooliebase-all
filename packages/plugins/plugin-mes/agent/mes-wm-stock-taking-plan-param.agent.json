@@ -20,7 +20,10 @@
         "path": "/mes-wm-stock-taking-plan-param",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "type",
+          "value_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 盘点方案参数",
       "edit": "编辑MES 盘点方案参数"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "盘点方案编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "参数值类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "value_id",
+        "label": "参数值编号，例如仓库、库区、库位、物料、批次的主键 ID",
+        "testId": "search-value_id",
+        "selector": "[data-testid=\"search-value_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "盘点方案编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "value_id",
         "label": "参数值编号，例如仓库、库区、库位、物料、批次的主键 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-value_id",
         "selector": "[data-testid=\"field-value_id\"]"

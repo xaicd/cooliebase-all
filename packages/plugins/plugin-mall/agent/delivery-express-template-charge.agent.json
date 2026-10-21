@@ -20,7 +20,9 @@
         "path": "/delivery-express-template-charge",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "template_id",
+          "area_ids"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增快递运费模板计费配置",
       "edit": "编辑快递运费模板计费配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "template_id",
+        "label": "配送模板编号",
+        "testId": "search-template_id",
+        "selector": "[data-testid=\"search-template_id\"]"
+      },
+      {
+        "name": "area_ids",
+        "label": "配送区域编号列表",
+        "testId": "search-area_ids",
+        "selector": "[data-testid=\"search-area_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "template_id",
         "label": "配送模板编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-template_id",
         "selector": "[data-testid=\"field-template_id\"]"

@@ -20,7 +20,11 @@
         "path": "/mes-qc-indicator-result",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "qc_id",
+          "item_id",
+          "sn"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 检验结果记录",
       "edit": "编辑MES 检验结果记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "样品编号",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "qc_id",
+        "label": "关联质检单 ID（IQC/IPQC/OQC/RQC 的 id）",
+        "testId": "search-qc_id",
+        "selector": "[data-testid=\"search-qc_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "产品物料 ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "sn",
+        "label": "物资 SN",
+        "testId": "search-sn",
+        "selector": "[data-testid=\"search-sn\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -91,7 +120,7 @@
       {
         "name": "qc_id",
         "label": "关联质检单 ID（IQC/IPQC/OQC/RQC 的 id）",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-qc_id",
         "selector": "[data-testid=\"field-qc_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "item_id",
         "label": "产品物料 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"

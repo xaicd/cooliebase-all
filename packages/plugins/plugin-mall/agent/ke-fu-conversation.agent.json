@@ -20,7 +20,8 @@
         "path": "/ke-fu-conversation",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id"
         ]
       },
       "get": {
@@ -78,12 +79,19 @@
       "create": "新增客服会话",
       "edit": "编辑客服会话"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "会话所属用户",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "会话所属用户",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

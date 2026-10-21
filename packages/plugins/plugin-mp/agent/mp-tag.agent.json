@@ -20,7 +20,11 @@
         "path": "/mp-tag",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "tag_id",
+          "name",
+          "account_id",
+          "app_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增公众号标签",
       "edit": "编辑公众号标签"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "tag_id",
+        "label": "公众号标签 id",
+        "testId": "search-tag_id",
+        "selector": "[data-testid=\"search-tag_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "标签名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "公众号账号的编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "公众号 appId",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "tag_id",
         "label": "公众号标签 id",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-tag_id",
         "selector": "[data-testid=\"field-tag_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "account_id",
         "label": "公众号账号的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"

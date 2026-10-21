@@ -20,7 +20,11 @@
         "path": "/pay-order-extension",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "order_id",
+          "channel_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录",
       "edit": "编辑支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "外部订单号，根据规则生成",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "order_id",
+        "label": "订单号",
+        "testId": "search-order_id",
+        "selector": "[data-testid=\"search-order_id\"]"
+      },
+      {
+        "name": "channel_id",
+        "label": "渠道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "支付状态（字符串状态机 WAITING/SUCCESS/CLOSED，见 pay-order-lifecycle.ts）",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +120,7 @@
       {
         "name": "order_id",
         "label": "订单号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "channel_id",
         "label": "渠道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"
@@ -122,8 +151,8 @@
       },
       {
         "name": "status",
-        "label": "支付状态",
-        "type": "number",
+        "label": "支付状态（字符串状态机 WAITING/SUCCESS/CLOSED，见 pay-order-lifecycle.ts）",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

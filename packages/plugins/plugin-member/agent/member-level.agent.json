@@ -20,7 +20,10 @@
         "path": "/member-level",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "level",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增会员等级 DO配置每个等级需要的积分",
       "edit": "编辑会员等级 DO配置每个等级需要的积分"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "等级名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "level",
+        "label": "等级",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -131,7 +153,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

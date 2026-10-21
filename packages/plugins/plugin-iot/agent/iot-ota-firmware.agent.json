@@ -20,7 +20,9 @@
         "path": "/iot-ota-firmware",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "product_id"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增IoT OTA 固件",
       "edit": "编辑IoT OTA 固件"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "固件名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -107,7 +122,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"

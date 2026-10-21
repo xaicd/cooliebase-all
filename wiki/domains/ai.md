@@ -45,7 +45,7 @@
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
 | `AiApiKey` | AI API 秘钥 | `/admin/ai/ai-api-key` | `ai:ai_api_key` | [`ai-api-key.agent.json`](../../packages/plugins/plugin-ai/agent/ai-api-key.agent.json) |
-| `AiChatConversation` | AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起 | `/admin/ai/ai-chat-conversation` | `ai:ai_chat_conversation` | [`ai-chat-conversation.agent.json`](../../packages/plugins/plugin-ai/agent/ai-chat-conversation.agent.json) |
+| `AiChatConversation` | AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它 | `/admin/ai/ai-chat-conversation` | `ai:ai_chat_conversation` | [`ai-chat-conversation.agent.json`](../../packages/plugins/plugin-ai/agent/ai-chat-conversation.agent.json) |
 | `AiChatMessage` | AI Chat 消息 | `/admin/ai/ai-chat-message` | `ai:ai_chat_message` | [`ai-chat-message.agent.json`](../../packages/plugins/plugin-ai/agent/ai-chat-message.agent.json) |
 | `AiChatRole` | AI 聊天角色 | `/admin/ai/ai-chat-role` | `ai:ai_chat_role` | [`ai-chat-role.agent.json`](../../packages/plugins/plugin-ai/agent/ai-chat-role.agent.json) |
 | `AiImage` | AI 绘画 | `/admin/ai/ai-image` | `ai:ai_image` | [`ai-image.agent.json`](../../packages/plugins/plugin-ai/agent/ai-image.agent.json) |

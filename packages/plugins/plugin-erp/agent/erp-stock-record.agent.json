@@ -20,7 +20,12 @@
         "path": "/erp-stock-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "product_id",
+          "warehouse_id",
+          "biz_type",
+          "biz_id",
+          "biz_item_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增ERP 产品库存明细",
       "edit": "编辑ERP 产品库存明细"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "warehouse_id",
+        "label": "仓库编号",
+        "testId": "search-warehouse_id",
+        "selector": "[data-testid=\"search-warehouse_id\"]"
+      },
+      {
+        "name": "biz_type",
+        "label": "业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "业务编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "biz_item_id",
+        "label": "业务项编号",
+        "testId": "search-biz_item_id",
+        "selector": "[data-testid=\"search-biz_item_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "biz_id",
         "label": "业务编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_id",
         "selector": "[data-testid=\"field-biz_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "biz_item_id",
         "label": "业务项编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_item_id",
         "selector": "[data-testid=\"field-biz_item_id\"]"

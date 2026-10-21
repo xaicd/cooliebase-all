@@ -20,7 +20,12 @@
         "path": "/delivery-pick-up-store",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "phone",
+          "area_id",
+          "verify_user_ids",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增自提门店",
       "edit": "编辑自提门店"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "门店名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "phone",
+        "label": "门店手机",
+        "testId": "search-phone",
+        "selector": "[data-testid=\"search-phone\"]"
+      },
+      {
+        "name": "area_id",
+        "label": "区域编号",
+        "testId": "search-area_id",
+        "selector": "[data-testid=\"search-area_id\"]"
+      },
+      {
+        "name": "verify_user_ids",
+        "label": "核销员工用户编号数组",
+        "testId": "search-verify_user_ids",
+        "selector": "[data-testid=\"search-verify_user_ids\"]"
+      },
+      {
+        "name": "status",
+        "label": "门店状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

@@ -20,7 +20,11 @@
         "path": "/im-group-member",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "group_id",
+          "user_id",
+          "status",
+          "inviter_user_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增IM 群成员",
       "edit": "编辑IM 群成员"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "group_id",
+        "label": "群编号",
+        "testId": "search-group_id",
+        "selector": "[data-testid=\"search-group_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "成员状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "inviter_user_id",
+        "label": "邀请人用户编号",
+        "testId": "search-inviter_user_id",
+        "selector": "[data-testid=\"search-inviter_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "group_id",
         "label": "群编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-group_id",
         "selector": "[data-testid=\"field-group_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -155,7 +184,7 @@
       {
         "name": "inviter_user_id",
         "label": "邀请人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-inviter_user_id",
         "selector": "[data-testid=\"field-inviter_user_id\"]"

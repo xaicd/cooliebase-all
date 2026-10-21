@@ -20,7 +20,11 @@
         "path": "/pay-demo-order",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "spu_id",
+          "pay_order_id",
+          "pay_refund_id"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款",
       "edit": "编辑示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "spu_id",
+        "label": "商品编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "pay_order_id",
+        "label": "支付订单编号",
+        "testId": "search-pay_order_id",
+        "selector": "[data-testid=\"search-pay_order_id\"]"
+      },
+      {
+        "name": "pay_refund_id",
+        "label": "支付退款单号",
+        "testId": "search-pay_refund_id",
+        "selector": "[data-testid=\"search-pay_refund_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "spu_id",
         "label": "商品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -123,7 +152,7 @@
       {
         "name": "pay_order_id",
         "label": "支付订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_order_id",
         "selector": "[data-testid=\"field-pay_order_id\"]"
@@ -147,7 +176,7 @@
       {
         "name": "pay_refund_id",
         "label": "支付退款单号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_refund_id",
         "selector": "[data-testid=\"field-pay_refund_id\"]"

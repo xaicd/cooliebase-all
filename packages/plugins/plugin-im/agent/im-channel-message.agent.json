@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImChannelMessage",
   "kebab": "im-channel-message",
-  "businessName": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于按频道检索- 存推送时 payload 的 JSON 快照（title / coverUrl / summa",
+  "businessName": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于",
   "permissionPrefix": "im:im_channel_message",
   "page": {
     "route": "/admin/im/im-channel-message",
-    "title": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于按频道检索- 存推送时 payload 的 JSON 快照（title / coverUrl / summa管理",
+    "title": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于管理",
     "titleSelector": "[data-testid=\"im-channel-message-title\"]"
   },
   "api": {
@@ -20,7 +20,11 @@
         "path": "/im-channel-message",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "channel_id",
+          "material_id",
+          "type",
+          "receiver_user_ids"
         ]
       },
       "get": {
@@ -73,17 +77,42 @@
     "formClose": "[data-testid=\"im-channel-message-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于按频道检索- 存推送时 payload 的 JSON 快照（title / coverUrl / summa列表",
+    "tableLabel": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于列表",
     "dialogLabel": {
-      "create": "新增IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于按频道检索- 存推送时 payload 的 JSON 快照（title / coverUrl / summa",
-      "edit": "编辑IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于按频道检索- 存推送时 payload 的 JSON 快照（title / coverUrl / summa"
+      "create": "新增IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于",
+      "edit": "编辑IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "channel_id",
+        "label": "频道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "material_id",
+        "label": "关联素材编号",
+        "testId": "search-material_id",
+        "selector": "[data-testid=\"search-material_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "消息类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "receiver_user_ids",
+        "label": "接收人编号列表；为空表示全员",
+        "testId": "search-receiver_user_ids",
+        "selector": "[data-testid=\"search-receiver_user_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "channel_id",
         "label": "频道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "material_id",
         "label": "关联素材编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-material_id",
         "selector": "[data-testid=\"field-material_id\"]"

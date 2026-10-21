@@ -20,7 +20,12 @@
         "path": "/iot-ota-task-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "firmware_id",
+          "task_id",
+          "device_id",
+          "from_firmware_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增IoT OTA 升级任务记录",
       "edit": "编辑IoT OTA 升级任务记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "firmware_id",
+        "label": "固件编号",
+        "testId": "search-firmware_id",
+        "selector": "[data-testid=\"search-firmware_id\"]"
+      },
+      {
+        "name": "task_id",
+        "label": "任务编号",
+        "testId": "search-task_id",
+        "selector": "[data-testid=\"search-task_id\"]"
+      },
+      {
+        "name": "device_id",
+        "label": "设备编号",
+        "testId": "search-device_id",
+        "selector": "[data-testid=\"search-device_id\"]"
+      },
+      {
+        "name": "from_firmware_id",
+        "label": "来源的固件编号",
+        "testId": "search-from_firmware_id",
+        "selector": "[data-testid=\"search-from_firmware_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "升级状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "firmware_id",
         "label": "固件编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-firmware_id",
         "selector": "[data-testid=\"field-firmware_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "task_id",
         "label": "任务编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-task_id",
         "selector": "[data-testid=\"field-task_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "device_id",
         "label": "设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-device_id",
         "selector": "[data-testid=\"field-device_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "from_firmware_id",
         "label": "来源的固件编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-from_firmware_id",
         "selector": "[data-testid=\"field-from_firmware_id\"]"

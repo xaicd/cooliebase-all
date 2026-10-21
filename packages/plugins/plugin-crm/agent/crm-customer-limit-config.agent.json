@@ -20,7 +20,10 @@
         "path": "/crm-customer-limit-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "type",
+          "user_ids",
+          "dept_ids"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增客户限制配置",
       "edit": "编辑客户限制配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "type",
+        "label": "规则类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "user_ids",
+        "label": "规则适用人群",
+        "testId": "search-user_ids",
+        "selector": "[data-testid=\"search-user_ids\"]"
+      },
+      {
+        "name": "dept_ids",
+        "label": "规则适用部门",
+        "testId": "search-dept_ids",
+        "selector": "[data-testid=\"search-dept_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "type",

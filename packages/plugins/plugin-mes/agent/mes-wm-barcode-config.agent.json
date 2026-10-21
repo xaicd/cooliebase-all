@@ -20,7 +20,9 @@
         "path": "/mes-wm-barcode-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "biz_type",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增MES 条码配置",
       "edit": "编辑MES 条码配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "biz_type",
+        "label": "业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "format",

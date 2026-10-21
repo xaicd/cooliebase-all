@@ -20,7 +20,8 @@
         "path": "/delivery-express-template",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增快递运费模板",
       "edit": "编辑快递运费模板"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "模板名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

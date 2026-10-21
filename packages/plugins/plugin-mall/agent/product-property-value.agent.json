@@ -20,7 +20,9 @@
         "path": "/product-property-value",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "property_id",
+          "name"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增商品属性值",
       "edit": "编辑商品属性值"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "property_id",
+        "label": "属性项的编号",
+        "testId": "search-property_id",
+        "selector": "[data-testid=\"search-property_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "property_id",
         "label": "属性项的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-property_id",
         "selector": "[data-testid=\"field-property_id\"]"

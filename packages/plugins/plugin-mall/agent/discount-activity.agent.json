@@ -3,11 +3,11 @@
   "domain": "mall",
   "entity": "DiscountActivity",
   "kebab": "discount-activity",
-  "businessName": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动；",
+  "businessName": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
   "permissionPrefix": "mall:discount_activity",
   "page": {
     "route": "/admin/mall/discount-activity",
-    "title": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动；管理",
+    "title": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一管理",
     "titleSelector": "[data-testid=\"discount-activity-title\"]"
   },
   "api": {
@@ -20,7 +20,9 @@
         "path": "/discount-activity",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -73,12 +75,25 @@
     "formClose": "[data-testid=\"discount-activity-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动；列表",
+    "tableLabel": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一列表",
     "dialogLabel": {
-      "create": "新增限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动；",
-      "edit": "编辑限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动；"
+      "create": "新增限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
+      "edit": "编辑限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "活动标题",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

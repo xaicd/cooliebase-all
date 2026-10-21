@@ -20,7 +20,12 @@
         "path": "/mes-md-client",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "type",
+          "email",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 客户",
       "edit": "编辑MES 客户"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "客户编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "客户名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "客户类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "email",
+        "label": "客户邮箱地址",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",

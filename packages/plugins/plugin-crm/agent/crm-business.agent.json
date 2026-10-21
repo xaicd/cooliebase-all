@@ -20,7 +20,12 @@
         "path": "/crm-business",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "customer_id",
+          "owner_user_id",
+          "status_type_id",
+          "status_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增CRM 商机",
       "edit": "编辑CRM 商机"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "商机名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "负责人的用户编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      },
+      {
+        "name": "status_type_id",
+        "label": "商机状态组编号",
+        "testId": "search-status_type_id",
+        "selector": "[data-testid=\"search-status_type_id\"]"
+      },
+      {
+        "name": "status_id",
+        "label": "商机状态编号",
+        "testId": "search-status_id",
+        "selector": "[data-testid=\"search-status_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -91,7 +127,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "owner_user_id",
         "label": "负责人的用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "status_type_id",
         "label": "商机状态组编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status_type_id",
         "selector": "[data-testid=\"field-status_type_id\"]"
@@ -139,7 +175,7 @@
       {
         "name": "status_id",
         "label": "商机状态编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status_id",
         "selector": "[data-testid=\"field-status_id\"]"

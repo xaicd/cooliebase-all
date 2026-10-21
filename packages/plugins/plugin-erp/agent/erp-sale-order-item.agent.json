@@ -20,7 +20,10 @@
         "path": "/erp-sale-order-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "order_id",
+          "product_id",
+          "product_unit_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增ERP 销售订单项",
       "edit": "编辑ERP 销售订单项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "order_id",
+        "label": "销售订单编号",
+        "testId": "search-order_id",
+        "selector": "[data-testid=\"search-order_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "product_unit_id",
+        "label": "产品单位单位",
+        "testId": "search-product_unit_id",
+        "selector": "[data-testid=\"search-product_unit_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "order_id",
         "label": "销售订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "product_unit_id",
         "label": "产品单位单位",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_unit_id",
         "selector": "[data-testid=\"field-product_unit_id\"]"

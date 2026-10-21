@@ -20,7 +20,10 @@
         "path": "/bargain-help",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "activity_id",
+          "record_id",
+          "user_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增砍价助力",
       "edit": "编辑砍价助力"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "activity_id",
+        "label": "砍价活动编号",
+        "testId": "search-activity_id",
+        "selector": "[data-testid=\"search-activity_id\"]"
+      },
+      {
+        "name": "record_id",
+        "label": "砍价记录编号",
+        "testId": "search-record_id",
+        "selector": "[data-testid=\"search-record_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "activity_id",
         "label": "砍价活动编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-activity_id",
         "selector": "[data-testid=\"field-activity_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "record_id",
         "label": "砍价记录编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-record_id",
         "selector": "[data-testid=\"field-record_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

@@ -20,7 +20,12 @@
         "path": "/crm-contract",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "no",
+          "customer_id",
+          "business_id",
+          "owner_user_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增CRM 合同",
       "edit": "编辑CRM 合同"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "合同名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "no",
+        "label": "合同编号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "business_id",
+        "label": "商机编号，非必须",
+        "testId": "search-business_id",
+        "selector": "[data-testid=\"search-business_id\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "负责人的用户编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -99,7 +135,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "business_id",
         "label": "商机编号，非必须",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-business_id",
         "selector": "[data-testid=\"field-business_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "owner_user_id",
         "label": "负责人的用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"
@@ -195,7 +231,7 @@
       {
         "name": "sign_contact_id",
         "label": "客户签约人，非必须",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sign_contact_id",
         "selector": "[data-testid=\"field-sign_contact_id\"]"
@@ -203,7 +239,7 @@
       {
         "name": "sign_user_id",
         "label": "公司签约人，非必须",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sign_user_id",
         "selector": "[data-testid=\"field-sign_user_id\"]"

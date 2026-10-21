@@ -20,7 +20,9 @@
         "path": "/product-browse-history",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "spu_id",
+          "user_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增商品浏览记录",
       "edit": "编辑商品浏览记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "spu_id",
+        "label": "商品 SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "spu_id",
         "label": "商品 SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

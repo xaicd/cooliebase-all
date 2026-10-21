@@ -20,7 +20,12 @@
         "path": "/iot-alert-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "level",
+          "status",
+          "scene_rule_ids",
+          "receive_user_ids"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增IoT 告警配置",
       "edit": "编辑IoT 告警配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "配置名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "level",
+        "label": "配置状态",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      },
+      {
+        "name": "status",
+        "label": "配置状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "scene_rule_ids",
+        "label": "关联的场景联动规则编号数组",
+        "testId": "search-scene_rule_ids",
+        "selector": "[data-testid=\"search-scene_rule_ids\"]"
+      },
+      {
+        "name": "receive_user_ids",
+        "label": "接收的用户编号数组",
+        "testId": "search-receive_user_ids",
+        "selector": "[data-testid=\"search-receive_user_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

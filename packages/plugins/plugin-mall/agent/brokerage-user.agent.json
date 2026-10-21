@@ -20,7 +20,8 @@
         "path": "/brokerage-user",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "bind_user_id"
         ]
       },
       "get": {
@@ -78,12 +79,19 @@
       "create": "新增分销用户",
       "edit": "编辑分销用户"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "bind_user_id",
+        "label": "推广员编号",
+        "testId": "search-bind_user_id",
+        "selector": "[data-testid=\"search-bind_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "bind_user_id",
         "label": "推广员编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-bind_user_id",
         "selector": "[data-testid=\"field-bind_user_id\"]"

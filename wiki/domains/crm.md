@@ -41,7 +41,7 @@
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
 | `CrmBusiness` | CRM 商机 | `/admin/crm/crm-business` | `crm:crm_business` | [`crm-business.agent.json`](../../packages/plugins/plugin-crm/agent/crm-business.agent.json) |
-| `CrmBusinessProduct` | CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N | `/admin/crm/crm-business-product` | `crm:crm_business_product` | [`crm-business-product.agent.json`](../../packages/plugins/plugin-crm/agent/crm-business-product.agent.json) |
+| `CrmBusinessProduct` | CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines | `/admin/crm/crm-business-product` | `crm:crm_business_product` | [`crm-business-product.agent.json`](../../packages/plugins/plugin-crm/agent/crm-business-product.agent.json) |
 | `CrmBusinessStatus` | CRM 商机状态 DO注意，它是个配置表 | `/admin/crm/crm-business-status` | `crm:crm_business_status` | [`crm-business-status.agent.json`](../../packages/plugins/plugin-crm/agent/crm-business-status.agent.json) |
 | `CrmBusinessStatusType` | CRM 商机状态组 DO注意，它是个配置表 | `/admin/crm/crm-business-status-type` | `crm:crm_business_status_type` | [`crm-business-status-type.agent.json`](../../packages/plugins/plugin-crm/agent/crm-business-status-type.agent.json) |
 | `CrmClue` | CRM 线索 | `/admin/crm/crm-clue` | `crm:crm_clue` | [`crm-clue.agent.json`](../../packages/plugins/plugin-crm/agent/crm-clue.agent.json) |

@@ -20,7 +20,9 @@
         "path": "/mes-pro-work-order-bom",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "work_order_id",
+          "item_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 生产工单 BOM",
       "edit": "编辑MES 生产工单 BOM"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "work_order_id",
+        "label": "生产工单编号",
+        "testId": "search-work_order_id",
+        "selector": "[data-testid=\"search-work_order_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "BOM 物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "work_order_id",
         "label": "生产工单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-work_order_id",
         "selector": "[data-testid=\"field-work_order_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "item_id",
         "label": "BOM 物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"

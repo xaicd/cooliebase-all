@@ -20,7 +20,11 @@
         "path": "/crm-owner-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "biz_type",
+          "biz_id",
+          "pre_owner_user_id",
+          "post_owner_user_id"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增CRM 负责人变更记录",
       "edit": "编辑CRM 负责人变更记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "biz_type",
+        "label": "CRM 业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "CRM 业务编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "pre_owner_user_id",
+        "label": "变更前负责人",
+        "testId": "search-pre_owner_user_id",
+        "selector": "[data-testid=\"search-pre_owner_user_id\"]"
+      },
+      {
+        "name": "post_owner_user_id",
+        "label": "变更后负责人",
+        "testId": "search-post_owner_user_id",
+        "selector": "[data-testid=\"search-post_owner_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "biz_type",
@@ -91,7 +120,7 @@
       {
         "name": "biz_id",
         "label": "CRM 业务编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_id",
         "selector": "[data-testid=\"field-biz_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "pre_owner_user_id",
         "label": "变更前负责人",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pre_owner_user_id",
         "selector": "[data-testid=\"field-pre_owner_user_id\"]"
@@ -107,7 +136,7 @@
       {
         "name": "post_owner_user_id",
         "label": "变更后负责人",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-post_owner_user_id",
         "selector": "[data-testid=\"field-post_owner_user_id\"]"

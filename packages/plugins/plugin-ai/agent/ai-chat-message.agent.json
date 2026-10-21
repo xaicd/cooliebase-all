@@ -20,7 +20,12 @@
         "path": "/ai-chat-message",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "conversation_id",
+          "reply_id",
+          "type",
+          "user_id",
+          "role_id"
         ]
       },
       "get": {
@@ -78,20 +83,51 @@
       "create": "新增AI Chat 消息",
       "edit": "编辑AI Chat 消息"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "conversation_id",
+        "label": "对话编号",
+        "testId": "search-conversation_id",
+        "selector": "[data-testid=\"search-conversation_id\"]"
+      },
+      {
+        "name": "reply_id",
+        "label": "回复消息编号",
+        "testId": "search-reply_id",
+        "selector": "[data-testid=\"search-reply_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "消息类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "role_id",
+        "label": "角色编号",
+        "testId": "search-role_id",
+        "selector": "[data-testid=\"search-role_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "conversation_id",
         "label": "对话编号",
-        "type": "number",
-        "required": false,
+        "type": "string",
+        "required": true,
         "testId": "field-conversation_id",
         "selector": "[data-testid=\"field-conversation_id\"]"
       },
       {
         "name": "reply_id",
         "label": "回复消息编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-reply_id",
         "selector": "[data-testid=\"field-reply_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "role_id",
         "label": "角色编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-role_id",
         "selector": "[data-testid=\"field-role_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "model_id",
         "label": "模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-model_id",
         "selector": "[data-testid=\"field-model_id\"]"
@@ -140,7 +176,7 @@
         "name": "content",
         "label": "聊天内容",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-content",
         "selector": "[data-testid=\"field-content\"]"
       },
@@ -183,6 +219,22 @@
         "required": false,
         "testId": "field-attachment_urls",
         "selector": "[data-testid=\"field-attachment_urls\"]"
+      },
+      {
+        "name": "role",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-role",
+        "selector": "[data-testid=\"field-role\"]"
+      },
+      {
+        "name": "tokens",
+        "label": "表里已有、元数据此前未登记",
+        "type": "number",
+        "required": true,
+        "testId": "field-tokens",
+        "selector": "[data-testid=\"field-tokens\"]"
       }
     ]
   },
@@ -246,7 +298,9 @@
         "use_context": "ai-chat-message:field:use_context",
         "segment_ids": "ai-chat-message:field:segment_ids",
         "web_search_pages": "ai-chat-message:field:web_search_pages",
-        "attachment_urls": "ai-chat-message:field:attachment_urls"
+        "attachment_urls": "ai-chat-message:field:attachment_urls",
+        "role": "ai-chat-message:field:role",
+        "tokens": "ai-chat-message:field:tokens"
       }
     },
     "mobile": {

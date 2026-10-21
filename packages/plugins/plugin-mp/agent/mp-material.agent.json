@@ -3,11 +3,11 @@
   "domain": "mp",
   "entity": "MpMaterial",
   "kebab": "mp-material",
-  "businessName": "公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_",
+  "businessName": "公众号素材 DO1. a href=https://developers.wei",
   "permissionPrefix": "mp:mp_material",
   "page": {
     "route": "/admin/mp/mp-material",
-    "title": "公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_管理",
+    "title": "公众号素材 DO1. a href=https://developers.wei管理",
     "titleSelector": "[data-testid=\"mp-material-title\"]"
   },
   "api": {
@@ -20,7 +20,12 @@
         "path": "/mp-material",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "account_id",
+          "app_id",
+          "media_id",
+          "type",
+          "name"
         ]
       },
       "get": {
@@ -73,17 +78,48 @@
     "formClose": "[data-testid=\"mp-material-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_列表",
+    "tableLabel": "公众号素材 DO1. a href=https://developers.wei列表",
     "dialogLabel": {
-      "create": "新增公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_",
-      "edit": "编辑公众号素材 DO1. a href=https://developers.weixin.qq.com/doc/offiaccount/Asset_Management/New_temporary_"
+      "create": "新增公众号素材 DO1. a href=https://developers.wei",
+      "edit": "编辑公众号素材 DO1. a href=https://developers.wei"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "account_id",
+        "label": "公众号账号的编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "公众号 appId",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "media_id",
+        "label": "公众号素材 id",
+        "testId": "search-media_id",
+        "selector": "[data-testid=\"search-media_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "文件类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "name",
+        "label": "名字",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "account_id",
         "label": "公众号账号的编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"

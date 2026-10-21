@@ -20,7 +20,11 @@
         "path": "/im-group",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "owner_user_id",
+          "status",
+          "pinned_message_ids"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增IM 群信息",
       "edit": "编辑IM 群信息"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "群名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "群主用户编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "群状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "pinned_message_ids",
+        "label": "群置顶消息编号列表",
+        "testId": "search-pinned_message_ids",
+        "selector": "[data-testid=\"search-pinned_message_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -91,7 +120,7 @@
       {
         "name": "owner_user_id",
         "label": "群主用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"

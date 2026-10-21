@@ -20,7 +20,9 @@
         "path": "/ai-mind-map",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "model_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增AI 思维导图",
       "edit": "编辑AI 思维导图"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "model_id",
+        "label": "模型编号",
+        "testId": "search-model_id",
+        "selector": "[data-testid=\"search-model_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -99,7 +114,7 @@
       {
         "name": "model_id",
         "label": "模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-model_id",
         "selector": "[data-testid=\"field-model_id\"]"

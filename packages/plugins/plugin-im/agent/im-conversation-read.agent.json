@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImConversationRead",
   "kebab": "im-conversation-read",
-  "businessName": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 / 频道统一落这张表，是读位置的唯一权威。",
+  "businessName": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
   "permissionPrefix": "im:im_conversation_read",
   "page": {
     "route": "/admin/im/im-conversation-read",
-    "title": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 / 频道统一落这张表，是读位置的唯一权威。管理",
+    "title": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /管理",
     "titleSelector": "[data-testid=\"im-conversation-read-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-conversation-read",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "target_id",
+          "message_id"
         ]
       },
       "get": {
@@ -73,17 +76,36 @@
     "formClose": "[data-testid=\"im-conversation-read-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 / 频道统一落这张表，是读位置的唯一权威。列表",
+    "tableLabel": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /列表",
     "dialogLabel": {
-      "create": "新增IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 / 频道统一落这张表，是读位置的唯一权威。",
-      "edit": "编辑IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 / 频道统一落这张表，是读位置的唯一权威。"
+      "create": "新增IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
+      "edit": "编辑IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "target_id",
+        "label": "目标编号",
+        "testId": "search-target_id",
+        "selector": "[data-testid=\"search-target_id\"]"
+      },
+      {
+        "name": "message_id",
+        "label": "最大已读消息编号",
+        "testId": "search-message_id",
+        "selector": "[data-testid=\"search-message_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "target_id",
         "label": "目标编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-target_id",
         "selector": "[data-testid=\"field-target_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "message_id",
         "label": "最大已读消息编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-message_id",
         "selector": "[data-testid=\"field-message_id\"]"

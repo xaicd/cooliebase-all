@@ -3,11 +3,11 @@
   "domain": "mall",
   "entity": "CombinationRecord",
   "kebab": "combination-record",
-  "businessName": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联",
+  "businessName": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
   "permissionPrefix": "mall:combination_record",
   "page": {
     "route": "/admin/mall/combination-record",
-    "title": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联管理",
+    "title": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人管理",
     "titleSelector": "[data-testid=\"combination-record-title\"]"
   },
   "api": {
@@ -20,7 +20,12 @@
         "path": "/combination-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "activity_id",
+          "spu_id",
+          "sku_id",
+          "user_id",
+          "head_id"
         ]
       },
       "get": {
@@ -73,17 +78,48 @@
     "formClose": "[data-testid=\"combination-record-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联列表",
+    "tableLabel": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人列表",
     "dialogLabel": {
-      "create": "新增拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联",
-      "edit": "编辑拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联"
+      "create": "新增拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
+      "edit": "编辑拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "activity_id",
+        "label": "拼团活动编号",
+        "testId": "search-activity_id",
+        "selector": "[data-testid=\"search-activity_id\"]"
+      },
+      {
+        "name": "spu_id",
+        "label": "SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "sku_id",
+        "label": "SKU 编号",
+        "testId": "search-sku_id",
+        "selector": "[data-testid=\"search-sku_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "head_id",
+        "label": "团长编号",
+        "testId": "search-head_id",
+        "selector": "[data-testid=\"search-head_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "activity_id",
         "label": "拼团活动编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-activity_id",
         "selector": "[data-testid=\"field-activity_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "spu_id",
         "label": "SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "sku_id",
         "label": "SKU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sku_id",
         "selector": "[data-testid=\"field-sku_id\"]"
@@ -139,7 +175,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -163,7 +199,7 @@
       {
         "name": "head_id",
         "label": "团长编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-head_id",
         "selector": "[data-testid=\"field-head_id\"]"
@@ -179,7 +215,7 @@
       {
         "name": "order_id",
         "label": "订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"

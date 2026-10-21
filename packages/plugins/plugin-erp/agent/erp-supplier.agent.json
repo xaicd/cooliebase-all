@@ -20,7 +20,11 @@
         "path": "/erp-supplier",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "mobile",
+          "email",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增ERP 供应商",
       "edit": "编辑ERP 供应商"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "供应商名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "mobile",
+        "label": "手机号码",
+        "testId": "search-mobile",
+        "selector": "[data-testid=\"search-mobile\"]"
+      },
+      {
+        "name": "email",
+        "label": "电子邮箱",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      },
+      {
+        "name": "status",
+        "label": "开启状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

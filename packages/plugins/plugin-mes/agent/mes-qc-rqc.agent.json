@@ -20,7 +20,12 @@
         "path": "/mes-qc-rqc",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "template_id",
+          "source_doc_id",
+          "source_line_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 退货检验单（RQC, Return Quality Control）",
       "edit": "编辑MES 退货检验单（RQC, Return Quality Control）"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "检验单编号",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "检验单名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "template_id",
+        "label": "检验模板 ID",
+        "testId": "search-template_id",
+        "selector": "[data-testid=\"search-template_id\"]"
+      },
+      {
+        "name": "source_doc_id",
+        "label": "来源单据 ID",
+        "testId": "search-source_doc_id",
+        "selector": "[data-testid=\"search-source_doc_id\"]"
+      },
+      {
+        "name": "source_line_id",
+        "label": "来源单据行 ID",
+        "testId": "search-source_line_id",
+        "selector": "[data-testid=\"search-source_line_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -99,7 +135,7 @@
       {
         "name": "template_id",
         "label": "检验模板 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-template_id",
         "selector": "[data-testid=\"field-template_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "source_doc_id",
         "label": "来源单据 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-source_doc_id",
         "selector": "[data-testid=\"field-source_doc_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "source_line_id",
         "label": "来源单据行 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-source_line_id",
         "selector": "[data-testid=\"field-source_line_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "item_id",
         "label": "产品物料 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -251,7 +287,7 @@
       {
         "name": "inspector_user_id",
         "label": "检测人员用户 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-inspector_user_id",
         "selector": "[data-testid=\"field-inspector_user_id\"]"

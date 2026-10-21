@@ -20,7 +20,10 @@
         "path": "/mes-pro-work-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "workstation_id",
+          "type"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 用户工作站绑定关系（当前快照）",
       "edit": "编辑MES 用户工作站绑定关系（当前快照）"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "workstation_id",
+        "label": "工作站编号",
+        "testId": "search-workstation_id",
+        "selector": "[data-testid=\"search-workstation_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "当前状态",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "workstation_id",
         "label": "工作站编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-workstation_id",
         "selector": "[data-testid=\"field-workstation_id\"]"

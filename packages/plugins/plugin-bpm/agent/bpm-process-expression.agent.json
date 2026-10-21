@@ -20,7 +20,9 @@
         "path": "/bpm-process-expression",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增BPM 流程表达式",
       "edit": "编辑BPM 流程表达式"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "表达式名字",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "表达式状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

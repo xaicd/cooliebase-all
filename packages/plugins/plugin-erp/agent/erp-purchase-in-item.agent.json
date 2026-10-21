@@ -20,7 +20,12 @@
         "path": "/erp-purchase-in-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "in_id",
+          "order_item_id",
+          "warehouse_id",
+          "product_id",
+          "product_unit_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增ERP 采购入库项",
       "edit": "编辑ERP 采购入库项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "in_id",
+        "label": "采购入库编号",
+        "testId": "search-in_id",
+        "selector": "[data-testid=\"search-in_id\"]"
+      },
+      {
+        "name": "order_item_id",
+        "label": "采购订单项编号",
+        "testId": "search-order_item_id",
+        "selector": "[data-testid=\"search-order_item_id\"]"
+      },
+      {
+        "name": "warehouse_id",
+        "label": "仓库编号",
+        "testId": "search-warehouse_id",
+        "selector": "[data-testid=\"search-warehouse_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "product_unit_id",
+        "label": "产品单位单位",
+        "testId": "search-product_unit_id",
+        "selector": "[data-testid=\"search-product_unit_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "in_id",
         "label": "采购入库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-in_id",
         "selector": "[data-testid=\"field-in_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "order_item_id",
         "label": "采购订单项编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_item_id",
         "selector": "[data-testid=\"field-order_item_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "product_unit_id",
         "label": "产品单位单位",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_unit_id",
         "selector": "[data-testid=\"field-product_unit_id\"]"

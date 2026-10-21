@@ -20,7 +20,12 @@
         "path": "/erp-purchase-in",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "status",
+          "supplier_id",
+          "account_id",
+          "order_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增ERP 采购入库",
       "edit": "编辑ERP 采购入库"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "采购入库单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "入库状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "supplier_id",
+        "label": "供应商编号",
+        "testId": "search-supplier_id",
+        "selector": "[data-testid=\"search-supplier_id\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "结算账户编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "order_id",
+        "label": "采购订单编号",
+        "testId": "search-order_id",
+        "selector": "[data-testid=\"search-order_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -99,7 +135,7 @@
       {
         "name": "supplier_id",
         "label": "供应商编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-supplier_id",
         "selector": "[data-testid=\"field-supplier_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "account_id",
         "label": "结算账户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "order_id",
         "label": "采购订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"

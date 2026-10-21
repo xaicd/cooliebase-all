@@ -20,7 +20,10 @@
         "path": "/product-category",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "parent_id",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增商品分类",
       "edit": "编辑商品分类"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "parent_id",
+        "label": "父分类编号",
+        "testId": "search-parent_id",
+        "selector": "[data-testid=\"search-parent_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "分类名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "开启状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "parent_id",
         "label": "父分类编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

@@ -20,7 +20,10 @@
         "path": "/bpm-user-group",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status",
+          "user_ids"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增BPM 用户组",
       "edit": "编辑BPM 用户组"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "组名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "user_ids",
+        "label": "成员用户编号数组",
+        "testId": "search-user_ids",
+        "selector": "[data-testid=\"search-user_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

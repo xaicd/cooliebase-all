@@ -20,7 +20,11 @@
         "path": "/ai-model",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "key_id",
+          "name",
+          "type",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增AI 模型 DO默认模型： 为开启，并且 排序第一",
       "edit": "编辑AI 模型 DO默认模型： 为开启，并且 排序第一"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "key_id",
+        "label": "API 秘钥编号",
+        "testId": "search-key_id",
+        "selector": "[data-testid=\"search-key_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "模型名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "key_id",
         "label": "API 秘钥编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-key_id",
         "selector": "[data-testid=\"field-key_id\"]"
@@ -92,7 +121,7 @@
         "name": "name",
         "label": "模型名称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-name",
         "selector": "[data-testid=\"field-name\"]"
       },
@@ -124,15 +153,15 @@
         "name": "sort",
         "label": "排序值",
         "type": "number",
-        "required": false,
+        "required": true,
         "testId": "field-sort",
         "selector": "[data-testid=\"field-sort\"]"
       },
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
-        "required": false,
+        "type": "string",
+        "required": true,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"
       },
@@ -159,6 +188,46 @@
         "required": false,
         "testId": "field-max_contexts",
         "selector": "[data-testid=\"field-max_contexts\"]"
+      },
+      {
+        "name": "model_key",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-model_key",
+        "selector": "[data-testid=\"field-model_key\"]"
+      },
+      {
+        "name": "input_ratio",
+        "label": "表里已有、元数据此前未登记",
+        "type": "number",
+        "required": true,
+        "testId": "field-input_ratio",
+        "selector": "[data-testid=\"field-input_ratio\"]"
+      },
+      {
+        "name": "output_ratio",
+        "label": "表里已有、元数据此前未登记",
+        "type": "number",
+        "required": true,
+        "testId": "field-output_ratio",
+        "selector": "[data-testid=\"field-output_ratio\"]"
+      },
+      {
+        "name": "provider",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": true,
+        "testId": "field-provider",
+        "selector": "[data-testid=\"field-provider\"]"
+      },
+      {
+        "name": "description",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-description",
+        "selector": "[data-testid=\"field-description\"]"
       }
     ]
   },
@@ -219,7 +288,12 @@
         "status": "ai-model:field:status",
         "temperature": "ai-model:field:temperature",
         "max_tokens": "ai-model:field:max_tokens",
-        "max_contexts": "ai-model:field:max_contexts"
+        "max_contexts": "ai-model:field:max_contexts",
+        "model_key": "ai-model:field:model_key",
+        "input_ratio": "ai-model:field:input_ratio",
+        "output_ratio": "ai-model:field:output_ratio",
+        "provider": "ai-model:field:provider",
+        "description": "ai-model:field:description"
       }
     },
     "mobile": {

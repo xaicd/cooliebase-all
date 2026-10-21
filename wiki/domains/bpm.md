@@ -42,11 +42,11 @@
 |---|---|---|---|---|
 | `BpmCategory` | BPM 流程分类 | `/admin/bpm/bpm-category` | `bpm:bpm_category` | [`bpm-category.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-category.agent.json) |
 | `BpmForm` | BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景 | `/admin/bpm/bpm-form` | `bpm:bpm_form` | [`bpm-form.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-form.agent.json) |
-| `BpmOALeave` | OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 1 整天，可以是 0.5 半天 | `/admin/bpm/bpm-oaleave` | `bpm:bpm_oaleave` | [`bpm-oaleave.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-oaleave.agent.json) |
+| `BpmOALeave` | OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 | `/admin/bpm/bpm-oaleave` | `bpm:bpm_oaleave` | [`bpm-oaleave.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-oaleave.agent.json) |
 | `BpmProcessDefinitionInfo` | BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表 | `/admin/bpm/bpm-process-definition-info` | `bpm:bpm_process_definition_info` | [`bpm-process-definition-info.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-process-definition-info.agent.json) |
 | `BpmProcessExpression` | BPM 流程表达式 | `/admin/bpm/bpm-process-expression` | `bpm:bpm_process_expression` | [`bpm-process-expression.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-process-expression.agent.json) |
 | `BpmProcessInstanceCopy` | 流程抄送 | `/admin/bpm/bpm-process-instance-copy` | `bpm:bpm_process_instance_copy` | [`bpm-process-instance-copy.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-process-instance-copy.agent.json) |
-| `BpmProcessListener` | BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计时，直接选择这些模版 | `/admin/bpm/bpm-process-listener` | `bpm:bpm_process_listener` | [`bpm-process-listener.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-process-listener.agent.json) |
+| `BpmProcessListener` | BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计 | `/admin/bpm/bpm-process-listener` | `bpm:bpm_process_listener` | [`bpm-process-listener.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-process-listener.agent.json) |
 | `BpmUserGroup` | BPM 用户组 | `/admin/bpm/bpm-user-group` | `bpm:bpm_user_group` | [`bpm-user-group.agent.json`](../../packages/plugins/plugin-bpm/agent/bpm-user-group.agent.json) |
 
 

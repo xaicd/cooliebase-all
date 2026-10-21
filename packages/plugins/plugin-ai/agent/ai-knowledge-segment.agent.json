@@ -20,7 +20,11 @@
         "path": "/ai-knowledge-segment",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "knowledge_id",
+          "document_id",
+          "vector_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增AI 知识库-文档分段",
       "edit": "编辑AI 知识库-文档分段"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "knowledge_id",
+        "label": "知识库编号",
+        "testId": "search-knowledge_id",
+        "selector": "[data-testid=\"search-knowledge_id\"]"
+      },
+      {
+        "name": "document_id",
+        "label": "文档编号",
+        "testId": "search-document_id",
+        "selector": "[data-testid=\"search-document_id\"]"
+      },
+      {
+        "name": "vector_id",
+        "label": "向量库的编号",
+        "testId": "search-vector_id",
+        "selector": "[data-testid=\"search-vector_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "knowledge_id",
         "label": "知识库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-knowledge_id",
         "selector": "[data-testid=\"field-knowledge_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "document_id",
         "label": "文档编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-document_id",
         "selector": "[data-testid=\"field-document_id\"]"
@@ -139,7 +168,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

@@ -20,7 +20,12 @@
         "path": "/mes-wm-misc-receipt",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "type",
+          "source_doc_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 杂项入库单",
       "edit": "编辑MES 杂项入库单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "入库单编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "入库单名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "杂项类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "source_doc_id",
+        "label": "来源单据 ID",
+        "testId": "search-source_doc_id",
+        "selector": "[data-testid=\"search-source_doc_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -115,7 +151,7 @@
       {
         "name": "source_doc_id",
         "label": "来源单据 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-source_doc_id",
         "selector": "[data-testid=\"field-source_doc_id\"]"

@@ -20,7 +20,12 @@
         "path": "/brokerage-record",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "biz_id",
+          "biz_type",
+          "title",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增佣金记录",
       "edit": "编辑佣金记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "业务编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "biz_type",
+        "label": "业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "title",
+        "label": "标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -171,7 +207,7 @@
       {
         "name": "source_user_id",
         "label": "来源用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-source_user_id",
         "selector": "[data-testid=\"field-source_user_id\"]"

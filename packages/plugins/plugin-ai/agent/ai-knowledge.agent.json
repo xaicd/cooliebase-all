@@ -20,7 +20,10 @@
         "path": "/ai-knowledge",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "embedding_model_id",
+          "status"
         ]
       },
       "get": {
@@ -78,13 +81,32 @@
       "create": "新增AI 知识库",
       "edit": "编辑AI 知识库"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "知识库名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "embedding_model_id",
+        "label": "向量模型编号",
+        "testId": "search-embedding_model_id",
+        "selector": "[data-testid=\"search-embedding_model_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
         "label": "知识库名称",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-name",
         "selector": "[data-testid=\"field-name\"]"
       },
@@ -99,7 +121,7 @@
       {
         "name": "embedding_model_id",
         "label": "向量模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-embedding_model_id",
         "selector": "[data-testid=\"field-embedding_model_id\"]"
@@ -131,7 +153,7 @@
       {
         "name": "status",
         "label": "状态",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-status",
         "selector": "[data-testid=\"field-status\"]"

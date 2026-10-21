@@ -3,11 +3,11 @@
   "domain": "ai",
   "entity": "AiChatConversation",
   "kebab": "ai-chat-conversation",
-  "businessName": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起",
+  "businessName": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
   "permissionPrefix": "ai:ai_chat_conversation",
   "page": {
     "route": "/admin/ai/ai-chat-conversation",
-    "title": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起管理",
+    "title": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它管理",
     "titleSelector": "[data-testid=\"ai-chat-conversation-title\"]"
   },
   "api": {
@@ -20,7 +20,11 @@
         "path": "/ai-chat-conversation",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "user_id",
+          "title",
+          "role_id",
+          "model_id"
         ]
       },
       "get": {
@@ -73,18 +77,43 @@
     "formClose": "[data-testid=\"ai-chat-conversation-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起列表",
+    "tableLabel": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它列表",
     "dialogLabel": {
-      "create": "新增AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起",
-      "edit": "编辑AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它的消息关联在一起"
+      "create": "新增AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
+      "edit": "编辑AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "title",
+        "label": "对话标题",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      },
+      {
+        "name": "role_id",
+        "label": "角色编号",
+        "testId": "search-role_id",
+        "selector": "[data-testid=\"search-role_id\"]"
+      },
+      {
+        "name": "model_id",
+        "label": "模型编号",
+        "testId": "search-model_id",
+        "selector": "[data-testid=\"search-model_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
-        "required": false,
+        "type": "string",
+        "required": true,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
       },
@@ -92,7 +121,7 @@
         "name": "title",
         "label": "对话标题",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-title",
         "selector": "[data-testid=\"field-title\"]"
       },
@@ -100,7 +129,7 @@
         "name": "pinned",
         "label": "是否置顶",
         "type": "boolean",
-        "required": false,
+        "required": true,
         "testId": "field-pinned",
         "selector": "[data-testid=\"field-pinned\"]"
       },
@@ -115,7 +144,7 @@
       {
         "name": "role_id",
         "label": "角色编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-role_id",
         "selector": "[data-testid=\"field-role_id\"]"
@@ -123,7 +152,7 @@
       {
         "name": "model_id",
         "label": "模型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-model_id",
         "selector": "[data-testid=\"field-model_id\"]"
@@ -132,7 +161,7 @@
         "name": "model",
         "label": "模型标志",
         "type": "string",
-        "required": false,
+        "required": true,
         "testId": "field-model",
         "selector": "[data-testid=\"field-model\"]"
       },
@@ -167,6 +196,14 @@
         "required": false,
         "testId": "field-max_contexts",
         "selector": "[data-testid=\"field-max_contexts\"]"
+      },
+      {
+        "name": "system_prompt",
+        "label": "表里已有、元数据此前未登记",
+        "type": "string",
+        "required": false,
+        "testId": "field-system_prompt",
+        "selector": "[data-testid=\"field-system_prompt\"]"
       }
     ]
   },
@@ -228,7 +265,8 @@
         "system_message": "ai-chat-conversation:field:system_message",
         "temperature": "ai-chat-conversation:field:temperature",
         "max_tokens": "ai-chat-conversation:field:max_tokens",
-        "max_contexts": "ai-chat-conversation:field:max_contexts"
+        "max_contexts": "ai-chat-conversation:field:max_contexts",
+        "system_prompt": "ai-chat-conversation:field:system_prompt"
       }
     },
     "mobile": {

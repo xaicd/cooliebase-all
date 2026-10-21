@@ -20,7 +20,9 @@
         "path": "/point-activity",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "spu_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增积分商城活动",
       "edit": "编辑积分商城活动"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "spu_id",
+        "label": "积分商城活动商品",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "活动状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "spu_id",
         "label": "积分商城活动商品",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"

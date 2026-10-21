@@ -20,7 +20,12 @@
         "path": "/erp-finance-receipt",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "status",
+          "finance_user_id",
+          "customer_id",
+          "account_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增ERP 收款单",
       "edit": "编辑ERP 收款单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "收款单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "收款状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "finance_user_id",
+        "label": "财务人员编号",
+        "testId": "search-finance_user_id",
+        "selector": "[data-testid=\"search-finance_user_id\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "收款账户编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -107,7 +143,7 @@
       {
         "name": "finance_user_id",
         "label": "财务人员编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-finance_user_id",
         "selector": "[data-testid=\"field-finance_user_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "account_id",
         "label": "收款账户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"

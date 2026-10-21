@@ -20,7 +20,10 @@
         "path": "/im-face-pack-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "pack_id",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增IM 表情包项 DO（系统表情包内的单张表情图）",
       "edit": "编辑IM 表情包项 DO（系统表情包内的单张表情图）"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "pack_id",
+        "label": "所属表情包编号",
+        "testId": "search-pack_id",
+        "selector": "[data-testid=\"search-pack_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "表情名（可选；如「狗头」「捂脸」）",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "pack_id",
         "label": "所属表情包编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pack_id",
         "selector": "[data-testid=\"field-pack_id\"]"

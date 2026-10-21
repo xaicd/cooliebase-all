@@ -20,7 +20,11 @@
         "path": "/pay-demo-withdraw",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "subject",
+          "type",
+          "status",
+          "pay_transfer_id"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增示例提现订单演示业务系统的转账业务",
       "edit": "编辑示例提现订单演示业务系统的转账业务"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "subject",
+        "label": "提现标题",
+        "testId": "search-subject",
+        "selector": "[data-testid=\"search-subject\"]"
+      },
+      {
+        "name": "type",
+        "label": "提现方式",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "提现状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "pay_transfer_id",
+        "label": "转账单编号",
+        "testId": "search-pay_transfer_id",
+        "selector": "[data-testid=\"search-pay_transfer_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "subject",
@@ -131,7 +160,7 @@
       {
         "name": "pay_transfer_id",
         "label": "转账单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-pay_transfer_id",
         "selector": "[data-testid=\"field-pay_transfer_id\"]"

@@ -20,7 +20,9 @@
         "path": "/crm-business-status",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "type_id",
+          "name"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增CRM 商机状态 DO注意，它是个配置表",
       "edit": "编辑CRM 商机状态 DO注意，它是个配置表"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "type_id",
+        "label": "状态类型编号",
+        "testId": "search-type_id",
+        "selector": "[data-testid=\"search-type_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "状态名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "type_id",
         "label": "状态类型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-type_id",
         "selector": "[data-testid=\"field-type_id\"]"

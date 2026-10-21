@@ -20,7 +20,9 @@
         "path": "/mes-qc-indicator-result-detail",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "result_id",
+          "indicator_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 检验结果明细记录",
       "edit": "编辑MES 检验结果明细记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "result_id",
+        "label": "关联检验结果 ID",
+        "testId": "search-result_id",
+        "selector": "[data-testid=\"search-result_id\"]"
+      },
+      {
+        "name": "indicator_id",
+        "label": "检测指标 ID",
+        "testId": "search-indicator_id",
+        "selector": "[data-testid=\"search-indicator_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "result_id",
         "label": "关联检验结果 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-result_id",
         "selector": "[data-testid=\"field-result_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "indicator_id",
         "label": "检测指标 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-indicator_id",
         "selector": "[data-testid=\"field-indicator_id\"]"

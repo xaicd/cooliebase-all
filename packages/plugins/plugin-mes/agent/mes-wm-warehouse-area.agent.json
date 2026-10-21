@@ -20,7 +20,11 @@
         "path": "/mes-wm-warehouse-area",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "location_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 库位",
       "edit": "编辑MES 库位"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "库位编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "库位名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "location_id",
+        "label": "库区编号",
+        "testId": "search-location_id",
+        "selector": "[data-testid=\"search-location_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -99,7 +128,7 @@
       {
         "name": "location_id",
         "label": "库区编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-location_id",
         "selector": "[data-testid=\"field-location_id\"]"

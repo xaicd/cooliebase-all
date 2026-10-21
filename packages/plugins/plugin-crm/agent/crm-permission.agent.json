@@ -20,7 +20,11 @@
         "path": "/crm-permission",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "biz_type",
+          "biz_id",
+          "user_id",
+          "level"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增CRM 数据权限",
       "edit": "编辑CRM 数据权限"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "biz_type",
+        "label": "数据类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "数据编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "level",
+        "label": "权限级别",
+        "testId": "search-level",
+        "selector": "[data-testid=\"search-level\"]"
+      }
+    ],
     "fields": [
       {
         "name": "biz_type",
@@ -91,7 +120,7 @@
       {
         "name": "biz_id",
         "label": "数据编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_id",
         "selector": "[data-testid=\"field-biz_id\"]"
@@ -99,7 +128,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

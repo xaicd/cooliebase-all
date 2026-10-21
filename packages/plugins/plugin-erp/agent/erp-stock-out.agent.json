@@ -20,7 +20,10 @@
         "path": "/erp-stock-out",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "customer_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增ERP 其它出库单",
       "edit": "编辑ERP 其它出库单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "出库单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +113,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"

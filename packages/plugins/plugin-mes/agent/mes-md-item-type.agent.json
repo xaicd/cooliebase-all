@@ -20,7 +20,11 @@
         "path": "/mes-md-item-type",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "parent_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 物料产品分类",
       "edit": "编辑MES 物料产品分类"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "分类编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "分类名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "parent_id",
+        "label": "父分类编号",
+        "testId": "search-parent_id",
+        "selector": "[data-testid=\"search-parent_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -99,7 +128,7 @@
       {
         "name": "parent_id",
         "label": "父分类编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

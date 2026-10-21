@@ -20,7 +20,11 @@
         "path": "/erp-product-category",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "parent_id",
+          "name",
+          "code",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增ERP 产品分类",
       "edit": "编辑ERP 产品分类"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "parent_id",
+        "label": "父分类编号",
+        "testId": "search-parent_id",
+        "selector": "[data-testid=\"search-parent_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "分类名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "code",
+        "label": "分类编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "status",
+        "label": "开启状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "parent_id",
         "label": "父分类编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

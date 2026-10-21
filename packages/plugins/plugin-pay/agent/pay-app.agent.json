@@ -3,11 +3,11 @@
   "domain": "pay",
   "entity": "PayApp",
   "kebab": "pay-app",
-  "businessName": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家等等不过一般来说，一个商户，只有一个应用哈~即 PayMerchantDO : PayAppDO = 1 : n",
+  "businessName": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
   "permissionPrefix": "pay:pay_app",
   "page": {
     "route": "/admin/pay/pay-app",
-    "title": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家等等不过一般来说，一个商户，只有一个应用哈~即 PayMerchantDO : PayAppDO = 1 : n管理",
+    "title": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家管理",
     "titleSelector": "[data-testid=\"pay-app-title\"]"
   },
   "api": {
@@ -20,7 +20,9 @@
         "path": "/pay-app",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -73,12 +75,25 @@
     "formClose": "[data-testid=\"pay-app-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家等等不过一般来说，一个商户，只有一个应用哈~即 PayMerchantDO : PayAppDO = 1 : n列表",
+    "tableLabel": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家列表",
     "dialogLabel": {
-      "create": "新增支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家等等不过一般来说，一个商户，只有一个应用哈~即 PayMerchantDO : PayAppDO = 1 : n",
-      "edit": "编辑支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家等等不过一般来说，一个商户，只有一个应用哈~即 PayMerchantDO : PayAppDO = 1 : n"
+      "create": "新增支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
+      "edit": "编辑支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "应用名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "app_key",

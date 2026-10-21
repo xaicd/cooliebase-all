@@ -20,7 +20,10 @@
         "path": "/erp-finance-receipt-item",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "receipt_id",
+          "biz_type",
+          "biz_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增ERP 收款项",
       "edit": "编辑ERP 收款项"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "receipt_id",
+        "label": "收款单编号",
+        "testId": "search-receipt_id",
+        "selector": "[data-testid=\"search-receipt_id\"]"
+      },
+      {
+        "name": "biz_type",
+        "label": "业务类型",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "业务编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "receipt_id",
         "label": "收款单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-receipt_id",
         "selector": "[data-testid=\"field-receipt_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "biz_id",
         "label": "业务编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-biz_id",
         "selector": "[data-testid=\"field-biz_id\"]"

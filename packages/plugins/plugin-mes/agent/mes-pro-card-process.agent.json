@@ -20,7 +20,12 @@
         "path": "/mes-pro-card-process",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "card_id",
+          "process_id",
+          "workstation_id",
+          "user_id",
+          "ipqc_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增MES 流转卡工序记录",
       "edit": "编辑MES 流转卡工序记录"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "card_id",
+        "label": "流转卡编号",
+        "testId": "search-card_id",
+        "selector": "[data-testid=\"search-card_id\"]"
+      },
+      {
+        "name": "process_id",
+        "label": "工序编号",
+        "testId": "search-process_id",
+        "selector": "[data-testid=\"search-process_id\"]"
+      },
+      {
+        "name": "workstation_id",
+        "label": "工位编号",
+        "testId": "search-workstation_id",
+        "selector": "[data-testid=\"search-workstation_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "操作人编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "ipqc_id",
+        "label": "过程检验单编号",
+        "testId": "search-ipqc_id",
+        "selector": "[data-testid=\"search-ipqc_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "card_id",
         "label": "流转卡编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-card_id",
         "selector": "[data-testid=\"field-card_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "process_id",
         "label": "工序编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-process_id",
         "selector": "[data-testid=\"field-process_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "workstation_id",
         "label": "工位编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-workstation_id",
         "selector": "[data-testid=\"field-workstation_id\"]"
@@ -155,7 +191,7 @@
       {
         "name": "user_id",
         "label": "操作人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -163,7 +199,7 @@
       {
         "name": "ipqc_id",
         "label": "过程检验单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-ipqc_id",
         "selector": "[data-testid=\"field-ipqc_id\"]"

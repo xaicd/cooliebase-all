@@ -20,7 +20,9 @@
         "path": "/mes-cal-team-member",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "team_id",
+          "user_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 班组成员",
       "edit": "编辑MES 班组成员"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "team_id",
+        "label": "班组编号",
+        "testId": "search-team_id",
+        "selector": "[data-testid=\"search-team_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "team_id",
         "label": "班组编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-team_id",
         "selector": "[data-testid=\"field-team_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

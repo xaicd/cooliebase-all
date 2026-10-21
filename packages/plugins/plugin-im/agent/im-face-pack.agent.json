@@ -20,7 +20,9 @@
         "path": "/im-face-pack",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增IM 表情包 DO（运营配置的系统表情包元数据）",
       "edit": "编辑IM 表情包 DO（运营配置的系统表情包元数据）"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "表情包名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

@@ -54,7 +54,7 @@
 | `Cart` | 购物车的商品信息 DO每个商品，对应一条记录，通过 和 关联 | `/admin/mall/cart` | `mall:cart` | [`cart.agent.json`](../../packages/plugins/plugin-mall/agent/cart.agent.json) |
 | `CombinationActivity` | 拼团活动 | `/admin/mall/combination-activity` | `mall:combination_activity` | [`combination-activity.agent.json`](../../packages/plugins/plugin-mall/agent/combination-activity.agent.json) |
 | `CombinationProduct` | 拼团商品 | `/admin/mall/combination-product` | `mall:combination_product` | [`combination-product.agent.json`](../../packages/plugins/plugin-mall/agent/combination-product.agent.json) |
-| `CombinationRecord` | 拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人的拼团记录，通过 关联 | `/admin/mall/combination-record` | `mall:combination_record` | [`combination-record.agent.json`](../../packages/plugins/plugin-mall/agent/combination-record.agent.json) |
+| `CombinationRecord` | 拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人 | `/admin/mall/combination-record` | `mall:combination_record` | [`combination-record.agent.json`](../../packages/plugins/plugin-mall/agent/combination-record.agent.json) |
 | `Coupon` | 优惠劵 | `/admin/mall/coupon` | `mall:coupon` | [`coupon.agent.json`](../../packages/plugins/plugin-mall/agent/coupon.agent.json) |
 | `CouponTemplate` | 优惠劵模板 DO当用户领取时，会生成 优惠劵 | `/admin/mall/coupon-template` | `mall:coupon_template` | [`coupon-template.agent.json`](../../packages/plugins/plugin-mall/agent/coupon-template.agent.json) |
 | `DeliveryExpress` | 快递公司 | `/admin/mall/delivery-express` | `mall:delivery_express` | [`delivery-express.agent.json`](../../packages/plugins/plugin-mall/agent/delivery-express.agent.json) |
@@ -62,10 +62,10 @@
 | `DeliveryExpressTemplateCharge` | 快递运费模板计费配置 | `/admin/mall/delivery-express-template-charge` | `mall:delivery_express_template_charge` | [`delivery-express-template-charge.agent.json`](../../packages/plugins/plugin-mall/agent/delivery-express-template-charge.agent.json) |
 | `DeliveryExpressTemplateFree` | 快递运费模板包邮配置 | `/admin/mall/delivery-express-template-free` | `mall:delivery_express_template_free` | [`delivery-express-template-free.agent.json`](../../packages/plugins/plugin-mall/agent/delivery-express-template-free.agent.json) |
 | `DeliveryPickUpStore` | 自提门店 | `/admin/mall/delivery-pick-up-store` | `mall:delivery_pick_up_store` | [`delivery-pick-up-store.agent.json`](../../packages/plugins/plugin-mall/agent/delivery-pick-up-store.agent.json) |
-| `DiscountActivity` | 限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一个活动； | `/admin/mall/discount-activity` | `mall:discount_activity` | [`discount-activity.agent.json`](../../packages/plugins/plugin-mall/agent/discount-activity.agent.json) |
+| `DiscountActivity` | 限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一 | `/admin/mall/discount-activity` | `mall:discount_activity` | [`discount-activity.agent.json`](../../packages/plugins/plugin-mall/agent/discount-activity.agent.json) |
 | `DiscountProduct` | 限时折扣商品 | `/admin/mall/discount-product` | `mall:discount_product` | [`discount-product.agent.json`](../../packages/plugins/plugin-mall/agent/discount-product.agent.json) |
 | `DiyPage` | 装修页面 | `/admin/mall/diy-page` | `mall:diy_page` | [`diy-page.agent.json`](../../packages/plugins/plugin-mall/agent/diy-page.agent.json) |
-| `DiyTemplate` | 装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 如果需要使用某个模版，则将 设置为 true，表示已使用，有且仅有一个 | `/admin/mall/diy-template` | `mall:diy_template` | [`diy-template.agent.json`](../../packages/plugins/plugin-mall/agent/diy-template.agent.json) |
+| `DiyTemplate` | 装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. | `/admin/mall/diy-template` | `mall:diy_template` | [`diy-template.agent.json`](../../packages/plugins/plugin-mall/agent/diy-template.agent.json) |
 | `KeFuConversation` | 客服会话 | `/admin/mall/ke-fu-conversation` | `mall:ke_fu_conversation` | [`ke-fu-conversation.agent.json`](../../packages/plugins/plugin-mall/agent/ke-fu-conversation.agent.json) |
 | `KeFuMessage` | 客服消息 | `/admin/mall/ke-fu-message` | `mall:ke_fu_message` | [`ke-fu-message.agent.json`](../../packages/plugins/plugin-mall/agent/ke-fu-message.agent.json) |
 | `PointActivity` | 积分商城活动 | `/admin/mall/point-activity` | `mall:point_activity` | [`point-activity.agent.json`](../../packages/plugins/plugin-mall/agent/point-activity.agent.json) |

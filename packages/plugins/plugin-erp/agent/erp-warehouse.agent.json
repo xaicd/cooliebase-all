@@ -20,7 +20,9 @@
         "path": "/erp-warehouse",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增ERP 仓库",
       "edit": "编辑ERP 仓库"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "仓库名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "开启状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",

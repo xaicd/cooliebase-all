@@ -20,7 +20,9 @@
         "path": "/crm-product-category",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "parent_id"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增产品分类",
       "edit": "编辑产品分类"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "分类名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "parent_id",
+        "label": "父级编号",
+        "testId": "search-parent_id",
+        "selector": "[data-testid=\"search-parent_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -91,7 +106,7 @@
       {
         "name": "parent_id",
         "label": "父级编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

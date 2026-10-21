@@ -20,7 +20,12 @@
         "path": "/pay-transfer",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "app_id",
+          "channel_id",
+          "user_id",
+          "merchant_transfer_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增转账单",
       "edit": "编辑转账单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "转账单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "应用编号",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "channel_id",
+        "label": "转账渠道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "merchant_transfer_id",
+        "label": "商户转账单编号",
+        "testId": "search-merchant_transfer_id",
+        "selector": "[data-testid=\"search-merchant_transfer_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +127,7 @@
       {
         "name": "app_id",
         "label": "应用编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-app_id",
         "selector": "[data-testid=\"field-app_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "channel_id",
         "label": "转账渠道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

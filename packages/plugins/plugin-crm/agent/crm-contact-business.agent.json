@@ -20,7 +20,9 @@
         "path": "/crm-contact-business",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "contact_id",
+          "business_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增CRM 联系人与商机的关联",
       "edit": "编辑CRM 联系人与商机的关联"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "contact_id",
+        "label": "联系人编号",
+        "testId": "search-contact_id",
+        "selector": "[data-testid=\"search-contact_id\"]"
+      },
+      {
+        "name": "business_id",
+        "label": "商机编号",
+        "testId": "search-business_id",
+        "selector": "[data-testid=\"search-business_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "contact_id",
         "label": "联系人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-contact_id",
         "selector": "[data-testid=\"field-contact_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "business_id",
         "label": "商机编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-business_id",
         "selector": "[data-testid=\"field-business_id\"]"

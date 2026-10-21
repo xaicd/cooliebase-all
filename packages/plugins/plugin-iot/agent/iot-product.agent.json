@@ -20,7 +20,10 @@
         "path": "/iot-product",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "category_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增IoT 产品",
       "edit": "编辑IoT 产品"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "产品名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "category_id",
+        "label": "产品分类编号",
+        "testId": "search-category_id",
+        "selector": "[data-testid=\"search-category_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "产品状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -115,7 +137,7 @@
       {
         "name": "category_id",
         "label": "产品分类编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-category_id",
         "selector": "[data-testid=\"field-category_id\"]"

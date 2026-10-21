@@ -20,7 +20,12 @@
         "path": "/mes-wm-stock-taking-task",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "type",
+          "user_id",
+          "plan_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 盘点任务",
       "edit": "编辑MES 盘点任务"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "任务编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "任务名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "盘点类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "盘点人编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "plan_id",
+        "label": "盘点计划编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -115,7 +151,7 @@
       {
         "name": "user_id",
         "label": "盘点人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "plan_id",
         "label": "盘点计划编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"

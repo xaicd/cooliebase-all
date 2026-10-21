@@ -20,7 +20,12 @@
         "path": "/crm-contact",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "customer_id",
+          "owner_user_id",
+          "mobile",
+          "email"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增CRM 联系人",
       "edit": "编辑CRM 联系人"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "联系人姓名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "负责人用户编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      },
+      {
+        "name": "mobile",
+        "label": "手机号",
+        "testId": "search-mobile",
+        "selector": "[data-testid=\"search-mobile\"]"
+      },
+      {
+        "name": "email",
+        "label": "电子邮箱",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -91,7 +127,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -123,7 +159,7 @@
       {
         "name": "owner_user_id",
         "label": "负责人用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"
@@ -211,7 +247,7 @@
       {
         "name": "parent_id",
         "label": "直属上级",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

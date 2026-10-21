@@ -20,7 +20,12 @@
         "path": "/erp-sale-return",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "status",
+          "customer_id",
+          "account_id",
+          "sale_user_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增ERP 销售退货",
       "edit": "编辑ERP 销售退货"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "销售退货单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "status",
+        "label": "退货状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "结算账户编号",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "sale_user_id",
+        "label": "销售员编号",
+        "testId": "search-sale_user_id",
+        "selector": "[data-testid=\"search-sale_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -99,7 +135,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "account_id",
         "label": "结算账户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-account_id",
         "selector": "[data-testid=\"field-account_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "sale_user_id",
         "label": "销售员编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sale_user_id",
         "selector": "[data-testid=\"field-sale_user_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "order_id",
         "label": "销售订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"

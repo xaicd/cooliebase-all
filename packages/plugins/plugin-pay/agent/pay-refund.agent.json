@@ -3,11 +3,11 @@
   "domain": "pay",
   "entity": "PayRefund",
   "kebab": "pay-refund",
-  "businessName": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : PayRefundDO = 1 : n",
+  "businessName": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
   "permissionPrefix": "pay:pay_refund",
   "page": {
     "route": "/admin/pay/pay-refund",
-    "title": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : PayRefundDO = 1 : n管理",
+    "title": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :管理",
     "titleSelector": "[data-testid=\"pay-refund-title\"]"
   },
   "api": {
@@ -20,7 +20,12 @@
         "path": "/pay-refund",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "app_id",
+          "channel_id",
+          "order_id",
+          "user_id"
         ]
       },
       "get": {
@@ -73,12 +78,43 @@
     "formClose": "[data-testid=\"pay-refund-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : PayRefundDO = 1 : n列表",
+    "tableLabel": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :列表",
     "dialogLabel": {
-      "create": "新增支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : PayRefundDO = 1 : n",
-      "edit": "编辑支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : PayRefundDO = 1 : n"
+      "create": "新增支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
+      "edit": "编辑支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "外部退款号，根据规则生成",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "app_id",
+        "label": "应用编号",
+        "testId": "search-app_id",
+        "selector": "[data-testid=\"search-app_id\"]"
+      },
+      {
+        "name": "channel_id",
+        "label": "渠道编号",
+        "testId": "search-channel_id",
+        "selector": "[data-testid=\"search-channel_id\"]"
+      },
+      {
+        "name": "order_id",
+        "label": "订单编号",
+        "testId": "search-order_id",
+        "selector": "[data-testid=\"search-order_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +127,7 @@
       {
         "name": "app_id",
         "label": "应用编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-app_id",
         "selector": "[data-testid=\"field-app_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "channel_id",
         "label": "渠道编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-channel_id",
         "selector": "[data-testid=\"field-channel_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "order_id",
         "label": "订单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-order_id",
         "selector": "[data-testid=\"field-order_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"

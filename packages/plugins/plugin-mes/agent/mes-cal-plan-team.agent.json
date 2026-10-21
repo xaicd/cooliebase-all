@@ -20,7 +20,9 @@
         "path": "/mes-cal-plan-team",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "plan_id",
+          "team_id"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增MES 计划班组关联",
       "edit": "编辑MES 计划班组关联"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "plan_id",
+        "label": "排班计划编号",
+        "testId": "search-plan_id",
+        "selector": "[data-testid=\"search-plan_id\"]"
+      },
+      {
+        "name": "team_id",
+        "label": "班组编号",
+        "testId": "search-team_id",
+        "selector": "[data-testid=\"search-team_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "plan_id",
         "label": "排班计划编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-plan_id",
         "selector": "[data-testid=\"field-plan_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "team_id",
         "label": "班组编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-team_id",
         "selector": "[data-testid=\"field-team_id\"]"

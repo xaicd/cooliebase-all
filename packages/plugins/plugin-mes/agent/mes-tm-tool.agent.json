@@ -20,7 +20,11 @@
         "path": "/mes-tm-tool",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "tool_type_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +82,32 @@
       "create": "新增MES 工具台账",
       "edit": "编辑MES 工具台账"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "工具编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "工具名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "tool_type_id",
+        "label": "工具类型编号",
+        "testId": "search-tool_type_id",
+        "selector": "[data-testid=\"search-tool_type_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -115,7 +144,7 @@
       {
         "name": "tool_type_id",
         "label": "工具类型编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-tool_type_id",
         "selector": "[data-testid=\"field-tool_type_id\"]"

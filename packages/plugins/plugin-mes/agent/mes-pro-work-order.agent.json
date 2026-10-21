@@ -20,7 +20,12 @@
         "path": "/mes-pro-work-order",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "code",
+          "name",
+          "type",
+          "product_id",
+          "client_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增MES 生产工单",
       "edit": "编辑MES 生产工单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "code",
+        "label": "工单编码",
+        "testId": "search-code",
+        "selector": "[data-testid=\"search-code\"]"
+      },
+      {
+        "name": "name",
+        "label": "工单名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "type",
+        "label": "工单类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "client_id",
+        "label": "客户编号",
+        "testId": "search-client_id",
+        "selector": "[data-testid=\"search-client_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "code",
@@ -123,7 +159,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -163,7 +199,7 @@
       {
         "name": "client_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-client_id",
         "selector": "[data-testid=\"field-client_id\"]"
@@ -171,7 +207,7 @@
       {
         "name": "vendor_id",
         "label": "供应商编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-vendor_id",
         "selector": "[data-testid=\"field-vendor_id\"]"
@@ -195,7 +231,7 @@
       {
         "name": "parent_id",
         "label": "父工单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-parent_id",
         "selector": "[data-testid=\"field-parent_id\"]"

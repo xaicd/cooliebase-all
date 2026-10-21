@@ -20,7 +20,12 @@
         "path": "/iot-device",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "group_ids",
+          "product_id",
+          "gateway_id",
+          "state",
+          "firmware_id"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增IoT 设备",
       "edit": "编辑IoT 设备"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "group_ids",
+        "label": "设备分组编号集合",
+        "testId": "search-group_ids",
+        "selector": "[data-testid=\"search-group_ids\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "gateway_id",
+        "label": "网关设备编号",
+        "testId": "search-gateway_id",
+        "selector": "[data-testid=\"search-gateway_id\"]"
+      },
+      {
+        "name": "state",
+        "label": "设备状态",
+        "testId": "search-state",
+        "selector": "[data-testid=\"search-state\"]"
+      },
+      {
+        "name": "firmware_id",
+        "label": "固件编号",
+        "testId": "search-firmware_id",
+        "selector": "[data-testid=\"search-firmware_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "device_name",
@@ -123,7 +159,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "gateway_id",
         "label": "网关设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-gateway_id",
         "selector": "[data-testid=\"field-gateway_id\"]"
@@ -187,7 +223,7 @@
       {
         "name": "firmware_id",
         "label": "固件编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-firmware_id",
         "selector": "[data-testid=\"field-firmware_id\"]"

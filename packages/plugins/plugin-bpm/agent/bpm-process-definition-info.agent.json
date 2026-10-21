@@ -20,7 +20,12 @@
         "path": "/bpm-process-definition-info",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "process_definition_id",
+          "model_id",
+          "category",
+          "form_id",
+          "start_user_ids"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表",
       "edit": "编辑BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "process_definition_id",
+        "label": "流程定义的编号",
+        "testId": "search-process_definition_id",
+        "selector": "[data-testid=\"search-process_definition_id\"]"
+      },
+      {
+        "name": "model_id",
+        "label": "流程模型的编号",
+        "testId": "search-model_id",
+        "selector": "[data-testid=\"search-model_id\"]"
+      },
+      {
+        "name": "category",
+        "label": "流程分类的编码",
+        "testId": "search-category",
+        "selector": "[data-testid=\"search-category\"]"
+      },
+      {
+        "name": "form_id",
+        "label": "动态表单编号",
+        "testId": "search-form_id",
+        "selector": "[data-testid=\"search-form_id\"]"
+      },
+      {
+        "name": "start_user_ids",
+        "label": "可发起用户编号数组",
+        "testId": "search-start_user_ids",
+        "selector": "[data-testid=\"search-start_user_ids\"]"
+      }
+    ],
     "fields": [
       {
         "name": "process_definition_id",
@@ -139,7 +175,7 @@
       {
         "name": "form_id",
         "label": "动态表单编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-form_id",
         "selector": "[data-testid=\"field-form_id\"]"

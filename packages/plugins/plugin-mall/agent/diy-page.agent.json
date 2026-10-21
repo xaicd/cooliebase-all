@@ -20,7 +20,9 @@
         "path": "/diy-page",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "template_id",
+          "name"
         ]
       },
       "get": {
@@ -78,12 +80,25 @@
       "create": "新增装修页面",
       "edit": "编辑装修页面"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "template_id",
+        "label": "装修模板编号",
+        "testId": "search-template_id",
+        "selector": "[data-testid=\"search-template_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "页面名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      }
+    ],
     "fields": [
       {
         "name": "template_id",
         "label": "装修模板编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-template_id",
         "selector": "[data-testid=\"field-template_id\"]"

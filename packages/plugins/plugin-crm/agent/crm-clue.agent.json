@@ -20,7 +20,12 @@
         "path": "/crm-clue",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "name",
+          "owner_user_id",
+          "customer_id",
+          "mobile",
+          "email"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增CRM 线索",
       "edit": "编辑CRM 线索"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "name",
+        "label": "线索名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "owner_user_id",
+        "label": "负责人的用户编号",
+        "testId": "search-owner_user_id",
+        "selector": "[data-testid=\"search-owner_user_id\"]"
+      },
+      {
+        "name": "customer_id",
+        "label": "客户编号",
+        "testId": "search-customer_id",
+        "selector": "[data-testid=\"search-customer_id\"]"
+      },
+      {
+        "name": "mobile",
+        "label": "手机号",
+        "testId": "search-mobile",
+        "selector": "[data-testid=\"search-mobile\"]"
+      },
+      {
+        "name": "email",
+        "label": "email",
+        "testId": "search-email",
+        "selector": "[data-testid=\"search-email\"]"
+      }
+    ],
     "fields": [
       {
         "name": "name",
@@ -123,7 +159,7 @@
       {
         "name": "owner_user_id",
         "label": "负责人的用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-owner_user_id",
         "selector": "[data-testid=\"field-owner_user_id\"]"
@@ -139,7 +175,7 @@
       {
         "name": "customer_id",
         "label": "客户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-customer_id",
         "selector": "[data-testid=\"field-customer_id\"]"

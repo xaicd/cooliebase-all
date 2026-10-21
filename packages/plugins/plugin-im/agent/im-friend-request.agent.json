@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImFriendRequest",
   "kebab": "im-friend-request",
-  "businessName": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接口落库（handleResult=UNHANDLED）- 接收方调 agree / refuse 处理（更新 ha",
+  "businessName": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
   "permissionPrefix": "im:im_friend_request",
   "page": {
     "route": "/admin/im/im-friend-request",
-    "title": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接口落库（handleResult=UNHANDLED）- 接收方调 agree / refuse 处理（更新 ha管理",
+    "title": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接管理",
     "titleSelector": "[data-testid=\"im-friend-request-title\"]"
   },
   "api": {
@@ -20,7 +20,9 @@
         "path": "/im-friend-request",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "from_user_id",
+          "to_user_id"
         ]
       },
       "get": {
@@ -73,17 +75,30 @@
     "formClose": "[data-testid=\"im-friend-request-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接口落库（handleResult=UNHANDLED）- 接收方调 agree / refuse 处理（更新 ha列表",
+    "tableLabel": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接列表",
     "dialogLabel": {
-      "create": "新增IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接口落库（handleResult=UNHANDLED）- 接收方调 agree / refuse 处理（更新 ha",
-      "edit": "编辑IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接口落库（handleResult=UNHANDLED）- 接收方调 agree / refuse 处理（更新 ha"
+      "create": "新增IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
+      "edit": "编辑IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "from_user_id",
+        "label": "发起方用户编号",
+        "testId": "search-from_user_id",
+        "selector": "[data-testid=\"search-from_user_id\"]"
+      },
+      {
+        "name": "to_user_id",
+        "label": "接收方用户编号",
+        "testId": "search-to_user_id",
+        "selector": "[data-testid=\"search-to_user_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "from_user_id",
         "label": "发起方用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-from_user_id",
         "selector": "[data-testid=\"field-from_user_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "to_user_id",
         "label": "接收方用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-to_user_id",
         "selector": "[data-testid=\"field-to_user_id\"]"

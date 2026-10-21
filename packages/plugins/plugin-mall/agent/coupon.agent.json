@@ -20,7 +20,12 @@
         "path": "/coupon",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "template_id",
+          "name",
+          "status",
+          "user_id",
+          "use_order_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增优惠劵",
       "edit": "编辑优惠劵"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "template_id",
+        "label": "优惠劵模板编号",
+        "testId": "search-template_id",
+        "selector": "[data-testid=\"search-template_id\"]"
+      },
+      {
+        "name": "name",
+        "label": "优惠劵名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "status",
+        "label": "优惠码状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "use_order_id",
+        "label": "使用订单号",
+        "testId": "search-use_order_id",
+        "selector": "[data-testid=\"search-use_order_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "template_id",
         "label": "优惠劵模板编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-template_id",
         "selector": "[data-testid=\"field-template_id\"]"
@@ -107,7 +143,7 @@
       {
         "name": "user_id",
         "label": "用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
@@ -195,7 +231,7 @@
       {
         "name": "use_order_id",
         "label": "使用订单号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-use_order_id",
         "selector": "[data-testid=\"field-use_order_id\"]"

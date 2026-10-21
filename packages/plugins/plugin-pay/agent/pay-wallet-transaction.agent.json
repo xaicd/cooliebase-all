@@ -20,7 +20,12 @@
         "path": "/pay-wallet-transaction",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "wallet_id",
+          "biz_type",
+          "biz_id",
+          "title"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增会员钱包流水",
       "edit": "编辑会员钱包流水"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "流水号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "wallet_id",
+        "label": "钱包编号",
+        "testId": "search-wallet_id",
+        "selector": "[data-testid=\"search-wallet_id\"]"
+      },
+      {
+        "name": "biz_type",
+        "label": "关联业务分类",
+        "testId": "search-biz_type",
+        "selector": "[data-testid=\"search-biz_type\"]"
+      },
+      {
+        "name": "biz_id",
+        "label": "关联业务编号",
+        "testId": "search-biz_id",
+        "selector": "[data-testid=\"search-biz_id\"]"
+      },
+      {
+        "name": "title",
+        "label": "流水说明",
+        "testId": "search-title",
+        "selector": "[data-testid=\"search-title\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +127,7 @@
       {
         "name": "wallet_id",
         "label": "钱包编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-wallet_id",
         "selector": "[data-testid=\"field-wallet_id\"]"

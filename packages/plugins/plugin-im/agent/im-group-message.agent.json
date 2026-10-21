@@ -20,7 +20,12 @@
         "path": "/im-group-message",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "client_message_id",
+          "sender_id",
+          "group_id",
+          "type",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +83,38 @@
       "create": "新增IM 群聊消息",
       "edit": "编辑IM 群聊消息"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "client_message_id",
+        "label": "客户端消息编号，用于发送幂等",
+        "testId": "search-client_message_id",
+        "selector": "[data-testid=\"search-client_message_id\"]"
+      },
+      {
+        "name": "sender_id",
+        "label": "发送人编号",
+        "testId": "search-sender_id",
+        "selector": "[data-testid=\"search-sender_id\"]"
+      },
+      {
+        "name": "group_id",
+        "label": "群编号",
+        "testId": "search-group_id",
+        "selector": "[data-testid=\"search-group_id\"]"
+      },
+      {
+        "name": "type",
+        "label": "消息类型",
+        "testId": "search-type",
+        "selector": "[data-testid=\"search-type\"]"
+      },
+      {
+        "name": "status",
+        "label": "消息状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "client_message_id",
@@ -91,7 +127,7 @@
       {
         "name": "sender_id",
         "label": "发送人编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-sender_id",
         "selector": "[data-testid=\"field-sender_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "group_id",
         "label": "群编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-group_id",
         "selector": "[data-testid=\"field-group_id\"]"

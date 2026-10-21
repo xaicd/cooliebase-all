@@ -20,7 +20,9 @@
         "path": "/erp-stock",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "product_id",
+          "warehouse_id"
         ]
       },
       "get": {
@@ -78,7 +80,20 @@
       "create": "新增ERP 产品库存",
       "edit": "编辑ERP 产品库存"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "warehouse_id",
+        "label": "仓库编号",
+        "testId": "search-warehouse_id",
+        "selector": "[data-testid=\"search-warehouse_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "product_id",
@@ -91,7 +106,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"

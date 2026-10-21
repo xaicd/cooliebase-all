@@ -20,7 +20,8 @@
         "path": "/product-statistics",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "spu_id"
         ]
       },
       "get": {
@@ -78,7 +79,14 @@
       "create": "新增商品统计",
       "edit": "编辑商品统计"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "spu_id",
+        "label": "商品 SPU 编号",
+        "testId": "search-spu_id",
+        "selector": "[data-testid=\"search-spu_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "time",
@@ -91,7 +99,7 @@
       {
         "name": "spu_id",
         "label": "商品 SPU 编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-spu_id",
         "selector": "[data-testid=\"field-spu_id\"]"

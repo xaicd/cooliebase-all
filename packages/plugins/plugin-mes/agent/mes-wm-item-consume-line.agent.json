@@ -20,7 +20,10 @@
         "path": "/mes-wm-item-consume-line",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "consume_id",
+          "item_id",
+          "batch_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 物料消耗记录行",
       "edit": "编辑MES 物料消耗记录行"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "consume_id",
+        "label": "消耗记录编号",
+        "testId": "search-consume_id",
+        "selector": "[data-testid=\"search-consume_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "batch_id",
+        "label": "批次编号",
+        "testId": "search-batch_id",
+        "selector": "[data-testid=\"search-batch_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "consume_id",
         "label": "消耗记录编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-consume_id",
         "selector": "[data-testid=\"field-consume_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "item_id",
         "label": "物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "batch_id",
         "label": "批次编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-batch_id",
         "selector": "[data-testid=\"field-batch_id\"]"

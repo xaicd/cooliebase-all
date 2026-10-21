@@ -20,7 +20,10 @@
         "path": "/erp-stock-in",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "no",
+          "supplier_id",
+          "status"
         ]
       },
       "get": {
@@ -78,7 +81,26 @@
       "create": "新增ERP 其它入库单",
       "edit": "编辑ERP 其它入库单"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "no",
+        "label": "入库单号",
+        "testId": "search-no",
+        "selector": "[data-testid=\"search-no\"]"
+      },
+      {
+        "name": "supplier_id",
+        "label": "供应商编号",
+        "testId": "search-supplier_id",
+        "selector": "[data-testid=\"search-supplier_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "no",
@@ -91,7 +113,7 @@
       {
         "name": "supplier_id",
         "label": "供应商编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-supplier_id",
         "selector": "[data-testid=\"field-supplier_id\"]"

@@ -20,7 +20,10 @@
         "path": "/mes-pro-route-process",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "route_id",
+          "process_id",
+          "next_process_id"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 工艺路线工序",
       "edit": "编辑MES 工艺路线工序"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "route_id",
+        "label": "工艺路线编号",
+        "testId": "search-route_id",
+        "selector": "[data-testid=\"search-route_id\"]"
+      },
+      {
+        "name": "process_id",
+        "label": "工序编号",
+        "testId": "search-process_id",
+        "selector": "[data-testid=\"search-process_id\"]"
+      },
+      {
+        "name": "next_process_id",
+        "label": "下一道工序编号",
+        "testId": "search-next_process_id",
+        "selector": "[data-testid=\"search-next_process_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "route_id",
         "label": "工艺路线编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-route_id",
         "selector": "[data-testid=\"field-route_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "process_id",
         "label": "工序编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-process_id",
         "selector": "[data-testid=\"field-process_id\"]"
@@ -107,7 +129,7 @@
       {
         "name": "next_process_id",
         "label": "下一道工序编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-next_process_id",
         "selector": "[data-testid=\"field-next_process_id\"]"

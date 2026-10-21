@@ -3,11 +3,11 @@
   "domain": "crm",
   "entity": "CrmBusinessProduct",
   "kebab": "crm-business-product",
-  "businessName": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N",
+  "businessName": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
   "permissionPrefix": "crm:crm_business_product",
   "page": {
     "route": "/admin/crm/crm-business-product",
-    "title": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N管理",
+    "title": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines管理",
     "titleSelector": "[data-testid=\"crm-business-product-title\"]"
   },
   "api": {
@@ -20,7 +20,9 @@
         "path": "/crm-business-product",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "business_id",
+          "product_id"
         ]
       },
       "get": {
@@ -73,17 +75,30 @@
     "formClose": "[data-testid=\"crm-business-product-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N列表",
+    "tableLabel": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines列表",
     "dialogLabel": {
-      "create": "新增CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N",
-      "edit": "编辑CRM 商机产品关联表 DOCrmBusinessDO : CrmBusinessProductDO = 1 : N"
+      "create": "新增CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
+      "edit": "编辑CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "business_id",
+        "label": "商机编号",
+        "testId": "search-business_id",
+        "selector": "[data-testid=\"search-business_id\"]"
+      },
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "business_id",
         "label": "商机编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-business_id",
         "selector": "[data-testid=\"field-business_id\"]"
@@ -91,7 +106,7 @@
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"

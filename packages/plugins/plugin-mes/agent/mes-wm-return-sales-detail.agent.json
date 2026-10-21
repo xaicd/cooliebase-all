@@ -20,7 +20,12 @@
         "path": "/mes-wm-return-sales-detail",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "return_id",
+          "line_id",
+          "item_id",
+          "batch_id",
+          "warehouse_id"
         ]
       },
       "get": {
@@ -78,12 +83,43 @@
       "create": "新增MES 销售退货明细",
       "edit": "编辑MES 销售退货明细"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "return_id",
+        "label": "退货单 ID",
+        "testId": "search-return_id",
+        "selector": "[data-testid=\"search-return_id\"]"
+      },
+      {
+        "name": "line_id",
+        "label": "行 ID",
+        "testId": "search-line_id",
+        "selector": "[data-testid=\"search-line_id\"]"
+      },
+      {
+        "name": "item_id",
+        "label": "物料 ID",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "batch_id",
+        "label": "批次 ID",
+        "testId": "search-batch_id",
+        "selector": "[data-testid=\"search-batch_id\"]"
+      },
+      {
+        "name": "warehouse_id",
+        "label": "仓库 ID",
+        "testId": "search-warehouse_id",
+        "selector": "[data-testid=\"search-warehouse_id\"]"
+      }
+    ],
     "fields": [
       {
         "name": "return_id",
         "label": "退货单 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-return_id",
         "selector": "[data-testid=\"field-return_id\"]"
@@ -91,7 +127,7 @@
       {
         "name": "line_id",
         "label": "行 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-line_id",
         "selector": "[data-testid=\"field-line_id\"]"
@@ -99,7 +135,7 @@
       {
         "name": "item_id",
         "label": "物料 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -115,7 +151,7 @@
       {
         "name": "batch_id",
         "label": "批次 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-batch_id",
         "selector": "[data-testid=\"field-batch_id\"]"
@@ -131,7 +167,7 @@
       {
         "name": "warehouse_id",
         "label": "仓库 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-warehouse_id",
         "selector": "[data-testid=\"field-warehouse_id\"]"
@@ -139,7 +175,7 @@
       {
         "name": "location_id",
         "label": "库区 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-location_id",
         "selector": "[data-testid=\"field-location_id\"]"
@@ -147,7 +183,7 @@
       {
         "name": "area_id",
         "label": "库位 ID",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-area_id",
         "selector": "[data-testid=\"field-area_id\"]"

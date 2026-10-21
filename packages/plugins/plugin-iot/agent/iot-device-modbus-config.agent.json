@@ -20,7 +20,11 @@
         "path": "/iot-device-modbus-config",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "product_id",
+          "device_id",
+          "slave_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +82,37 @@
       "create": "新增IoT 设备 Modbus 连接配置",
       "edit": "编辑IoT 设备 Modbus 连接配置"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "product_id",
+        "label": "产品编号",
+        "testId": "search-product_id",
+        "selector": "[data-testid=\"search-product_id\"]"
+      },
+      {
+        "name": "device_id",
+        "label": "设备编号",
+        "testId": "search-device_id",
+        "selector": "[data-testid=\"search-device_id\"]"
+      },
+      {
+        "name": "slave_id",
+        "label": "从站地址",
+        "testId": "search-slave_id",
+        "selector": "[data-testid=\"search-slave_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "product_id",
         "label": "产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-product_id",
         "selector": "[data-testid=\"field-product_id\"]"
@@ -91,7 +120,7 @@
       {
         "name": "device_id",
         "label": "设备编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-device_id",
         "selector": "[data-testid=\"field-device_id\"]"

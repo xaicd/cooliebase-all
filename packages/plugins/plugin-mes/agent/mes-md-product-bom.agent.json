@@ -20,7 +20,10 @@
         "path": "/mes-md-product-bom",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "item_id",
+          "bom_item_id",
+          "status"
         ]
       },
       "get": {
@@ -78,12 +81,31 @@
       "create": "新增MES 产品 BOM",
       "edit": "编辑MES 产品 BOM"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "item_id",
+        "label": "物料产品编号",
+        "testId": "search-item_id",
+        "selector": "[data-testid=\"search-item_id\"]"
+      },
+      {
+        "name": "bom_item_id",
+        "label": "BOM物料编号",
+        "testId": "search-bom_item_id",
+        "selector": "[data-testid=\"search-bom_item_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "是否启用",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "item_id",
         "label": "物料产品编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-item_id",
         "selector": "[data-testid=\"field-item_id\"]"
@@ -91,7 +113,7 @@
       {
         "name": "bom_item_id",
         "label": "BOM物料编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-bom_item_id",
         "selector": "[data-testid=\"field-bom_item_id\"]"

@@ -55,7 +55,7 @@
 | `IotProduct` | IoT 产品 | `/admin/iot/iot-product` | `iot:iot_product` | [`iot-product.agent.json`](../../packages/plugins/plugin-iot/agent/iot-product.agent.json) |
 | `IotProductCategory` | IoT 产品分类 | `/admin/iot/iot-product-category` | `iot:iot_product_category` | [`iot-product-category.agent.json`](../../packages/plugins/plugin-iot/agent/iot-product-category.agent.json) |
 | `IotSceneRule` | IoT 场景联动规则 | `/admin/iot/iot-scene-rule` | `iot:iot_scene_rule` | [`iot-scene-rule.agent.json`](../../packages/plugins/plugin-iot/agent/iot-scene-rule.agent.json) |
-| `IotThingModel` | IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服务都对应一条记录 | `/admin/iot/iot-thing-model` | `iot:iot_thing_model` | [`iot-thing-model.agent.json`](../../packages/plugins/plugin-iot/agent/iot-thing-model.agent.json) |
+| `IotThingModel` | IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服 | `/admin/iot/iot-thing-model` | `iot:iot_thing_model` | [`iot-thing-model.agent.json`](../../packages/plugins/plugin-iot/agent/iot-thing-model.agent.json) |
 
 
 ---

@@ -3,11 +3,11 @@
   "domain": "im",
   "entity": "ImRtcParticipant",
   "kebab": "im-rtc-participant",
-  "businessName": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主表 终态闭合：通话 ENDED 时所有明细 status 必属 LEFT / REJECTED / NO",
+  "businessName": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
   "permissionPrefix": "im:im_rtc_participant",
   "page": {
     "route": "/admin/im/im-rtc-participant",
-    "title": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主表 终态闭合：通话 ENDED 时所有明细 status 必属 LEFT / REJECTED / NO管理",
+    "title": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主管理",
     "titleSelector": "[data-testid=\"im-rtc-participant-title\"]"
   },
   "api": {
@@ -20,7 +20,10 @@
         "path": "/im-rtc-participant",
         "query": [
           "page",
-          "pageSize"
+          "pageSize",
+          "call_id",
+          "user_id",
+          "status"
         ]
       },
       "get": {
@@ -73,17 +76,36 @@
     "formClose": "[data-testid=\"im-rtc-participant-form-close\"]"
   },
   "accessibility": {
-    "tableLabel": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主表 终态闭合：通话 ENDED 时所有明细 status 必属 LEFT / REJECTED / NO列表",
+    "tableLabel": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主列表",
     "dialogLabel": {
-      "create": "新增IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主表 终态闭合：通话 ENDED 时所有明细 status 必属 LEFT / REJECTED / NO",
-      "edit": "编辑IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主表 终态闭合：通话 ENDED 时所有明细 status 必属 LEFT / REJECTED / NO"
+      "create": "新增IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
+      "edit": "编辑IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主"
     },
-    "searchFields": [],
+    "searchFields": [
+      {
+        "name": "call_id",
+        "label": "通话编号",
+        "testId": "search-call_id",
+        "selector": "[data-testid=\"search-call_id\"]"
+      },
+      {
+        "name": "user_id",
+        "label": "参与者用户编号",
+        "testId": "search-user_id",
+        "selector": "[data-testid=\"search-user_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "参与状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
     "fields": [
       {
         "name": "call_id",
         "label": "通话编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-call_id",
         "selector": "[data-testid=\"field-call_id\"]"
@@ -99,7 +121,7 @@
       {
         "name": "user_id",
         "label": "参与者用户编号",
-        "type": "number",
+        "type": "string",
         "required": false,
         "testId": "field-user_id",
         "selector": "[data-testid=\"field-user_id\"]"
