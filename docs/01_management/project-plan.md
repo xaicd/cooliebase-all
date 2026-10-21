@@ -92,7 +92,7 @@
 | 里程碑 | 判据 | 取证方式 | 状态 |
 |---|---|---|---|
 | **M0 地基绿** | 基座 `check` + 全量测试全绿 | `pnpm run check`；`pnpm exec vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
-| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 17 MCP tools / **20 gates**） |
+| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 18 MCP tools / **20 gates**） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `pnpm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `pnpm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
 | **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-20（degit 路径 + reactor/Postgres 路径**均已实测**，后者零 Docker） |
@@ -228,8 +228,11 @@
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
   **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
   （它们随每次加用例/规则而变化，写死必然漂 —— 本仓已连续四轮栽在这上面）。
-  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / 17 MCP tools / 20 gates / 342 契约。
-- **消费面**：17 domains / 38 skills / 17 MCP tools / **20 gates / 3 commands**（`compat:check` 实测）。
+  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / **18 MCP tools** / 20 gates / 342 契约。
+  ⚠️ **诚实的边界**：`llms:check` 只比对 `llms.txt` / `llms-full.txt`，**不看守本文件**。
+  本轮实测：compat 声明 18 个 MCP 工具，而本文件三处仍写 17（工具加了、这里没跟），`llms:check` 依旧 exit=0。
+  复算：`pnpm run compat:check`（打印当前条数，勿手抄）。
+- **消费面**：17 domains / 38 skills / 18 MCP tools / **20 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
 - **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（清单 `non-standard-endpoints.md`）。
