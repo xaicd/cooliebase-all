@@ -17,6 +17,7 @@
 const fs = require("fs")
 const path = require("path")
 const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
+const { findDuplicateKeys } = require("./lib/json-duplicate-keys.cjs")
 
 const BASELINE_REL = "docs/architecture/artifacts/engineering-standards-baseline.json"
 const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-domain-governance.md"
@@ -551,6 +552,13 @@ const RULES = [
       const skipPrefixes = [
         "node_modules/",
         ".git/",
+        // **构建产物一律跳过**：它们是 .gitignore 排除的、随构建变化的内容。
+        // 扫它们不只是噪音 —— `dist/release-assets/*` 每次发版重建，计数会漂，
+        // 于是"新增欠债"忽真忽假（实测基线里混进了 3 个 dist 文件）。
+        "dist/",
+        "gen/",
+        "coverage/",
+        "build/",
         "docs/features/", // 施工日志：历史记录，刻意保留当时的写法
         "docs/architecture/artifacts/", // 生成物
         "docs/specs/archive/", // 已归档规格是历史记录
@@ -596,6 +604,49 @@ const RULES = [
       const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
       for (const [name, command] of Object.entries(pkg.scripts || {})) {
         if (pattern.test(String(command))) violations.push({ file: "package.json", detail: `scripts.${name}` })
+      }
+      return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
+    },
+  },
+  {
+    id: "no-duplicate-json-keys",
+    section: "AGENTS.md §2.1",
+    mode: "enforce",
+    description:
+      "JSON config files must not contain duplicate object keys — JSON.parse keeps the LAST one, so the earlier definition is silently dead",
+    run() {
+      // 为什么需要：`JSON.parse` **不报错**，重复键静默取最后一个 ——
+      // 于是前面那份定义成了死代码，而 npm / 所有门禁都看不出来。
+      //
+      // 实测（2026-10-20）：`package.json` 里 `test:all` 出现两次
+      //   L51 `bash scripts/lifecycle.sh . test`      ← 某提交声明"新增 test:all"
+      //   L62 `vitest run test/unit test/integration && playwright test`
+      // 后者胜出 → 那次"新增"**从未生效**。而 `npm run test:all` 看起来一切正常。
+      const targets = ["package.json", "compat-manifest.json"]
+      for (const dir of ["packages", "clients"]) {
+        if (!fs.existsSync(path.join(ROOT, dir))) continue
+        const walk = (rel) => {
+          for (const entry of fs.readdirSync(path.join(ROOT, rel), { withFileTypes: true })) {
+            if (entry.name === "node_modules" || entry.name.startsWith(".")) continue
+            const next = `${rel}/${entry.name}`
+            if (entry.isDirectory()) walk(next)
+            else if (entry.name === "package.json") targets.push(next)
+          }
+        }
+        walk(dir)
+      }
+      const violations = []
+      for (const rel of targets) {
+        const abs = path.join(ROOT, rel)
+        if (!fs.existsSync(abs)) continue
+        let dups
+        try {
+          dups = findDuplicateKeys(fs.readFileSync(abs, "utf8"))
+        } catch (error) {
+          violations.push({ file: rel, detail: `JSON 无法解析: ${String(error?.message ?? error)}` })
+          continue
+        }
+        for (const d of dups) violations.push({ file: rel, detail: "k " + d.key + " @L" + d.line + " (首次 @L" + d.firstLine + ")" })
       }
       return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
     },

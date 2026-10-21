@@ -1,12 +1,12 @@
 # 软件物料清单 (Software Bill of Materials - SBOM)
 
-- **生成方式**: `npm run sbom:generate`（**禁止手写**，本文件由脚本覆盖）
+- **生成方式**: `pnpm run sbom:generate`（**禁止手写**，本文件由脚本覆盖）
 - **锁文件真源**: `pnpm-lock.yaml`
 - **模板版本**: 1.2.0
 - **包总数**: 616（host 400 / client 216）
 - **归属规范**: CMMI 04_implementation (TS / CM)
 
-> 机器可读版本：[`sbom.json`](./sbom.json)。漂移由 `npm run sbom:check` 判定。
+> 机器可读版本：[`sbom.json`](./sbom.json)。漂移由 `pnpm run sbom:check` 判定。
 
 ---
 
@@ -661,7 +661,7 @@
 | `use-sidecar` | 1.1.3 | host | MIT |
 | `use-sync-external-store` | 1.7.0 | host | MIT |
 | `valibot` | 1.4.2 | host | MIT |
-| `vite` | 7.3.6 | host | MIT |
+| `vite` | 7.3.7 | host | MIT |
 | `vitest` | 5.0.5 | host | MIT |
 | `walker` | 1.0.8 | client | Apache-2.0 |
 | `wcwidth` | 1.0.1 | client | MIT |

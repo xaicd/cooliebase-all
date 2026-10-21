@@ -41,9 +41,13 @@ EOF_ENV
 
   test)
     echo "🧪 [cooliebase-all] 阶段 3: 执行全套自动化测试与门禁验证..."
-    pnpm run typecheck 2>/dev/null || pnpm exec tsc --noEmit || true
-    pnpm run test:unit 2>/dev/null || pnpm run test || pnpm exec vitest run || true
-    echo "  ✅ 测试与门禁通过"
+    # 类型检查：本仓没有 `typecheck` 脚本，回落到 tsc。**类型侧有既有欠账**（TESTING.md §4），
+    # 故这里只提示、不阻断 —— 但**必须说出来**，不能像以前那样静默 `|| true`。
+    pnpm exec tsc --noEmit || echo "  ⚠ 类型检查有既有欠账（不阻断，见 TESTING.md §4）"
+    # 测试：**必须能失败**。此前每条命令都带 `|| true`，于是这个阶段**无论成败都报通过**
+    # （实测：同一类"不能失败的闸门"在本仓反复出现过，见 AGENTS §8）。
+    pnpm run test:unit 2>/dev/null || pnpm run test || pnpm exec vitest run
+    echo "  ✅ 测试通过"
     ;;
 
   build)

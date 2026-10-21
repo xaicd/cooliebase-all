@@ -3643,7 +3643,7 @@
     },
     {
       "name": "vite",
-      "version": "7.3.6",
+      "version": "7.3.7",
       "reach": "host",
       "license": "MIT"
     },

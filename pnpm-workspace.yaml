@@ -22,3 +22,11 @@ allowBuilds:
   embedded-postgres: true
   '@embedded-postgres/darwin-arm64': true
   '@embedded-postgres/linux-x64': true
+  # 与 darwin/linux-x64 同族：预编译二进制，批准其构建脚本。
+  '@embedded-postgres/linux-arm64': true
+
+# 传递依赖的安全补丁：vitest → vite 被 GHSA-587h-7wmj-h5pm 等 3 条 advisory 命中，
+# 修补版为 >=7.3.7（实测安装到 7.3.6）。vitest@latest 就是 5.0.5、无新版可升，
+# 故用 override 把 vite 抬到修补版 —— **有补丁就升，不登记为已接受风险**。
+overrides:
+  vite: ^7.3.7
