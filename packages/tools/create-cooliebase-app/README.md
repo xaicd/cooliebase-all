@@ -1,19 +1,22 @@
 # create-cooliebase-app
 
+> ⚠️ **尚未发布到 npm**：文档里若写 `pnpm dlx create-cooliebase-app` 会 404（实测 2026-10-21）。
+> 发布前在仓内用 `node packages/tools/create-cooliebase-app/bin/index.js <dir>`。
+
 Zero-Git-History instant scaffolding CLI for **cooliebase-all** enterprise Next.js fullstack foundation.
 
 ## 🚀 极速起步 (Quick Start)
 
 ### 交互式创建
 ```bash
-pnpm dlx create-cooliebase-app
+node packages/tools/create-cooliebase-app/bin/index.js
 # 或
 pnpm create cooliebase-app
 ```
 
 ### 单行静默创建 (适合 AI Agent 与 CI 自动化)
 ```bash
-pnpm dlx create-cooliebase-app my-app --title "XX智慧管理平台" --profile base --port 3300
+node packages/tools/create-cooliebase-app/bin/index.js my-app --title "XX智慧管理平台" --profile base --port 3300
 ```
 
 ## 📐 规格 Profile 说明

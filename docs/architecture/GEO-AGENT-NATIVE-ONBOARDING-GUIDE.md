@@ -15,7 +15,7 @@
 └───────────────────────────────────┬────────────────────────────────────┘
                                     │
     【1. 零历史拉取骨架】           ▼
-    pnpm dlx create-cooliebase-app my-app --profile base --title "XX系统"
+    node packages/tools/create-cooliebase-app/bin/index.js my-app --profile base --title "XX系统"   # 本仓内可直接跑（npm 尚未发布，dlx 会 404）
                                     │
     【2. 挂载确定性 MCP 工具】      ▼
     pnpm dlx @cooliebase/mcp-server (精准检索 17 域与 RPC 契约，Token 消耗 <500)
@@ -38,7 +38,7 @@
 
 ### 选项 A：使用官方脚手架 CLI（推荐）
 ```bash
-pnpm dlx create-cooliebase-app my-app --title "XX智能业务系统" --profile base --port 3300
+node packages/tools/create-cooliebase-app/bin/index.js my-app --title "XX智能业务系统" --profile base --port 3300   # 本仓内可直接跑（npm 尚未发布，dlx 会 404）
 cd my-app && pnpm install
 npm run db:bootstrap:sqlite
 npm run dev

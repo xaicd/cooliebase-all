@@ -75,15 +75,19 @@ flowchart TD
 
 外部 AI Agent 或开发者在接入或使用本底座时，**无需下载 500MB+ 全量历史提交包**，可在 10 秒内直接派生一个干净、合规、零外部依赖的全新客户业务工程：
 
-```bash
-# 方案 A: 官方专属 CLI 极速派生 (推荐，自动完成初始化与本地库创建)
-pnpm dlx create-cooliebase-app my-app
+> ⚠️ **方案 A 尚未发布到 npm**：`pnpm dlx create-cooliebase-app` 现在会 **404**（实测 2026-10-21）。
+> 发布前请用下面的「方案 B」（**已实测端到端可用**），或在**本仓内**直接跑
+> `node packages/tools/create-cooliebase-app/bin/index.js my-app`（同样实测可用）。
 
-# 方案 B: degit 骨架拉取 (10秒内完成，0MB 历史提交)
+```bash
+# 方案 B: degit 骨架拉取（当前推荐，10 秒内完成，0MB 历史提交）
 pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 pnpm run project:init -- --name "my-app" --title "我的新业务系统"
 pnpm run dev
+
+# 方案 A（**发布到 npm 之后**才可用，再启用下面这行）:
+# pnpm dlx create-cooliebase-app my-app
 ```
 > **实测记录**
 >
