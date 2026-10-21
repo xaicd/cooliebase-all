@@ -345,6 +345,18 @@ if [[ -f "$TARGET_DIR/package.json" ]]; then
   " "$TARGET_DIR/package.json" "$PORT"
 fi
 
+# 网关片段里的上游端口也要跟着改 —— 否则部署后网关指到一个**没人监听**的端口。
+# 实测：`--port 3400` 时产物 `dev` 在 3400，而 `deploy/caddy/*.caddy` 里仍写
+# `reverse_proxy 127.0.0.1:3200` → 网关 502。（这条也由
+# `launcher-gateway-port-consistency` 门禁在产物里守着 —— 实测它会 FAIL。）
+if [[ -d "$TARGET_DIR/deploy/caddy" ]]; then
+  for f in "$TARGET_DIR"/deploy/caddy/*.caddy; do
+    [[ -f "$f" ]] || continue
+    sed -i '' -E "s#reverse_proxy 127\.0\.0\.1:[0-9]+#reverse_proxy 127.0.0.1:${PORT}#g; s#独立服务端口: [0-9]+#独立服务端口: ${PORT}#" "$f" 2>/dev/null \
+      || sed -i -E "s#reverse_proxy 127\.0\.0\.1:[0-9]+#reverse_proxy 127.0.0.1:${PORT}#g; s#独立服务端口: [0-9]+#独立服务端口: ${PORT}#" "$f"
+  done
+fi
+
 # 检查/补充独立 Git 仓库
 if [[ "$INIT_GIT" = true && ! -d "$TARGET_DIR/.git" ]]; then
   echo "📦 初始化客户专属 Git 仓库并创建首个基线快照..."
