@@ -69,7 +69,7 @@ function step(label, cmd, args, cwd, env = {}) {
 
 /** 跑一条入口：造工程 → 装依赖 → **跑工程自己的 check**。 */
 async function runEntry(kind) {
-  const target = path.join(baseDir, kind)
+  const target = path.join(baseDir, `probe-${kind}`)
   const env = {}
 
   process.stdout.write(`\n${"=".repeat(64)}\n[hatch-e2e] 入口: ${kind}  profile=${profile}\n${"=".repeat(64)}\n`)
@@ -102,6 +102,20 @@ async function runEntry(kind) {
       failures.push(`${kind}: 产物 pnpm install 失败 (exit=${installCode})`)
       return
     }
+  }
+
+  // 「改成业务身份」是**文档里的下一步**，而且它做的是**全仓文本改名** ——
+  // 最容易把产物写坏的一步（实测：替换值含 `/` 落进正则字面量 →
+  // 产物的 `project-init.cjs` 直接 SyntaxError，而 `project:create` 当时是成功退出的）。
+  // 所以它必须进 E2E：跑在产物 `check` **之前**（与文档顺序一致：建 → 装 → 改身份 → 用）。
+  const initInPlaceCode = step(
+    "产物 project:init --in-place（改业务身份）",
+    PNPM,
+    ["run", "project:init", "--", "--in-place", "--name", "e2e-probe", "--title", "E2E 探针工程"],
+    target,
+  )
+  if (initInPlaceCode !== 0) {
+    failures.push(`${kind}: 产物 project:init --in-place 失败 (exit=${initInPlaceCode}) —— 改名把产物写坏了`)
   }
 
   const checkCode = step("产物自身 check（静态判据）", PNPM, ["run", "check"], target)

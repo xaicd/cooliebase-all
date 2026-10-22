@@ -939,7 +939,9 @@ function handleCheck() {
       adr: ["docs/03_design/adr/*.md"],
       erd: ["docs/03_design/database-design-erd.md"],
       archify: ["docs/03_design/diagrams/*.arch.json", "docs/03_design/diagrams/*.arch.html"],
-      hld: ["docs/architecture/cooliebase-all-architecture.md"],
+      // **不写死基座文件名**：派生工程会把 `cooliebase-all-architecture.md` 改名成
+      // `<工程名>-architecture.md`（实测），写死就会在产物里误报"资产缺失"。
+      hld: ["docs/architecture/*-architecture.md"],
     },
     "06": { audit: ["docs/06_quality_assurance/audit/*"] },
     "08": { postmortem: ["docs/08_sre/06_incidents_postmortem/*"], reconciliation: ["docs/08_sre/02_reconciliation/*"] },

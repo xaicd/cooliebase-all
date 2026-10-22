@@ -28,6 +28,41 @@ const PACKAGE_JSON_PATH = path.join(ROOT, "package.json")
 const ENV_PATH = path.join(ROOT, ".env")
 const ENV_LOCAL_PATH = path.join(ROOT, ".env.local")
 
+/**
+ * 改名是**裸串替换** —— 工程名若恰好是常见词/子串，会破坏代码里的标识符。
+ * 实测：临时目录名为 `init` 时，`const definition = {` 变成 `const def<名字>ion = {`，
+ * 产物直接 SyntaxError；而改名自身的退出码是 **0**。
+ *
+ * 所以这里 fail-loud：改完对 scripts/ prisma/ deploy/ 下所有脚本跑 `node --check`，
+ * 有任何一个不能解析 → **拒绝产出**（宁可失败，也不产一个"下一步就崩"的工程）。
+ */
+function assertProductScriptsParse(targetDir) {
+  const { spawnSync } = require("node:child_process")
+  const broken = []
+  const scan = (dir) => {
+    if (!fs.existsSync(dir)) return
+    for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (entry.name === "node_modules" || entry.name.startsWith(".")) continue
+      const full = path.join(dir, entry.name)
+      if (entry.isDirectory()) scan(full)
+      else if (/\.(cjs|mjs|js)$/.test(entry.name)) {
+        if (spawnSync("node", ["--check", full], { stdio: "ignore" }).status !== 0) {
+          broken.push(path.relative(targetDir, full))
+        }
+      }
+    }
+  }
+  for (const sub of ["scripts", "prisma", "deploy"]) scan(path.join(targetDir, sub))
+  if (broken.length) {
+    throw new Error(
+      `改名后产物里有 ${broken.length} 个脚本无法解析 —— 拒绝产出坏工程：\n` +
+        broken.slice(0, 10).map((f) => `  · ${f}`).join("\n") +
+        `\n  常见原因：工程名是常见词/子串（如 init / app / web），裸串替换破坏了标识符。换个更独特的名字。`,
+    )
+  }
+  console.log(`[project-init] ✓ 产物脚本语法自检通过（scripts / prisma / deploy 全部可解析）`)
+}
+
 function parseArgs(args) {
   const options = {
     inPlace: false,
@@ -270,6 +305,69 @@ function ensureGitRepo(dir) {
   }
 }
 
+/**
+ * 派生工程的需求文档里有一张「规模事实表」——它的数字**随裁剪而变**，
+ * 而基座口径（17 域 / 15 插件 / 38 Skills）会被原样带过来，于是**必然是错的**。
+ * 实测：minimal 产物只剩 3 个插件，而文档仍写 15 →
+ * 产物自己的 `check`（含 `docs:claims:check`）**exit=1**，孵化出的是"坏工程"。
+ *
+ * 这里按**产物自身的真源**改写那几行 —— 与 llms.txt 的 `--restamp` 同一思路：
+ * 数字由**同一脚本**判真值并改写，而不是靠人记得同步。
+ */
+/**
+ * 派生工程的需求文档里有一张「规模事实表」——它的数字**随裁剪而变**，
+ * 而基座口径（17 域 / 15 插件 / 21 门禁）会被原样带过来，于是**必然是错的**。
+ * 实测：minimal 产物只剩 3 个插件，文档仍写 15 → 产物自己的 `check`
+ * （含 `docs:claims:check`）**exit=1** —— 孵化出的是"坏工程"。
+ *
+ * 做法：把该表整体换成**只引用命令**的形式（"能引用的不写死"，本仓自己的规矩）。
+ * 这样产物里不再有会漂的数字，`docs:claims:check` 也就无事可查 —— 而不是靠人记得同步。
+ */
+/**
+ * 棘轮基线是**按基座的文件集合**冻结的，而派生工程会裁剪掉大量文件 / 改写若干行 ——
+ * 于是「found − baseline」在产物里必然出现**假阳性**（实测：`no-new-npm-run` 报 new debt: 9）。
+ *
+ * 棘轮的语义是「冻结**当前**状态、只拦新增」，所以孵化后应当**按产物自身重新冻结**。
+ * 这不是掩盖欠债：基线文件与 `--audit` 都能看到冻结了什么。
+ */
+function refreshStandardsBaseline(targetDir) {
+  const script = path.join(targetDir, "scripts/check-engineering-standards.cjs")
+  if (!fs.existsSync(script)) return
+  try {
+    execSync("node scripts/check-engineering-standards.cjs --write-baseline", { cwd: targetDir, stdio: "pipe" })
+    console.log("[project-init] ✓ 已按产物自身重新冻结规范棘轮基线（基座基线是按基座文件集合算的）")
+  } catch (err) {
+    console.warn("[project-init] 提示: 重新冻结棘轮基线失败:", err.message)
+  }
+}
+
+function restampSizeClaims(targetDir) {
+  const rel = "docs/02_requirements/non-functional-reqs.md"
+  const abs = path.join(targetDir, rel)
+  if (!fs.existsSync(abs)) return
+  const text = fs.readFileSync(abs, "utf8")
+  if (!/##\s*5\.\s*可维护性与治理/.test(text)) return
+
+  const table = [
+    "| 指标 | 值 | 真源（**派生工程请以命令输出为准**） |",
+    "|---|---|---|",
+    "| 原生域 | 见命令 | `ls packages/domains/* -d` + `packages/shared/backend/constants/domain-catalog.json` |",
+    "| 第一方插件 | 见命令 | `ls -d packages/plugins/plugin-* \\| wc -l` |",
+    "| Agent Skills | 见命令 | `ls -d .agents/skills/*/SKILL.md \\| wc -l` |",
+    "| 静态交付门禁 | 见命令 | `pnpm run compat:check`（打印当前条数） |",
+    "| 工程规范机检规则 | 见命令 | `pnpm run standards:check --audit` |",
+  ].join("\n")
+
+  // 只替换该小节的表格（从表头到下一个空行为止），其余内容不动
+  const next = text.replace(
+    /(\| 指标 \| 值 \| 真源 \|\n\|[-\s|]+\|\n)(?:\|[^\n]*\|\n)+/,
+    `${table}\n`,
+  )
+  if (next !== text) {
+    fs.writeFileSync(abs, next)
+    console.log("[project-init] ✓ 已把规模事实表改为「引用命令」（派生工程的数字与基座必然不同）")
+  }
+}
 function refreshArtifacts(targetDir, opts) {
   try {
     console.log("[project-init] 正在同步契约与 Seam 图谱...")
@@ -431,6 +529,9 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
+    assertProductScriptsParse(targetDir)
+    restampSizeClaims(targetDir)
+    refreshStandardsBaseline(targetDir)
     ensureGitRepo(targetDir)
     console.log(`\n🎉 [SUCCESS] 业务项目已成功初始化在: ${targetDir}`)
   } else {
@@ -442,6 +543,9 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateEnvFiles(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
+    assertProductScriptsParse(targetDir)
+    restampSizeClaims(targetDir)
+    refreshStandardsBaseline(targetDir)
     ensureGitRepo(targetDir)
     console.log(`\n🎉 [SUCCESS] 当前底座已成功重构为专属业务工程: [${opts.title} (${opts.name})]`)
   }
