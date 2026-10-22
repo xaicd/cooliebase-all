@@ -112,11 +112,11 @@ function transformFileContent(content, targetName, targetTitle, targetDbName, ta
     .replace(/芋道源码/g, "企业级开源底座")
     .replace(/芋道/g, targetTitle)
     .replace(/yudao-quad-terminal/g, `${targetName}-quad`)
-    .replace(/yudao-ui-admin-vue3/g, `@${targetName}/admin`)
-    .replace(/yudao-cloud-backend/g, `@${targetName}/backend`)
+    .replace(new RegExp("yudao-ui-admin-vue3", "g"), `@${targetName}/admin`)
+    .replace(new RegExp("yudao-cloud-backend", "g"), `@${targetName}/backend`)
     .replace(/yudao-server/g, `${targetName}-server`)
     .replace(/yudao-monorepo/g, `@${targetName}`)
-    .replace(/yudao-native-app/g, `@${targetName}/app`)
+    .replace(new RegExp("yudao-native-app", "g"), `@${targetName}/app`)
     .replace(/yudao-boot-mini/g, `${targetName}-boot`)
     .replace(/yudao-cloud/g, `${targetName}-cloud`)
     .replace(/cn\.iocoder\.cloud/g, `com.${targetName}`)
@@ -995,6 +995,35 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     } catch {
       /* 钩子是增强，不是孵化前置；失败不阻断 */
     }
+    // 产物脚本必须**能解析** —— 改名是纯文本替换，而替换值可能带 `/` 或引号，
+    // 一旦落进正则字面量 / 字符串里就会把产物写坏（实测：`yudao-ui-admin-vue3` → `@<name>/admin`
+    // 让产物的 `project-init.cjs` 变成 `/@<name>/admin/g`，直接 SyntaxError，
+    // 而 `project:create` 当时是**成功退出**的）。
+    // 这里 fail-loud：宁可不产这个工程，也不产一个"下一步就崩"的工程。
+    {
+      const broken = []
+      const scan = (dir) => {
+        if (!fs.existsSync(dir)) return
+        for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+          if (entry.name === "node_modules" || entry.name.startsWith(".")) continue
+          const full = path.join(dir, entry.name)
+          if (entry.isDirectory()) scan(full)
+          else if (/\.(cjs|mjs|js)$/.test(entry.name)) {
+            const check = spawnSync("node", ["--check", full], { stdio: "ignore" })
+            if (check.status !== 0) broken.push(path.relative(resolvedTarget, full))
+          }
+        }
+      }
+      for (const sub of ["scripts", "prisma", "deploy"]) scan(path.join(resolvedTarget, sub))
+      if (broken.length) {
+        throw new Error(
+          `改名后产物里有 ${broken.length} 个脚本无法解析 —— 拒绝产出坏工程：\n` +
+            broken.slice(0, 10).map((f) => `  · ${f}`).join("\n"),
+        )
+      }
+      console.log(`[reactor] 产物脚本语法自检通过（scripts / prisma / deploy 下全部可解析）`)
+    }
+
     console.log("[reactor] 已 git init 并提交首个快照（任务痕迹与指纹需要它）")
   }
 
