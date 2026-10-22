@@ -37,6 +37,25 @@ if (!fs.existsSync(path.join(ROOT, ".agents/context/ASSEMBLY.md"))) fail("missin
 if (!fs.existsSync(path.join(ROOT, ".agents/skills/agent-harness/SKILL.md"))) fail("missing .agents/skills/agent-harness/SKILL.md")
 if (fs.existsSync(path.join(ROOT, "docs/skills"))) fail("duplicate skills directory docs/skills must not exist")
 
+// 规则文件必须**全部**在 ASSEMBLY.md 里注册 —— 否则 AI 入口根本看不到它（等于没写）。
+// 此前只有一处点检（只查 high-order-inverse-thinking 挂没挂），其余规则漏了也没人知道。
+{
+  const rulesDir = path.join(ROOT, ".agents/rules")
+  const assembly = fs.readFileSync(path.join(ROOT, ".agents/context/ASSEMBLY.md"), "utf8")
+  const registered = new Set([...assembly.matchAll(/\.agents\/rules\/([A-Za-z0-9-]+\.md)/g)].map((m) => m[1]))
+  const onDisk = fs.readdirSync(rulesDir).filter((f) => f.endsWith(".md"))
+  const missing = onDisk.filter((f) => !registered.has(f))
+  if (missing.length) {
+    fail(
+      `以下规则文件没有在 .agents/context/ASSEMBLY.md 注册，AI 入口（cmd / Claude / DigitalStaff）看不到：\n` +
+        missing.map((f) => `  · .agents/rules/${f}`).join("\n") +
+        `\n  修法：在 ASSEMBLY.md 表格里加一行（order / name / path / inject / 何时加载）`,
+    )
+  }
+  const ghost = [...registered].filter((f) => !onDisk.includes(f))
+  if (ghost.length) fail(`ASSEMBLY.md 引用了不存在的规则文件: ${ghost.join(", ")}`)
+}
+
 const agentsMd = fs.readFileSync(path.join(ROOT, "AGENTS.md"), "utf8")
 if (!agentsMd.includes("agent-harness")) fail("AGENTS.md must register agent-harness")
 if (!agentsMd.includes("Workspace Bundle")) fail("AGENTS.md §18 must declare Workspace Bundle")

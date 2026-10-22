@@ -260,6 +260,10 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **AI 入口可见性**：实测 9 个 `.agents/rules/*.md` 中**有 4 个没在 `ASSEMBLY.md` 注册** ——
+  AI 入口（cmd / Claude / DigitalStaff）根本看不到它们（其中两个是本轮刚写的 §21/§22）。
+  已全部注册（9/9），并在 `harness:check` 里加**覆盖门禁**：磁盘上的每个 rule 都必须出现在装配表，
+  且装配表不得引用不存在的文件（两条反向对照实测均 exit 1）。
 - **契约治理（§21/§22）**：新增 `pnpm run contracts:governance:check` —— §21 查契约路径是否落在该域
   `publicPrefixes` 内（enforce，1700 处）与 `permissionPrefix` 是否在 `permissions.ts` 登记（ratchet，基线 338 条）；
   §22 查每个规格 `runbook.json` 的非空 `steps`/`rollback`（14 份）。两个 rule 文件已回引条款号。
