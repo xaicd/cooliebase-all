@@ -265,6 +265,10 @@
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
   `scripts/clone-project-base.cjs`（`project:create` / `project:init`）。
   另：`pnpm run harness:health` 会报告启用状态，未启用时给出确切修法。
+  **端到端已验证（2026-10-22）**：`pnpm run project:create <目标> --profile minimal --no-provision-db`
+  实测 **exit=0**；产物里 `.git` ✓、`.githooks/pre-commit` ✓、**`core.hooksPath = .githooks`** ✓
+  （改动前此处为空）。并在**产物内**验证钩子真能拦：加一个 npm script 却不改计划 →
+  `git commit` **exit=1**；同时更新计划 → **exit=0**（拦得住 + 放得行，两个方向都测）。
 - **CLI 无关性（不装任何 CLI 也能守住）**：实测兜底链为
   `postinstall → setup-git-hooks`（`core.hooksPath=.githooks`）→ `.githooks/pre-commit` → CI 的 `pnpm run check`。
   直接跑 `.githooks/pre-commit` 可 exit=0（只用 `npm run`，无 CLI 依赖；逃生阀 `AGENT_ROUTE_SKIP=1` 也无关 CLI）。
