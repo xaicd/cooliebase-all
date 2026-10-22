@@ -213,8 +213,16 @@ function updateEnvFiles(targetDir, opts) {
   const existingEnvs = [".env", ".env.local"]
     .map((name) => (fs.existsSync(path.join(targetDir, name)) ? fs.readFileSync(path.join(targetDir, name), "utf8") : ""))
     .join("\n")
-  const hasDatabaseUrl = /^DATABASE_URL=/m.test(existingEnvs)
-  if (!hasDatabaseUrl) {
+  // **只在"已指向非 SQLite 库"时才跳过** —— 判断必须看**取值**，不能只看"有没有这个键"。
+  // 实测踩到的坑：重新初始化（或孵化链里改两次身份）时，`SQLITE_DB_PATH` 会被更新成新工程名，
+  // 而 `DATABASE_URL` 因为"已存在"被原样留下 → **两个变量指向不同的库**：
+  //   SQLITE_DB_PATH=data/e2e-probe.db   （被更新，bootstrap 往这里种子）
+  //   DATABASE_URL=file:./data/demo-mall.db （没更新，应用读的是这里）
+  // 应用于是连到一个**没有种子**的库 —— 表现为"工程起得来、healthz 200、登录 500/401"，
+  // 正是 AGENTS 里记录过的那个失败模式。
+  const existingUrl = (/^DATABASE_URL=(.*)$/m.exec(existingEnvs)?.[1] ?? "").trim()
+  const pointsAtNonSqlite = existingUrl !== "" && !/^(file:|sqlite:)/i.test(existingUrl) && !/\.db(\?|$)/i.test(existingUrl)
+  if (!pointsAtNonSqlite) {
     envUpdates.DB_DRIVER = "sqlite"
     // file: 前缀让 detectDriverFromUrl 也能识别为 sqlite；相对路径以工程根为基准。
     envUpdates.DATABASE_URL = `file:./${sqliteDbPath}`

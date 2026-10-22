@@ -196,8 +196,21 @@ async function verifyOutOfTheBox(target, label) {
   // 留下的是一个**已关闭的端口**，登录必然 401。那不是产物缺陷，是"临时库不能当交付库"
   // 的固有事实（AGENTS 也写了：embed 只用于瞬时校验）。
   // 故：非 sqlite 产物**显式跳过并说明理由**（与 `clients` 缺席时的处理同族：跳过而非失败）。
+  // 判据必须看**驱动/连接串**，不能看"SQLITE_DB_PATH 这个键在不在" ——
+  // `project:init` 会把 `SQLITE_DB_PATH` **无条件**写进 .env（即使产物用的是 PostgreSQL），
+  // 于是"看键"的写法**永远不跳过**，会把 PG 产物当成 SQLite 来验 → 必然 401（实测）。
+  // （同一个毛病我在 `project:init` 里也犯过一次：守卫"看键是否存在"而不是"看取值"。）
+  const dbUrl = (pick(envLocal, "DATABASE_URL") || pick(envFile, "DATABASE_URL")).trim()
+  const usesSqlite = dbUrl === "" || /^(file:|sqlite:)/i.test(dbUrl) || /\.db(\?|$)/i.test(dbUrl)
+  if (!usesSqlite) {
+    process.stdout.write(
+      `[hatch-e2e] SKIP ${label} 开箱验活：产物连接的是 PostgreSQL（e2e 内为临时嵌入式实例，进程结束即消失），` +
+        `无法作为持久库验证登录。\n`,
+    )
+    return
+  }
   if (!sqlitePath) {
-    process.stdout.write(`[hatch-e2e] SKIP ${label} 开箱验活：产物使用 PostgreSQL（e2e 内为临时嵌入式实例，进程结束即消失），无法作为持久库验证登录。\n`)
+    process.stdout.write(`[hatch-e2e] SKIP ${label} 开箱验活：产物未声明 SQLITE_DB_PATH。\n`)
     return
   }
 
