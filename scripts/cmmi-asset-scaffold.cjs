@@ -915,12 +915,68 @@ function handleCheck() {
     }
   }
 
+  // 3. 按「期望资产类型」校验 —— 此前这里**只验目录拓扑**，
+  //    于是「某阶段该有的资产一份都没有」它一个都看不见。
+  //    注意：glob 必须指向**资产真实所在**，不是脚手架当初设想的路径 ——
+  //    实测 archify 产物在 docs/03_design/diagrams/*.arch.json、HLD 在 docs/architecture/*.md，
+  //    按设想路径查会报出 4 处**假缺口**（我第一遍就这么误判了）。
+  const hasAny = (patterns) =>
+    patterns.some((p) => {
+      const abs = path.join(ROOT, p)
+      if (abs.includes("*")) {
+        const dir = path.dirname(abs)
+        if (!fs.existsSync(dir)) return false
+        const re = new RegExp("^" + path.basename(abs).replace(/[.+^${}()|[\]\\]/g, "\\$&").replace(/\*/g, ".*") + "$")
+        return fs.readdirSync(dir).some((f) => re.test(f))
+      }
+      return fs.existsSync(abs)
+    })
+
+  const REQUIRED_ASSETS = {
+    "01": { charter: ["docs/01_management/project-charter.md"], risk: ["docs/01_management/risk-register.md"], dar: ["docs/01_management/dar-decision-records/*.md"] },
+    "02": { srs: ["docs/02_requirements/srs/*.md"], rtm: ["docs/02_requirements/rtm-traceability-matrix.md"], nfr: ["docs/02_requirements/non-functional-reqs.md"] },
+    "03": {
+      adr: ["docs/03_design/adr/*.md"],
+      erd: ["docs/03_design/database-design-erd.md"],
+      archify: ["docs/03_design/diagrams/*.arch.json", "docs/03_design/diagrams/*.arch.html"],
+      hld: ["docs/architecture/cooliebase-all-architecture.md"],
+    },
+    "06": { audit: ["docs/06_quality_assurance/audit/*"] },
+    "08": { postmortem: ["docs/08_sre/06_incidents_postmortem/*"], reconciliation: ["docs/08_sre/02_reconciliation/*"] },
+    "09": { reconciliation: ["docs/09_operations/01_financial_reconciliation/*"] },
+  }
+
+  // 「决策性缺失」—— 必须有**理由**才允许为空，且理由要指向依据。
+  // 这不是豁免清单，是**把决策写进机检**：新增缺口不在表里 → 直接失败。
+  const ACCEPTED_ABSENCES = {
+    "02/srs": "本基座**刻意不产出**单体 SRS：需求真源是分散的 docs/specs/*/*/brief.json（12 份）+ docs/features/sprint-prod/*.md（5 份）；再落一份即第二真源（§25）。依据 docs/01_management/project-plan.md H1 与 srs 模板",
+    "08/postmortem": "需**真实事故**；未发生时按「三存三不存」留空（零假 Demo 铁律，AGENTS §25）",
+    "08/reconciliation": "需**真实资金凭证**；未发生时留空（AGENTS §25）",
+    "09/reconciliation": "同上：需真实运营发生后的对账单（AGENTS §25）",
+  }
+
+  const missing = []
+  for (const [phase, types] of Object.entries(REQUIRED_ASSETS)) {
+    for (const [type, patterns] of Object.entries(types)) {
+      if (hasAny(patterns)) continue
+      const key = `${phase}/${type}`
+      if (ACCEPTED_ABSENCES[key]) continue
+      missing.push(`${key} —— 期望资产缺失，且未登记为「决策性留空」。真实位置: ${patterns.join(" 或 ")}`)
+    }
+  }
+  errors.push(...missing)
+
   if (errors.length > 0) {
     console.error("❌ CMMI 资产合规扫描失败:")
     for (const err of errors) console.error(`  - ${err}`)
     process.exit(1)
   }
-  console.log("✅ CMMI 资产合规扫描全部通过: 01~09 目录拓扑合规，0 散落文件，0 伪造假 Demo！")
+  const staged = Object.keys(REQUIRED_ASSETS).length
+  const declared = Object.keys(ACCEPTED_ABSENCES).length
+  console.log(
+    `✅ CMMI 资产合规扫描全部通过: 01~09 目录拓扑合规，0 散落文件，0 伪造假 Demo；` +
+      `期望资产类型覆盖 ${staged} 个阶段（${declared} 处「决策性缺失」已带理由登记）！`,
+  )
 }
 
 function scanDir(dir) {
