@@ -22,6 +22,18 @@
  *   pnpm run hatch:e2e -- --keep          # 保留产物目录便于排查
  *   pnpm run hatch:e2e -- --fast          # 只跑到产物的 check（跳过 build 与起服务登录）
  *
+ * **本机（macOS）已知限制 —— 别追成产品问题**：
+ * `smoke:login` 会起产物 dev（Turbopack）。Turbopack 在 macOS 上用 FSEvent 监视文件，
+ * 而 FSEvent 流是**按用户**限额的。机器上同时跑着别的项目的 watcher 时（实测：66 个 node 进程、
+ * 其中隔壁 `coolie` 的 dev-watch 常驻），会报 `TurbopackInternalError: unable to start FSEvent stream`
+ * —— 日志先打印 `✓ Ready in …ms` **再** panic，于是表现为「起来了但探针连不上 /healthz」。
+ *
+ * **判定方法（我实测过的对照）**：同一时刻跑**基座自己**的 `pnpm run dev` ——
+ * 若它也报同样的 FSEvent panic，就是机器级资源问题，与产物无关。
+ *
+ * 换 webpack（`next dev --webpack`）**不是**解法：它改用 watchpack，会撞 `EMFILE: too many open files`。
+ * 真正的解法是**关掉其它 watcher 或重启机器**。
+ *
  * 退出码：任一环节非 0 即非 0（**不做任何降级**）。
  */
 const { spawnSync } = require("node:child_process")
