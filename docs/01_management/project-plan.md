@@ -260,6 +260,12 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **CLI 无关性（不装任何 CLI 也能守住）**：实测兜底链为
+  `postinstall → setup-git-hooks`（`core.hooksPath=.githooks`）→ `.githooks/pre-commit` → CI 的 `pnpm run check`。
+  直接跑 `.githooks/pre-commit` 可 exit=0（只用 `npm run`，无 CLI 依赖；逃生阀 `AGENT_ROUTE_SKIP=1` 也无关 CLI）。
+  **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
+  已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
+  提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
 - **AI 入口可见性**：实测 9 个 `.agents/rules/*.md` 中**有 4 个没在 `ASSEMBLY.md` 注册** ——
   AI 入口（cmd / Claude / DigitalStaff）根本看不到它们（其中两个是本轮刚写的 §21/§22）。
   已全部注册（9/9），并在 `harness:check` 里加**覆盖门禁**：磁盘上的每个 rule 都必须出现在装配表，
