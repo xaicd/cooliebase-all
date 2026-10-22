@@ -34,6 +34,13 @@
  * 换 webpack（`next dev --webpack`）**不是**解法：它改用 watchpack，会撞 `EMFILE: too many open files`。
  * 真正的解法是**关掉其它 watcher 或重启机器**。
  *
+ * **在被 FSEvent 堵住的机器上，怎样仍然验「产物能跑能访问」**（实测通过）：
+ * 改用生产模式 —— `pnpm run build` + `pnpm exec next start -p <port>`。
+ * `next start` **不启文件监视**，因此绕开 FSEvent 与 watchpack：
+ * 实测 `/healthz` `/` `/login` 全部 **200**，日志只有 `Ready`、无 FSEvent。
+ * 这能把问题**定位**到"dev 的 watcher"，而不是产物本身 —— 但它**不能替代** `smoke:login`
+ * （smoke 验的是 dev 模式 + 建库/迁移/种子/插件登记/登录整条链）。
+ *
  * 退出码：任一环节非 0 即非 0（**不做任何降级**）。
  */
 const { spawnSync } = require("node:child_process")
