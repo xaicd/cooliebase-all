@@ -260,6 +260,11 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **契约治理（§21/§22）**：新增 `pnpm run contracts:governance:check` —— §21 查契约路径是否落在该域
+  `publicPrefixes` 内（enforce，1700 处）与 `permissionPrefix` 是否在 `permissions.ts` 登记（ratchet，基线 338 条）；
+  §22 查每个规格 `runbook.json` 的非空 `steps`/`rollback`（14 份）。两个 rule 文件已回引条款号。
+  **顺带挖出并修掉两处真实鉴权缺陷**：路由模板兜底到无关权限 `INFRA_ONLINE_DEFINITION_QUERY`（对普通表是越权入口，
+  已改为**仅托管表**兜底）、`PERM_PREFIX` 归一化漏中划线导致常量永远查不到。
 - **枚举真源**：`status` 这类列的取值真源确认为**数据字典**（`sql/init/...sql` 的 `system_dict_data`，
   210 类型 / 1031 取值）。新增 `pnpm run dict:catalog:check`（生成物与源头不一致即 exit 1）与
   `scripts/data/system-dict-catalog.ts`；`dictType` 只声明链接、**不复制取值**。43 张表已落地。
