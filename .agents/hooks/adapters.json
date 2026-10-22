@@ -1,0 +1,83 @@
+{
+  "note": "各 AI CLI 的 hook 接入注册表。**新增一个 CLI 目录必须在此登记**，否则 check 会红 —— 避免「配了但没人知道」或「加了目录却没接线」。",
+  "guard": ".agents/hooks/spec-gate.sh",
+  "adapters": [
+    {
+      "id": "cmd",
+      "name": "Command Code (cmd)",
+      "dir": ".commandcode",
+      "config": ".commandcode/settings.json",
+      "mechanism": "hook",
+      "events": ["SessionStart", "PreToolUse"],
+      "instructionFile": "AGENTS.md",
+      "evidence": "产品文档 reference/hooks.md；本仓已实测拦截生效"
+    },
+    {
+      "id": "claude",
+      "name": "Claude Code",
+      "dir": ".claude",
+      "config": ".claude/settings.json",
+      "mechanism": "hook",
+      "events": ["PreToolUse"],
+      "instructionFile": "CLAUDE.md",
+      "evidence": "~/.claude/settings.json 同类配置；二进制内 tool_input.file_path 与 exit code 2 明文"
+    },
+    {
+      "id": "agy",
+      "name": "Antigravity CLI (agy)",
+      "dir": ".agents",
+      "config": ".agents/hooks.json",
+      "mechanism": "hook",
+      "events": ["PreToolUse"],
+      "instructionFile": "AGENTS.md + GEMINI.md + .agents/rules/*.md",
+      "evidence": "从 207MB CLI 二进制内嵌文档取证：customization root 例举 .agents/hooks.json"
+    },
+    {
+      "id": "hermes",
+      "name": "Hermes",
+      "dir": null,
+      "config": "~/.hermes/config.yaml",
+      "mechanism": "hook-external",
+      "events": ["pre_tool_call", "post_tool_call", "pre_llm_call"],
+      "instructionFile": "AGENTS.md（自动注入）+ SOUL.md",
+      "installer": "scripts/install-hermes-hook.cjs",
+      "reason": "**用户级**配置，仓内不可提交；由安装脚本幂等写入，`pnpm run harness:health` 会报告启用状态"
+    },
+    {
+      "id": "cursor",
+      "name": "Cursor",
+      "dir": ".cursor",
+      "config": null,
+      "mechanism": "rules-only",
+      "events": [],
+      "instructionFile": ".cursor/rules",
+      "reason": "仓内只有 `rules/`，**未取证**到可配置的 hook 事件 —— 不臆造 schema；规则靠文件被读，拦截只靠 L2 git 钩子与 L3 CI"
+    },
+    {
+      "id": "kiro",
+      "name": "Kiro",
+      "dir": ".kiro",
+      "config": null,
+      "mechanism": "steering-only",
+      "events": [],
+      "instructionFile": ".kiro/steering + .kiro/specs",
+      "reason": "仓内只有 `specs/` `steering/` `workflows/`，**未取证**到 hook 事件；同上"
+    }
+  ],
+  "knownCliDirs": [
+    ".commandcode",
+    ".claude",
+    ".cursor",
+    ".kiro",
+    ".windsurf",
+    ".trae",
+    ".codex",
+    ".continue",
+    ".aider",
+    ".cline",
+    ".gemini",
+    ".roo",
+    ".zed",
+    ".qwen"
+  ]
+}
