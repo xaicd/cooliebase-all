@@ -988,6 +988,13 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
       "-c", "user.email=hatch@local", "-c", "user.name=hatch",
       "commit", "-q", "-m", "chore: 孵化自 cooliebase-all 基座\n\nCo-authored-by: CommandCodeBot <noreply@commandcode.ai>",
     ])
+    // 立刻启用仓库自带 git 钩子 —— 不能只依赖 postinstall（那要求 git init 早于 pnpm install，
+    // 而孵化路径上时序不成立）。幂等，重复调用无副作用。
+    try {
+      spawnSync("node", ["scripts/setup-git-hooks.cjs"], { cwd: resolvedTarget, stdio: "ignore" })
+    } catch {
+      /* 钩子是增强，不是孵化前置；失败不阻断 */
+    }
     console.log("[reactor] 已 git init 并提交首个快照（任务痕迹与指纹需要它）")
   }
 

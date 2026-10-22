@@ -367,6 +367,11 @@ if [[ "$INIT_GIT" = true && ! -d "$TARGET_DIR/.git" ]]; then
     git config user.name "HatchBot" 2>/dev/null || true
     git add -A
     git commit -q -m "feat: 派生自 cooliebase-all 企业级底座 (profile: $PROFILE)"
+
+    # 立刻启用仓库自带 git 钩子（提交门禁）。
+    # 不能只依赖 postinstall：那要求「git init 早于 pnpm install」，
+    # 而这条时序在孵化路径上并不成立（实测：产物 .git 有、core.hooksPath 没有）。
+    node scripts/setup-git-hooks.cjs || true
   )
 fi
 

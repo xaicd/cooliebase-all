@@ -260,6 +260,11 @@
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
 - **规格库**：活跃 **12 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
+  但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
+  已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
+  `scripts/clone-project-base.cjs`（`project:create` / `project:init`）。
+  另：`pnpm run harness:health` 会报告启用状态，未启用时给出确切修法。
 - **CLI 无关性（不装任何 CLI 也能守住）**：实测兜底链为
   `postinstall → setup-git-hooks`（`core.hooksPath=.githooks`）→ `.githooks/pre-commit` → CI 的 `pnpm run check`。
   直接跑 `.githooks/pre-commit` 可 exit=0（只用 `npm run`，无 CLI 依赖；逃生阀 `AGENT_ROUTE_SKIP=1` 也无关 CLI）。
