@@ -163,6 +163,70 @@ function main() {
     }
   }
 
+
+  // ── ⑥ D4：`@` 导入环检测 ───────────────────────────────────────
+  // 动机（来自 wenlv-next 的 pointer-cycle-guard）：记忆文件用 `@path.md` 内联引用，
+  // 一旦形成环，加载会**递归内联** → 上下文无限放大（而且症状是"越用越慢"，很难归因）。
+  // 本仓当前没有 `@` 导入（实测 0 处），但一旦有人加，必须当场发现。
+  {
+    const roots = ["CLAUDE.md", "AGENTS.md"]
+    const scanDirs = [".agents"]
+    const files = new Set()
+    for (const r of roots) if (fs.existsSync(path.join(ROOT, r))) files.add(r)
+    const walkMd = (rel) => {
+      const abs = path.join(ROOT, rel)
+      if (!fs.existsSync(abs)) return
+      for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
+        const child = path.posix.join(rel, e.name)
+        if (e.isDirectory()) {
+          if (!e.name.startsWith(".") || e.name === ".agents") walkMd(child)
+        } else if (e.name.endsWith(".md")) files.add(child)
+      }
+    }
+    for (const d of scanDirs) walkMd(d)
+
+    const IMP = /(?:^|\s)@([A-Za-z0-9_./-]+\.md)\b/g
+    const graph = new Map()
+    for (const rel of files) {
+      const abs = path.join(ROOT, rel)
+      if (!fs.existsSync(abs)) continue
+      const text = fs.readFileSync(abs, "utf8")
+      const targets = []
+      for (const m of text.matchAll(IMP)) {
+        const raw = m[1]
+        // 相对当前文件目录 与 相对仓库根，两种写法都接受
+        for (const cand of [path.posix.normalize(path.posix.join(path.posix.dirname(rel), raw)), raw]) {
+          if (fs.existsSync(path.join(ROOT, cand))) { targets.push(cand); break }
+        }
+      }
+      graph.set(rel, targets)
+    }
+
+    const WHITE = 0, GRAY = 1, BLACK = 2
+    const color = new Map([...graph.keys()].map((k) => [k, WHITE]))
+    const stack = []
+    const cycles = []
+    const dfs = (node) => {
+      color.set(node, GRAY)
+      stack.push(node)
+      for (const next of graph.get(node) || []) {
+        const c = color.get(next)
+        if (c === GRAY) {
+          const i = stack.indexOf(next)
+          cycles.push([...stack.slice(i), next].join(" → "))
+        } else if (c === WHITE || c === undefined) {
+          if (!color.has(next)) color.set(next, WHITE)
+          dfs(next)
+        }
+      }
+      stack.pop()
+      color.set(node, BLACK)
+    }
+    for (const n of graph.keys()) if (color.get(n) === WHITE) dfs(n)
+
+    for (const c of cycles) violations.push(`「@」导入成环（会递归内联放大上下文）: ${c}`)
+  }
+
   if (audit) {
     console.log("[harness-integrity] 覆盖统计")
     console.log(`  AGENTS 编号条款 ${clauseIds.length} 条 · 登记表 ${map.clauses.length} 条`)
