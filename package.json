@@ -15,6 +15,7 @@
     "mcp": "scripts/mcp/cooliebase-mcp-server.cjs"
   },
   "scripts": {
+    "harness": "node scripts/harness.cjs",
     "surface:sync": "node scripts/sync-agent-surface.cjs",
     "surface:check": "node scripts/sync-agent-surface.cjs --check",
     "project:hatch": "node scripts/clone-project-base.cjs",

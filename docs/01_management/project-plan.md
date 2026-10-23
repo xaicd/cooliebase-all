@@ -275,6 +275,11 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **`pnpm harness`：标准全流程的唯一主干入口**（审计维度 5 的整改）：
+  `route / spec / check / test / e2e / deliver / ops / evolve` 八条主干 + `doctor` 只读体检。
+  **设计约束**：零判定逻辑（只转发，判定真源仍是各脚本）· `harness check` 与 `pnpm run check` 完全等价 ·
+  `doctor` 含**孤儿脚本扫描**（默认排除自身与构建产物，避免假阳性）。
+  同时落地三份互审交付物：`docs/specs/system/harness-mutual-audit/{audit-report,adopt-plan,contribute-list}.md`。
 - **AI 入口可见性**：实测 9 个 `.agents/rules/*.md` 中**有 4 个没在 `ASSEMBLY.md` 注册** ——
   AI 入口（cmd / Claude / DigitalStaff）根本看不到它们（其中两个是本轮刚写的 §21/§22）。
   已全部注册（9/9），并在 `harness:check` 里加**覆盖门禁**：磁盘上的每个 rule 都必须出现在装配表，
