@@ -275,6 +275,12 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **类型检查纳入门禁（规格 `typecheck-gate`，T1–T3 已交付）**：
+  新增 `pnpm run typecheck:check` 并接进 `check` 链 —— **棘轮**语义：
+  当前唯一键 − 基线唯一键 = 新增，非空即失败；基线缺失 exit 2；解析失败 exit 2。
+  **基线实测：诊断 1268 条 / 唯一键 1266 个**，债务 **96.7% 集中在 `packages/plugins`**（1226 条）。
+  **反向对照已进单测**（`test/unit/typecheck-ratchet.test.ts`）：注入一个类型错误 → exit 1 并点名文件。
+  踩到并记录了两个坑：`--incremental false` 会丢 2 条错误；`tsc` 会在同一位置报多条诊断（诊断数 ≠ 唯一键数）。
 - **D3 + D5 整改**：新增 `harness:integrity:check`（进 `check` 链），把审计维度 2/4/9 的共同缺口变成机检：
   ① **条款 ↔ 机制登记表**（`docs/architecture/artifacts/clause-mechanism-map.json`）：
      **29 条条款全部映射到真实存在的 npm script**（77 个去重机制）；新增条款不登记、或登记不存在的脚本 → 失败；
