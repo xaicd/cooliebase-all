@@ -27,6 +27,30 @@ DigitalStaff Native / Cursor / 其他 Agent 应按下面顺序加载。`inject` 
 | 150 | project-identity | `packages/shared/contract/project-profile.json` | 无 | 改品牌、租户显示名、登录文案 |
 | 200 | gates | `AGENTS.md` 对应章节 | 无 | 引用章节，不整篇复制 |
 
+## 任务路由（D2：**该读哪几段**，而不只是"有哪些段"）
+
+> 上表是**清单**（有什么）；本表是**路由**（当前任务读什么）。
+> 审计维度 1 的结论：缺的不是"文件太大"，而是**没有路由** ——
+> 新 agent 要么读全 `AGENTS.md`（91KB ≈ 14k tokens），要么自己判断该看哪几段。
+> **本表不新增任何真源**：只引用上面已注册的 `order`，条文仍在原处（§25 单一真源）。
+
+| 当前任务 | 读这几段（按 order 升序） | 跳过的 |
+|---|---|---|
+| **首次进场 / 陌生代码库** | -100 identity · -60 Rule 0 · 0 soul · 40 本体导航 | 具体规则的细节 |
+| **写业务代码（新增/改功能）** | -60 · -50 高阶反思维 · -45 spec-first · -43 project-init · -42 多租户 · -41 api-contract-first · -39 四类契约族 · 40 本体导航 | 60 domain-catalog（非跨域时） |
+| **写/改接口** | -41 api-contract-first · 55 seam-graph · 60 domain-catalog · 100 对应 skill | 前端/客户端相关段 |
+| **写测试** | -50 高阶反思维（含"禁止空转断言"）· 100 `automated-testing` | 契约族（除非是契约测试） |
+| **孵化新工程** | -36 project-reactor · -43 project-init · 50 agent-profile | 业务规则细节 |
+| **交付 / 发布** | -50 · -45 §24 · 100 `devops` · `pnpm harness deliver` 的输出 | 设计类段 |
+| **只问一个问题（不写代码）** | -100 identity · -60 Rule 0 | 其余全部 |
+
+**硬约束（可机检）**：
+
+1. 本表引用的每个 `order` 必须**真实存在于上表**（引用不存在的段 → `harness:integrity:check` 失败）；
+2. **不允许**在这里复制条文内容 —— 只允许引用 `order` + 一句话说明"为什么读它"（否则成为第二真源）；
+3. 路由只是**建议的读取顺序**，不是**权限**：任何段都可以随时读，路由解决的是"先读什么"。
+
+
 组装规则：
 
 1. 同名 section 不可重复注册。

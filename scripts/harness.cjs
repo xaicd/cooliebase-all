@@ -121,6 +121,23 @@ function doctor() {
   for (const o of orphan.slice(0, 12)) console.log(`  · ${o}`)
   if (orphan.length > 12) console.log(`  … 另有 ${orphan.length - 12} 个`)
 
+  // 6) 类型债务（只读：读基线，不跑 tsc —— doctor 必须快）
+  const tcBaseline = path.join(ROOT, "docs/architecture/artifacts/typecheck-baseline.json")
+  if (fs.existsSync(tcBaseline)) {
+    try {
+      const b = JSON.parse(fs.readFileSync(tcBaseline, "utf8"))
+      const top = Object.entries(b.byDir || {}).slice(0, 3).map(([d, n]) => `${d} ${n}`).join(" · ")
+      // 兼容早期基线（只有 count 与 keys，没有 uniqueKeys 字段）
+      const uniq = b.uniqueKeys ?? (Array.isArray(b.keys) ? new Set(b.keys).size : "?")
+      console.log(`\n[类型债务]  ${ok} 基线 ${b.count} 条诊断 / ${uniq} 唯一键  （${top}）`)
+      console.log(`  → 棘轮门禁：pnpm run typecheck:check（新增即失败）`)
+    } catch {
+      console.log(`\n[类型债务]  ${warn} 基线文件无法解析`)
+    }
+  } else {
+    console.log(`\n[类型债务]  ${warn} 无基线 —— 跑: node scripts/check-typecheck-ratchet.cjs --write-baseline`)
+  }
+
   const failed = !hooksPath || missing.length > 0 || truths.some(([, e]) => !e)
   console.log(`\n结论: ${failed ? "存在硬问题（见上面 ✗）" : "无硬问题"}`)
   return failed ? 1 : 0

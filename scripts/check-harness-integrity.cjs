@@ -110,6 +110,59 @@ function main() {
     if (!scripts[s]) violations.push(`scripts/harness.cjs 转发到不存在的 npm script: "${s}"`)
   }
 
+
+  // ── ④ D2：装配表路由列的 order 必须真实存在 ─────────────────────
+  {
+    const asm = fs.readFileSync(path.join(ROOT, ".agents/context/ASSEMBLY.md"), "utf8")
+    const mainOrders = new Set([...asm.matchAll(/^\|\s*(-?\d+)\s*\|/gm)].map((m) => m[1]))
+    if (mainOrders.size === 0) {
+      violations.push(".agents/context/ASSEMBLY.md 主表里解析出 0 个 order（解析可能已失效）")
+    }
+    const routingStart = asm.indexOf("## 任务路由")
+    if (routingStart === -1) {
+      violations.push(".agents/context/ASSEMBLY.md 缺少「## 任务路由」小节（审计维度 1：缺的不是文件大小，是路由）")
+    } else {
+      const routing = asm.slice(routingStart)
+      const refs = new Set([...routing.matchAll(/(-?\d+)\s+[a-z][a-z-]+/g)].map((m) => m[1]))
+      for (const r of refs) {
+        if (!mainOrders.has(r)) {
+          violations.push(`ASSEMBLY 路由表引用了不存在的 order: ${r}（主表里没有这一段）`)
+        }
+      }
+    }
+  }
+
+  // ── ⑤ D6：pre-commit 里不允许有"只存在于这里"的检查 ─────────────
+  // 动机：`git commit --no-verify` 能绕过 pre-commit。若某条检查**只**在 pre-commit 里，
+  // 绕过它 = 完全没跑（`plan:freshness` 曾经就是这样，直到本轮把它补进 CI）。
+  {
+    const hookPath = path.join(ROOT, ".githooks/pre-commit")
+    if (fs.existsSync(hookPath)) {
+      const hook = fs.readFileSync(hookPath, "utf8")
+      // **只认真正执行的**：排除 `echo` 行（那是给用户的提示文案，不是 hook 会跑的东西）。
+      // 实测踩到：`echo "先跑：<包管理器> run agent:route …"` 这类提示文案被误判为"pre-commit 执行了它"。
+      const executed = hook
+        .split("\n")
+        .filter((l) => !/^\s*#/.test(l) && !/\becho\b/.test(l))
+        .join("\n")
+      const cmds = new Set([...executed.matchAll(/(?:n?pm) run ([a-z][a-z:_-]+)/g)].map((m) => m[1]))
+      const checkChain = scripts.check || ""
+      const ciFiles = fs.existsSync(path.join(ROOT, ".github/workflows"))
+        ? fs.readdirSync(path.join(ROOT, ".github/workflows")).map((f) => fs.readFileSync(path.join(ROOT, ".github/workflows", f), "utf8")).join("\n")
+        : ""
+      for (const c of cmds) {
+        // 提示文案里出现的命令不算"执行"——只认 `run <cmd>` 形式出现在 check 链或 CI 中
+        const inCheck = checkChain.includes(`run ${c}`)
+        const inCi = ciFiles.includes(`run ${c}`) || ciFiles.includes(`${c} --`) || ciFiles.includes(` ${c} `)
+        if (!inCheck && !inCi) {
+          violations.push(
+            `pre-commit 执行 \`${c}\`，但 check 链与 CI 都没有它 —— \`--no-verify\` 会完全绕过（D6）`,
+          )
+        }
+      }
+    }
+  }
+
   if (audit) {
     console.log("[harness-integrity] 覆盖统计")
     console.log(`  AGENTS 编号条款 ${clauseIds.length} 条 · 登记表 ${map.clauses.length} 条`)

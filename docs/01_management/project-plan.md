@@ -275,6 +275,12 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **D2 + D6 落地**：
+  **D2**：`ASSEMBLY.md` 新增「任务路由」表 —— 审计维度 1 的结论是缺的不是文件大小而是**路由**；
+  路由只引用已有 `order`、不复制条文（§25），并加了**引用校验**（引用不存在的 order → 失败）。
+  **D6**：新增「pre-commit 里不允许有独占检查」机检 —— `--no-verify` 能绕过 pre-commit，
+  只存在于那里的检查等于没跑（`plan:freshness` 曾经如此，已补进 CI）。**实测反向对照能红**。
+  `harness doctor` 现报告**类型债务**（基线 1268 诊断 / 1266 唯一键，Top 目录）。
 - **类型检查纳入门禁（规格 `typecheck-gate`，T1–T3 已交付）**：
   新增 `pnpm run typecheck:check` 并接进 `check` 链 —— **棘轮**语义：
   当前唯一键 − 基线唯一键 = 新增，非空即失败；基线缺失 exit 2；解析失败 exit 2。
