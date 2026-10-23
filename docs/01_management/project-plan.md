@@ -275,6 +275,16 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **D3 + D5 整改**：新增 `harness:integrity:check`（进 `check` 链），把审计维度 2/4/9 的共同缺口变成机检：
+  ① **条款 ↔ 机制登记表**（`docs/architecture/artifacts/clause-mechanism-map.json`）：
+     **29 条条款全部映射到真实存在的 npm script**（77 个去重机制）；新增条款不登记、或登记不存在的脚本 → 失败；
+  ② **孤儿门禁脚本**：`scripts/check-*.cjs` / `audit-*.cjs` 必须被 npm script / check 链 / harness 引用；
+  ③ **harness 子命令一致性**：转发到的每个 script 必须存在。
+  **反向对照 3 条**：新增未登记条款 / 新增未引用门禁脚本 / 登记不存在的机制 —— 均实测 exit 1。
+  首跑即抓到 2 个真孤儿：`check-types.cjs`（→ 接成独立 `typecheck`，**故意不进 check**）与
+  `audit-and-format-all-menus.cjs`（一次性工具，已删除）。
+- **❗新发现**：`tsc --noEmit` 有 **1268 个存量类型错误**，而 `check` 链里**没有类型检查** ——
+  即类型安全从未被强制。已接成独立 `pnpm run typecheck` 暴露出来（不进主干，属另一个量级的工程）。
 - **`pnpm harness`：标准全流程的唯一主干入口**（审计维度 5 的整改）：
   `route / spec / check / test / e2e / deliver / ops / evolve` 八条主干 + `doctor` 只读体检。
   **设计约束**：零判定逻辑（只转发，判定真源仍是各脚本）· `harness check` 与 `pnpm run check` 完全等价 ·

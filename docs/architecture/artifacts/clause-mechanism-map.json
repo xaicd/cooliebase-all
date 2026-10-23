@@ -1,0 +1,298 @@
+{
+ "note": "AGENTS.md 一级条款 ↔ 可执行机制的登记表。每条条款必须至少映射一个**真实存在**的 npm script；新增条款不登记、或登记的脚本不存在 → check 失败。这是审计维度 2/4/9 共同缺口的整改。",
+ "enforcedBy": "harness:integrity:check",
+ "clauses": [
+  {
+   "clause": "1",
+   "title": "项目定位",
+   "mechanisms": [
+    "domain:check"
+   ]
+  },
+  {
+   "clause": "2",
+   "title": "适用范围与边界",
+   "mechanisms": [
+    "compat:check",
+    "domain:check"
+   ]
+  },
+  {
+   "clause": "2.1",
+   "title": "包管理器与工作区（强制）",
+   "mechanisms": [
+    "standards:check"
+   ]
+  },
+  {
+   "clause": "3",
+   "title": "架构总览",
+   "mechanisms": [
+    "domain:up"
+   ]
+  },
+  {
+   "clause": "3.4",
+   "title": "AI-Driven 交付链（**给一句话需求，按这个顺序走**）",
+   "mechanisms": [
+    "agent:coverage:check",
+    "agent:ops",
+    "agent:route",
+    "agent:routes:check",
+    "agent:selectors:check",
+    "check",
+    "delivery:check",
+    "docs:claims:check",
+    "docs:commands:check",
+    "domain:new",
+    "fingerprint",
+    "gen:paths:check",
+    "load:test",
+    "mutation:gate",
+    "plugins:register",
+    "repo:columns:check",
+    "routes:validation:check",
+    "runbook",
+    "security:scan",
+    "smoke:login",
+    "speckit:archive",
+    "speckit:build",
+    "speckit:check",
+    "speckit:new",
+    "speckit:tasks",
+    "vacuity:audit",
+    "verify:real-db"
+   ]
+  },
+  {
+   "clause": "4",
+   "title": "编码规范（强制）",
+   "mechanisms": [
+    "routes:validation:check",
+    "standards:check"
+   ]
+  },
+  {
+   "clause": "5",
+   "title": "Domain-First 研发流程与“开箱即用”闭环规范（强制）",
+   "mechanisms": [
+    "agent:contracts",
+    "agent:contracts:check",
+    "agent:native:check"
+   ]
+  },
+  {
+   "clause": "6",
+   "title": "能力同步与治理门禁",
+   "mechanisms": [
+    "admin:routes:check",
+    "agent:route",
+    "check",
+    "compat:check",
+    "deps:audit",
+    "domain:check",
+    "evolution:backlog",
+    "foundation:ontology:check",
+    "harness:check",
+    "microservice:check",
+    "skills:check",
+    "specs:health",
+    "standards:baseline",
+    "standards:check"
+   ]
+  },
+  {
+   "clause": "6.1",
+   "title": "多模型三阶段协作规范（强制）",
+   "mechanisms": [
+    "specs:health"
+   ]
+  },
+  {
+   "clause": "6.2",
+   "title": "Skill Registry（强制）",
+   "mechanisms": [
+    "skills:check"
+   ]
+  },
+  {
+   "clause": "7",
+   "title": "扫描与迁移节奏（证据驱动）",
+   "mechanisms": [
+    "domain:check"
+   ]
+  },
+  {
+   "clause": "8",
+   "title": "测试规范",
+   "mechanisms": [
+    "test",
+    "test:contract",
+    "test:integration",
+    "test:unit"
+   ]
+  },
+  {
+   "clause": "9",
+   "title": "本地开发与运行步骤",
+   "mechanisms": [
+    "build:init-sql",
+    "check",
+    "dev",
+    "domain:contracts",
+    "domain:dev",
+    "domain:list",
+    "domain:pack",
+    "domain:up",
+    "init",
+    "microservice:check",
+    "project:create",
+    "quick-start",
+    "runtime:all",
+    "runtime:split",
+    "scaffold",
+    "tables:inventory",
+    "tables:metadata-draft",
+    "tables:migration",
+    "test:clean",
+    "verify:real-db"
+   ]
+  },
+  {
+   "clause": "10",
+   "title": "构建与部署步骤",
+   "mechanisms": [
+    "build",
+    "deps:audit",
+    "domain:up",
+    "lint",
+    "llms:check",
+    "openwiki:check",
+    "openwiki:sync",
+    "start",
+    "surface:sync",
+    "test:summary"
+   ]
+  },
+  {
+   "clause": "11",
+   "title": "代码规模与拆分约束",
+   "mechanisms": [
+    "evolution:backlog"
+   ]
+  },
+  {
+   "clause": "12",
+   "title": "常见禁止项",
+   "mechanisms": [
+    "microservice:check",
+    "routes:validation:check"
+   ]
+  },
+  {
+   "clause": "13",
+   "title": "参考文档",
+   "mechanisms": [
+    "docs:commands:check"
+   ]
+  },
+  {
+   "clause": "14",
+   "title": "代码生成器架构规范",
+   "mechanisms": [
+    "check",
+    "repo:columns:check"
+   ]
+  },
+  {
+   "clause": "15",
+   "title": "User Conversation & Requirement Logging (MANDATORY)",
+   "mechanisms": [
+    "agent:route"
+   ]
+  },
+  {
+   "clause": "16",
+   "title": "ProjectReactor 脚手架与 GitHub Template 规范",
+   "mechanisms": [
+    "hatch:e2e",
+    "project:create"
+   ]
+  },
+  {
+   "clause": "17",
+   "title": "目录职责划分与基座/业务边界规范（Core Base vs Business Domain）",
+   "mechanisms": [
+    "check",
+    "db:migrate",
+    "domain:contracts",
+    "domain:manifests"
+   ]
+  },
+  {
+   "clause": "18",
+   "title": "Harness 进化规范（DeepSeek Harness 思想 × DigitalStaff NPC 模板）",
+   "mechanisms": [
+    "project:create"
+   ]
+  },
+  {
+   "clause": "19",
+   "title": "严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Arc",
+   "mechanisms": [
+    "agent:contracts:check",
+    "repo:columns:check"
+   ]
+  },
+  {
+   "clause": "20",
+   "title": "需求场景三叉戟分流与存量功能改造铁律 (Requirement Classification & Brownfield Evolution)",
+   "mechanisms": [
+    "agent:routes:check",
+    "routes:validation:check"
+   ]
+  },
+  {
+   "clause": "21",
+   "title": "业务域与全协议 API 契约驱动“多维最优解”执行大典 (Ontology & Polyglot API-Contract-First Ex",
+   "mechanisms": [
+    "contracts:governance:check"
+   ]
+  },
+  {
+   "clause": "22",
+   "title": "全工种四类契约族大典 (All-Role Contract Families & Job-Function Matrix)",
+   "mechanisms": [
+    "cmmi:asset:check",
+    "contracts:governance:check"
+   ]
+  },
+  {
+   "clause": "23",
+   "title": "全局高阶反向思维与 AI-Driven 基座 Harness 进化规范 (High-Order Inverse Thinking & Dee",
+   "mechanisms": [
+    "harness:check",
+    "standards:check"
+   ]
+  },
+  {
+   "clause": "24",
+   "title": "0-1 软件工程交付资产与 8 要素 Brief 派单规范 (Spec-First Artifacts & Brief Dispatchin",
+   "mechanisms": [
+    "cmmi:asset:check",
+    "delivery:check"
+   ]
+  },
+  {
+   "clause": "25",
+   "title": "单一真源与全生命周期过程资产防污染规范 (Single Source of Truth & Process Asset Anti-Pollu",
+   "mechanisms": [
+    "cmmi:asset",
+    "cmmi:asset:check",
+    "docs:claims:check",
+    "skills:check",
+    "speckit:archive"
+   ]
+  }
+ ]
+}
