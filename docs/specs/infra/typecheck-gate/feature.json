@@ -1,0 +1,12 @@
+{
+  "name": "typecheck-gate",
+  "domain": "infra",
+  "title": "类型检查纳入交付门禁：1268 个存量类型错误的分级治理",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 5,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-10-23T16:46:04.185Z"
+}

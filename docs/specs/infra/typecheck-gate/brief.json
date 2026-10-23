@@ -1,0 +1,78 @@
+{
+  "name": "typecheck-gate",
+  "domain": "infra",
+  "title": "类型检查纳入交付门禁：1268 个存量类型错误的分级治理",
+  "type": "feature",
+  "goal": "让类型错误**不能新增**：`tsc --noEmit` 以棘轮方式进入 check 链，新增错误即失败，存量 1268 条冻结待逐步清偿。",
+  "roles": [
+    { "role": "本仓 AI 员工 / 开发者", "can": "提交前就知道自己是否引入了新的类型错误" },
+    { "role": "交付负责人", "can": "看到存量类型债务的准确数字与趋势，而不是「类型安全」四个字" }
+  ],
+  "stories": [
+    { "priority": "P0", "text": "作为开发者，我改完代码跑 `pnpm run check`，若新增类型错误则失败并点名文件与行号" },
+    { "priority": "P0", "text": "作为交付负责人，我能用一条命令看到「当前错误数 vs 基线」，且基线只能被显式收紧" },
+    { "priority": "P1", "text": "作为接手的 AI 员工，我能从基线里按目录看到债务分布，优先清自己能清的" }
+  ],
+  "constraints": [
+    "本任务**不是**一次性修完 1268 个错误（见 nonGoals）。",
+    "棘轮语义：只拦新增；基线用显式命令收紧，不自动改写。",
+    "不允许用 `@ts-ignore` / `any` 批量压制来「降低数字」——那会把债务变成不可见。",
+    "不得放宽 check 链里任何既有门禁。"
+  ],
+  "acceptance": [
+    { "check": "`pnpm run check` exit=0（含新门禁）" },
+    { "check": "新增 1 个类型错误 → `pnpm run typecheck:check` exit=1，且输出点名 file(line,col) 与错误码" },
+    { "check": "修复 1 个存量错误 → 门禁仍 exit=0，且基线可被 `--write-baseline` 收紧（数字下降）" },
+    { "check": "基线文件包含**按目录聚合**的存量分布（便于排期）" },
+    { "check": "反向对照：把一个已知错误行改回来 → 必须被拦（防止门禁读不到输出而恒绿）" }
+  ],
+  "nonGoals": [
+    "一次性清零 1268 个类型错误（属多轮工程，本 spec 只建「不再变坏」的机制）",
+    "把 `tsc --noEmit` 变成逐步「全量强制」（那是清零之后的事）",
+    "修改业务逻辑以迁就类型（本 spec 只治理「门禁」，不改业务）"
+  ],
+  "architecture": "scripts/check-types.cjs（已存在，跑 tsc --noEmit）→ 新增基线比对层 → 输出新增错误 → 退出码。基线落 docs/architecture/artifacts/typecheck-baseline.json。门禁脚本 scripts/check-typecheck-ratchet.cjs 读基线并与当前输出比对；`--write-baseline` 显式收紧。不跨域、无数据访问。",
+  "entities": [
+    { "table": "-", "note": "无表；本 spec 只涉及脚本与基线 JSON" }
+  ],
+  "invariants": [
+    { "name": "只拦新增", "how": "当前错误集合 − 基线集合 = 新增；新增非空 → exit 1。反向对照：注入一处错误必须被拦。" },
+    { "name": "解析失败必须失败", "how": "tsc 输出解析不出任何 `error TS` 且退出码非 0 → 视为门禁故障，exit 2（不得当成「0 错误」静默通过）" },
+    { "name": "基线不可静默增长", "how": "只有 `--write-baseline` 能改基线；CI 不自动写。基线增长会在 diff 里可见。" }
+  ],
+  "ui": ["无 UI —— 本 spec 只治理门禁与基线。"],
+  "ops": [
+    "`pnpm run typecheck` —— 看当前全量（已有）",
+    "`pnpm run typecheck:check` —— 棘轮门禁（本 spec 新增），进 check 链",
+    "`node scripts/check-typecheck-ratchet.cjs --write-baseline` —— 显式收紧",
+    "`pnpm harness doctor` 里报告「类型债务 N 条 / 基线 M 条」"
+  ],
+  "risks": [
+    { "risk": "tsc 全量跑 14s，进 check 链会加长门禁", "mitigation": "实测 14s，可接受；若变慢，改为只对 `packages/**` 与 `src/**` 跑（仍覆盖业务代码）" },
+    { "risk": "基线按「错误消息全文」比对，改一行代码可能让同一错误的消息变化 → 误判为新增", "mitigation": "基线键用 `file+line+code`（不用消息全文），并接受「行号漂移=新增」的保守语义，在文档里写明" },
+    { "risk": "有人用 `// @ts-expect-error` 消掉错误但留下坑", "mitigation": "加一条统计：`@ts-expect-error` / `@ts-ignore` 计数也进基线（只拦新增）" }
+  ],
+  "screens": [{ "name": "-", "wireframe": "无界面" }],
+  "interactions": ["无"],
+  "states": ["无 UI，故不涉及"],
+  "candidates": [
+    { "name": "自研棘轮（基线 JSON + 集合差）", "type": "自研", "license": "N/A", "risk": "无" },
+    { "name": "第三方 type-coverage / ts-prune 类工具", "type": "开源", "license": "MIT", "risk": "解决的是「覆盖率」而非「新增错误」，与本 spec 的棘轮语义不同" }
+  ],
+  "benchmarks": [
+    "大型 TS 存量项目常见做法：先用 `tsc --noEmit` 生成基线，再以棘轮只拦新增（本仓 no-new-npm-run / agent:routes 已验证该模式有效）",
+    "备选：按目录分批清零（先 `scripts/` 再 `packages/`），每清一批收紧一次基线"
+  ],
+  "scan": [
+    "已确认本仓无第三方类型门禁依赖；check-types.cjs 已存在但**从未被引用**（本轮 harness:integrity:check 首跑即发现）",
+    "棘轮模式在本仓已有 4 处先例（no-new-npm-run / no-new-npx / agent:routes 欠债 / contracts:governance 权限欠债），复用同一语义可降低理解成本"
+  ],
+  "licenseConclusion": "全部自研，无第三方依赖引入，无许可证风险。",
+  "tasks": [
+    { "id": "T1", "parent": "main", "title": "基线快照 + 按目录聚合的债务分布", "files": ["scripts/check-typecheck-ratchet.cjs", "docs/architecture/artifacts/typecheck-baseline.json"] },
+    { "id": "T2", "parent": "T1", "title": "棘轮比对 + `--write-baseline` + 解析失败即 exit 2", "files": ["scripts/check-typecheck-ratchet.cjs"] },
+    { "id": "T3", "parent": "T2", "title": "反向对照（注入一处错误必须被拦）+ 接进 check 链 + 计划同步", "files": ["test/unit/typecheck-ratchet.test.ts", "package.json", "docs/01_management/project-plan.md"] }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 10
+}
