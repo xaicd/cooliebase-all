@@ -36,6 +36,54 @@ const ENV_LOCAL_PATH = path.join(ROOT, ".env.local")
  * 所以这里 fail-loud：改完对 scripts/ prisma/ deploy/ 下所有脚本跑 `node --check`，
  * 有任何一个不能解析 → **拒绝产出**（宁可失败，也不产一个"下一步就崩"的工程）。
  */
+/**
+ * 工程名安全校验。
+ *
+ * 背景（实测）：改名是**纯文本替换**，工程名会同时出现在路径、import、字符串里。
+ * 一旦工程名**短且常见**，就会成为代码里标识符的子串 —— 实测见过
+ * `const definition = {` 被改成 `const def<工程名>ion = {`，产物直接 SyntaxError
+ * （而改名进程自己是 exit=0）。
+ *
+ * 我**没能定位到**具体是哪条替换规则造成的（修复触发条件后无法再复现），
+ * 所以这里不假装"根治"，只做**有据可依的拦截**：
+ *   · 太短（< 5 字符）的名字，出现在任意标识符里的概率显著偏高 → 拒绝；
+ *   · 命中常见英文词表 → 拒绝（这些词几乎必然出现在别人的标识符里）。
+ * 拒绝时给出**为什么**与**怎么改**，而不是一句"名字非法"。
+ */
+const DANGEROUS_PROJECT_NAMES = new Set([
+  "init", "app", "apps", "web", "www", "main", "core", "base", "data", "demo",
+  "test", "tests", "spec", "user", "users", "admin", "system", "config", "types",
+  "utils", "lib", "src", "docs", "node", "next", "react", "index", "page", "pages",
+  "route", "routes", "api", "server", "client", "build", "dist", "public", "static",
+  "theme", "style", "styles", "form", "list", "table", "item", "items", "order",
+])
+
+function assertSafeProjectName(name) {
+  const value = String(name || "").trim()
+  if (!value) throw new Error("[project-init] 工程名不能为空")
+  const lowered = value.toLowerCase()
+  if (DANGEROUS_PROJECT_NAMES.has(lowered)) {
+    throw new Error(
+      `[project-init] 拒绝使用常见词作为工程名: "${value}"\n` +
+        `  原因：改名是纯文本替换，而这类词几乎是代码里某些标识符的子串\n` +
+        `  （实测见过 \`const definition = {\` 被写成 \`const def<工程名>ion = {\` → 产物 SyntaxError）。\n` +
+        `  改法：用更独特的 kebab-case 名字，例如 "acme-mall" / "northwind-crm"。`,
+    )
+  }
+  if (value.length < 5) {
+    throw new Error(
+      `[project-init] 工程名过短: "${value}"（${value.length} 字符）\n` +
+        `  原因：短名字命中其它标识符的概率显著偏高（同上）。\n` +
+        `  改法：至少 5 个字符，建议带业务前缀，例如 "acme-mall"。`,
+    )
+  }
+  if (!/^[a-z][a-z0-9-]*$/.test(value)) {
+    throw new Error(
+      `[project-init] 工程名必须是 kebab-case（小写字母开头，仅含 a-z 0-9 与 -）: "${value}"`,
+    )
+  }
+}
+
 function assertProductScriptsParse(targetDir) {
   const { spawnSync } = require("node:child_process")
   const broken = []
@@ -52,7 +100,9 @@ function assertProductScriptsParse(targetDir) {
       }
     }
   }
-  for (const sub of ["scripts", "prisma", "deploy"]) scan(path.join(targetDir, sub))
+  // 不限定目录：改名破坏可能落在**任何**脚本里（实测那次落在 `scripts/lib/`，
+  // 但没有理由认为不可能落在 `prisma/` 或根目录）。扫全仓 js 系文件，跳过 node_modules。
+  scan(targetDir)
   if (broken.length) {
     throw new Error(
       `改名后产物里有 ${broken.length} 个脚本无法解析 —— 拒绝产出坏工程：\n` +
@@ -60,7 +110,7 @@ function assertProductScriptsParse(targetDir) {
         `\n  常见原因：工程名是常见词/子串（如 init / app / web），裸串替换破坏了标识符。换个更独特的名字。`,
     )
   }
-  console.log(`[project-init] ✓ 产物脚本语法自检通过（scripts / prisma / deploy 全部可解析）`)
+  console.log(`[project-init] ✓ 产物脚本语法自检通过（全仓 js/cjs/mjs 全部可解析）`)
 }
 
 function parseArgs(args) {
@@ -516,6 +566,9 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   }
 
   const opts = await collectInteractive(parsed)
+  // 工程名在改名阶段会被当作**纯文本**使用，短/常见词会命中代码里的标识符
+  // （实测见过 `const definition = {` → `const def<工程名>ion = {`）。这里 fail-loud。
+  assertSafeProjectName(opts.name)
 
   if (!opts.name || !opts.title) {
     console.error("[project-init] 错误: 必须指定 --name 和 --title！")
