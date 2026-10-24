@@ -229,3 +229,38 @@ SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安�
 - 能升的**立刻升**（4 条），升不了大版本的**说明为什么**（1 条）；
 - **`zod` 这条最值得记**：安装版本已是补丁版、锁文件也已清干净，**审计却仍报** ——
   说明"门禁报了"和"问题还在"**不是同一件事**，要查到来源为止（本次未查到，已标为待查，**不写成已解决**）。
+
+---
+
+## 2026-10-24（续）`happy-dom` 已修复 —— 并找到「override 不生效」的真因
+
+### 真因（本轮最重要的发现）
+
+```
+[WARN] The "pnpm" field in package.json is no longer read by pnpm.
+       The following keys were ignored: "pnpm.overrides".
+```
+
+**pnpm 12 起 `package.json` 的 `pnpm.overrides` 不再被读取**，新位置是 **`pnpm-workspace.yaml`**。
+而它有 **WARN** 提示 —— **是我 grep 时把它过滤掉了**，于是两次 override "不生效"被我误判成
+"上游把版本钉死了"。
+
+> **教训**：`pnpm install` 的 **WARN 不能当噪音**。本轮它明确说了"你写的配置被忽略了"。
+
+### 修复
+
+```yaml
+# pnpm-workspace.yaml
+overrides:
+  happy-dom: 21.0.4
+```
+
+- 上游 `@puckeditor/core@0.23.0` 仍声明 `happy-dom: ^20.0.10` → 这是**显式越界**，所以跑完了验证；
+- **验证结果**：`check` exit=0 · **`test:unit` 49 files / 205 tests 全绿** · 越界**没有造成任何破坏**；
+- 审计：**10 → 9** 条，`happy-dom` 那条**消失**；基线已收紧为 **9（runtime 6 / client-toolchain 3）**；
+- SBOM 重生成（617 包）。
+
+### 仍存的一条
+
+`zod@3.25.76`（`@expo/cli` 内部）—— **随 Expo SDK 升级解决**，理由见上面的勘误。
+

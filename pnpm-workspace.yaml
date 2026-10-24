@@ -29,6 +29,9 @@ allowBuilds:
 # 修补版为 >=7.3.7（实测安装到 7.3.6）。vitest@latest 就是 5.0.5、无新版可升，
 # 故用 override 把 vite 抬到修补版 —— **有补丁就升，不登记为已接受风险**。
 overrides:
+  # GHSA-834v-8h66-3h79：受影响 <=21.0.3，补丁 >=21.0.4。
+  # 上游 @puckeditor/core@0.23.0 仍声明 ^20.0.10 → 这是**显式越界**，必须跑测试验证。
+  happy-dom: 21.0.4
   vite: ^7.3.7
 
 # 从 .npmrc 迁来：**pnpm 12 不再读 .npmrc 里的这两项**（实测 `pnpm config get` 返回 undefined，
