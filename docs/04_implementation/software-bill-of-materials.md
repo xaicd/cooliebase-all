@@ -483,7 +483,7 @@
 | `glob` | 13.0.6 | client | BlueOak-1.0.0 |
 | `glob-parent` | 5.1.2 | host | ISC |
 | `glob-parent` | 6.0.2 | host | ISC |
-| `happy-dom` | 20.14.5 | host | MIT |
+| `happy-dom` | 20.14.6 | host | MIT |
 | `hasown` | 2.0.4 | host | MIT |
 | `hermes-parser` | 0.36.1 | client | MIT |
 | `hosted-git-info` | 7.0.2 | client | ISC |

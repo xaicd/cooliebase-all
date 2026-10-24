@@ -2575,7 +2575,7 @@
     },
     {
       "name": "happy-dom",
-      "version": "20.14.5",
+      "version": "20.14.6",
       "reach": "host",
       "license": "MIT"
     },
