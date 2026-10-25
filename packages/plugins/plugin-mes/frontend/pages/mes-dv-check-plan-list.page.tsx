@@ -21,8 +21,8 @@ export function MesDvCheckPlanListPage() {
     setLoading(true)
     try {
       const res = await MesDvCheckPlanApi.page({ page, pageSize, ...searchForm })
-      setData(res.items || [])
-      setTotal(res.total || 0)
+      setData(res.data?.items || [])
+      setTotal(res.data?.total || 0)
     } catch (err) {
       console.error("加载数据失败:", err)
     } finally {
@@ -219,7 +219,7 @@ export function MesDvCheckPlanListPage() {
                   <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.cycle_type ?? "-")}>{String(item.cycle_type ?? "-")}</td>
                     <td className="px-4 py-2.5 text-xs text-right whitespace-nowrap space-x-2">
                       <button onClick={() => handleEdit(item)} data-testid="mes-dv-check-plan-edit" data-agent-target="mes-dv-check-plan:edit" data-agent-id={item.id} aria-label={"编辑 " + item.id} className="text-blue-600 hover:text-blue-800 font-medium">编辑</button>
-                      <button onClick={() => handleDelete(item.id)} data-testid="mes-dv-check-plan-delete" data-agent-target="mes-dv-check-plan:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
+                      <button onClick={() => handleDelete(String(item.id))} data-testid="mes-dv-check-plan-delete" data-agent-target="mes-dv-check-plan:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
                     </td>
                   </tr>
                 ))

@@ -21,8 +21,8 @@ export function CrmPermissionListPage() {
     setLoading(true)
     try {
       const res = await CrmPermissionApi.page({ page, pageSize, ...searchForm })
-      setData(res.items || [])
-      setTotal(res.total || 0)
+      setData(res.data?.items || [])
+      setTotal(res.data?.total || 0)
     } catch (err) {
       console.error("加载数据失败:", err)
     } finally {
@@ -215,7 +215,7 @@ export function CrmPermissionListPage() {
                   <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.level ?? "-")}>{String(item.level ?? "-")}</td>
                     <td className="px-4 py-2.5 text-xs text-right whitespace-nowrap space-x-2">
                       <button onClick={() => handleEdit(item)} data-testid="crm-permission-edit" data-agent-target="crm-permission:edit" data-agent-id={item.id} aria-label={"编辑 " + item.id} className="text-blue-600 hover:text-blue-800 font-medium">编辑</button>
-                      <button onClick={() => handleDelete(item.id)} data-testid="crm-permission-delete" data-agent-target="crm-permission:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
+                      <button onClick={() => handleDelete(String(item.id))} data-testid="crm-permission-delete" data-agent-target="crm-permission:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
                     </td>
                   </tr>
                 ))

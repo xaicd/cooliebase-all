@@ -21,8 +21,8 @@ export function MesWmSalesNoticeLineListPage() {
     setLoading(true)
     try {
       const res = await MesWmSalesNoticeLineApi.page({ page, pageSize, ...searchForm })
-      setData(res.items || [])
-      setTotal(res.total || 0)
+      setData(res.data?.items || [])
+      setTotal(res.data?.total || 0)
     } catch (err) {
       console.error("加载数据失败:", err)
     } finally {
@@ -204,7 +204,7 @@ export function MesWmSalesNoticeLineListPage() {
                   <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.oqc_check_flag ?? "-")}>{String(item.oqc_check_flag ?? "-")}</td>
                     <td className="px-4 py-2.5 text-xs text-right whitespace-nowrap space-x-2">
                       <button onClick={() => handleEdit(item)} data-testid="mes-wm-sales-notice-line-edit" data-agent-target="mes-wm-sales-notice-line:edit" data-agent-id={item.id} aria-label={"编辑 " + item.id} className="text-blue-600 hover:text-blue-800 font-medium">编辑</button>
-                      <button onClick={() => handleDelete(item.id)} data-testid="mes-wm-sales-notice-line-delete" data-agent-target="mes-wm-sales-notice-line:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
+                      <button onClick={() => handleDelete(String(item.id))} data-testid="mes-wm-sales-notice-line-delete" data-agent-target="mes-wm-sales-notice-line:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
                     </td>
                   </tr>
                 ))

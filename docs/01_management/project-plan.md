@@ -275,6 +275,12 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **类型债全量回填**：**1268 → 264** 条诊断（唯一键 1266 → **262**），只跑了一次机械替换
+  - 回填 **326 个**列表页（`packages/plugins/*/frontend/pages/*-list.page.tsx`）；
+  - 三条替换：`res.items → res.data?.items` · `res.total → res.data?.total` · `handleDelete(item.id) → handleDelete(String(item.id))`；
+  - **验证**：`check` exit=0 · **`build` exit=0**（前端改动必须以构建为准，不是以类型数为准）· 基线已收紧为 264/262。
+  - 剩余 264 条是**别的模式**（不再是那三条），按错误码看主要是 TS2339（属性不存在）与 TS2300（重复标识符）——
+    需逐个看，不能机械替换。
 - **类型债第一批：`plugin-ai` 清零**（1268 → **1226** 诊断 / 1266 → 1224 唯一键）
   - 根因在**生成模板**，不在页面：`frontend-list.template.ts` 里
     `res.items` / `res.total` 应取 `res.data?.items` / `res.data?.total`（`request.get` 返回 `ApiResponse<T>` 包装）；
