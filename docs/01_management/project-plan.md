@@ -275,6 +275,12 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **类型债第三批：TS1117（重复属性）清零**（204 → **192** 诊断 / 202 → 190 唯一键）
+  - 仍是同一份**元数据重复**（`iot-scene-rule` / `mp-message`）传到**校验器**（`z.object({...})`）；
+  - 去重必须**按对象作用域**（文件级会误删跨对象合法的同名属性 —— 上一批踩过）。
+  - ⚠️ **余下 112 条是同一个类型错误** `Type 'string' is not assignable to type 'PermissionCode'`：
+    这是台账里"**338 条未登记权限码**"的类型表现 —— **属产品决策**（要么登记权限码，要么放宽契约），
+    不是机械替换能解决的。
 - **类型债第二批：TS2300 清零**（264 → **204** 诊断 / 262 → 202 唯一键）
   - 只有 **2 个文件**（`iot-scene-rule.types.ts` 42 条 + `mp-message.types.ts` 18 条）：
     生成器把多组字段拍平进同一个 interface 却**没按列名去重**（`type`/`product_id`/`identifier` 各重复 3 次）。

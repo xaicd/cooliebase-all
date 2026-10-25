@@ -37,10 +37,7 @@ export const mpMessageCreateSchema = z.object({
   hq_music_url: z.string().trim().optional(),
   event: z.string().trim().optional(),
   event_key: z.string().trim().optional(),
-  title: z.string().trim().optional(),
-  description: z.string().trim().optional(),
   pic_url: z.string().trim().optional(),
-  url: z.string().trim().optional(),
 
 }).strict()
 
