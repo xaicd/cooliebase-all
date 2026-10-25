@@ -84,7 +84,11 @@
   ],
   "permissions": [
     "report:board:view",
-    "report:custom-sql:execute"
+    "report:custom-sql:execute",
+    "report:go-view-project:create",
+    "report:go-view-project:delete",
+    "report:go-view-project:query",
+    "report:go-view-project:update"
   ],
   "dependsOn": [
     "shared"
