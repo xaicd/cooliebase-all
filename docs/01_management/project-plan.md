@@ -275,6 +275,13 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **类型债第一批：`plugin-ai` 清零**（1268 → **1226** 诊断 / 1266 → 1224 唯一键）
+  - 根因在**生成模板**，不在页面：`frontend-list.template.ts` 里
+    `res.items` / `res.total` 应取 `res.data?.items` / `res.data?.total`（`request.get` 返回 `ApiResponse<T>` 包装）；
+    `handleDelete(item.id)` 里 `VO.id` 是 `number` 而 API 要 `string` → 调用处 `String(item.id)`。
+  - **先修模板**（未来生成物自动正确），再按插件回填（本批只回填 `plugin-ai` 的 14 个页面）。
+  - 剩下 1184 条仍在 `packages/plugins` —— **同一套模板**还会生成同样的错，
+    所以**按插件回填是机械的**，可分批推进（`mes 399 / mall 160 / wms 150 / erp 99`）。
 - **D4 落地**：`@` 导入环检测（并入 `harness:integrity:check`）—— 记忆文件用 `@path.md` 内联引用，
   成环会导致**递归内联放大上下文**（症状是越用越慢，很难归因）。
   本仓当前 `@` 导入为 **0 处**（实测），但一旦有人加就会当场发现。反向对照：造一个自环 → exit 1。
