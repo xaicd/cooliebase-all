@@ -27,10 +27,7 @@ export interface MpMessageDO {
   hq_music_url?: string
   event?: string
   event_key?: string
-  title?: string
-  description?: string
   pic_url?: string
-  url?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -67,10 +64,7 @@ export interface MpMessageVO {
   hq_music_url?: string
   event?: string
   event_key?: string
-  title?: string
-  description?: string
   pic_url?: string
-  url?: string
   tenant_id: string
   created_by?: string
   created_at: string
@@ -106,10 +100,7 @@ export interface MpMessageCreateDTO {
   hq_music_url?: string
   event?: string
   event_key?: string
-  title?: string
-  description?: string
   pic_url?: string
-  url?: string
 }
 
 export interface MpMessageUpdateDTO extends Partial<MpMessageCreateDTO> {

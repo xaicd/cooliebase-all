@@ -275,6 +275,16 @@
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。
+- **类型债第二批：TS2300 清零**（264 → **204** 诊断 / 262 → 202 唯一键）
+  - 只有 **2 个文件**（`iot-scene-rule.types.ts` 42 条 + `mp-message.types.ts` 18 条）：
+    生成器把多组字段拍平进同一个 interface 却**没按列名去重**（`type`/`product_id`/`identifier` 各重复 3 次）。
+  - 去重前先**验证重复项类型一致**（全部一致 → 才能安全保留首次出现）。
+  - 根因在**模板**：`types.template.ts` 用 `columns.map()` 直接铺开 → 已加 `uniqColumns`（按列名去重），防再生。
+  - **我踩的坑（两个，都记在这）**：
+    ① 去重作用域写成**整个文件** → 把 `id` 这类**在 DO/VO/DTO 里各自合法**的属性跨接口删掉 → 错误反而 264→298。
+       改为**按 interface 作用域**去重才对。
+    ② 改模板时写成 `open(p,"w")` **然后**再 `read(p)` —— **写时截断、读到空、再写空**，文件被清成 0 字节。
+       改成"一次性读入内存、只写一次"。
 - **类型债全量回填**：**1268 → 264** 条诊断（唯一键 1266 → **262**），只跑了一次机械替换
   - 回填 **326 个**列表页（`packages/plugins/*/frontend/pages/*-list.page.tsx`）；
   - 三条替换：`res.items → res.data?.items` · `res.total → res.data?.total` · `handleDelete(item.id) → handleDelete(String(item.id))`；

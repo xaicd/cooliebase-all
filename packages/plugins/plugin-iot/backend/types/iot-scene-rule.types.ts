@@ -15,16 +15,7 @@ export interface IotSceneRuleDO {
   value?: string
   cron_expression?: string
   condition_groups?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
-  operator?: string
   param?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
   params?: string
   alert_config_id?: string
   tenant_id: string
@@ -51,16 +42,7 @@ export interface IotSceneRuleVO {
   value?: string
   cron_expression?: string
   condition_groups?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
-  operator?: string
   param?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
   params?: string
   alert_config_id?: string
   tenant_id: string
@@ -86,16 +68,7 @@ export interface IotSceneRuleCreateDTO {
   value?: string
   cron_expression?: string
   condition_groups?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
-  operator?: string
   param?: string
-  type?: number
-  product_id?: string
-  device_id?: string
-  identifier?: string
   params?: string
   alert_config_id?: string
 }
