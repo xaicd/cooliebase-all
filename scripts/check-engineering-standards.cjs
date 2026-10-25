@@ -615,6 +615,39 @@ const RULES = [
     },
   },
   {
+    id: "no-pnpm-overrides-in-package-json",
+    section: "AGENTS.md §2.1",
+    mode: "enforce",
+    description:
+      "pnpm 12 起不再读取 package.json 的 pnpm.overrides —— 写在那里会被**静默忽略**（只打一行 WARN），必须写在 pnpm-workspace.yaml",
+    run() {
+      // 实测动机（2026-10-24）：一条 high 级漏洞的 override 写了两次都"不生效"，
+      // 我据此判断"上游把版本钉死了"—— **错**。真因是 pnpm 12 把 overrides 搬到了
+      // `pnpm-workspace.yaml`，而 package.json 里那份被**静默忽略**（只有一行 WARN）。
+      // 这类"配置写了但没生效"的坑，靠人读 WARN 不可靠 —— 必须机检。
+      const violations = []
+      for (const rel of ["package.json"]) {
+        const abs = path.join(ROOT, rel)
+        if (!fs.existsSync(abs)) continue
+        let pkg
+        try {
+          pkg = JSON.parse(fs.readFileSync(abs, "utf8"))
+        } catch {
+          continue // 由 JSON 合法性另有门禁负责
+        }
+        if (pkg.pnpm && Object.prototype.hasOwnProperty.call(pkg.pnpm, "overrides")) {
+          violations.push({
+            file: rel,
+            detail:
+              `pnpm.overrides 写在 ${rel} 里 —— pnpm 12 起**不再读取**它（只打 WARN 就忽略）。` +
+              `请移到 pnpm-workspace.yaml 的顶层 overrides: 下`,
+          })
+        }
+      }
+      return violations
+    },
+  },
+  {
     id: "no-duplicate-json-keys",
     section: "AGENTS.md §2.1",
     mode: "enforce",
