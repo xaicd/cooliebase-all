@@ -83,7 +83,7 @@ dsh **自己就在用 `AGENTS.md`** 作为 agent 指令文件（它仓库根也�
 4. 我们的 **18 个工具的返回结构**是否满足 dsh 对 tool result 的期望
    （`compat-manifest` 声明的协议是 `2025-06-18`，需确认 dsh 支持该版本）。
 
-**验证方式**：装 `npx @deepseek-ai/dsh web` 起本地实例，按它的 UI 加一个 MCP server 指向
+**验证方式**：装 `pnpm dlx @deepseek-ai/dsh web` 起本地实例，按它的 UI 加一个 MCP server 指向
 `node scripts/mcp/cooliebase-mcp-server.cjs`，看工具列表是否出现 18 个。
 **在这一步完成之前，本文不声称"已接通"。**
 
