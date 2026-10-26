@@ -1,0 +1,12 @@
+{
+  "name": "permission-naming-unify",
+  "domain": "infra",
+  "title": "统一权限码命名：契约 kebab 化 + 路由静态取键 + 全量重生成",
+  "type": "refactor",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 5,
+  "invariants": 3,
+  "tasks": 4,
+  "updatedAt": "2026-10-26T02:04:00.192Z"
+}

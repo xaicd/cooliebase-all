@@ -1,0 +1,42 @@
+{
+  "feature": "permission-naming-unify",
+  "domain": "infra",
+  "gates": {
+    "G0_DAR": {
+      "status": "passed",
+      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
+      "evidence": ["research.md", "selection.md"],
+      "verifiedAt": "2026-10-26T02:04:00.188Z"
+    },
+    "G1_FDA": {
+      "status": "pending",
+      "summary": "架构设计就绪，等待真实数据库持久化契约验证",
+      "evidence": ["plan.md", "design.md"],
+      "verifiedAt": null
+    },
+    "G2_CoreSWE": {
+      "status": "pending",
+      "summary": "任务分解就绪，等待代码落地与 1 Task = 1 Commit 提交核查",
+      "evidence": ["tasks.md"],
+      "verifiedAt": null
+    },
+    "G3_FDSE": {
+      "status": "pending",
+      "summary": "等待真实数据库单测与状态机测试全绿",
+      "evidence": [],
+      "verifiedAt": null
+    },
+    "G4_DS": {
+      "status": "passed",
+      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
+      "evidence": ["spec.md", "requirements.md"],
+      "verifiedAt": "2026-10-26T02:04:00.188Z"
+    },
+    "G5_PRE": {
+      "status": "pending",
+      "summary": "待上线前实施割接演练、安全扫描与压测达标",
+      "evidence": ["runbook.json"],
+      "verifiedAt": null
+    }
+  }
+}

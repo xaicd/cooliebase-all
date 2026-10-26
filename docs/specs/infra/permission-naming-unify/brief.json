@@ -1,0 +1,75 @@
+{
+  "name": "permission-naming-unify",
+  "domain": "infra",
+  "title": "统一权限码命名：契约 kebab 化 + 路由静态取键 + 全量重生成",
+  "type": "refactor",
+  "goal": "让权限码只有一种命名 domain:kebab:action。契约、路由、菜单三者对齐后，路由可静态取键（未登记即编译失败），并消掉 112 条 PermissionCode 类型错误与 338 条未登记欠债。",
+  "roles": [
+    { "role": "后端/网关开发者", "can": "改一个权限码时只改一处，不会被三套命名绕晕" },
+    { "role": "交付负责人", "can": "用编译期错误发现漏登记的权限，而不是等运行时绑不上 RBAC" }
+  ],
+  "stories": [
+    { "priority": "P0", "text": "作为开发者，路由里的权限是静态取键（PERMISSIONS.WMS_WAREHOUSE_QUERY），没登记就编译不过" },
+    { "priority": "P0", "text": "作为开发者，契约的 permissionPrefix 是 wms:warehouse（kebab，不重复域），与菜单种子一致" },
+    { "priority": "P1", "text": "作为交付负责人，contracts:governance 的 338 条欠债被清空而不是继续冻结" }
+  ],
+  "constraints": [
+    "这是重构不是新增：对外 API 路径、DTO、错误契约一律不变（§6.1 兼容性）。",
+    "权限码的值（domain:kebab:query 等）保持现有菜单种子的形式 —— 那是真正生效的那套。",
+    "路由文件的行为不变，只改权限的取法（动态 → 静态）。",
+    "每一批都必须 pnpm run build 通过 —— 前端/路由改动以构建为准，不以类型数下降为准。"
+  ],
+  "acceptance": [
+    { "check": "pnpm run typecheck:check exit=0，且那 112 条 PermissionCode 错误归零" },
+    { "check": "pnpm run contracts:governance:check exit=0，且棘轮基线从 338 收紧到 0" },
+    { "check": "pnpm run build exit=0" },
+    { "check": "pnpm run check exit=0" },
+    { "check": "反向对照：删掉一个已登记的权限码 → 对应路由编译失败（证明静态取键真的在起作用）" }
+  ],
+  "nonGoals": [
+    "不改权限的粒度或语义（仍是 query/create/update/delete 四动作）",
+    "不改菜单种子结构、不改 RBAC 判定逻辑",
+    "不动 system/infra 已登记的老权限码（只统一业务域那批）"
+  ],
+  "architecture": "契约生成：scripts/import-source-tables.ts 里 permissionPrefix 由 domain:snake(className) 改为 domain:kebab。路由模板：codegen-templates/route.template.ts 从 PERMISSIONS[动态键] 兜底字面量 改为静态键 PERMISSIONS.<DOMAIN>_<KEBAB>_<ACTION>。权限表：packages/shared/backend/constants/permissions.ts 的生成段按新键重写。数据流：契约 → 路由模板 → 路由文件；三者必须同一次变更内对齐，否则中途编译不过。",
+  "entities": [{ "table": "-", "note": "无表；涉及契约 JSON、路由 TS、权限常量三处生成物" }],
+  "invariants": [
+    { "name": "未登记即编译失败", "how": "路由静态取键 PERMISSIONS.X；X 不存在 → TS2339。反向对照：删一个键必须让构建红。" },
+    { "name": "三种命名收敛为一", "how": "契约 permissionPrefix、路由键、菜单种子三者的映射关系写在 brief 与测试里，且 contracts:governance 覆盖检查能发现不一致。" },
+    { "name": "对外契约不变", "how": "API path、DTO、错误码不动；用 agent:routes:check + build + 契约测试守。" }
+  ],
+  "ui": ["无 UI —— 纯后端/契约重构。"],
+  "ops": [
+    "pnpm harness spec check -- --spec permission-naming-unify 看进度",
+    "pnpm run contracts:governance:check 看欠债是否下降",
+    "pnpm run typecheck:check 看 112 条是否归零"
+  ],
+  "risks": [
+    { "risk": "340 个路由文件同时变更，review 困难", "mitigation": "分两批：先契约 + 权限表（无行为变更），再路由重生成；每批独立可构建" },
+    { "risk": "菜单种子里的历史权限码与新键不匹配，导致线上授权失效", "mitigation": "值不换（仍是 domain:kebab:query），只换键名与取法；迁移时不动已有数据" },
+    { "risk": "部分域的表没有元数据，kebab 推导可能不一致", "mitigation": "用 domain-catalog + 契约里已有的 kebab 字段作为唯一来源，不从 className 反推" }
+  ],
+  "screens": [{ "name": "-", "wireframe": "无界面" }],
+  "interactions": ["无"],
+  "states": ["无 UI，故不涉及"],
+  "candidates": [
+    { "name": "自研：契约改 kebab + 模板静态取键", "type": "自研", "license": "N/A", "risk": "无" },
+    { "name": "放宽 PermissionCode 为 string", "type": "自研", "license": "N/A", "risk": "放弃类型保护，不采纳" }
+  ],
+  "benchmarks": [
+    "大型 RBAC 系统的通行做法：权限码是编译期常量（枚举/联合），不是运行时字符串拼接 —— 拼出来的码无法静态校验，也无法发现拼错。"
+  ],
+  "scan": [
+    "已确认三套命名并存（契约 snake+域重复 / 路由大写_VIEW / 菜单 kebab+query），且菜单那套是真正生效的",
+    "已确认 112 条类型错误来自 (PERMISSIONS as Record<string,string>)[动态键] 的类型擦除"
+  ],
+  "licenseConclusion": "全部自研，无第三方依赖引入。",
+  "tasks": [
+    { "id": "T1", "parent": "main", "title": "契约 permissionPrefix 改 kebab + 重生成 340 份契约", "files": ["scripts/import-source-tables.ts", "packages/plugins/"] },
+    { "id": "T2", "parent": "T1", "title": "权限表按新键重写（生成段）", "files": ["packages/shared/backend/constants/permissions.ts"] },
+    { "id": "T3", "parent": "T2", "title": "路由模板改静态取键 + 重生成路由", "files": ["packages/domains/infra/backend/services/codegen-templates/route.template.ts", "packages/plugins/"] },
+    { "id": "T4", "parent": "T3", "title": "反向对照（删键必须编译失败）+ 收紧 governance 基线 + 计划同步", "files": ["test/unit/permission-static-key.test.ts", "docs/architecture/artifacts/contract-governance-baseline.json", "docs/01_management/project-plan.md"] }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4（每步都必须可构建）",
+  "windowMinutes": 20
+}
