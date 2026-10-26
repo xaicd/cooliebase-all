@@ -214,7 +214,9 @@ function updateProjectProfile(targetDir, opts) {
   const profile = JSON.parse(fs.readFileSync(profileFile, "utf8"))
   profile.platformName = opts.title
   profile.shortName = opts.shortName || opts.title.slice(0, 4)
-  profile.description = `${opts.title} — 基于 cooliebase-all 高阶工程底座构建的企业级数字化业务中台。`
+  // **不要**把基座品牌写进产物的身份契约 —— 它是产物首页/登录页会显示的自述，
+  // 白标化的意义就在这里。实测泄漏过：产物 profile 里写着「基于 cooliebase-all …」。
+  profile.description = `${opts.title} — 模块化单体与微服务平滑演进的企业级数字化业务中台。`
   profile.copyright = `© ${new Date().getFullYear()} ${opts.author || opts.shortName || "Business"} Team`
   profile.loginHeadline = opts.title
   profile.loginTagline = "模块化单体与微服务平滑演进，开箱即用的全栈企业级研发基座。"
@@ -229,6 +231,11 @@ function updatePackageJson(targetDir, opts) {
 
   const pkg = JSON.parse(fs.readFileSync(pkgFile, "utf8"))
   pkg.name = opts.name
+  // `init` 脚本的提示文案里带基座名（`echo '[cooliebase-all] …'`）—— 派生工程里必须一起换掉，
+  // 否则产物自己的 `pnpm run init` 会打出基座身份。实测泄漏过（产物 package.json 第 48 行）。
+  if (typeof pkg.scripts?.init === "string") {
+    pkg.scripts.init = pkg.scripts.init.replace(/\[cooliebase-all\]/g, `[${opts.name}]`)
+  }
   if (pkg.scripts && pkg.scripts.dev) {
     pkg.scripts.dev = pkg.scripts.dev.replace(/-p \d+/, `-p ${opts.port}`)
   }
