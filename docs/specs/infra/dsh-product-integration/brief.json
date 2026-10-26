@@ -1,0 +1,86 @@
+{
+  "name": "dsh-product-integration",
+  "domain": "infra",
+  "title": "产物并存两种界面：业务管理 UI + dsh 对话 UI（通过 MCP 打通）",
+  "type": "feature",
+  "goal": "让交付产物同时具备两种界面：客户原来的业务管理界面（768 个页面，不动），以及一个可对话的 dsh 界面；dsh 通过 MCP 调用业务能力。模板仍是模板，产物可显式启用 dsh。",
+  "roles": [
+    { "role": "客户业务用户", "can": "照常用业务菜单与运营界面，不受 AI 影响" },
+    { "role": "客户的 AI 使用者", "can": "在 dsh 对话界面里问业务问题，dsh 通过 MCP 拿到真实数据" },
+    { "role": "交付工程师", "can": "一条命令决定产物是否启用 dsh，且能验证两种界面都可用" }
+  ],
+  "stories": [
+    { "priority": "P0", "text": "作为业务用户，我打开 /admin 看到的还是原来的业务界面，没有任何变化" },
+    { "priority": "P0", "text": "作为 AI 使用者，我打开 dsh 界面能列出本仓的 18 个 MCP 工具，并能问出真实业务数据" },
+    { "priority": "P0", "text": "作为交付工程师，我关掉 dsh 后业务界面照常可访问（AI 必须是可选项）" },
+    { "priority": "P1", "text": "作为维护者，模板的 kind 仍是 workspace-bundle，doNotVendor 只对模板生效、对产物按声明放开" }
+  ],
+  "constraints": [
+    "模板（本仓）不实现 agent loop，不 vendor Cordis / dsh-agent-loop —— 这条不变。",
+    "产物可以显式声明启用外部 agent 运行时（dsh），启用方式是配置 + 进程，不是把 loop 写进业务代码。",
+    "768 个 admin 页面、973 个 service、342 份契约一个字都不改。",
+    "AI 关闭时业务界面必须完全可用（已有事实：admin 页面 0 处依赖 agent）。"
+  ],
+  "acceptance": [
+    { "check": "agent-profile.json 的 kind 仍是 workspace-bundle，且新增 productRuntime 段声明「产物可启用 dsh」" },
+    { "check": "check-harness-bundle.cjs 按作用域校验：模板禁 vendor，产物允许声明 dsh" },
+    { "check": "MCP server 能被 dsh 列为 18 个工具（接入后实测工具清单，未实测前不声称）" },
+    { "check": "业务界面（/admin/**）与 dsh 界面都能访问（两个进程/两个端口或反代）" },
+    { "check": "关闭 dsh 进程后，业务界面与 API 照常 200（AI 可关）" },
+    { "check": "pnpm run check exit=0 · pnpm run build exit=0" },
+    { "check": "反向对照：在模板里 import Cordis → 门禁必须红（证明边界仍在守）" }
+  ],
+  "nonGoals": [
+    "不 fork dsh 源码，不把 23,934 个上游提交拉进本仓",
+    "不把 768 个 admin 页面改写成 dsh 的 client plugin",
+    "不把 973 个 service 改写成 Cordis 服务",
+    "不改业务数据模型与对外 API 契约"
+  ],
+  "architecture": "两种界面并存：Next 应用（业务 UI + /api/v1 路由）与 dsh 实例（其自带 Web UI）各自跑进程；dsh 作为 MCP client 指向 scripts/mcp/cooliebase-mcp-server.cjs（stdio），从而调用业务能力。两者共享同一数据库。模板侧只增加「声明 + 装配脚本 + 验收」，不实现运行时。",
+  "entities": [{ "table": "-", "note": "无新表；两种界面共用现有库" }],
+  "invariants": [
+    { "name": "模板不含运行时", "how": "agent-profile.kind 仍为 workspace-bundle；反向对照：模板 import Cordis 必须红。" },
+    { "name": "AI 可关", "how": "关闭 dsh 进程后业务界面与 API 仍然 200；用既有 delivery:boundary:check + 一条冒烟守。" },
+    { "name": "能力单一真源", "how": "dsh 的业务能力全部来自 MCP server，不在 dsh 侧重复实现业务逻辑。" }
+  ],
+  "ui": [
+    "业务界面：现有 768 个 admin 页面，不动。",
+    "对话界面：dsh 自带的 Web UI（不是在本仓页面里塞聊天框）。",
+    "两者通过导航区分：业务菜单仍在 /admin，对话入口指向 dsh。"
+  ],
+  "ops": [
+    "pnpm run agent:runtime:check —— 体检：dsh 是否可启动、MCP 工具是否可列出（只读）",
+    "pnpm run agent:runtime:up / down —— 起停 dsh（装配外部进程，不实现 loop）",
+    "关闭后跑 pnpm run smoke:login 验证业务侧不受影响"
+  ],
+  "risks": [
+    { "risk": "dsh 是 developer preview，接口会 breaking", "mitigation": "只依赖 MCP 协议（稳定）与它的 CLI 启动方式；不 import 它的内部模块" },
+    { "risk": "两套界面让客户困惑", "mitigation": "导航上明确分区；对话作为「助手」入口，不替代业务菜单" },
+    { "risk": "doNotVendor 被误读为「全面放开」", "mitigation": "改成**作用域**：template 禁 / product 需显式声明；并对模板侧保留反向对照" }
+  ],
+  "screens": [
+    { "name": "/admin/**（现有）", "wireframe": "不变" },
+    { "name": "dsh Web UI（外部）", "wireframe": "dsh 自带界面，本仓只负责装配与入口链接" }
+  ],
+  "interactions": ["沿用现有交互；dsh 侧交互由 dsh 负责"],
+  "states": ["沿用现有状态；dsh 未启动时对话入口显示「未启用」而不是报错"],
+  "candidates": [
+    { "name": "并存两个进程（Next + dsh），MCP 打通", "type": "自研", "license": "N/A", "risk": "低" },
+    { "name": "fork dsh 把业务写成插件", "type": "自研", "license": "MIT", "risk": "高：768 页/973 service 要重写" }
+  ],
+  "benchmarks": [
+    "同形态产品常见做法：业务系统保留自己的界面，AI 以「助手」身份并存（而非替代导航）。"
+  ],
+  "scan": [
+    "已确认 admin 页面 0 处依赖 agent（delivery:boundary:check 实测 1467 个前端文件）",
+    "已确认 MCP server 是 stdio + 18 工具 + 协议 2025-06-18，可被外部 client 消费"
+  ],
+  "licenseConclusion": "dsh 为 MIT；本方案不 vendor 其源码，仅按 MCP 协议与 CLI 交互，许可无风险。",
+  "tasks": [
+    { "id": "T1", "parent": "main", "title": "agent-profile 加 productRuntime 作用域 + check-harness-bundle 按作用域校验", "files": ["packages/shared/contract/agent-profile.json", "scripts/check-harness-bundle.cjs"] },
+    { "id": "T2", "parent": "T1", "title": "装配外部运行时（up/down/check，不实现 loop）", "files": ["scripts/agent-runtime.cjs", "package.json"] },
+    { "id": "T3", "parent": "T2", "title": "验收：两界面可达 + 关闭 dsh 业务照常 + 反向对照 + 计划同步", "files": ["scripts/check-delivery-boundary.cjs", "docs/01_management/project-plan.md"] }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 25
+}

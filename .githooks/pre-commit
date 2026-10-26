@@ -25,6 +25,25 @@ RECORD="$ROOT/docs/architecture/artifacts/agent-route-last.json"
 # ── WBS 时效性：能力面变了（新增 script / 门禁 / 域），计划就必须在同一次提交里跟随 ──
 # 放在"受保护路径早退"**之前**：能力面变化未必触及 packages/（例如只加了 npm script），
 # 如果放在后面就会被早退跳过 —— 那又是一次静默失效。
+# ---------------------------------------------------------------------------
+# 全量静态门禁。
+#
+# 实测 23s —— **不慢**。此前这里没跑它，理由是"43 步太慢"，但那个理由**没人量过**
+# （本轮实测：最慢的单步 typecheck 5s / deps:audit 3s / clients:build 3s）。
+# 代价是：我这一轮连续 5 次"提交完才被门禁抓到"（manifest 漂移 ×2、doc-claims ×2、no-new-npx ×1），
+# 每次都要补一个 fixup 提交。
+#
+# 逃逸阀（与既有约定一致）：AGENT_ROUTE_SKIP=1 git commit ...
+if [ "${AGENT_ROUTE_SKIP:-0}" != "1" ]; then
+  echo "[pre-commit] 运行全量静态门禁（约 23s）..."
+  if ! ( cd "$ROOT" && pnpm run check ); then
+    echo ""
+    echo "[pre-commit] ✗ 全量门禁未通过。修掉后再提交；确认是环境问题时可用："
+    echo "             AGENT_ROUTE_SKIP=1 git commit ..."
+    exit 1
+  fi
+fi
+
 if ! node "$ROOT/scripts/check-plan-freshness.cjs"; then
   echo ""
   echo "[plan-freshness] 本次提交被拦下：能力面变了，但没有更新 docs/01_management/project-plan.md"
