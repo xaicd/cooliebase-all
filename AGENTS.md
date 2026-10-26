@@ -225,6 +225,10 @@
 5. **孵化出的工程必须有 git 仓库** —— 任务痕迹与指纹都建立在 git 上（孵化器已自动 `git init`）。
 6. **提交必须带 `[T<ID>]`**（方括号），并在该任务的文件白名单内 —— 否则 `task:verify` 会拦，
    裸 `T1` 会误匹配到「顺口提到」的提交。
+   **推荐写成 `[<规格名>/T<ID>]`**（如 `[deps-vuln-remediation/T2]`）：`[T<ID>]` 是**全仓可见**的，
+   两个规格都用 `T2` 时无法区分 —— 实测 `scripts/check-deps-audit.cjs` 同时出现在
+   `deps-vuln-remediation` 与 `deps-audit-tier-determinism` 的白名单里，于是**真做过的 T2 被判成没做**。
+   带规格名的写法是**唯一无歧义**的信号；`[T<ID>]` 仍接受，但只算弱证据。
 7. **G5 说 passed ⇒ 三样齐全**: 全过的 `runbook-result.json` + 全过的 `security-scan-result.json`
    + 达阈值的 `load-test-result.json`，且**都不超过 7 天**（`not_applicable` 必须给理由）。
    **这条已机检**（`pnpm run delivery:check --strict`，在 `check` 链内）：扫**全部规格**的

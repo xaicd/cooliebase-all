@@ -751,7 +751,10 @@ function handleTasks() {
    */
   const commits: Array<{ sha: string; subject: string; files: string[] }> = []
   if (isGitRepo) {
-    const raw = git(["log", "--pretty=format:%x00%H%x09%s", "--name-only", "-n", "300"])
+    // 窗口必须**大于**仓库可能的总提交数，否则「更早做过的任务」会被判成没做 ——
+    // 实测：本仓 674 条提交、窗口 300，`d25f6a83 feat(deps)[T2]`（确实做了 T2、也确实改了
+    // 本规格独有的 scripts/check-deps-audit.cjs）被挤出窗口，于是报「无法归属」。
+    const raw = git(["log", "--pretty=format:%x00%H%x09%s", "--name-only", "-n", "5000"])
     for (const block of raw.split("\u0000")) {
       if (!block.trim()) continue
       const [head, ...rest] = block.split("\n")
@@ -775,20 +778,104 @@ function handleTasks() {
     return new RegExp("^" + escaped.replace(/\u0000/g, "(?:.*/)?").replace(/\u0001/g, ".*") + "$")
   }
 
+  /**
+   * **共享文件索引**：某个白名单文件被多少个规格声明过。
+   *
+   * 为什么要它（实测）：`[T<ID>]` 是**全仓**可见的，只要有别的规格也用 T3，
+   * 它那条提交就会进候选；再用「改了本任务白名单里的**任意**文件」过滤，
+   * 结果 `docs/01_management/project-plan.md`（16 个规格里 7 个都写了它）
+   * 让 typecheck 规格的 T3 提交 `4815c9c` 命中了 dsh 规格的 T3 ——
+   * 于是在**根本没做 T3** 的情况下报「3/3 100%」。
+   *
+   * 判据：**只命中共享文件的提交，不构成归属证据**（必须命中本规格独有的文件）。
+   */
+  const sharedFiles = new Map<string, Set<string>>()
+  const specRoot = path.join(ROOT, "docs/specs")
+  const specBriefFiles: string[] = []
+  for (const dom of fs.existsSync(specRoot) ? fs.readdirSync(specRoot) : []) {
+    const domDir = path.join(specRoot, dom)
+    if (!fs.statSync(domDir).isDirectory()) continue
+    for (const sp of fs.readdirSync(domDir)) {
+      const b = path.join(domDir, sp, "brief.json")
+      if (fs.existsSync(b)) specBriefFiles.push(b)
+    }
+  }
+  for (const specFile of specBriefFiles) {
+    try {
+      const specBrief = JSON.parse(fs.readFileSync(specFile, "utf8"))
+      for (const t of specBrief.tasks || []) {
+        const wl = Array.isArray(t.files) ? t.files.join(",") : t.files || t.whitelist || ""
+        for (const item of String(wl).split(",")) {
+          const key = item.trim()
+          if (!key || key === "-") continue
+          if (!sharedFiles.has(key)) sharedFiles.set(key, new Set())
+          sharedFiles.get(key)!.add(specFile)
+        }
+      }
+    } catch {
+      /* brief 不可读由 specs:health 负责，这里只统计共享度 */
+    }
+  }
+  const isSharedFile = (f: string) => (sharedFiles.get(f)?.size || 0) > 1
+
+  /**
+   * **归属证据的三层判据**（只用一个都会失真，两轮实测）：
+   *
+   *   ① 强：命中**本规格独有**的白名单文件；
+   *   ② 中：提交信息里出现**规格名**（如 `dsh-product-integration`）；
+   *   ③ 中：改动了**本规格目录** `docs/specs/<域>/<名>/`。
+   *
+   * 为什么必须有 ②③：有些任务的**白名单里全是共享文件**
+   * （`package.json` / `pnpm-lock.yaml` —— 实测 `deps-vuln-remediation` 7 个任务都这样），
+   * 只留 ① 会让**真做过的工作**被判成没做（实测 9 个规格的 100% 塌成 1 个）。
+   * 三条都不满足时**不谎报完成，也不谎报未做** —— 标成「无法归属」并说清原因。
+   */
+  const specDirRel = path.relative(ROOT, dir).split(path.sep).join("/")
+  const touchesSpecDir = (c: { files: string[] }) =>
+    c.files.some((f) => f === specDirRel || f.startsWith(`${specDirRel}/`))
+  const mentionsSpec = (c: { subject: string }) =>
+    c.subject.includes(name) || c.subject.includes(path.basename(dir))
+
   let touched = 0
   for (const t of tasks) {
-    const byId = commits.filter((c) => c.subject.includes(`[${t.id}]`))
+    // 无歧义信号：[<规格名>/T<ID>]（本仓新约定）。旧的 [T<ID>] 仍接受，但只是**弱**信号。
+    const byId = commits.filter(
+      (c) => c.subject.includes(`[${name}/${t.id}]`) || c.subject.includes(`[${t.id}]`),
+    )
     let hits = byId
     let suspicious = 0
+    let unverified = 0
+    let unverifiedSpecs: string[] = []
     if (t.whitelist !== "-") {
       const patterns = t.whitelist.split(",").map((i) => i.trim()).filter(Boolean).map(globToRegExp)
-      hits = byId.filter((c) => c.files.some((f) => patterns.some((re) => re.test(f))))
+      const inWhitelist = (c: { files: string[] }) => c.files.some((f) => patterns.some((re) => re.test(f)))
+      // 归属证据：① 命中本规格**独有**文件，或 ② 提到规格名，或 ③ 碰了本规格目录
+      const attributing = (c: { subject: string; files: string[] }) =>
+        owned(c) || mentionsSpec(c) || touchesSpecDir(c)
+      const owned = (c: { files: string[] }) =>
+        c.files.some((f) => patterns.some((re) => re.test(f)) && !isSharedFile(f))
+      hits = byId.filter(attributing)
       suspicious = byId.length - hits.length
+      unverified = byId.filter((c) => inWhitelist(c) && !attributing(c)).length
+      if (unverified > 0) {
+        // 把「和谁撞了」说清楚 —— 只报数字，读的人没法行动
+        const others = new Set<string>()
+        for (const c of byId) {
+          for (const f of c.files) {
+            if (!patterns.some((re) => re.test(f))) continue
+            for (const specFile of sharedFiles.get(f) || []) {
+              const other = specFile.split("/").slice(-2)[0]
+              if (other !== name) others.add(other)
+            }
+          }
+        }
+        unverifiedSpecs = [...others]
+      }
     } else {
-      // 纯验证任务没有可核验的文件 —— 退化为「提交里必须提到本规格名」，否则同样可能是跨规格误匹配
-      const mentionsSpec = (c: { subject: string }) => c.subject.includes(name) || c.subject.includes(path.basename(dir))
-      hits = byId.filter(mentionsSpec)
+      // 纯验证任务没有可核验的文件 —— 判据只有「提到本规格名」或「碰了本规格目录」
+      hits = byId.filter((c: { subject: string; files: string[] }) => mentionsSpec(c) || touchesSpecDir(c))
       suspicious = byId.length - hits.length
+      unverified = byId.filter((c: { subject: string; files: string[] }) => !mentionsSpec(c) && !touchesSpecDir(c)).length
     }
     const isDone = hits.length > 0
     if (isDone) touched++
@@ -796,8 +883,9 @@ function handleTasks() {
     const statusBadge = isDone ? "✅ 已完成 (Git)" : "⏳ 待执行"
     const evidence = isDone
       ? `${hits.length} 个提交 (${hits[0].sha.slice(0, 7)})`
-      : (suspicious > 0
-        ? `无物理提交（${suspicious} 个 [${t.id}] 提交来自**其它规格**，已排除）`
+      : (unverified > 0
+        ? `⚠ 无法归属（${unverified} 个 [${t.id}] 提交碰的文件与 ${unverifiedSpecs.slice(0, 2).join(" / ") || "其它规格"} 共用，且提交信息未提及本规格；`
+          + `改用 [${name}/${t.id}] 即可消歧）`
         : "无物理提交")
     console.log(`| ${t.id} | ${statusBadge} | ${t.title} | \`${t.whitelist}\` | ${evidence} |`)
   }
