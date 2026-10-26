@@ -15,19 +15,19 @@
  *   pnpm run speckit:constitution
  *
  *   # 1. 创建任意类型的规格骨架
- *   pnpm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature|bugfix|enhancement|refactor|security]
+ *   pnpm harness spec new -- --name <名> --domain <域> --title "<标题>" [--type feature|bugfix|enhancement|refactor|security]
  *
  *   # 2. 从 brief.json 展开编译生成 7~8 份完备 Markdown 规格与任务波次图
- *   pnpm run speckit:build -- --name <名> [--check]
+ *   pnpm harness spec build -- --name <名> [--check]
  *
  *   # 3. 校验规格交付状态与门禁
- *   pnpm run speckit:check -- --spec <名>
+ *   pnpm harness spec check -- --spec <名>
  *
  *   # 4. 列出全域活跃与归档规格
- *   pnpm run speckit:list [--domain <域>]
+ *   pnpm harness spec list [--domain <域>]
  *
  *   # 5. 上线后一键防污染归档
- *   pnpm run speckit:archive -- --name <名>
+ *   pnpm harness spec archive -- --name <名>
  *
  *   # 6. 规格健康与防污染扫描
  *   pnpm run speckit:health

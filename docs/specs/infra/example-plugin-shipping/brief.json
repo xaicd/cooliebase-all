@@ -1,0 +1,172 @@
+{
+  "name": "example-plugin-shipping",
+  "domain": "infra",
+  "title": "派生工程是否应携带示例插件 hello-world",
+  "type": "feature",
+  "goal": "让用基座孵化出来的业务工程不再携带与本业务无关的示例插件内容，同时不破坏框架自身的回归测试；框架包的 author/url 等归属信息保持不变（那不是白标泄漏）。",
+  "roles": [
+    {
+      "role": "业务工程开发者",
+      "can": "拿到的产物里只有框架能力与自己的业务域，不必先判断哪些示例能删"
+    },
+    {
+      "role": "框架维护者",
+      "can": "继续用 hello-world 作为插件作者参考与运行时测试夹具，不必为了产物干净牺牲基座覆盖"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为拿产物开工的开发者，目录里不该出现与我的业务无关的示例插件，否则我要先判断它能不能删。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为框架维护者，裁剪示例插件不能打断基座自己的运行时测试 —— 现在 runtime-manager 与 plugin-sources 都把 hello-world 当夹具。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为后来的维护者，我需要一眼看出这个目录是基座示例、不进产物，以及它被谁引用，而不是靠 grep。"
+    }
+  ],
+  "constraints": [
+    "多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。",
+    "跨域：只走 Domain Facade，不 import 别的域 Service（§3.3）。",
+    "基座只建原生域（§17.3）：examples/hello-world 不是域而是示例与夹具，所以处理方式不能是注册成域。",
+    "不得改动框架包的 author / url / 包名 —— 那是归属与来源信息，派生工程保留正确的归属不是泄漏。",
+    "裁剪必须落在孵化链或目录结构上，不得让产物自己跑一次清理脚本才算干净。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "实测清单：`grep -rl 'examples/hello-world' packages scripts test` 的每一处都被显式处置（保留并写明理由，或随裁剪改掉）"
+    },
+    {
+      "check": "孵化产物后 `ls <产物>/packages/plugins/` 的输出与设计结论一致（含或不含 examples 都行，但必须与结论一致并写进验收）"
+    },
+    {
+      "check": "产物自身的 `pnpm run test:unit` 与 `pnpm run check` 全绿，证明裁剪没留下悬空引用"
+    },
+    {
+      "check": "反向对照：把示例插件按设计放回去，产物门禁必须能发现不一致（否则这条验收是空的）"
+    }
+  ],
+  "nonGoals": [
+    "不改框架包名、author、repository url —— 用户已明确这属于归属信息，不是泄漏。",
+    "不做运行期自动清理脚本：干净必须在生成时成立，不是靠事后跑一遍。",
+    "不重写插件系统架构，不动 worker 协议与 manifest 形态。",
+    "不顺手清理其它非示例内容（历史文档里的反例字样等）。"
+  ],
+  "architecture": "两条链都要考虑：一是克隆链 scripts/clone-project-base.cjs（pnpm harness project create）；二是原地初始化 scripts/project-init.cjs（pnpm harness project init，也是 --in-place 的实现）。当前二者都整目录拷贝，示例插件随之进入产物。若决定裁剪，需同时处置三处引用面：packages/shared/backend/plugins/package-scanner.ts 的注释、scripts 下的扫描与契约生成、以及两个测试文件对 EXAMPLE_DIR 的依赖（测试要么随示例一起裁，要么改成自带夹具）。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "本规格不新增或修改任何表。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "基座测试不因裁剪而失守",
+      "how": "基座仓内 hello-world 仍在，runtime-manager 与 plugin-sources 两组测试继续覆盖它；由 pnpm run test:unit 验证。"
+    },
+    {
+      "name": "产物无悬空引用",
+      "how": "裁剪后对产物运行 pnpm harness check 与 pnpm run test:unit；任何引用被裁文件的地方都会直接失败。"
+    }
+  ],
+  "ui": [
+    "无新增页面。本规格不涉及 admin 与 C 端界面。"
+  ],
+  "ops": [
+    "门禁链：沿用 pnpm run check（含 harness:integrity 的可达性与入口可解析检查）。",
+    "孵化端到端：pnpm harness e2e 已覆盖产物自身门禁 + build + 起服务登录，裁剪后必须仍全绿。",
+    "本规格不新增 agent:ops 动作（无实体）。"
+  ],
+  "risks": [
+    {
+      "risk": "把 hello-world 从产物裁掉，会连带打断产物里引用它的测试，反而让产物从第一天就是红的。",
+      "mitigation": "先实测完整引用面（T1），再决定是连测试一起裁、还是把夹具内联成测试自带的小目录；两条路都必须以产物 test:unit 全绿收尾。"
+    },
+    {
+      "risk": "示例插件是插件作者唯一的可跑参考，贸然从基座也删掉，会让插件文档失去落点。",
+      "mitigation": "本规格只讨论产物是否携带，不讨论基座是否保留；基座保留是默认。"
+    },
+    {
+      "risk": "排除清单若写死在克隆脚本里，会随目录演进悄悄失效（新加的示例自动进产物而没人发现）。",
+      "mitigation": "用一条机检断言「产物里 examples 的存在性与设计结论一致」来守，而不是靠人记住清单。"
+    }
+  ],
+  "screens": [],
+  "interactions": [],
+  "states": [],
+  "candidates": [
+    {
+      "name": "方案 A：孵化链拷贝时排除 packages/plugins/examples/，并同批处置引用它的测试",
+      "type": "自研",
+      "license": "N/A（不改依赖）",
+      "risk": "无许可风险；风险在排除清单写死，需机检守"
+    },
+    {
+      "name": "方案 B：保留在产物里，但在产物 README 明确标注这是基座示例、可删",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "零改动成本，但没有解决开发者要先自己判断的问题"
+    },
+    {
+      "name": "方案 C：把示例移出 packages/plugins/（如 docs/examples/），让拷贝动作天然不带它",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "动了目录约定，需同步 package-scanner 注释与相关测试的路径假设"
+    }
+  ],
+  "benchmarks": [
+    "主流脚手架（create-next-app / create-vite）默认不在项目里放示例业务代码，只有 hello-world 级别的 page.tsx；示例插件这种完整可运行的第三方扩展参考通常留在框架仓的 examples 且不进模板。",
+    "RuoYi 一脉的模板仓普遍带 demo 模块，代价是每个派生工程开工第一件事就是删 demo —— 这正是本规格要避免的。"
+  ],
+  "scan": [
+    "检索本仓现状：packages/plugins/examples/hello-world/ 未登记进 domain-catalog.json，因此不是域；被 scripts 与 packages/shared/backend/plugins 的测试引用（完整清单见 T1）。",
+    "未引入任何第三方库 —— 本规格是目录与孵化链行为调整。"
+  ],
+  "licenseConclusion": "不引入新依赖，无许可传染风险。框架包现有的 author/url/包名保持原样（归属信息，不是泄漏）。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "实测 hello-world 的完整引用面（代码 / 扫描器 / 测试 / 文档），产出可核对清单",
+      "files": [
+        "-"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "按实测结论选定方案并落地（孵化链排除，或标注保留，或移位）",
+      "files": [
+        "scripts/clone-project-base.cjs",
+        "scripts/project-init.cjs",
+        "scripts/lib/hatch-profile.cjs"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "处置引用面：让基座与产物两侧的测试与注释都自洽",
+      "files": [
+        "packages/shared/backend/plugins/package-scanner.ts",
+        "packages/shared/backend/plugins/__tests__/plugin-sources.test.ts",
+        "packages/shared/backend/plugins/__tests__/runtime-manager.test.ts"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "验收：产物 check 与 test:unit 全绿，且反向对照能发现示例被放回",
+      "files": [
+        "-"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4；T1 是纯实测（无实现），T4 是纯验证（无实现）。",
+  "windowMinutes": 10
+}

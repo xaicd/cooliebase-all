@@ -153,8 +153,8 @@ console.log("\n  下一步:")
 if (verdict === "NOT_A_REQUIREMENT") {
   console.log("    无需立规格、也无需改动代码。若确有此需求，请把要做什么说清楚再跑一次分诊。")
 } else if (verdict === "SPEC_REQUIRED") {
-  console.log(`    pnpm run speckit:new -- --name ${suggestName()} --domain <域> --type ${specType} --title "<标题>"`)
-  console.log("    然后编辑 brief.json → pnpm run speckit:build -- --name <名> → pnpm run speckit:check -- --spec <名>")
+  console.log(`    pnpm harness spec new -- --name ${suggestName()} --domain <域> --type ${specType} --title "<标题>"`)
+  console.log("    然后编辑 brief.json → pnpm harness spec build -- --name <名> → pnpm harness spec check -- --spec <名>")
 } else {
   console.log("    直接改即可；改完仍须 `pnpm run check` 全绿。若过程中发现影响面超出预期，回来重跑本命令。")
 }

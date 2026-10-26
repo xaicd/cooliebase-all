@@ -1,0 +1,12 @@
+{
+  "name": "example-plugin-shipping",
+  "domain": "infra",
+  "title": "派生工程是否应携带示例插件 hello-world",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 5,
+  "invariants": 2,
+  "tasks": 4,
+  "updatedAt": "2026-10-26T14:12:54.376Z"
+}

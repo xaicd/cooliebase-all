@@ -13,7 +13,7 @@
  * 修改本表后请跑 `pnpm exec vitest run test/unit/agent-route.test.ts` 确认判定没被意外改变。
  */
 
-/** 规格类型（与 `pnpm run speckit:new --type <T>` 对齐） */
+/** 规格类型（与 `pnpm harness spec new --type <T>` 对齐） */
 const SPEC_TYPES = ["feature", "bugfix", "enhancement", "refactor", "security"]
 
 /**
