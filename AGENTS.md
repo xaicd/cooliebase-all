@@ -207,8 +207,10 @@
 > 主干表是**唯一**的入口声明（`scripts/harness.cjs` 的 `TRUNK` + `GROUPS`）。
 > 加一个新操作 = 在主干表/分组映射里加一行，**不是**再加一个平行 npm script。
 > 机检：`harness-integrity` 的「脚本可达性」（棘轮，冻结存量于
-> `docs/architecture/artifacts/harness-unreachable-scripts.json`，**只减不增**）+
-> 「npm 脚本自环」（enforce）。收紧基线用 `pnpm harness baseline`。
+> `docs/architecture/artifacts/harness-unreachable-scripts.json`）+
+> 「npm 脚本自环」（enforce）。**当前基线为 0 项** —— 194 个 npm script 全部可从主干进；
+> 基线文件必须存在（空数组也行），它是「可达性被检查过」的凭证，**缺失即失败**。
+> 加新操作就在 `TRUNK` / `GROUPS` / `ALIASES` 里加一行；重写基线用 `pnpm harness baseline`。
 > 实测动机：批量改字符串时误伤 `package.json` 的脚本值，把 `speckit:tasks` 改成
 > `pnpm harness spec tasks` → `harness → speckit:tasks → harness` **自环**，
 > `pnpm harness spec tasks` 跑满 **600s 超时**（一天内两次），而当时没有任何门禁看得见。

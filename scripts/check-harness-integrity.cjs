@@ -106,7 +106,7 @@ function main() {
   }
 
   // ── ③ harness 子命令一致性 ──────────────────────────────────────
-  const forwarded = new Set([...harnessSrc.matchAll(/pnpmRun\("([a-z][a-z:_-]+)"/g)].map((m) => m[1]))
+  const forwarded = new Set([...harnessSrc.matchAll(/pnpmRun\("([a-z][a-z0-9:_-]+)"/g)].map((m) => m[1]))
   for (const s of forwarded) {
     if (!scripts[s]) violations.push(`scripts/harness.cjs 转发到不存在的 npm script: "${s}"`)
   }
@@ -146,7 +146,7 @@ function main() {
         .split("\n")
         .filter((l) => !/^\s*#/.test(l) && !/\becho\b/.test(l))
         .join("\n")
-      const cmds = new Set([...executed.matchAll(/(?:n?pm) run ([a-z][a-z:_-]+)/g)].map((m) => m[1]))
+      const cmds = new Set([...executed.matchAll(/(?:n?pm) run ([a-z][a-z0-9:_-]+)/g)].map((m) => m[1]))
       const checkChain = scripts.check || ""
       const ciFiles = fs.existsSync(path.join(ROOT, ".github/workflows"))
         ? fs.readdirSync(path.join(ROOT, ".github/workflows")).map((f) => fs.readFileSync(path.join(ROOT, ".github/workflows", f), "utf8")).join("\n")
@@ -271,8 +271,30 @@ function main() {
       for (const m of String(v).matchAll(/(?:pnpm|npm) run ([a-zA-Z0-9:_-]+)/g)) reachable.add(m[1])
     }
     // harness 里出现过的任何 npm script 名（主干表 / GROUPS 映射 / pnpmRun 调用）
-    for (const m of harnessSource.matchAll(/pnpmRun\([^)]*?"([a-z][a-z:_-]+)"/g)) reachable.add(m[1])
-    for (const m of harnessSource.matchAll(/^\s*"?([a-z][a-z:_-]*)":\s*"([a-z][a-z:_-]+)",$/gm)) reachable.add(m[2])
+    for (const m of harnessSource.matchAll(/pnpmRun\([^)]*?"([a-z][a-z0-9:_-]+)"/g)) reachable.add(m[1])
+    // GROUPS 的键**不带引号**（`migrate: "db:migrate",`），所以结尾的引号必须是可选的 ——
+    // 写成必选就会漏掉全部分组映射（实测：128 项"不可达"里大半其实早已可达）。
+    for (const m of harnessSource.matchAll(/^\s*"?([a-z][a-z0-9:_-]*)"?:\s*"([a-z][a-z0-9:_-]+)",$/gm)) reachable.add(m[2])
+    // **别名族**（`harness.cjs` 的 `ALIASES`）：显式声明「这些 npm script 是某主干的旧写法」。
+    // 门禁无法从字符串推断 `test:clean` 就等于 `harness test` 的那一步，只能靠声明。
+    const aliasBlock = harnessSource.slice(
+      harnessSource.indexOf("const ALIASES"),
+      harnessSource.indexOf("function help()"),
+    )
+    if (!aliasBlock) {
+      violations.push("scripts/harness.cjs 里找不到 ALIASES 声明（解析可能已失效，不允许静默通过）")
+    }
+    let aliasCount = 0
+    for (const m of aliasBlock.matchAll(/^\s*([a-z][a-z0-9-]*):\s*\[([^\]]*)\]/gm)) {
+      for (const q of m[2].matchAll(/"([a-z][a-z0-9:_-]+)"/g)) {
+        reachable.add(q[1])
+        aliasCount++
+      }
+    }
+    if (aliasCount === 0) {
+      violations.push("harness.cjs 的 ALIASES 解析出 0 条别名（格式变了？不允许静默通过）")
+    }
+
     // 主干表里列出的名字本身
     const trunks = [...harnessSource.matchAll(/^\s*\["([a-z][a-z0-9-]*)",\s*"pnpm harness/gm)].map((m) => m[1])
     for (const t of trunks) reachable.add(t)
@@ -295,9 +317,9 @@ function main() {
       console.log(`[harness-integrity] 已写入 ${REACH_BASE}（${unreachable.length} 项）`)
       process.exit(0)
     }
-    if (unreachable.length === 0 && !fs.existsSync(path.join(ROOT, REACH_BASE))) {
-      // 全可达，且不需要基线
-    } else {
+    {
+      // 基线文件**始终必须有**（哪怕是空数组）：它本身就是"可达性被检查过"的凭证。
+      // 缺了它一律失败 —— 否则删掉文件就能让这条检查静默失效（"找不到真源 ⇒ 静默通过"是本仓明令禁止的）。
       if (!fs.existsSync(path.join(ROOT, REACH_BASE))) {
         violations.push(
           `缺少可达性基线 ${REACH_BASE}（当前有 ${unreachable.length} 个脚本不可达）—— ` +

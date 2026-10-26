@@ -74,6 +74,18 @@ const TRUNK = [
   ["upstream", "pnpm harness upstream <radar|audit>", "上游能力雷达"],
   ["scaffold", "pnpm harness scaffold", "功能脚手架（scaffold-feature）"],
   ["baseline", "pnpm harness baseline", "重写「不可达脚本」基线（棘轮收紧用；会写文件）"],
+  ["quick", "pnpm harness quick [start|dev|docker]", "快速启动（本机 / docker）"],
+  ["cmmi", "pnpm harness cmmi <子命令>", "CMMI 01~09 过程资产（list / new / asset / check）"],
+  ["workflow", "pnpm harness workflow <子命令>", "工作流引擎（list / new / run / dry-run / check）"],
+  ["admin", "pnpm harness admin <pages|routes>", "Admin 页面与路由清单生成"],
+  ["sql", "pnpm harness sql <init|build>", "生成全量初始化 SQL"],
+  ["serve", "pnpm harness serve", "运行生产构建（standalone）"],
+  ["plugins", "pnpm harness plugins register", "插件登记"],
+  ["rpc", "pnpm harness rpc actions", "RPC actions 生成"],
+  ["deploy", "pnpm harness deploy caddy", "部署（Caddy 反代）"],
+  ["sbom", "pnpm harness sbom generate", "生成 SBOM 物料清单"],
+  ["setup", "pnpm harness setup hooks", "安装 git 钩子"],
+  ["audit", "pnpm harness audit <retention|validators|ontology>", "审计日志保留 / 校验器可达性 / 本体"],
 ]
 
 /**
@@ -107,6 +119,9 @@ const GROUPS = {
     contracts: "domain:contracts",
     manifests: "domain:manifests",
     seams: "domain:seams",
+    new: "domain:new",
+    loaders: "domain:loaders",
+    ontology: "foundation:ontology",
     up: "domain:up",
     build: "domain:build",
     dev: "domain:dev",
@@ -148,6 +163,50 @@ const GROUPS = {
   scaffold: {
     "": "scaffold",
   },
+  quick: {
+    "": "quick-start",
+    start: "quick-start",
+    dev: "quick-start:dev",
+    docker: "quick-start:docker",
+  },
+  cmmi: {
+    "": "cmmi:list",
+    list: "cmmi:list",
+    new: "cmmi:new",
+    asset: "cmmi:asset",
+    check: "cmmi:check",
+    "asset:check": "cmmi:asset:check",
+  },
+  workflow: {
+    "": "workflow:list",
+    list: "workflow:list",
+    new: "workflow:new",
+    run: "workflow:run",
+    "dry-run": "workflow:dry-run",
+    check: "workflow:check",
+  },
+  admin: {
+    "": "admin:pages",
+    pages: "admin:pages",
+    routes: "admin:routes:manifest",
+  },
+  sql: {
+    "": "sql:build",
+    build: "sql:build",
+    init: "build:init-sql",
+  },
+  serve: {
+    "": "start",
+    start: "start",
+  },
+  plugins: {
+    "": "plugins:register",
+    register: "plugins:register",
+  },
+  rpc: {
+    "": "rpc:actions",
+    actions: "rpc:actions",
+  },
   sync: {
     "": "surface:sync",
     surface: "surface:sync",
@@ -155,6 +214,45 @@ const GROUPS = {
     skills: "skills:sync",
     catalog: "catalog:sync:cooliebase",
   },
+}
+
+/**
+ * **别名族**：这些 npm script 是某个主干的旧写法 / 快捷入口，**不是**独立入口。
+ *
+ * 为什么要显式声明：门禁无法从字符串推断「`test:clean` 其实就是 `harness test` 的那一步」，
+ * 只能靠这里声明。**加别名请加在这里**，别在 `package.json` 里再加一条平行入口。
+ * 门禁 `harness-integrity` 的可达性检查读的正是本表。
+ */
+const ALIASES = {
+  route: ["agent:route"],
+  spec: [
+    "speckit", "speckit:init", "speckit:constitution", "speckit:new", "speckit:specify", "speckit:build",
+    "speckit:plan", "speckit:tasks", "speckit:task", "speckit:list", "speckit:workflows", "speckit:cmmi",
+    "speckit:check", "speckit:gate", "speckit:health", "speckit:archive",
+    "specify", "spec:new", "spec:build", "spec:check", "spec:tasks", "spec:archive",
+    "feature:new", "feature:build", "task:verify",
+  ],
+  test: ["test:unit", "test:integration", "test:contract", "test:clean", "test:all", "test:matrix", "test:e2e", "test:agent", "test:summary"],
+  deliver: [
+    "delivery:check", "delivery:status", "smoke:login", "security:scan", "load:test",
+    "runbook", "fingerprint", "fingerprint:verify", "mutation:gate",
+  ],
+  agent: ["agent:autopilot", "agent:autopilot:daemon", "agent:autopilot:heal", "agent:contracts", "agent:page-schemas"],
+  ops: [
+    "agent:ops", "agent:ops:health", "agent:ops:suite", "agent:ops:suite:check",
+    "agent:coverage:audit", "agent:native:audit", "agent:native:baseline",
+    "agent:routes:audit", "handwritten:audit", "handwritten:baseline",
+    "standards:baseline", "deps:audit:baseline", "vacuity:audit", "mutation:gate",
+  ],
+  doctor: ["harness:health", "harness:check", "harness:high-order:check", "harness:hermes-hook", "typecheck", "plan:freshness", "health-check"],
+  check: ["check:all", "contracts:audit-logs:check", "admin:routes:manifest:check"],
+  deploy: ["deploy:caddy"],
+  sbom: ["sbom:generate"],
+  setup: ["setup:hooks", "postinstall"],
+  release: ["release:package"],
+  audit: ["audit-logs:retention", "validator:reachability", "foundation:ontology"],
+  evolve: ["all", "init", "init:all"],
+  e2e: ["hatch", "hatch:e2e"],
 }
 
 function help() {
@@ -362,7 +460,19 @@ function main() {
     case "domains":
     case "socratic":
     case "upstream":
-    case "scaffold": {
+    case "scaffold":
+    case "quick":
+    case "cmmi":
+    case "workflow":
+    case "admin":
+    case "sql":
+    case "serve":
+    case "plugins":
+    case "rpc":
+    case "deploy":
+    case "sbom":
+    case "setup":
+    case "audit": {
       const group = GROUPS[sub]
       const action = rest[0] || ""
       const target = group[action]
