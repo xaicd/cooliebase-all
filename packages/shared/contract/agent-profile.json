@@ -2,42 +2,114 @@
   "version": 1,
   "kind": "workspace-bundle",
   "role": "business-project-template",
-  "not": ["agent-runtime", "cordis-host", "llm-loop", "privileged-core-to-patch"],
+  "not": [
+    "agent-runtime",
+    "cordis-host",
+    "llm-loop",
+    "privileged-core-to-patch"
+  ],
   "description": "CoolieBase All is the DigitalStaff NPC workspace template. Agent loop stays in DigitalStaff Native. This repo is the composable environment.",
   "harnessPartners": {
     "runtime": "DigitalStaff NativeCodingEngine",
     "runtimePath": "",
     "reference": "https://github.com/deepseek-ai/deepseek-harness",
     "referencePhilosophy": "Everything is a Plugin. Every run is traceable.",
-    "doNotVendor": ["cordis", "dsh-agent-loop", "self-modification"]
+    "doNotVendor": [
+      "cordis",
+      "dsh-agent-loop",
+      "self-modification"
+    ]
   },
   "promptAssembly": {
     "file": ".agents/context/ASSEMBLY.md",
     "sections": [
-      { "name": "identity", "order": -100, "path": ".agents/context/IDENTITY.md" },
-      { "name": "rule-0-universal-directives", "order": -60, "path": ".agents/rules/RULE-0-UNIVERSAL-DIRECTIVES.md" },
-      { "name": "high-order-inverse-thinking", "order": -50, "path": ".agents/rules/HIGH-ORDER-INVERSE-THINKING.md" },
-      { "name": "spec-first-artifacts", "order": -45, "path": ".agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md" },
-      { "name": "project-init-and-refactor", "order": -43, "path": ".agents/rules/PROJECT-INIT-AND-REFACTOR.md" },
-      { "name": "multi-tenant-isolation", "order": -42, "path": ".agents/rules/MULTI-TENANT-ISOLATION.md" },
-      { "name": "high-order-prompts", "order": -40, "path": "docs/architecture/universal-high-order-inverse-prompts.md" },
-      { "name": "soul", "order": 0, "path": ".agents/context/SOUL.md" },
-      { "name": "seams", "order": 50, "path": "packages/shared/contract/agent-profile.json" },
-      { "name": "seam-graph", "order": 55, "path": "packages/shared/contract/seam-graph.json" },
-      { "name": "catalog", "order": 60, "path": "packages/shared/backend/constants/domain-catalog.json" },
-      { "name": "skill", "order": 100, "path": ".agents/skills", "load": "on-demand" },
-      { "name": "project-identity", "order": 150, "path": "packages/shared/contract/project-profile.json" },
-      { "name": "gates", "order": 200, "path": "AGENTS.md", "mode": "cite-section-not-full-file" }
+      {
+        "name": "identity",
+        "order": -100,
+        "path": ".agents/context/IDENTITY.md"
+      },
+      {
+        "name": "rule-0-universal-directives",
+        "order": -60,
+        "path": ".agents/rules/RULE-0-UNIVERSAL-DIRECTIVES.md"
+      },
+      {
+        "name": "high-order-inverse-thinking",
+        "order": -50,
+        "path": ".agents/rules/HIGH-ORDER-INVERSE-THINKING.md"
+      },
+      {
+        "name": "spec-first-artifacts",
+        "order": -45,
+        "path": ".agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md"
+      },
+      {
+        "name": "project-init-and-refactor",
+        "order": -43,
+        "path": ".agents/rules/PROJECT-INIT-AND-REFACTOR.md"
+      },
+      {
+        "name": "multi-tenant-isolation",
+        "order": -42,
+        "path": ".agents/rules/MULTI-TENANT-ISOLATION.md"
+      },
+      {
+        "name": "high-order-prompts",
+        "order": -40,
+        "path": "docs/architecture/universal-high-order-inverse-prompts.md"
+      },
+      {
+        "name": "soul",
+        "order": 0,
+        "path": ".agents/context/SOUL.md"
+      },
+      {
+        "name": "seams",
+        "order": 50,
+        "path": "packages/shared/contract/agent-profile.json"
+      },
+      {
+        "name": "seam-graph",
+        "order": 55,
+        "path": "packages/shared/contract/seam-graph.json"
+      },
+      {
+        "name": "catalog",
+        "order": 60,
+        "path": "packages/shared/backend/constants/domain-catalog.json"
+      },
+      {
+        "name": "skill",
+        "order": 100,
+        "path": ".agents/skills",
+        "load": "on-demand"
+      },
+      {
+        "name": "project-identity",
+        "order": 150,
+        "path": "packages/shared/contract/project-profile.json"
+      },
+      {
+        "name": "gates",
+        "order": 200,
+        "path": "AGENTS.md",
+        "mode": "cite-section-not-full-file"
+      }
     ]
   },
   "bundles": {
     "base": {
-      "modules": ["shared"],
+      "modules": [
+        "shared"
+      ],
       "deployable": false,
       "note": "SDK packed into every process. Never a microservice."
     },
     "platform": {
-      "domains": ["system", "infra"],
+      "domains": [
+        "system",
+        "infra"
+      ],
       "deployable": true
     },
     "business": {
@@ -45,14 +117,49 @@
       "note": "Do not duplicate domain names here. Catalog is the runtime source of truth."
     },
     "clients": {
-      "channels": ["expo"]
+      "channels": [
+        "expo"
+      ]
     }
   },
   "profiles": {
-    "minimal": { "stacks": ["base", "platform"], "companions": ["online", "ai", "aigw"], "use": "identity-only hatch; keep menu-catalog and codegen facades" },
-    "standard": { "stacks": ["base", "platform", "business", "clients"], "use": "default DigitalStaff NPC template" },
-    "vertical": { "stacks": ["base", "platform", "business:allowlist", "clients"], "use": "ontology-driven hatch" },
-    "creator": { "stacks": ["standard", "online-codegen"], "use": "lowcode + codegen" }
+    "minimal": {
+      "stacks": [
+        "base",
+        "platform"
+      ],
+      "companions": [
+        "online",
+        "ai",
+        "aigw"
+      ],
+      "use": "identity-only hatch; keep menu-catalog and codegen facades"
+    },
+    "standard": {
+      "stacks": [
+        "base",
+        "platform",
+        "business",
+        "clients"
+      ],
+      "use": "default DigitalStaff NPC template"
+    },
+    "vertical": {
+      "stacks": [
+        "base",
+        "platform",
+        "business:allowlist",
+        "clients"
+      ],
+      "use": "ontology-driven hatch"
+    },
+    "creator": {
+      "stacks": [
+        "standard",
+        "online-codegen"
+      ],
+      "use": "lowcode + codegen"
+    }
   },
   "seamGraph": {
     "path": "packages/shared/contract/seam-graph.json",
@@ -115,26 +222,129 @@
     "hatchCommand": "pnpm run project:create -- <target-path> [--profile minimal|standard|vertical|creator] [--bundle mall,crm]",
     "identityFile": "packages/shared/contract/project-profile.json",
     "brandingDir": "public/branding/",
-    "businessZone": ["packages/domains/<domain>/", "src/app/api/v1/admin/<domain>/", "src/app/(admin-pages)/admin/<domain>/", "clients/<channel>/modules/<domain>/"],
-    "coreZone": ["packages/shared/", "packages/domains/system/", "packages/domains/infra/", "scripts/", "deploy/", "prisma/data/"],
-    "gates": ["pnpm run check", "pnpm run harness:check"],
-    "strictGates": ["pnpm run cooliebase:matrix:check:strict", "pnpm run cooliebase:governance:check:strict"],
+    "businessZone": [
+      "packages/domains/<domain>/",
+      "src/app/api/v1/admin/<domain>/",
+      "src/app/(admin-pages)/admin/<domain>/",
+      "clients/<channel>/modules/<domain>/"
+    ],
+    "coreZone": [
+      "packages/shared/",
+      "packages/domains/system/",
+      "packages/domains/infra/",
+      "scripts/",
+      "deploy/",
+      "prisma/data/"
+    ],
+    "gates": [
+      "pnpm run check",
+      "pnpm run harness:check"
+    ],
+    "strictGates": [
+      "pnpm run cooliebase:matrix:check:strict",
+      "pnpm run cooliebase:governance:check:strict"
+    ],
     "seamCommand": "pnpm run domain:seams",
     "skillsDir": ".agents/skills",
-    "forbiddenSkillSources": ["crush", "pod"],
+    "forbiddenSkillSources": [
+      "crush",
+      "pod"
+    ],
     "layers": {
-      "L0": { "role": "code-maintain", "skills": ["coding", "automated-testing", "agent-harness", "project-init"] },
-      "L1": { "role": "service-governance", "skills": ["service-governance", "microservice-evolution", "sre-slo-manager", "postmortem-analyzer"] },
-      "L2": { "role": "api-contract", "skills": ["api-design", "architecture-design", "adr-architect", "archify"] },
-      "L3": { "role": "observability", "skills": ["devops", "security", "sre-slo-manager", "strix-penetration-testing"] },
-      "L4": { "role": "deploy", "skills": ["devops"] },
-      "L5": { "role": "docs", "skills": ["product-requirements", "ears-spec-writer", "dar-decision-matrix"] },
-      "L6": { "role": "database", "skills": ["database-design", "database-compatibility"] },
-      "L7": { "role": "ui", "skills": ["ui-design", "ui-framework-governance", "frontend-design", "archify"] },
-      "L8": { "role": "test", "skills": ["automated-testing", "mutation-tester", "compliance-auditor", "webapp-testing", "strix-penetration-testing"] },
-      "business": { "role": "full-delivery", "skills": ["product-requirements", "new-feature", "new-business-plugin", "financial-reconciliation-agent"] }
+      "L0": {
+        "role": "code-maintain",
+        "skills": [
+          "coding",
+          "automated-testing",
+          "agent-harness",
+          "project-init"
+        ]
+      },
+      "L1": {
+        "role": "service-governance",
+        "skills": [
+          "service-governance",
+          "microservice-evolution",
+          "sre-slo-manager",
+          "postmortem-analyzer"
+        ]
+      },
+      "L2": {
+        "role": "api-contract",
+        "skills": [
+          "api-design",
+          "architecture-design",
+          "adr-architect",
+          "archify"
+        ]
+      },
+      "L3": {
+        "role": "observability",
+        "skills": [
+          "devops",
+          "security",
+          "sre-slo-manager",
+          "strix-penetration-testing"
+        ]
+      },
+      "L4": {
+        "role": "deploy",
+        "skills": [
+          "devops"
+        ]
+      },
+      "L5": {
+        "role": "docs",
+        "skills": [
+          "product-requirements",
+          "ears-spec-writer",
+          "dar-decision-matrix"
+        ]
+      },
+      "L6": {
+        "role": "database",
+        "skills": [
+          "database-design",
+          "database-compatibility"
+        ]
+      },
+      "L7": {
+        "role": "ui",
+        "skills": [
+          "ui-design",
+          "ui-framework-governance",
+          "frontend-design",
+          "archify"
+        ]
+      },
+      "L8": {
+        "role": "test",
+        "skills": [
+          "automated-testing",
+          "mutation-tester",
+          "compliance-auditor",
+          "webapp-testing",
+          "strix-penetration-testing"
+        ]
+      },
+      "business": {
+        "role": "full-delivery",
+        "skills": [
+          "product-requirements",
+          "new-feature",
+          "new-business-plugin",
+          "financial-reconciliation-agent"
+        ]
+      }
     },
-    "portBack": ["packages/domains/{domain}/", "src/app/api/v1/admin/{domain}/", "src/app/(admin-pages)/admin/{domain}/", "prisma/migrations/", "permissions.ts", "domain-catalog.json"]
+    "portBack": [
+      "packages/domains/{domain}/",
+      "src/app/api/v1/admin/{domain}/",
+      "src/app/(admin-pages)/admin/{domain}/",
+      "prisma/migrations/",
+      "permissions.ts",
+      "domain-catalog.json"
+    ]
   },
   "absorbFromDeepseekHarness": [
     "plugin-shaped domains",
@@ -152,5 +362,25 @@
     "skip-npm-run-check",
     "duplicate-domain-names-outside-catalog",
     "patch-core-zone-from-business-projects"
-  ]
+  ],
+  "productRuntime": {
+    "allowed": true,
+    "optional": true,
+    "note": "**产物**可以显式启用外部 agent 运行时（如 dsh）作为对话后端；**模板本身不实现 loop**（本字段的 allowed=true 只对产物生效，不对模板放开 vendor）。",
+    "candidates": [
+      {
+        "name": "dsh",
+        "kind": "agent-runtime",
+        "transport": "mcp-stdio",
+        "license": "MIT",
+        "mcpServer": "scripts/mcp/cooliebase-mcp-server.cjs",
+        "note": "通过 MCP 消费本仓 18 个工具；不 import 其内部模块，只依赖 MCP 协议与 CLI 启动方式"
+      }
+    ],
+    "templateStillForbids": [
+      "cordis",
+      "dsh-agent-loop",
+      "self-modification"
+    ]
+  }
 }

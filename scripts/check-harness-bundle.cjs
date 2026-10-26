@@ -168,4 +168,53 @@ if (!skillsSync || !pkg.scripts?.[skillsSync]) {
   fail(`consumptionSurface.skills.sync must name an existing npm script, got "${surface.skills?.sync}"`)
 }
 
+// ── productRuntime：**作用域**声明（2026-10-26 用户拍板「都要」）───────────────
+// 模板仍不实现 loop（上面 kind/not 的校验不变）；产物可以显式启用外部运行时作为对话后端。
+// 这个字段的 allowed=true **只对产物生效**，不对模板放开 vendor。
+if (profile.productRuntime !== undefined) {
+  const pr = profile.productRuntime
+  if (pr.allowed !== true) fail("productRuntime.allowed 若声明必须是 true（否则删掉整段，别留半成品）")
+  if (pr.optional !== true) fail("productRuntime.optional 必须是 true —— AI 必须可关，业务界面不能依赖它")
+  if (!Array.isArray(pr.candidates) || pr.candidates.length === 0) {
+    fail("productRuntime.candidates 不能为空：必须写明产物可启用哪个运行时")
+  }
+  for (const c of pr.candidates) {
+    if (!c.name || !c.transport || !c.license) {
+      fail(`productRuntime.candidate 缺少 name/transport/license: ${JSON.stringify(c)}`)
+    }
+    if (c.transport !== "mcp-stdio" && c.transport !== "http") {
+      fail(`productRuntime.candidate "${c.name}" 的 transport 只允许 mcp-stdio / http（不引入运行时内部 API）`)
+    }
+  }
+  // 模板侧仍然禁止的项必须继续写着 —— 防止有人用"产物允许"当借口把模板边界也删了
+  const still = pr.templateStillForbids
+  if (!Array.isArray(still) || !still.includes("cordis") || !still.includes("dsh-agent-loop")) {
+    fail("productRuntime.templateStillForbids 必须继续包含 cordis 与 dsh-agent-loop")
+  }
+}
+
+// ── 反向对照：模板代码里**真的**不能出现 Cordis ─────────────────────────────
+// 「声明了不 vendor」和「实际没 import」是两件事。这里查后者。
+{
+  const offenders = []
+  const CORDIS = /(?:from|require)\s*\(?\s*["'](cordis|@cordisjs\/[^"']*)["']/g
+  const scan = (dir) => {
+    const abs = path.join(ROOT, dir)
+    if (!fs.existsSync(abs)) return
+    for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
+      if (e.name === "node_modules" || e.name.startsWith(".")) continue
+      const full = path.join(abs, e.name)
+      if (e.isDirectory()) { scan(path.posix.join(dir, e.name)); continue }
+      if (!/\.(ts|tsx|cjs|mjs|js)$/.test(e.name)) continue
+      const src = fs.readFileSync(full, "utf8")
+      CORDIS.lastIndex = 0
+      if (CORDIS.exec(src)) offenders.push(path.posix.join(dir, e.name))
+    }
+  }
+  for (const d of ["packages", "src"]) scan(d)
+  if (offenders.length) {
+    fail(`模板代码里出现了 Cordis import（doNotVendor 第一项）：\n${offenders.slice(0, 5).map((f) => "  · " + f).join("\n")}`)
+  }
+}
+
 console.log(`[harness-bundle] PASS: workspace-bundle, ${graph.domains.length} seams, hatch P1, ${seenSkills.size} layer skills`)
