@@ -541,19 +541,23 @@ function handleBuild() {
     PHASE: "PLAN_APPROVED",
   }
 
+const specKitPointer = (target: string, title: string) =>
+  `# ${title}\n\n> **本文件是指针。** 正本见 [\`${target}\`](./${target})。\n>\n> 为什么要指针而不是两份同内容：实测两份字节级完全相同的文件让单个规格从 ~28KB 涨到 ~68KB，\n> 而它们的内容**没有任何一处不同** —— 纯重复。正本只保留一份，另一份做指针，兼顾两种文件名约定。\n`
+
   const files: Record<string, string> = {}
 
   // 1. 规格需求说明书 (Spec-Kit Native: spec.md + requirements.md)
   const specTpl = loadTemplate("spec-template.md")
   const specContent = specTpl ? render(specTpl, templateVars) : ""
-  files["spec.md"] = specContent
+  // 正本只写一次（coolie 的规范也是 requirements.md 为 EARS 正本），另一个文件名做指针
   files["requirements.md"] = specContent
+  files["spec.md"] = specKitPointer("requirements.md", "规格需求说明书（Spec）")
 
   // 2. 架构技术方案 (Spec-Kit Native: plan.md + design.md)
   const planTpl = loadTemplate("plan-template.md")
   const planContent = planTpl ? render(planTpl, templateVars) : ""
-  files["plan.md"] = planContent
   files["design.md"] = planContent
+  files["plan.md"] = specKitPointer("design.md", "架构技术方案（Plan）")
 
   // 3. 任务分解清单 (Spec-Kit Native: tasks.md)
   const tasksTpl = loadTemplate("tasks-template.md")
@@ -569,7 +573,7 @@ function handleBuild() {
   const researchTpl = loadTemplate("research-template.md")
   const researchContent = researchTpl ? render(researchTpl, templateVars) : ""
   files["research.md"] = researchContent
-  files["selection.md"] = researchContent
+  files["selection.md"] = specKitPointer("research.md", "选型研判分析（Selection）")
 
   // 6. 实施轨回滚预案 (Spec-Kit Native: runbook.json)
   const runbookTpl = loadTemplate("runbook-template.json")
