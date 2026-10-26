@@ -204,3 +204,7 @@ docs/architecture/artifacts/agent-route-last.json
 
 # hook 心跳（金丝雀自检用；本机状态，不进版本库）
 docs/architecture/artifacts/harness-heartbeat.jsonl
+
+# AI 运行时的 pid 与日志（本机产物，不提交）
+.agent-runtime.pid
+.agent-runtime.log

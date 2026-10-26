@@ -307,6 +307,11 @@
 - **D4 落地**：`@` 导入环检测（并入 `harness:integrity:check`）—— 记忆文件用 `@path.md` 内联引用，
   成环会导致**递归内联放大上下文**（症状是越用越慢，很难归因）。
   本仓当前 `@` 导入为 **0 处**（实测），但一旦有人加就会当场发现。反向对照：造一个自环 → exit 1。
+- **AI 运行时开关（T2）**：`pnpm run agent:runtime:{status,up,down}` —— 默认**不启**，业务界面照常。
+  - `status` 只读探测（dsh home / PATH / 本仓进程 / MCP 18 工具是否就绪）；
+  - `up` 用 `pnpm dlx @deepseek-ai/dsh web --no-open` 起（未装 dsh 时会下载）；
+  - **不实现 loop、不臆造 dsh 配置**：`up` 只打印 MCP 接线步骤（`node scripts/mcp/cooliebase-mcp-server.cjs`，stdio），
+    具体配置语法以 dsh 文档为准；**没在 dsh 里看到 18 个工具就说明没通**。
 - **D2 + D6 落地**：
   **D2**：`ASSEMBLY.md` 新增「任务路由」表 —— 审计维度 1 的结论是缺的不是文件大小而是**路由**；
   路由只引用已有 `order`、不复制条文（§25），并加了**引用校验**（引用不存在的 order → 失败）。

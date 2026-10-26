@@ -207,7 +207,10 @@
     "typecheck": "node scripts/check-types.cjs",
     "typecheck:check": "node scripts/check-typecheck-ratchet.cjs",
     "check:all": "node scripts/run-all.cjs --check",
-    "deploy:caddy": "bash scripts/deploy-caddy.sh"
+    "deploy:caddy": "bash scripts/deploy-caddy.sh",
+    "agent:runtime:status": "node scripts/agent-runtime.cjs status",
+    "agent:runtime:up": "node scripts/agent-runtime.cjs up",
+    "agent:runtime:down": "node scripts/agent-runtime.cjs down"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",
