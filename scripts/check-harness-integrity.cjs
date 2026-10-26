@@ -339,7 +339,27 @@ function main() {
               )
             }
           }
-          if (audit) {
+          // ── ⑨ 入口脚本必须能解析（enforce）────────────────────────────
+  // 动机（本轮实测）：我给 `harness.cjs` 的 help 文案加了一行，里面**忘了转义反引号**，
+  // 于是模板字符串提前结束 → `node --check` 报 SyntaxError。
+  // 但 `pnpm run check` **全绿** —— 因为本脚本只把 harness.cjs **当文本读**（做正则解析），
+  // 从不验证它能不能解析。而"入口脚本语法坏掉 = 所有操作都进不去"，是最该拦住的一类。
+  {
+    const { spawnSync } = require("node:child_process")
+    const entryScripts = fs.readdirSync(path.join(ROOT, "scripts")).filter((f) => f.endsWith(".cjs"))
+    let checked = 0
+    for (const f of entryScripts) {
+      const r = spawnSync(process.execPath, ["--check", path.join(ROOT, "scripts", f)], { encoding: "utf8" })
+      checked++
+      if (r.status !== 0) {
+        const firstLine = (r.stderr || "").split("\n").find((l) => /SyntaxError|Error/.test(l)) || "解析失败"
+        violations.push(`scripts/${f} 无法解析（${firstLine.trim()}）—— 入口脚本坏了，所有操作都进不去`)
+      }
+    }
+    if (checked === 0) violations.push("scripts/ 下没有可解析的 .cjs（扫描失效）")
+  }
+
+  if (audit) {
             const fixed = [...accepted].filter((s) => !unreachable.includes(s))
             if (fixed.length) console.log(`[harness-integrity] 可达性基线里有 ${fixed.length} 项已可达，建议收紧基线`)
           }

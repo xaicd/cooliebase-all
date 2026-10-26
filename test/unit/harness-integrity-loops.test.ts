@@ -85,6 +85,17 @@ describe("harness-integrity ⑦⑧：自环与可达性", () => {
     expect(out).toContain("pnpm harness")
   })
 
+  it("反向对照④：入口脚本语法坏掉 → 必须 FAIL 并点名", () => {
+    // 本轮实测事故：给 help 文案加了一行、忘了转义反引号 →
+    // 模板字符串提前结束 → `node --check` 报错，而 `pnpm run check` **全绿**
+    //（因为 harness-integrity 只把它当文本读）。入口坏了 = 所有操作都进不去，必须拦住。
+    const harness = path.join(ROOT, "scripts/harness.cjs")
+    const { code, out } = withMutated(harness, (src) => `${src}\nconst broken = \`unterminated\n`, runCheck)
+    expect(code).toBe(1)
+    expect(out).toContain("无法解析")
+    expect(out).toContain("harness.cjs")
+  })
+
   it("反向对照③：基线文件缺失 → 必须 FAIL（不许「找不到基线就算过」）", () => {
     const original = fs.readFileSync(BASE, "utf8")
     const tmp = `${BASE}.bak-test`

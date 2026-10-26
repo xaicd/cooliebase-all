@@ -269,6 +269,9 @@ ${TRUNK.map(([id, usage, desc]) => `  ${String(id).padEnd(8)} ${usage.padEnd(42)
   · 本命令**只转发**，不新增任何判定 —— 判定真源仍是各脚本。
   · \`harness check\` 与 \`pnpm run check\` **完全等价**（不放宽）。
   · 需要传参时用 \`--\` 分隔，例如：pnpm harness route -- "给商城加优惠券"
+  · **任何 npm script 都能直接敲名字**：\`pnpm harness test:clean\` ≡ \`pnpm run test:clean\`。
+    记不住某个动作属于哪条主干时，直接写名字即可（含 ALIASES 里登记的旧写法）。
+    可达性由门禁 \`harness-integrity\` 保证（当前 0 欠债）；**新操作请加进 TRUNK/GROUPS，别加平行 script**。
 `)
   return 0
 }
@@ -495,10 +498,16 @@ function main() {
     case "evolve":
       return pnpmRun("evolution:backlog")
 
-    default:
-      console.error(`[harness] 未知子命令: ${sub}`)
+    default: {
+      // **兜底转发**：`pnpm harness <任意 npm script>` 等价于 `pnpm run <script>`。
+      // 这不是"绕过主干" —— 可达性门禁保证每个脚本都能从主干进，这里只是让**入口统一**：
+      // 用户记不住某个动作属于哪条主干时，直接敲名字也能跑（含 `ALIASES` 里登记的旧写法）。
+      const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+      if (pkg.scripts && pkg.scripts[sub]) return pnpmRun(sub, rest)
+      console.error(`[harness] 未知子命令: ${sub}（也不存在同名 npm script）`)
       help()
       return 2
+    }
   }
 }
 
