@@ -1,7 +1,7 @@
 #!/usr/bin/env pnpm exec tsx
 /**
  * 历史别名转发器 (Deprecated Shim -> scripts/speckit.ts)
- * 推荐直接使用: pnpm exec tsx scripts/speckit.ts new ... 或 pnpm run speckit:new -- ...
+ * 推荐直接使用: pnpm harness spec new ... 或 pnpm run speckit:new -- ...
  */
 import { spawnSync } from "node:child_process"
 import path from "node:path"

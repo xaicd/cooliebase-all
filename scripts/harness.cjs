@@ -197,11 +197,16 @@ function main() {
     case "spec": {
       const action = rest[0]
       const extra = rest.slice(1)
-      if (!["new", "build", "check", "tasks", "archive"].includes(action)) {
-        console.error("[harness] spec 需要子动作：new | build | check | tasks | archive")
+      if (!action) {
+        console.error("[harness] spec 需要子动作（speckit 的子命令，如 new | build | check | tasks | archive | list）")
         return 2
       }
-      return pnpmRun(`speckit:${action}`, extra)
+      // 优先用现成的 npm script；没有就直呼 speckit.ts 的同一子命令。
+      // **不写死动作白名单**：写死了就会出现「主干支持的」与「工具自己提示的」两套入口
+      // （实测 speckit.ts 提示 list / init / cmmi，而主干只认 5 个 —— 用户照着提示敲会失败）。
+      const pkgScripts = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8")).scripts || {}
+      if (pkgScripts[`speckit:${action}`]) return pnpmRun(`speckit:${action}`, extra)
+      return nodeScript("scripts/speckit.ts", [action, ...extra])
     }
 
     // **必须与 `pnpm run check` 完全等价** —— 直接转发，不加任何额外参数

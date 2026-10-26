@@ -81,7 +81,7 @@ function handleNew() {
   const isLegacy = hasFlag("--legacy")
 
   if (!name || !domain) {
-    console.error("❌ 用法错误: pnpm exec tsx scripts/speckit.ts new --name <名称> --domain <域名> --title \"<标题>\" [--type feature|bugfix|enhancement|refactor|security]")
+    console.error("❌ 用法错误: pnpm harness spec new --name <名称> --domain <域名> --title \"<标题>\" [--type feature|bugfix|enhancement|refactor|security]")
     process.exit(2)
   }
 
@@ -373,7 +373,7 @@ function handleNew() {
   console.log(`\n✨ [speckit] 成功创建 ${specType} 规格骨架: ${path.relative(ROOT, dir)}/`)
   console.log(`   📄 声明真源: ${path.relative(ROOT, path.join(dir, "brief.json"))} (<500 Tokens，防样板浪费)`)
   console.log(`   🚀 下一步: 编辑 brief.json，然后执行:`)
-  console.log(`      pnpm exec tsx scripts/speckit.ts build --name ${name}`)
+  console.log(`      pnpm harness spec build --name ${name}`)
 }
 
 // ============================================================================
@@ -384,13 +384,13 @@ function handleBuild() {
   const checkOnly = hasFlag("--check")
 
   if (!name) {
-    console.error("❌ 用法错误: pnpm exec tsx scripts/speckit.ts build --name <规格名> [--check]")
+    console.error("❌ 用法错误: pnpm harness spec build --name <规格名> [--check]")
     process.exit(2)
   }
 
   const dir = resolveSpecDir(name)
   if (!dir) {
-    console.error(`❌ [speckit] 找不到规格: ${name}（请先运行 pnpm exec tsx scripts/speckit.ts new 创建）`)
+    console.error(`❌ [speckit] 找不到规格: ${name}（请先运行 pnpm harness spec new 创建）`)
     process.exit(2)
   }
 
@@ -628,7 +628,7 @@ const specKitPointer = (target: string, title: string) =>
 
   console.log(`\n✅ [speckit] 规格展开编译成功: 共生成 ${count} 份工程文档 -> ${path.relative(ROOT, dir)}/`)
   console.log(`   📋 包含: ${Object.keys(files).join(", ")}`)
-  console.log(`   🔍 进度检查: pnpm exec tsx scripts/speckit.ts check --spec ${name}`)
+  console.log(`   🔍 进度检查: pnpm harness spec check --spec ${name}`)
 }
 
 // ============================================================================
@@ -640,7 +640,7 @@ function handleTasks() {
   const commit = getArg("--commit") ?? "HEAD"
 
   if (!name) {
-    console.error("❌ 用法错误: pnpm exec tsx scripts/speckit.ts tasks --spec <规格名> [--task T1] [--summary]")
+    console.error("❌ 用法错误: pnpm harness spec tasks --spec <规格名> [--task T1] [--summary]")
     process.exit(2)
   }
 
@@ -893,7 +893,7 @@ function handleTasks() {
   const percent = ((touched / tasks.length) * 100).toFixed(1)
   console.log(`\n📊 真实完成度进度: ${touched}/${tasks.length} (${percent}%)`)
   console.log(`💡 铁律原则: 1 Task = 1 Commit，提交信息必须包含 [T<ID>]，改动文件严禁超出白名单`)
-  console.log(`🚀 单项核验: pnpm exec tsx scripts/speckit.ts tasks --spec ${name} --task T1\n`)
+  console.log(`🚀 单项核验: pnpm harness spec tasks --spec ${name} --task T1\n`)
 }
 
 // ============================================================================
@@ -922,7 +922,7 @@ function handleList() {
 function handleArchive() {
   const name = getArg("--name") || getArg("--spec")
   if (!name) {
-    console.error("❌ 用法错误: pnpm exec tsx scripts/speckit.ts archive --name <规格名>")
+    console.error("❌ 用法错误: pnpm harness spec archive --name <规格名>")
     process.exit(2)
   }
   const result = spawnSync("node", [path.join(ROOT, "scripts", "archive-spec.cjs"), "--name", name], {
@@ -1050,14 +1050,14 @@ Spec-Kit 原生与企业扩展命令:
   workflows   查看与校验 Kiro 原生工作流配方 (.kiro/workflows/)
 
 示例:
-  pnpm exec tsx scripts/speckit.ts init
-  pnpm exec tsx scripts/speckit.ts constitution
-  pnpm exec tsx scripts/speckit.ts new --name fix-pay-lock --domain pay --title "修复支付回调重放" --type bugfix
-  pnpm exec tsx scripts/speckit.ts build --name fix-pay-lock
-  pnpm exec tsx scripts/speckit.ts tasks --spec fix-pay-lock
-  pnpm exec tsx scripts/speckit.ts tasks --spec fix-pay-lock --task T1
-  pnpm exec tsx scripts/speckit.ts check --spec fix-pay-lock
-  pnpm exec tsx scripts/speckit.ts cmmi check
+  pnpm harness spec init
+  pnpm harness spec constitution
+  pnpm harness spec new --name fix-pay-lock --domain pay --title "修复支付回调重放" --type bugfix
+  pnpm harness spec build --name fix-pay-lock
+  pnpm harness spec tasks --spec fix-pay-lock
+  pnpm harness spec tasks --spec fix-pay-lock --task T1
+  pnpm harness spec check --spec fix-pay-lock
+  pnpm harness spec cmmi check
 `)
 }
 

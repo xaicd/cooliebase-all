@@ -358,7 +358,7 @@ function handleRun(flags: Record<string, string>, positional: string[]) {
   const firstStep = recipe.steps[0]
   if (firstStep && (firstStep.id === "scaffold" || firstStep.prompt.includes("speckit:new") || firstStep.prompt.includes("spec:new"))) {
     console.log(`\n⚡ [自动执行第 1 步: 脚手架生成] -> @${firstStep.agent}`)
-    const cmd = `pnpm exec tsx scripts/speckit.ts new --name ${vars.name} --domain ${vars.domain} --title "${vars.title}" --type ${vars.type}`
+    const cmd = `pnpm harness spec new --name ${vars.name} --domain ${vars.domain} --title "${vars.title}" --type ${vars.type}`
     console.log(`$ ${cmd}`)
     try {
       execSync(cmd, { cwd: ROOT, stdio: "inherit" })

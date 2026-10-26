@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /**
  * 历史别名转发器 (Deprecated Shim -> scripts/speckit.ts)
- * 推荐直接使用: pnpm exec tsx scripts/speckit.ts build ... 或 pnpm run speckit:build -- ...
+ * 推荐直接使用: pnpm harness spec build ... 或 pnpm run speckit:build -- ...
  */
 const { spawnSync } = require("node:child_process")
 const path = require("node:path")
