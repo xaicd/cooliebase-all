@@ -309,12 +309,6 @@ importers:
         specifier: ^7.25.0
         version: 7.29.7(supports-color@8.1.1)
 
-  packages/plugins/examples/hello-world:
-    dependencies:
-      '@cooliebase/plugin-sdk':
-        specifier: workspace:*
-        version: link:../../sdk
-
   packages/plugins/plugin-ai:
     dependencies:
       '@cooliebase/plugin-sdk':
