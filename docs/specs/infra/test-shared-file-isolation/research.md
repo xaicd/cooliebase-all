@@ -1,30 +1,76 @@
-# Research & Decision Analysis (DAR): 测试之间通过仓库共享文件互相可见，导致 test:clean 间歇随机变红
+# 研究：测试共享文件隔离（T1 实测）
 
-> **Spec-Kit 概念研判与加权决策分析 (Idea Assessment & Tech Selection)**
-> 所属领域：`infra` | 规格标识：`test-shared-file-isolation`
-> 对应项目宪法：`.specify/memory/constitution.md` (Rule 0.3 开源成熟方案优先与竞品最高性价比选型)
+> **本文件是 T1 的产物**（纯实测 + 红灯判据，无实现）。所有数据在真仓跑出来。
 
----
+## 1. 红灯判据：先证明「中间态会被读到」
 
-## 1. 业务痛点与技术诉求阐述 (Background & Objectives)
-让 `pnpm run test:clean` 成为**可信**的结果：全绿就是全绿，不再随机变红；同时把这次实测出来的每一种失败模式都变成可复现的判据。
+`fileParallelism: false` 只保证**文件之间**不并行，文件内的用例本来就是串行的。
+所以用一个最小探针直接验证「写方留下的状态，读方能看到」：
 
-## 2. 候选方案拟定 (Candidate Solutions >= 2 + 1 阴性对照)
-| 方案编号 | 方案名称 | 技术路线 | 开源协议 | 维护成本与风险 |
-|---|---|---|---|---|
-| A | 领域复用/微内核展开 | 复用已有 BaseMapper 与 Facade 底座 | 内部专有 | 改造成本最低，零学习曲线 |
-| B | 开源成熟工业级方案集成 | 引入社区经过验证的标准库进行二次封装 | MIT/Apache 2.0 | 生态成熟，但需增加包体积 |
-| C | 阴性对照 (从零人肉手写) | 逐行手写 CRUD 与裸 SQL | 内部专有 | 极高 Token 浪费与违背 Rule 0，不予推荐 |
+```ts
+it("A 写入标记且**不还原**", () => { fs.writeFileSync(F, "A-wrote"); expect(fs.existsSync(F)).toBe(true) })
+it("B 是否读到 A 的中间态", () => { const s = fs.readFileSync(F, "utf8"); fs.rmSync(F, {force:true}); expect(s).toBe("A-wrote") })
+```
 
-## 3. 决策分析与加权打分 (DAR Decision Matrix)
-| 准则编号 | 评估维度 | 权重 | 方案 A | 方案 B | 方案 C (对照) |
-|---|---|---|---|---|---|
-| C1 | 业务契合度与 ROI | 30% | 5 (1.5) | 3 (0.9) | 1 (0.3) |
-| C2 | 零外部重型依赖交付 | 25% | 5 (1.25) | 2 (0.5) | 3 (0.75) |
-| C3 | 性能与并发抗损性 | 20% | 5 (1.0) | 4 (0.8) | 5 (1.0) |
-| C4 | 架构演进与单体拆分 | 15% | 5 (0.75) | 3 (0.45) | 1 (0.15) |
-| C5 | 开源许可与社区生态 | 10% | 5 (0.5) | 5 (0.5) | 2 (0.2) |
-| **合计** | **综合加权得分** | **100%** | **5.00** | **3.15** | **2.40** |
+**实测**：`2 passed` —— B 确实读到了 A 留下的内容。
 
-## 4. 结论与立项裁决 (Decision Conclusion)
-结论：不引入新依赖，无许可传染风险。。方案 A 在开发 ROI、架构一致性与无外部额外运行时依赖方面表现最优，获准进入规格立项阶段。
+> **这就是红灯**：只要「写方改动共享仓库文件」与「读方读它」出现在同一次运行里，
+> 读方就能观察到中间态。隔离性完全依赖调度顺序，而调度顺序**不是契约**。
+
+## 2. 共享文件清单（实测，不是推测）
+
+### 会**写**的测试（7 个文件）
+
+| 文件 | 改什么 |
+|---|---|
+| `test/unit/deps-audit-gate.test.ts` | `docs/architecture/artifacts/deps-audit-baseline.json` |
+| `test/unit/plan-freshness-gate.test.ts` | `package.json` |
+| `test/unit/speckit-task-attribution.test.ts` | `package.json`（临时仓库，风险低） |
+| `test/unit/version-consistency.test.ts` | `package.json` |
+| `packages/shared/backend/plugins/__tests__/plugin-package.test.ts` | `package.json` |
+| `packages/shared/backend/plugins/__tests__/plugin-registry.service.test.ts` | `package.json` |
+| `packages/shared/backend/plugins/__tests__/plugin-sources.test.ts` | `package.json` |
+
+### 会**读**这些文件的测试（5 个文件）
+
+`test/unit/` 下的 `harness-entry` / `frontend-api-url-shape-rule` /
+`route-update-arity-rule` / `vacuous-assertion-rule` / `json-duplicate-keys`
+—— 它们都通过 **spawn 门禁脚本**（`check-engineering-standards` /
+`check-harness-integrity` / `check-harness-trunk-dispatch` …）间接读真仓。
+
+## 3. 闭环证据（这是 T1 最硬的一条）
+
+把「读者清单」与「实测见过的 flaky 文件」对照：
+
+| 实测 flaky 的文件 | 在读者清单里？ |
+|---|---|
+| `route-update-arity-rule.test.ts` | ✓ |
+| `vacuous-assertion-rule.test.ts` | ✓ |
+| `frontend-api-url-shape-rule.test.ts` | ✓ |
+| `harness-entry.test.ts` | ✓ |
+
+**读者清单 = flaky 清单。** 而写者与读者的交集正是 `package.json`。
+这不是相关性猜测：探针证明了机制，清单提供了匹配。
+
+## 4. 已实测否掉的方案（避免后人重试）
+
+| 方案 | 实测结果 |
+|---|---|
+| `describe.sequential` | **vitest 5.0.5 没有这个 API** → `TypeError: describe.sequential is not a function` |
+| `poolOptions.forks.singleFork: true` | **两遍全量都红，比修之前更糟** → 已回退 |
+| 测试拷到临时根（软链只读件） | **3/7 红**，更糟 —— 只读件用软链会顺着链接读回真仓 |
+| 直接改真仓（现状） | 随机红；且 `git stash` 后**基线本身就红**（3 failed / 476 passed） |
+
+## 5. 一条关键的观察
+
+`fileParallelism: false` **没能阻止** `packages/**` 下的写者与 `test/unit/**` 下的读者互相干扰
+—— 说明这条配置在当前 vitest 5 + 当前 include 组合下**不足以提供隔离**。
+T2 不能依赖「串行就安全」这个假设，必须做到**读方根本读不到真仓的中间态**。
+
+## 6. 对 T2 的直接输入
+
+- 被污染的核心是 **`package.json`**（写者 6 个、读者 5 个）与
+  **`docs/architecture/artifacts/*baseline*.json`**（写者 1 个）；
+- 所以候选①（门禁接受 `--root`）与候选②（窄口径 `--package-json` / `--baseline`）
+  **都覆盖不到全部读者** —— 读者是**间接**读的（spawn 门禁脚本），必须让**门禁整体**能在临时根上跑；
+- 「只读件用软链」已实测更糟，T2 必须改成**真拷贝**或**只拷门禁真正读的那几份**。
