@@ -54,6 +54,7 @@ const TRUNK = [
   ["test", "pnpm harness test", "测试金字塔（L1 → L2 → L3 → L4）"],
   ["e2e", "pnpm harness e2e", "孵化端到端（产物自身门禁 + build + 起服务登录）"],
   ["deliver", "pnpm harness deliver", "交付门（build / smoke / security / load / fingerprint）"],
+  ["agent", "pnpm harness agent status|up|down", "AI 运行时开关（默认不启；up 会写 patch 并验证 MCP 真的连上）"],
   ["ops", "pnpm harness ops -- <域>.<实体> <action>", "运营动作（体检 / 造数 / 清数）"],
   ["evolve", "pnpm harness evolve", "进化待办（report-only，永不失败）"],
 ]
@@ -232,6 +233,12 @@ function main() {
       }
       console.log("\n[harness deliver] ✓ 全部通过")
       return 0
+    }
+
+    case "agent": {
+      // 委托给 scripts/agent-runtime.cjs，**不在这里重写逻辑**（单一真源）
+      const action = rest[0] || "status"
+      return nodeScript("scripts/agent-runtime.cjs", [action])
     }
 
     case "ops":

@@ -49,8 +49,8 @@
     "两者通过导航区分：业务菜单仍在 /admin，对话入口指向 dsh。"
   ],
   "ops": [
-    "pnpm run agent:runtime:check —— 体检：dsh 是否可启动、MCP 工具是否可列出（只读）",
-    "pnpm run agent:runtime:up / down —— 起停 dsh（装配外部进程，不实现 loop）",
+    "pnpm harness agent check —— 体检：dsh 是否可启动、MCP 工具是否可列出（只读）",
+    "pnpm harness agent up / down —— 起停 dsh（装配外部进程，不实现 loop）",
     "关闭后跑 pnpm run smoke:login 验证业务侧不受影响"
   ],
   "risks": [

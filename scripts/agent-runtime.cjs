@@ -13,9 +13,9 @@
  *    而不是"进程起来了就算通"。
  *
  * 用法：
- *   pnpm run agent:runtime:status   # 只读：dsh / profile / mcp-client / patch / 本仓进程
- *   pnpm run agent:runtime:up       # 装配 patch + 起 dsh + 轮询验证 MCP 已连上
- *   pnpm run agent:runtime:down     # 停
+ *   pnpm harness agent status   # 只读：dsh / profile / mcp-client / patch / 本仓进程
+ *   pnpm harness agent up       # 装配 patch + 起 dsh + 轮询验证 MCP 已连上
+ *   pnpm harness agent down     # 停
  */
 const fs = require("node:fs")
 const os = require("node:os")
@@ -179,7 +179,7 @@ function up() {
     console.log(`      --dsh-version <你的 dsh 版本> --accept-risk`)
     console.log(`    dsh plugin --profile ${PROFILE} add ${MCP_CLIENT_PKG}`)
     console.log("")
-    console.log("  装好后重跑 `pnpm run agent:runtime:up`。**这一步我不替你执行** —— 风险要你点头。")
+    console.log("  装好后重跑 `pnpm harness agent up`。**这一步我不替你执行** —— 风险要你点头。")
     return 2
   }
 
