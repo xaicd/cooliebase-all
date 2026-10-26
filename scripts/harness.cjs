@@ -57,7 +57,105 @@ const TRUNK = [
   ["agent", "pnpm harness agent status|up|down", "AI 运行时开关（默认不启；up 会写 patch 并验证 MCP 真的连上）"],
   ["ops", "pnpm harness ops -- <域>.<实体> <action>", "运营动作（体检 / 造数 / 清数）"],
   ["evolve", "pnpm harness evolve", "进化待办（report-only，永不失败）"],
+  ["dev", "pnpm harness dev", "起开发服务器（Next dev）"],
+  ["build", "pnpm harness build", "生产构建（含 standalone）"],
+  ["lint", "pnpm harness lint", "代码规范检查"],
+  ["db", "pnpm harness db <子命令>", "数据库（migrate / seed / generate / up / down / backup / bootstrap:sqlite / init:sql）"],
+  ["project", "pnpm harness project <子命令>", "孵化与派生工程（init / create / hatch / clone / refactor）"],
+  ["domain", "pnpm harness domain <子命令>", "域操作（list / pack / contracts / manifests / seams / up ...）"],
+  ["sync", "pnpm harness sync <子命令>", "契约与文档同步（surface / openwiki / skills / catalog）"],
+  ["release", "pnpm harness release", "发布打包（release:package）"],
+  ["verify", "pnpm harness verify <子命令>", "真实库验证（real-db）"],
+  ["tables", "pnpm harness tables <子命令>", "表定义（inventory / metadata-draft / migration）"],
+  ["mcp", "pnpm harness mcp serve", "MCP 工具面（只读 / plan-preview，永不落盘）"],
+  ["runtime", "pnpm harness runtime <all|split>", "一体运行 / 拆分部署"],
+  ["domains", "pnpm harness domains <capabilities|parity>", "域能力扫描与来源对账"],
+  ["socratic", "pnpm harness socratic <inquire|check>", "苏格拉底式追问引擎"],
+  ["upstream", "pnpm harness upstream <radar|audit>", "上游能力雷达"],
+  ["scaffold", "pnpm harness scaffold", "功能脚手架（scaffold-feature）"],
+  ["baseline", "pnpm harness baseline", "重写「不可达脚本」基线（棘轮收紧用；会写文件）"],
 ]
+
+/**
+ * 分组主干：**声明式映射**，子命令 → 已有 npm script。
+ * 加一条新操作 = 在这里加一行，**不要**再另开一个平行 npm 入口。
+ */
+const GROUPS = {
+  db: {
+    "": "db:generate",
+    up: "db:up",
+    down: "db:down",
+    migrate: "db:migrate",
+    seed: "db:seed",
+    generate: "db:generate",
+    backup: "db:backup",
+    "bootstrap:sqlite": "db:bootstrap:sqlite",
+    "init:sql": "db:init:sql",
+  },
+  project: {
+    "": "project:create",
+    init: "project:init",
+    create: "project:create",
+    hatch: "project:hatch",
+    clone: "project:clone",
+    refactor: "project:refactor",
+  },
+  domain: {
+    "": "domain:list",
+    list: "domain:list",
+    pack: "domain:pack",
+    contracts: "domain:contracts",
+    manifests: "domain:manifests",
+    seams: "domain:seams",
+    up: "domain:up",
+    build: "domain:build",
+    dev: "domain:dev",
+  },
+  verify: {
+    "": "verify:real-db",
+    "real-db": "verify:real-db",
+  },
+  tables: {
+    "": "tables:inventory",
+    inventory: "tables:inventory",
+    "metadata-draft": "tables:metadata-draft",
+    migration: "tables:migration",
+  },
+  mcp: {
+    "": "mcp:serve",
+    serve: "mcp:serve",
+  },
+  runtime: {
+    "": "runtime:all",
+    all: "runtime:all",
+    split: "runtime:split",
+  },
+  domains: {
+    "": "domains:capabilities",
+    capabilities: "domains:capabilities",
+    parity: "domains:parity",
+  },
+  socratic: {
+    "": "socratic:check",
+    inquire: "socratic:inquire",
+    check: "socratic:check",
+  },
+  upstream: {
+    "": "upstream:radar",
+    radar: "upstream:radar",
+    audit: "upstream:audit",
+  },
+  scaffold: {
+    "": "scaffold",
+  },
+  sync: {
+    "": "surface:sync",
+    surface: "surface:sync",
+    openwiki: "openwiki:sync",
+    skills: "skills:sync",
+    catalog: "catalog:sync:cooliebase",
+  },
+}
 
 function help() {
   console.log(`
@@ -238,6 +336,41 @@ function main() {
       }
       console.log("\n[harness deliver] ✓ 全部通过")
       return 0
+    }
+
+    case "baseline": {
+      // 显式运维动作：会写文件（与 doctor 的只读承诺分开）
+      return nodeScript("scripts/check-harness-integrity.cjs", ["--write-reachability-baseline"])
+    }
+
+    case "dev":
+    case "build":
+    case "lint":
+    case "release": {
+      // 单值主干：直接转发同名 npm script（release 走 release:package）
+      return pnpmRun(sub === "release" ? "release:package" : sub, rest)
+    }
+
+    case "db":
+    case "project":
+    case "domain":
+    case "sync":
+    case "verify":
+    case "tables":
+    case "mcp":
+    case "runtime":
+    case "domains":
+    case "socratic":
+    case "upstream":
+    case "scaffold": {
+      const group = GROUPS[sub]
+      const action = rest[0] || ""
+      const target = group[action]
+      if (!target) {
+        console.error(`[harness] ${sub} 需要子动作：${Object.keys(group).filter(Boolean).join(" | ")}`)
+        return 2
+      }
+      return pnpmRun(target, rest.slice(1))
     }
 
     case "agent": {

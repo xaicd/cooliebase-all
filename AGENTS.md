@@ -203,6 +203,16 @@
 | 25. **路由校验覆盖** | `pnpm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `pnpm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
 
 
+> **入口唯一性（强制）**：所有流程与操作都必须能从 **`pnpm harness <主干>`** 进 ——
+> 主干表是**唯一**的入口声明（`scripts/harness.cjs` 的 `TRUNK` + `GROUPS`）。
+> 加一个新操作 = 在主干表/分组映射里加一行，**不是**再加一个平行 npm script。
+> 机检：`harness-integrity` 的「脚本可达性」（棘轮，冻结存量于
+> `docs/architecture/artifacts/harness-unreachable-scripts.json`，**只减不增**）+
+> 「npm 脚本自环」（enforce）。收紧基线用 `pnpm harness baseline`。
+> 实测动机：批量改字符串时误伤 `package.json` 的脚本值，把 `speckit:tasks` 改成
+> `pnpm harness spec tasks` → `harness → speckit:tasks → harness` **自环**，
+> `pnpm harness spec tasks` 跑满 **600s 超时**（一天内两次），而当时没有任何门禁看得见。
+
 > **本表列的是「人工决策点」，不是门禁清单。** `pnpm run check` 当前包含 34 个 npm 步骤，
 > 完整清单以 `package.json` 的 `check` 脚本为**唯一真源** —— 在这里复制一份清单必然腐坏
 > （实测有 13 个组成门禁未在本表出现，它们都只是 `check` 的内部步骤，不需要单独决策）。

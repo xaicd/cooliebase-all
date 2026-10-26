@@ -38,6 +38,7 @@ function readJson(rel) {
 
 function main() {
   const audit = process.argv.includes("--audit")
+  const writeBaseline = process.argv.includes("--write-reachability-baseline")
   const violations = []
 
   const pkg = readJson("package.json")
@@ -225,6 +226,112 @@ function main() {
     for (const n of graph.keys()) if (color.get(n) === WHITE) dfs(n)
 
     for (const c of cycles) violations.push(`「@」导入成环（会递归内联放大上下文）: ${c}`)
+  }
+
+  // ── ⑦ 脚本自环（enforce）──────────────────────────────────────
+  // 动机：用脚本批量改字符串时**误伤了 package.json 的脚本值**，把
+  //   speckit:tasks: "pnpm harness spec tasks"
+  // 变成 `harness → speckit:tasks → harness` 的**自环**，`pnpm harness spec tasks`
+  // **跑满 600s 超时**（一天内实测两次）。静态门禁当时查不出它 —— 因为它只是慢，不报错。
+  {
+    const edges = new Map()
+    for (const [k, v] of Object.entries(scripts)) {
+      const deps = new Set([...String(v).matchAll(/(?:pnpm|npm) run ([a-zA-Z0-9:_-]+)/g)].map((m) => m[1]))
+      edges.set(k, deps)
+    }
+    const cycles = []
+    const color = new Map()
+    const stack = []
+    const dfs = (node) => {
+      color.set(node, 1)
+      stack.push(node)
+      for (const next of edges.get(node) || []) {
+        if (!edges.has(next)) continue
+        if (color.get(next) === 1) cycles.push([...stack.slice(stack.indexOf(next)), next].join(" → "))
+        else if (!color.has(next)) dfs(next)
+      }
+      stack.pop()
+      color.set(node, 2)
+    }
+    for (const n of edges.keys()) if (!color.has(n)) dfs(n)
+    for (const c of [...new Set(cycles)]) {
+      violations.push(`npm 脚本成环（会无限自调 → 命令挂死）: ${c}`)
+    }
+  }
+
+  // ── ⑧ 脚本可达性（ratchet）──────────────────────────────────────
+  // 动机（用户要求）：**所有流程与操作都必须能从 `pnpm harness` 进**。
+  // 判据：一个 npm script 要么是主干 / 分组映射目标 / check 链步骤 / 被别的脚本调用，
+  //       要么就必须登记在基线里（已知欠债，**只减不增**）。
+  const REACH_BASE = "docs/architecture/artifacts/harness-unreachable-scripts.json"
+  {
+    const harnessSource = fs.readFileSync(path.join(ROOT, "scripts/harness.cjs"), "utf8")
+    const reachable = new Set(["harness"]) // 入口脚本自己就是入口
+    for (const [k, v] of Object.entries(scripts)) {
+      for (const m of String(v).matchAll(/(?:pnpm|npm) run ([a-zA-Z0-9:_-]+)/g)) reachable.add(m[1])
+    }
+    // harness 里出现过的任何 npm script 名（主干表 / GROUPS 映射 / pnpmRun 调用）
+    for (const m of harnessSource.matchAll(/pnpmRun\([^)]*?"([a-z][a-z:_-]+)"/g)) reachable.add(m[1])
+    for (const m of harnessSource.matchAll(/^\s*"?([a-z][a-z:_-]*)":\s*"([a-z][a-z:_-]+)",$/gm)) reachable.add(m[2])
+    // 主干表里列出的名字本身
+    const trunks = [...harnessSource.matchAll(/^\s*\["([a-z][a-z0-9-]*)",\s*"pnpm harness/gm)].map((m) => m[1])
+    for (const t of trunks) reachable.add(t)
+    // `case "x":` 里直接 return pnpmRun(sub) 的单值主干
+    for (const m of harnessSource.matchAll(/case "([a-z][a-z0-9-]*)":/g)) reachable.add(m[1])
+
+    const unreachable = Object.keys(scripts).filter((k) => !reachable.has(k)).sort()
+
+    // 显式写基线就**先写再说**（不能等下面的"基线缺失"分支 —— 那会把写入路径挡死，实测踩到）
+    if (writeBaseline) {
+      fs.mkdirSync(path.dirname(path.join(ROOT, REACH_BASE)), { recursive: true })
+      fs.writeFileSync(
+        path.join(ROOT, REACH_BASE),
+        JSON.stringify(
+          { note: "从 pnpm harness 到不了的 npm script（已知欠债，只减不增）。收紧：pnpm harness baseline", unreachable },
+          null,
+          2,
+        ) + "\n",
+      )
+      console.log(`[harness-integrity] 已写入 ${REACH_BASE}（${unreachable.length} 项）`)
+      process.exit(0)
+    }
+    if (unreachable.length === 0 && !fs.existsSync(path.join(ROOT, REACH_BASE))) {
+      // 全可达，且不需要基线
+    } else {
+      if (!fs.existsSync(path.join(ROOT, REACH_BASE))) {
+        violations.push(
+          `缺少可达性基线 ${REACH_BASE}（当前有 ${unreachable.length} 个脚本不可达）—— ` +
+            `不允许"找不到基线 ⇒ 静默通过"。生成：pnpm harness baseline`,
+        )
+      } else {
+        const base = readJson(REACH_BASE)
+        const accepted = new Set(base.unreachable || [])
+        if (!Array.isArray(base.unreachable)) {
+          violations.push(`${REACH_BASE} 缺少 unreachable 数组（格式失效，不允许静默通过）`)
+        } else {
+          for (const s of unreachable) {
+            if (!accepted.has(s)) {
+              violations.push(
+                `npm script "${s}" 从 \`pnpm harness\` 到不了，也没登记为已知欠债 —— ` +
+                  `要么加进 harness 主干/分组，要么说明为什么必须独立`,
+              )
+            }
+          }
+          if (audit) {
+            const fixed = [...accepted].filter((s) => !unreachable.includes(s))
+            if (fixed.length) console.log(`[harness-integrity] 可达性基线里有 ${fixed.length} 项已可达，建议收紧基线`)
+          }
+          if (writeBaseline) {
+            fs.writeFileSync(
+              path.join(ROOT, REACH_BASE),
+              JSON.stringify({ note: "从 pnpm harness 到不了的 npm script（已知欠债，只减不增）", unreachable }, null, 2) + "\n",
+            )
+            console.log(`[harness-integrity] 已写入 ${REACH_BASE}（${unreachable.length} 项）`)
+            process.exit(0)
+          }
+        }
+      }
+    }
   }
 
   if (audit) {
