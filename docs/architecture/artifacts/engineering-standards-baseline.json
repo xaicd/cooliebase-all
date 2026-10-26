@@ -36,7 +36,7 @@
         "docs/01_management/dar-decision-records/pay-order-status-column-type.md": 3,
         "docs/01_management/project-charter.md": 2,
         "docs/01_management/risk-register.md": 10,
-        "docs/02_requirements/non-functional-reqs.md": 7,
+        "docs/02_requirements/non-functional-reqs.md": 6,
         "docs/02_requirements/rtm-traceability-matrix.md": 7,
         "docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md": 1,
         "docs/03_design/adr/ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md": 5,
@@ -189,6 +189,28 @@
         "test/unit/spec-gate-hook.test.ts": 1,
         "test/unit/test-summary-report.test.ts": 3,
         "TESTING.md": 7
+      }
+    },
+    "no-silent-catch": {
+      "accepted": {
+        "packages/shared/backend/lib/config-center.ts": 1,
+        "packages/shared/frontend/components/action-decision-hub.tsx": 1,
+        "packages/shared/frontend/lib/i18n.tsx": 1,
+        "packages/shared/frontend/lib/permission.ts": 1,
+        "src/app/(admin-pages)/layout.tsx": 2,
+        "src/app/api/internal/autopilot/stream/route.ts": 1,
+        "scripts/archive-spec.cjs": 3,
+        "scripts/auto-detect-env.cjs": 2,
+        "scripts/backup-db.cjs": 5,
+        "scripts/build-release-assets.cjs": 1,
+        "scripts/check-delivery.cjs": 1,
+        "scripts/clean-generated.cjs": 2,
+        "scripts/clone-project-base.cjs": 2,
+        "scripts/hatch-e2e.cjs": 2,
+        "scripts/lib/spec-resolver.cjs": 2,
+        "scripts/project-init.cjs": 2,
+        "scripts/run-all.cjs": 3,
+        "scripts/upstream-radar.cjs": 1
       }
     },
     "init-sql-seed-columns": {

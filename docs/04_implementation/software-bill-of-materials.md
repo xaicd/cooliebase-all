@@ -3,7 +3,7 @@
 - **生成方式**: `pnpm run sbom:generate`（**禁止手写**，本文件由脚本覆盖）
 - **锁文件真源**: `pnpm-lock.yaml`
 - **模板版本**: 1.2.0
-- **包总数**: 617（host 401 / client 216）
+- **包总数**: 616（host 400 / client 216）
 - **归属规范**: CMMI 04_implementation (TS / CM)
 
 > 机器可读版本：[`sbom.json`](./sbom.json)。漂移由 `pnpm run sbom:check` 判定。
@@ -17,7 +17,7 @@
 
 ## 0.1 未解析出许可证的包（UNKNOWN）
 
-共 **118** 个（占 617 的 19.1%）。
+共 **117** 个（占 616 的 19.0%）。
 
 原因**不是**锁文件缺信息，而是读取口径的限制：许可证来自**已安装依赖树**
 （`pnpm licenses list`），而清单里有大量**仅供其他平台使用的可选二进制**
@@ -43,7 +43,7 @@
 | LGPL-3.0-or-later | 1 |
 | MIT and ISC | 1 |
 
-⚠️ **118 个包未能解析出许可证（标记为 UNKNOWN）** —— 需要在依赖准入时人工确认。
+⚠️ **117 个包未能解析出许可证（标记为 UNKNOWN）** —— 需要在依赖准入时人工确认。
 
 ## 2. 口径说明
 
@@ -54,7 +54,7 @@
 
 ---
 
-## 3. 全量包清单 (617)
+## 3. 全量包清单 (616)
 
 | 包名 | 版本 | 归属 | 许可证 |
 |---|---|---|---|
@@ -483,7 +483,6 @@
 | `glob` | 13.0.6 | client | BlueOak-1.0.0 |
 | `glob-parent` | 5.1.2 | host | ISC |
 | `glob-parent` | 6.0.2 | host | ISC |
-| `happy-dom` | 20.14.6 | host | UNKNOWN |
 | `happy-dom` | 21.0.4 | host | MIT |
 | `hasown` | 2.0.4 | host | MIT |
 | `hermes-parser` | 0.36.1 | client | MIT |

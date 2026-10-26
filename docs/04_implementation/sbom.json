@@ -5,8 +5,8 @@
   "lockfile": "pnpm-lock.yaml",
   "generatedBy": "scripts/generate-sbom.cjs --write",
   "componentCount": {
-    "total": 617,
-    "host": 401,
+    "total": 616,
+    "host": 400,
     "client": 216
   },
   "licenses": {
@@ -20,7 +20,7 @@
     "MIT": 415,
     "MIT and ISC": 1,
     "MPL-2.0": 4,
-    "UNKNOWN": 118
+    "UNKNOWN": 117
   },
   "components": [
     {
@@ -2572,12 +2572,6 @@
       "version": "6.0.2",
       "reach": "host",
       "license": "ISC"
-    },
-    {
-      "name": "happy-dom",
-      "version": "20.14.6",
-      "reach": "host",
-      "license": "UNKNOWN"
     },
     {
       "name": "happy-dom",

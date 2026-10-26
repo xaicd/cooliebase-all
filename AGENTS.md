@@ -908,6 +908,35 @@ pnpm run check
    **该面永不写盘**：工具只有两种形态——只读查询，或 plan/preview（返回"真跑会做什么"并把写盘留给显式命令）。plan/preview 工具不得暴露 write 类入参，也不得内部透传 `--write`；落盘命令只出现在返回的 `manualSteps` 里，由人执行。
    同时**不得代跑门禁或自判通过**（守 §3 明确不引入第 5 条）。契约与实测边界见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`。
 
+
+### 18.1 DSH 作为**开发规范**（不是运行时）
+
+> **定位**：`dsh` 是本仓引用的**开发规范来源**（`agent-profile.json` 的
+> `referencePhilosophy: "Everything is a Plugin. Every run is traceable."`），
+> **不是产物的运行时**。运行时是 DigitalStaff / 客户自己的 Next 应用。
+> 逐条对照见 `docs/architecture/dsh-research-2026-10.md`。
+
+**已吸收（有落地 + 门禁）**：插件化域 · Capability Seam · Profile/Bundle/Patch ·
+Prompt 分段组装 · Every run traceable。
+
+**可吸收（工程做法，与运行时无关）** —— 按 ROI：
+
+| 规范 | 落地形式 | 状态 |
+|---|---|---|
+| **空 catch 必须具名**（"names the error and why"） | `no-silent-catch`（ratchet，存量 18 文件冻结） | ✅ |
+| 不得写机器私有绝对路径（随产物下发） | `no-machine-absolute-paths`（enforce） | ✅ |
+| 跨文件重复检测 | 待做（本轮实证价值：`speckit` 里 3 对字节级相同的文件） | ⏳ |
+| `assertNever`（封闭联合必须穷尽） | 待做（配合"枚举来自数据字典"） | ⏳ |
+| branded id（不透明跨边界 id 不用裸 `string`） | 待做（`tenantId`/`userId` 现在都是裸 string） | ⏳ |
+| 覆盖率报告（先 report-only） | 待做（dsh 是 per-file 100%，照搬会红一片） | ⏳ |
+
+**不可吸收（运行时）** —— 搬进来会违反 `doNotVendor`：
+Cordis · Agent Loop · Session Log · 事件瀑布 · `ctx.*` 注册/scope/effect ·
+`extensions/`（运行时自改） · `test:snapshot`（本仓无会话可录）。
+
+> **判断口诀**：需要"进程里有个 agent 在跑"的，一律不搬；
+> 只需要"代码怎么写 / 门禁怎么卡"的，可以学。
+
 ## 19. 严禁 Token 浪费、零重复代码与“工具先行”低代码架构铁律 (MANDATORY Zero Waste & Tool-First Architecture)
 
 **本模板工程坚决贯彻极简工程哲学，严禁任何形式的 Token 浪费、重复造轮子与生成无意义冗余样板代码：**

@@ -117,7 +117,8 @@
       "agent:coverage:check",
       "repo:columns:check",
       "routes:validation:check",
-      "docs:claims:check"
+      "docs:claims:check",
+      "delivery:boundary:check"
     ],
     "commands": [
       "agent:route",

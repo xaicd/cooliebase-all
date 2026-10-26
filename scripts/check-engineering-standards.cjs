@@ -615,6 +615,45 @@ const RULES = [
     },
   },
   {
+    id: "no-silent-catch",
+    section: "AGENTS.md §23 / DSH 开发规范",
+    mode: "ratchet",
+    description:
+      "禁止静默吞异常的 catch —— dsh 的原话：an empty catch names the error and why（空 catch 必须写明这个错误是什么、为什么忽略）",
+    run() {
+      // 动机：AGENTS §23 早就写了「严禁空 catch 吞异常」，但**只有散文、没有机检** ——
+      // 本仓反复栽在"条文没有落地形式"上。这条把它变成棘轮（存量 29 处冻结，只拦新增）。
+      // 允许两种写法：
+      //   catch (e) { /* 说明为什么忽略 */ }        ← 有注释
+      //   catch { /* … */ }                          ← 有注释
+      // 只拦**完全空的** {}（连注释都没有）。
+      const violations = []
+      const EMPTY = /catch\s*(?:\([^)]*\))?\s*\{\s*\}/g
+      const scan = (dir) => {
+        const abs = path.join(ROOT, dir)
+        if (!fs.existsSync(abs)) return
+        for (const entry of fs.readdirSync(abs, { withFileTypes: true })) {
+          if (entry.name === "node_modules" || entry.name.startsWith(".") || entry.name === "__tests__") continue
+          const full = path.join(abs, entry.name)
+          if (entry.isDirectory()) { scan(path.posix.join(dir, entry.name)); continue }
+          if (!/\.(ts|tsx|cjs|mjs)$/.test(entry.name)) continue
+          const src = fs.readFileSync(full, "utf8")
+          EMPTY.lastIndex = 0
+          let m
+          while ((m = EMPTY.exec(src)) !== null) {
+            const line = src.slice(0, m.index).split("\n").length
+            violations.push({
+              file: toRel(full),
+              detail: `空 catch 静默吞异常 (line ${line}) —— 写明「这是什么错误 + 为什么忽略」`,
+            })
+          }
+        }
+      }
+      for (const d of [DOMAINS, PLUGINS, SHARED, SRC, "scripts"]) scan(d)
+      return violations
+    },
+  },
+  {
     id: "no-machine-absolute-paths",
     section: "AGENTS.md §17 / 交付边界",
     mode: "enforce",
