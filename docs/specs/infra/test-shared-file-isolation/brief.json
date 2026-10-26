@@ -1,0 +1,186 @@
+{
+  "name": "test-shared-file-isolation",
+  "domain": "infra",
+  "title": "测试之间通过仓库共享文件互相可见，导致 test:clean 间歇随机变红",
+  "type": "bugfix",
+  "goal": "让 `pnpm run test:clean` 成为**可信**的结果：全绿就是全绿，不再随机变红；同时把这次实测出来的每一种失败模式都变成可复现的判据。",
+  "symptom": "同一份代码、同一台机器，`pnpm run test:clean` 时而全绿、时而红；红的文件**每次都不一样**（实测见过 route-update-arity-rule / vacuous-assertion-rule / frontend-api-url-shape-rule / harness-entry）。单跑那个文件又是绿的。另一条线索：全量跑完**立刻**单跑 `node scripts/check-harness-integrity.cjs` 是绿的、`git status` 也干净 —— 说明失败只发生在**套件运行期间**。",
+  "rootCause": "多个测试要临时改写仓库里的**共享文件**（`package.json` / `scripts/harness.cjs` / `docs/architecture/artifacts/*baseline*.json`），而另一些测试要**读**它们；`vitest.config.ts` 的 `fileParallelism: false` 只保证「文件之间不并行」，**挡不住「A 改动 → B 读到中间态」这类顺序耦合**。5-Whys 收敛到：测试用「就地改写真仓文件」来验证门禁行为，而门禁本身只接受真仓路径 —— 于是隔离性完全依赖调度顺序，而调度顺序不是契约。**已实测**：`git stash` 掉本规格全部改动后基线**本身就是红的**（3 failed / 476 passed），所以这是既有缺陷，不是某次改动引入的。",
+  "redTest": "在修复前，写一条能**稳定复现**的用例：让两个测试文件分别改写同一个共享文件，断言「其中一个必须能观察到被污染的状态」——即证明隔离不存在。注意：`describe.sequential` 在 vitest 5 **不存在**（实测 TypeError），不能拿它当解法；`poolOptions.forks.singleFork: true` **实测反而更糟**（两遍都红），也要在候选里记录并否掉。",
+  "roles": [
+    {
+      "role": "开发者",
+      "can": "把 `pnpm run test:clean` 的结果当依据用 —— 红了就是真红"
+    },
+    {
+      "role": "CI 维护者",
+      "can": "让 CI 的红绿不再随机，失败可以对着日志复现"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为开发者，同一次提交连跑两遍 `test:clean` 必须得到同一个结论（都绿或都红且指向同一处）。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为开发者，门禁类测试改共享文件时，不能污染到别的测试；被改的状态必须要么对别人不可见，要么改完立刻还原。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为后来者，我需要看得见「哪些测试会改共享文件」，而不是靠 grep 猜。"
+    }
+  ],
+  "constraints": [
+    "多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。",
+    "跨域：只走 Domain Facade，不 import 别的域 Service（§3.3）。",
+    "不改门禁的**判定语义** —— 只改它们「从哪读」，不能为了好测而放宽规则。",
+    "验证方式必须**确定性**：不接受「多跑几遍碰运气」当验收。",
+    "已否掉的方案要记进文档（`describe.sequential` 不存在、`singleFork` 更糟），避免后人重试。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "`pnpm run test:clean` **连续 3 次**都 exit=0（不是跑一次绿就算）"
+    },
+    {
+      "check": "红测试：修复前能稳定复现「读到中间态」；修复后该用例转绿"
+    },
+    {
+      "check": "反向对照：故意让一个测试留下污染，必须能被发现（否则这条验收是空的）"
+    },
+    {
+      "check": "`git status --porcelain` 在整套跑完后为空（不留下任何被改写的仓库文件）"
+    },
+    {
+      "check": "失败的测试文件集合在 3 次运行中**完全一致**（不再每次不同）"
+    }
+  ],
+  "nonGoals": [
+    "不引入测试框架替换（不换 vitest）。",
+    "不靠 `--no-verify`、不靠缩减测试范围来「变绿」。",
+    "不顺手清理与隔离无关的测试问题。",
+    "不为了隔离而把被测代码改成可注入路径 —— 除非证明没有更小代价的做法（候选里写清权衡）。"
+  ],
+  "architecture": "共享文件清单（实测）至少包含：`package.json`、`scripts/harness.cjs`、`docs/architecture/artifacts/harness-unreachable-scripts.json`、`docs/architecture/artifacts/typecheck-baseline.json`、`docs/architecture/artifacts/engineering-standards-baseline.json`。涉及的门禁脚本：`check-harness-integrity`、`check-harness-trunk-dispatch`、`check-engineering-standards`、`check-typecheck-ratchet`、`check-generated-paths`、`check-plan-freshness`、`check-version-consistency` 等。候选方向：① 门禁接受 `--root <dir>`，测试在临时根上跑（拷可变件、软链只读件）；② 门禁接受 `--package-json <path>` 之类的窄口径覆盖；③ 测试串行化到同一行（已试 `singleFork`，否掉）。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "本规格不新增或修改任何表。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "测试互不污染",
+      "how": "任一测试改写共享文件后，其它测试看到的必须是原状；由「连跑 3 次结果一致」与「跑完 git status 干净」共同守。"
+    },
+    {
+      "name": "门禁判定语义不变",
+      "how": "修复前后对同一份违规输入，门禁必须给出同样的结论（用一条固定 fixture 对照）。"
+    }
+  ],
+  "ui": [
+    "无新增页面。本规格不涉及界面。"
+  ],
+  "ops": [
+    "门禁链：沿用 `pnpm run check`。",
+    "测试入口：`pnpm run test:clean`（内存模式，清 DATABASE_URL / DB_DRIVER / NODE_ENV）。",
+    "本规格不新增 agent:ops 动作（无实体）。"
+  ],
+  "risks": [
+    {
+      "risk": "为了隔离改成「临时根」，但只读件用软链，某些门禁可能顺着软链读回真仓，隔离失效却看起来通过了。",
+      "mitigation": "反向对照必须包含「在临时根里注入违规 → 必须红」，确保读到的是临时根。"
+    },
+    {
+      "risk": "把共享文件改成可注入路径，等于给门禁加开关，未来有人用开关放行。",
+      "mitigation": "候选里写明：若采用注入，开关只能影响「从哪读」，不能影响「怎么判」。"
+    },
+    {
+      "risk": "「连跑 3 次」在慢机器上耗时过长，被后续开发者删掉。",
+      "mitigation": "把 3 次拆成可单独运行的脚本入口（`pnpm harness` 下），不塞进默认 `check` 链。"
+    }
+  ],
+  "screens": [],
+  "interactions": [],
+  "states": [],
+  "candidates": [
+    {
+      "name": "① 门禁接受 `--root <dir>`，测试在临时根跑",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "需给多个门禁加旗标；软链可能泄漏回真仓，靠反向对照守"
+    },
+    {
+      "name": "② 窄口径覆盖（只让 `--package-json` / `--baseline` 可指）",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "改动面小；但共享文件不止 package.json，可能只修一半"
+    },
+    {
+      "name": "③ 测试内串行 + 全局锁",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "已实测 `singleFork` 更糟；锁解决不了「读」方，只解决「写」方争用"
+    },
+    {
+      "name": "④ 直接改真仓（现状）",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "**已证伪**：随机红，且基线本身就红"
+    }
+  ],
+  "benchmarks": [
+    "主流做法是让被测工具接受「工作目录」参数（eslint --cwd、tsc -p），测试在临时目录跑 —— 本规格方向①即此。",
+    "vitest 自身提供的隔离手段（isolate / pool / fileParallelism）解决的是**进程级**隔离，不能解决「共享文件系统状态」；本仓已开 `fileParallelism: false` 仍复现，是实证。"
+  ],
+  "scan": [
+    "实测：`describe.sequential` 在 vitest 5.0.5 不存在（TypeError）。",
+    "实测：`poolOptions.forks.singleFork: true` 后两遍全量都红，已回退。",
+    "实测：`git stash` 掉相关改动后基线 3 failed / 476 passed —— 缺陷既有。",
+    "实测：全量跑完立刻单跑 integrity 绿、git status 干净 —— 失败只在运行期间。"
+  ],
+  "licenseConclusion": "不引入新依赖，无许可传染风险。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "写红灯：稳定复现「读方看到写方的中间态」，并列出共享文件与涉及门禁的完整清单",
+      "files": [
+        "-"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "实现隔离（按选定候选；不动判定语义，只改数据来源）",
+      "files": [
+        "scripts/check-harness-integrity.cjs",
+        "scripts/check-harness-trunk-dispatch.cjs",
+        "test/unit/harness-entry.test.ts"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "把其余会改共享文件的测试一并迁到隔离方式（实测清单为准）",
+      "files": [
+        "test/unit/plan-freshness-gate.test.ts",
+        "test/unit/version-consistency.test.ts",
+        "test/unit/generated-paths-gate.test.ts"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "验收：连跑 3 次全绿、失败集合一致、跑完 git status 干净、反向对照能发现污染",
+      "files": [
+        "-"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4；T1/T4 是实测与验收（无实现）。",
+  "windowMinutes": 10
+}

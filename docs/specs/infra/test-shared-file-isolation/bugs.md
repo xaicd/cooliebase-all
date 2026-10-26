@@ -1,0 +1,11 @@
+# Defect & Verification Ledger: 测试之间通过仓库共享文件互相可见，导致 test:clean 间歇随机变红
+
+> **Spec-Kit 缺陷台账与复现验证清单**
+> 对应项目宪法：`.specify/memory/constitution.md` (Gate 4 真实入库测试与缺陷闭环)
+
+---
+
+## 缺陷清单台账 (Defect Tracking)
+| ID | 严重级 | 现象描述 | 复现验证命令 | 修复状态 |
+|---|---|---|---|---|
+| B1 | P0 | 初始构建与交付验证自检 | `pnpm run test:unit` | 已修 |
