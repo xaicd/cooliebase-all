@@ -100,6 +100,7 @@
       "domain:check",
       "microservice:check",
       "harness:check",
+      "harness:trunk:check",
       "admin:routes:check",
       "foundation:ontology:check",
       "skills:check",

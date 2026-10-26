@@ -199,6 +199,7 @@
 | 22. **契约路由覆盖** | `pnpm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
 | 23. **契约域级覆盖** | `pnpm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
 | 24. **生成物列覆盖** | `pnpm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
+| 25. **主干一致性** | `pnpm run harness:trunk:check` | `pnpm harness` 的主干表与 switch 分派一致（假广告 / 隐藏能力都拦）。实测动机：三次给新能力配平行入口而主干没同步 |
 | 25. **路由校验覆盖** | `pnpm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `pnpm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
 
 
@@ -404,7 +405,7 @@ CI 前置检查：
 | `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `pnpm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
-当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-21 的**快照**（共 15 条）：
+当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-21 的**快照**（共 16 条）：
 
 | 规则 | 模式 | 约束 |
 |---|---|---|
@@ -423,6 +424,7 @@ CI 前置检查：
 | `launcher-gateway-port-consistency` | enforce | 拉起器 / 网关片段 / `package.json` 的端口必须一致（否则网关指向空端口） |
 | `no-new-npm-run` | ratchet | §2.1 脚本调用统一 `pnpm run`（存量 218 文件冻结，**只拦新增**） |
 | `facade-method-dispatch-mapped` | ratchet | Facade 方法派发映射 |
+| `harness-trunk-dispatch` | enforce | `harness.cjs` 的**主干表**与 **switch 分派**必须一致 —— 表里有分派里没有=**假广告**，分派里有表里没有=**隐藏能力**（实用动机：曾给新能力配平行 npm script 而主干没同步）|
 | `init-sql-seed-columns` | ratchet | 初始化 SQL 种子列 |
 
 判定要点：规则必须贴合条款本意，误报会逼出无意义豁免。`§4.7` 只约束对象单例模式（`export const XxxRepository = {...}` 需配 `export const xxxRepository`），`export class XxxService` 这类单一标识符由消费端一致以 PascalCase 引用，不属于条款范围。新增规则前必须先在真实代码库跑 `--audit`，确认当前符合度再决定 enforce / ratchet / report。
