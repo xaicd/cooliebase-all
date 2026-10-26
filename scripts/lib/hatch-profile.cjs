@@ -44,6 +44,17 @@ function parseArgv(argv) {
      * 产物走 **SQLite**，不该被 Postgres 拦住（实测：否则这条零容器路线直接中止）。
      */
     noProvisionDb: false,
+    /**
+     * 产物的**人类可读标题**（`--title`）。克隆链用它替换基座的全称字面量
+     * （`CoolieBase All` —— 包括 `project-profile.json` 与**断言它的测试**）。
+     *
+     * **为什么必须有这个旗标**（实测 bug）：`runProjectReactor` 一直有
+     * `options.customTitle || <由 name 推导>` 的回退，但**没有任何旗标能喂它** ——
+     * 于是 `project:init --name t4-product --title "T4 验收产物"` 造出的产物里，
+     * 身份契约写的是 `T4 验收产物`（走 `opts.title`），
+     * 而测试断言被替换成 **`T4 Product`**（由 name 推导）→ 产物 `check` **必红**。
+     */
+    customTitle: undefined,
   }
 
   for (let i = 0; i < args.length; i += 1) {
@@ -76,6 +87,15 @@ function parseArgv(argv) {
     }
     if (arg.startsWith("--bundle=")) {
       out.bundle = splitCsv(arg.slice("--bundle=".length))
+      continue
+    }
+    if (arg === "--title") {
+      out.customTitle = String(args[i + 1] || "").trim() || undefined
+      i += 1
+      continue
+    }
+    if (arg.startsWith("--title=")) {
+      out.customTitle = arg.slice("--title=".length).trim() || undefined
       continue
     }
     if (arg.startsWith("--")) {

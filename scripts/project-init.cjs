@@ -586,6 +586,10 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     console.log(`\n[project-init] 正在派生克隆底座到目标目录: ${opts.target} ...`)
     const cloneScript = path.join(ROOT, "scripts", "clone-project-base.cjs")
     const cloneArgs = [cloneScript, opts.target, "--profile", opts.profile]
+    // **必须把 --title 传下去**：克隆链用它替换基座全称字面量 `CoolieBase All`
+    // （包括 `project-profile.json` 与断言它的测试）。不传就回落到「由 name 推导」，
+    // 于是身份契约写 `opts.title` 而测试断言写 name 推导值 → **产物 check 必红**（实测）。
+    if (opts.title) cloneArgs.push("--title", opts.title)
     // 本入口产物走 **SQLite**（见下方 updateEnvFiles），克隆阶段不该被 Postgres 拦住。
     cloneArgs.push("--no-provision-db")
     if (Array.isArray(opts.bundle) && opts.bundle.length > 0) cloneArgs.push("--bundle", opts.bundle.join(","))

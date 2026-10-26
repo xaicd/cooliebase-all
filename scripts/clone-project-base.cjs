@@ -1051,8 +1051,14 @@ function main() {
       process.exitCode = 2
       return Promise.resolve()
     }
-    const targetArg = parsed.target
-    return runProjectReactor(targetArg, plan, catalog, { dryRun: parsed.dryRun, noProvisionDb: parsed.noProvisionDb })
+      const targetArg = parsed.target
+      return runProjectReactor(targetArg, plan, catalog, {
+        dryRun: parsed.dryRun,
+        noProvisionDb: parsed.noProvisionDb,
+        // **必须显式带上**：`options` 是手拼的，漏一个字段就静默回落到默认值。
+        // 实测漏了它 → 产物身份契约写 `--title`、测试断言写「由 name 推导」→ check 必红。
+        customTitle: parsed.customTitle,
+      })
   } catch (err) {
     console.error("[REACTOR ERROR]", err.stack || err.message || err)
     process.exitCode = 1
