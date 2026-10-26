@@ -59,7 +59,7 @@ fi
 
 if [ ! -f "$RECORD" ]; then
   echo "[spec-gate] 拦截：本次提交触及受保护路径，但没有需求分诊记录。"
-  echo "           先跑：npm run agent:route -- \"<用户的原始需求>\""
+  echo "           先跑：pnpm harness route -- \"<用户的原始需求>\""
   echo "           （确认判定有误时可用 AGENT_ROUTE_SKIP=1 跳过，并回头修正规则表）"
   exit 1
 fi
@@ -78,7 +78,7 @@ echo "[spec-gate] 拦截：上一条需求被判为**需要规格**（SPEC_REQUI
 echo "           触及的受保护路径："
 printf '             %s\n' $PROTECTED
 echo "           先执行："
-echo "             npm run speckit:new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\""
+echo "             pnpm harness spec new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\""
 echo "           分诊输出里已给出建议的 --type；规则真源 scripts/lib/spec-necessity-rules.cjs。"
 echo "           确认判定有误时：AGENT_ROUTE_SKIP=1 git commit ...（并回头改规则表，而不是绕过）"
 exit 1
