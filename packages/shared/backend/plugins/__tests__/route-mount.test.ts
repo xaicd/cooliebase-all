@@ -5,7 +5,7 @@ import { MergedPlugin } from "../merged-runtime"
 import { PLUGIN_ROUTE_PREFIX, pluginRoutePath, resolvePluginRoute } from "../route-mount"
 import type { PluginManifest } from "../types"
 
-const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
+const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/shared/backend/plugins/__tests__/fixtures/hello-world")
 const MERGED_ENTRY = path.join(EXAMPLE_DIR, "merged.js")
 const KEY = "cooliebase.hello-world"
 

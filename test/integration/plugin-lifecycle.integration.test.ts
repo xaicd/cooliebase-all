@@ -26,7 +26,7 @@ const HAS_DB = Boolean(process.env.DATABASE_URL?.trim())
 /** 插件目录必须落在仓库内：示例插件 `import "@cooliebase/plugin-sdk"` 要靠 node 逐级上溯到根 node_modules 才能解析。 */
 const REPO_ROOT = process.cwd()
 const PLUGIN_DIR = path.join(REPO_ROOT, ".cooliebase", "plugins-integration")
-const EXAMPLE_SRC = path.join(REPO_ROOT, "packages/plugins/examples/hello-world")
+const EXAMPLE_SRC = path.join(REPO_ROOT, "packages/shared/backend/plugins/__tests__/fixtures/hello-world")
 const GOOD_KEY = "itest.lifecycle.plugin"
 const BROKEN_KEY = "cooliebase.broken-worker"
 
@@ -56,7 +56,7 @@ function copyExamplePlugin(targetName: string): string {
   // 整个包目录一起拷 —— 示例插件新增 merged.js 后整包拷贝不漏文件。
   // 跳过 node_modules，避免孤儿符号链接与宿主挂载权限冲突。
   copyDirRecursive(EXAMPLE_SRC, dir)
-  // 必须改 id: 示例插件本体就在 `packages/plugins/examples/` 下，**也属于扫描的第一方根**。
+  // 必须改 id: 夹具插件本体就在 `__tests__/fixtures/` 下，**也属于扫描的第一方根**。
   // 沿用它的 id 会让"包从磁盘移除"这个前提**不成立**（副本删了、原件还在，
   // 于是记录仍然是 ready）—— 实测就是这么挂的。用本用例自己的 id，前提才为真。
   const manifestPath = path.join(dir, "plugin.manifest.json")

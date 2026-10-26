@@ -6,8 +6,8 @@ import { afterEach, describe, expect, it } from "vitest"
 import { PluginWorker, PluginWorkerManager } from "../worker-manager"
 import { WORKER_LIMITS, type WorkerInitializeInput } from "../worker-protocol"
 
-/** 真实的示例插件包（packages/plugins/examples/hello-world）—— 不再手搓 fixture。 */
-const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
+/** 真实的夹具插件包（packages/shared/backend/plugins/__tests__/fixtures/hello-world）—— 不再手搓 fixture。 */
+const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/shared/backend/plugins/__tests__/fixtures/hello-world")
 const EXAMPLE_WORKER = path.join(EXAMPLE_DIR, "worker.js")
 
 function initInput(pluginKey = "cooliebase.hello-world"): WorkerInitializeInput {

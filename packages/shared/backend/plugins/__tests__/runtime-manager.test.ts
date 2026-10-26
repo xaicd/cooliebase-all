@@ -8,7 +8,7 @@ import { PluginRuntimeManager } from "../runtime-manager"
 import type { WorkerInitializeInput } from "../worker-protocol"
 
 /** 真实示例插件包 —— 同时声明 worker（独立）与 merged（合并）两个入口。 */
-const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
+const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/shared/backend/plugins/__tests__/fixtures/hello-world")
 const WORKER_ENTRY = path.join(EXAMPLE_DIR, "worker.js")
 const MERGED_ENTRY = path.join(EXAMPLE_DIR, "merged.js")
 

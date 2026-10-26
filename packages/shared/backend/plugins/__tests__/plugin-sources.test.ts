@@ -65,7 +65,7 @@ describe("插件多来源发现（实例目录 + 仓内第一方）", () => {
     expect(found.map((item) => item.manifest?.id)).toEqual(["cooliebase.pay"])
   })
 
-  it("嵌套目录（examples/hello-world 形态）也能被发现", () => {
+  it("嵌套目录（fixtures/hello-world 形态）也能被发现", () => {
     const firstParty = tempRoot()
     makePlugin(path.join(firstParty, "examples"), "hello-world", "vendor.hello")
     const found = scanAllPluginPackages([{ dir: firstParty, reportSkipped: false }])

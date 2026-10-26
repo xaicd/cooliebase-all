@@ -10,7 +10,7 @@ import {
   resolveUiSlots,
 } from "../ui-slots"
 
-const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/plugins/examples/hello-world")
+const EXAMPLE_DIR = path.resolve(process.cwd(), "packages/shared/backend/plugins/__tests__/fixtures/hello-world")
 
 const tempDirs: string[] = []
 afterEach(() => {

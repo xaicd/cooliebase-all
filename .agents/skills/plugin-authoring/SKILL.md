@@ -75,7 +75,7 @@ description: 编写、安装、排障与评审 §6.2 可安装插件（插件包
 3. `worker` 指向的文件必须**真实存在**，否则安装期就被拒。
 4. worker 里 `import` 的依赖必须能从插件包位置上溯解析到（宿主不代你安装依赖）。
 
-参考实现：`packages/plugins/examples/hello-world/`（最小可运行示例）。
+参考实现：`packages/shared/backend/plugins/__tests__/fixtures/hello-world/`（最小可运行**插件夹具**，也供插件系统测试加载）。
 
 ## 4. manifest 契约
 
