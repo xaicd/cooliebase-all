@@ -140,3 +140,50 @@ dsh 的 `test:coverage` 是 **per-file 100% on `packages/*/*/src`**。
 **dsh 最值得本仓学的不是"插件化"（已经学了），而是"把纪律写成能失败的机检"** ——
 `assertNever`、空 catch 具名、重复检测，都是**用编译期/门禁把人的自觉替换掉**。
 这恰好是本仓这一整轮反复印证的主题：**规范必须可执行，否则必然漂移**。
+
+---
+
+## 7. 生态实测（`dsh-plugin` topic，2026-10-26，23,366 个仓库）
+
+> 用户追问的重点：**不是 dsh 内核代码，而是它的生态插件**。
+> 以下是 topic 页 **按 star 排序的前 20**，逐个归类。
+
+### 7.1 分类
+
+| 类别 | 代表 | 对本仓的意义 |
+|---|---|---|
+| **① 记忆 / 上下文** | `volcengine/OpenViking` 40.8k（自进化 Context DB，统一 Memory+RAG+Skills）· `EverMind-AI/EverOS` 13.6k（Markdown 原生的可移植记忆层）· `MemTensor/MemOS` 12.1k（记忆 OS，宣称省 35% token） | **最值得看**：本仓**完全没有记忆层** —— 它是"每次进场都从零读文档"的（91KB AGENTS.md ≈14k tokens 就是代价） |
+| **② 知识 / RAG** | `Tencent/WeKnora` 35.4k（文档 → RAG / 推理 agent / 自维护 Wiki，**多租户**） | 本仓有 `ai/knowledge` 域；WeKnora 的**多租户 + 自维护 Wiki** 是可对照的设计 |
+| **③ 低代码平台** | `nocobase/nocobase` 24.7k（AI + no-code，跑在生产级基础设施之上） | **直接同类**：本仓的 codegen / 低代码域与它同一赛道，值得做一次真实对照 |
+| **④ 设计 / UI** | `nexu-io/open-design` 104k（协作式 AI 设计工作台，motion/prototype/UI） | 与本轮"UI 增强"直接相关 —— 它的**设计 token / 组件工作流**值得看 |
+| **⑤ 技能蒸馏** | `titanwings/distilly` 26k（把"人怎么想"蒸馏成可复用 Skills） | 本仓有 **38 个 skill**，但**怎么写出来的**没有方法论 —— 这个是方法论层 |
+| **⑥ 架构图** | `tt-a1i/archify` 89.3k | **本仓已吸收**（`.agents/skills/archify/` + `docs/03_design/diagrams/*.arch.json`）✓ |
+| **⑦ 运行时插件** | `morluto/rea` 386k（逆向工程）· `ruvnet/ruflo` 79.3k（swarm）· `DeepSeek-Reasonix` 36k（编码 agent）· 两个 `dsh-desktop`（桌面本身是插件）· `dsh-our-free-model`（模型 provider） | **一律不可搬** ✗：都是 Cordis 运行时插件，违反 `doNotVendor` |
+| **⑧ 教程 / 索引** | `walkinglabs/learn-harness-engineering` 21.5k · `awesome-dsh-plugin` 20.7k | 学习入口；`awesome` 列表是**发现生态的正规入口** |
+| **⑨ 无关** | `reactive-resume` 44.9k（简历）· `PicGo` 27.4k（图床）· `awesome-gpt-image-2` 35k（提示词库） | 借 dsh 做容器，与本仓无关 |
+
+### 7.2 结论（针对"生态"）
+
+**生态里 90% 是运行时插件** ✗ —— 记忆 / 模型 provider / 桌面 / swarms，
+**都需要"进程里有个 agent"**，本仓搬不了（同 §3 的判断口诀）。
+
+**但有三条值得认真看** ✓：
+
+1. **记忆层（①）** ★★★ —— 本仓**没有**，而它的代价正在被量化（91KB AGENTS.md ≈14k tokens/次）。
+   注意：**不是照搬它们的代码** ✓，而是看它们**怎么定义"什么该记住"** ——
+   本仓已有的 `harness-trace` / `evolution:backlog` / `agent:route` 记录**就是原始素材**，缺的是"读回来"的机制。
+2. **`nocobase`（③）** ★★★ —— 同赛道对照。它是"**AI 在成熟基础设施之上工作**"，
+   与 RULE-0 的 "Zero Token Waste / 低代码声明式" 是同一哲学的两个实现，**值得做真实对照**（不是学习，是横评）。
+3. **`distilly`（⑤）** ★★ —— 本仓 38 个 skill 的**质量与方法论**没有外部参照；
+   "把人的思考蒸馏成 skill" 恰好补这一环。
+
+### 7.3 明确不建议
+
+- 装任何一个运行时插件到本仓 ✗（违反 `doNotVendor`，`check-harness-bundle.cjs` 会红）；
+- 把 `dsh-desktop` 当"客户端方案" ✗（它是 Electron + dsh 运行时，本仓客户端是 `clients/expo`）；
+- 照抄 `rea` / `ruflo` 这类"能力很大但方向不同"的（逆向 / swarm）✗。
+
+### 7.4 诚实标注
+
+以上"意义"一列是**基于仓库描述 + 本仓现状**的判断 ✓，**我没有逐个读它们的源码** ✗。
+如果某人要真用某一条（比如记忆层），**必须先读它的 LICENSE 与实现**，不能只看 star。
