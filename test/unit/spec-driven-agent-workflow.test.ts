@@ -78,7 +78,7 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
   })
 
   it("2. Agent 声明式展开: 由 brief 自动展开全套文档，无任何遗漏且具备缺陷特化章节", () => {
-    execFileSync("pnpm", ["exec", "tsx", "scripts/speckit.ts", "build", "--name", SPEC_NAME], {
+    execFileSync("pnpm", ["harness", "spec", "build", "--name", SPEC_NAME], {
       cwd: ROOT,
       stdio: "ignore",
     })
@@ -95,9 +95,13 @@ describe("AI Agent 驱动的 Spec 闭环与防污染生命周期验证", () => {
     expect(reqContent).toContain("类型：`bugfix`")
 
     expect(fs.existsSync(path.join(specDir, "design.md"))).toBe(true)
-    expect(fs.existsSync(path.join(specDir, "prototype.md"))).toBe(true)
     expect(fs.existsSync(path.join(specDir, "tasks.md"))).toBe(true)
     expect(fs.existsSync(path.join(specDir, "runbook.json"))).toBe(true)
+    // 资产**按规格类型裁剪**（`260918b5`）：
+    //   · prototype.md 只给带界面的类型（feature / enhancement）；
+    //   · 本规格是 bugfix（无 UI），产出它才是空壳 —— 所以反过来断言「不该存在」。
+    // 用反向断言而不是删掉这一行：删了就没人守着「裁剪规则别被改回去」。
+    expect(fs.existsSync(path.join(specDir, "prototype.md"))).toBe(false)
   })
 
   it("3. Agent 交付门禁验证: delivery:check 能精准识别 docs/specs 下的骨架与任务状态", () => {

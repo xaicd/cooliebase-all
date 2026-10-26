@@ -28,10 +28,24 @@ function sh(cwd: string, args: string[]): string {
 function makeRepo(): string {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), "speckit-attrib-"))
   fs.mkdirSync(path.join(dir, "docs/specs/infra", SPEC_NAME), { recursive: true })
-  fs.mkdirSync(path.join(dir, "scripts"), { recursive: true })
-  fs.copyFileSync(SPECKIT, path.join(dir, "scripts/speckit.ts"))
+  // 整个 scripts/ 目录都要拷：speckit.ts 依赖同目录的 ./lib/*.cjs
+  // （只拷单文件会报 `Cannot find module './lib/spec-resolver.cjs'` —— 实测）
+  fs.cpSync(path.join(ROOT, "scripts"), path.join(dir, "scripts"), {
+    recursive: true,
+    filter: (src) => !src.includes("__tests__") && !src.includes("node_modules"),
+  })
   // 另一个规格也声明同一个文件 → 让它成为「共享文件」
   fs.mkdirSync(path.join(dir, "docs/specs/infra/other-spec"), { recursive: true })
+
+  // 两份文件都要：speckit 的**任务表**读 tasks.md，**共享文件索引**读 brief.json（实测）
+  const table = [
+    "| 任务ID | 父任务 | 任务名称 | 白名单限制 | 状态 |",
+    "|---|---|---|---|---|",
+    "| T1 | main | 任务一 | shared/thing.txt | 未开始 |",
+    "| T2 | main | 任务二 | docs/01_management/project-plan.md | 未开始 |",
+    "",
+  ].join("\n")
+  fs.writeFileSync(path.join(dir, "docs/specs/infra", SPEC_NAME, "tasks.md"), `# Tasks: ${SPEC_NAME}\n\n${table}`)
 
   const brief = {
     name: SPEC_NAME,
@@ -49,6 +63,15 @@ function makeRepo(): string {
   fs.mkdirSync(path.join(dir, "docs/01_management"), { recursive: true })
   fs.writeFileSync(path.join(dir, "docs/01_management/project-plan.md"), "# plan\n")
   fs.writeFileSync(path.join(dir, "package.json"), '{"name":"t","private":true}\n')
+  fs.writeFileSync(path.join(dir, "pnpm-workspace.yaml"), "packages: []\n")
+
+  // 临时仓库没有 node_modules —— tsx 解析不到自己的依赖就会 ERR_MODULE_NOT_FOUND（实测）。
+  // 软链真仓的 node_modules 即可，不需要 pnpm install。
+  try {
+    fs.symlinkSync(path.join(ROOT, "node_modules"), path.join(dir, "node_modules"), "dir")
+  } catch {
+    /* 已存在则忽略 */
+  }
 
   sh(dir, ["git", "init", "-q"])
   sh(dir, ["git", "config", "user.email", "t@t.t"])
@@ -60,7 +83,7 @@ function makeRepo(): string {
 
 function tasksReport(dir: string): string {
   try {
-    return sh(dir, [process.execPath, "--import", "tsx", "scripts/speckit.ts", "tasks", "--spec", SPEC_NAME])
+    return sh(dir, [path.join(ROOT, "node_modules/.bin/tsx"), "scripts/speckit.ts", "tasks", "--spec", SPEC_NAME])
   } catch (e: any) {
     return `${e.stdout || ""}${e.stderr || ""}`
   }
@@ -105,10 +128,12 @@ describe("speckit 任务归属：只碰共享文件时，靠标记消歧", () =>
   it("别的规格的提交不会算到本规格头上", () => {
     const dir = makeRepo()
     try {
+      // 注意：`[other-spec/T2]` 里并**不**包含子串 `[T2]`（是 `spec/T2]`），
+      // 所以它连候选都进不了 —— 工具此时报的是「无物理提交」，这是对的。
       commitShared(dir, "[other-spec/T2] test: 这是别人的 T2")
       const r = row(tasksReport(dir), "T2")
-      expect(r).toContain("无法归属")
       expect(r).not.toContain("已完成")
+      expect(r).toContain("无物理提交")
     } finally {
       fs.rmSync(dir, { recursive: true, force: true })
     }
