@@ -589,12 +589,14 @@ const specKitPointer = (target: string, title: string) =>
 
   // 9. 缺陷台账 (Spec-Kit Native: bugs.md)
   const bugsTpl = loadTemplate("bugs-template.md")
-  files["bugs.md"] = bugsTpl ? render(bugsTpl, templateVars) : ""
+  // **按规格类型裁剪**：bugs.md 只在 bugfix 时产（其他类型产出的是空表，纯噪音）
+  if (spec.type === "bugfix") files["bugs.md"] = bugsTpl ? render(bugsTpl, templateVars) : ""
 
   // 10. 原型与交互规范 (Spec-Kit Native: prototype.md)
   const prototypeTpl = loadTemplate("prototype-template.md")
   const prototypeContent = prototypeTpl ? render(prototypeTpl, templateVars) : ""
-  files["prototype.md"] = prototypeContent
+  // **按规格类型裁剪**：prototype.md 只在带界面的类型产（refactor/bugfix 无 UI，产出即空壳）
+  if (spec.type === "feature" || spec.type === "enhancement") files["prototype.md"] = prototypeContent
 
   // 10. 规格元数据 (Spec-Kit Native: spec.json + feature.json)
   const specJson = {
