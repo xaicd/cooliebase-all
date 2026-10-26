@@ -615,6 +615,44 @@ const RULES = [
     },
   },
   {
+    id: "no-machine-absolute-paths",
+    section: "AGENTS.md §17 / 交付边界",
+    mode: "enforce",
+    description:
+      "packages/ 与 src/ 里不得出现「机器私有的绝对路径」——它们会随每个孵化产物下发到客户服务器",
+    run() {
+      // 实测动机（2026-10-26）：`agent-profile.json` 里有
+      //   "runtimePath": "D:/workspace/cw/ai/DigitalStaff"
+      // 这是**交付机器**上的 Windows 路径，而该文件随产物走 —— 客户工程里会躺着一个 D: 盘路径。
+      // 运行时位置应当**运行期发现**（如 install-hermes-hook.cjs 找 ~/.hermes），而不是写死在模板里。
+      //
+      // 只认「被引号包住的绝对路径」，避免 `REJECTED: []` 这类误报。
+      const violations = []
+      const ABS = /["'](?:[A-Za-z]:[\\/]|\/Users\/|\/home\/)[^"'\n]*["']/g
+      const scan = (dir) => {
+        if (!fs.existsSync(dir)) return
+        for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
+          if (entry.name === "node_modules" || entry.name.startsWith(".") || entry.name === "__tests__") continue
+          const full = path.join(dir, entry.name)
+          if (entry.isDirectory()) { scan(full); continue }
+          if (!/\.(ts|tsx|json)$/.test(entry.name)) continue
+          const src = fs.readFileSync(full, "utf8")
+          ABS.lastIndex = 0
+          let m
+          while ((m = ABS.exec(src)) !== null) {
+            // 注释里的示例不算（只拦真的字符串字面量）
+            const line = src.slice(0, m.index).split("\n").length
+            const lineText = src.split("\n")[line - 1] || ""
+            if (/^\s*(\/\/|\*|#)/.test(lineText)) continue
+            violations.push({ file: toRel(full), detail: `机器私有绝对路径会随产物下发: ${m[0]} (line ${line})` })
+          }
+        }
+      }
+      scan(DOMAINS); scan(PLUGINS); scan(SHARED); scan(SRC)
+      return violations
+    },
+  },
+  {
     id: "no-pnpm-overrides-in-package-json",
     section: "AGENTS.md §2.1",
     mode: "enforce",

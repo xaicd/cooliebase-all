@@ -59,7 +59,7 @@
 | 第一方插件 | 15 | `packages/plugins/plugin-*/` |
 | Agent Skills | 38 | `.agents/skills/*/SKILL.md` |
 | 静态交付门禁 | 21 | `compat-manifest.json` → `consumptionSurface.gates`（**勿手抄**：`pnpm run compat:check` 打印当前条数） |
-| 工程规范机检规则 | 18（enforce 14 / ratchet 3 / report 1） | `scripts/check-engineering-standards.cjs` 规则注册表（**勿手抄**：`pnpm run standards:check --audit`） |
+| 工程规范机检规则 | 19（enforce 15 / ratchet 3 / report 1） | `scripts/check-engineering-standards.cjs` 规则注册表（**勿手抄**：`pnpm run standards:check --audit`） |
 
 > **注意 §5 的数字口径**：本文件**不在** `llms:check` 的被检列表内（该门禁只比对 `llms.txt` / `llms-full.txt`）。
 > 本节数字由 `pnpm run docs:claims:check` 看守（扫 `docs/01_management/**` + `docs/02_requirements/**` 的

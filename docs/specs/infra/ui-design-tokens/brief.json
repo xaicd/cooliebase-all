@@ -1,0 +1,64 @@
+{
+  "name": "ui-design-tokens",
+  "domain": "infra",
+  "title": "UI 设计规范可执行化：design tokens + 裸 px/py 门禁 + 基线页与 codegen 共用",
+  "type": "enhancement",
+  "goal": "让 AGENTS §5.2 的设计规范从散文变成代码：一份 design-tokens 模块，基线页与 codegen 模板都引用它，裸写的间距类由门禁拦住。",
+  "roles": [
+    { "role": "前端开发者", "can": "改一处 token，全站页面（手写 + 生成）同步生效" },
+    { "role": "交付负责人", "can": "用门禁保证规范被执行，而不是靠 review 记忆" }
+  ],
+  "stories": [
+    { "priority": "P0", "text": "作为前端，页面布局用 UI.table.cell 这类 token，而不是自己写 px-4 py-2.5" },
+    { "priority": "P0", "text": "作为前端，codegen 生成的列表页与 channels.page.tsx 视觉一致（同一套 token）" },
+    { "priority": "P1", "text": "作为交付负责人，新增页面里出现裸 px-*/py-* 会被门禁拦下（棘轮，存量冻结）" }
+  ],
+  "constraints": [
+    "本次只做 token 与门禁，不改视觉方向（颜色/字体/圆角的选择保持现状）。",
+    "存量页面不强制立刻改 —— 裸 px/py 走棘轮（冻结既有，只拦新增）。",
+    "生成器模板必须与手写页面共用同一份 token，禁止各自硬编码。"
+  ],
+  "acceptance": [
+    { "check": "packages/shared/frontend/lib/design-tokens.ts 存在且导出 UI 分组（page/table/button/card）" },
+    { "check": "pnpm run check exit=0（含新门禁）" },
+    { "check": "反向对照：在某个页面里写裸 px-4 → 门禁 exit=1；改用 UI.token → exit=0" },
+    { "check": "codegen 模板引用 token（frontend-list.template.ts 不再硬编码 px-*）" },
+    { "check": "pnpm run build exit=0" }
+  ],
+  "nonGoals": [
+    "不做视觉重塑（配色/品牌/插画）—— 那是独立的品牌议题",
+    "不改 clients/expo（目前只有 2 个 tsx 文件，先不动）",
+    "不强制一次性迁移 340 个存量页面的间距，走棘轮"
+  ],
+  "architecture": "packages/shared/frontend/lib/design-tokens.ts 导出 `UI` 常量（纯字符串，Tailwind class）。手写页面与 codegen 模板都 import 它。门禁 scripts/check-design-tokens.cjs 扫描 frontend/**/*.tsx，禁止在 <td>/<th> 上出现裸 px-*/py-*（棘轮，基线冻结存量）。",
+  "entities": [{ "table": "-", "note": "无表；纯前端常量与门禁" }],
+  "invariants": [
+    { "name": "单一真源", "how": "间距只来自 design-tokens.ts；模板与页面都引用，不各自硬编码。" },
+    { "name": "门禁必须能失败", "how": "反向对照：写一个裸 px-4 到任一列表页 → check 必须红。" }
+  ],
+  "ui": ["本 spec 本身就是 UI 基础设施；基线页 channels.page.tsx 是视觉基准。"],
+  "ops": ["pnpm run check 里跑 check-design-tokens.cjs；--write-baseline 收紧棘轮"],
+  "risks": [
+    { "risk": "存量 340 页面都裸写 px-*，一次性改风险大", "mitigation": "棘轮冻结存量，只拦新增；分批迁移" },
+    { "risk": "token 抽取过度导致可读性下降", "mitigation": "只抽表格/页面头/按钮/卡片四组，别把每个 class 都抽成变量" }
+  ],
+  "screens": [{ "name": "-", "wireframe": "无新界面" }],
+  "interactions": ["沿用现有交互，不改行为"],
+  "states": ["沿用现有状态（加载/空/错误/无权限）"],
+  "candidates": [
+    { "name": "自研 design-tokens.ts + 棘轮门禁", "type": "自研", "license": "N/A", "risk": "无" },
+    { "name": "引入 tailwind 插件式 design token（tailwind.config 扩展）", "type": "开源", "license": "MIT", "risk": "更标准，但本次改动面更大，先不采用" }
+  ],
+  "benchmarks": [
+    "设计系统通行做法：token 是**代码**（可 import、可被 lint），不是文档里的表格；否则必然漂移（本仓已经漂了：规范说 px-5 py-3，基线与模板都不是）。"
+  ],
+  "scan": ["实测基线页用 px-1.5 py-0.5，模板用 px-2.5 py-1，规范写 px-5 py-3 —— 三者互不相同"],
+  "licenseConclusion": "全部自研，无第三方依赖。",
+  "tasks": [
+    { "id": "T1", "parent": "main", "title": "design-tokens.ts（页面头/表格/按钮/卡片四组）", "files": ["packages/shared/frontend/lib/design-tokens.ts"] },
+    { "id": "T2", "parent": "T1", "title": "codegen 模板改用 token", "files": ["packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts"] },
+    { "id": "T3", "parent": "T2", "title": "裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步", "files": ["scripts/check-design-tokens.cjs", "package.json", "docs/01_management/project-plan.md"] }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 15
+}

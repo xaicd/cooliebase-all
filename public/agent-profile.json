@@ -6,7 +6,7 @@
   "description": "CoolieBase All is the DigitalStaff NPC workspace template. Agent loop stays in DigitalStaff Native. This repo is the composable environment.",
   "harnessPartners": {
     "runtime": "DigitalStaff NativeCodingEngine",
-    "runtimePath": "D:/workspace/cw/ai/DigitalStaff",
+    "runtimePath": "",
     "reference": "https://github.com/deepseek-ai/deepseek-harness",
     "referencePhilosophy": "Everything is a Plugin. Every run is traceable.",
     "doNotVendor": ["cordis", "dsh-agent-loop", "self-modification"]

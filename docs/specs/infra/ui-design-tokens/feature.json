@@ -1,0 +1,12 @@
+{
+  "name": "ui-design-tokens",
+  "domain": "infra",
+  "title": "UI 设计规范可执行化：design tokens + 裸 px/py 门禁 + 基线页与 codegen 共用",
+  "type": "enhancement",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 5,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-10-26T05:24:03.135Z"
+}
