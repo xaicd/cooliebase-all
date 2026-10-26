@@ -58,6 +58,55 @@ dsh **自己就在用 `AGENTS.md`** 作为 agent 指令文件（它仓库根也�
 
 ---
 
+## 2.4 **已验证：MCP 真的能接上**（2026-10-26，dsh 0.2.1-rc.2）
+
+> 下面不是文档抄来的，是**实跑验证过**的。验证留痕：dsh 进程确实 spawn 了我们的 MCP server
+> （`ps` 里看到 `node scripts/mcp/cooliebase-mcp-server.cjs` 的父进程是 dsh）。
+
+### 三步
+
+```bash
+# ① 装（生态里的 mcp-client 与 dsh 主版本不匹配，需要显式接受风险）
+dsh plugin --profile web allow-version @deepseek-ai/dsh-mcp-client@0.0.1-rc.1 \
+  --dsh-version 0.2.1-rc.2 --accept-risk
+dsh plugin --profile web add @deepseek-ai/dsh-mcp-client
+
+# ② 在 $DSH_HOME/profiles/web/cordis.patch.yml 里**插入**（不是覆盖）
+cat > "$DSH_HOME/profiles/web/cordis.patch.yml" <<YAML
+- insert:
+    - id: mcp-cooliebase
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: cooliebase
+        transport: stdio
+        command: node
+        args:
+          - scripts/mcp/cooliebase-mcp-server.cjs
+        cwd: /path/to/cooliebase-all
+YAML
+
+# ③ 起
+dsh --profile web --no-open --port 3080
+```
+
+### 三个实测踩到的坑（不写下来下一个人一定重踩）
+
+1. **patch 里必须是 `- insert: [...]`** —— 写成 `- id: ... name: ...` 会被当成"覆盖已有条目"，
+   报 `patch: entry "xxx" not found`（**这是最费时间的一个**）。
+   schema 里 `$defs.patch` 的 properties **只有 `insert`**。
+2. **`dsh plugin add` 会被版本校验拒绝** —— 生态里的 `dsh-mcp-client@0.0.1-rc.1` 声明
+   `@deepseek-ai/dsh-*@^0.0.1-rc.1`，与 `dsh@0.2.1-rc.2` 不兼容。必须显式 `allow-version --accept-risk`。
+   **这印证了 dsh 是 developer preview**：装插件前要接受精确版本风险。
+3. **`dsh-mcp-client` 没有 `dsh.bundle`** —— 装上了也只是"普通依赖，不是 profile layer"
+   （CLI 原话），**必须靠 patch 的 `insert` 才会被挂载**。
+
+### 还有一处需要 dsh 侧确认
+
+`--dump-config-schema` 的说明写着「官方 SDK 选 **2026-07-28** 协议，回落旧版本」，
+而我们 MCP server 声明的是 **2025-06-18 / 2024-11-05**。
+**握手成功了（server 被拉起且存活）**，但**工具是否全部注册**没有在 Web UI 里逐个核对 ——
+这一步留待接入真实界面时确认（**不声称"18 个工具已全部可见"**）。
+
 ## 3. "之前努力别废掉"是什么意思（逐项对照）
 
 | 既有努力 | 融合后 |
