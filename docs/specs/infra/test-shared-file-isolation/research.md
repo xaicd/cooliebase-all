@@ -74,3 +74,42 @@ T2 不能依赖「串行就安全」这个假设，必须做到**读方根本读
 - 所以候选①（门禁接受 `--root`）与候选②（窄口径 `--package-json` / `--baseline`）
   **都覆盖不到全部读者** —— 读者是**间接**读的（spawn 门禁脚本），必须让**门禁整体**能在临时根上跑；
 - 「只读件用软链」已实测更糟，T2 必须改成**真拷贝**或**只拷门禁真正读的那几份**。
+
+
+## 7. 决定性观测：谁在改真仓（探针实测）
+
+T2 迁移读者受阻（同一个 helper 手动跑绿、测试里跑红），于是装了一个**每 50ms 观测文件哈希**的探针，
+在整套 `pnpm run test:clean` 运行期间抓改动。结果：
+
+```
+[+ 16789ms] deps-audit-baseline.json   存在 → 删除
+[+ 24267ms] deps-audit-baseline.json   7.5 秒后才恢复     ← 窗口巨大
+[+ 93865ms] AGENTS.md  改 → 原
+[+ 94068ms] AGENTS.md  改 → 原
+[+ 99962ms] AGENTS.md  改 → 原
+[+100116ms] AGENTS.md  改 → 原
+[+104549ms] package.json  改 → 原（约 102ms）
+```
+
+**而且这一次套件是绿的** —— 说明 flake 取决于「读者有没有恰好落进窗口」。
+这解释了它为什么随机、为什么红的文件每次不一样。
+
+### 写方完整清单（实测）
+
+| 被改文件 | 写方测试 |
+|---|---|
+| `docs/architecture/artifacts/deps-audit-baseline.json` | `deps-audit-gate`（**窗口约 7.5 秒**） |
+| `AGENTS.md` | `docs-commands-gate` / `llms-sync-gate` / `vacuous-assertion-rule` |
+| `package.json` | `generated-paths-gate` / `plan-freshness-gate` / `speckit-task-attribution` / `version-consistency` / `plugin-package` / `plugin-registry.service` / `plugin-sources` |
+
+## 8. 设计因此被纠正（这一条推翻了我原来的方向）
+
+我原先想迁移**读者**（让它们在隔离根里跑门禁）。探针证明那是绕远路：
+
+> **该迁移的是写方。**
+> 写方一旦改的是**临时根的拷贝**，读者在真仓上读到的就**永远是原状** ——
+> 窗口根本不存在，读者一个都不用改。
+
+而且这个方向**代价小得多**：11 个写方测试，而不是「所有 spawn 门禁的读者」。
+T2 的下一步据此改成：把上面 11 个写方迁到 `makeIsolatedRoot()` 上，
+按**窗口大小**排序先做 `deps-audit-gate`（7.5 秒那个）。
