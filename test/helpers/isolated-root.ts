@@ -4,90 +4,66 @@ import path from "node:path"
 import { execFileSync } from "node:child_process"
 
 /**
- * **隔离根**：把仓库整份真拷贝到临时目录，在那边跑门禁。
+ * **隔离根**：把仓库克隆到临时目录，在那边跑门禁。
  *
  * ## 为什么需要它（实测事故：`test-shared-file-isolation` 规格）
  *
  * 本仓有一批「验证门禁行为」的测试，做法是**临时改写仓库里的共享文件**
- * （`package.json` / `scripts/harness.cjs` / `docs/architecture/artifacts/*baseline*.json`）。
- * 另有一批测试**通过 spawn 门禁脚本间接读**这些文件。于是：
+ * （`package.json` / `AGENTS.md` / `docs/architecture/artifacts/*baseline*.json`）。
+ * 另有一批测试**通过 spawn 门禁脚本间接读**这些文件。探针实测到的窗口：
  *
  * ```
- * 写方（6 个测试）改 package.json  →  读方（5 个测试）spawn 的门禁读到中间态
- * → pnpm run test:clean 间歇随机变红，红的文件每次都不一样
+ * [+ 16789ms] deps-audit-baseline.json   存在 → 删除，7.5 秒后才恢复
+ * [+ 93865ms] AGENTS.md 改 → 原（整套运行里 4 次）
+ * [+104549ms] package.json 改 → 原
  * ```
  *
- * 实测闭环证据：**读者清单 = 实测 flaky 清单**
- * （`route-update-arity-rule` / `vacuous-assertion-rule` / `frontend-api-url-shape-rule` / `harness-entry`），
- * 而写者与读者的交集正是 `package.json`。
+ * 而且**那一次套件是绿的** —— 说明 flake 取决于「读者有没有恰好落进窗口」，
+ * 这解释了它为什么随机、为什么每次红的文件都不一样。
  *
- * ## 为什么不是软链
+ * ## 为什么用 `git clone --local`（走过的三个弯路）
  *
- * 试过「只读件用软链」：**3/7 红，更糟** —— 门禁顺着软链读回了真仓，
- * 隔离名存实亡。所以这里**真拷**。
+ * | 做法 | 实测结果 |
+ * |---|---|
+ * | 只读件用**软链** | **更糟**（3/7 红）：门禁顺着软链读回真仓，隔离名存实亡 |
+ * | **拷文件 + `git init` + `add` + `commit` + `tag`** | 门禁能跑，但 **tag 全指向同一个提交** → `git describe` 挑错 tag（实测挑到 `v1.0.0`）→ 隔离根**失真**；且建根要 13 秒 |
+ * | **`git clone --local`** | **0.955 秒**、工作区精确、**历史与 tag 完全真实**（`git describe` 正确给出 `v1.4.0-brand-shorthand`）—— 选它 |
+ *
+ * `--local` 对对象用硬链接（所以快），改工作区不会碰真仓的 `.git`。
+ * 克隆还顺带解决了「隔离根不是 git 仓库」的问题 ——
+ * `check-docs-commands.cjs` 按 `git ls-files` 取文件集，在非仓库目录里会**拒绝判定**。
  *
  * ## 为什么门禁不用加开关
  *
- * 门禁都按 `path.resolve(__dirname, "..")` 推根。**拷过去的门禁**，
- * 其 `__dirname` 自然就是临时根 —— 不需要任何 `--root` 参数，
- * 也就不会留下「用开关放行」的后门（这条是规格里的硬约束）。
- *
- * 成本实测：**7276 文件 / 1250 MB / 约 3.5 秒**。所以**每个测试文件建一次**，
- * 不要每个用例建一次。
- *
- * ## 坑（都踩过）
- *
- * 仓里有 **socket**（实测 `.claude/commands`、`.kiro/workflows`）与符号链接，
- * `copyFileSync` 会抛 `ENOTSUP` —— 所以**只拷 `isFile()` 的真文件**。
+ * 门禁都按 `path.resolve(__dirname, "..")` 推根。**克隆出来的门禁**
+ * 其 `__dirname` 自然就是隔离根 —— 不需要任何 `--root` 参数，
+ * 也就不会留下「用开关放行」的后门（规格里的硬约束）。
  */
 
 const REPO_ROOT = path.resolve(__dirname, "../..")
-/**
- * 只跳过**明确无关**的重目录。
- * **不要**在这里跳过 `.claude` / `.kiro` —— 实测：门禁会读它们，
- * 跳过之后隔离根里门禁直接红（而真仓是绿的），排查成本很高。
- * 那些目录里的 socket 由 `isFile()` 判断挡掉，不需要按目录跳。
- */
-const SKIP_DIRS = new Set(["node_modules", ".git", ".next-cooliebase", ".next-ruoyi", "gen", "scratch", ".turbo"])
 
 export interface IsolatedRoot {
+  /** 隔离根目录（临时目录；测试一般不直接用，用 run/read/write/remove 即可） */
   dir: string
   /** 在隔离根里跑门禁脚本（相对路径，如 `scripts/check-engineering-standards.cjs`） */
   run(gateRelPath: string, args?: string[]): { code: number; out: string }
-  /** 读隔离根里的文件（测试断言用） */
+  /** 读隔离根里的文件 */
   read(relPath: string): string
   /** 写隔离根里的文件（注入违规用 —— 写的永远是临时根，不是真仓） */
   write(relPath: string, content: string): void
+  /** 删掉隔离根里的文件（探针清理用） */
+  remove(relPath: string): void
   /** 删掉整个临时根 */
   cleanup(): void
 }
 
-function copyRepo(dst: string): number {
-  fs.mkdirSync(dst, { recursive: true })
-  let files = 0
-  const walk = (rel: string) => {
-    const abs = rel ? path.join(REPO_ROOT, rel) : REPO_ROOT
-    for (const e of fs.readdirSync(abs, { withFileTypes: true })) {
-      if (SKIP_DIRS.has(e.name)) continue
-      const r = rel ? path.join(rel, e.name) : e.name
-      if (e.isDirectory()) {
-        fs.mkdirSync(path.join(dst, r), { recursive: true })
-        walk(r)
-      } else if (e.isFile()) {
-        fs.copyFileSync(path.join(REPO_ROOT, r), path.join(dst, r))
-        files++
-      }
-      // 非普通文件（socket / symlink / fifo）跳过 —— 拷它们会 ENOTSUP
-    }
-  }
-  walk("")
-  return files
-}
-
-/** 建一个隔离根。调用方负责在 finally 里 cleanup()。 */
+/** 建一个隔离根（克隆仓库）。调用方负责在 finally 里 cleanup()。 */
 export function makeIsolatedRoot(label = "root"): IsolatedRoot {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), `cooliebase-${label}-`))
-  copyRepo(dir)
+  // mkdtempSync 已经建了目录，而 git clone 要求目标不存在或为空 —— 删掉再克隆最稳。
+  fs.rmSync(dir, { recursive: true, force: true })
+  execFileSync("git", ["clone", "-q", "--local", REPO_ROOT, dir], { stdio: "ignore" })
+
   return {
     dir,
     run(gateRelPath: string, args: string[] = []) {
@@ -105,6 +81,9 @@ export function makeIsolatedRoot(label = "root"): IsolatedRoot {
     },
     write(relPath: string, content: string) {
       fs.writeFileSync(path.join(dir, relPath), content)
+    },
+    remove(relPath: string) {
+      fs.rmSync(path.join(dir, relPath), { force: true })
     },
     cleanup() {
       fs.rmSync(dir, { recursive: true, force: true })

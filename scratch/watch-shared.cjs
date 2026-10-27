@@ -16,6 +16,10 @@ const WATCH = [
   "docs/architecture/artifacts/deps-audit-baseline.json",
   "AGENTS.md",
   "docs/01_management/project-plan.md",
+  "llms.txt",
+  "README.md",
+  "docs/07_release/RELEASE_NOTES_v1.4.0-brand-shorthand.md",
+  "docs/02_requirements/rtm-traceability-matrix.md",
 ]
 
 const hash = (f) => {
