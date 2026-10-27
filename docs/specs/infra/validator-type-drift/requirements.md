@@ -1,4 +1,4 @@
-# Requirements Specification: 生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入
+# Requirements Specification: 校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区
 
 > **Spec-Kit 标准需求规格说明书 (SRS: Software Requirements Specification)**
 > 遵循 IEEE 29148 与 EARS (Easy Approach to Requirements Syntax) 严谨需求工程标准。
@@ -9,79 +9,70 @@
 
 ## 1. 业务目标与愿景 (Introduction & Business Goal)
 
-让生成的路由校验器与表元数据（`scripts/data/*-tables.ts`）的字段类型一致，恢复『文本列可以提交字符串』这一预期行为；并把该一致性变成机检，防止再次漂移。
+把「生成校验器与表元数据的字段类型一致」从『一个人工可跑的对齐工具』变成『一条会失败的机检』，并补上它看不见的写法，使漂移无法再悄悄回来。
 
 
 ### 缺陷现象 (Symptom)
 
-校验器的 Zod 字段类型与表元数据不一致，**在真实消费路径上拒绝合法输入**。
-
-已量化的漂移：比对 323 份 `*.validator.ts` 与元数据，**1117 处字段级不一致** —— 794 处「元数据为文本列、校验器却要求数字」、0 处反向、323 处 `id: bigint ↔ z.string()` 属**有意约定**（约 48% 的原始计数其实是这个约定）。
-
-**已确证的实例**：`pay-order.status` —— 元数据/物理列与应用四层语义矛盾，真实库报 `invalid input syntax for type integer: "WAITING"`（已随 DAR `pay-order-status-column-type` 修复）。
-
-**可达性（本规格立项时判错、已订正）**：初版写的是「HTTP 路由 400」，前提有误 —— 实测 `ai-api-key` 路由**既要求鉴权、又不调用校验器**（探针跑出 401 而非 400）。
-查证后确认校验器有两条消费路径：① 路由直接 `.parse(`（全仓 62 处，wms 是最大面 32 处，而 **wms 实测漂移为 0**）；② `contract/*.actions.ts` 把 schema 映射到 broker 主题（`cooliebase.cmd.pay.payOrder.create` 等），**跨域调用会走它** —— 本规格的红灯用例即锚定这条路径。
-
-794 处的**逐项可达性仍未证明**，故不可按该数字直接开工。
+两条，都是实测出来的（2026-10-27）：
+① **工具不设失败退出码**：`scripts/align-validator-types.ts` 检测到漂移时只打印「需改: N 处」，然后 **exit 0**（源码第 168-175 行之后直接结束）。因此它**不能**接进 `check` —— 接了也会永远绿。实测：注入一处漂移后，工具正确报出`ai-api-key.name: z.coerce.number → 元数据 varchar`、`需改: 1 处`，但进程退出码仍是 0。
+② **识别盲区**：它的正则只认 `z.coerce.number()` / `z.string()` / `z.boolean()` 三种写法（第 137 行）。手写的 `z.number()`（**没有 coerce**）**完全不被识别** —— 实测注入 `name: z.number().optional()`（元数据是 varchar）时工具报「需改: 0 处」，看起来像『没问题』，实际是『没看见』。
 
 ### 根因分析 (Root Cause - 5-Whys)
 
 5-Whys：
-1. 为什么合法输入被拒？校验器把文本字段声明成了数字。
-2. 为什么是数字？它由元数据生成，而生成时的元数据类型已经变了。
-3. 为什么没重新生成？元数据后来被修正（`fill-missing-columns` 补列、类型映射修复），但**没有机制推动生成物跟随**。
-4. 为什么没人发现？**没有门禁比对「生成物字段类型 vs 元数据」**；且漂移只在真实库或 schema 消费点暴露，内存回退完全看不见。
-5. 为什么门禁缺失？既有检查只覆盖「表定义存在性」与「路由存在性」，没有字段类型这一维度。
-
-**同族**：与 `ai_chat_message` 仓储列未覆盖元数据同根 —— 元数据单向流动，生成物可能停在旧版本。
+1. 为什么漂移能悄悄回来？→ 因为没有任何门禁在检查它。
+2. 为什么没有门禁？→ 因为对齐工具 `align-validator-types.ts` 是 **codemod 语义**（dry-run / --write），从设计上就没有『检查并失败』这个模式。
+3. 为什么当初做成 codemod 而不是门禁？→ 因为当时有 **1117 处**待改，先要能批量落盘；门禁是第二步。实测现在**待改 = 0 处**（348 处是 id/_id 的有意约定），所以**第二步的时机已经到了**。
+4. 为什么 0 处也要上锁？→ 生成物会停在旧版本：元数据改了、生成物没重跑，就会重新漂移（这正是原始缺陷的成因）。没有门禁时，漂移只会在**真实消费路径**上表现为「合法字符串被 400 拒绝」。
+5. 为什么还有盲区？→ 正则按『生成器产出的写法』枚举，而手工改过的校验器会用别的写法（`z.number()`、`z.number().int()`…），落在这套枚举之外 —— 盲区处的漂移对门禁不可见。
 
 ### 保持既有行为 (Preserved Behavior)
 
-1. `z.coerce.number()` 对**数字列**的强制转换语义不变（且 `z.coerce` 仍接受数字字符串）；
-2. `id` 类字段的 `z.string()` **保持不变** —— 那是有意约定，不是漂移；
-3. 校验器的 `.optional()` / `.strict()` 等既有形态不变；
-4. 不改任何业务 Service / Repository / 数据库结构。
+已有正常业务功能与数据保持严格兼容。
 
 
 ## 2. 术语定义与领域边界 (Glossary & Domain Scope)
 
 | 术语 / 概念 | 英文标识 | 领域定义与所属模块 |
 |---|---|---|
-| 生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入 | validator-type-drift | 本规格所交付的业务与技术上下文，严格收敛于 `infra` 领域边界 |
+| 校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区 | validator-type-drift | 本规格所交付的业务与技术上下文，严格收敛于 `infra` 领域边界 |
 | 行级租户隔离 | Multi-Tenant AST | 基于 Kysely AST 自动在 SQL 注入 `tenant_id` 过滤条件，严禁跨租户越权 |
 | 审计底座字段 | Audit Base Columns | 实体必须自动继承 8 大审计字段，严禁业务层手工更新审计元数据 |
 
 ## 3. 用户故事与角色矩阵 (User Stories & Personas)
 
-1. **P0** [作为受影响用户] 编写**红灯复现**：断言 `cooliebase.cmd.pay.payOrder.create` 的 action schema 接受非数字字符串状态；还原为 `z.coerce.number()` 时必须失败（已双向验证）
+1. **P0** [作为后端开发者] 作为改表元数据的人，如果我改了列类型却没重生成校验器，门禁必须失败并指出是哪张表哪个字段。
 
-2. **P0** [作为受影响用户] 按元数据类型修正试点路径的校验器字段类型，红测转绿
+2. **P0** [作为后端开发者] 作为 reviewer，我要能一眼看出门禁的识别范围 —— 它看不懂的写法必须写清楚，而不是假装全覆盖。
 
-3. **P1** [作为受影响用户] **可达性收敛**：按域枚举校验器消费路径，把 794 收敛为真实可达的字段集，再排优先级
-
-4. **P2** [作为受影响用户] 补门禁 `validator:types:check`（带反向对照 + ID 约定白名单），逐域推广、未修域棘轮冻结
+3. **P1** [作为后端开发者] 作为维护者，对齐工具仍然要能 `--write` 修好（门禁只负责报警，不替我改代码）。
 
 ## 4. 关键业务不变量 (Key Business Invariants)
 
-1. **校验器不得比元数据更严格（文本列必须接受字符串）** —— codemod 按元数据类型重写 + 门禁 `validator:types:check` 比对；ID 约定走显式白名单
-2. **ID 字符串化属有意约定，不得被误改** —— codemod 与门禁都对 `id` 及元数据为数值型的 `*_id` 显式跳过，并在门禁输出中计数
+1. **门禁只报警、不落盘** —— `--check` 分支不调用 `fs.writeFileSync`；由「跑完 git status 干净」守。
+2. **既有约定不被当漂移** —— `id` / `*_id` 仍走 `convention` 计数分支；由现有 348 处跳过数不变来守。
 
 ## 5. 验收标准清单 (Acceptance Criteria)
 
-1. **THE system SHALL** 验证：`npm run check` exit=0
-2. **THE system SHALL** 验证：红灯用例双向验证：修复后通过（Green）；还原为数值型则失败（Red）
-3. **THE system SHALL** 验证：真实库域级测试保持 0 失败：`npm run verify:real-db -- packages`
-4. **THE system SHALL** 验证：既有全量测试 0 回归（456 文件 / 889 用例基线）
+1. **THE system SHALL** 验证：`pnpm run check` exit=0
+2. **THE system SHALL** 验证：`--check` 模式下：仓库当前 exit=0；注入一处漂移后 exit≠0 且**点名表.字段**
+3. **THE system SHALL** 验证：`--check` 模式**不写盘**：跑完 `git status --porcelain` 为空
+4. **THE system SHALL** 验证：盲区关闭：`name: z.number()` 这类手写写法也能被检出（有对应用例）
+5. **THE system SHALL** 验证：门禁数同步：`compat-manifest.json` 的 gates / `llms.txt` / `.well-known` 镜像一致
+6. **THE system SHALL** 验证：反向对照可复现：把门禁从 `check` 链里摘掉，注入漂移后 `check` 必须仍然绿 → 证明接线真的有用
 
 ## 6. 约束条件与技术边界 (Constraints & Non-Goals)
 
 ### 系统必须满足的架构约束 (The System SHALL Comply With)
-* **THE system SHALL COMPLY WITH**: 零破坏性变更：不得破坏已有对外 API 契约与历史数据兼容性。
-* **THE system SHALL COMPLY WITH**: 反假 Mock：必须由真实测试数据库用例复现并验证修复。
-* **THE system SHALL COMPLY WITH**: 防回归保证：修复不得引入次生故障或破坏既有正常流转。
+* **THE system SHALL COMPLY WITH**: 多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。
+* **THE system SHALL COMPLY WITH**: 跨域：只走 Domain Facade，不 import 别的域 Service（§3.3）。
+* **THE system SHALL COMPLY WITH**: **门禁只读**：接入 `check` 的模式不得写任何文件（`--write` 是人工动作，不能进门禁）。
+* **THE system SHALL COMPLY WITH**: **不许放宽语义**：不能为了变绿把 `id` / `*_id` 的既有约定改掉（它们在 API 边界以字符串传输是**约定**，不是漂移）。
+* **THE system SHALL COMPLY WITH**: 新增门禁必须带反向对照（注入必须红），并接入 `check` 链 + `compat` gates + `llms.txt` 门禁数（`surface:sync` 会重生成镜像）。
 
 ### 明确不做与负向范围 (Non-Goals)
-* 不在本轮一次性修完全部 794 处（先试点一个域，验证方法后再推广）
-* 不改动 `id: bigint ↔ z.string()` 这一有意约定
-* 不引入新的校验库（沿用既有 Zod）
+* 不重写生成器，不改 codegen 模板的产出形态。
+* 不追求 100% 覆盖所有可能的 zod 写法 —— 只覆盖**本仓实际出现过**的形式，并把边界写清。
+* 不在本规格里顺手清类型债（那是独立待办）。
+* 不动 `id` / `*_id` 的字符串约定。

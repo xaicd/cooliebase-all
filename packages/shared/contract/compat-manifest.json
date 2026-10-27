@@ -118,6 +118,7 @@
       "agent:coverage:check",
       "repo:columns:check",
       "routes:validation:check",
+      "validators:align:check",
       "docs:claims:check",
       "delivery:boundary:check"
     ],

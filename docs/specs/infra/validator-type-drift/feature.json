@@ -1,12 +1,12 @@
 {
   "name": "validator-type-drift",
   "domain": "infra",
-  "title": "生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入",
+  "title": "校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区",
   "type": "bugfix",
   "status": "PLAN_APPROVED",
-  "stories": 4,
-  "acceptance": 4,
+  "stories": 3,
+  "acceptance": 6,
   "invariants": 2,
-  "tasks": 3,
-  "updatedAt": "2026-10-20T02:38:56.673Z"
+  "tasks": 4,
+  "updatedAt": "2026-10-27T12:38:40.513Z"
 }

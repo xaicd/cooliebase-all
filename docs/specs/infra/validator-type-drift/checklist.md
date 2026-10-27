@@ -1,4 +1,4 @@
-# Quality Checklist & Acceptance Gate: 生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入
+# Quality Checklist & Acceptance Gate: 校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区
 
 > **Spec-Kit 质量验收与门禁自检清单 (Verification Checklist)**
 > 所属领域：`infra` | 规格标识：`validator-type-drift` | 阶段：`PLAN_APPROVED`
@@ -21,7 +21,9 @@
 - [ ] **实施轨回滚演练 (G5_PRE)**：`runbook.json` 包含 S1~S5 步骤与 R1~R3 回滚演练预案。
 
 ## 3. 验收标准逐项核验 (Acceptance Criteria Status)
-- [ ] `npm run check` exit=0
-- [ ] 红灯用例双向验证：修复后通过（Green）；还原为数值型则失败（Red）
-- [ ] 真实库域级测试保持 0 失败：`npm run verify:real-db -- packages`
-- [ ] 既有全量测试 0 回归（456 文件 / 889 用例基线）
+- [ ] `pnpm run check` exit=0
+- [ ] `--check` 模式下：仓库当前 exit=0；注入一处漂移后 exit≠0 且**点名表.字段**
+- [ ] `--check` 模式**不写盘**：跑完 `git status --porcelain` 为空
+- [ ] 盲区关闭：`name: z.number()` 这类手写写法也能被检出（有对应用例）
+- [ ] 门禁数同步：`compat-manifest.json` 的 gates / `llms.txt` / `.well-known` 镜像一致
+- [ ] 反向对照可复现：把门禁从 `check` 链里摘掉，注入漂移后 `check` 必须仍然绿 → 证明接线真的有用

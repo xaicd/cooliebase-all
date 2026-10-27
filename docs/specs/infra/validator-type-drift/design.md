@@ -1,4 +1,4 @@
-# Technical Architecture & Implementation Plan: 生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入
+# Technical Architecture & Implementation Plan: 校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区
 
 > **Spec-Kit 架构与技术实施方案 (ADD: Architecture & Design Document)**
 > 上游真源：`spec.md` (或 `requirements.md`)。技术方案严格支撑需求，严禁反向变更业务目标。
@@ -9,20 +9,15 @@
 
 ## 1. 关键不变量与防御性约束 (Key Invariants & Guards)
 
-1. **校验器不得比元数据更严格（文本列必须接受字符串）** —— codemod 按元数据类型重写 + 门禁 `validator:types:check` 比对；ID 约定走显式白名单
-2. **ID 字符串化属有意约定，不得被误改** —— codemod 与门禁都对 `id` 及元数据为数值型的 `*_id` 显式跳过，并在门禁输出中计数
+1. **门禁只报警、不落盘** —— `--check` 分支不调用 `fs.writeFileSync`；由「跑完 git status 干净」守。
+2. **既有约定不被当漂移** —— `id` / `*_id` 仍走 `convention` 计数分支；由现有 348 处跳过数不变来守。
 
 ## 2. 领域架构边界与调用拓扑 (Architecture Topology & Flows)
 
-链路：`src/app/api/v1/...` 或 `packages/plugins/plugin-<域>/routes/admin/<资源>/route.ts`
-→ `packages/plugins/plugin-<域>/backend/validators/<资源>.validator.ts`（Zod）
-→ `backend/services/<资源>.service.ts` → `backend/repositories/<资源>.repository.ts`。
-
-字段类型的真源是表元数据 `scripts/data/<域>-source-tables.ts` 的 `table.columns[].type` / `.tsType`，
-校验器是它的**生成物**。修补方案：写一个**可复用的 codemod**
-（`scripts/align-validator-types.ts --domain <域> [--write]`），
-按元数据类型重写 Zod 字段构造器：数值型 → `z.coerce.number().finite()`，文本型 → `z.string().trim()`，
-布尔 → `z.boolean()`，时间 → `z.string()`；`id` 类显式跳过（有意约定）。
+数据流：`scripts/data/*-tables.ts`（**表定义真源**，AGENTS §9.5）→ codegen → `packages/*/backend/validators/*.validator.ts`（生成物）。生成物会停在旧版本，故需对齐检查。
+工具现结构：`loadMetadata()` 读元数据 → `domainTables()` 按**仓储文件名**把表与域关联 → 逐文件用正则匹配字段声明 → 与元数据比较 → 打印。
+要加的：`--check` 分支（只统计、不写、`changed>0` 时 `process.exit(1)`）+ 扩大正则识别集合。
+接线点：`package.json` 的 `check` 链 + `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates`（真源）→ 再 `pnpm run surface:sync` 生成镜像。
 
 ### 核心业务时序图 (Archify Mermaid Flow)
 ```mermaid
@@ -56,7 +51,7 @@ sequenceDiagram
 - `version` (乐观锁版本号)
 
 ### 涉及实体与变更说明
-- **ai_api_key**: 试点资源；`status` 物理 VARCHAR、元数据 varchar，校验器误为 number
+- **-**: 本规格不新增或修改任何表。
 
 ## 4. API 契约与权限体系 (API Contracts & Security)
 
@@ -65,12 +60,10 @@ sequenceDiagram
 
 ## 5. 状态机流转与边界守卫 (State Machine Transitions)
 
-- 加载中：正常展示。
-- 空数据：正常展示。
-- 出错：正常展示，具备明确指引。
-- 成功：正常展示。
+
 
 ## 6. 技术风险评估与缓解策略 (Technical Risks & Mitigations)
 
-- **风险**: 放宽校验可能让原本被拦的非法入参通过 -> **缓释策略**: 只按**元数据类型**放宽（文本列才放宽为字符串），数值列语义不变；并以真实库域级测试 + 既有 route 契约测试作为回归网
-- **风险**: 794 处一次改完难以审阅 -> **缓释策略**: 按域试点 → 验证 → 逐域推广，每域原子提交；未修域棘轮冻结
+- **风险**: 扩大正则识别集合时误伤：把 `z.number()` 纳入后，某些**本来就该是** number 的列（元数据是 int/bigint）可能被判成漂移。 -> **缓释策略**: 判定仍是「与元数据比较」，不是「写法黑名单」；并用现有 0 需改作基线 —— 扩大识别后若突然冒出大量『需改』，说明匹配键或类型映射有误，先查再改。
+- **风险**: 把 `--write` 误接进门禁，导致 check 会改代码。 -> **缓释策略**: `--check` 与 `--write` 互斥（同时给则报错退出 2），并由「跑完 git status 干净」守。
+- **风险**: 门禁接进 check 后拖慢全量门禁（要读 323 份校验器 + 全部元数据）。 -> **缓释策略**: 实测该工具全仓 dry-run 约数秒级；若明显变慢，改为按域并行或只扫 `packages/plugins` 与 `packages/domains` 的 validators 目录。

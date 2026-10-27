@@ -1,4 +1,4 @@
-# Deployment & Network Infrastructure (G5): 生成校验器字段类型与表元数据相悖导致 HTTP 边界拒绝合法输入
+# Deployment & Network Infrastructure (G5): 校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区
 
 > **Spec-Kit 基础设施与网络策略矩阵 (Deployment & Network Policy Document)**
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 5 上线前实施割接)

@@ -9,19 +9,19 @@
     {
       "id": "S1",
       "name": "预检: 环境指纹核验",
-      "command": "npm run fingerprint:verify",
+      "command": "pnpm run fingerprint:verify",
       "timeoutMs": 60000
     },
     {
       "id": "S2",
       "name": "预检: 21项工程门禁全绿",
-      "command": "npm run check",
+      "command": "pnpm run check",
       "timeoutMs": 600000
     },
     {
       "id": "S3",
       "name": "业务冒烟与平台可用性探活",
-      "command": "npm run smoke:login",
+      "command": "pnpm run smoke:login",
       "timeoutMs": 120000
     },
     {
@@ -34,7 +34,7 @@
     {
       "id": "S5",
       "name": "实施与全链路自动化测试矩阵",
-      "command": "npm run test:matrix",
+      "command": "pnpm run test:matrix",
       "timeoutMs": 600000
     }
   ],
@@ -48,13 +48,13 @@
     {
       "id": "R2",
       "name": "环境指纹自愈核验",
-      "command": "npm run fingerprint:verify",
+      "command": "pnpm run fingerprint:verify",
       "timeoutMs": 60000
     },
     {
       "id": "R3",
       "name": "数据库一致性核实与防污染验证",
-      "command": "npm run verify:real-db -- --reuse",
+      "command": "pnpm run verify:real-db -- --reuse",
       "timeoutMs": 300000
     }
   ]
