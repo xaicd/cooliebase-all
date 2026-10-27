@@ -53,7 +53,7 @@ const SKIP_DIRS = new Set(["node_modules", ".git", ".next-cooliebase", ".next-ru
 export interface IsolatedRoot {
   dir: string
   /** 在隔离根里跑门禁脚本（相对路径，如 `scripts/check-engineering-standards.cjs`） */
-  run(gateRelPath: string): { code: number; out: string }
+  run(gateRelPath: string, args?: string[]): { code: number; out: string }
   /** 读隔离根里的文件（测试断言用） */
   read(relPath: string): string
   /** 写隔离根里的文件（注入违规用 —— 写的永远是临时根，不是真仓） */
@@ -90,11 +90,11 @@ export function makeIsolatedRoot(label = "root"): IsolatedRoot {
   copyRepo(dir)
   return {
     dir,
-    run(gateRelPath: string) {
+    run(gateRelPath: string, args: string[] = []) {
       try {
         return {
           code: 0,
-          out: execFileSync(process.execPath, [path.join(dir, gateRelPath)], { cwd: dir, encoding: "utf8" }),
+          out: execFileSync(process.execPath, [path.join(dir, gateRelPath), ...args], { cwd: dir, encoding: "utf8" }),
         }
       } catch (e: any) {
         return { code: e.status ?? 1, out: `${e.stdout || ""}${e.stderr || ""}` }
