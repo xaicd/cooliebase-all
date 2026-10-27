@@ -1,0 +1,12 @@
+{
+  "name": "sdd-write-path-discipline",
+  "domain": "infra",
+  "title": "吸收 SDD 四重铁律：写链路闭环 / 统一请求契约 / 红绿对抗 E2E / 无深度测试不发布",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 6,
+  "invariants": 2,
+  "tasks": 5,
+  "updatedAt": "2026-10-27T14:30:04.137Z"
+}

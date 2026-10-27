@@ -1,0 +1,195 @@
+{
+  "name": "sdd-write-path-discipline",
+  "domain": "infra",
+  "title": "吸收 SDD 四重铁律：写链路闭环 / 统一请求契约 / 红绿对抗 E2E / 无深度测试不发布",
+  "type": "feature",
+  "goal": "把外部项目验证过的四条 SDD 硬约束，按**本仓的真实形态**改写后落成可失败的机检：即使有人只改文案、只写静态断言、或绕开统一请求层，也能在提交前被拦住。",
+  "roles": [
+    {
+      "role": "需求方",
+      "can": "不再收到『文案改好了、点一下报 400』这类伪交付"
+    },
+    {
+      "role": "开发者",
+      "can": "在写页面的那一刻就知道：写链路、请求契约、对抗测试三样缺一不可，且有门禁替记"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为 reviewer，凡是动了含业务动作的页面，我要能一眼看到它声明的**写事务全流程**（校验 → 落库 → 可验证的落库证据），而不是只有 UI 截图。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为维护者，页面组件里不许出现裸 `fetch(`/裸 `response.json()` —— 必须走 `packages/shared/frontend/lib/request.ts`，否则错误码、messageKey、401 跳转全都拿不到。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为发版人，改动了写路由（POST/PUT/PATCH）却只有静态断言的，必须被 `check` 拦住，而不是靠人记得。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为后来者，我要看到『红绿对抗』的具体写法（正向写库 + 对抗 4xx + 弹窗自愈），而不是一句口号。"
+    }
+  ],
+  "constraints": [
+    "**必须机检**：四条里凡不能机检的，不得写进 AGENTS 当规矩（本仓铁律：禁止口头规范）。",
+    "**棘轮优先**：存量规模极大（写路由 955、含表单页面 360、E2E 近乎为零），一刀切会让全仓立刻红 → 必须冻结存量、只拦新增。",
+    "**不改判定语义**：新门禁只能新增约束，不得放宽既有门禁。",
+    "多租户 / 跨域约束沿用 §4.8 与 §3.3。",
+    "新门禁必须带反向对照（注入违规必须红），并接入 `check` 链 + `compat` gates + `llms.txt` 计数。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "**裸 fetch 棘轮**：现有 9 个文件的存量被冻结；**新增**一处页面内裸 `fetch(` 必须让 `check` 变红（有注入对照）"
+    },
+    {
+      "check": "**写链路测试深度**：规格触及写路由/表单页时，`speckit spec check` 或 delivery 门禁必须给出可执行判据（缺 E2E 深度即红或需显式豁免理由）"
+    },
+    {
+      "check": "存量不被误伤：在修复前跑一遍全量，红线只出现在新增项上，存量条目逐条列在基线文件里"
+    },
+    {
+      "check": "门禁数同步：`compat-manifest.json` / `llms.txt` / `.well-known` 镜像一致"
+    },
+    {
+      "check": "反向对照可复现：把新门禁从 `check` 链里摘掉，注入违规后 `check` 仍绿 → 证明接线本身有效"
+    }
+  ],
+  "nonGoals": [
+    "**不伪造 E2E 覆盖**：本规格不会声称『955 个写路由都有测试』。第 3 条的目标是**标准 + 一条真实样例 + 深度度量**，覆盖扩张是后续规格。",
+    "不引入 AES 传输信封 —— 本仓 crypto 是**字段级/静态**加密（`crypto-engine` 仅被 data-source-config 与 custom-sql-report 使用），没有全局传输加密，照搬会造出不存在的契约。",
+    "不重写 E2E 框架（继续用 Playwright）。",
+    "不要求所有历史规格补齐 brief（历史不可改）。",
+    "不在本规格里清 955 条存量债。"
+  ],
+  "architecture": "**四条铁律在本仓的改写对照**（外部项目 → 本仓）：\n1. 『动页面必闭环写链路』→ **保留**：规格触及含表单页面时，brief 必须把写事务旅程列为验收条款（校验规则 → 落库位置 → 可验证证据）。本仓对应物是 `brief.acceptance` + `tasks`，可在 `speckit spec check` 里判。\n2. 『AES 传输契约』→ **改写为『统一请求契约』**：本仓没有传输加密信封（`request.ts:101` 就是明文 `response.json()`），但有统一请求层 `packages/shared/frontend/lib/request.ts`（带 `code`/`messageKey`/`details`/401 跳转）。故约束改为：**页面与组件禁止裸 `fetch(`**，必须走统一层。实测 9 个文件违规。\n3. 『红绿对抗双层 E2E』→ **保留为标准**，但**现状是空壳**：`test/e2e/` 只有 1 个 20 行文件、2 个用例，只断言 `status < 500`。所以本规格只交付**标准 + 模板 + 一条真实样例**，并给出**深度度量**（report-only）。\n4. 『Harness 守卫拦截』→ **落地为门禁**：改了写路由/表单页但测试只有静态断言 → 阻断。因存量 955/360 规模，采用**棘轮**：冻结存量，新增必须带深度测试或显式豁免。\n\n数据来源（都是实测）：`find src/app/api packages/*/*/routes -name route.ts` → 1105 个，其中含写方法 955；`*.page.tsx` 768 个，含表单 360；页面内裸 `fetch(` 9 个；`test/e2e/` 2 个占位用例。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "本规格不新增或修改任何表。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "存量不被误伤",
+      "how": "所有新门禁都是 ratchet：基线逐条列出存量，新增才红；由「修复前全量跑一遍，红线只在新增项」守。"
+    },
+    {
+      "name": "不伪造覆盖",
+      "how": "E2E 深度只做度量与报告，不声称覆盖率达标；由文档与 report-only 输出守。"
+    }
+  ],
+  "ui": [
+    "无新增页面。",
+    "但本规格会**约束**页面写法：页面组件禁止裸 `fetch(`；写操作必须经统一请求层并处理结构化错误。"
+  ],
+  "ops": [
+    "门禁链：`pnpm run check` 新增两项（裸 fetch 棘轮、写链路测试深度）。",
+    "报告：E2E 深度度量 report-only，永不失败，用于观察趋势。",
+    "本规格不新增 agent:ops 动作（无实体）。"
+  ],
+  "risks": [
+    {
+      "risk": "把外部项目的 AES 契约照搬，会要求本仓实现不存在的传输加密，导致所有前端调用被判违规（假阳性）。",
+      "mitigation": "本规格明确改写为『统一请求层』，并在文档里记录『本仓无传输信封』这一事实。"
+    },
+    {
+      "risk": "第 4 条一刀切：955 个写路由、360 个表单页、E2E 近乎为零 → 立刻全仓红。",
+      "mitigation": "ratchet：基线冻结存量，只拦新增；并在规格里显式列出存量清单。"
+    },
+    {
+      "risk": "为了让门禁绿，有人把『写链路』塞进注释或写成 toBeVisible 糊过去。",
+      "mitigation": "判据要求**可执行证据**（真实 API 调用 / 落库断言），静态断言不算；并由反向对照锁住。"
+    },
+    {
+      "risk": "E2E 依赖本机嵌入式 Postgres，而 macOS `kern.sysv.shmseg=8` 易被其它项目泄漏实例占满（已实测）。",
+      "mitigation": "样例 E2E 设计与文档里注明该环境前提；门禁本身不依赖跑 E2E（只做静态判定），避免把门禁绑在脆弱环境上。"
+    }
+  ],
+  "screens": [],
+  "interactions": [],
+  "states": [],
+  "candidates": [
+    {
+      "name": "① 全部落成独立检查脚本，棘轮冻结存量（本仓既有模式）",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "基线文件会很大（955+360+9），但可审阅、可只减不增"
+    },
+    {
+      "name": "② 塞进 `standards:check` 的规则表",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "该表是通用规则注册表，塞入『写链路深度』这类跨文件语义判定会撑爆单文件"
+    },
+    {
+      "name": "③ 只写进 AGENTS.md 当规范",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "**本仓明令禁止**：口头规范无法机检，等于没落"
+    }
+  ],
+  "benchmarks": [
+    "外部项目（拍卖/加密出价场景）已实测有效：四条铁律加上 harness 拦截后，杜绝了『文字改好、点一下 400』的伪交付。",
+    "本仓已有同类先例可复用：`routes:validation:check`（写路由必须接 Zod）、`repo:columns:check`（生成物覆盖元数据）、`harness-integrity` 的 ratchet 机制。"
+  ],
+  "scan": [
+    "实测本仓：无 AES 传输信封（crypto 仅字段级）；统一请求层存在（`request.ts`）；页面裸 fetch 9 处；E2E 2 个占位用例。",
+    "实测规模：写路由 955 / 1105，含表单页面 360 / 768。",
+    "实测环境：`kern.sysv.shmseg=8`，已有 9+ 段被占用（含一个 31 小时的孤儿 embedded-postgres），跑 E2E/交付链前需先清理。"
+  ],
+  "licenseConclusion": "不引入新依赖，无许可传染风险。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "实测清单：写路由/表单页/裸 fetch/E2E 深度，产出可核对基线（含逐条存量）",
+      "files": [
+        "-"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "门禁 A：页面禁止裸 fetch（棘轮冻结 9 处存量），带注入反向对照",
+      "files": [
+        "scripts/check-frontend-request-contract.cjs",
+        "test/unit/frontend-request-contract.test.ts"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "门禁 B：写链路测试深度（规格触及写路由/表单页时必须声明写事务旅程 + 深度测试或显式豁免），棘轮",
+      "files": [
+        "scripts/check-write-path-depth.cjs",
+        "test/unit/write-path-depth.test.ts"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "标准与样例：把『红绿对抗双层 E2E』写成可复用模板，并给出 E2E 深度度量（report-only）",
+      "files": [
+        "test/e2e/README.md",
+        "test/e2e/admin-flow.spec.ts"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "接线 + 验收：check 链 / compat gates / 镜像与计数同步；注入必红、摘线必绿",
+      "files": [
+        "package.json",
+        "packages/shared/contract/compat-manifest.json",
+        "llms.txt"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4 → T5；T1 纯实测、T5 含接线与验收。",
+  "windowMinutes": 10
+}
