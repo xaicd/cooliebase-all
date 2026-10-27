@@ -28,3 +28,37 @@
 
 ## 4. 结论与立项裁决 (Decision Conclusion)
 结论：不引入新依赖，无许可传染风险。。方案 A 在开发 ROI、架构一致性与无外部额外运行时依赖方面表现最优，获准进入规格立项阶段。
+
+
+## T4 验收记录（2026-10-27 实测）
+
+### ① 门禁确实在 `check` 里跑
+
+`check` 链第 27 步是 `pnpm run validators:align:check`（紧跟 `routes:validation:check`），
+正常时输出 `[align-validators] ✓ 校验器与表元数据一致`。
+
+### ② 简单注入会先被 typecheck 拦住（如实记录）
+
+只把 validator 的 `name` 改成 `z.coerce.number()`（元数据 varchar）时，
+`check` **确实红了，但红在 `typecheck`（TS2345）**，不是红在新门禁 ——
+因为每个 validator 都被 route 消费，schema 类型一变，route 传参就类型不匹配。
+
+**结论**：对这个注入用例，新门禁与 typecheck 是**纵深防御**关系，
+typecheck 先挡住，新门禁是第二道。
+
+### ③ 耦合漂移证明新门禁的**独立价值**
+
+把 validator 与 DTO 类型**一起**改成 `number`（即「一致地错」）：
+
+| 检查 | 结果 |
+|---|---|
+| `pnpm run typecheck:check` | **EXIT 0**（TS 自洽，抓不到） |
+| `pnpm run validators:align:check` | **EXIT 1**，点名 `ai-api-key.name: z.coerce.number → 元数据 varchar` |
+| `pnpm run check` | **EXIT 1，红在 `[align-validators]`**（不是 typecheck） |
+
+这就是本门禁存在理由：**「生成物与真源一起走偏」时，类型系统帮不上忙，只有元数据比对能发现。**
+
+### ④ 门禁只读
+
+注入后跑门禁，被注入的文件**没有被改回**（`z.coerce.number` 仍在），
+证明 `--check` 不落盘；`--check` 与 `--write` 同时给时 exit 2。
