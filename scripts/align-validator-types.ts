@@ -26,6 +26,15 @@ const arg = (name: string) => {
 }
 const domain = arg("--domain")
 const write = argv.includes("--write")
+/**
+ * `--check`：**门禁模式** —— 只统计、不落盘，有漂移就 exit 1。
+ * 与 `--write` 互斥：门禁绝不能改代码（否则「跑门禁」= 「改仓库」）。
+ */
+const check = argv.includes("--check")
+if (check && write) {
+  console.error("用法错误：--check（只读门禁）与 --write（落盘修复）互斥，不能同时使用。")
+  process.exit(2)
+}
 
 /** 不参与类型对齐的列：审计底座字段（由框架统一处理） */
 const NUMERIC_TYPES = new Set(["int", "bigint", "smallint", "decimal", "numeric", "float", "double", "double precision", "real"])
@@ -134,12 +143,15 @@ async function main() {
     let source = fs.readFileSync(full, "utf8")
     const original = source
 
-    for (const match of source.matchAll(/^(\s{2})(\w+): (z\.coerce\.number\(\)(?:\.finite\(\))?|z\.string\(\)(?:\.trim\(\))?|z\.boolean\(\))/gm)) {
+    // 识别集合要覆盖**本仓实际出现过的写法**，不只是生成器的默认产出。
+    // 实测盲区：手写的 `z.number()`（无 coerce）此前完全不被识别 ——
+    // 报「需改: 0 处」看起来像没问题，实际是没看见（见 validator-type-drift 规格）。
+    for (const match of source.matchAll(/^(\s{2})(\w+): (z\.coerce\.number\(\)(?:\.finite\(\))?|z\.number\(\)(?:\.int\(\))?(?:\.finite\(\))?|z\.string\(\)(?:\.trim\(\))?|z\.boolean\(\))/gm)) {
       const [, indent, column, current] = match
       const declared = columns.get(column)
       if (!declared || declared === "timestamp" || declared === "boolean") continue
       const expectsNumber = NUMERIC_TYPES.has(declared)
-      const isNumber = current.startsWith("z.coerce.number")
+      const isNumber = current.startsWith("z.coerce.number") || current.startsWith("z.number")
       const isBoolean = current.startsWith("z.boolean")
 
       // 有意约定：ID 在 API 边界以字符串传输
@@ -172,6 +184,16 @@ async function main() {
   console.log(`  create schema 补可写列: ${createFixed} 处`)
   for (const detail of details) console.log(`  ${detail}`)
   console.log(`  需改: ${changed} 处 · 有意约定跳过: ${convention} 处`)
+
+  if (check && changed > 0) {
+    console.error("")
+    console.error(`[align-validators] ✗ 校验器类型与表元数据不一致（${changed} 处）—— 改完元数据必须重生成校验器：`)
+    for (const detail of details.slice(0, 20)) console.error(`  · ${detail}`)
+    if (details.length > 20) console.error(`  … 另有 ${details.length - 20} 处`)
+    console.error("  修复：pnpm exec tsx scripts/align-validator-types.ts --all --write")
+    process.exit(1)
+  }
+  if (check) console.log("[align-validators] ✓ 校验器与表元数据一致")
 }
 
 main().catch((error) => {
