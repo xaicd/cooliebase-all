@@ -28,3 +28,56 @@
 
 ## 4. 结论与立项裁决 (Decision Conclusion)
 结论：不引入新依赖，无许可传染风险。。方案 A 在开发 ROI、架构一致性与无外部额外运行时依赖方面表现最优，获准进入规格立项阶段。
+
+
+## T1 实测清单（2026-10-28）
+
+### ① 写路由规模
+
+```bash
+find src/app/api packages/*/*/routes -name route.ts | wc -l          # 1105
+grep -rlE 'export (async )?function (POST|PUT|PATCH|DELETE)' ...      # 955
+```
+
+**955 / 1105** 含写方法。→ 任何"每个写路由都必须有深度测试"的一刀切都会立刻全仓红，
+必须棘轮。
+
+### ② 页面规模
+
+```
+*.page.tsx           768
+含 <form / onSubmit    360
+```
+
+### ③ 页面内裸 `fetch(` —— 9 个文件，**全部在 `frontend/pages/`**
+
+```
+packages/plugins/plugin-online/frontend/pages/online-definitions-list.page.tsx
+packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx
+packages/plugins/plugin-report/frontend/pages/report-boards.page.tsx
+packages/domains/infra/frontend/pages/codegen.page.tsx
+packages/domains/infra/frontend/pages/api-access-log.page.tsx
+packages/domains/infra/frontend/pages/template-engine.page.tsx
+packages/domains/infra/frontend/pages/api-error-logs.page.tsx
+packages/domains/infra/frontend/pages/page-builder.page.tsx
+packages/domains/system/frontend/pages/login.page.tsx
+```
+
+**这决定了门禁的扫描面**：只扫 `frontend/pages/**` 与 `frontend/components/**`，
+不扫 `frontend/api/**`（那里本就该用 `request.*`）。9 条作为棘轮基线冻结。
+
+### ④ E2E 深度（现状 = 空壳）
+
+```
+test/e2e/admin-flow.spec.ts   20 行 / 2 个用例
+  → 只断言 page.goto('/login') 与 '/' 的 status < 500
+  → 0 处真实 API 调用、0 处写库断言、0 处对抗性用例
+```
+
+按本仓铁律「骨架不算完成」，这**不能算 E2E 覆盖**。本规格只交付**标准 + 模板 + 一条真实样例**，
+并给 report-only 的深度度量；**不声称** 955 个写路由有测试。
+
+### ⑤ 统一请求层的真源
+
+`packages/shared/frontend/lib/request.ts` —— 带结构化错误（`code` / `message` / `messageKey` /
+`details`）与 401 跳转。页面裸 `fetch(` 会绕过这些，错误码与跳转全部拿不到。
