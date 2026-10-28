@@ -70,22 +70,24 @@
 |---|---|---|---|
 | `braces` | 1 | high | `Patched versions` 为空。两个父级链（`pnpm why braces` 实测）：`tailwindcss → chokidar`（根 devDependency）与 `react-native → babel-jest → micromatch`。待上游发版，或改用其它解析/监听链。 |
 | `node-forge` | 1 | high | `Patched versions` 为空（`<=1.4.0`）。客户端工具链传递依赖。 |
+| `deepmerge` | 1 | **low** | `GHSA-gcqx-w48m-w2h4`，`fixedIn = None`（**2026-10-27 新出现**）。client-toolchain 层，非运行时。拒绝深合并不可信输入即可规避；本仓未把它用于用户输入。 |
 
-这两条**不得**伪造成已修复；只能等上游发版或移除对应依赖。
+这三条**不得**伪造成已修复；只能等上游发版或移除对应依赖。
 
 （`sprintf-js` 原也在此列，随 2026-10-19 的 Expo SDK 逐级升级**已消失**，不再需要接受风险。）
 
-### 3.2 客户端工具链残留（Expo SDK 升级后，3 条）
+### 3.2 客户端工具链残留（Expo SDK 升级后，4 条）
 
 | 包 | 条数 | 严重度 | 传递来源 |
 |---|---|---|---|
 | `shell-quote` | 1 | **critical** | `react-native → react-devtools-core`（开发调试工具，不进 app bundle） |
 | `uuid` | 1 | moderate | 客户端工具链传递依赖 |
 | `node-forge` | 1 | high | 见 §3.1（同时无补丁） |
+| `deepmerge` | 1 | low | 见 §3.1（同时无补丁，2026-10-27 新增） |
 
 2026-10-19 已把 Expo SDK 从 52 **逐级升到 58**（实测 43 → 9 条）：原先列于本节的
 `tar`(12) / `@xmldom/xmldom`(15) / `postcss`(4) / `image-size`(2) / `sprintf-js`(1)
-**全部随升级消失**。本节原为「阻塞在上游大版本，37 条」，现只剩上述 3 条，
+**全部随升级消失**。本节原为「阻塞在上游大版本，37 条」，现只剩上述 4 条，
 且都不再依赖"升 SDK"来解。
 
 `shell-quote` 的 critical 仍属**开发调试链**（`react-devtools-core`），不进客户端产物；
