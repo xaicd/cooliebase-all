@@ -88,6 +88,9 @@ describe("写链路测试深度（跑在隔离根上）", () => {
         { check: "正向：真实账户出价 → 真实写库 → 断言落库流水" },
         { check: "对抗：低价/越权 → 400 业务拦截 + 弹窗自愈" },
       ],
+      // **新契约**：声明了深度测试就要给出结构化证据（真实存在、会跑的用例文件），
+      // 否则「写了声明」与「真的有测试」分不开。
+      depthTestFiles: ["test/e2e/write-path.member.spec.ts"],
     })
     try {
       expect(runGate().code).toBe(0)

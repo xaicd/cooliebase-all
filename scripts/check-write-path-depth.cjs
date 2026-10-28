@@ -99,7 +99,12 @@ function analyzeBrief(briefPath) {
 
   const accepts = (brief.acceptance || []).map((a) => String(a.check || "")).join("\n")
   const exempt = String(brief.depthTestExempt || "").trim()
-  if (!DEPTH_MARKERS.test(accepts) && exempt.length === 0) {
+  // **显式豁免优先**：写了 `depthTestExempt` 就是"这个规格不需要深度测试"，
+  // 自然也不该再要它给出 `depthTestFiles` —— 豁免的本意就是不测。
+  // （实测踩过：第一版把豁免也拉进证据校验，把既有的「显式豁免 → 放行」用例判红。）
+  if (exempt.length > 0) return { ok: true, touchesWrite, evidence: "n/a" }
+
+  if (!DEPTH_MARKERS.test(accepts)) {
     return { ok: false, touchesWrite, evidence: "n/a" }
   }
 
