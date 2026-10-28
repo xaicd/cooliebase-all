@@ -16,6 +16,7 @@
  */
 import fs from "node:fs"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 
 // eslint-disable-next-line @typescript-eslint/no-require-imports
 const { ROOT, domainDirOf } = require("../lib/domain-catalog.cjs") as {
@@ -57,7 +58,10 @@ async function main() {
   let skipped = 0
   for (const file of files) {
     const domain = domainOfDataFile(file)
-    const mod = (await import(file)) as Record<string, unknown>
+        // **必须走 file:// URL**：Windows 上裸路径 `C:\...` 让 ESM 加载器报
+    // `ERR_UNSUPPORTED_ESM_URL_SCHEME`（CI 的 windows job 实测，同一天在三个脚本里各犯一次）。
+    // macOS/Linux 恰好容忍裸路径 —— 这就是它只在 CI 暴露的原因。
+const mod = (await import(pathToFileURL(file).href)) as Record<string, unknown>
     const tablesKey = Object.keys(mod).find((key) => key.endsWith("_TABLES"))
     const tables = tablesKey ? (mod[tablesKey] as unknown[]) : []
     if (!Array.isArray(tables) || tables.length === 0) {

@@ -19,6 +19,7 @@
  */
 import fs from "node:fs"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 
 const ROOT = path.resolve(__dirname, "..")
 const NUMERIC = new Set(["int", "bigint", "smallint", "decimal", "numeric", "float", "double"])
@@ -29,7 +30,10 @@ async function loadMetadata(): Promise<Map<string, Map<string, string>>> {
   const dir = path.join(ROOT, "scripts", "data")
   for (const file of fs.readdirSync(dir)) {
     if (!file.endsWith(".ts")) continue
-    const mod = (await import(path.join(dir, file))) as Record<string, unknown>
+        // **必须走 file:// URL**：Windows 上裸路径 `C:\...` 让 ESM 加载器报
+    // `ERR_UNSUPPORTED_ESM_URL_SCHEME`（CI 的 windows job 实测，同一天在三个脚本里各犯一次）。
+    // macOS/Linux 恰好容忍裸路径 —— 这就是它只在 CI 暴露的原因。
+const mod = (await import(pathToFileURL(path.join(dir, file)).href)) as Record<string, unknown>
     const list = Object.values(mod).find((value) => Array.isArray(value)) as
       | Array<{ table?: { name?: string; columns?: Array<{ name?: string; type?: string }> } }>
       | undefined
