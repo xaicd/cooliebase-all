@@ -138,7 +138,7 @@ gantt
 | 序号 | 改进项 | 对标项目 | 核心技术方案 | 预期验收指标 |
 |---|---|---|---|---|
 | **A1** | **Kysely AST 数据权限插件** | `cooliebase-vue-pro` 数据权限 | 编写 Kysely Data Scope 插件，从当前 Context 提取用户部门及权限树，自动在查询 AST 拼接 `dept_id IN (...)` 或 `created_by = ?` | 单元测试验证不同数据范围用户查询同一表返回不同行集，100% 数据库级别隔离 |
-| **A2** | **交互式 OpenAPI 3.1 调试沙箱** | FastAPI / Scalar / Swagger | 集成 `@scalar/nextjs-api-reference`，在 `/api/docs` 挂载交互式控制台，支持自动读取 326 份契约并注入 JWT 实时试运行 | 开发者访问 `/api/docs` 即可秒级调试任意 API，无需 Postman |
+| **A2** | **交互式 OpenAPI 3.1 调试沙箱** | FastAPI / Scalar / Swagger | 集成 `@scalar/nextjs-api-reference`，在 `/api/docs` 挂载交互式控制台，支持自动读取 342 份 agent 契约并注入 JWT 实时试运行 | 开发者访问 `/api/docs` 即可秒级调试任意 API，无需 Postman |
 | **A3** | **OpenTelemetry 原生埋点** | Signoz / OpenTelemetry | 在 `withAdminRoute` 与 `kysely-client` 挂载 OTel Tracer，输出 W3C `traceparent` 与 Prometheus `/api/metrics` | 每次请求记录 SQL 与 Service 耗时 Span，Prometheus 探针退出码 0 |
 
 ### 3.2 阶段 B：中期飞跃（复杂长流程与现代化交互）

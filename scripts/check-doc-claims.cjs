@@ -10,8 +10,10 @@
  * 只改数字是治标（下次还会漂）。这个脚本把「可核验的声明」变成机检项。
  *
  * 设计约束（吸取 gen:paths:check 零误报的经验）：
- *   1. **只扫两个目录** —— `docs/01_management/` 与 `docs/02_requirements/`。
+ *   1. **只扫三个目录** —— `docs/01_management/`、`docs/02_requirements/`、`docs/architecture/`。
  *      范围窄是零误报的前提；全仓扫描含大量合法的"别的项目的数字"。
+ *      （2026-10-28 加入 `docs/architecture/`：它是**写死数字最多、也最没人核对**的地方 ——
+ *      扩进去当天就抓到一处真漂移：「326 份契约」实际已是 342。）
  *   2. **只认精确模式** —— 表格行 `| 标签 | 数字 |` 或固定短语，不做散文里的数字猜测。
  *   3. **对标不到真源的，一律不检查** —— 宁可漏，不可误报。
  *   4. **真源缺失即报错** —— 不允许"找不到真源 ⇒ 静默通过"。
@@ -25,7 +27,15 @@ const fs = require("fs")
 const path = require("path")
 
 const ROOT = path.resolve(__dirname, "..")
-const SCAN_DIRS = ["docs/01_management", "docs/02_requirements"]
+/**
+ * 扫描面（2026-10-28 扩展）。
+ *
+ * `docs/architecture/` 加进来的理由：它是**写死数字最多、也最没人核对**的地方 ——
+ * 之前只扫 mgmt/requirements 两个目录，架构文档里的旧数字可以一直躺着。
+ * 之所以敢扩，是因为下游是**精确短语匹配**（`N 个 MCP 工具` / `N 道门禁`），
+ * 不是"见到数字就查"，所以历史叙述不会误报。
+ */
+const SCAN_DIRS = ["docs/01_management", "docs/02_requirements", "docs/architecture"]
 const SKIP_DIR_NAMES = new Set(["archive", "node_modules", ".git"])
 
 function read(rel) {
@@ -44,6 +54,18 @@ function truthSources() {
   const mcpTools = surface.mcp && Array.isArray(surface.mcp.tools) ? surface.mcp.tools.length : null
   if (gates === null) throw new Error(`真源 ${compatPath} 缺少 consumptionSurface.gates`)
   if (mcpTools === null) throw new Error(`真源 ${compatPath} 缺少 consumptionSurface.mcp.tools`)
+
+  /** 递归计数文件（跳过构建目录）—— agent 契约数用它，与 agent:contracts:check 同口径 */
+  const countFiles = (dir, filter, n = 0) => {
+    if (!fs.existsSync(dir)) return n
+    for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
+      if (e.isDirectory()) {
+        if (["node_modules", ".next", ".next-cooliebase", "dist", "gen"].includes(e.name)) continue
+        n = countFiles(path.join(dir, e.name), filter, n)
+      } else if (filter(e.name)) n++
+    }
+    return n
+  }
 
   const countDirs = (rel, predicate) => {
     const abs = path.join(ROOT, rel)
@@ -87,6 +109,9 @@ function truthSources() {
     sprintLogs,
     gates,
     mcpTools,
+    // 与 agent:contracts:check 同口径：递归数 *.agent.json。
+    // 「契约」在本仓有两个真源（§21 = 340 / agent = 342），规则**必须写明名词**。
+    agentContracts: countFiles(path.join(ROOT, "packages"), (n) => n.endsWith(".agent.json")),
     firstPartyPlugins: countDirs("packages/plugins", (e) => e.isDirectory() && e.name.startsWith("plugin-")),
     skills: countDirs(".agents/skills", (e) => e.isDirectory() && fs.existsSync(path.join(ROOT, ".agents/skills", e.name, "SKILL.md"))),
     rules,
@@ -107,6 +132,17 @@ function buildClaims(T) {
         { kind: "phrase", pattern: /活跃规格（(\d+)\s*份/g },
         { kind: "phrase", pattern: /活跃\s*\*\*(\d+)\s*条\*\*/g },
         { kind: "phrase", pattern: /(\d+)\s*份\s*`docs\/specs\/[^`]*brief\.json`/g },
+      ],
+    },
+    {
+      id: "agent-contracts",
+      label: "Agent 契约数",
+      truth: T.agentContracts,
+      recount: "find packages -name '*.agent.json' -not -path '*/node_modules/*' | wc -l",
+      matchers: [
+        // **必须写明 "agent 契约"**：只写「N 份契约」是歧义的（§21 契约 340 是另一个真源）。
+        // 宁可漏检也不误报 —— 本门禁的第一原则。
+        { kind: "phrase", pattern: /(\d+)\s*份\s*agent\s*契约/g },
       ],
     },
     {
