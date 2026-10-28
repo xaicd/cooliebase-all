@@ -136,7 +136,7 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 ```
 
 
-## 9. `e2e:run` 的调试实录（2026-10-28）—— 一步步逼近，但**仍未跑绿**
+## 9. `e2e:run` 的调试实录（2026-10-28）—— 连修 7 层后**跑绿**
 
 这条链已经能跑到「应用就绪 + 用例真执行」，**每修一层都冒出下一层**。按出现顺序：
 
@@ -147,7 +147,10 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 | 3 | 插件 API 404「未找到插件」 | 迁移+种子后**没跑 `plugins:register`** | 流水线补这一步 |
 | 4 | 404「插件未声明该路由: POST /app/auth/register」 | **`app/` 是作用域层级，不进 URL** —— 声明里是 `/auth/register` | 用例改用 `/api/v1/plugins/cooliebase.member/api/auth/register` |
 | 5 | **401「未登录或登录已过期」** | manifest 把 `/auth/login`、`/auth/register` 声明成 `auth: company` —— **拿 token 的入口要求先有 token** | **已修**：改为 `auth: public`（真 bug） |
-| 6 | 500「插件 cooliebase.member 未运行」 | 插件注册进库了，但**运行时没启动**（`runtime-manager` 找 merged 实例或 worker，都没有） | **未修** —— 属插件运行时启动流程 |
+| 6 | 500「插件 cooliebase.member 未运行」 | 插件注册进库了，但**运行时没启动**（`reconcile()` 只被管理端 POST 调用，全新启动的应用没人启动插件） | **已修**：挂载点首次命中时补一次 `reconcile()`（懒启动，memo 住） |
+| 7 | 500「缺少租户标识：请提供 tenantCode」 | 注册要多租户定位（§4.8） | **用例侧**：请求体带 `tenantCode`（从 `projectProfile` 取，与种子同源） |
+| 8 | 登录成功但取不到 token | 插件挂载点**再包一层信封**（`data.data.token`） | **用例侧**：两种信封都认 |
+| 9 | 重复注册 → **500**（不是 4xx） | 裸 `throw new Error("账号已注册")` 被归成 `INTERNAL_ERROR` | **已修**：改用 `ApiError("CONFLICT")` = 409 |
 
 **同时发现两个应用侧缺陷**（不是测试问题）：
 
@@ -159,3 +162,19 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 
 **结论**：`e2e:run` 的**管道**是对的（库→迁移→种子→插件→应用→就绪→测试→清场），
 但**写链路 E2E 仍未跑绿**，卡在 #5。写链路覆盖**仍然是 0**，不声称完成。
+
+### 结果
+
+```
+pnpm run e2e:run -- e2e/write-path.member.spec.ts
+  e2e:run EXIT=0     2 passed (1.0s)
+```
+
+**真 PostgreSQL + 生产构建**（`pnpm build` 的 standalone 产物），不是开发服务器：
+库 → 迁移 → 种子 → 插件注册 → 起应用 → 就绪 → 真跑写链路 → 清场。
+
+顺带修掉 **3 个真实应用缺陷**（不是测试问题）：
+
+1. 公开的会员登录/注册被声明成 `auth: company`（拿 token 的入口要求先有 token）；
+2. 全新启动的应用从不启动插件（`reconcile()` 没有启动期调用方）；
+3. 业务冲突（账号已注册）返回 500 而非 409，用户只看到「系统异常」。
