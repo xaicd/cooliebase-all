@@ -80,9 +80,17 @@ function step(label, cmd, args, cwd, env = {}) {
     cwd,
     stdio: "inherit",
     env: { ...process.env, ...env, HATCH_E2E: "1" },
+    // **Windows 上 `pnpm.cmd` 必须经 shell**（同 check 链里那批 spawn 的坑）。
+    // 实测：不加这一项，`产物依赖安装` 会**一行输出都没有**、只报 exit=1 ——
+    // 因为 spawn 本身就没起来，而 `result.error` 之前被忽略掉了。
+    shell: process.platform === "win32",
   })
   const code = result.status ?? 1
   process.stdout.write(`[hatch-e2e] ${label} → exit=${code}\n`)
+  // **起进程失败必须说出来**：否则只剩一个 exit=1，看不出是"跑挂了"还是"没跑起来"。
+  if (result.error) {
+    process.stdout.write(`[hatch-e2e] ✗ ${label} 启动失败: ${result.error.message}\n`)
+  }
   return code
 }
 
