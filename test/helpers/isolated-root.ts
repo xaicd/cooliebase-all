@@ -62,7 +62,11 @@ export function makeIsolatedRoot(label = "root"): IsolatedRoot {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), `cooliebase-${label}-`))
   // mkdtempSync 已经建了目录，而 git clone 要求目标不存在或为空 —— 删掉再克隆最稳。
   fs.rmSync(dir, { recursive: true, force: true })
-  execFileSync("git", ["clone", "-q", "--local", REPO_ROOT, dir], { stdio: "ignore" })
+  // **`--no-hardlinks` 不能少**：`git clone --local` 默认用**硬链接**复用对象，
+  // 而硬链接跨文件系统必然失败。CI 里仓库在 `/home/runner/work`、临时目录在 `/tmp`
+  // （不同挂载点）→ `git clone --local` 直接报 Command failed，
+  // **十几个用本 helper 的门禁探针测试一起红**；本地 macOS 同卷，所以一直看不出来。
+  execFileSync("git", ["clone", "-q", "--local", "--no-hardlinks", REPO_ROOT, dir], { stdio: "ignore" })
 
   return {
     dir,

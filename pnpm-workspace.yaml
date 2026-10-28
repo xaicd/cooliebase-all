@@ -24,6 +24,10 @@ allowBuilds:
   '@embedded-postgres/linux-x64': true
   # 与 darwin/linux-x64 同族：预编译二进制，批准其构建脚本。
   '@embedded-postgres/linux-arm64': true
+  # **Windows 变量也要批准**：CI 的 windows job 实测
+  # `ERR_PNPM_IGNORED_BUILDS: @embedded-postgres/windows-x64`（pnpm 12 遇到未批准的构建脚本是**报错**不是警告）。
+  # 本地 macOS 只装自己那个变量，所以这个缺口本机永远看不到。
+  '@embedded-postgres/windows-x64': true
 
 # 传递依赖的安全补丁：vitest → vite 被 GHSA-587h-7wmj-h5pm 等 3 条 advisory 命中，
 # 修补版为 >=7.3.7（实测安装到 7.3.6）。vitest@latest 就是 5.0.5、无新版可升，
