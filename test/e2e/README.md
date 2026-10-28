@@ -106,3 +106,31 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 **写链路用例仍需凭证**：`write-path.sample.spec.ts` 里的 `<domain>/<resource>` 与
 `E2E_USER` / `E2E_PASS` 要换成真实业务。**在那之前它保持 skip** ——
 本仓铁律：骨架不算完成，不拿 skip 的用例充覆盖。
+
+
+## 7. 生产模式的前置条件（实测踩到，写清楚）
+
+`pnpm start`（`NODE_ENV=production`）下，应用的就绪屏障**依次**要求：
+
+| 缺失项 | `/readyz` 返回 | 说明 |
+|---|---|---|
+| `JWT_SECRET`（≥32 字节、非默认） | **503** | `生产环境必须配置至少 32 字节且非默认值的 JWT_SECRET` |
+| `DATABASE_URL`（可达的真实库） | **503** | `生产环境必须配置 DATABASE_URL` —— 生产模式**禁止内存驱动** |
+
+**这暴露了一条更严重的问题**：`admin-flow.spec.ts` 旧版只断言 `status < 500`，
+而 **503 也 < 500** —— 所以它在「应用就绪失败」的状态下**照样通过**。已改为：
+
+1. `/readyz` 必须 **200**；
+2. `/login` 必须真的渲染出输入框与按钮；
+3. 缺前置条件时**跳过并点名缺哪个变量**（不是"通过"）。
+
+于是现在的行为是：**要么真跑真断言，要么明确跳过**，不再有第三种。
+
+想让它在本机真跑起来，需要这条链（尚未自动化）：
+
+```bash
+# ① 起嵌入式 Postgres（本仓 scripts/lib/ephemeral-pg.cjs 可解析端点）
+# ② 迁移 + 种子（DATABASE_URL 指向它）
+# ③ JWT_SECRET=$(openssl rand -hex 16) pnpm start
+# ④ PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 pnpm exec playwright test
+```
