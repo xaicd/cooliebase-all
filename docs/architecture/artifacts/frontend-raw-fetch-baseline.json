@@ -1,0 +1,15 @@
+{
+  "note": "页面/组件里裸 fetch( 的存量（棘轮：只减不增）。收紧：pnpm run frontend:request-contract:baseline",
+  "files": [
+    "packages/domains/infra/frontend/pages/api-access-log.page.tsx",
+    "packages/domains/infra/frontend/pages/api-error-logs.page.tsx",
+    "packages/domains/infra/frontend/pages/codegen.page.tsx",
+    "packages/domains/infra/frontend/pages/page-builder.page.tsx",
+    "packages/domains/infra/frontend/pages/template-engine.page.tsx",
+    "packages/domains/system/frontend/pages/login.page.tsx",
+    "packages/plugins/plugin-member/frontend/pages/portal-shared.ts",
+    "packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx",
+    "packages/plugins/plugin-online/frontend/pages/online-definitions-list.page.tsx",
+    "packages/plugins/plugin-report/frontend/pages/report-boards.page.tsx"
+  ]
+}

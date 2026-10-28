@@ -158,7 +158,11 @@
       "title": "门禁 A：页面禁止裸 fetch（棘轮冻结 9 处存量），带注入反向对照",
       "files": [
         "scripts/check-frontend-request-contract.cjs",
-        "test/unit/frontend-request-contract.test.ts"
+        "test/unit/frontend-request-contract.test.ts",
+        "docs/architecture/artifacts/frontend-raw-fetch-baseline.json",
+        "package.json",
+        "scripts/harness.cjs",
+        "docs/01_management/project-plan.md"
       ]
     },
     {
