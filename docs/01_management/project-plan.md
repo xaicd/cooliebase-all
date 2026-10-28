@@ -439,7 +439,8 @@
 | `hatch`（两条入口 × 自身 check） | ✅ **4m26s 通过** |
 | `mutation`（变异门禁） | ✅ 通过 |
 | `security`（渗透扫描） | ✅ 通过 |
-| `windows`（路径 / 换行 / 子进程） | ⚠️ 仍 ✗（`domain-manifests:check`，.gitattributes 后待复验） |
+| `windows` 第 1 步（`pnpm run check` 全链） | ✅ **2026-10-28 通过**（依次清掉：裸路径 `import()`、`path.relative` 当 key 未归一化、`node_modules/.bin/*` 垫片、`spawnSync(pnpm)` 显式 `shell:false`、CRLF `.gitattributes`） |
+| `windows` 第 2 步（孵化产物） | ⚠️ 仍 ✗：`[hatch-e2e] ✗ init: 产物 pnpm install 失败 (exit=1)` —— **不是 Windows 特有**，是裁剪后 **lockfile 没同步**（产物里被裁掉的包目录会被 `pnpm install` 重建出空壳，脚本自己写明了「彻底修法: 按裁剪结果同步 lockfile」） |
 | `load`（自管理环境压测） | ⚠️ 仍 ✗（原因待日志） |
 
 **从"每个 job 21 秒全灭"到"7 个 job 里 5 个绿"** —— 关键是这四条根因
