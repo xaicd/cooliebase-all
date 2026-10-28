@@ -1,0 +1,26 @@
+# 统一换行：**检出时也用 LF**。
+#
+# 为什么必须有：GitHub 的 Windows runner 默认 `core.autocrlf=true` —— 检出时把
+# LF 换成 CRLF。于是 `scripts/write-domain-manifests.cjs` 生成的
+# `route.manifest.yaml` / `module.manifest.json` 在 Windows 上带着 CRLF，
+# 而 `check-domain-manifests.cjs` 按内容比对 → 报
+# 「✗ 33 处漂移（共检查 16 个域）」（CI 的 windows job 实测就是这个）。
+#
+# 本机 macOS/Linux 不受影响，所以这个缺口只在 CI 的 windows 上暴露。
+* text=auto eol=lf
+
+# 二进制：明确标注，避免被当文本处理
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.ico binary
+*.woff binary
+*.woff2 binary
+*.ttf binary
+*.pdf binary
+
+# 这些格式平台相关，检出时保持原样（不做换行转换）
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
