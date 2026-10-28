@@ -98,8 +98,13 @@ function runCase(c) {
   try {
     // **Windows 上必须走 shell**：`node_modules/.bin/tsx` 在 Windows 是 `tsx.cmd`，
     // `execFileSync` 不带 shell 起不来 —— 6 项检查会**全部**报 ✗（实测就是这个长相）。
+    // **`.cmd` 之外还要 `shell: true`**：Node 在 Windows 上不能直接 exec 一个 `.cmd` 文件，
+    // 必须交给 shell 解析 —— 只把名字改成 `tsx.cmd` 仍然起不来（实测 6 项还是全 ✗）。
+    // 与 `scripts/run-root-tsx.cjs` 完全一致：`.cmd` + `shell: true`。
     return execFileSync(TSX, ["-e", c.code], {
-      cwd: ROOT, env, encoding: "utf8",
+      // **只在 Windows 开 shell**：POSIX 上 `.bin/tsx` 能直接 exec，开了 shell 反而
+      // 会让 `-e` 里的引号被 shell 解释掉（本机实测 4 项挂）。
+      cwd: ROOT, env, encoding: "utf8", shell: process.platform === "win32",
     })
   } catch (e) {
     return `${e.stdout || ""}${e.stderr || ""}`
