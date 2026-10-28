@@ -170,7 +170,9 @@ async function main() {
       cwd: path.join(ROOT, ".next-cooliebase", "standalone"),
       detached: true,
       stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
-      env: { ...process.env, NODE_ENV: "production", HOSTNAME: "0.0.0.0", PORT: new globalThis.URL(BASE).port || "3200", DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
+      // **JWT_SECRET 不能盲信继承值**：本机 shell 里带着一个 14 字节的占位值，
+      // 生产分支的校验会直接拒绝它（smoke:login / security:scan 都踩过同一个坑）。
+      env: { ...process.env, JWT_SECRET: (process.env.JWT_SECRET && Buffer.byteLength(process.env.JWT_SECRET) >= 32) ? process.env.JWT_SECRET : require("node:crypto").randomBytes(32).toString("hex"), NODE_ENV: "production", HOSTNAME: "0.0.0.0", PORT: new globalThis.URL(BASE).port || "3200", DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
     })
     let ready = false
     for (let i = 0; i < 40; i += 1) {

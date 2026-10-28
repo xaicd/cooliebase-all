@@ -41,7 +41,7 @@
 | G4 | Agent 面与代码一致 | `pnpm run compat:check` 交叉校验通过（工具/技能/门禁清单无第二真源） |
 | G5 | 供应链只减不增 | `pnpm run deps:audit` exit=0（棘轮），且新增漏洞会被拦下 |
 | G6 | 客户端能打包 | `pnpm run clients:build:check` exit=0 |
-| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **已全绿（本机零容器，2026-10-20）**：`build` ✅ · `fingerprint:verify` ✅ · `smoke:login` **10/10** ✅ · `security:scan` **20/20** ✅ · `verify:real-db` **45 文件 / 192 用例 exit=0** ✅ · `load:test` **3/3 exit=0**（rps 18,534 / 23,015 / 23,632，护栏 5,000）✅ |
+| G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **已全绿（本机零容器，2026-10-20）**：`build` ✅ · `fingerprint:verify` ✅ · `smoke:login` **10/10** ✅ · `security:scan` **20/20** ✅ · `verify:real-db` **45 文件 / 192 用例 exit=0** ✅ · `load:test` **3/3 exit=0**（rps 18,534 / 23,015 / 23,632，护栏 5,000）✅ **· 2026-10-28 全链重跑（真 PostgreSQL + 生产产物）：** `build` exit=0 · `fingerprint:verify` exit=0 · `smoke:login` **10/10** exit=0 · `security:scan` **20/20** exit=0 · `load:test` **3/3** exit=0（rps 15,682 / 17,536 / 18,146，护栏 5,000）✅。重跑的价值在于**它抓到了回归**：三条交付链脚本都在本机起不来 —— 详见下方「交付链自起的三个坑」。 |
 
 > **判据达成情况（2026-10-19 实测）**：
 > - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 28 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
@@ -393,3 +393,21 @@
 2. **改状态**：只改 `project-status.md`；发布能力只登记到 `CURRENT.md`。
 3. **改判据**：任何 `✅` 若失去可复跑的取证入口，必须降级为 `❓`，不得保留。
 4. **不写死的数字**：门禁数/域数/工具数一律引用真源文件或命令输出。
+
+
+---
+
+## 附：交付链自起的三个坑（2026-10-28 重跑 G7 时实测）
+
+重跑 G7 的意义就在这里 —— 旧证据是 10-20 的，而期间改过插件挂载与鉴权。
+三条脚本在本机**全起不来**，根因各不相同：
+
+| # | 脚本 | 现象 | 真因 | 修法 |
+|---|---|---|---|---|
+| 1 | `smoke:login` | `6/7`，卡在「起服务」 | 它起的是 **`pnpm dev`**（`next dev`），依赖 Turbopack 的**文件监听器**；本机报 `TurbopackInternalError: unable to start FSEvent stream` | 有产物时**默认起生产产物**（standalone 不监听文件，且更接近发布态）；`--dev` 可强制回开发态 |
+| 2 | `security:scan` | `2/3`，卡在「起服务」 | 同 1；**并且它从来没传 `PORT`** —— `next dev -p 3200` 把端口写死在命令里，而 standalone 认 `PORT`，不给就退回 3000，探针却打 `BASE`(3200) | 同样走生产产物 + **`PORT` 由 `BASE` 推出**（两处永远一致） |
+| 3 | `smoke:login` / `security:scan` / `load:test` | 生产分支报 JWT 校验失败 | **盲信继承来的 `JWT_SECRET`** —— 本机 shell 里是 14 字节占位值（`e2e:run` 早先踩过同一个坑） | 继承值 **≥32 字节才用**，否则临时生成 |
+
+> **教训（同一条，第三次出现）**：交付链脚本**不能假设调用方的 shell 是干净的**。
+> `DB_DRIVER` / `JWT_SECRET` / `PORT` 这类变量要么显式给、要么先校验再采用 ——
+> 这不是洁癖：它让「门禁绿」与「本机环境」纠缠在一起，换台机器结论就变。

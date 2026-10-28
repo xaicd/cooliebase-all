@@ -123,7 +123,11 @@ async function main() {
   // 于是"起服务 ✓"其实是假绿，登录却打到另一个库上（实测踩过：ECONNREFUSED + 7/8）。
   const portBusy = require("node:child_process").spawnSync("lsof", ["-nP", `-iTCP:${PORT}`, "-sTCP:LISTEN"], { encoding: "utf8" })
   if (portBusy.status === 0 && portBusy.stdout.trim()) {
-    step("端口空闲", false, `${PORT} 已被占用（先清理残留 dev server）`)
+    console.log(
+    `  · 应用形态: ${useProd ? "生产产物（standalone）" : forceDev ? "开发服务器（--dev 强制）" : "开发服务器（无产物）"}` +
+      ` · JWT_SECRET: ${inheritedOk ? "继承值（≥32 字节）" : "临时生成"}`,
+  )
+  step("端口空闲", false, `${PORT} 已被占用（先清理残留 dev server）`)
     return
   }
 
@@ -145,7 +149,25 @@ async function main() {
     "TENANT_MODE=disabled", "TENANT_PLATFORM_USERNAMES=admin",
     "ADMIN_BOOTSTRAP_USERNAME=admin", `ADMIN_BOOTSTRAP_PASSWORD=${PASSWORD}`, `ADMIN_BOOTSTRAP_SALT=${SALT}`,
   ].join("\n") + "\n")
-  app = spawn("pnpm", ["run", "dev"], {
+  // **形态选择**：默认「有产物就走生产服务」。
+  //
+  // 为什么改：`next dev` 依赖 Turbopack 的 **文件监听器**（FSEvents），在本机
+  // 实测报 `TurbopackInternalError: unable to start FSEvent stream` 而起不来 ——
+  // 交付链的门禁不该被宿主的 watcher 上限卡住。生产产物（standalone）不监听文件，
+  // 而且**更接近发布态**：G7 要证明的是"平台可用"，不是"开发服务器能起来"。
+  //
+  // `--dev` 可强制回开发态（与人工 `pnpm run dev` 一致）。
+  const STANDALONE = path.join(ROOT, ".next-cooliebase", "standalone", "server.js")
+  const forceDev = process.argv.includes("--dev")
+  const useProd = !forceDev && fs.existsSync(STANDALONE)
+
+  // **JWT_SECRET 不能盲信继承值**：本机 shell 里带着一个 14 字节的占位值，
+  // 生产分支的校验会直接把它拒掉（`e2e:run` 踩过同一个坑）。
+  const inheritedJwt = process.env.JWT_SECRET
+  const inheritedOk = Boolean(inheritedJwt) && Buffer.byteLength(inheritedJwt) >= 32
+  const jwt = inheritedOk ? inheritedJwt : require("node:crypto").randomBytes(32).toString("hex")
+
+  app = spawn("pnpm", ["run", useProd ? "start" : "dev"], {
     cwd: ROOT,
     // **必须 detached**：`pnpm run dev` 会再拉起 next-server；只 kill 包装进程会留下孤儿
     // （实测泄漏过一个 6 小时前的 next-server，一直占着 3200，后续冒烟全打到它上面）
@@ -158,6 +180,8 @@ async function main() {
     env: {
       ...process.env,
       PORT,
+      // 生产模式必须给一个 ≥32 字节的 JWT_SECRET（继承值不合格时用临时生成的）
+      JWT_SECRET: jwt,
       DATABASE_URL: URL,
       DB_DRIVER: "postgresql",
       TENANT_MODE: "disabled",

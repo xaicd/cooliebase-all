@@ -28,6 +28,10 @@ const ROOT = path.resolve(__dirname, "..")
 const KEEP = process.argv.includes("--keep")
 const arg = (flag) => { const i = process.argv.indexOf(flag); return i >= 0 ? process.argv[i + 1] : undefined }
 const BASE = arg("--base") || "http://localhost:3200"
+// standalone 认 PORT 环境变量（`next dev -p 3200` 是写死在命令里的），
+// 不显式传就会退回 3000，探针却打 BASE。从 BASE 推，两处永远一致。
+// 用正则取端口，不用 `new URL()` —— 本脚本里 `URL` 是数据库串的变量名，会撞上 TDZ。
+const PORT = (BASE.match(/:([0-9]+)/) || [])[1] || "3200"
 const DB = "cooliebase_secscan"
 const { URL: NodeURL } = require("node:url")
 const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")
@@ -116,11 +120,26 @@ async function main() {
       step("端口空闲", false, `${portNum} 已被占用（先清理残留 dev server）`)
       return
     }
-    app = spawn("pnpm", ["run", "dev"], {
+    // **形态选择**：有产物就走生产服务（与 smoke:login 同因）——
+    // `next dev` 依赖 Turbopack 的文件监听器，本机实测
+    // `TurbopackInternalError: unable to start FSEvent stream` 而起不来；
+    // 而渗透扫描要验的是**发布态的 HTTP 行为**，生产产物更对路。
+    const STANDALONE = require("node:path").join(ROOT, ".next-cooliebase", "standalone", "server.js")
+    const forceDev = process.argv.includes("--dev")
+    const useProd = !forceDev && require("node:fs").existsSync(STANDALONE)
+    // JWT_SECRET 不能盲信继承值（本机 shell 里是 14 字节占位值，生产分支会拒）
+    const inheritedJwt = process.env.JWT_SECRET
+    const inheritedOk = Boolean(inheritedJwt) && Buffer.byteLength(inheritedJwt) >= 32
+    const jwt = inheritedOk ? inheritedJwt : require("node:crypto").randomBytes(32).toString("hex")
+    console.log(`  · 应用形态: ${useProd ? "生产产物（standalone）" : "开发服务器"}`)
+
+    app = spawn("pnpm", ["run", useProd ? "start" : "dev"], {
       cwd: ROOT,
       detached: true,
       stdio: ["ignore", fs.openSync(logFile, "w"), fs.openSync(logFile, "w")],
-      env: { ...process.env, DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin,secscan_lowpriv", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
+      // **PORT 必须显式传**：`next dev -p 3200` 把端口写死在命令里，
+      // 而 standalone 认 PORT 环境变量 —— 不传它会退回 3000，探针却打 3200（实测卡在这里）。
+      env: { ...process.env, PORT, JWT_SECRET: jwt, DATABASE_URL: URL, DB_DRIVER: "postgresql", TENANT_MODE: "disabled", TENANT_PLATFORM_USERNAMES: "admin,secscan_lowpriv", ADMIN_BOOTSTRAP_USERNAME: "admin", ADMIN_BOOTSTRAP_PASSWORD: PASSWORD, ADMIN_BOOTSTRAP_SALT: SALT },
     })
     let ready = false
     for (let i = 0; i < 40; i += 1) {
