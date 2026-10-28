@@ -119,7 +119,7 @@ const ASSET_REGISTRY = {
 | 阶段 | 周期 | 核心交付成果 | 验收门禁 | 负责人 |
 |---|---|---|---|---|
 | M1: 需求与原型 | Sprint 1 | 5态 EARS SRS、HTML 可交互原型 | Gate 1 (需求就绪) | @po |
-| M2: 架构与契约 | Sprint 2 | ADR、ERD、326 份跨端契约 | Gate 2 (契约冻结) | @architect |
+| M2: 架构与契约 | Sprint 2 | ADR、ERD、跨端契约（份数随代码变，**不写死**；复算见 pnpm run agent:contracts:check） | Gate 2 (契约冻结) | @architect |
 | M3: 插件与编码 | Sprint 3 | 第一方插件代码、状态机、无假Mock | Gate 3 (全绿单测) | @leads |
 | M4: 验证与审计 | Sprint 4 | 真实库测试、FCA/PCA 双基石审计 | Gate 4 (质量放行) | @qa |
 | M5: 割接与上线 | Sprint 5 | 生产部署 SOP、秒级回滚 Runbook | Gate 5 (生产发布) | @devops |
@@ -951,10 +951,33 @@ function handleCheck() {
   // 「决策性缺失」—— 必须有**理由**才允许为空，且理由要指向依据。
   // 这不是豁免清单，是**把决策写进机检**：新增缺口不在表里 → 直接失败。
   const ACCEPTED_ABSENCES = {
-    "02/srs": "本基座**刻意不产出**单体 SRS：需求真源是分散的 docs/specs/*/*/brief.json（12 份）+ docs/features/sprint-prod/*.md（5 份）；再落一份即第二真源（§25）。依据 docs/01_management/project-plan.md H1 与 srs 模板",
-    "08/postmortem": "需**真实事故**；未发生时按「三存三不存」留空（零假 Demo 铁律，AGENTS §25）",
-    "08/reconciliation": "需**真实资金凭证**；未发生时留空（AGENTS §25）",
-    "09/reconciliation": "同上：需真实运营发生后的对账单（AGENTS §25）",
+    // **理由里不写死数字**：这里曾经写着「brief.json（12 份）+ sprint-prod（5 份）」——
+    // 真源早已是 20 / 9，而这个文件是脚本，`docs:claims:check` 不扫它，于是静默漂移。
+    // 数字会变、路径不会，所以只指出依据在哪、怎么复算。
+    "02/srs": "本基座**刻意不产出**单体 SRS：需求真源是分散的 docs/specs/*/*/brief.json（按域隔离的活跃规格，复算 `ls docs/specs/*/*/brief.json | wc -l`）与 docs/features/sprint-prod/*.md（需求日志）；再落一份即第二真源（§25）。决策见 docs/01_management/project-plan.md H1 与 docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md",
+    "08/postmortem": "需**真实事故**；未发生时按「三存三不存」留空（零假 Demo 铁律，AGENTS.md §25）",
+    "08/reconciliation": "需**真实资金凭证**；未发生时留空（AGENTS.md §25）",
+    "09/reconciliation": "同上：需真实运营发生后的对账单（AGENTS.md §25）",
+  }
+
+  // **理由必须可回验**（注释早就这么写了，但一直没人检查）：
+  //   ① 不许在理由里写死计数（会静默漂移 —— 本表就这么漂过一次）；
+  //   ② 必须至少指向一个**真实存在**的仓内路径（"依据"不能是空气）。
+  for (const [key, reason] of Object.entries(ACCEPTED_ABSENCES)) {
+    const stale = reason.match(/\d+\s*份/)
+    if (stale) {
+      errors.push(
+        `「决策性留空」${key} 的理由里写死了计数「${stale[0]}」—— 数字会漂、路径不会；` +
+          `改成指向真源路径并附复算命令`,
+      )
+    }
+    const refs = [...reason.matchAll(/(docs\/[\w./*-]+|scripts\/[\w./-]+|[\w-]+\.md)/g)]
+      .map((m) => m[0])
+      .filter((r) => !r.includes("*"))
+      .filter((r) => fs.existsSync(path.join(ROOT, r)))
+    if (refs.length === 0) {
+      errors.push(`「决策性留空」${key} 的理由没有指向任何**真实存在**的仓内路径 —— 依据不能是空气`)
+    }
   }
 
   const missing = []
