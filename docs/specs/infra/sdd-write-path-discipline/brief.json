@@ -184,7 +184,13 @@
       "title": "标准与样例：把『红绿对抗双层 E2E』写成可复用模板，并给出 E2E 深度度量（report-only）",
       "files": [
         "test/e2e/README.md",
-        "test/e2e/admin-flow.spec.ts"
+        "test/e2e/write-path.sample.spec.ts",
+        "scripts/check-write-path-depth.cjs",
+        "package.json",
+        "scripts/harness.cjs",
+        "tsconfig.json",
+        "docs/architecture/artifacts/typecheck-baseline.json",
+        "docs/01_management/project-plan.md"
       ]
     },
     {

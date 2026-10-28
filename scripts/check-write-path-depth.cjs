@@ -95,7 +95,66 @@ function analyzeBrief(briefPath) {
   return { ok: false, touchesWrite }
 }
 
+/**
+ * `--report`：**只度量、永不失败**。目的是看趋势，不是造"覆盖率达标"的假象。
+ */
+function report() {
+  const count = (dir, filter) => {
+    let n = 0
+    const walk = (d) => {
+      if (!fs.existsSync(d)) return
+      for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+        const full = path.join(d, e.name)
+        if (e.isDirectory()) walk(full)
+        else if (filter(e.name)) n++
+      }
+    }
+    walk(dir)
+    return n
+  }
+  const writeRoutes = count(path.join(ROOT, "src/app/api"), (n) => n === "route.ts") +
+    count(path.join(ROOT, "packages"), (n) => n === "route.ts")
+  const e2eDir = path.join(ROOT, "test/e2e")
+  const e2eFiles = count(e2eDir, (n) => n.endsWith(".spec.ts"))
+  let e2eTests = 0
+  let deepTests = 0
+  let gatedTests = 0
+  const walkE2E = (d) => {
+    if (!fs.existsSync(d)) return
+    for (const e of fs.readdirSync(d, { withFileTypes: true })) {
+      const full = path.join(d, e.name)
+      if (e.isDirectory()) walkE2E(full)
+      else if (e.name.endsWith(".spec.ts")) {
+        const src = fs.readFileSync(full, "utf8")
+        const tests = (src.match(/\btest\s*\(/g) || []).length
+        e2eTests += tests
+        // **条件 skip 的用例不计入深度覆盖** —— 否则"写了但默认不跑"会被算成覆盖率，
+        // 那是假绿（本仓明令禁止）。实测：模板文件 `test.skip(!ENABLED)` 就是这种。
+        const isGated = /test\.skip\(\s*!/.test(src)
+        if (isGated) {
+          gatedTests += tests
+          continue
+        }
+        const isDeep = /waitForResponse|request\.(get|post|put|delete)|toBe\(\d{3}\)/.test(src)
+        if (isDeep) deepTests += tests
+      }
+    }
+  }
+  walkE2E(e2eDir)
+  console.log("[write-path-depth] E2E 深度度量（report-only，永不失败）")
+  console.log(`  写路由（route.ts）总数      : ${writeRoutes}`)
+  console.log(`  E2E 文件 / 用例数          : ${e2eFiles} / ${e2eTests}`)
+  console.log(`  含真实 API 断言且会跑的用例 : ${deepTests}`)
+  console.log(`  条件 skip（不计入覆盖）      : ${gatedTests}`)
+  console.log(`  写路由 : 深度用例           = ${writeRoutes} : ${deepTests}`)
+  console.log("")
+  console.log("  说明：这个数字不是「覆盖率」。本仓写链路 E2E 覆盖 ≈ 0，")
+  console.log("        本度量用于观察它是否在增长，不作为发布门槛。")
+  return 0
+}
+
 function main() {
+  if (process.argv.includes("--report")) return report()
   const writeBaseline = process.argv.includes("--write-baseline")
   const specs = listSpecs()
   if (specs.length === 0) {

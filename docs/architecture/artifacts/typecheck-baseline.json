@@ -2,17 +2,16 @@
   "note": "类型检查棘轮基线。键 = file:line:code（不用错误消息全文，避免「改一行就误判为新增」）。只拦新增。",
   "generatedBy": "scripts/check-typecheck-ratchet.cjs --write-baseline",
   "command": "node node_modules/typescript/bin/tsc --noEmit",
-  "count": 192,
-  "uniqueKeys": 190,
-  "durationMs": 3486,
+  "count": 191,
+  "uniqueKeys": 189,
+  "durationMs": 8306,
   "byDir": {
     "packages/plugins": 150,
     "src/app": 18,
     "packages/shared": 12,
     "packages/domains": 7,
     "test/agent": 3,
-    "playwright.config.ts": 1,
-    "test/e2e": 1
+    "playwright.config.ts": 1
   },
   "keys": [
     "packages/domains/infra/backend/lib/job-runtime.ts:72:TS2339",
@@ -205,7 +204,6 @@
     "src/app/api/v1/admin/modules/[...path]/route.ts:52:TS2339",
     "test/agent/agent-contract.spec.ts:17:TS2307",
     "test/agent/agent-contract.spec.ts:41:TS2307",
-    "test/agent/agent-ui-probe.spec.ts:1:TS2307",
-    "test/e2e/admin-flow.spec.ts:1:TS2307"
+    "test/agent/agent-ui-probe.spec.ts:1:TS2307"
   ]
 }

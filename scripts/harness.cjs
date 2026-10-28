@@ -245,6 +245,7 @@ const ALIASES = {
     "standards:baseline", "deps:audit:baseline", "vacuity:audit", "mutation:gate",
     "frontend:request-contract:baseline",
     "write:path:depth:baseline",
+    "write:path:depth:report",
   ],
   doctor: ["harness:health", "harness:check", "harness:high-order:check", "harness:hermes-hook", "typecheck", "plan:freshness", "health-check"],
   check: ["check:all", "contracts:audit-logs:check", "admin:routes:manifest:check"],

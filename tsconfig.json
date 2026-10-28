@@ -154,6 +154,7 @@
     "**/__tests__/**",
     "**/*.test.ts",
     "**/*.test.tsx",
+    "test/e2e",
     "node_modules",
     "scripts",
     ".next-cooliebase"
