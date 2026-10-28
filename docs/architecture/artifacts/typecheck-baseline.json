@@ -2,16 +2,14 @@
   "note": "类型检查棘轮基线。键 = file:line:code（不用错误消息全文，避免「改一行就误判为新增」）。只拦新增。",
   "generatedBy": "scripts/check-typecheck-ratchet.cjs --write-baseline",
   "command": "node node_modules/typescript/bin/tsc --noEmit",
-  "count": 179,
-  "uniqueKeys": 177,
-  "durationMs": 4953,
+  "count": 175,
+  "uniqueKeys": 173,
+  "durationMs": 11410,
   "byDir": {
     "packages/plugins": 150,
     "packages/shared": 12,
     "packages/domains": 7,
-    "src/app": 6,
-    "test/agent": 3,
-    "playwright.config.ts": 1
+    "src/app": 6
   },
   "keys": [
     "packages/domains/infra/backend/lib/job-runtime.ts:72:TS2339",
@@ -183,15 +181,11 @@
     "packages/shared/frontend/components/action-decision-hub.tsx:80:TS2322",
     "packages/shared/frontend/components/action-decision-hub.tsx:85:TS2322",
     "packages/shared/frontend/components/action-decision-hub.tsx:89:TS2322",
-    "playwright.config.ts:1:TS2307",
     "src/app/(admin-pages)/admin/_generated/admin-page-registry.ts:416:TS2551",
     "src/app/(admin-pages)/admin/_generated/admin-page-registry.ts:437:TS2551",
     "src/app/api/internal/rpc/route.ts:14:TS2339",
     "src/app/api/internal/rpc/route.ts:14:TS2339",
     "src/app/api/v1/admin/modules/[...path]/route.ts:52:TS2339",
-    "src/app/api/v1/admin/modules/[...path]/route.ts:52:TS2339",
-    "test/agent/agent-contract.spec.ts:17:TS2307",
-    "test/agent/agent-contract.spec.ts:41:TS2307",
-    "test/agent/agent-ui-probe.spec.ts:1:TS2307"
+    "src/app/api/v1/admin/modules/[...path]/route.ts:52:TS2339"
   ]
 }
