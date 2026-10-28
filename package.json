@@ -215,7 +215,8 @@
     "frontend:request-contract:baseline": "node scripts/check-frontend-request-contract.cjs --write-baseline",
     "write:path:depth:check": "node scripts/check-write-path-depth.cjs",
     "write:path:depth:baseline": "node scripts/check-write-path-depth.cjs --write-baseline",
-    "write:path:depth:report": "node scripts/check-write-path-depth.cjs --report"
+    "write:path:depth:report": "node scripts/check-write-path-depth.cjs --report",
+    "e2e:run": "node scripts/e2e-run.cjs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

@@ -255,7 +255,7 @@ const ALIASES = {
   release: ["release:package"],
   audit: ["audit-logs:retention", "validator:reachability", "foundation:ontology"],
   evolve: ["all", "init", "init:all"],
-  e2e: ["hatch", "hatch:e2e"],
+  e2e: ["hatch", "hatch:e2e", "e2e:run"],
 }
 
 function help() {
