@@ -22,6 +22,7 @@
  */
 import fs from "node:fs"
 import path from "node:path"
+import { pathToFileURL } from "node:url"
 
 const ROOT = path.resolve(__dirname, "..")
 const audit = process.argv.includes("--audit")
@@ -33,7 +34,10 @@ async function loadMetadata(): Promise<Map<string, Set<string>>> {
   for (const domain of DOMAINS) {
     const file = path.join(ROOT, "scripts", "data", `${domain}-source-tables.ts`)
     if (!fs.existsSync(file)) continue
-    const mod = (await import(file)) as Record<string, unknown>
+    // **必须走 file:// URL**：Windows 上裸路径 `C:\...` 会让 ESM 加载器报
+    // `ERR_UNSUPPORTED_ESM_URL_SCHEME: Only URLs with a scheme in: file, data, and node are supported`
+    // （CI 的 windows job 实测就是这个）。macOS/Linux 恰好能容忍裸路径，所以本机看不出来。
+    const mod = (await import(pathToFileURL(file).href)) as Record<string, unknown>
     const list = Object.values(mod).find((value) => Array.isArray(value)) as
       | Array<{ table?: { name?: string; columns?: Array<{ name?: string }> } }>
       | undefined
