@@ -134,3 +134,27 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 # ③ JWT_SECRET=$(openssl rand -hex 16) pnpm start
 # ④ PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 pnpm exec playwright test
 ```
+
+
+## 9. `e2e:run` 的调试实录（2026-10-28）—— 一步步逼近，但**仍未跑绿**
+
+这条链已经能跑到「应用就绪 + 用例真执行」，**每修一层都冒出下一层**。按出现顺序：
+
+| # | 现象 | 真因 | 处理 |
+|---|---|---|---|
+| 1 | `/readyz` 503，报 JWT | **agent 的 shell 里带着 14 字节的 `JWT_SECRET`**，脚本 `process.env.JWT_SECRET \|\| random` 盲目继承 | 改为「≥32 字节才用，否则自己生成」 |
+| 2 | `/readyz` 503，报驱动未知 | `DB_DRIVER=postgres` **不合法** —— 合法值是 **`postgresql`** | 改成 `postgresql` |
+| 3 | 插件 API 404「未找到插件」 | 迁移+种子后**没跑 `plugins:register`** | 流水线补这一步 |
+| 4 | 404「插件未声明该路由: POST /app/auth/register」 | **`app/` 是作用域层级，不进 URL** —— 声明里是 `/auth/register` | 用例改用 `/api/v1/plugins/cooliebase.member/api/auth/register` |
+| 5 | **401「未登录或登录已过期」** | 插件挂载按 manifest 的 `auth` 声明**要求鉴权**；而这是**公开**会员接口 | **未修** —— 属应用侧路由作用域/鉴权设计问题 |
+
+**同时发现两个应用侧缺陷**（不是测试问题）：
+
+1. `packages/plugins/plugin-member/frontend/pages/portal-shared.ts` 调
+   `/api/v1/app/member/auth/*` —— 该前缀只在**拆分部署**时由 `publicPrefixes` 代理生效，
+   **合并模式下 404**。
+2. 插件挂载点 `/api/v1/plugins/<key>/api/**` 对**公开**会员接口也要求鉴权 → 401。
+   要么这类接口需要显式的 public 声明，要么必须走拆分部署的 publicPrefixes 代理。
+
+**结论**：`e2e:run` 的**管道**是对的（库→迁移→种子→插件→应用→就绪→测试→清场），
+但**写链路 E2E 仍未跑绿**，卡在 #5。写链路覆盖**仍然是 0**，不声称完成。

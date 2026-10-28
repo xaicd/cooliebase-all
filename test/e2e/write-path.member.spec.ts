@@ -25,8 +25,19 @@ import { expect, test } from "@playwright/test"
  */
 
 const BASE = process.env.PLAYWRIGHT_BASE_URL || "http://127.0.0.1:3000"
-const REGISTER = "/api/v1/app/member/auth/register"
-const LOGIN = "/api/v1/app/member/auth/login"
+/**
+ * **真实挂载点**：插件自有 API 挂在 `/api/v1/plugins/<pluginKey>/api<path>`
+ * （见 `src/app/api/v1/plugins/[pluginKey]/api/[...path]/route.ts`）。
+ *
+ * 注意：前端 `portal-shared.ts` 用的是 `/api/v1/app/member/auth/*` ——
+ * 那个前缀只在**拆分部署**时由 `publicPrefixes` 代理生效，**合并模式会 404**。
+ * 这是实测跑出来的应用侧缺陷，记在这里，不在本用例里替它兜底。
+ */
+const PLUGIN_PREFIX = "/api/v1/plugins/cooliebase.member/api"
+// **`app/` 是作用域层级，不进 URL**（`routes/app/auth/register/route.ts` → 声明 `/auth/register`）。
+// 实测：写成 `/app/auth/register` 会被挂载层拒成「插件未声明该路由」。
+const REGISTER = `${PLUGIN_PREFIX}/auth/register`
+const LOGIN = `${PLUGIN_PREFIX}/auth/login`
 
 /** 服务不可达时跳过（运行时探测，而不是加载期静态 skip） */
 async function requireServer(request: any): Promise<boolean> {
