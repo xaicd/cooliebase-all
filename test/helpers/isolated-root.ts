@@ -80,10 +80,16 @@ export function makeIsolatedRoot(label = "root"): IsolatedRoot {
       return fs.readFileSync(path.join(dir, relPath), "utf8")
     },
     write(relPath: string, content: string) {
-      fs.writeFileSync(path.join(dir, relPath), content)
+      // **要建父目录**：隔离根里常用来造"新文件"（如新规格的 brief.json），
+      // 而 writeFileSync 不会自动创建目录（实测 ENOENT）。
+      const abs = path.join(dir, relPath)
+      fs.mkdirSync(path.dirname(abs), { recursive: true })
+      fs.writeFileSync(abs, content)
     },
     remove(relPath: string) {
-      fs.rmSync(path.join(dir, relPath), { force: true })
+      // `recursive` 必须开：用例常清的是**目录**（如造出来的规格目录），
+      // 不带 recursive 会 EISDIR（实测）。
+      fs.rmSync(path.join(dir, relPath), { recursive: true, force: true })
     },
     cleanup() {
       fs.rmSync(dir, { recursive: true, force: true })
