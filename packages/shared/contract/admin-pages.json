@@ -89,49 +89,49 @@
     {
       "slug": "aigw/agent-sandbox",
       "kind": "page",
-      "exportName": "AgentSandboxPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/agent-sandbox.page"
     },
     {
       "slug": "aigw/channels",
       "kind": "page",
-      "exportName": "AigwChannelsPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/channels.page"
     },
     {
       "slug": "aigw/chats",
       "kind": "page",
-      "exportName": "AigwChatsPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/chats.page"
     },
     {
       "slug": "aigw/models",
       "kind": "page",
-      "exportName": "AigwModelsPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/models.page"
     },
     {
       "slug": "aigw/playground",
       "kind": "page",
-      "exportName": "AigwPlaygroundPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/playground.page"
     },
     {
       "slug": "aigw/tokens",
       "kind": "page",
-      "exportName": "AigwTokensPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/tokens.page"
     },
     {
       "slug": "aigw/usages",
       "kind": "page",
-      "exportName": "AigwUsagesPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/usages.page"
     },
     {
       "slug": "aigw/workbench",
       "kind": "page",
-      "exportName": "AigwWorkbenchPage",
+      "exportName": "default",
       "module": "@/modules/aigw/frontend/pages/workbench.page"
     },
     {
@@ -953,13 +953,13 @@
     {
       "slug": "infra/online-definitions",
       "kind": "page",
-      "exportName": "OnlineDefinitionsListPage",
+      "exportName": "default",
       "module": "@/modules/online/frontend/pages/online-definitions-list.page"
     },
     {
       "slug": "infra/online-definitions/[code]",
       "kind": "page",
-      "exportName": "OnlineDefinitionDesignerPage",
+      "exportName": "default",
       "module": "@/modules/online/frontend/pages/online-definition-designer.page"
     },
     {
@@ -970,13 +970,13 @@
     {
       "slug": "infra/online-definitions/new",
       "kind": "page",
-      "exportName": "OnlineDefinitionCreatePage",
+      "exportName": "default",
       "module": "@/modules/online/frontend/pages/online-definition-create.page"
     },
     {
       "slug": "infra/online-runtime/[definitionCode]",
       "kind": "page",
-      "exportName": "OnlineFormRuntimePage",
+      "exportName": "default",
       "module": "@/modules/online/frontend/pages/online-form-runtime.page"
     },
     {
