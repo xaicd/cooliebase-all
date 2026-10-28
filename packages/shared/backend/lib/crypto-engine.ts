@@ -18,8 +18,49 @@ import { createHmac, randomBytes, createCipheriv, createDecipheriv } from "crypt
 
 // ============ Config ============
 
-const DEFAULT_AES_KEY = process.env.COOLIEBASE_SHARED_AES_KEY || "cooliebase-all-default-aes-key!!" // 32 bytes
-const DEFAULT_HMAC_SECRET = process.env.COOLIEBASE_SHARED_HMAC_SECRET || "cooliebase-all-hmac-secret"
+/**
+ * 非生产环境的兜底值。
+ *
+ * **生产环境禁止使用** —— 见 `resolveAesKey()` / `resolveHmacSecret()`：
+ * `NODE_ENV=production` 且未设对应 env 时直接抛错。
+ * 理由：仓库里的默认值**公开可见**，用它加密/签名等于没做，
+ * 而症状是「看起来完全正常」——最危险的一种。
+ */
+const DEV_FALLBACK_AES_KEY = "cooliebase-all-default-aes-key!!"
+const DEV_FALLBACK_HMAC_SECRET = "cooliebase-all-hmac-secret"
+
+/**
+ * **调用时**解析密钥（不在模块加载时抛错）：
+ * `next build` 以 `NODE_ENV=production` 运行，模块加载时抛错会直接炸构建。
+ */
+function resolveAesKey(key?: string): Buffer {
+  const raw = key || process.env.COOLIEBASE_SHARED_AES_KEY
+  if (!raw) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "[crypto-engine] 生产环境必须设置 COOLIEBASE_SHARED_AES_KEY（32 字节）—— " +
+          "拒绝使用仓库内置的默认密钥（公开可见，等于未加密）。",
+      )
+    }
+    return Buffer.from(DEV_FALLBACK_AES_KEY.slice(0, 32).padEnd(32, "0"))
+  }
+  return Buffer.from(raw.slice(0, 32).padEnd(32, "0"))
+}
+
+/** 同上：签名密钥也不许在生产静默用默认值 */
+function resolveHmacSecret(secret?: string): string {
+  const raw = secret || process.env.COOLIEBASE_SHARED_HMAC_SECRET
+  if (!raw) {
+    if (process.env.NODE_ENV === "production") {
+      throw new Error(
+        "[crypto-engine] 生产环境必须设置 COOLIEBASE_SHARED_HMAC_SECRET —— " +
+          "拒绝使用仓库内置的默认签名密钥（公开可见）。",
+      )
+    }
+    return DEV_FALLBACK_HMAC_SECRET
+  }
+  return raw
+}
 
 // ============ Password ============
 
@@ -43,7 +84,7 @@ export const cryptoEngine = {
 
   /** AES-256-CBC 加密（用于敏感字段存储） */
   encrypt(plaintext: string, key?: string): string {
-    const k = Buffer.from((key || DEFAULT_AES_KEY).slice(0, 32).padEnd(32, "0"))
+    const k = resolveAesKey(key)
     const iv = randomBytes(16)
     const cipher = createCipheriv("aes-256-cbc", k, iv)
     let encrypted = cipher.update(plaintext, "utf-8", "hex")
@@ -53,7 +94,7 @@ export const cryptoEngine = {
 
   /** AES-256-CBC 解密 */
   decrypt(ciphertext: string, key?: string): string {
-    const k = Buffer.from((key || DEFAULT_AES_KEY).slice(0, 32).padEnd(32, "0"))
+    const k = resolveAesKey(key)
     const [ivHex, encrypted] = ciphertext.split(":")
     if (!ivHex || !encrypted) throw new Error("Invalid ciphertext format")
     const iv = Buffer.from(ivHex, "hex")
@@ -67,7 +108,7 @@ export const cryptoEngine = {
 
   /** HMAC-SHA256 签名（用于 API 签名验证） */
   sign(data: string, secret?: string): string {
-    return createHmac("sha256", secret || DEFAULT_HMAC_SECRET).update(data).digest("hex")
+    return createHmac("sha256", resolveHmacSecret(secret)).update(data).digest("hex")
   },
 
   /** 验证签名 */
