@@ -85,7 +85,10 @@ function scan() {
         compliant += 1
         continue
       }
-      const relative = path.relative(ROOT, file)
+      // **归一化成 POSIX 分隔符**：基线里存的是 `packages/plugins/...` 形态，
+      // 而 Windows 上 `path.relative` 产出 `packages\plugins\...` —— 一条都对不上，
+      // 于是 145 条**冻结欠债**全被当成「新增」（CI 的 windows job 实测就是这个）。
+      const relative = path.relative(ROOT, file).replace(/\\/g, "/")
       const domain = relative.match(/plugin-([a-z]+)\//)?.[1] ?? (relative.startsWith("src/") ? "src" : "?")
       violations.push({ id: relative, domain, methods: unvalidated })
     }
