@@ -119,6 +119,7 @@
       "repo:columns:check",
       "routes:validation:check",
       "validators:align:check",
+      "crypto:key:guard:check",
       "docs:claims:check",
       "delivery:boundary:check"
     ],

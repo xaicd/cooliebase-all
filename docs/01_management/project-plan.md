@@ -44,7 +44,7 @@
 | G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **已全绿（本机零容器，2026-10-20）**：`build` ✅ · `fingerprint:verify` ✅ · `smoke:login` **10/10** ✅ · `security:scan` **20/20** ✅ · `verify:real-db` **45 文件 / 192 用例 exit=0** ✅ · `load:test` **3/3 exit=0**（rps 18,534 / 23,015 / 23,632，护栏 5,000）✅ |
 
 > **判据达成情况（2026-10-19 实测）**：
-> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 24 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
+> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 25 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
 > - **G2 孵化链路** ✅ 已达成 —— 两条入口均已实测：
 >   ① degit 路径端到端：
 >   `pnpm dlx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
@@ -81,7 +81,7 @@
 |---|---|---|---|
 | **R0** | 地基：域、契约、门禁 | 17 域登记；跨域只走 Facade；`check` 链可一键跑；`compat:check` 交叉校验生效 | ✅ 已达成（本轮实测 `check` exit=0） |
 | **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | ✅ 已达成（2026-10-20 复核）—— 三条判据均有实测，与 **D4/D5** 一致：① 四种 profile（base/minimal/vertical/creator）各跑 `install`+`check`+`build` **全绿**；② `clients/**` 缺席时门禁**跳过而非失败**（SKIP 分支实测）。**原先的「唯一未验」已消除**：reactor/Postgres 路径已可指到任意可达 Postgres（零 Docker 实测跑通）；**且两条入口的产物都实测跑通了自身 `check`**（见 G2④，此前 `project:create` 的产物是红的）。← 此前的「其余 profile 待逐仓复验」与 D4 的 ✅ **自相矛盾**，属陈旧状态 |
-| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 18 工具 + 零落盘反向对照 + `compat:check` 24 gates） |
+| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 18 工具 + 零落盘反向对照 + `compat:check` 25 gates） |
 | **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | ✅ 达成 —— `build`/`fingerprint`/`smoke:login`(10/10)/`security:scan`(20/20)/`verify:real-db`(45 文件 192 用例)/`load:test`(3/3, 18.5k–23.6k rps) 六项**本机零容器全部 exit=0** |
 | **R4** | 可运营：SRE 与持续运营资产 | SLO/灾备/复盘/对账/巡检资产齐备，且**未发生时留空**而不是放假 Demo | ✅ 已核实（2026-10-20）—— **未发生即留空**成立：`06_incidents_postmortem/`、`security-reports/`、`09_operations/`、`09_operations/02_data_ops/` 均为空 `.gitkeep`，无假 Demo；唯一实质资产是 SLO 矩阵，其 §3 原把 `v1.1.0` 历史快照写得像现状，已标注为「历史快照，非当前」并改为**指向产物** `load-test-result.json` |
 
@@ -92,7 +92,7 @@
 | 里程碑 | 判据 | 取证方式 | 状态 |
 |---|---|---|---|
 | **M0 地基绿** | 基座 `check` + 全量测试全绿 | `pnpm run check`；`pnpm exec vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
-| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 18 MCP tools / **24 gates**） |
+| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 18 MCP tools / **25 gates**） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `pnpm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `pnpm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
 | **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-20（degit 路径 + reactor/Postgres 路径**均已实测**，后者零 Docker） |
@@ -186,7 +186,7 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：19 份 `docs/specs/*/*/brief.json` + 8 份 `docs/features/sprint-prod/*.md` 需求日志；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节 |
+| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：20 份 `docs/specs/*/*/brief.json` + 9 份 `docs/features/sprint-prod/*.md` 需求日志；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节 |
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `pnpm run speckit:check -- --spec <名>` |
 | H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `pnpm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状；**另**：路径引用准确性——全仓实测 62 处不存在中约 26 处属**合法**（反例语境/外部项目/示例），故只对**生成物**建门禁 `gen:paths:check`（`wiki/**`，95 处引用零误报），并修掉 18 处真实陈旧引用（含生成器把已修掉的测试假数字**写回** wiki 这一回流风险） |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
@@ -221,6 +221,8 @@
 | I18 | **孵化端到端固化** | 产物的 `check` 由常规入口守，而非「某次验过」 | ✅ | 新增 `pnpm run hatch:e2e`（两条入口 × minimal，各自 install + 产物 `check` + `build` + `smoke:login` 起服务登录）+ 独立 CI job；反向对照：关掉 restamp → 产物 `check` 红 → 该入口 `exit=1`（**门禁确实能失败**） |
 | I19 | **profile 矩阵复验** | **两条入口 × 5 profile** 的产物各自 `check` 全绿 | ✅ | 实测 **10/10 PASS**（init 侧 5/5 + create 侧 5/5）；过程中发现 harness 未传 `--bundle` 导致 `vertical` 误报（已修，并注明**那是 harness 的调用问题、不是产物问题**） |
 | I20 | **全栈拉起与网关部署** | 一条命令拉起全栈并就绪自验；网关片段可部署且失败保留原配置 | ✅ | 收编 coolie 派发员工越界写入的产物（规格 `fullstack-launcher-caddy`）；**验证中发现并修正端口不一致**（拉起器原回退 3000，而网关指向 3200 → 部署后会指到空端口）；实测验：`--check` 输出 3200/3200、`deploy-caddy.sh` 本机只打印指引不改系统 |
+| I21 | **校验器与元数据不许漂** | 生成校验器与表元数据字段类型不一致时，`check` 必须失败（改完元数据忘重生成就红） | ✅ | 新增 `validators:align:check`（`--check` 只读、与 `--write` 互斥）。实测全仓**需改 0 处**（348 处 `id`/`*_id` 是有意约定）。**独立价值已证明**：validator 与 DTO **一起**改错时 `typecheck` EXIT 0 抓不到，本门禁 EXIT 1 并点名 `ai-api-key.name → 元数据 varchar` |
+| I22 | **生产禁用默认密钥** | `NODE_ENV=production` 且未设密钥时，加密/签名必须**当场失败**，不得静默用仓库里公开的默认值 | ✅ | 新增 `crypto:key:guard:check`（**行为级**：起子进程验 production×有/无密钥、以及「只 import 不调用」四种状态）。覆盖 AES / VAULT / HMAC 三个密钥。**反向对照**：把守卫改成 `if(false)` → 3 项红 + exit 1。设计约束：守卫必须在**调用时**，否则 `next build`（NODE_ENV=production）会炸 |
 
 ### WS-J 文档真实性 · 测试覆盖 · 门禁可失败（2026-10-21 新增）
 
@@ -246,20 +248,20 @@
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
   **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
   （它们随每次加用例/规则而变化，写死必然漂 —— 本仓已连续四轮栽在这上面）。
-  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / **18 MCP tools** / 24 gates / 342 契约。
+  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / **18 MCP tools** / 25 gates / 342 契约。
   ⚠️ **诚实的边界（此前我写错过一次）**：`llms:check` **确实会读本文件**，但只核**它认得的那几类事实**
   （门禁数、域数等）；**MCP 工具数不在其列** —— 所以本文件曾把 MCP 工具数写成旧值、而 compat 声明已更新时，它照样 exit=0。
   这类它管不到的声明，由 `pnpm run docs:claims:check` 兜底。
   本轮实测：本文件三处曾写 17 MCP tools，而 compat 声明已是 18（工具加了、这里没跟），`llms:check` 依旧 exit=0。
   复算：`pnpm run compat:check`（打印当前条数，勿手抄）。
-- **消费面**：17 domains / 38 skills / 18 MCP tools / **24 gates / 3 commands**（`compat:check` 实测）。
+- **消费面**：17 domains / 38 skills / 18 MCP tools / **25 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
 - **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（清单 `non-standard-endpoints.md`）。
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：活跃 **19 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **规格库**：活跃 **20 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
 - **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
   但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
