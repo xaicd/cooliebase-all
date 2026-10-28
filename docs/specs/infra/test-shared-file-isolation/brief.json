@@ -167,9 +167,18 @@
       "parent": "T2",
       "title": "把其余会改共享文件的测试一并迁到隔离方式（实测清单为准）",
       "files": [
+        "test/helpers/isolated-root.ts",
         "test/unit/plan-freshness-gate.test.ts",
         "test/unit/version-consistency.test.ts",
-        "test/unit/generated-paths-gate.test.ts"
+        "test/unit/generated-paths-gate.test.ts",
+        "test/unit/docs-commands-gate.test.ts",
+        "test/unit/llms-sync-gate.test.ts",
+        "test/unit/vacuous-assertion-rule.test.ts",
+        "test/unit/doc-claims-gate.test.ts",
+        "test/unit/deps-audit-gate.test.ts",
+        "test/unit/json-duplicate-keys.test.ts",
+        "test/unit/route-update-arity-rule.test.ts",
+        "test/unit/frontend-api-url-shape-rule.test.ts"
       ]
     },
     {
