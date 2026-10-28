@@ -235,7 +235,7 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| J1 | 文档写死的数字可机检 | 7 类计数（活跃规格 / 需求日志 / 门禁 / MCP 工具 / 插件 / Skills / 规范规则）与真源逐项对照 | ✅ | `pnpm run docs:claims:check`（只扫 `docs/01_management` + `docs/02_requirements`；**反向对照实测 exit 1**） |
+| J1 | 文档写死的数字可机检 | **8** 类计数（活跃规格 / 需求日志 / 门禁 / MCP 工具 / 插件 / Skills / 规范规则 / **agent 契约**）与真源逐项对照 | ✅ | `pnpm run docs:claims:check`（扫 `docs/01_management` + `docs/02_requirements` + **`docs/architecture`**，2026-10-28 扩展 —— 当天即在架构文档抓到一处真漂移：agent 契约数写 326、实际 342；**反向对照实测 exit 1**）。规则**必须写明名词**：「契约」有两个真源（§21=340 / agent=342），只写「N 份契约」不检查 |
 | J2 | 测试文件不得「没人跑」 | 每个已跟踪 `*.test.ts` 至少被一个具名入口选中 | ✅ | 实测 **480 个文件中原有 426 个**不被任何具名入口选中（只靠全量 `test`）→ 修入口后 **0**；守卫 `test/unit/test-entry-coverage.test.ts`（3 条，含反向对照） |
 | J3 | L3 契约层进主门禁链 | `check` 链包含 `test:contract` | ✅ | 此前只在 CI 的 `gates` job，**门禁绿 ≠ L3 跑过** |
 | J4 | 空转规则无盲区 | 扫描面覆盖 `packages/shared/**` 与 `src/**` | ✅ | 此前扫 `test`/`domains`/`plugins`/`scripts`，**漏了这两处**；反向对照：往 `packages/shared` 注入恒真断言 → 补面前 PASS（假绿）/ 补面后 FAIL |
@@ -358,7 +358,7 @@
 - **枚举真源**：`status` 这类列的取值真源确认为**数据字典**（`sql/init/...sql` 的 `system_dict_data`，
   210 类型 / 1031 取值）。新增 `pnpm run dict:catalog:check`（生成物与源头不一致即 exit 1）与
   `scripts/data/system-dict-catalog.ts`；`dictType` 只声明链接、**不复制取值**。43 张表已落地。
-- **文档真实性**：新增 `pnpm run docs:claims:check`（7 类计数对标真源，**反向对照实测 exit 1**）；
+- **文档真实性**：新增 `pnpm run docs:claims:check`（8 类计数对标真源，含架构文档，**反向对照实测 exit 1**）；
   门禁 20 → **21**；`compat` 自身 `mcp.count` 漂移已修并补校验。
 - **测试入口覆盖**：480 个测试文件中**原有 426 个不被任何具名入口选中**，已修至 **0** 并加守卫测试。
 - **Harness**：本轮 32 个提交；风险台账新增 RSK-011/012/013 并全部收敛到「已知边界 + 机检」。
