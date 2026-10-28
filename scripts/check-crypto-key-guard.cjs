@@ -30,11 +30,14 @@
  */
 const path = require("node:path")
 const { execFileSync } = require("node:child_process")
+const { pathToFileURL } = require("node:url")
 
 const ROOT = path.resolve(__dirname, "..")
+// **内联 TS 里的 import 必须写 file:// URL**：Windows 上裸路径 `C:\...`
+// 会让 ESM 加载器报 ERR_UNSUPPORTED_ESM_URL_SCHEME（同一天第 4 次同一类）。
 const TSX = path.join(ROOT, "node_modules/.bin/tsx")
-const ENGINE = `import { cryptoEngine } from ${JSON.stringify(path.join(ROOT, "packages/shared/backend/lib/crypto-engine"))}`
-const VAULT = `import { CryptoVault } from ${JSON.stringify(path.join(ROOT, "packages/shared/backend/lib/crypto-vault"))}`
+const ENGINE = `import { cryptoEngine } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-engine")).href)}`
+const VAULT = `import { CryptoVault } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-vault")).href)}`
 
 const CASES = [
   {
