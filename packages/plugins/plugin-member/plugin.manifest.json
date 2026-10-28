@@ -466,7 +466,7 @@
       "routeKey": "app:auth/login:post",
       "method": "POST",
       "path": "/auth/login",
-      "auth": "company"
+      "auth": "public"
     },
     {
       "routeKey": "app:auth/logout:post",
@@ -478,7 +478,7 @@
       "routeKey": "app:auth/register:post",
       "method": "POST",
       "path": "/auth/register",
-      "auth": "company"
+      "auth": "public"
     },
     {
       "routeKey": "app:profile:get",

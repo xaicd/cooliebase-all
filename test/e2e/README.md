@@ -146,7 +146,8 @@ Error [TurbopackInternalError]: unable to start FSEvent stream
 | 2 | `/readyz` 503，报驱动未知 | `DB_DRIVER=postgres` **不合法** —— 合法值是 **`postgresql`** | 改成 `postgresql` |
 | 3 | 插件 API 404「未找到插件」 | 迁移+种子后**没跑 `plugins:register`** | 流水线补这一步 |
 | 4 | 404「插件未声明该路由: POST /app/auth/register」 | **`app/` 是作用域层级，不进 URL** —— 声明里是 `/auth/register` | 用例改用 `/api/v1/plugins/cooliebase.member/api/auth/register` |
-| 5 | **401「未登录或登录已过期」** | 插件挂载按 manifest 的 `auth` 声明**要求鉴权**；而这是**公开**会员接口 | **未修** —— 属应用侧路由作用域/鉴权设计问题 |
+| 5 | **401「未登录或登录已过期」** | manifest 把 `/auth/login`、`/auth/register` 声明成 `auth: company` —— **拿 token 的入口要求先有 token** | **已修**：改为 `auth: public`（真 bug） |
+| 6 | 500「插件 cooliebase.member 未运行」 | 插件注册进库了，但**运行时没启动**（`runtime-manager` 找 merged 实例或 worker，都没有） | **未修** —— 属插件运行时启动流程 |
 
 **同时发现两个应用侧缺陷**（不是测试问题）：
 
