@@ -200,7 +200,14 @@
       "files": [
         "package.json",
         "packages/shared/contract/compat-manifest.json",
-        "llms.txt"
+        "compat-manifest.json",
+        "public/compat-manifest.json",
+        "llms.txt",
+        "public/llms.txt",
+        ".well-known/llms.txt",
+        "project-status.md",
+        "docs/01_management/project-plan.md",
+        "docs/specs/infra/sdd-write-path-discipline/"
       ]
     }
   ],
