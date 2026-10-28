@@ -1,0 +1,34 @@
+# DBX MCP → DeepSeek Harness（**只读**接入）
+#
+# 用法：把这个文件的**内容**合并进
+#   $DSH_HOME/profiles/<profile>/cordis.patch.yml
+# 顶层必须是 YAML 数组（`- insert: [...]`）—— 写成 `- id: ...` 会被当成"覆盖已有条目"，
+# dsh 会报 `patch: entry "xxx" not found`（本项目实测踩过，见 docs/guides/dsh-integration.md）。
+#
+# ## 为什么这里强制只读
+#
+# DBX 自己有一套 MCP 权限（Read only / Data read-write / Full access），但那是在
+# **DBX 的设置界面**里配的 —— 意味着"某台机器上的某个人"的状态，**不是仓库里的约定**。
+# 我们要的是"无论那台机器怎么配，本仓产出的配置都只能读"。
+#
+# `DBX_MCP_ALLOW_WRITES=0` 正是这个语义：**强制本次运行只读，且覆盖已保存的
+# group/connection/database 级写权限**（官方文档 Safety and Environment Variables 节）。
+# 门禁 `dbx:readonly:check` 会校验本文件必须带着它。
+#
+# ## 前置条件（本仓无法自动化）
+#
+# `dbx-mcp` 读的是 **DBX 里已保存的连接**（macOS: ~/Library/Application Support/com.dbx.app/dbx.db）。
+# 也就是说：必须先有人装 DBX、在界面里加好连接 —— 否则这里的工具列表是空的。
+# 具体见 docs/guides/dbx-mcp-integration.md。
+- insert:
+    - id: mcp-dbx
+      name: '@deepseek-ai/dsh-mcp-client'
+      config:
+        serverName: dbx
+        transport: stdio
+        # 用裸名依赖 dsh 进程的 PATH；GUI 客户端可能不继承 PATH，
+        # 那种情况请改成 `dbx-mcp` 的绝对路径（`command -v dbx-mcp`）。
+        command: dbx-mcp
+        env:
+          # **硬约束**：本仓发布的配置一律只读。删掉这一行 = 门禁变红。
+          DBX_MCP_ALLOW_WRITES: '0'

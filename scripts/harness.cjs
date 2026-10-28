@@ -246,6 +246,7 @@ const ALIASES = {
     "frontend:request-contract:baseline",
     "write:path:depth:baseline",
     "write:path:depth:report",
+    "dbx:readonly:check",
   ],
   doctor: ["harness:health", "harness:check", "harness:high-order:check", "harness:hermes-hook", "typecheck", "plan:freshness", "health-check"],
   check: ["check:all", "contracts:audit-logs:check", "admin:routes:manifest:check"],

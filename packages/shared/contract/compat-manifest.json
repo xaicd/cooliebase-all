@@ -120,6 +120,7 @@
       "routes:validation:check",
       "validators:align:check",
       "crypto:key:guard:check",
+      "dbx:readonly:check",
       "write:path:depth:check",
       "frontend:request-contract:check",
       "docs:claims:check",

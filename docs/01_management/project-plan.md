@@ -44,7 +44,7 @@
 | G7 | 交付链有证据 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 各自 exit=0 | **已全绿（本机零容器，2026-10-20）**：`build` ✅ · `fingerprint:verify` ✅ · `smoke:login` **10/10** ✅ · `security:scan` **20/20** ✅ · `verify:real-db` **45 文件 / 192 用例 exit=0** ✅ · `load:test` **3/3 exit=0**（rps 18,534 / 23,015 / 23,632，护栏 5,000）✅ |
 
 > **判据达成情况（2026-10-19 实测）**：
-> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 27 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
+> - **G1 / G4 / G5 / G6** ✅ 已达成（`check` exit=0；`compat:check` 28 gates；`deps:audit` 43→9；`clients:build:check` PASS）。
 > - **G2 孵化链路** ✅ 已达成 —— 两条入口均已实测：
 >   ① degit 路径端到端：
 >   `pnpm dlx degit`（无 `.git`/无 tag，6823 文件）→ `pnpm install` → `project:init` → `check` exit=0
@@ -81,7 +81,7 @@
 |---|---|---|---|
 | **R0** | 地基：域、契约、门禁 | 17 域登记；跨域只走 Facade；`check` 链可一键跑；`compat:check` 交叉校验生效 | ✅ 已达成（本轮实测 `check` exit=0） |
 | **R1** | 可孵化：Profile/Bundle 与裁剪 | `project:create` 四种 profile 产物各自 `check` 通过；裁剪后不残留悬空引用；`clients/` 缺席时门禁**跳过而非失败** | ✅ 已达成（2026-10-20 复核）—— 三条判据均有实测，与 **D4/D5** 一致：① 四种 profile（base/minimal/vertical/creator）各跑 `install`+`check`+`build` **全绿**；② `clients/**` 缺席时门禁**跳过而非失败**（SKIP 分支实测）。**原先的「唯一未验」已消除**：reactor/Postgres 路径已可指到任意可达 Postgres（零 Docker 实测跑通）；**且两条入口的产物都实测跑通了自身 `check`**（见 G2④，此前 `project:create` 的产物是红的）。← 此前的「其余 profile 待逐仓复验」与 D4 的 ✅ **自相矛盾**，属陈旧状态 |
-| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 18 工具 + 零落盘反向对照 + `compat:check` 27 gates） |
+| **R2** | 可驱动：Agent 消费面 | MCP 工具面可用且**不写盘**；Skills 与代码同步（`skills:check`）；提示分段可重建；进化待办可回流 | ✅ 已达成（本轮 MCP 18 工具 + 零落盘反向对照 + `compat:check` 28 gates） |
 | **R3** | 可交付：全链路交付与真实验证 | `build` / `smoke:login` / `security:scan` / `load:test` / `fingerprint:verify` 全绿；**真实数据库**（`verify:real-db`）验证通过 | ✅ 达成 —— `build`/`fingerprint`/`smoke:login`(10/10)/`security:scan`(20/20)/`verify:real-db`(45 文件 192 用例)/`load:test`(3/3, 18.5k–23.6k rps) 六项**本机零容器全部 exit=0** |
 | **R4** | 可运营：SRE 与持续运营资产 | SLO/灾备/复盘/对账/巡检资产齐备，且**未发生时留空**而不是放假 Demo | ✅ 已核实（2026-10-20）—— **未发生即留空**成立：`06_incidents_postmortem/`、`security-reports/`、`09_operations/`、`09_operations/02_data_ops/` 均为空 `.gitkeep`，无假 Demo；唯一实质资产是 SLO 矩阵，其 §3 原把 `v1.1.0` 历史快照写得像现状，已标注为「历史快照，非当前」并改为**指向产物** `load-test-result.json` |
 
@@ -92,7 +92,7 @@
 | 里程碑 | 判据 | 取证方式 | 状态 |
 |---|---|---|---|
 | **M0 地基绿** | 基座 `check` + 全量测试全绿 | `pnpm run check`；`pnpm exec vitest run` | ✅ 2026-10-19 实测（436 files / 816 tests / 0 failed） |
-| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 18 MCP tools / **27 gates**） |
+| **M1 契约不漂** | 工具/技能/门禁清单与代码一致 | `pnpm run compat:check` | ✅ 2026-10-19（17 domains / 38 skills / 18 MCP tools / **28 gates**） |
 | **M2 供应链可守** | 生产树无新增漏洞；存量有台账 | `pnpm run deps:audit`；台账 `docs/architecture/cooliebase-all-dependency-policy.md` | ✅ 2026-10-19（43 → 9 条，棘轮生效） |
 | **M3 客户端可验证** | 客户端构建有门禁且非空壳 | `pnpm run clients:build:check`（含破坏入口反向对照） | ✅ 2026-10-19 |
 | **M4 孵化无阻塞** | 产物能启动并跑通自身门禁 | degit 快照：`install`→`init`→`check`→`build`→`dev`→登录 | ✅ 2026-10-20（degit 路径 + reactor/Postgres 路径**均已实测**，后者零 Docker） |
@@ -227,6 +227,7 @@
 | I24 | **写链路必须声明深度测试** | 规格触及写路由/表单页时，必须在 acceptance 声明「正向写库 + 对抗 4xx」或显式豁免理由 | ✅ | 新增 `write:path:depth:check`（棘轮）。**边界如实标注**：只校验**声明**、不证明测试真写了；且现役 20 个规格**0 个触发**（任务白名单多写 `-`）—— 故反向对照必须存在，否则就是永远绿的门禁 |
 | I25 | **红绿对抗 E2E 有标准、有模板、有度量** | 写链路 E2E 必须有正向（真实查库）与对抗（4xx+自愈+库不脏）两层；覆盖度只**度量**不冒充 | ✅ | 新增 `test/e2e/README.md`（标准）+ `write-path.sample.spec.ts`（默认 skip 的模板）+ `write:path:depth:report`（report-only）。**首版度量把 skip 用例算成覆盖（1105:2），已修为 1105:0 并单列「条件 skip」** —— 这条自查记录写进提交，不用它去凑数 |
 | I26 | **E2E 一条命令自给自足** | 起库→迁移→种子→起应用→跑测试→清场，不留进程与端口 | ⚠️ | 新增 `pnpm run e2e:run`（含清场与端口兜底检查）。**尚未跑通**：卡在「构建产物里带着整份 `.env`」（`standalone/.env` 用 14 字节占位 JWT_SECRET 盖掉运行时值）。已把 `/readyz` 的 `reason` 补回响应，使这类失败可诊断。**不声称 E2E 已可跑** |
+| I27 | **SRE/运营 NPC 有标准数据库工具（只读）** | DBX MCP 接入 dsh，且**配置层强制只读** | ✅ | 新增 `deploy/dsh/mcp-dbx.patch.yml`（`DBX_MCP_ALLOW_WRITES=0`，覆盖 DBX 界面里的写权限）+ `dbx:readonly:check` 门禁（**先剥注释再判** —— 第一版被注释喂饱，反向对照当场抓到）+ `docs/guides/dbx-mcp-integration.md`。**未验证**：dsh 里 `mcp__dbx__*` 是否出现（本机 DBX 无连接） |
 
 ### WS-J 文档真实性 · 测试覆盖 · 门禁可失败（2026-10-21 新增）
 
@@ -252,13 +253,13 @@
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
   **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
   （它们随每次加用例/规则而变化，写死必然漂 —— 本仓已连续四轮栽在这上面）。
-  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / **18 MCP tools** / 27 gates / 342 契约。
+  写死且受 `llms:check` 看守的只有**稳定计数**：17 domains / 38 skills / **18 MCP tools** / 28 gates / 342 契约。
   ⚠️ **诚实的边界（此前我写错过一次）**：`llms:check` **确实会读本文件**，但只核**它认得的那几类事实**
   （门禁数、域数等）；**MCP 工具数不在其列** —— 所以本文件曾把 MCP 工具数写成旧值、而 compat 声明已更新时，它照样 exit=0。
   这类它管不到的声明，由 `pnpm run docs:claims:check` 兜底。
   本轮实测：本文件三处曾写 17 MCP tools，而 compat 声明已是 18（工具加了、这里没跟），`llms:check` 依旧 exit=0。
   复算：`pnpm run compat:check`（打印当前条数，勿手抄）。
-- **消费面**：17 domains / 38 skills / 18 MCP tools / **27 gates / 3 commands**（`compat:check` 实测）。
+- **消费面**：17 domains / 38 skills / 18 MCP tools / **28 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
 - **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（清单 `non-standard-endpoints.md`）。
