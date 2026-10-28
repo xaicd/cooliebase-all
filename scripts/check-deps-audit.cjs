@@ -61,7 +61,9 @@ function runAudit() {
     cwd: ROOT,
     encoding: "utf8",
     timeout: AUDIT_TIMEOUT_MS,
-    shell: false,
+      // **Windows 必须开 shell**：`pnpm.cmd` 不能被直接 exec（与 crypto-key-guard 同坑）。
+      // POSIX 上仍是 false —— 行为完全不变。
+      shell: process.platform === "win32",
   })
   const stdout = (result.stdout || "").trim()
   if (!stdout) {

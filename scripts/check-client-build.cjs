@@ -74,7 +74,7 @@ function main() {
     result = spawnSync(
       PNPM,
       ["exec", "expo", "export", "-p", "web", "--output-dir", outDir],
-      { cwd: client, encoding: "utf8", timeout: EXPORT_TIMEOUT_MS, shell: false },
+      { cwd: client, encoding: "utf8", timeout: EXPORT_TIMEOUT_MS, shell: process.platform === "win32" },
     )
 
     const log = `${result.stdout || ""}${result.stderr || ""}`.trim()

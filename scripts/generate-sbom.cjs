@@ -70,6 +70,8 @@ function licensesFromInstalledTree() {
     cwd: ROOT,
     encoding: "utf8",
     timeout: 300000,
+      // Windows 上 `pnpm.cmd` 必须经 shell（见 check-deps-audit 的同款注释）
+      shell: process.platform === "win32",
     maxBuffer: 64 * 1024 * 1024,
   })
   if (result.status !== 0 || !result.stdout) {
