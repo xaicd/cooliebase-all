@@ -189,7 +189,7 @@
 | 13. 运营 | `pnpm run agent:ops -- <域>.<实体> health/seed-sample/purge-sample` | 接口体检 + 造数/清数 |
 | 14. 冒烟（**平台可用性**） | `pnpm run smoke:login` | 建库→迁移→种子→登记插件→起服务→**登录 200**→受保护接口 200。自管理环境，跑完清场。**本机零容器可跑**（嵌入式 Postgres；外部 `DATABASE_URL` 优先） |
 | 15. **渗透** | `pnpm run security:scan` | 未认证/伪造 token/伪造 tenant/插件挂载/不泄露栈/安全响应头/错误口令/两个**阴性对照**。接进 CI + G5；**本机零容器可跑** |
-| 16. **压测**（容量护栏） | `pnpm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5；**本机零容器可跑**，但 rps **不代表容量**（受机器负载影响，实测 1.8k–2.8k vs 基线 26.9k） |
+| 16. **压测**（容量护栏） | `pnpm run load:test` | 打**生产产物**，出 rps/p95/失败率并对阈值。接进 CI + G5；**本机零容器可跑**，但 rps **不代表容量**（受机器负载影响，实测 1.8k–2.8k vs 基线 26.9k）。**CI 上只记录、不判定**：共享 runner 的 CPU 与本地/生产不可比（实测同一份产物：本地 /healthz 15–26k rps，CI runner 上 1.2k，bcrypt 密集的 /login 仅 402）——拿它判构建失败是在**量错机器**；真正的护栏是本地 `pnpm run load:test`（阈值 2000）。同理 verdict=inconclusive **不判失败**（它自己就写着「不是回归证据」） |
 | 17. **孵化端到端**（产物可用性） | `pnpm run hatch:e2e` | **产物自身能不能跑通它自己的门禁**（G2 的判据）。两条入口都跑：`project:init --target`（SQLite）与 `project:create`（reactor 裁剪 + **嵌入式** Postgres，零 Docker）；各自 `install` → **产物的 `check`** → **产物的 `build`** → **产物的 `smoke:login`**（起服务 + 登录 200）。任一非 0 即非 0，**不降级**；`--fast` 只跑到 `check`。为什么必须单列：基座自己的 `check` **看不到**只在新工程里暴露的残留 —— 实测 `project:create` 的产物曾 `check` exit=1（374 处悬空引用：被裁域的 wiki 词条 + llms/README 的规模声明），而基座 17 域全在、全绿。独立 CI job（非 PR） |
 | 18. **变异测试**（断言杀伤力） | `pnpm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
 | 19. **文档命令真实性** | `pnpm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
