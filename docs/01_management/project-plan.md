@@ -430,6 +430,22 @@
 | 3 | 十几个门禁探针测试一起红 | `git clone --local` 默认**硬链接**，**跨文件系统必失败**（CI: `/home/runner/work` vs `/tmp`；本地 macOS 同卷所以永远绿）→ 加 `--no-hardlinks` |
 | 4 | Windows job 装不上 | `ERR_PNPM_IGNORED_BUILDS: @embedded-postgres/windows-x64` —— `allowBuilds` 里有 darwin/linux 各变体，**独缺 windows** |
 
+### 进展（2026-10-28 第四次实跑，job 级）
+
+| job | 结果 |
+|---|---|
+| `gates`（门禁链 + 单元/集成测试 + 契约层 + 生产构建） | ✅ **6m28s 通过** |
+| `onboarding`（degit 模拟 → 派生工程 → **产物全量门禁**） | ✅ **2m0s 通过** |
+| `hatch`（两条入口 × 自身 check） | ✅ **4m26s 通过** |
+| `mutation`（变异门禁） | ✅ 通过 |
+| `security`（渗透扫描） | ✅ 通过 |
+| `windows`（路径 / 换行 / 子进程） | ⚠️ 仍 ✗（`domain-manifests:check`，.gitattributes 后待复验） |
+| `load`（自管理环境压测） | ⚠️ 仍 ✗（原因待日志） |
+
+**从"每个 job 21 秒全灭"到"7 个 job 里 5 个绿"** —— 关键是这四条根因
+（`action-setup` 版本冲突 / 契约测试写死品牌名 / `git clone --local` 跨文件系统 /
+Windows 缺 `allowBuilds` 与 `.gitattributes`），它们**全都只在 CI 的形态下才成立**。
+
 ### 进展与剩余
 
 - ✅ `pnpm install` / 门禁 / **派生工程全量门禁**（onboarding 的核心步骤）现在都过；
