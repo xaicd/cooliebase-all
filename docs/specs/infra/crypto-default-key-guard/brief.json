@@ -1,0 +1,179 @@
+{
+  "name": "crypto-default-key-guard",
+  "domain": "infra",
+  "title": "生产环境必须禁止使用硬编码默认 AES 密钥",
+  "type": "security",
+  "goal": "让『生产环境复用公开默认密钥』从『静默可用』变成『启动/调用即失败』，并落成一条会失败的行为级机检。",
+  "roles": [
+    {
+      "role": "安全负责人",
+      "can": "不必靠人记得配密钥 —— 漏配会当场炸，而不是悄悄用一把公开钥匙加密用户数据"
+    },
+    {
+      "role": "运维",
+      "can": "从报错里直接看到该设哪个变量，而不是解密出一堆乱码再回头看"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为安全负责人，生产环境若没有设置密钥，加密调用必须直接失败并点名环境变量，绝不能回退到仓库里可见的默认值。"
+    },
+    {
+      "priority": "P0",
+      "text": "作为开发者，本地与测试环境（未设 NODE_ENV=production）不应被打断，仍可用默认值跑测试。"
+    },
+    {
+      "priority": "P1",
+      "text": "作为构建维护者，`next build`（NODE_ENV=production）**不能**因为缺密钥而失败 —— 守卫必须在**调用时**而不是模块加载时触发。"
+    }
+  ],
+  "constraints": [
+    "**必须行为级机检**：不是 grep 源码找 `|| \"...\"`（太脆），而是起子进程带 NODE_ENV=production 断言抛错。",
+    "**不能影响构建**：`next build` 会以 NODE_ENV=production 运行；守卫放模块加载时会炸掉构建 → 必须放调用时。",
+    "**不能影响测试**：`test:clean` 会 unset NODE_ENV，默认值仍可用。",
+    "不改加密算法本身（那是独立决策）；本规格只解决『缺密钥不许静默降级』。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "行为验证：`NODE_ENV=production` 且未设密钥 → `cryptoEngine.encrypt()` 抛错，且错误信息包含 `COOLIEBASE_SHARED_AES_KEY`"
+    },
+    {
+      "check": "行为验证：`NODE_ENV=production` 且已设密钥 → 正常加解密；`cryptoVault` 同理（`COOLIEBASE_VAULT_AES_KEY`）"
+    },
+    {
+      "check": "非生产（无 NODE_ENV）未设密钥 → 仍可用（不破坏测试与本地开发）"
+    },
+    {
+      "check": "构建安全：模块**加载**不抛错（只有调用才抛）—— 用「import 后不调用不报错」验证"
+    },
+    {
+      "check": "反向对照：把守卫去掉，上述行为验证必须失败（证明机检真的在测这件事）"
+    }
+  ],
+  "nonGoals": [
+    "不把 AES-CBC 换成 GCM（独立决策：`crypto-vault` 已实现 GCM 但无人使用，是否迁移另议）。",
+    "不动 `hashPassword`（它是 HMAC-SHA256，本就不适合存密码；且当前无人使用）。",
+    "不引入传输层加密信封。",
+    "不在本规格里补 `.env.example` 之外的分发流程（KMS/密钥轮换另议）。"
+  ],
+  "architecture": "两个模块都在模块级把 env 值兜底成硬编码常量：\n· `packages/shared/backend/lib/crypto-engine.ts:21` → `COOLIEBASE_SHARED_AES_KEY || \"cooliebase-all-default-aes-key!!\"`\n· `packages/shared/backend/lib/crypto-vault.ts:4` → `COOLIEBASE_VAULT_AES_KEY || \"0123456789abcdef…\"`\n且这两个变量**在全仓别处都没有出现**（`.env` / 文档 / 部署脚本都没有）→ 生产漏配不会被任何人提醒，\n加密照常『成功』，只是用的是一把公开钥匙。\n\n改法：把默认值从**模块级常量**改成**调用时的解析函数**（`resolveKey()`），\n在生产且未设密钥时抛错；错误信息点名变量与用途。\n调用点：`crypto-engine` 的 `encrypt/decrypt`；`crypto-vault` 的 `encrypt/decrypt/encryptJson/decryptJson`（都用 `key = DEFAULT_KEY` 默认参数）。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "本规格不新增或修改任何表。"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "生产不许静默降级",
+      "how": "NODE_ENV=production 且缺密钥 → 抛错；由子进程行为测试守。"
+    },
+    {
+      "name": "构建不被破坏",
+      "how": "守卫只在调用时触发；由「import 不调用不报错」守。"
+    }
+  ],
+  "ui": [
+    "无新增页面。"
+  ],
+  "ops": [
+    "门禁链：`pnpm run check` 新增一步 `crypto:key:guard:check`（行为级，起子进程）。",
+    "部署前置：生产必须设置 `COOLIEBASE_SHARED_AES_KEY`（32 字节）与 `COOLIEBASE_VAULT_AES_KEY`（32 字节）。"
+  ],
+  "risks": [
+    {
+      "risk": "守卫放在模块加载时会导致 `next build` 失败（NODE_ENV=production）。",
+      "mitigation": "守卫放调用时；并用「只 import 不调用 → 不抛错」的用例锁住这一点。"
+    },
+    {
+      "risk": "把现有部署打挂：若某环境确实没配密钥，上线后加密调用会立刻抛错。",
+      "mitigation": "这正是本规格的目的（宁可炸也不要静默用公开钥匙）；同时在 `.env.example` 与文档里补上变量说明，并让错误信息给出确切变量名。"
+    }
+  ],
+  "screens": [],
+  "interactions": [],
+  "states": [],
+  "candidates": [
+    {
+      "name": "① 调用时解析 + 生产抛错 + 子进程行为测试",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "最小改动；不破坏构建与测试"
+    },
+    {
+      "name": "② 模块加载时抛错",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "**会炸掉 next build**，否掉"
+    },
+    {
+      "name": "③ 只在日志里 warn",
+      "type": "自研",
+      "license": "N/A",
+      "risk": "仍然是静默降级，只是多一行日志 —— 否掉"
+    }
+  ],
+  "benchmarks": [
+    "业界通行做法：无密钥即 fail-fast（如 rails secret_key_base、Django SECRET_KEY 非空校验、Spring 的 Jasypt 启动校验）。",
+    "本仓已有同类先例：`ephemeral-pg` 的 fail-loud、`DATABASE_URL` 在生产必须配置（`生产环境必须配置 DATABASE_URL`）—— 本规格把同一原则应用到加密密钥。"
+  ],
+  "scan": [
+    "实测：两个默认值都是公开常量；`COOLIEBASE_SHARED_AES_KEY` / `COOLIEBASE_VAULT_AES_KEY` 在全仓**别处零引用**。",
+    "实测：`cryptoEngine.encrypt` 确实用于 `data-source-config.service.ts` 存库密码；`CryptoVault` 除自身测试外**无人使用**（死代码，另案处理）。",
+    "实测：`src/app/api` 下**没有**任何传输层加解密调用。"
+  ],
+  "licenseConclusion": "不引入新依赖，无许可传染风险。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "红灯：证明当前生产环境缺密钥仍能加密（静默降级），且构建不受影响",
+      "files": [
+        "test/unit/crypto-key-guard.test.ts"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "实现：两模块改为调用时解析密钥，生产缺密钥抛错（点名变量），非生产保持默认",
+      "files": [
+        "packages/shared/backend/lib/crypto-engine.ts",
+        "packages/shared/backend/lib/crypto-vault.ts"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "门禁：行为级检查脚本（子进程三态验证），接入 check 链与 compat gates",
+      "files": [
+        "scripts/check-crypto-key-guard.cjs",
+        "package.json",
+        "packages/shared/contract/compat-manifest.json"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "文档与验收：.env.example 补变量、门禁计数同步、注入必红/摘线必绿",
+      "files": [
+        ".env.example",
+        "llms.txt",
+        "project-status.md",
+        "docs/01_management/project-plan.md",
+        "docs/02_requirements/rtm-traceability-matrix.md",
+        "docs/specs/infra/crypto-default-key-guard/",
+        "docs/features/sprint-prod/",
+        "compat-manifest.json",
+        "public/compat-manifest.json",
+        "public/llms.txt",
+        ".well-known/llms.txt"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4。",
+  "windowMinutes": 10
+}
