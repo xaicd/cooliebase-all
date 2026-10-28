@@ -37,7 +37,7 @@ function collect() {
         for (const file of fs.readdirSync(full)) {
           if (!/\.(ts|tsx)$/.test(file)) continue
           if (file.includes("__tests__")) continue
-          const rel = path.relative(ROOT, path.join(full, file))
+          const rel = path.relative(ROOT, path.join(full, file)).replace(/\\/g, "/")
           if (!isGeneratedFile(path.join(full, file))) handwritten.push(rel)
         }
       }

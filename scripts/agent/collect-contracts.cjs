@@ -39,7 +39,7 @@ function collect() {
         const full = path.join(agentDir, file)
         try {
           const contract = JSON.parse(fs.readFileSync(full, "utf8"))
-          contract.__source = path.relative(ROOT, full)
+          contract.__source = path.relative(ROOT, full).replace(/\\/g, "/")
           contracts.push(contract)
         } catch (error) {
           throw new Error(`契约无法解析: ${path.relative(ROOT, full)} — ${error.message}`)

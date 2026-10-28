@@ -88,7 +88,7 @@ async function main() {
     const writableColumns = parseList(source, "WRITABLE_COLUMNS")
     if (!tableName || !tableColumns) continue
 
-    const rel = path.relative(ROOT, file)
+    const rel = path.relative(ROOT, file).replace(/\\/g, "/")
 
     // ② 可写列必须真能落库（否则写入被 dbValues() 静默丢弃）
     for (const column of writableColumns ?? []) {

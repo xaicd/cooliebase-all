@@ -46,7 +46,7 @@ function targets() {
     for (const domain of fs.readdirSync(root)) {
       for (const kind of ["pages", "components"]) {
         const dir = path.join(root, domain, "frontend", kind)
-        for (const file of walk(dir)) files.push(path.relative(ROOT, file))
+        for (const file of walk(dir)) files.push(path.relative(ROOT, file).replace(/\\/g, "/"))
       }
     }
   }
