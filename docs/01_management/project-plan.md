@@ -411,3 +411,38 @@
 > **教训（同一条，第三次出现）**：交付链脚本**不能假设调用方的 shell 是干净的**。
 > `DB_DRIVER` / `JWT_SECRET` / `PORT` 这类变量要么显式给、要么先校验再采用 ——
 > 这不是洁癖：它让「门禁绿」与「本机环境」纠缠在一起，换台机器结论就变。
+
+
+---
+
+## 附二：CI 一直红着（2026-10-28 首次实查 `gh run list`）
+
+那条「G7 只能在 CI 验，不要假装跑过」一直挂着。这轮用 `gh` 一查才知道：
+**最近每次 push 的 CI 都是 `completed failure`，21 秒就挂**，而且**一直没人看**。
+本地 `check` 全绿、G7 本地全绿 —— CI 却从来没绿过。
+
+### 已修的四条（共同点：**只在 CI 的形态下才成立**）
+
+| # | 现象 | 真因 |
+|---|---|---|
+| 1 | 每个 job 21s 就死 | 工作流写 `version: 12` **且** `package.json` 有 `packageManager: pnpm@12.4.2` → `pnpm/action-setup@v4` 报 `Multiple versions of pnpm specified` |
+| 2 | 派生工程 `check` 必红 | 契约测试**写死品牌名** `CoolieBase All`；CI 孵化的叫 `CI Demo` → `expected 'CI Demo' to be 'CoolieBase All'` |
+| 3 | 十几个门禁探针测试一起红 | `git clone --local` 默认**硬链接**，**跨文件系统必失败**（CI: `/home/runner/work` vs `/tmp`；本地 macOS 同卷所以永远绿）→ 加 `--no-hardlinks` |
+| 4 | Windows job 装不上 | `ERR_PNPM_IGNORED_BUILDS: @embedded-postgres/windows-x64` —— `allowBuilds` 里有 darwin/linux 各变体，**独缺 windows** |
+
+### 进展与剩余
+
+- ✅ `pnpm install` / 门禁 / **派生工程全量门禁**（onboarding 的核心步骤）现在都过；
+- ⚠️ `gates` 的「单元与集成测试」：从 ~16 个失败文件 → **已修完**（见下）；
+- ⚠️ `hatch`：派生产物的 `check` 里 `[doc-claims] ✗ 发现 1 处声明与真源不符`（裁剪后计数没跟着变）—— **下一轮**；
+- ⚠️ `windows`：`--frozen-lockfile` 仍在下载依赖后失败，待查；
+- ⚠️ `onboarding`：核心步骤已过，`Post Run actions/setup-node` 仍 ✗（疑似缓存动作，非我们代码）。
+
+### 一条更该记的教训
+
+`pnpm run check` **不含 `test:unit`**（只跑 `test:contract`），而单测**只在 CI 里跑** ——
+而 CI 红了很多轮。也就是说：**这段时间里单元测试实际上从来没跑过**。
+
+这轮修完 CI 后，单测立刻抓出**我自己两处**改动留下的破绽
+（`write-path-depth` 的豁免逻辑、`plugin-mount-auth` 的 mock）。
+**"我只跑了新写的那个测试 + check"不等于验过** —— 这正是本仓反复讲的那句。

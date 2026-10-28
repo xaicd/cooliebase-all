@@ -33,12 +33,19 @@ import type { PluginManifest } from "@/modules/shared/backend/plugins/types"
  * 之后 memo 住 promise，不会每次请求都跑；失败则清掉 memo，下次重试。
  */
 let ensureRuntimesPromise: Promise<unknown> | null = null
+/** 启动失败的原因（**不吞**：调试时要在后续报错里带出来，见 `invokeRoute` 那段） */
+let ensureRuntimesError: unknown = null
 async function ensurePluginRuntimes(): Promise<void> {
   if (!ensureRuntimesPromise) {
-    ensureRuntimesPromise = pluginRegistryService.reconcile().catch((error) => {
-      ensureRuntimesPromise = null
-      throw error
-    })
+    ensureRuntimesPromise = pluginRegistryService
+      .reconcile()
+      // **失败不致命**：内存模式 / 无插件目录时 reconcile 会失败，而"调用插件路由"
+      // 本来就会以「插件 X 未运行」失败 —— 不能因为自愈没成功就把它变成 500。
+      // 但原因必须留着（本仓禁止静默吞异常），拼进后面的错误里。
+      .catch((error) => {
+        ensureRuntimesError = error
+        ensureRuntimesPromise = null
+      })
   }
   await ensureRuntimesPromise
 }
@@ -77,7 +84,16 @@ async function handle(request: Request) {
 
     // **保证运行时已启动**：注册进库 ≠ 插件在跑（见 ensurePluginRuntimes）。
     // 放在鉴权之后 —— 未通过鉴权的请求不该触发插件进程启动。
-    if (!pluginRuntimeManager.get(pluginKey)) await ensurePluginRuntimes()
+    if (!pluginRuntimeManager.get(pluginKey)) {
+      await ensurePluginRuntimes()
+      if (!pluginRuntimeManager.get(pluginKey) && ensureRuntimesError) {
+        // 自愈没成功 —— 把**原因**带出来，否则只剩一句"未运行"，无从下手。
+        console.error(
+          `[plugin-mount] ${pluginKey} 自动启动失败：`,
+          ensureRuntimesError instanceof Error ? ensureRuntimesError.message : String(ensureRuntimesError),
+        )
+      }
+    }
 
     const result = await pluginRuntimeManager.invokeRoute(pluginKey, resolution.declaration!.routeKey, {
       method: request.method,

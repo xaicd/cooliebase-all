@@ -19,6 +19,11 @@ const manifest = {
   ],
 }
 
+// 懒启动会调 reconcile —— 测试里必须是 no-op（否则会去读真实插件目录）。
+vi.mock("@/modules/shared/backend/plugins/plugin-registry.service", () => ({
+  pluginRegistryService: { reconcile: async () => ({}) },
+}))
+
 vi.mock("@/modules/shared/backend/plugins/plugin.repository", () => ({
   PluginRepository: {
     findByKey: vi.fn(async () => ({ pluginKey: "cooliebase.pay", manifestJson: manifest, status: "ready" })),
@@ -26,9 +31,12 @@ vi.mock("@/modules/shared/backend/plugins/plugin.repository", () => ({
 }))
 
 const invokeRoute = vi.fn(async () => ({ status: 200, body: { ok: true } }))
+// 挂载点在派发前会调 `get(pluginKey)` 判断运行时是否已起（懒启动），mock 必须给全。
 vi.mock("@/modules/shared/backend/plugins/runtime-manager", () => ({
   pluginRuntimeManager: {
     invokeRoute: (...args: unknown[]) => invokeRoute(...(args as [])),
+    // 一律"未运行"→ 挂载点会尝试懒启动（下面 mock 掉，不碰磁盘）
+    get: () => undefined,
   },
 }))
 
