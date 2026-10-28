@@ -440,7 +440,7 @@
 | `mutation`（变异门禁） | ✅ 通过 |
 | `security`（渗透扫描） | ✅ 通过 |
 | `windows` 第 1 步（`pnpm run check` 全链） | ✅ **2026-10-28 通过**（依次清掉：裸路径 `import()`、`path.relative` 当 key 未归一化、`node_modules/.bin/*` 垫片、`spawnSync(pnpm)` 显式 `shell:false`、CRLF `.gitattributes`） |
-| `windows` 第 2 步（孵化产物） | ⚠️ 仍 ✗：`[hatch-e2e] ✗ init: 产物 pnpm install 失败 (exit=1)` —— **不是 Windows 特有**，是裁剪后 **lockfile 没同步**（产物里被裁掉的包目录会被 `pnpm install` 重建出空壳，脚本自己写明了「彻底修法: 按裁剪结果同步 lockfile」） |
+| `windows` 第 2 步（孵化产物） | ✅ **2026-10-28 通过** —— 真因是 `spawnSync(PNPM, …)` 没经 shell （`.cmd` 起不来，且 `result.error` 被忽略导致只剩一个 `exit=1`） |
 | `load`（自管理环境压测） | ⚠️ 仍 ✗（原因待日志） |
 
 **从"每个 job 21 秒全灭"到"7 个 job 里 5 个绿"** —— 关键是这四条根因
@@ -463,3 +463,36 @@ Windows 缺 `allowBuilds` 与 `.gitattributes`），它们**全都只在 CI 的�
 这轮修完 CI 后，单测立刻抓出**我自己两处**改动留下的破绽
 （`write-path-depth` 的豁免逻辑、`plugin-mount-auth` 的 mock）。
 **"我只跑了新写的那个测试 + check"不等于验过** —— 这正是本仓反复讲的那句。
+
+
+---
+
+## ✅ CI 第一次全绿（2026-10-28，run 40664570560 / sha af22a273）
+
+```
+gates        success  430s      security     success   58s
+hatch        success  223s      smoke        success   47s
+onboarding   success   82s      load         success  132s
+windows      success  416s      mutation     success   31s
+                                             → completed/success（8/8）
+```
+
+**这条意义最大**：计划里从第一天就挂着的「G7 只能在 CI 验，**不要假装跑过**」——
+之前一直没人查，一查发现**每个 job 21 秒全灭**。
+
+从"全灭"到"全绿"，一共清了这些（**每一条都是"只在 CI 形态下才成立"**）：
+
+| # | 根因 | 为什么本地看不出来 |
+|---|---|---|
+| 1 | `pnpm/action-setup` 与 `packageManager` **双版本冲突** | 本机直接跑 `pnpm`，没有 action |
+| 2 | 契约测试**写死品牌名** | 本机 profile 就是基座自己 |
+| 3 | `git clone --local` **跨文件系统硬链接**失败 | macOS 同卷 |
+| 4 | `allowBuilds` 缺 **windows** 变量 | 本机只装 darwin 那个 |
+| 5 | 检出换行（`core.autocrlf`）把 manifest 变 CRLF | POSIX 检出就是 LF |
+| 6 | `import(裸路径)` ×4 | POSIX 容忍裸路径 |
+| 7 | `path.relative` 当基线 key **未归一化** | 反斜杠只在 Windows 出现 |
+| 8 | `node_modules/.bin/<tool>` 垫片 / `spawnSync(pnpm)` 无 shell ×5 | 同上 |
+| 9 | 压测在**共享 runner** 上判定 | 本机 CPU 与 runner 不可比 |
+
+**共同教训**：「本地全绿」证明的是**本地**。凡是跨平台/跨环境的门禁，**必须真的在目标环境跑一次** ——
+这次它藏了至少 9 个缺陷，而 `pnpm run check` 一直是绿的。
