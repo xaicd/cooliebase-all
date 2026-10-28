@@ -56,3 +56,26 @@ CMD ["node", "server.js"]
 - 严禁生产镜像以 `root` 超级用户权限运行主进程（必须使用 `USER node`）。
 - 严禁把数据库密码或私钥打入 Docker 镜像层（必须通过环境变量或 Secret 挂载）。
 - 严禁更新服务时直接 `down` 导致服务完全中断（必须使用滚动更新 `--no-deps -d app`）。
+
+---
+
+## 数据库只读工具（DBX MCP）—— 给 SRE / 运营数字员工
+
+**场景**：排障时要查表结构、查流水、跑只读诊断 SQL。不要让 agent 靠人截图或贴结果 ——
+那既慢又不可审计。
+
+**接法与本仓约束**：见 `docs/guides/dbx-mcp-integration.md`。要点：
+
+| 项 | 值 |
+|---|---|
+| 服务端 | `brew install t8y2/tap/dbx-mcp`（或官方安装器 / npm） |
+| 接入 | 把 `deploy/dsh/mcp-dbx.patch.yml` 合并进 `$DSH_HOME/profiles/<profile>/cordis.patch.yml` |
+| **硬约束** | 配置里**必须**有 `DBX_MCP_ALLOW_WRITES=0` —— 它会强制只读，并**覆盖** DBX 界面里已保存的写权限 |
+| 门禁 | `pnpm run dbx:readonly:check`（注释里提到不算数，会先剥注释再判） |
+
+**三条边界，别越界**：
+
+1. **前置条件在 GUI 里** —— `dbx-mcp` 读的是 DBX 里**已保存的连接**；没有连接，工具列表是空的。
+   "装个二进制"≠"能查库"。
+2. **只读是下限，不是全部** —— 数据库账号仍应用最小权限（DBX 官方也这么说）。
+3. **不能替代 `ephemeral-pg`** —— 我们的门禁需要**可编程的库实例**，DBX 是客户端。
