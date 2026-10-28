@@ -208,3 +208,7 @@ docs/architecture/artifacts/harness-heartbeat.jsonl
 # AI 运行时的 pid 与日志（本机产物，不提交）
 .agent-runtime.pid
 .agent-runtime.log
+
+# Playwright 产物（本机运行生成，不提交）
+playwright-report/
+test-results/

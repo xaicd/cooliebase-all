@@ -5,13 +5,13 @@
   "lockfile": "pnpm-lock.yaml",
   "generatedBy": "scripts/generate-sbom.cjs --write",
   "componentCount": {
-    "total": 616,
-    "host": 400,
+    "total": 618,
+    "host": 402,
     "client": 216
   },
   "licenses": {
     "(BSD-2-Clause OR MIT OR Apache-2.0)": 1,
-    "Apache-2.0": 48,
+    "Apache-2.0": 50,
     "BlueOak-1.0.0": 3,
     "BSD-2-Clause": 2,
     "BSD-3-Clause": 1,
@@ -1252,6 +1252,12 @@
       "version": "0.1.5",
       "reach": "client",
       "license": "UNKNOWN"
+    },
+    {
+      "name": "@playwright/test",
+      "version": "1.64.1",
+      "reach": "host",
+      "license": "Apache-2.0"
     },
     {
       "name": "@prisma/adapter-pg",
@@ -3112,6 +3118,12 @@
       "version": "2.3.3",
       "reach": "host",
       "license": "MIT"
+    },
+    {
+      "name": "playwright",
+      "version": "1.64.1",
+      "reach": "host",
+      "license": "Apache-2.0"
     },
     {
       "name": "plist",

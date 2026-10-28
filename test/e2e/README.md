@@ -69,3 +69,40 @@ test/e2e/ 1 个文件 / 2 个用例 / 0 个写库断言
 
 **结论**：写链路 E2E 覆盖 ≈ 0。本目录的 README 与 sample 是**标准与骨架**，
 不是「已完成覆盖」。任何声称"955 个写路由都有测试"的说法都是假的。
+
+
+## 6. 实跑记录（2026-10-28，本机验证通过）
+
+**基础设施曾经是坏的**：`test:e2e` 脚本存在，但 `@playwright/test` **根本没装** ——
+脚本一跑就报 "command not found"。已补装（`1.64.1` + chromium 1248）。
+
+**跑法（本机实测可用的那条）**：
+
+```bash
+# ① 起生产构建（dev/Turbopack 在本机会挂，见下方）
+pnpm run build
+pnpm start                      # 监听 :3000
+
+# ② 指向它跑（注意端口是 3000，不是 dev 的 3200）
+PLAYWRIGHT_BASE_URL=http://127.0.0.1:3000 pnpm exec playwright test e2e/admin-flow.spec.ts
+```
+
+实测结果：
+
+```
+✓ 2 [chromium] 管理端基础路由与登录页可用性断言 (462ms)
+✓ 1 [chromium] 管理后台主页根路径重定向与加载验证 (504ms)
+2 passed (3.2s)
+```
+
+**为什么不走 `START_WEB_SERVER=1`**：它内部跑 `pnpm dev`（Turbopack），本机报
+
+```
+Error [TurbopackInternalError]: unable to start FSEvent stream
+```
+
+—— macOS 文件监视器限额，与本仓代码无关；生产构建不需要 watcher，绕开即可。
+
+**写链路用例仍需凭证**：`write-path.sample.spec.ts` 里的 `<domain>/<resource>` 与
+`E2E_USER` / `E2E_PASS` 要换成真实业务。**在那之前它保持 skip** ——
+本仓铁律：骨架不算完成，不拿 skip 的用例充覆盖。
