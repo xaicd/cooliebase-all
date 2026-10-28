@@ -7,7 +7,7 @@ import { Card } from "@/modules/shared/frontend/components/ui/card"
 import { Input } from "@/modules/shared/frontend/components/ui/input"
 import { Label } from "@/modules/shared/frontend/components/ui/label"
 import { Textarea } from "@/modules/shared/frontend/components/ui/textarea"
-import { apiPath } from "@/modules/shared/frontend/lib/request"
+import { apiPath, request } from "@/modules/shared/frontend/lib/request"
 
 type TemplateCategory = "CRUD" | "TREE" | "SINGLETON" | "WORKFLOW" | "DOMAIN" | "FOUNDATION"
 type TemplateType = "BACKEND" | "FRONTEND" | "API" | "SQL"
@@ -88,15 +88,14 @@ function createDraft(): TemplateRecord {
   }
 }
 
+/**
+ * 兼容旧调用点的薄封装 —— **实现走统一请求层**（不再自己 fetch + 判 success）。
+ * 保留签名是为了不动十几个调用点；这里要消灭的是"另一套请求逻辑"本身。
+ */
 async function requestJson<T>(url: string, init?: RequestInit): Promise<T> {
-  const response = await fetch(url, {
-    ...init,
-    headers: {
-      "Content-Type": "application/json",
-      ...(init?.headers ?? {}),
-    },
-  })
-  const payload = await response.json()
+  const method = ((init?.method as string) || "GET").toUpperCase() as "GET" | "POST" | "PUT" | "DELETE" | "PATCH"
+  const body = typeof init?.body === "string" ? JSON.parse(init.body) : undefined
+  const payload = await request<T>({ url, method, data: body })
   if (!payload?.success) {
     throw new Error(payload?.error ?? "请求失败")
   }
@@ -304,7 +303,7 @@ export default function InfraTemplateEnginePage() {
       if (templateCodes.length === 0) {
         throw new Error("当前导出模式下没有可导出的模板")
       }
-      const response = await fetch(apiPath("/api/admin/infra/codegen/export"), {
+      const response = await fetch(apiPath("/api/admin/infra/codegen/export"), {  // request-contract-exempt: 导出 ZIP 需要 Response.blob()（另一处 requestJson 已改走统一层）
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

@@ -84,7 +84,7 @@ export default function ReportBoardsPage() {
   const executeRealProbe = async () => {
     const start = performance.now()
     try {
-      const res = await fetch("/readyz", { cache: "no-store" })
+      const res = await fetch("/readyz", { cache: "no-store" })  // request-contract-exempt: /readyz 是健康探针，不是业务 API；不能套 401 跳转逻辑
       const elapsed = Math.round(performance.now() - start)
       setPingLatency(elapsed)
       addConsoleLog(`[PROBE] /readyz 探针校验通过，耗时: ${elapsed}ms (状态: ${res.status})`)

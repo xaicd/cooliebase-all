@@ -3,7 +3,7 @@
 import { useState } from "react"
 import { Puck, Render, type Data } from "@puckeditor/core"
 import "@puckeditor/core/puck.css"
-import { apiPath } from "@/modules/shared/frontend/lib/request"
+import { apiPath, request } from "@/modules/shared/frontend/lib/request"
 
 // === 物料组件定义 ===
 
@@ -326,13 +326,15 @@ export default function PageBuilderPage() {
   const handleSave = async () => {
     const dataStr = JSON.stringify(pageData)
     try {
-      const res = await fetch(apiPath("/api/v1/admin/infra/pages"), {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: pageName, slug: pageName.toLowerCase().replace(/\s+/g, "-"), data: dataStr, status: "PUBLISHED" }),
-      }).then(r => r.json())
+      // 走统一请求层：自动带 token、401 跳登录、错误结构归一（不再自己 fetch+json）
+      const res = await request.post<{ id: string }>(apiPath("/api/v1/admin/infra/pages"), {
+        name: pageName,
+        slug: pageName.toLowerCase().replace(/\s+/g, "-"),
+        data: dataStr,
+        status: "PUBLISHED",
+      })
       if (res.success) {
-        alert(`页面「${pageName}」已保存并发布 (ID: ${res.data.id})`)
+        alert(`页面「${pageName}」已保存并发布 (ID: ${res.data?.id})`)
       } else {
         alert(`保存失败: ${res.error}`)
       }

@@ -48,12 +48,12 @@ async function parse<T>(res: Response): Promise<T> {
 }
 
 export async function fetchAppearance(): Promise<Appearance> {
-  const res = await fetch(apiPath("/api/v1/open/meta/appearance"))
+  const res = await fetch(apiPath("/api/v1/open/meta/appearance"))  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
   return parse<Appearance>(res)
 }
 
 export async function memberLogin(account: string, password: string): Promise<{ token: string; member: MemberPublic }> {
-  const res = await fetch(apiPath("/api/v1/app/member/auth/login"), {
+  const res = await fetch(apiPath("/api/v1/app/member/auth/login"), {  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ account, password }),
@@ -64,7 +64,7 @@ export async function memberLogin(account: string, password: string): Promise<{ 
 }
 
 export async function memberRegister(input: { account: string; password: string; nickname?: string; email?: string }): Promise<MemberPublic> {
-  const res = await fetch(apiPath("/api/v1/app/member/auth/register"), {
+  const res = await fetch(apiPath("/api/v1/app/member/auth/register"), {  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(input),
@@ -74,7 +74,7 @@ export async function memberRegister(input: { account: string; password: string;
 
 export async function fetchProfile(): Promise<MemberPublic> {
   const token = getToken()
-  const res = await fetch(apiPath("/api/v1/app/member/user/profile"), {
+  const res = await fetch(apiPath("/api/v1/app/member/user/profile"), {  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
     headers: token ? { Authorization: `Bearer ${token}` } : {},
   })
   return parse<MemberPublic>(res)
@@ -83,7 +83,7 @@ export async function fetchProfile(): Promise<MemberPublic> {
 /** 更新资料（含动态字段 extraFields） */
 export async function updateProfile(patch: { nickname?: string; avatarUrl?: string; extraFields?: Record<string, unknown> }): Promise<MemberPublic> {
   const token = getToken()
-  const res = await fetch(apiPath("/api/v1/app/member/user/profile"), {
+  const res = await fetch(apiPath("/api/v1/app/member/user/profile"), {  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
     method: "PUT",
     headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) },
     body: JSON.stringify(patch),
@@ -132,6 +132,6 @@ export type PageSchema = {
 
 /** 拉取某实体的页面 Schema（C 端只读，端无关；Web/Expo 渲染器共用） */
 export async function fetchPageSchema(entity: string): Promise<PageSchema> {
-  const res = await fetch(apiPath(`/api/v1/open/meta/page-schema/${encodeURIComponent(entity)}`))
+  const res = await fetch(apiPath(`/api/v1/open/meta/page-schema/${encodeURIComponent(entity)}`))  // request-contract-exempt: 会员端公共接口：需自定义 token 与 401 语义，套用 admin 请求层会带错 token 并误跳 admin 登录
   return parse<PageSchema>(res)
 }

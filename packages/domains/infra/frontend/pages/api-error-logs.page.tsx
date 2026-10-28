@@ -29,7 +29,7 @@ type Page = {
 
 async function download(url: string) {
   const token = localStorage.getItem("cooliebase_token")
-  const response = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} })
+  const response = await fetch(url, { headers: token ? { Authorization: `Bearer ${token}` } : {} })  // request-contract-exempt: 导出 CSV 需要原始 Response.blob()，统一请求层只解 JSON
   if (!response.ok) throw new Error("导出失败")
   const link = document.createElement("a")
   link.href = URL.createObjectURL(await response.blob())

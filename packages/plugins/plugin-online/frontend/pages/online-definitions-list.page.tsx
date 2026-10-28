@@ -77,7 +77,7 @@ export default function OnlineDefinitionsListPage() {
     setBatchGenerating(true); setMessage("")
     try {
       const token = localStorage.getItem("cooliebase_token")
-      const response = await fetch(`${endpoint}/codegen/download`, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ codes }) })
+      const response = await fetch(`${endpoint}/codegen/download`, { method: "POST", headers: { "Content-Type": "application/json", ...(token ? { Authorization: `Bearer ${token}` } : {}) }, body: JSON.stringify({ codes }) })  // request-contract-exempt: POST 后取 Response.blob() 下载代码包，统一请求层只解 JSON
       if (!response.ok) { const body = await response.json().catch(() => null); throw new Error(body?.error ?? "代码生成失败，请确认所选模型均已发布且有生成权限") }
       const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement("a")
       link.href = url; link.download = codes.length === 1 ? `online-${codes[0]}-codegen.zip` : "online-codegen-batch.zip"; link.click(); URL.revokeObjectURL(url)
