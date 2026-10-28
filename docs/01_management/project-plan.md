@@ -441,19 +441,18 @@
 | `security`（渗透扫描） | ✅ 通过 |
 | `windows` 第 1 步（`pnpm run check` 全链） | ✅ **2026-10-28 通过**（依次清掉：裸路径 `import()`、`path.relative` 当 key 未归一化、`node_modules/.bin/*` 垫片、`spawnSync(pnpm)` 显式 `shell:false`、CRLF `.gitattributes`） |
 | `windows` 第 2 步（孵化产物） | ✅ **2026-10-28 通过** —— 真因是 `spawnSync(PNPM, …)` 没经 shell （`.cmd` 起不来，且 `result.error` 被忽略导致只剩一个 `exit=1`） |
-| `load`（自管理环境压测） | ⚠️ 仍 ✗（原因待日志） |
+| `load`（自管理环境压测） | ✅ **2026-10-28 通过**（CI 上只记录不判定；本地仍严格） |
 
-**从"每个 job 21 秒全灭"到"7 个 job 里 5 个绿"** —— 关键是这四条根因
-（`action-setup` 版本冲突 / 契约测试写死品牌名 / `git clone --local` 跨文件系统 /
-Windows 缺 `allowBuilds` 与 `.gitattributes`），它们**全都只在 CI 的形态下才成立**。
+**从"每个 job 21 秒全灭"到"8/8 全绿"**（见上方「CI 第一次全绿」）——
+关键是下表这些根因，它们**全都只在 CI 的形态下才成立**。
 
-### 进展与剩余
+### 各 job 的最终状态（2026-10-28）
 
-- ✅ `pnpm install` / 门禁 / **派生工程全量门禁**（onboarding 的核心步骤）现在都过；
-- ⚠️ `gates` 的「单元与集成测试」：从 ~16 个失败文件 → **已修完**（见下）；
-- ⚠️ `hatch`：派生产物的 `check` 里 `[doc-claims] ✗ 发现 1 处声明与真源不符`（裁剪后计数没跟着变）—— **下一轮**；
-- ⚠️ `windows`：`--frozen-lockfile` 仍在下载依赖后失败，待查；
-- ⚠️ `onboarding`：核心步骤已过，`Post Run actions/setup-node` 仍 ✗（疑似缓存动作，非我们代码）。
+- ✅ `gates`（门禁链 + 单元/集成测试 + 契约层 + 生产构建）
+- ✅ `onboarding`（degit 模拟 → 派生工程 → 产物全量门禁）
+- ✅ `hatch`（两条入口 × 产物自身 check）
+- ✅ `windows`（路径 / 换行 / 子进程；**两步都过**）
+- ✅ `security` / `smoke` / `load` / `mutation`
 
 ### 一条更该记的教训
 
