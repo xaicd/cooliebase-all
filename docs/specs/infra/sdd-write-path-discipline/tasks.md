@@ -58,7 +58,7 @@
 
 - [ ] **T3**: 门禁 B：写链路测试深度（规格触及写路由/表单页时必须声明写事务旅程 + 深度测试或显式豁免），棘轮
   - 归属: `T2`
-  - 文件白名单: `scripts/check-write-path-depth.cjs, test/unit/write-path-depth.test.ts`
+  - 文件白名单: `scripts/check-write-path-depth.cjs, test/unit/write-path-depth.test.ts, docs/architecture/artifacts/write-path-depth-baseline.json, package.json, scripts/harness.cjs, docs/01_management/project-plan.md`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
 - [ ] **T4**: 标准与样例：把『红绿对抗双层 E2E』写成可复用模板，并给出 E2E 深度度量（report-only）
@@ -85,7 +85,7 @@
 |---|---|---|---|---|
 | T1 | main | 实测清单：写路由/表单页/裸 fetch/E2E 深度，产出可核对基线（含逐条存量） | - | 未开始 |
 | T2 | T1 | 门禁 A：页面禁止裸 fetch（棘轮冻结 9 处存量），带注入反向对照 | scripts/check-frontend-request-contract.cjs, test/unit/frontend-request-contract.test.ts, docs/architecture/artifacts/frontend-raw-fetch-baseline.json, package.json, scripts/harness.cjs, docs/01_management/project-plan.md | 未开始 |
-| T3 | T2 | 门禁 B：写链路测试深度（规格触及写路由/表单页时必须声明写事务旅程 + 深度测试或显式豁免），棘轮 | scripts/check-write-path-depth.cjs, test/unit/write-path-depth.test.ts | 未开始 |
+| T3 | T2 | 门禁 B：写链路测试深度（规格触及写路由/表单页时必须声明写事务旅程 + 深度测试或显式豁免），棘轮 | scripts/check-write-path-depth.cjs, test/unit/write-path-depth.test.ts, docs/architecture/artifacts/write-path-depth-baseline.json, package.json, scripts/harness.cjs, docs/01_management/project-plan.md | 未开始 |
 | T4 | T3 | 标准与样例：把『红绿对抗双层 E2E』写成可复用模板，并给出 E2E 深度度量（report-only） | test/e2e/README.md, test/e2e/admin-flow.spec.ts | 未开始 |
 | T5 | T4 | 接线 + 验收：check 链 / compat gates / 镜像与计数同步；注入必红、摘线必绿 | package.json, packages/shared/contract/compat-manifest.json, llms.txt | 未开始 |
 

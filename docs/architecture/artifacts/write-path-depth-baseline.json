@@ -1,0 +1,4 @@
+{
+  "note": "触及写链路但未声明深度测试的规格（棘轮：只减不增）。收紧：pnpm run write:path:depth:baseline",
+  "specs": []
+}

@@ -171,7 +171,11 @@
       "title": "门禁 B：写链路测试深度（规格触及写路由/表单页时必须声明写事务旅程 + 深度测试或显式豁免），棘轮",
       "files": [
         "scripts/check-write-path-depth.cjs",
-        "test/unit/write-path-depth.test.ts"
+        "test/unit/write-path-depth.test.ts",
+        "docs/architecture/artifacts/write-path-depth-baseline.json",
+        "package.json",
+        "scripts/harness.cjs",
+        "docs/01_management/project-plan.md"
       ]
     },
     {
