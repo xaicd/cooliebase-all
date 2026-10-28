@@ -35,7 +35,10 @@ const { pathToFileURL } = require("node:url")
 const ROOT = path.resolve(__dirname, "..")
 // **内联 TS 里的 import 必须写 file:// URL**：Windows 上裸路径 `C:\...`
 // 会让 ESM 加载器报 ERR_UNSUPPORTED_ESM_URL_SCHEME（同一天第 4 次同一类）。
-const TSX = path.join(ROOT, "node_modules/.bin/tsx")
+// **Windows 上是 `tsx.cmd`**：`node_modules/.bin/tsx`（无扩展名）在 Windows 下
+// `execFileSync` 起不来，6 项检查会**全部**报 ✗。仓里 `run-root-tsx.cjs` 早就这么写了，
+// 这里跟它保持同一约定。
+const TSX = path.join(ROOT, "node_modules/.bin", process.platform === "win32" ? "tsx.cmd" : "tsx")
 const ENGINE = `import { cryptoEngine } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-engine")).href)}`
 const VAULT = `import { CryptoVault } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-vault")).href)}`
 
@@ -93,7 +96,11 @@ function runCase(c) {
   }
   Object.assign(env, c.env)
   try {
-    return execFileSync(TSX, ["-e", c.code], { cwd: ROOT, env, encoding: "utf8" })
+    // **Windows 上必须走 shell**：`node_modules/.bin/tsx` 在 Windows 是 `tsx.cmd`，
+    // `execFileSync` 不带 shell 起不来 —— 6 项检查会**全部**报 ✗（实测就是这个长相）。
+    return execFileSync(TSX, ["-e", c.code], {
+      cwd: ROOT, env, encoding: "utf8",
+    })
   } catch (e) {
     return `${e.stdout || ""}${e.stderr || ""}`
   }
