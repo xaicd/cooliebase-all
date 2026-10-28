@@ -5,6 +5,7 @@ import { handleApiError } from "@/modules/shared/backend/http/api-error"
 import { PLUGIN_ROUTE_PREFIX, resolvePluginRoute } from "@/modules/shared/backend/plugins/route-mount"
 import { PluginRepository } from "@/modules/shared/backend/plugins/plugin.repository"
 import { pluginRuntimeManager } from "@/modules/shared/backend/plugins/runtime-manager"
+import { pluginRegistryService } from "@/modules/shared/backend/plugins/plugin-registry.service"
 import type { PluginManifest } from "@/modules/shared/backend/plugins/types"
 
 /**
@@ -20,6 +21,28 @@ import type { PluginManifest } from "@/modules/shared/backend/plugins/types"
  * 这也是唯一诚实的做法：不能因为"路径在 admin 下"就给所有插件路由强加管理员鉴权，
  * 也不能因为"是插件"就默认放行。
  */
+/**
+ * **懒启动插件运行时**（只跑一次）。
+ *
+ * 全新启动的应用里没有任何东西调用 `reconcile()` —— 它只在管理端
+ * `POST /api/v1/admin/plugins` 里被调用。于是 `PluginRepository` 里有记录、
+ * `runtime-manager` 里却没有实例，挂载点直接 500
+ * 「插件 X 未运行，无法调用其路由」（实测）。
+ *
+ * 这里在**首次命中插件 API** 时补一次 `reconcile()`（它会 syncFromDisk + 启停进程），
+ * 之后 memo 住 promise，不会每次请求都跑；失败则清掉 memo，下次重试。
+ */
+let ensureRuntimesPromise: Promise<unknown> | null = null
+async function ensurePluginRuntimes(): Promise<void> {
+  if (!ensureRuntimesPromise) {
+    ensureRuntimesPromise = pluginRegistryService.reconcile().catch((error) => {
+      ensureRuntimesPromise = null
+      throw error
+    })
+  }
+  await ensureRuntimesPromise
+}
+
 async function handle(request: Request) {
   const url = new URL(request.url)
   const rest = url.pathname.slice(`${PLUGIN_ROUTE_PREFIX}/`.length)
@@ -51,6 +74,10 @@ async function handle(request: Request) {
   try {
     if (declared === "operator") await requireAdminAuth(request)
     else if (declared === "company") requireAppAuth(request)
+
+    // **保证运行时已启动**：注册进库 ≠ 插件在跑（见 ensurePluginRuntimes）。
+    // 放在鉴权之后 —— 未通过鉴权的请求不该触发插件进程启动。
+    if (!pluginRuntimeManager.get(pluginKey)) await ensurePluginRuntimes()
 
     const result = await pluginRuntimeManager.invokeRoute(pluginKey, resolution.declaration!.routeKey, {
       method: request.method,

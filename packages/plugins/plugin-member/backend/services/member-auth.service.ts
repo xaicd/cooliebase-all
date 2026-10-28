@@ -13,6 +13,7 @@ import { issueJwt } from "@/modules/shared/backend/auth/jwt"
 import { AuthenticationError } from "@/modules/shared/backend/auth/context"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
 import type { MemberRegisterInput, MemberLoginInput } from "@/modules/member/backend/validators/member-auth.validators"
+import { ApiError } from "@/shared/backend/http/api-error"
 
 export type MemberPublic = {
   id: string
@@ -66,7 +67,7 @@ export class MemberAuthService {
   static async register(input: MemberRegisterInput): Promise<MemberPublic> {
     const tenantId = await requireTenantIdForRegister(input)
     const existing = await MemberUserRepository.findByAccount(input.account, tenantId)
-    if (existing) throw new Error("账号已注册")
+    if (existing) throw new ApiError("CONFLICT", "账号已注册")
 
     const salt = generateSalt()
     const passwordHash = hashPassword(input.password, salt)
