@@ -201,6 +201,7 @@
 | 24. **生成物列覆盖** | `pnpm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
 | 25. **主干一致性** | `pnpm run harness:trunk:check` | `pnpm harness` 的主干表与 switch 分派一致（假广告 / 隐藏能力都拦）。实测动机：三次给新能力配平行入口而主干没同步 |
 | 25. **路由校验覆盖** | `pnpm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `pnpm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
+| 26. **写链路深度证据** | `pnpm run write:path:depth:check` | 触及写链路的规格必须**声明**深度测试（`acceptance` 含 E2E/真实/落库/对抗 之一，或 `depthTestExempt` 给理由），并在 `brief.depthTestFiles` 里列出**真实存在、会跑**的用例文件；带 skip 条件却**不真发请求**的空壳模板（`write-path.sample.spec.ts` 那种）会被拒。判据故意窄：`test.skip(!up, "服务不可达")` 这类**运行时存活守卫**放行 —— 实测把真用例误判成模板过一次。**当前真实数据上 0 个规格触及写链路，这条门禁事实上是空转的** —— 它「能失败」由 `test/unit/write-path-depth-evidence.test.ts` 的两条反向对照证明（指向不存在的文件 / skip 空壳 → exit 1）。**不要**拿它的 pass 当成「写链路被测过」。 |
 
 
 > **入口唯一性（强制）**：所有流程与操作都必须能从 **`pnpm harness <主干>`** 进 ——

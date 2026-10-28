@@ -1,0 +1,4 @@
+{
+  "note": "已声明深度测试、但还没给出结构化证据（depthTestFiles）的存量规格（棘轮：只减不增）。收紧：pnpm run write:path:depth:baseline",
+  "specs": []
+}

@@ -6,9 +6,16 @@
  *
  * ✅ 检查**声明**：规格的 `brief.json` 里若任务触及「写路由」或「表单页」，
  *    则 acceptance 必须有一条**深度测试**类声明，否则失败。
- * ❌ **不**检查测试是否真的写了 —— 本仓目前没有可跑的 E2E 基建
- *    （`test/e2e/admin-flow.spec.ts` 只有 2 个 `status<500` 占位）。
- *    这条边界写在这里，是为了**不把它吹成"深度测试门禁"**。
+ * ✅ **检查证据**（2026-10-28 升级）：`brief.depthTestFiles` 列出的测试文件必须
+ *    **真的存在于磁盘**、含 `test(...)`，且**不是带 skip 的空壳模板**
+ *    （带 `test.skip(!…)` 却**不真发请求**——就是 `write-path.sample.spec.ts` 那种）。
+ *
+ *    为什么判据这么窄：实测踩过一次误报 —— 会员写链路用例里写的是
+ *    `test.skip(!up, "服务不可达")`（**运行时存活守卫**），它**真跑**（2 passed）。
+ *    用「出现 `test.skip(!` 就拒」会把真证据判成模板。静态判不出"会不会跑"，
+ *    就只拒**可判定**的空壳，不为了一条好看的规则去冤枉真用例。
+ * ❌ **仍不**检查「测试是否覆盖了那条写路由」：这需要逐路由的覆盖映射，
+ *    本门禁给不出，不假装给得出。它保证的是**证据存在且会跑**，不是**覆盖充分**。
  *
  * ## 判据
  *
@@ -31,6 +38,9 @@ const path = require("node:path")
 const ROOT = path.resolve(__dirname, "..")
 const BASELINE_REL = "docs/architecture/artifacts/write-path-depth-baseline.json"
 const BASELINE = path.join(ROOT, BASELINE_REL)
+/** 「已声明深度测试、但还没有结构化证据」的存量规格（棘轮：只减不增）。 */
+const EVIDENCE_BASELINE_REL = "docs/architecture/artifacts/write-path-depth-evidence-baseline.json"
+const EVIDENCE_BASELINE = path.join(ROOT, EVIDENCE_BASELINE_REL)
 
 const DEPTH_MARKERS = /(E2E|真实|落库|数据库|对抗|API 拦截)/i
 
@@ -89,10 +99,36 @@ function analyzeBrief(briefPath) {
 
   const accepts = (brief.acceptance || []).map((a) => String(a.check || "")).join("\n")
   const exempt = String(brief.depthTestExempt || "").trim()
-  if (DEPTH_MARKERS.test(accepts) || exempt.length > 0) {
-    return { ok: true, touchesWrite }
+  if (!DEPTH_MARKERS.test(accepts) && exempt.length === 0) {
+    return { ok: false, touchesWrite, evidence: "n/a" }
   }
-  return { ok: false, touchesWrite }
+
+  // ── 证据判定：声明了就要拿得出文件，且那个文件得会跑
+  const files = Array.isArray(brief.depthTestFiles) ? brief.depthTestFiles.map(String) : []
+  if (files.length === 0) return { ok: true, touchesWrite, evidence: "missing" }
+
+  for (const rel of files) {
+    const abs = path.join(ROOT, rel)
+    if (!fs.existsSync(abs)) {
+      return { ok: true, touchesWrite, evidence: "bad", detail: `${rel} 不存在` }
+    }
+    const src = fs.readFileSync(abs, "utf8")
+    if (!/\btest\s*\(/.test(src)) {
+      return { ok: true, touchesWrite, evidence: "bad", detail: `${rel} 里没有 test(...) 用例` }
+    }
+    // **只拒「可判定的空壳」**：既不真发请求、又带 skip 条件的文件 —— 那就是
+    // `write-path.sample.spec.ts` 那种"写了但默认不跑"的模板。
+    //
+    // 不拒什么：`test.skip(!up, "服务不可达")` 这类**运行时存活守卫**。
+    // 实测踩过：会员写链路用例正是这样写的，它**真跑**（2 passed），
+    // 用「出现 test.skip(! 就拒」会把真证据误判成模板。
+    const makesRealCalls = /(request\.(get|post|put|patch|delete)|waitForResponse|fetch\()/.test(src)
+    const hasSkipGate = /test\.skip\(\s*!|describe\.skip\(/.test(src)
+    if (hasSkipGate && !makesRealCalls) {
+      return { ok: true, touchesWrite, evidence: "bad", detail: `${rel} 是带 skip 的空壳模板（不真发请求），不会跑` }
+    }
+  }
+  return { ok: true, touchesWrite, evidence: "ok", detail: files.join(", ") }
 }
 
 /**
@@ -163,9 +199,13 @@ function main() {
   }
 
   const violations = []
+  const noEvidence = [] // 声明了，但还没有结构化证据（depthTestFiles）
+  const badEvidence = [] // 声明了，证据却不存在 / 不会跑
   for (const s of specs) {
     const r = analyzeBrief(s.brief)
     if (!r.ok) violations.push({ spec: s.name, touchesWrite: r.touchesWrite })
+    else if (r.evidence === "missing") noEvidence.push(s.name)
+    else if (r.evidence === "bad") badEvidence.push({ spec: s.name, detail: r.detail })
   }
 
   if (writeBaseline) {
@@ -182,6 +222,18 @@ function main() {
       ) + "\n",
     )
     console.log(`[write-path-depth] 已写入 ${BASELINE_REL}（${violations.length} 个规格）`)
+    fs.writeFileSync(
+      EVIDENCE_BASELINE,
+      JSON.stringify(
+        {
+          note: "已声明深度测试、但还没给出结构化证据（depthTestFiles）的存量规格（棘轮：只减不增）。收紧：pnpm run write:path:depth:baseline",
+          specs: noEvidence.sort(),
+        },
+        null,
+        2,
+      ) + "\n",
+    )
+    console.log(`[write-path-depth] 已写入 ${EVIDENCE_BASELINE_REL}（${noEvidence.length} 个规格）`)
     return 0
   }
 
@@ -190,13 +242,45 @@ function main() {
     console.error("  生成：pnpm run write:path:depth:baseline")
     return 1
   }
+  if (!fs.existsSync(EVIDENCE_BASELINE)) {
+    console.error(`[write-path-depth] ✗ 缺少证据基线 ${EVIDENCE_BASELINE_REL}（不允许"找不到基线 ⇒ 静默通过"）`)
+    console.error("  生成：pnpm run write:path:depth:baseline")
+    return 1
+  }
   const accepted = new Set(JSON.parse(fs.readFileSync(BASELINE, "utf8")).specs || [])
+  const acceptedNoEvidence = new Set(JSON.parse(fs.readFileSync(EVIDENCE_BASELINE, "utf8")).specs || [])
+  const newNoEvidence = noEvidence.filter((s) => !acceptedNoEvidence.has(s))
   const newOnes = violations.filter((v) => !accepted.has(v.spec))
 
-  console.log(`[write-path-depth] 扫描 ${specs.length} 个规格；触及写链路但未声明深度测试的 ${violations.length} 个（基线 ${accepted.size} 个）`)
+  console.log(
+    `[write-path-depth] 扫描 ${specs.length} 个规格；未声明深度测试的 ${violations.length} 个（基线 ${accepted.size} 个）；` +
+      `已声明但无结构化证据的 ${noEvidence.length} 个（基线 ${acceptedNoEvidence.size} 个）；证据无效的 ${badEvidence.length} 个`,
+  )
+
+  // **证据无效 = 直接失败**（enforce）：写了路径却不存在、或文件是默认 skip 的模板 ——
+  // 这正是"假绿"的两种长相，不设基线、不冻结。
+  if (badEvidence.length > 0) {
+    console.error("")
+    console.error(`[write-path-depth] ✗ ${badEvidence.length} 个规格声明的深度测试证据无效：`)
+    for (const b of badEvidence) console.error(`  · ${b.spec}：${b.detail}`)
+    console.error("")
+    console.error("  depthTestFiles 必须是**真实存在、且会真跑**的测试文件：")
+    console.error("    · 文件不存在 → 写对路径；")
+    console.error("    · 默认 skip 的模板（test.skip(!…)）→ 换成真用例，或先别声明。")
+    return 1
+  }
+
+  if (newNoEvidence.length > 0) {
+    console.error("")
+    console.error(`[write-path-depth] ✗ ${newNoEvidence.length} 个规格声明了深度测试，但没给结构化证据：`)
+    for (const s of newNoEvidence) console.error(`  · ${s}`)
+    console.error("")
+    console.error('  在 brief.json 顶层写 depthTestFiles: ["test/e2e/xxx.spec.ts"]（真实存在的用例文件）。')
+    return 1
+  }
 
   if (newOnes.length === 0) {
-    console.log("[write-path-depth] ✓ 无新增未声明深度测试的规格")
+    console.log("[write-path-depth] ✓ 无新增未声明深度测试的规格，且新增规格都带结构化证据")
     return 0
   }
 
@@ -213,7 +297,7 @@ function main() {
   console.error("    含 E2E / 真实 / 落库 / 数据库 / 对抗 / API 拦截 任一标记")
   console.error("  确实不需要时，在 brief.json 顶层写 depthTestExempt: \"<理由>\"")
   console.error("")
-  console.error("  注意：本门禁只校验**声明**，不证明测试真写了 —— 后者靠 test/e2e 的深度度量观察。")
+  console.error("  注意：本门禁校验「声明 + 证据存在且会跑」；它**不**证明覆盖了那条具体写路由。")
   return 1
 }
 
