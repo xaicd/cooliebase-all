@@ -29,6 +29,7 @@
  * | 非 production + 无密钥 | 正常（不破坏测试与本地开发） |
  */
 const path = require("node:path")
+const fs = require("node:fs")
 const { execFileSync } = require("node:child_process")
 const { pathToFileURL } = require("node:url")
 
@@ -38,7 +39,12 @@ const ROOT = path.resolve(__dirname, "..")
 // **Windows 上是 `tsx.cmd`**：`node_modules/.bin/tsx`（无扩展名）在 Windows 下
 // `execFileSync` 起不来，6 项检查会**全部**报 ✗。仓里 `run-root-tsx.cjs` 早就这么写了，
 // 这里跟它保持同一约定。
-const TSX = path.join(ROOT, "node_modules/.bin", process.platform === "win32" ? "tsx.cmd" : "tsx")
+// 用 **`node` + tsx 的 CLI 入口**跑，而不是 `node_modules/.bin/tsx`：
+//   · Windows 上 `.bin/tsx` 是 `tsx.cmd`，execFileSync 起不来；
+//   · 加 `shell: true` 又能起来，但 `-e "<多行代码>"` 会被 shell 拆坏
+//     （实测 `eval.ts:1:6 ERROR: Unexpected end of file`）。
+// 走 `node <cli.mjs> <文件>`：不经 shell、不碰垫片，两个问题一起消掉。
+const TSX_CLI = path.join(ROOT, "node_modules", "tsx", "dist", "cli.mjs")
 const ENGINE = `import { cryptoEngine } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-engine")).href)}`
 const VAULT = `import { CryptoVault } from ${JSON.stringify(pathToFileURL(path.join(ROOT, "packages/shared/backend/lib/crypto-vault")).href)}`
 
@@ -101,11 +107,17 @@ function runCase(c) {
     // **`.cmd` 之外还要 `shell: true`**：Node 在 Windows 上不能直接 exec 一个 `.cmd` 文件，
     // 必须交给 shell 解析 —— 只把名字改成 `tsx.cmd` 仍然起不来（实测 6 项还是全 ✗）。
     // 与 `scripts/run-root-tsx.cjs` 完全一致：`.cmd` + `shell: true`。
-    return execFileSync(TSX, ["-e", c.code], {
-      // **只在 Windows 开 shell**：POSIX 上 `.bin/tsx` 能直接 exec，开了 shell 反而
-      // 会让 `-e` 里的引号被 shell 解释掉（本机实测 4 项挂）。
-      cwd: ROOT, env, encoding: "utf8", shell: process.platform === "win32",
-    })
+    // 片段落成临时 .ts 文件再跑（见 TSX_CLI 的注释：`-e` 过 shell 会被拆坏）
+    const tmp = path.join(
+      require("node:os").tmpdir(),
+      `cooliebase-crypto-guard-${process.pid}-${Math.random().toString(36).slice(2)}.ts`,
+    )
+    fs.writeFileSync(tmp, c.code)
+    try {
+      return execFileSync(process.execPath, [TSX_CLI, tmp], { cwd: ROOT, env, encoding: "utf8" })
+    } finally {
+      fs.rmSync(tmp, { force: true })
+    }
   } catch (e) {
     return `${e.stdout || ""}${e.stderr || ""}`
   }
