@@ -145,6 +145,21 @@ async function main() {
   }
   console.log("\n[写路径] create 传空对象的响应分布:", createStats)
   console.log("  （201=必填未校验；400=正确校验；5xx=处理器/约束问题）")
+  const acceptedEmpty = results.filter((r) => r.group === "写路径（仅记账）").map((r) => r.name)
+  if (acceptedEmpty.length) {
+    const byDomain = {}
+    for (const name of acceptedEmpty) {
+      const domain = name.split("/")[0]
+      byDomain[domain] = (byDomain[domain] || 0) + 1
+    }
+    console.log(`\n[存量债] ${acceptedEmpty.length} 个 create 仍接受空对象（按域）：`)
+    console.log("  " + Object.entries(byDomain).sort((a, b) => b[1] - a[1]).map(([d, n]) => `${d}:${n}`).join("  "))
+    console.log("  根因：生成校验器时的 codegen import payload 把这些 NOT NULL 列标成了 nullable；")
+    console.log("        该 payload 不在本仓树内（无 codegen 表 / 无 metadata JSON），需回源重新导入后批量重生成。")
+    if (process.argv.includes("--strict-create")) {
+      record("写路径（严格档）", "create 必须拒绝空对象", false, `${acceptedEmpty.length} 个仍接受`)
+    }
+  }
 
   const code = summarize()
   console.log(`\n耗时 ${((Date.now() - startedAt) / 1000).toFixed(1)}s`)
