@@ -10,91 +10,113 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_after_sale__id_ from "@/modules/mall/routes/admin/after-sale/[id]/route"
 import * as route_admin_after_sale from "@/modules/mall/routes/admin/after-sale/route"
-import * as route_admin_article_category__id_ from "@/modules/mall/routes/admin/article-category/[id]/route"
-import * as route_admin_article_category from "@/modules/mall/routes/admin/article-category/route"
-import * as route_admin_article__id_ from "@/modules/mall/routes/admin/article/[id]/route"
+import * as route_admin_after_sale__id_ from "@/modules/mall/routes/admin/after-sale/[id]/route"
+import * as route_admin_after_sale_log from "@/modules/mall/routes/admin/after-sale-log/route"
+import * as route_admin_after_sale_log__id_ from "@/modules/mall/routes/admin/after-sale-log/[id]/route"
 import * as route_admin_article from "@/modules/mall/routes/admin/article/route"
-import * as route_admin_banner__id_ from "@/modules/mall/routes/admin/banner/[id]/route"
+import * as route_admin_article__id_ from "@/modules/mall/routes/admin/article/[id]/route"
+import * as route_admin_article_category from "@/modules/mall/routes/admin/article-category/route"
+import * as route_admin_article_category__id_ from "@/modules/mall/routes/admin/article-category/[id]/route"
 import * as route_admin_banner from "@/modules/mall/routes/admin/banner/route"
-import * as route_admin_bargain_activity__id_ from "@/modules/mall/routes/admin/bargain-activity/[id]/route"
+import * as route_admin_banner__id_ from "@/modules/mall/routes/admin/banner/[id]/route"
 import * as route_admin_bargain_activity from "@/modules/mall/routes/admin/bargain-activity/route"
-import * as route_admin_bargain_help__id_ from "@/modules/mall/routes/admin/bargain-help/[id]/route"
+import * as route_admin_bargain_activity__id_ from "@/modules/mall/routes/admin/bargain-activity/[id]/route"
 import * as route_admin_bargain_help from "@/modules/mall/routes/admin/bargain-help/route"
-import * as route_admin_bargain_record__id_ from "@/modules/mall/routes/admin/bargain-record/[id]/route"
+import * as route_admin_bargain_help__id_ from "@/modules/mall/routes/admin/bargain-help/[id]/route"
 import * as route_admin_bargain_record from "@/modules/mall/routes/admin/bargain-record/route"
-import * as route_admin_brokerage_record__id_ from "@/modules/mall/routes/admin/brokerage-record/[id]/route"
+import * as route_admin_bargain_record__id_ from "@/modules/mall/routes/admin/bargain-record/[id]/route"
 import * as route_admin_brokerage_record from "@/modules/mall/routes/admin/brokerage-record/route"
-import * as route_admin_brokerage_user__id_ from "@/modules/mall/routes/admin/brokerage-user/[id]/route"
+import * as route_admin_brokerage_record__id_ from "@/modules/mall/routes/admin/brokerage-record/[id]/route"
 import * as route_admin_brokerage_user from "@/modules/mall/routes/admin/brokerage-user/route"
-import * as route_admin_brokerage_withdraw__id_ from "@/modules/mall/routes/admin/brokerage-withdraw/[id]/route"
+import * as route_admin_brokerage_user__id_ from "@/modules/mall/routes/admin/brokerage-user/[id]/route"
 import * as route_admin_brokerage_withdraw from "@/modules/mall/routes/admin/brokerage-withdraw/route"
-import * as route_admin_combination_activity__id_ from "@/modules/mall/routes/admin/combination-activity/[id]/route"
+import * as route_admin_brokerage_withdraw__id_ from "@/modules/mall/routes/admin/brokerage-withdraw/[id]/route"
+import * as route_admin_cart from "@/modules/mall/routes/admin/cart/route"
+import * as route_admin_cart__id_ from "@/modules/mall/routes/admin/cart/[id]/route"
 import * as route_admin_combination_activity from "@/modules/mall/routes/admin/combination-activity/route"
-import * as route_admin_combination_record__id_ from "@/modules/mall/routes/admin/combination-record/[id]/route"
+import * as route_admin_combination_activity__id_ from "@/modules/mall/routes/admin/combination-activity/[id]/route"
+import * as route_admin_combination_product from "@/modules/mall/routes/admin/combination-product/route"
+import * as route_admin_combination_product__id_ from "@/modules/mall/routes/admin/combination-product/[id]/route"
 import * as route_admin_combination_record from "@/modules/mall/routes/admin/combination-record/route"
-import * as route_admin_coupon_template__id_ from "@/modules/mall/routes/admin/coupon-template/[id]/route"
-import * as route_admin_coupon_template from "@/modules/mall/routes/admin/coupon-template/route"
-import * as route_admin_coupon__id_ from "@/modules/mall/routes/admin/coupon/[id]/route"
+import * as route_admin_combination_record__id_ from "@/modules/mall/routes/admin/combination-record/[id]/route"
 import * as route_admin_coupon from "@/modules/mall/routes/admin/coupon/route"
+import * as route_admin_coupon__id_ from "@/modules/mall/routes/admin/coupon/[id]/route"
+import * as route_admin_coupon_template from "@/modules/mall/routes/admin/coupon-template/route"
+import * as route_admin_coupon_template__id_ from "@/modules/mall/routes/admin/coupon-template/[id]/route"
 import * as route_admin_coupons_issue from "@/modules/mall/routes/admin/coupons/issue/route"
-import * as route_admin_delivery_express_template__id_ from "@/modules/mall/routes/admin/delivery-express-template/[id]/route"
-import * as route_admin_delivery_express_template from "@/modules/mall/routes/admin/delivery-express-template/route"
-import * as route_admin_delivery_express__id_ from "@/modules/mall/routes/admin/delivery-express/[id]/route"
 import * as route_admin_delivery_express from "@/modules/mall/routes/admin/delivery-express/route"
-import * as route_admin_delivery_pick_up_store__id_ from "@/modules/mall/routes/admin/delivery-pick-up-store/[id]/route"
+import * as route_admin_delivery_express__id_ from "@/modules/mall/routes/admin/delivery-express/[id]/route"
+import * as route_admin_delivery_express_template from "@/modules/mall/routes/admin/delivery-express-template/route"
+import * as route_admin_delivery_express_template__id_ from "@/modules/mall/routes/admin/delivery-express-template/[id]/route"
+import * as route_admin_delivery_express_template_charge from "@/modules/mall/routes/admin/delivery-express-template-charge/route"
+import * as route_admin_delivery_express_template_charge__id_ from "@/modules/mall/routes/admin/delivery-express-template-charge/[id]/route"
+import * as route_admin_delivery_express_template_free from "@/modules/mall/routes/admin/delivery-express-template-free/route"
+import * as route_admin_delivery_express_template_free__id_ from "@/modules/mall/routes/admin/delivery-express-template-free/[id]/route"
 import * as route_admin_delivery_pick_up_store from "@/modules/mall/routes/admin/delivery-pick-up-store/route"
-import * as route_admin_discount_activity__id_ from "@/modules/mall/routes/admin/discount-activity/[id]/route"
+import * as route_admin_delivery_pick_up_store__id_ from "@/modules/mall/routes/admin/delivery-pick-up-store/[id]/route"
 import * as route_admin_discount_activity from "@/modules/mall/routes/admin/discount-activity/route"
-import * as route_admin_diy_page__id_ from "@/modules/mall/routes/admin/diy-page/[id]/route"
+import * as route_admin_discount_activity__id_ from "@/modules/mall/routes/admin/discount-activity/[id]/route"
+import * as route_admin_discount_product from "@/modules/mall/routes/admin/discount-product/route"
+import * as route_admin_discount_product__id_ from "@/modules/mall/routes/admin/discount-product/[id]/route"
 import * as route_admin_diy_page from "@/modules/mall/routes/admin/diy-page/route"
-import * as route_admin_diy_template__id_ from "@/modules/mall/routes/admin/diy-template/[id]/route"
+import * as route_admin_diy_page__id_ from "@/modules/mall/routes/admin/diy-page/[id]/route"
 import * as route_admin_diy_template from "@/modules/mall/routes/admin/diy-template/route"
-import * as route_admin_ke_fu_conversation__id_ from "@/modules/mall/routes/admin/ke-fu-conversation/[id]/route"
+import * as route_admin_diy_template__id_ from "@/modules/mall/routes/admin/diy-template/[id]/route"
 import * as route_admin_ke_fu_conversation from "@/modules/mall/routes/admin/ke-fu-conversation/route"
-import * as route_admin_ke_fu_message__id_ from "@/modules/mall/routes/admin/ke-fu-message/[id]/route"
+import * as route_admin_ke_fu_conversation__id_ from "@/modules/mall/routes/admin/ke-fu-conversation/[id]/route"
 import * as route_admin_ke_fu_message from "@/modules/mall/routes/admin/ke-fu-message/route"
-import * as route_admin_member_statistics__id_ from "@/modules/mall/routes/admin/member-statistics/[id]/route"
+import * as route_admin_ke_fu_message__id_ from "@/modules/mall/routes/admin/ke-fu-message/[id]/route"
 import * as route_admin_member_statistics from "@/modules/mall/routes/admin/member-statistics/route"
-import * as route_admin_orders__id_ from "@/modules/mall/routes/admin/orders/[id]/route"
+import * as route_admin_member_statistics__id_ from "@/modules/mall/routes/admin/member-statistics/[id]/route"
 import * as route_admin_orders from "@/modules/mall/routes/admin/orders/route"
-import * as route_admin_pay_statistics__id_ from "@/modules/mall/routes/admin/pay-statistics/[id]/route"
+import * as route_admin_orders__id_ from "@/modules/mall/routes/admin/orders/[id]/route"
 import * as route_admin_pay_statistics from "@/modules/mall/routes/admin/pay-statistics/route"
-import * as route_admin_point_activity__id_ from "@/modules/mall/routes/admin/point-activity/[id]/route"
+import * as route_admin_pay_statistics__id_ from "@/modules/mall/routes/admin/pay-statistics/[id]/route"
 import * as route_admin_point_activity from "@/modules/mall/routes/admin/point-activity/route"
-import * as route_admin_product_brand__id_ from "@/modules/mall/routes/admin/product-brand/[id]/route"
+import * as route_admin_point_activity__id_ from "@/modules/mall/routes/admin/point-activity/[id]/route"
+import * as route_admin_point_product from "@/modules/mall/routes/admin/point-product/route"
+import * as route_admin_point_product__id_ from "@/modules/mall/routes/admin/point-product/[id]/route"
 import * as route_admin_product_brand from "@/modules/mall/routes/admin/product-brand/route"
-import * as route_admin_product_browse_history__id_ from "@/modules/mall/routes/admin/product-browse-history/[id]/route"
+import * as route_admin_product_brand__id_ from "@/modules/mall/routes/admin/product-brand/[id]/route"
 import * as route_admin_product_browse_history from "@/modules/mall/routes/admin/product-browse-history/route"
-import * as route_admin_product_category__id_ from "@/modules/mall/routes/admin/product-category/[id]/route"
+import * as route_admin_product_browse_history__id_ from "@/modules/mall/routes/admin/product-browse-history/[id]/route"
 import * as route_admin_product_category from "@/modules/mall/routes/admin/product-category/route"
-import * as route_admin_product_comment__id_ from "@/modules/mall/routes/admin/product-comment/[id]/route"
+import * as route_admin_product_category__id_ from "@/modules/mall/routes/admin/product-category/[id]/route"
 import * as route_admin_product_comment from "@/modules/mall/routes/admin/product-comment/route"
-import * as route_admin_product_favorite__id_ from "@/modules/mall/routes/admin/product-favorite/[id]/route"
+import * as route_admin_product_comment__id_ from "@/modules/mall/routes/admin/product-comment/[id]/route"
 import * as route_admin_product_favorite from "@/modules/mall/routes/admin/product-favorite/route"
-import * as route_admin_product_property_value__id_ from "@/modules/mall/routes/admin/product-property-value/[id]/route"
-import * as route_admin_product_property_value from "@/modules/mall/routes/admin/product-property-value/route"
-import * as route_admin_product_property__id_ from "@/modules/mall/routes/admin/product-property/[id]/route"
+import * as route_admin_product_favorite__id_ from "@/modules/mall/routes/admin/product-favorite/[id]/route"
 import * as route_admin_product_property from "@/modules/mall/routes/admin/product-property/route"
-import * as route_admin_product_spu__id_ from "@/modules/mall/routes/admin/product-spu/[id]/route"
+import * as route_admin_product_property__id_ from "@/modules/mall/routes/admin/product-property/[id]/route"
+import * as route_admin_product_property_value from "@/modules/mall/routes/admin/product-property-value/route"
+import * as route_admin_product_property_value__id_ from "@/modules/mall/routes/admin/product-property-value/[id]/route"
+import * as route_admin_product_sku from "@/modules/mall/routes/admin/product-sku/route"
+import * as route_admin_product_sku__id_ from "@/modules/mall/routes/admin/product-sku/[id]/route"
 import * as route_admin_product_spu from "@/modules/mall/routes/admin/product-spu/route"
-import * as route_admin_product_statistics__id_ from "@/modules/mall/routes/admin/product-statistics/[id]/route"
+import * as route_admin_product_spu__id_ from "@/modules/mall/routes/admin/product-spu/[id]/route"
 import * as route_admin_product_statistics from "@/modules/mall/routes/admin/product-statistics/route"
-import * as route_admin_products__id_ from "@/modules/mall/routes/admin/products/[id]/route"
+import * as route_admin_product_statistics__id_ from "@/modules/mall/routes/admin/product-statistics/[id]/route"
 import * as route_admin_products from "@/modules/mall/routes/admin/products/route"
-import * as route_admin_reward_activity__id_ from "@/modules/mall/routes/admin/reward-activity/[id]/route"
+import * as route_admin_products__id_ from "@/modules/mall/routes/admin/products/[id]/route"
 import * as route_admin_reward_activity from "@/modules/mall/routes/admin/reward-activity/route"
-import * as route_admin_seckill_activity__id_ from "@/modules/mall/routes/admin/seckill-activity/[id]/route"
+import * as route_admin_reward_activity__id_ from "@/modules/mall/routes/admin/reward-activity/[id]/route"
 import * as route_admin_seckill_activity from "@/modules/mall/routes/admin/seckill-activity/route"
-import * as route_admin_seckill_config__id_ from "@/modules/mall/routes/admin/seckill-config/[id]/route"
+import * as route_admin_seckill_activity__id_ from "@/modules/mall/routes/admin/seckill-activity/[id]/route"
 import * as route_admin_seckill_config from "@/modules/mall/routes/admin/seckill-config/route"
-import * as route_admin_trade_config__id_ from "@/modules/mall/routes/admin/trade-config/[id]/route"
+import * as route_admin_seckill_config__id_ from "@/modules/mall/routes/admin/seckill-config/[id]/route"
+import * as route_admin_seckill_product from "@/modules/mall/routes/admin/seckill-product/route"
+import * as route_admin_seckill_product__id_ from "@/modules/mall/routes/admin/seckill-product/[id]/route"
 import * as route_admin_trade_config from "@/modules/mall/routes/admin/trade-config/route"
-import * as route_admin_trade_order__id_ from "@/modules/mall/routes/admin/trade-order/[id]/route"
+import * as route_admin_trade_config__id_ from "@/modules/mall/routes/admin/trade-config/[id]/route"
 import * as route_admin_trade_order from "@/modules/mall/routes/admin/trade-order/route"
-import * as route_admin_trade_statistics__id_ from "@/modules/mall/routes/admin/trade-statistics/[id]/route"
+import * as route_admin_trade_order__id_ from "@/modules/mall/routes/admin/trade-order/[id]/route"
+import * as route_admin_trade_order_item from "@/modules/mall/routes/admin/trade-order-item/route"
+import * as route_admin_trade_order_item__id_ from "@/modules/mall/routes/admin/trade-order-item/[id]/route"
+import * as route_admin_trade_order_log from "@/modules/mall/routes/admin/trade-order-log/route"
+import * as route_admin_trade_order_log__id_ from "@/modules/mall/routes/admin/trade-order-log/[id]/route"
 import * as route_admin_trade_statistics from "@/modules/mall/routes/admin/trade-statistics/route"
+import * as route_admin_trade_statistics__id_ from "@/modules/mall/routes/admin/trade-statistics/[id]/route"
 import * as route_app_products from "@/modules/mall/routes/app/products/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {
@@ -117,6 +139,11 @@ export default definePlugin({
   async onHealth() { return { status: "ok" } },
   async onShutdown() {},
   routes: {
+    "admin:after-sale-log/[id]:delete": (input: any) => invoke(route_admin_after_sale_log__id_.DELETE, input),
+    "admin:after-sale-log/[id]:get": (input: any) => invoke(route_admin_after_sale_log__id_.GET, input),
+    "admin:after-sale-log/[id]:put": (input: any) => invoke(route_admin_after_sale_log__id_.PUT, input),
+    "admin:after-sale-log:get": (input: any) => invoke(route_admin_after_sale_log.GET, input),
+    "admin:after-sale-log:post": (input: any) => invoke(route_admin_after_sale_log.POST, input),
     "admin:after-sale/[id]:delete": (input: any) => invoke(route_admin_after_sale__id_.DELETE, input),
     "admin:after-sale/[id]:get": (input: any) => invoke(route_admin_after_sale__id_.GET, input),
     "admin:after-sale/[id]:put": (input: any) => invoke(route_admin_after_sale__id_.PUT, input),
@@ -167,11 +194,21 @@ export default definePlugin({
     "admin:brokerage-withdraw/[id]:put": (input: any) => invoke(route_admin_brokerage_withdraw__id_.PUT, input),
     "admin:brokerage-withdraw:get": (input: any) => invoke(route_admin_brokerage_withdraw.GET, input),
     "admin:brokerage-withdraw:post": (input: any) => invoke(route_admin_brokerage_withdraw.POST, input),
+    "admin:cart/[id]:delete": (input: any) => invoke(route_admin_cart__id_.DELETE, input),
+    "admin:cart/[id]:get": (input: any) => invoke(route_admin_cart__id_.GET, input),
+    "admin:cart/[id]:put": (input: any) => invoke(route_admin_cart__id_.PUT, input),
+    "admin:cart:get": (input: any) => invoke(route_admin_cart.GET, input),
+    "admin:cart:post": (input: any) => invoke(route_admin_cart.POST, input),
     "admin:combination-activity/[id]:delete": (input: any) => invoke(route_admin_combination_activity__id_.DELETE, input),
     "admin:combination-activity/[id]:get": (input: any) => invoke(route_admin_combination_activity__id_.GET, input),
     "admin:combination-activity/[id]:put": (input: any) => invoke(route_admin_combination_activity__id_.PUT, input),
     "admin:combination-activity:get": (input: any) => invoke(route_admin_combination_activity.GET, input),
     "admin:combination-activity:post": (input: any) => invoke(route_admin_combination_activity.POST, input),
+    "admin:combination-product/[id]:delete": (input: any) => invoke(route_admin_combination_product__id_.DELETE, input),
+    "admin:combination-product/[id]:get": (input: any) => invoke(route_admin_combination_product__id_.GET, input),
+    "admin:combination-product/[id]:put": (input: any) => invoke(route_admin_combination_product__id_.PUT, input),
+    "admin:combination-product:get": (input: any) => invoke(route_admin_combination_product.GET, input),
+    "admin:combination-product:post": (input: any) => invoke(route_admin_combination_product.POST, input),
     "admin:combination-record/[id]:delete": (input: any) => invoke(route_admin_combination_record__id_.DELETE, input),
     "admin:combination-record/[id]:get": (input: any) => invoke(route_admin_combination_record__id_.GET, input),
     "admin:combination-record/[id]:put": (input: any) => invoke(route_admin_combination_record__id_.PUT, input),
@@ -188,6 +225,16 @@ export default definePlugin({
     "admin:coupon:get": (input: any) => invoke(route_admin_coupon.GET, input),
     "admin:coupon:post": (input: any) => invoke(route_admin_coupon.POST, input),
     "admin:coupons/issue:post": (input: any) => invoke(route_admin_coupons_issue.POST, input),
+    "admin:delivery-express-template-charge/[id]:delete": (input: any) => invoke(route_admin_delivery_express_template_charge__id_.DELETE, input),
+    "admin:delivery-express-template-charge/[id]:get": (input: any) => invoke(route_admin_delivery_express_template_charge__id_.GET, input),
+    "admin:delivery-express-template-charge/[id]:put": (input: any) => invoke(route_admin_delivery_express_template_charge__id_.PUT, input),
+    "admin:delivery-express-template-charge:get": (input: any) => invoke(route_admin_delivery_express_template_charge.GET, input),
+    "admin:delivery-express-template-charge:post": (input: any) => invoke(route_admin_delivery_express_template_charge.POST, input),
+    "admin:delivery-express-template-free/[id]:delete": (input: any) => invoke(route_admin_delivery_express_template_free__id_.DELETE, input),
+    "admin:delivery-express-template-free/[id]:get": (input: any) => invoke(route_admin_delivery_express_template_free__id_.GET, input),
+    "admin:delivery-express-template-free/[id]:put": (input: any) => invoke(route_admin_delivery_express_template_free__id_.PUT, input),
+    "admin:delivery-express-template-free:get": (input: any) => invoke(route_admin_delivery_express_template_free.GET, input),
+    "admin:delivery-express-template-free:post": (input: any) => invoke(route_admin_delivery_express_template_free.POST, input),
     "admin:delivery-express-template/[id]:delete": (input: any) => invoke(route_admin_delivery_express_template__id_.DELETE, input),
     "admin:delivery-express-template/[id]:get": (input: any) => invoke(route_admin_delivery_express_template__id_.GET, input),
     "admin:delivery-express-template/[id]:put": (input: any) => invoke(route_admin_delivery_express_template__id_.PUT, input),
@@ -208,6 +255,11 @@ export default definePlugin({
     "admin:discount-activity/[id]:put": (input: any) => invoke(route_admin_discount_activity__id_.PUT, input),
     "admin:discount-activity:get": (input: any) => invoke(route_admin_discount_activity.GET, input),
     "admin:discount-activity:post": (input: any) => invoke(route_admin_discount_activity.POST, input),
+    "admin:discount-product/[id]:delete": (input: any) => invoke(route_admin_discount_product__id_.DELETE, input),
+    "admin:discount-product/[id]:get": (input: any) => invoke(route_admin_discount_product__id_.GET, input),
+    "admin:discount-product/[id]:put": (input: any) => invoke(route_admin_discount_product__id_.PUT, input),
+    "admin:discount-product:get": (input: any) => invoke(route_admin_discount_product.GET, input),
+    "admin:discount-product:post": (input: any) => invoke(route_admin_discount_product.POST, input),
     "admin:diy-page/[id]:delete": (input: any) => invoke(route_admin_diy_page__id_.DELETE, input),
     "admin:diy-page/[id]:get": (input: any) => invoke(route_admin_diy_page__id_.GET, input),
     "admin:diy-page/[id]:put": (input: any) => invoke(route_admin_diy_page__id_.PUT, input),
@@ -248,6 +300,11 @@ export default definePlugin({
     "admin:point-activity/[id]:put": (input: any) => invoke(route_admin_point_activity__id_.PUT, input),
     "admin:point-activity:get": (input: any) => invoke(route_admin_point_activity.GET, input),
     "admin:point-activity:post": (input: any) => invoke(route_admin_point_activity.POST, input),
+    "admin:point-product/[id]:delete": (input: any) => invoke(route_admin_point_product__id_.DELETE, input),
+    "admin:point-product/[id]:get": (input: any) => invoke(route_admin_point_product__id_.GET, input),
+    "admin:point-product/[id]:put": (input: any) => invoke(route_admin_point_product__id_.PUT, input),
+    "admin:point-product:get": (input: any) => invoke(route_admin_point_product.GET, input),
+    "admin:point-product:post": (input: any) => invoke(route_admin_point_product.POST, input),
     "admin:product-brand/[id]:delete": (input: any) => invoke(route_admin_product_brand__id_.DELETE, input),
     "admin:product-brand/[id]:get": (input: any) => invoke(route_admin_product_brand__id_.GET, input),
     "admin:product-brand/[id]:put": (input: any) => invoke(route_admin_product_brand__id_.PUT, input),
@@ -283,6 +340,11 @@ export default definePlugin({
     "admin:product-property/[id]:put": (input: any) => invoke(route_admin_product_property__id_.PUT, input),
     "admin:product-property:get": (input: any) => invoke(route_admin_product_property.GET, input),
     "admin:product-property:post": (input: any) => invoke(route_admin_product_property.POST, input),
+    "admin:product-sku/[id]:delete": (input: any) => invoke(route_admin_product_sku__id_.DELETE, input),
+    "admin:product-sku/[id]:get": (input: any) => invoke(route_admin_product_sku__id_.GET, input),
+    "admin:product-sku/[id]:put": (input: any) => invoke(route_admin_product_sku__id_.PUT, input),
+    "admin:product-sku:get": (input: any) => invoke(route_admin_product_sku.GET, input),
+    "admin:product-sku:post": (input: any) => invoke(route_admin_product_sku.POST, input),
     "admin:product-spu/[id]:delete": (input: any) => invoke(route_admin_product_spu__id_.DELETE, input),
     "admin:product-spu/[id]:get": (input: any) => invoke(route_admin_product_spu__id_.GET, input),
     "admin:product-spu/[id]:put": (input: any) => invoke(route_admin_product_spu__id_.PUT, input),
@@ -313,11 +375,26 @@ export default definePlugin({
     "admin:seckill-config/[id]:put": (input: any) => invoke(route_admin_seckill_config__id_.PUT, input),
     "admin:seckill-config:get": (input: any) => invoke(route_admin_seckill_config.GET, input),
     "admin:seckill-config:post": (input: any) => invoke(route_admin_seckill_config.POST, input),
+    "admin:seckill-product/[id]:delete": (input: any) => invoke(route_admin_seckill_product__id_.DELETE, input),
+    "admin:seckill-product/[id]:get": (input: any) => invoke(route_admin_seckill_product__id_.GET, input),
+    "admin:seckill-product/[id]:put": (input: any) => invoke(route_admin_seckill_product__id_.PUT, input),
+    "admin:seckill-product:get": (input: any) => invoke(route_admin_seckill_product.GET, input),
+    "admin:seckill-product:post": (input: any) => invoke(route_admin_seckill_product.POST, input),
     "admin:trade-config/[id]:delete": (input: any) => invoke(route_admin_trade_config__id_.DELETE, input),
     "admin:trade-config/[id]:get": (input: any) => invoke(route_admin_trade_config__id_.GET, input),
     "admin:trade-config/[id]:put": (input: any) => invoke(route_admin_trade_config__id_.PUT, input),
     "admin:trade-config:get": (input: any) => invoke(route_admin_trade_config.GET, input),
     "admin:trade-config:post": (input: any) => invoke(route_admin_trade_config.POST, input),
+    "admin:trade-order-item/[id]:delete": (input: any) => invoke(route_admin_trade_order_item__id_.DELETE, input),
+    "admin:trade-order-item/[id]:get": (input: any) => invoke(route_admin_trade_order_item__id_.GET, input),
+    "admin:trade-order-item/[id]:put": (input: any) => invoke(route_admin_trade_order_item__id_.PUT, input),
+    "admin:trade-order-item:get": (input: any) => invoke(route_admin_trade_order_item.GET, input),
+    "admin:trade-order-item:post": (input: any) => invoke(route_admin_trade_order_item.POST, input),
+    "admin:trade-order-log/[id]:delete": (input: any) => invoke(route_admin_trade_order_log__id_.DELETE, input),
+    "admin:trade-order-log/[id]:get": (input: any) => invoke(route_admin_trade_order_log__id_.GET, input),
+    "admin:trade-order-log/[id]:put": (input: any) => invoke(route_admin_trade_order_log__id_.PUT, input),
+    "admin:trade-order-log:get": (input: any) => invoke(route_admin_trade_order_log.GET, input),
+    "admin:trade-order-log:post": (input: any) => invoke(route_admin_trade_order_log.POST, input),
     "admin:trade-order/[id]:delete": (input: any) => invoke(route_admin_trade_order__id_.DELETE, input),
     "admin:trade-order/[id]:get": (input: any) => invoke(route_admin_trade_order__id_.GET, input),
     "admin:trade-order/[id]:put": (input: any) => invoke(route_admin_trade_order__id_.PUT, input),

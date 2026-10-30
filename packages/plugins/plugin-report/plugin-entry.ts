@@ -10,16 +10,16 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_boards__id_ from "@/modules/report/routes/admin/boards/[id]/route"
 import * as route_admin_boards from "@/modules/report/routes/admin/boards/route"
+import * as route_admin_boards__id_ from "@/modules/report/routes/admin/boards/[id]/route"
 import * as route_admin_custom_sql_data_sources from "@/modules/report/routes/admin/custom-sql/data-sources/route"
 import * as route_admin_custom_sql_execute from "@/modules/report/routes/admin/custom-sql/execute/route"
-import * as route_admin_export__id_ from "@/modules/report/routes/admin/export/[id]/route"
 import * as route_admin_export from "@/modules/report/routes/admin/export/route"
-import * as route_admin_go_view_data__id_ from "@/modules/report/routes/admin/go-view-data/[id]/route"
+import * as route_admin_export__id_ from "@/modules/report/routes/admin/export/[id]/route"
 import * as route_admin_go_view_data from "@/modules/report/routes/admin/go-view-data/route"
-import * as route_admin_go_view_project__id_ from "@/modules/report/routes/admin/go-view-project/[id]/route"
+import * as route_admin_go_view_data__id_ from "@/modules/report/routes/admin/go-view-data/[id]/route"
 import * as route_admin_go_view_project from "@/modules/report/routes/admin/go-view-project/route"
+import * as route_admin_go_view_project__id_ from "@/modules/report/routes/admin/go-view-project/[id]/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {
   const url = new URL(`http://plugin.invalid${input.path}`)

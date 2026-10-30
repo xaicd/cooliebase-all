@@ -10,34 +10,36 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_address__id_ from "@/modules/member/routes/admin/address/[id]/route"
 import * as route_admin_address from "@/modules/member/routes/admin/address/route"
-import * as route_admin_levels__id_ from "@/modules/member/routes/admin/levels/[id]/route"
+import * as route_admin_address__id_ from "@/modules/member/routes/admin/address/[id]/route"
 import * as route_admin_levels from "@/modules/member/routes/admin/levels/route"
-import * as route_admin_member_config__id_ from "@/modules/member/routes/admin/member-config/[id]/route"
+import * as route_admin_levels__id_ from "@/modules/member/routes/admin/levels/[id]/route"
+import * as route_admin_member_address from "@/modules/member/routes/admin/member-address/route"
+import * as route_admin_member_address__id_ from "@/modules/member/routes/admin/member-address/[id]/route"
 import * as route_admin_member_config from "@/modules/member/routes/admin/member-config/route"
-import * as route_admin_member_experience_record__id_ from "@/modules/member/routes/admin/member-experience-record/[id]/route"
+import * as route_admin_member_config__id_ from "@/modules/member/routes/admin/member-config/[id]/route"
 import * as route_admin_member_experience_record from "@/modules/member/routes/admin/member-experience-record/route"
-import * as route_admin_member_group__id_ from "@/modules/member/routes/admin/member-group/[id]/route"
+import * as route_admin_member_experience_record__id_ from "@/modules/member/routes/admin/member-experience-record/[id]/route"
 import * as route_admin_member_group from "@/modules/member/routes/admin/member-group/route"
-import * as route_admin_member_level_record__id_ from "@/modules/member/routes/admin/member-level-record/[id]/route"
-import * as route_admin_member_level_record from "@/modules/member/routes/admin/member-level-record/route"
-import * as route_admin_member_level__id_ from "@/modules/member/routes/admin/member-level/[id]/route"
+import * as route_admin_member_group__id_ from "@/modules/member/routes/admin/member-group/[id]/route"
 import * as route_admin_member_level from "@/modules/member/routes/admin/member-level/route"
-import * as route_admin_member_point_record__id_ from "@/modules/member/routes/admin/member-point-record/[id]/route"
+import * as route_admin_member_level__id_ from "@/modules/member/routes/admin/member-level/[id]/route"
+import * as route_admin_member_level_record from "@/modules/member/routes/admin/member-level-record/route"
+import * as route_admin_member_level_record__id_ from "@/modules/member/routes/admin/member-level-record/[id]/route"
 import * as route_admin_member_point_record from "@/modules/member/routes/admin/member-point-record/route"
-import * as route_admin_member_sign_in_config__id_ from "@/modules/member/routes/admin/member-sign-in-config/[id]/route"
+import * as route_admin_member_point_record__id_ from "@/modules/member/routes/admin/member-point-record/[id]/route"
 import * as route_admin_member_sign_in_config from "@/modules/member/routes/admin/member-sign-in-config/route"
-import * as route_admin_member_sign_in_record__id_ from "@/modules/member/routes/admin/member-sign-in-record/[id]/route"
+import * as route_admin_member_sign_in_config__id_ from "@/modules/member/routes/admin/member-sign-in-config/[id]/route"
 import * as route_admin_member_sign_in_record from "@/modules/member/routes/admin/member-sign-in-record/route"
-import * as route_admin_member_tag__id_ from "@/modules/member/routes/admin/member-tag/[id]/route"
+import * as route_admin_member_sign_in_record__id_ from "@/modules/member/routes/admin/member-sign-in-record/[id]/route"
 import * as route_admin_member_tag from "@/modules/member/routes/admin/member-tag/route"
-import * as route_admin_member_user__id_ from "@/modules/member/routes/admin/member-user/[id]/route"
+import * as route_admin_member_tag__id_ from "@/modules/member/routes/admin/member-tag/[id]/route"
 import * as route_admin_member_user from "@/modules/member/routes/admin/member-user/route"
-import * as route_admin_points__id_ from "@/modules/member/routes/admin/points/[id]/route"
+import * as route_admin_member_user__id_ from "@/modules/member/routes/admin/member-user/[id]/route"
 import * as route_admin_points from "@/modules/member/routes/admin/points/route"
-import * as route_admin_users__id_ from "@/modules/member/routes/admin/users/[id]/route"
+import * as route_admin_points__id_ from "@/modules/member/routes/admin/points/[id]/route"
 import * as route_admin_users from "@/modules/member/routes/admin/users/route"
+import * as route_admin_users__id_ from "@/modules/member/routes/admin/users/[id]/route"
 import * as route_app_auth_login from "@/modules/member/routes/app/auth/login/route"
 import * as route_app_auth_logout from "@/modules/member/routes/app/auth/logout/route"
 import * as route_app_auth_register from "@/modules/member/routes/app/auth/register/route"
@@ -74,6 +76,11 @@ export default definePlugin({
     "admin:levels/[id]:put": (input: any) => invoke(route_admin_levels__id_.PUT, input),
     "admin:levels:get": (input: any) => invoke(route_admin_levels.GET, input),
     "admin:levels:post": (input: any) => invoke(route_admin_levels.POST, input),
+    "admin:member-address/[id]:delete": (input: any) => invoke(route_admin_member_address__id_.DELETE, input),
+    "admin:member-address/[id]:get": (input: any) => invoke(route_admin_member_address__id_.GET, input),
+    "admin:member-address/[id]:put": (input: any) => invoke(route_admin_member_address__id_.PUT, input),
+    "admin:member-address:get": (input: any) => invoke(route_admin_member_address.GET, input),
+    "admin:member-address:post": (input: any) => invoke(route_admin_member_address.POST, input),
     "admin:member-config/[id]:delete": (input: any) => invoke(route_admin_member_config__id_.DELETE, input),
     "admin:member-config/[id]:get": (input: any) => invoke(route_admin_member_config__id_.GET, input),
     "admin:member-config/[id]:put": (input: any) => invoke(route_admin_member_config__id_.PUT, input),

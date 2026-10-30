@@ -10,68 +10,76 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_conversations__id_ from "@/modules/im/routes/admin/conversations/[id]/route"
 import * as route_admin_conversations from "@/modules/im/routes/admin/conversations/route"
-import * as route_admin_im_channel_manager__id_ from "@/modules/im/routes/admin/im-channel-manager/[id]/route"
+import * as route_admin_conversations__id_ from "@/modules/im/routes/admin/conversations/[id]/route"
+import * as route_admin_im_channel from "@/modules/im/routes/admin/im-channel/route"
+import * as route_admin_im_channel__id_ from "@/modules/im/routes/admin/im-channel/[id]/route"
 import * as route_admin_im_channel_manager from "@/modules/im/routes/admin/im-channel-manager/route"
-import * as route_admin_im_channel_material_manager__id_ from "@/modules/im/routes/admin/im-channel-material-manager/[id]/route"
-import * as route_admin_im_channel_material_manager from "@/modules/im/routes/admin/im-channel-material-manager/route"
-import * as route_admin_im_channel_material__id_ from "@/modules/im/routes/admin/im-channel-material/[id]/route"
+import * as route_admin_im_channel_manager__id_ from "@/modules/im/routes/admin/im-channel-manager/[id]/route"
 import * as route_admin_im_channel_material from "@/modules/im/routes/admin/im-channel-material/route"
-import * as route_admin_im_channel_message_manager__id_ from "@/modules/im/routes/admin/im-channel-message-manager/[id]/route"
-import * as route_admin_im_channel_message_manager from "@/modules/im/routes/admin/im-channel-message-manager/route"
-import * as route_admin_im_channel_message__id_ from "@/modules/im/routes/admin/im-channel-message/[id]/route"
+import * as route_admin_im_channel_material__id_ from "@/modules/im/routes/admin/im-channel-material/[id]/route"
+import * as route_admin_im_channel_material_manager from "@/modules/im/routes/admin/im-channel-material-manager/route"
+import * as route_admin_im_channel_material_manager__id_ from "@/modules/im/routes/admin/im-channel-material-manager/[id]/route"
 import * as route_admin_im_channel_message from "@/modules/im/routes/admin/im-channel-message/route"
-import * as route_admin_im_conversation_read__id_ from "@/modules/im/routes/admin/im-conversation-read/[id]/route"
+import * as route_admin_im_channel_message__id_ from "@/modules/im/routes/admin/im-channel-message/[id]/route"
+import * as route_admin_im_channel_message_manager from "@/modules/im/routes/admin/im-channel-message-manager/route"
+import * as route_admin_im_channel_message_manager__id_ from "@/modules/im/routes/admin/im-channel-message-manager/[id]/route"
 import * as route_admin_im_conversation_read from "@/modules/im/routes/admin/im-conversation-read/route"
-import * as route_admin_im_face_pack_item_manager__id_ from "@/modules/im/routes/admin/im-face-pack-item-manager/[id]/route"
-import * as route_admin_im_face_pack_item_manager from "@/modules/im/routes/admin/im-face-pack-item-manager/route"
-import * as route_admin_im_face_pack_manager__id_ from "@/modules/im/routes/admin/im-face-pack-manager/[id]/route"
-import * as route_admin_im_face_pack_manager from "@/modules/im/routes/admin/im-face-pack-manager/route"
-import * as route_admin_im_face_pack__id_ from "@/modules/im/routes/admin/im-face-pack/[id]/route"
+import * as route_admin_im_conversation_read__id_ from "@/modules/im/routes/admin/im-conversation-read/[id]/route"
 import * as route_admin_im_face_pack from "@/modules/im/routes/admin/im-face-pack/route"
-import * as route_admin_im_face_user_item_manager__id_ from "@/modules/im/routes/admin/im-face-user-item-manager/[id]/route"
-import * as route_admin_im_face_user_item_manager from "@/modules/im/routes/admin/im-face-user-item-manager/route"
-import * as route_admin_im_face_user_item__id_ from "@/modules/im/routes/admin/im-face-user-item/[id]/route"
+import * as route_admin_im_face_pack__id_ from "@/modules/im/routes/admin/im-face-pack/[id]/route"
+import * as route_admin_im_face_pack_item from "@/modules/im/routes/admin/im-face-pack-item/route"
+import * as route_admin_im_face_pack_item__id_ from "@/modules/im/routes/admin/im-face-pack-item/[id]/route"
+import * as route_admin_im_face_pack_item_manager from "@/modules/im/routes/admin/im-face-pack-item-manager/route"
+import * as route_admin_im_face_pack_item_manager__id_ from "@/modules/im/routes/admin/im-face-pack-item-manager/[id]/route"
+import * as route_admin_im_face_pack_manager from "@/modules/im/routes/admin/im-face-pack-manager/route"
+import * as route_admin_im_face_pack_manager__id_ from "@/modules/im/routes/admin/im-face-pack-manager/[id]/route"
 import * as route_admin_im_face_user_item from "@/modules/im/routes/admin/im-face-user-item/route"
-import * as route_admin_im_friend_manager__id_ from "@/modules/im/routes/admin/im-friend-manager/[id]/route"
-import * as route_admin_im_friend_manager from "@/modules/im/routes/admin/im-friend-manager/route"
-import * as route_admin_im_friend_request_manager__id_ from "@/modules/im/routes/admin/im-friend-request-manager/[id]/route"
-import * as route_admin_im_friend_request_manager from "@/modules/im/routes/admin/im-friend-request-manager/route"
-import * as route_admin_im_friend_request__id_ from "@/modules/im/routes/admin/im-friend-request/[id]/route"
-import * as route_admin_im_friend_request from "@/modules/im/routes/admin/im-friend-request/route"
-import * as route_admin_im_friend__id_ from "@/modules/im/routes/admin/im-friend/[id]/route"
+import * as route_admin_im_face_user_item__id_ from "@/modules/im/routes/admin/im-face-user-item/[id]/route"
+import * as route_admin_im_face_user_item_manager from "@/modules/im/routes/admin/im-face-user-item-manager/route"
+import * as route_admin_im_face_user_item_manager__id_ from "@/modules/im/routes/admin/im-face-user-item-manager/[id]/route"
 import * as route_admin_im_friend from "@/modules/im/routes/admin/im-friend/route"
-import * as route_admin_im_group_manager__id_ from "@/modules/im/routes/admin/im-group-manager/[id]/route"
-import * as route_admin_im_group_manager from "@/modules/im/routes/admin/im-group-manager/route"
-import * as route_admin_im_group_member_manager__id_ from "@/modules/im/routes/admin/im-group-member-manager/[id]/route"
-import * as route_admin_im_group_member_manager from "@/modules/im/routes/admin/im-group-member-manager/route"
-import * as route_admin_im_group_member__id_ from "@/modules/im/routes/admin/im-group-member/[id]/route"
-import * as route_admin_im_group_member from "@/modules/im/routes/admin/im-group-member/route"
-import * as route_admin_im_group_message_manager__id_ from "@/modules/im/routes/admin/im-group-message-manager/[id]/route"
-import * as route_admin_im_group_message_manager from "@/modules/im/routes/admin/im-group-message-manager/route"
-import * as route_admin_im_group_message__id_ from "@/modules/im/routes/admin/im-group-message/[id]/route"
-import * as route_admin_im_group_message from "@/modules/im/routes/admin/im-group-message/route"
-import * as route_admin_im_group_request_manager__id_ from "@/modules/im/routes/admin/im-group-request-manager/[id]/route"
-import * as route_admin_im_group_request_manager from "@/modules/im/routes/admin/im-group-request-manager/route"
-import * as route_admin_im_group_request__id_ from "@/modules/im/routes/admin/im-group-request/[id]/route"
-import * as route_admin_im_group_request from "@/modules/im/routes/admin/im-group-request/route"
-import * as route_admin_im_group__id_ from "@/modules/im/routes/admin/im-group/[id]/route"
+import * as route_admin_im_friend__id_ from "@/modules/im/routes/admin/im-friend/[id]/route"
+import * as route_admin_im_friend_manager from "@/modules/im/routes/admin/im-friend-manager/route"
+import * as route_admin_im_friend_manager__id_ from "@/modules/im/routes/admin/im-friend-manager/[id]/route"
+import * as route_admin_im_friend_request from "@/modules/im/routes/admin/im-friend-request/route"
+import * as route_admin_im_friend_request__id_ from "@/modules/im/routes/admin/im-friend-request/[id]/route"
+import * as route_admin_im_friend_request_manager from "@/modules/im/routes/admin/im-friend-request-manager/route"
+import * as route_admin_im_friend_request_manager__id_ from "@/modules/im/routes/admin/im-friend-request-manager/[id]/route"
 import * as route_admin_im_group from "@/modules/im/routes/admin/im-group/route"
-import * as route_admin_im_private_message_manager__id_ from "@/modules/im/routes/admin/im-private-message-manager/[id]/route"
-import * as route_admin_im_private_message_manager from "@/modules/im/routes/admin/im-private-message-manager/route"
-import * as route_admin_im_private_message__id_ from "@/modules/im/routes/admin/im-private-message/[id]/route"
+import * as route_admin_im_group__id_ from "@/modules/im/routes/admin/im-group/[id]/route"
+import * as route_admin_im_group_manager from "@/modules/im/routes/admin/im-group-manager/route"
+import * as route_admin_im_group_manager__id_ from "@/modules/im/routes/admin/im-group-manager/[id]/route"
+import * as route_admin_im_group_member from "@/modules/im/routes/admin/im-group-member/route"
+import * as route_admin_im_group_member__id_ from "@/modules/im/routes/admin/im-group-member/[id]/route"
+import * as route_admin_im_group_member_manager from "@/modules/im/routes/admin/im-group-member-manager/route"
+import * as route_admin_im_group_member_manager__id_ from "@/modules/im/routes/admin/im-group-member-manager/[id]/route"
+import * as route_admin_im_group_message from "@/modules/im/routes/admin/im-group-message/route"
+import * as route_admin_im_group_message__id_ from "@/modules/im/routes/admin/im-group-message/[id]/route"
+import * as route_admin_im_group_message_manager from "@/modules/im/routes/admin/im-group-message-manager/route"
+import * as route_admin_im_group_message_manager__id_ from "@/modules/im/routes/admin/im-group-message-manager/[id]/route"
+import * as route_admin_im_group_request from "@/modules/im/routes/admin/im-group-request/route"
+import * as route_admin_im_group_request__id_ from "@/modules/im/routes/admin/im-group-request/[id]/route"
+import * as route_admin_im_group_request_manager from "@/modules/im/routes/admin/im-group-request-manager/route"
+import * as route_admin_im_group_request_manager__id_ from "@/modules/im/routes/admin/im-group-request-manager/[id]/route"
 import * as route_admin_im_private_message from "@/modules/im/routes/admin/im-private-message/route"
-import * as route_admin_im_rtc_call_manager__id_ from "@/modules/im/routes/admin/im-rtc-call-manager/[id]/route"
-import * as route_admin_im_rtc_call_manager from "@/modules/im/routes/admin/im-rtc-call-manager/route"
-import * as route_admin_im_rtc_call__id_ from "@/modules/im/routes/admin/im-rtc-call/[id]/route"
+import * as route_admin_im_private_message__id_ from "@/modules/im/routes/admin/im-private-message/[id]/route"
+import * as route_admin_im_private_message_manager from "@/modules/im/routes/admin/im-private-message-manager/route"
+import * as route_admin_im_private_message_manager__id_ from "@/modules/im/routes/admin/im-private-message-manager/[id]/route"
 import * as route_admin_im_rtc_call from "@/modules/im/routes/admin/im-rtc-call/route"
-import * as route_admin_im_rtc_live_kit__id_ from "@/modules/im/routes/admin/im-rtc-live-kit/[id]/route"
+import * as route_admin_im_rtc_call__id_ from "@/modules/im/routes/admin/im-rtc-call/[id]/route"
+import * as route_admin_im_rtc_call_manager from "@/modules/im/routes/admin/im-rtc-call-manager/route"
+import * as route_admin_im_rtc_call_manager__id_ from "@/modules/im/routes/admin/im-rtc-call-manager/[id]/route"
 import * as route_admin_im_rtc_live_kit from "@/modules/im/routes/admin/im-rtc-live-kit/route"
-import * as route_admin_im_sensitive_word_manager__id_ from "@/modules/im/routes/admin/im-sensitive-word-manager/[id]/route"
+import * as route_admin_im_rtc_live_kit__id_ from "@/modules/im/routes/admin/im-rtc-live-kit/[id]/route"
+import * as route_admin_im_rtc_participant from "@/modules/im/routes/admin/im-rtc-participant/route"
+import * as route_admin_im_rtc_participant__id_ from "@/modules/im/routes/admin/im-rtc-participant/[id]/route"
+import * as route_admin_im_sensitive_word from "@/modules/im/routes/admin/im-sensitive-word/route"
+import * as route_admin_im_sensitive_word__id_ from "@/modules/im/routes/admin/im-sensitive-word/[id]/route"
 import * as route_admin_im_sensitive_word_manager from "@/modules/im/routes/admin/im-sensitive-word-manager/route"
-import * as route_admin_im_statistics_manager__id_ from "@/modules/im/routes/admin/im-statistics-manager/[id]/route"
+import * as route_admin_im_sensitive_word_manager__id_ from "@/modules/im/routes/admin/im-sensitive-word-manager/[id]/route"
 import * as route_admin_im_statistics_manager from "@/modules/im/routes/admin/im-statistics-manager/route"
+import * as route_admin_im_statistics_manager__id_ from "@/modules/im/routes/admin/im-statistics-manager/[id]/route"
 import * as route_admin_messages_audit from "@/modules/im/routes/admin/messages/audit/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {
@@ -124,6 +132,11 @@ export default definePlugin({
     "admin:im-channel-message/[id]:put": (input: any) => invoke(route_admin_im_channel_message__id_.PUT, input),
     "admin:im-channel-message:get": (input: any) => invoke(route_admin_im_channel_message.GET, input),
     "admin:im-channel-message:post": (input: any) => invoke(route_admin_im_channel_message.POST, input),
+    "admin:im-channel/[id]:delete": (input: any) => invoke(route_admin_im_channel__id_.DELETE, input),
+    "admin:im-channel/[id]:get": (input: any) => invoke(route_admin_im_channel__id_.GET, input),
+    "admin:im-channel/[id]:put": (input: any) => invoke(route_admin_im_channel__id_.PUT, input),
+    "admin:im-channel:get": (input: any) => invoke(route_admin_im_channel.GET, input),
+    "admin:im-channel:post": (input: any) => invoke(route_admin_im_channel.POST, input),
     "admin:im-conversation-read/[id]:delete": (input: any) => invoke(route_admin_im_conversation_read__id_.DELETE, input),
     "admin:im-conversation-read/[id]:get": (input: any) => invoke(route_admin_im_conversation_read__id_.GET, input),
     "admin:im-conversation-read/[id]:put": (input: any) => invoke(route_admin_im_conversation_read__id_.PUT, input),
@@ -134,6 +147,11 @@ export default definePlugin({
     "admin:im-face-pack-item-manager/[id]:put": (input: any) => invoke(route_admin_im_face_pack_item_manager__id_.PUT, input),
     "admin:im-face-pack-item-manager:get": (input: any) => invoke(route_admin_im_face_pack_item_manager.GET, input),
     "admin:im-face-pack-item-manager:post": (input: any) => invoke(route_admin_im_face_pack_item_manager.POST, input),
+    "admin:im-face-pack-item/[id]:delete": (input: any) => invoke(route_admin_im_face_pack_item__id_.DELETE, input),
+    "admin:im-face-pack-item/[id]:get": (input: any) => invoke(route_admin_im_face_pack_item__id_.GET, input),
+    "admin:im-face-pack-item/[id]:put": (input: any) => invoke(route_admin_im_face_pack_item__id_.PUT, input),
+    "admin:im-face-pack-item:get": (input: any) => invoke(route_admin_im_face_pack_item.GET, input),
+    "admin:im-face-pack-item:post": (input: any) => invoke(route_admin_im_face_pack_item.POST, input),
     "admin:im-face-pack-manager/[id]:delete": (input: any) => invoke(route_admin_im_face_pack_manager__id_.DELETE, input),
     "admin:im-face-pack-manager/[id]:get": (input: any) => invoke(route_admin_im_face_pack_manager__id_.GET, input),
     "admin:im-face-pack-manager/[id]:put": (input: any) => invoke(route_admin_im_face_pack_manager__id_.PUT, input),
@@ -239,11 +257,21 @@ export default definePlugin({
     "admin:im-rtc-live-kit/[id]:put": (input: any) => invoke(route_admin_im_rtc_live_kit__id_.PUT, input),
     "admin:im-rtc-live-kit:get": (input: any) => invoke(route_admin_im_rtc_live_kit.GET, input),
     "admin:im-rtc-live-kit:post": (input: any) => invoke(route_admin_im_rtc_live_kit.POST, input),
+    "admin:im-rtc-participant/[id]:delete": (input: any) => invoke(route_admin_im_rtc_participant__id_.DELETE, input),
+    "admin:im-rtc-participant/[id]:get": (input: any) => invoke(route_admin_im_rtc_participant__id_.GET, input),
+    "admin:im-rtc-participant/[id]:put": (input: any) => invoke(route_admin_im_rtc_participant__id_.PUT, input),
+    "admin:im-rtc-participant:get": (input: any) => invoke(route_admin_im_rtc_participant.GET, input),
+    "admin:im-rtc-participant:post": (input: any) => invoke(route_admin_im_rtc_participant.POST, input),
     "admin:im-sensitive-word-manager/[id]:delete": (input: any) => invoke(route_admin_im_sensitive_word_manager__id_.DELETE, input),
     "admin:im-sensitive-word-manager/[id]:get": (input: any) => invoke(route_admin_im_sensitive_word_manager__id_.GET, input),
     "admin:im-sensitive-word-manager/[id]:put": (input: any) => invoke(route_admin_im_sensitive_word_manager__id_.PUT, input),
     "admin:im-sensitive-word-manager:get": (input: any) => invoke(route_admin_im_sensitive_word_manager.GET, input),
     "admin:im-sensitive-word-manager:post": (input: any) => invoke(route_admin_im_sensitive_word_manager.POST, input),
+    "admin:im-sensitive-word/[id]:delete": (input: any) => invoke(route_admin_im_sensitive_word__id_.DELETE, input),
+    "admin:im-sensitive-word/[id]:get": (input: any) => invoke(route_admin_im_sensitive_word__id_.GET, input),
+    "admin:im-sensitive-word/[id]:put": (input: any) => invoke(route_admin_im_sensitive_word__id_.PUT, input),
+    "admin:im-sensitive-word:get": (input: any) => invoke(route_admin_im_sensitive_word.GET, input),
+    "admin:im-sensitive-word:post": (input: any) => invoke(route_admin_im_sensitive_word.POST, input),
     "admin:im-statistics-manager/[id]:delete": (input: any) => invoke(route_admin_im_statistics_manager__id_.DELETE, input),
     "admin:im-statistics-manager/[id]:get": (input: any) => invoke(route_admin_im_statistics_manager__id_.GET, input),
     "admin:im-statistics-manager/[id]:put": (input: any) => invoke(route_admin_im_statistics_manager__id_.PUT, input),

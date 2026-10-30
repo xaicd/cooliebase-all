@@ -10,34 +10,36 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_bpm_category__id_ from "@/modules/bpm/routes/admin/bpm-category/[id]/route"
 import * as route_admin_bpm_category from "@/modules/bpm/routes/admin/bpm-category/route"
-import * as route_admin_bpm_comment__id_ from "@/modules/bpm/routes/admin/bpm-comment/[id]/route"
+import * as route_admin_bpm_category__id_ from "@/modules/bpm/routes/admin/bpm-category/[id]/route"
 import * as route_admin_bpm_comment from "@/modules/bpm/routes/admin/bpm-comment/route"
-import * as route_admin_bpm_form__id_ from "@/modules/bpm/routes/admin/bpm-form/[id]/route"
+import * as route_admin_bpm_comment__id_ from "@/modules/bpm/routes/admin/bpm-comment/[id]/route"
 import * as route_admin_bpm_form from "@/modules/bpm/routes/admin/bpm-form/route"
-import * as route_admin_bpm_model__id_ from "@/modules/bpm/routes/admin/bpm-model/[id]/route"
+import * as route_admin_bpm_form__id_ from "@/modules/bpm/routes/admin/bpm-form/[id]/route"
 import * as route_admin_bpm_model from "@/modules/bpm/routes/admin/bpm-model/route"
-import * as route_admin_bpm_oaleave__id_ from "@/modules/bpm/routes/admin/bpm-oaleave/[id]/route"
+import * as route_admin_bpm_model__id_ from "@/modules/bpm/routes/admin/bpm-model/[id]/route"
 import * as route_admin_bpm_oaleave from "@/modules/bpm/routes/admin/bpm-oaleave/route"
-import * as route_admin_bpm_process_definition__id_ from "@/modules/bpm/routes/admin/bpm-process-definition/[id]/route"
+import * as route_admin_bpm_oaleave__id_ from "@/modules/bpm/routes/admin/bpm-oaleave/[id]/route"
 import * as route_admin_bpm_process_definition from "@/modules/bpm/routes/admin/bpm-process-definition/route"
-import * as route_admin_bpm_process_expression__id_ from "@/modules/bpm/routes/admin/bpm-process-expression/[id]/route"
+import * as route_admin_bpm_process_definition__id_ from "@/modules/bpm/routes/admin/bpm-process-definition/[id]/route"
+import * as route_admin_bpm_process_definition_info from "@/modules/bpm/routes/admin/bpm-process-definition-info/route"
+import * as route_admin_bpm_process_definition_info__id_ from "@/modules/bpm/routes/admin/bpm-process-definition-info/[id]/route"
 import * as route_admin_bpm_process_expression from "@/modules/bpm/routes/admin/bpm-process-expression/route"
-import * as route_admin_bpm_process_instance_copy__id_ from "@/modules/bpm/routes/admin/bpm-process-instance-copy/[id]/route"
-import * as route_admin_bpm_process_instance_copy from "@/modules/bpm/routes/admin/bpm-process-instance-copy/route"
-import * as route_admin_bpm_process_instance__id_ from "@/modules/bpm/routes/admin/bpm-process-instance/[id]/route"
+import * as route_admin_bpm_process_expression__id_ from "@/modules/bpm/routes/admin/bpm-process-expression/[id]/route"
 import * as route_admin_bpm_process_instance from "@/modules/bpm/routes/admin/bpm-process-instance/route"
-import * as route_admin_bpm_process_listener__id_ from "@/modules/bpm/routes/admin/bpm-process-listener/[id]/route"
+import * as route_admin_bpm_process_instance__id_ from "@/modules/bpm/routes/admin/bpm-process-instance/[id]/route"
+import * as route_admin_bpm_process_instance_copy from "@/modules/bpm/routes/admin/bpm-process-instance-copy/route"
+import * as route_admin_bpm_process_instance_copy__id_ from "@/modules/bpm/routes/admin/bpm-process-instance-copy/[id]/route"
 import * as route_admin_bpm_process_listener from "@/modules/bpm/routes/admin/bpm-process-listener/route"
-import * as route_admin_bpm_task__id_ from "@/modules/bpm/routes/admin/bpm-task/[id]/route"
+import * as route_admin_bpm_process_listener__id_ from "@/modules/bpm/routes/admin/bpm-process-listener/[id]/route"
 import * as route_admin_bpm_task from "@/modules/bpm/routes/admin/bpm-task/route"
-import * as route_admin_bpm_user_group__id_ from "@/modules/bpm/routes/admin/bpm-user-group/[id]/route"
+import * as route_admin_bpm_task__id_ from "@/modules/bpm/routes/admin/bpm-task/[id]/route"
 import * as route_admin_bpm_user_group from "@/modules/bpm/routes/admin/bpm-user-group/route"
-import * as route_admin_process_definitions__id_ from "@/modules/bpm/routes/admin/process-definitions/[id]/route"
+import * as route_admin_bpm_user_group__id_ from "@/modules/bpm/routes/admin/bpm-user-group/[id]/route"
 import * as route_admin_process_definitions from "@/modules/bpm/routes/admin/process-definitions/route"
-import * as route_admin_tasks__id_ from "@/modules/bpm/routes/admin/tasks/[id]/route"
+import * as route_admin_process_definitions__id_ from "@/modules/bpm/routes/admin/process-definitions/[id]/route"
 import * as route_admin_tasks from "@/modules/bpm/routes/admin/tasks/route"
+import * as route_admin_tasks__id_ from "@/modules/bpm/routes/admin/tasks/[id]/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {
   const url = new URL(`http://plugin.invalid${input.path}`)
@@ -84,6 +86,11 @@ export default definePlugin({
     "admin:bpm-oaleave/[id]:put": (input: any) => invoke(route_admin_bpm_oaleave__id_.PUT, input),
     "admin:bpm-oaleave:get": (input: any) => invoke(route_admin_bpm_oaleave.GET, input),
     "admin:bpm-oaleave:post": (input: any) => invoke(route_admin_bpm_oaleave.POST, input),
+    "admin:bpm-process-definition-info/[id]:delete": (input: any) => invoke(route_admin_bpm_process_definition_info__id_.DELETE, input),
+    "admin:bpm-process-definition-info/[id]:get": (input: any) => invoke(route_admin_bpm_process_definition_info__id_.GET, input),
+    "admin:bpm-process-definition-info/[id]:put": (input: any) => invoke(route_admin_bpm_process_definition_info__id_.PUT, input),
+    "admin:bpm-process-definition-info:get": (input: any) => invoke(route_admin_bpm_process_definition_info.GET, input),
+    "admin:bpm-process-definition-info:post": (input: any) => invoke(route_admin_bpm_process_definition_info.POST, input),
     "admin:bpm-process-definition/[id]:delete": (input: any) => invoke(route_admin_bpm_process_definition__id_.DELETE, input),
     "admin:bpm-process-definition/[id]:get": (input: any) => invoke(route_admin_bpm_process_definition__id_.GET, input),
     "admin:bpm-process-definition/[id]:put": (input: any) => invoke(route_admin_bpm_process_definition__id_.PUT, input),

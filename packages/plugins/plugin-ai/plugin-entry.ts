@@ -10,32 +10,34 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_ai_api_key__id_ from "@/modules/ai/routes/admin/ai-api-key/[id]/route"
 import * as route_admin_ai_api_key from "@/modules/ai/routes/admin/ai-api-key/route"
-import * as route_admin_ai_chat_conversation__id_ from "@/modules/ai/routes/admin/ai-chat-conversation/[id]/route"
+import * as route_admin_ai_api_key__id_ from "@/modules/ai/routes/admin/ai-api-key/[id]/route"
 import * as route_admin_ai_chat_conversation from "@/modules/ai/routes/admin/ai-chat-conversation/route"
-import * as route_admin_ai_chat_message__id_ from "@/modules/ai/routes/admin/ai-chat-message/[id]/route"
+import * as route_admin_ai_chat_conversation__id_ from "@/modules/ai/routes/admin/ai-chat-conversation/[id]/route"
 import * as route_admin_ai_chat_message from "@/modules/ai/routes/admin/ai-chat-message/route"
-import * as route_admin_ai_chat_role__id_ from "@/modules/ai/routes/admin/ai-chat-role/[id]/route"
+import * as route_admin_ai_chat_message__id_ from "@/modules/ai/routes/admin/ai-chat-message/[id]/route"
 import * as route_admin_ai_chat_role from "@/modules/ai/routes/admin/ai-chat-role/route"
-import * as route_admin_ai_image__id_ from "@/modules/ai/routes/admin/ai-image/[id]/route"
+import * as route_admin_ai_chat_role__id_ from "@/modules/ai/routes/admin/ai-chat-role/[id]/route"
 import * as route_admin_ai_image from "@/modules/ai/routes/admin/ai-image/route"
-import * as route_admin_ai_knowledge_document__id_ from "@/modules/ai/routes/admin/ai-knowledge-document/[id]/route"
-import * as route_admin_ai_knowledge_document from "@/modules/ai/routes/admin/ai-knowledge-document/route"
-import * as route_admin_ai_knowledge_segment__id_ from "@/modules/ai/routes/admin/ai-knowledge-segment/[id]/route"
-import * as route_admin_ai_knowledge_segment from "@/modules/ai/routes/admin/ai-knowledge-segment/route"
-import * as route_admin_ai_knowledge__id_ from "@/modules/ai/routes/admin/ai-knowledge/[id]/route"
+import * as route_admin_ai_image__id_ from "@/modules/ai/routes/admin/ai-image/[id]/route"
 import * as route_admin_ai_knowledge from "@/modules/ai/routes/admin/ai-knowledge/route"
-import * as route_admin_ai_mind_map__id_ from "@/modules/ai/routes/admin/ai-mind-map/[id]/route"
+import * as route_admin_ai_knowledge__id_ from "@/modules/ai/routes/admin/ai-knowledge/[id]/route"
+import * as route_admin_ai_knowledge_document from "@/modules/ai/routes/admin/ai-knowledge-document/route"
+import * as route_admin_ai_knowledge_document__id_ from "@/modules/ai/routes/admin/ai-knowledge-document/[id]/route"
+import * as route_admin_ai_knowledge_segment from "@/modules/ai/routes/admin/ai-knowledge-segment/route"
+import * as route_admin_ai_knowledge_segment__id_ from "@/modules/ai/routes/admin/ai-knowledge-segment/[id]/route"
 import * as route_admin_ai_mind_map from "@/modules/ai/routes/admin/ai-mind-map/route"
-import * as route_admin_ai_music__id_ from "@/modules/ai/routes/admin/ai-music/[id]/route"
+import * as route_admin_ai_mind_map__id_ from "@/modules/ai/routes/admin/ai-mind-map/[id]/route"
+import * as route_admin_ai_model from "@/modules/ai/routes/admin/ai-model/route"
+import * as route_admin_ai_model__id_ from "@/modules/ai/routes/admin/ai-model/[id]/route"
 import * as route_admin_ai_music from "@/modules/ai/routes/admin/ai-music/route"
-import * as route_admin_ai_tool__id_ from "@/modules/ai/routes/admin/ai-tool/[id]/route"
+import * as route_admin_ai_music__id_ from "@/modules/ai/routes/admin/ai-music/[id]/route"
 import * as route_admin_ai_tool from "@/modules/ai/routes/admin/ai-tool/route"
-import * as route_admin_ai_workflow__id_ from "@/modules/ai/routes/admin/ai-workflow/[id]/route"
+import * as route_admin_ai_tool__id_ from "@/modules/ai/routes/admin/ai-tool/[id]/route"
 import * as route_admin_ai_workflow from "@/modules/ai/routes/admin/ai-workflow/route"
-import * as route_admin_ai_write__id_ from "@/modules/ai/routes/admin/ai-write/[id]/route"
+import * as route_admin_ai_workflow__id_ from "@/modules/ai/routes/admin/ai-workflow/[id]/route"
 import * as route_admin_ai_write from "@/modules/ai/routes/admin/ai-write/route"
+import * as route_admin_ai_write__id_ from "@/modules/ai/routes/admin/ai-write/[id]/route"
 import * as route_open_v1_chat_completions from "@/modules/ai/routes/open/v1/chat/completions/route"
 import * as route_open_v1_embeddings from "@/modules/ai/routes/open/v1/embeddings/route"
 import * as route_open_v1_models from "@/modules/ai/routes/open/v1/models/route"
@@ -105,6 +107,11 @@ export default definePlugin({
     "admin:ai-mind-map/[id]:put": (input: any) => invoke(route_admin_ai_mind_map__id_.PUT, input),
     "admin:ai-mind-map:get": (input: any) => invoke(route_admin_ai_mind_map.GET, input),
     "admin:ai-mind-map:post": (input: any) => invoke(route_admin_ai_mind_map.POST, input),
+    "admin:ai-model/[id]:delete": (input: any) => invoke(route_admin_ai_model__id_.DELETE, input),
+    "admin:ai-model/[id]:get": (input: any) => invoke(route_admin_ai_model__id_.GET, input),
+    "admin:ai-model/[id]:put": (input: any) => invoke(route_admin_ai_model__id_.PUT, input),
+    "admin:ai-model:get": (input: any) => invoke(route_admin_ai_model.GET, input),
+    "admin:ai-model:post": (input: any) => invoke(route_admin_ai_model.POST, input),
     "admin:ai-music/[id]:delete": (input: any) => invoke(route_admin_ai_music__id_.DELETE, input),
     "admin:ai-music/[id]:get": (input: any) => invoke(route_admin_ai_music__id_.GET, input),
     "admin:ai-music/[id]:put": (input: any) => invoke(route_admin_ai_music__id_.PUT, input),

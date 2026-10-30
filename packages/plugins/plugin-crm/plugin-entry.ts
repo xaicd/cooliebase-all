@@ -10,60 +10,70 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
-import * as route_admin_clues__id_ from "@/modules/crm/routes/admin/clues/[id]/route"
 import * as route_admin_clues from "@/modules/crm/routes/admin/clues/route"
-import * as route_admin_crm_business_status__id_ from "@/modules/crm/routes/admin/crm-business-status/[id]/route"
-import * as route_admin_crm_business_status from "@/modules/crm/routes/admin/crm-business-status/route"
-import * as route_admin_crm_business__id_ from "@/modules/crm/routes/admin/crm-business/[id]/route"
+import * as route_admin_clues__id_ from "@/modules/crm/routes/admin/clues/[id]/route"
 import * as route_admin_crm_business from "@/modules/crm/routes/admin/crm-business/route"
-import * as route_admin_crm_clue__id_ from "@/modules/crm/routes/admin/crm-clue/[id]/route"
+import * as route_admin_crm_business__id_ from "@/modules/crm/routes/admin/crm-business/[id]/route"
+import * as route_admin_crm_business_product from "@/modules/crm/routes/admin/crm-business-product/route"
+import * as route_admin_crm_business_product__id_ from "@/modules/crm/routes/admin/crm-business-product/[id]/route"
+import * as route_admin_crm_business_status from "@/modules/crm/routes/admin/crm-business-status/route"
+import * as route_admin_crm_business_status__id_ from "@/modules/crm/routes/admin/crm-business-status/[id]/route"
+import * as route_admin_crm_business_status_type from "@/modules/crm/routes/admin/crm-business-status-type/route"
+import * as route_admin_crm_business_status_type__id_ from "@/modules/crm/routes/admin/crm-business-status-type/[id]/route"
 import * as route_admin_crm_clue from "@/modules/crm/routes/admin/crm-clue/route"
-import * as route_admin_crm_contact__id_ from "@/modules/crm/routes/admin/crm-contact/[id]/route"
+import * as route_admin_crm_clue__id_ from "@/modules/crm/routes/admin/crm-clue/[id]/route"
 import * as route_admin_crm_contact from "@/modules/crm/routes/admin/crm-contact/route"
-import * as route_admin_crm_contract_config__id_ from "@/modules/crm/routes/admin/crm-contract-config/[id]/route"
-import * as route_admin_crm_contract_config from "@/modules/crm/routes/admin/crm-contract-config/route"
-import * as route_admin_crm_contract__id_ from "@/modules/crm/routes/admin/crm-contract/[id]/route"
+import * as route_admin_crm_contact__id_ from "@/modules/crm/routes/admin/crm-contact/[id]/route"
+import * as route_admin_crm_contact_business from "@/modules/crm/routes/admin/crm-contact-business/route"
+import * as route_admin_crm_contact_business__id_ from "@/modules/crm/routes/admin/crm-contact-business/[id]/route"
 import * as route_admin_crm_contract from "@/modules/crm/routes/admin/crm-contract/route"
-import * as route_admin_crm_customer_limit_config__id_ from "@/modules/crm/routes/admin/crm-customer-limit-config/[id]/route"
-import * as route_admin_crm_customer_limit_config from "@/modules/crm/routes/admin/crm-customer-limit-config/route"
-import * as route_admin_crm_customer_pool_config__id_ from "@/modules/crm/routes/admin/crm-customer-pool-config/[id]/route"
-import * as route_admin_crm_customer_pool_config from "@/modules/crm/routes/admin/crm-customer-pool-config/route"
-import * as route_admin_crm_customer__id_ from "@/modules/crm/routes/admin/crm-customer/[id]/route"
+import * as route_admin_crm_contract__id_ from "@/modules/crm/routes/admin/crm-contract/[id]/route"
+import * as route_admin_crm_contract_config from "@/modules/crm/routes/admin/crm-contract-config/route"
+import * as route_admin_crm_contract_config__id_ from "@/modules/crm/routes/admin/crm-contract-config/[id]/route"
+import * as route_admin_crm_contract_product from "@/modules/crm/routes/admin/crm-contract-product/route"
+import * as route_admin_crm_contract_product__id_ from "@/modules/crm/routes/admin/crm-contract-product/[id]/route"
 import * as route_admin_crm_customer from "@/modules/crm/routes/admin/crm-customer/route"
-import * as route_admin_crm_follow_up_record__id_ from "@/modules/crm/routes/admin/crm-follow-up-record/[id]/route"
+import * as route_admin_crm_customer__id_ from "@/modules/crm/routes/admin/crm-customer/[id]/route"
+import * as route_admin_crm_customer_limit_config from "@/modules/crm/routes/admin/crm-customer-limit-config/route"
+import * as route_admin_crm_customer_limit_config__id_ from "@/modules/crm/routes/admin/crm-customer-limit-config/[id]/route"
+import * as route_admin_crm_customer_pool_config from "@/modules/crm/routes/admin/crm-customer-pool-config/route"
+import * as route_admin_crm_customer_pool_config__id_ from "@/modules/crm/routes/admin/crm-customer-pool-config/[id]/route"
 import * as route_admin_crm_follow_up_record from "@/modules/crm/routes/admin/crm-follow-up-record/route"
-import * as route_admin_crm_operate_log__id_ from "@/modules/crm/routes/admin/crm-operate-log/[id]/route"
+import * as route_admin_crm_follow_up_record__id_ from "@/modules/crm/routes/admin/crm-follow-up-record/[id]/route"
 import * as route_admin_crm_operate_log from "@/modules/crm/routes/admin/crm-operate-log/route"
-import * as route_admin_crm_performance_config__id_ from "@/modules/crm/routes/admin/crm-performance-config/[id]/route"
+import * as route_admin_crm_operate_log__id_ from "@/modules/crm/routes/admin/crm-operate-log/[id]/route"
+import * as route_admin_crm_owner_record from "@/modules/crm/routes/admin/crm-owner-record/route"
+import * as route_admin_crm_owner_record__id_ from "@/modules/crm/routes/admin/crm-owner-record/[id]/route"
 import * as route_admin_crm_performance_config from "@/modules/crm/routes/admin/crm-performance-config/route"
-import * as route_admin_crm_permission__id_ from "@/modules/crm/routes/admin/crm-permission/[id]/route"
+import * as route_admin_crm_performance_config__id_ from "@/modules/crm/routes/admin/crm-performance-config/[id]/route"
 import * as route_admin_crm_permission from "@/modules/crm/routes/admin/crm-permission/route"
-import * as route_admin_crm_product_category__id_ from "@/modules/crm/routes/admin/crm-product-category/[id]/route"
-import * as route_admin_crm_product_category from "@/modules/crm/routes/admin/crm-product-category/route"
-import * as route_admin_crm_product__id_ from "@/modules/crm/routes/admin/crm-product/[id]/route"
+import * as route_admin_crm_permission__id_ from "@/modules/crm/routes/admin/crm-permission/[id]/route"
 import * as route_admin_crm_product from "@/modules/crm/routes/admin/crm-product/route"
-import * as route_admin_crm_receivable_plan__id_ from "@/modules/crm/routes/admin/crm-receivable-plan/[id]/route"
-import * as route_admin_crm_receivable_plan from "@/modules/crm/routes/admin/crm-receivable-plan/route"
-import * as route_admin_crm_receivable__id_ from "@/modules/crm/routes/admin/crm-receivable/[id]/route"
+import * as route_admin_crm_product__id_ from "@/modules/crm/routes/admin/crm-product/[id]/route"
+import * as route_admin_crm_product_category from "@/modules/crm/routes/admin/crm-product-category/route"
+import * as route_admin_crm_product_category__id_ from "@/modules/crm/routes/admin/crm-product-category/[id]/route"
 import * as route_admin_crm_receivable from "@/modules/crm/routes/admin/crm-receivable/route"
-import * as route_admin_crm_statistics_customer__id_ from "@/modules/crm/routes/admin/crm-statistics-customer/[id]/route"
+import * as route_admin_crm_receivable__id_ from "@/modules/crm/routes/admin/crm-receivable/[id]/route"
+import * as route_admin_crm_receivable_plan from "@/modules/crm/routes/admin/crm-receivable-plan/route"
+import * as route_admin_crm_receivable_plan__id_ from "@/modules/crm/routes/admin/crm-receivable-plan/[id]/route"
 import * as route_admin_crm_statistics_customer from "@/modules/crm/routes/admin/crm-statistics-customer/route"
-import * as route_admin_crm_statistics_funnel__id_ from "@/modules/crm/routes/admin/crm-statistics-funnel/[id]/route"
+import * as route_admin_crm_statistics_customer__id_ from "@/modules/crm/routes/admin/crm-statistics-customer/[id]/route"
 import * as route_admin_crm_statistics_funnel from "@/modules/crm/routes/admin/crm-statistics-funnel/route"
-import * as route_admin_crm_statistics_performance_target__id_ from "@/modules/crm/routes/admin/crm-statistics-performance-target/[id]/route"
-import * as route_admin_crm_statistics_performance_target from "@/modules/crm/routes/admin/crm-statistics-performance-target/route"
-import * as route_admin_crm_statistics_performance__id_ from "@/modules/crm/routes/admin/crm-statistics-performance/[id]/route"
+import * as route_admin_crm_statistics_funnel__id_ from "@/modules/crm/routes/admin/crm-statistics-funnel/[id]/route"
 import * as route_admin_crm_statistics_performance from "@/modules/crm/routes/admin/crm-statistics-performance/route"
-import * as route_admin_crm_statistics_portrait__id_ from "@/modules/crm/routes/admin/crm-statistics-portrait/[id]/route"
+import * as route_admin_crm_statistics_performance__id_ from "@/modules/crm/routes/admin/crm-statistics-performance/[id]/route"
+import * as route_admin_crm_statistics_performance_target from "@/modules/crm/routes/admin/crm-statistics-performance-target/route"
+import * as route_admin_crm_statistics_performance_target__id_ from "@/modules/crm/routes/admin/crm-statistics-performance-target/[id]/route"
 import * as route_admin_crm_statistics_portrait from "@/modules/crm/routes/admin/crm-statistics-portrait/route"
-import * as route_admin_crm_statistics_product__id_ from "@/modules/crm/routes/admin/crm-statistics-product/[id]/route"
+import * as route_admin_crm_statistics_portrait__id_ from "@/modules/crm/routes/admin/crm-statistics-portrait/[id]/route"
 import * as route_admin_crm_statistics_product from "@/modules/crm/routes/admin/crm-statistics-product/route"
-import * as route_admin_crm_statistics_rank__id_ from "@/modules/crm/routes/admin/crm-statistics-rank/[id]/route"
+import * as route_admin_crm_statistics_product__id_ from "@/modules/crm/routes/admin/crm-statistics-product/[id]/route"
 import * as route_admin_crm_statistics_rank from "@/modules/crm/routes/admin/crm-statistics-rank/route"
-import * as route_admin_customers__id_ from "@/modules/crm/routes/admin/customers/[id]/route"
+import * as route_admin_crm_statistics_rank__id_ from "@/modules/crm/routes/admin/crm-statistics-rank/[id]/route"
 import * as route_admin_customers from "@/modules/crm/routes/admin/customers/route"
-import * as route_admin_followups__id_ from "@/modules/crm/routes/admin/followups/[id]/route"
+import * as route_admin_customers__id_ from "@/modules/crm/routes/admin/customers/[id]/route"
 import * as route_admin_followups from "@/modules/crm/routes/admin/followups/route"
+import * as route_admin_followups__id_ from "@/modules/crm/routes/admin/followups/[id]/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {
   const url = new URL(`http://plugin.invalid${input.path}`)
@@ -90,6 +100,16 @@ export default definePlugin({
     "admin:clues/[id]:put": (input: any) => invoke(route_admin_clues__id_.PUT, input),
     "admin:clues:get": (input: any) => invoke(route_admin_clues.GET, input),
     "admin:clues:post": (input: any) => invoke(route_admin_clues.POST, input),
+    "admin:crm-business-product/[id]:delete": (input: any) => invoke(route_admin_crm_business_product__id_.DELETE, input),
+    "admin:crm-business-product/[id]:get": (input: any) => invoke(route_admin_crm_business_product__id_.GET, input),
+    "admin:crm-business-product/[id]:put": (input: any) => invoke(route_admin_crm_business_product__id_.PUT, input),
+    "admin:crm-business-product:get": (input: any) => invoke(route_admin_crm_business_product.GET, input),
+    "admin:crm-business-product:post": (input: any) => invoke(route_admin_crm_business_product.POST, input),
+    "admin:crm-business-status-type/[id]:delete": (input: any) => invoke(route_admin_crm_business_status_type__id_.DELETE, input),
+    "admin:crm-business-status-type/[id]:get": (input: any) => invoke(route_admin_crm_business_status_type__id_.GET, input),
+    "admin:crm-business-status-type/[id]:put": (input: any) => invoke(route_admin_crm_business_status_type__id_.PUT, input),
+    "admin:crm-business-status-type:get": (input: any) => invoke(route_admin_crm_business_status_type.GET, input),
+    "admin:crm-business-status-type:post": (input: any) => invoke(route_admin_crm_business_status_type.POST, input),
     "admin:crm-business-status/[id]:delete": (input: any) => invoke(route_admin_crm_business_status__id_.DELETE, input),
     "admin:crm-business-status/[id]:get": (input: any) => invoke(route_admin_crm_business_status__id_.GET, input),
     "admin:crm-business-status/[id]:put": (input: any) => invoke(route_admin_crm_business_status__id_.PUT, input),
@@ -105,6 +125,11 @@ export default definePlugin({
     "admin:crm-clue/[id]:put": (input: any) => invoke(route_admin_crm_clue__id_.PUT, input),
     "admin:crm-clue:get": (input: any) => invoke(route_admin_crm_clue.GET, input),
     "admin:crm-clue:post": (input: any) => invoke(route_admin_crm_clue.POST, input),
+    "admin:crm-contact-business/[id]:delete": (input: any) => invoke(route_admin_crm_contact_business__id_.DELETE, input),
+    "admin:crm-contact-business/[id]:get": (input: any) => invoke(route_admin_crm_contact_business__id_.GET, input),
+    "admin:crm-contact-business/[id]:put": (input: any) => invoke(route_admin_crm_contact_business__id_.PUT, input),
+    "admin:crm-contact-business:get": (input: any) => invoke(route_admin_crm_contact_business.GET, input),
+    "admin:crm-contact-business:post": (input: any) => invoke(route_admin_crm_contact_business.POST, input),
     "admin:crm-contact/[id]:delete": (input: any) => invoke(route_admin_crm_contact__id_.DELETE, input),
     "admin:crm-contact/[id]:get": (input: any) => invoke(route_admin_crm_contact__id_.GET, input),
     "admin:crm-contact/[id]:put": (input: any) => invoke(route_admin_crm_contact__id_.PUT, input),
@@ -115,6 +140,11 @@ export default definePlugin({
     "admin:crm-contract-config/[id]:put": (input: any) => invoke(route_admin_crm_contract_config__id_.PUT, input),
     "admin:crm-contract-config:get": (input: any) => invoke(route_admin_crm_contract_config.GET, input),
     "admin:crm-contract-config:post": (input: any) => invoke(route_admin_crm_contract_config.POST, input),
+    "admin:crm-contract-product/[id]:delete": (input: any) => invoke(route_admin_crm_contract_product__id_.DELETE, input),
+    "admin:crm-contract-product/[id]:get": (input: any) => invoke(route_admin_crm_contract_product__id_.GET, input),
+    "admin:crm-contract-product/[id]:put": (input: any) => invoke(route_admin_crm_contract_product__id_.PUT, input),
+    "admin:crm-contract-product:get": (input: any) => invoke(route_admin_crm_contract_product.GET, input),
+    "admin:crm-contract-product:post": (input: any) => invoke(route_admin_crm_contract_product.POST, input),
     "admin:crm-contract/[id]:delete": (input: any) => invoke(route_admin_crm_contract__id_.DELETE, input),
     "admin:crm-contract/[id]:get": (input: any) => invoke(route_admin_crm_contract__id_.GET, input),
     "admin:crm-contract/[id]:put": (input: any) => invoke(route_admin_crm_contract__id_.PUT, input),
@@ -145,6 +175,11 @@ export default definePlugin({
     "admin:crm-operate-log/[id]:put": (input: any) => invoke(route_admin_crm_operate_log__id_.PUT, input),
     "admin:crm-operate-log:get": (input: any) => invoke(route_admin_crm_operate_log.GET, input),
     "admin:crm-operate-log:post": (input: any) => invoke(route_admin_crm_operate_log.POST, input),
+    "admin:crm-owner-record/[id]:delete": (input: any) => invoke(route_admin_crm_owner_record__id_.DELETE, input),
+    "admin:crm-owner-record/[id]:get": (input: any) => invoke(route_admin_crm_owner_record__id_.GET, input),
+    "admin:crm-owner-record/[id]:put": (input: any) => invoke(route_admin_crm_owner_record__id_.PUT, input),
+    "admin:crm-owner-record:get": (input: any) => invoke(route_admin_crm_owner_record.GET, input),
+    "admin:crm-owner-record:post": (input: any) => invoke(route_admin_crm_owner_record.POST, input),
     "admin:crm-performance-config/[id]:delete": (input: any) => invoke(route_admin_crm_performance_config__id_.DELETE, input),
     "admin:crm-performance-config/[id]:get": (input: any) => invoke(route_admin_crm_performance_config__id_.GET, input),
     "admin:crm-performance-config/[id]:put": (input: any) => invoke(route_admin_crm_performance_config__id_.PUT, input),

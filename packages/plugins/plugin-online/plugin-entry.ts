@@ -10,6 +10,8 @@
  */
 import { definePlugin } from "@cooliebase/plugin-sdk"
 
+import * as route_admin_definitions from "@/modules/online/routes/admin/definitions/route"
+import * as route_admin_definitions__code_ from "@/modules/online/routes/admin/definitions/[code]/route"
 import * as route_admin_definitions__code__archive from "@/modules/online/routes/admin/definitions/[code]/archive/route"
 import * as route_admin_definitions__code__codegen_download from "@/modules/online/routes/admin/definitions/[code]/codegen/download/route"
 import * as route_admin_definitions__code__codegen_preview from "@/modules/online/routes/admin/definitions/[code]/codegen/preview/route"
@@ -18,18 +20,16 @@ import * as route_admin_definitions__code__lookup_dictionary from "@/modules/onl
 import * as route_admin_definitions__code__normalize_system_fields from "@/modules/online/routes/admin/definitions/[code]/normalize-system-fields/route"
 import * as route_admin_definitions__code__publish from "@/modules/online/routes/admin/definitions/[code]/publish/route"
 import * as route_admin_definitions__code__rollback from "@/modules/online/routes/admin/definitions/[code]/rollback/route"
-import * as route_admin_definitions__code_ from "@/modules/online/routes/admin/definitions/[code]/route"
+import * as route_admin_definitions__code__schema_plans from "@/modules/online/routes/admin/definitions/[code]/schema-plans/route"
+import * as route_admin_definitions__code__schema_plans__planId_ from "@/modules/online/routes/admin/definitions/[code]/schema-plans/[planId]/route"
 import * as route_admin_definitions__code__schema_plans__planId__apply from "@/modules/online/routes/admin/definitions/[code]/schema-plans/[planId]/apply/route"
 import * as route_admin_definitions__code__schema_plans__planId__approve from "@/modules/online/routes/admin/definitions/[code]/schema-plans/[planId]/approve/route"
-import * as route_admin_definitions__code__schema_plans__planId_ from "@/modules/online/routes/admin/definitions/[code]/schema-plans/[planId]/route"
-import * as route_admin_definitions__code__schema_plans from "@/modules/online/routes/admin/definitions/[code]/schema-plans/route"
-import * as route_admin_definitions__code__test_sessions__sessionId__records__recordId_ from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/records/[recordId]/route"
-import * as route_admin_definitions__code__test_sessions__sessionId__records from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/records/route"
-import * as route_admin_definitions__code__test_sessions__sessionId_ from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/route"
 import * as route_admin_definitions__code__test_sessions from "@/modules/online/routes/admin/definitions/[code]/test-sessions/route"
+import * as route_admin_definitions__code__test_sessions__sessionId_ from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/route"
+import * as route_admin_definitions__code__test_sessions__sessionId__records from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/records/route"
+import * as route_admin_definitions__code__test_sessions__sessionId__records__recordId_ from "@/modules/online/routes/admin/definitions/[code]/test-sessions/[sessionId]/records/[recordId]/route"
 import * as route_admin_definitions__code__validate from "@/modules/online/routes/admin/definitions/[code]/validate/route"
 import * as route_admin_definitions_codegen_download from "@/modules/online/routes/admin/definitions/codegen/download/route"
-import * as route_admin_definitions from "@/modules/online/routes/admin/definitions/route"
 import * as route_admin_page_schema__entity_ from "@/modules/online/routes/admin/page-schema/[entity]/route"
 
 async function invoke(handler: (request: Request, context?: unknown) => Promise<Response> | Response, input: any) {

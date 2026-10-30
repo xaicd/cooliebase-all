@@ -48,12 +48,17 @@ function deriveRoutes(pluginDir) {
       const methods = [...new Set([...text.matchAll(/export\s+(?:const|async function)\s+(GET|POST|PUT|PATCH|DELETE)\b/g)].map((m) => m[1]))]
       if (methods.length === 0) continue
       const relKey = rel || "root"
+      // 与 scaffold-domain-plugin.cjs 同一条别名规则 —— 重生成不会改名。
+      const alias = `route_${surface}_${relKey.replace(/[^a-zA-Z0-9]/g, "_")}`
       for (const method of [...methods].sort()) {
         declarations.push({
           routeKey: `${surface}:${relKey}:${method.toLowerCase()}`,
           method,
           path: relKey === "root" ? "/" : `/${relKey}`,
           auth: SURFACE_AUTH[surface],
+          // 仅用于 plugin-entry.ts（不进 manifest）
+          __alias: alias,
+          __module: `@/modules/${path.basename(pluginDir).replace(/^plugin-/, "")}/routes/${surface}/${relKey === "root" ? "" : relKey + "/"}route`,
         })
       }
     }
@@ -75,7 +80,48 @@ function loadManifest(dir) {
 function render(json, routes) {
   // apiRoutes 固定放在末尾：与 scaffold-domain-plugin.cjs 的产物形状一致，diff 才干净。
   const { apiRoutes: _ignored, ...rest } = json
-  return `${JSON.stringify({ ...rest, apiRoutes: routes }, null, 2)}\n`
+  const clean = routes.map(({ routeKey, method, path, auth }) => ({ routeKey, method, path, auth }))
+  return `${JSON.stringify({ ...rest, apiRoutes: clean }, null, 2)}\n`
+}
+
+/**
+ * 重写 `plugin-entry.ts` 里**只有**这两块（其余 `invoke` / `setup` / `onHealth` 原样保留）：
+ *   1. `import * as route_…` 静态 import 块 —— 新路由必须在这里出现（Turbopack 不能动态 import TS）
+ *   2. `routes: { … }` 处理器映射
+ * 缺了它们，路由虽在 manifest 里声明，宿主仍报「插件未导出路由处理器」500（实测 48 个接口如此）。
+ */
+function renderEntry(text, routes) {
+  const byModule = new Map()
+  for (const d of routes) if (!byModule.has(d.__alias)) byModule.set(d.__alias, d.__module)
+  const importLines = [...byModule.entries()]
+    .sort((a, b) => a[0].localeCompare(b[0]))
+    .map(([alias, mod]) => `import * as ${alias} from "${mod}"`)
+
+  const lines = text.split("\n")
+  const importIdx = lines.map((line, i) => (/^import \* as route_/.test(line) ? i : -1)).filter((i) => i >= 0)
+  if (importIdx.length === 0) return null
+  let body = [...lines.slice(0, importIdx[0]), ...importLines, ...lines.slice(importIdx[importIdx.length - 1] + 1)]
+
+  const routeStart = body.findIndex((line) => /^  routes: \{\s*$/.test(line))
+  if (routeStart < 0) return null
+  let routeEnd = -1
+  for (let i = routeStart + 1; i < body.length; i += 1) {
+    if (/^  \},?\s*$/.test(body[i])) {
+      routeEnd = i
+      break
+    }
+  }
+  if (routeEnd < 0) return null
+
+  const handlerLines = routes.map(
+    (d) => `    ${JSON.stringify(d.routeKey)}: (input: any) => invoke(${d.__alias}.${d.method}, input),`,
+  )
+  body = [...body.slice(0, routeStart + 1), ...handlerLines, ...body.slice(routeEnd)]
+  return body.join("\n")
+}
+
+function entryPath(dir) {
+  return path.join(dir, "plugin-entry.ts")
 }
 
 function main() {
@@ -97,12 +143,22 @@ function main() {
     totalRoutes += routes.length
     const next = render(loaded.json, routes)
     const current = fs.readFileSync(loaded.file, "utf8")
-    if (next === current) continue
+
+    // plugin-entry.ts 的静态 import 块 + routes 映射 = 同一份真源
+    const entryFile = entryPath(dir)
+    const entryText = fs.existsSync(entryFile) ? fs.readFileSync(entryFile, "utf8") : null
+    const nextEntry = entryText ? renderEntry(entryText, routes) : null
+
+    const manifestChanged = next !== current
+    const entryChanged = nextEntry !== null && nextEntry !== entryText
+    if (!manifestChanged && !entryChanged) continue
+
     drifted += 1
     const wasCount = Array.isArray(loaded.json.apiRoutes) ? loaded.json.apiRoutes.length : 0
     if (write) {
-      fs.writeFileSync(loaded.file, next, "utf8")
-      console.log(`[plugin-routes] ${name}: ${wasCount} → ${routes.length} 条`)
+      if (manifestChanged) fs.writeFileSync(loaded.file, next, "utf8")
+      if (entryChanged) fs.writeFileSync(entryFile, nextEntry, "utf8")
+      console.log(`[plugin-routes] ${name}: ${wasCount} → ${routes.length} 条${entryChanged ? "（含 plugin-entry）" : ""}`)
     } else if (!check) {
       console.log(`[plugin-routes] ${name}: 声明 ${wasCount} 条，实际 ${routes.length} 条（drift）`)
     }
