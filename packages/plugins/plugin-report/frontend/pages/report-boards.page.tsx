@@ -163,7 +163,7 @@ export default function ReportBoardsPage() {
         {/* 左侧：标题与主权标签 */}
         <div className="flex items-center gap-4">
           <div className="flex h-11 w-11 items-center justify-center rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 text-slate-950 font-black text-xl shadow-[0_0_20px_rgba(6,182,212,0.4)]">
-            R
+            {projectProfile.branding.mark}
           </div>
           <div>
             <div className="flex items-center gap-2.5 flex-wrap">

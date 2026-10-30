@@ -239,7 +239,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
         <div className="mx-auto flex max-w-7xl items-center justify-between">
           <Link href="/" className="flex items-center gap-3 group">
             <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-gradient-to-br from-cyan-500 to-blue-600 text-slate-950 font-black text-base shadow-[0_0_15px_rgba(6,182,212,0.3)] transition group-hover:shadow-[0_0_20px_rgba(6,182,212,0.5)]">
-              R
+              {projectProfile.branding.mark}
             </div>
             <div className="flex flex-col">
               <div className="flex items-center gap-2">

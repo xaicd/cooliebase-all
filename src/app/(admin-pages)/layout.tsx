@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BrandMark } from "@/shared/frontend/components/brand-mark"
+import { projectProfile } from "@/shared/contract/project-profile"
 import { request, apiPath } from "@/shared/frontend/lib/request"
 import { I18nProvider, useI18n } from "@/shared/frontend/lib/i18n"
 import { LanguageSwitcher } from "@/shared/frontend/components/language-switcher"
@@ -181,21 +181,21 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
           {!collapsed ? (
             <div className="flex items-center gap-2.5 overflow-hidden">
               <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-sm text-white shadow-md shadow-blue-500/20">
-                R
+                {projectProfile.branding.mark}
               </div>
               <div className="flex flex-col truncate">
                 <span className="text-sm font-bold tracking-tight text-white flex items-center gap-1.5">
-                  <span>RoMA 应算通</span>
+                  <span className="truncate">{projectProfile.platformName}</span>
                   <span className="px-1.5 py-0.2 text-[9px] bg-blue-500/20 text-blue-300 border border-blue-500/30 rounded font-mono">
-                    PRO
+                    v{projectProfile.version}
                   </span>
                 </span>
-                <span className="text-[10px] text-slate-400 truncate">政企算力全域运营基座</span>
+                <span className="text-[10px] text-slate-400 truncate">{projectProfile.loginTagline}</span>
               </div>
             </div>
           ) : (
             <div className="mx-auto w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center font-black text-sm text-white shadow-md">
-              R
+              {projectProfile.branding.mark}
             </div>
           )}
 

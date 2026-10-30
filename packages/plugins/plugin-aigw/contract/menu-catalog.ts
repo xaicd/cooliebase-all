@@ -232,7 +232,7 @@ export function withAigwMenuCatalog<T extends { id: string }>(menus: T[]): T[] {
   for (const removeId of LEGACY_PURGE_MENU_IDS) {
     byId.delete(removeId)
   }
-  // 2. 注入唯一权威的全新 RoMA 模型中台 5 大标准化分组结构
+  // 2. 注入唯一权威的全新模型中台 5 大标准化分组结构
   for (const entry of AIGW_MENU_ENTRIES) {
     byId.set(entry.id, entry as unknown as T)
   }
