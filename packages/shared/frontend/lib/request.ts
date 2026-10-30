@@ -47,6 +47,32 @@ export function apiPath(path: string): string {
   return BASE_PATH + path
 }
 
+/**
+ * 插件域的运行时挂载点是 `/api/v1/plugins/cooliebase.<域>/api`，**不是** `/api/v1/admin/<域>`。
+ *
+ * 为什么：`src/app/api/v1/plugins/[pluginKey]/api/[...path]/route.ts` 的注释写明了 —— admin 前缀
+ * 会被 proxy perimeter 统一要求管理员鉴权，而插件鉴权是**运行期按 manifest 声明**的
+ * （operator / company / public），静态白名单表达不了。
+ *
+ * 但代码生成模板（`codegen-templates/frontend-api.template.ts`）把 344 个前端 API 客户端
+ * 一律生成为 `/api/v1/admin/<域>/<资源>` —— 于是**页面 200、数据全 404**（实测 118 个接口）。
+ * 这里做一次**单一收敛点**的归一化：平台域（system/infra）保持原样，插件域改写到真实挂载点。
+ *
+ * 与 `packages/shared/backend/constants/domain-catalog.json` 的 `kind` 对齐（platform / plugin）。
+ */
+const PLUGIN_DOMAINS = new Set([
+  "ai", "aigw", "bpm", "crm", "erp", "im", "iot", "mall", "member", "mes", "mp", "online", "pay", "report", "wms",
+])
+
+export function toRuntimeApiPath(path: string): string {
+  if (typeof path !== "string") return path
+  const matched = /^\/api\/v1\/admin\/([^/?#]+)(\/.*)?$/.exec(path)
+  if (!matched) return path
+  const [, domain, rest = ""] = matched
+  if (!PLUGIN_DOMAINS.has(domain)) return path
+  return `/api/v1/plugins/cooliebase.${domain}/api${rest}`
+}
+
 class RequestClient {
   private baseUrl = BASE_PATH
 
@@ -91,7 +117,7 @@ class RequestClient {
     }
 
     try {
-      const response = await fetch(this.baseUrl + url, fetchOptions)
+      const response = await fetch(this.baseUrl + toRuntimeApiPath(url), fetchOptions)
 
       if (response.status === 401 && !noAuth) {
         this.handleUnauthorized()
