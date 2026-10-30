@@ -23,6 +23,12 @@ import {
   encodeUserPassword,
 } from "./user-capacity.guard"
 
+/** 对外返回的用户行：**剔除口令材料**（`password` 哈希与 `salt`），永不出口。 */
+function sanitizeUser<T extends { password?: string; salt?: string }>(row: T): Omit<T, "password" | "salt"> {
+  const { password: _password, salt: _salt, ...rest } = row
+  return rest
+}
+
 export class SystemUserService {
   /** 分页列表 */
   static async list(input: UserListQueryInput) {
@@ -34,7 +40,9 @@ export class SystemUserService {
       deptId: input.deptId,
     })
     domainLog.event("system.user.list", { page: input.page, pageSize: input.pageSize, total: result.total })
-    return result
+    // **口令材料绝不出接口**：实测此前 `GET /api/v1/admin/system/users` 把
+    // `password`（md5(md5(pwd)+salt)）和 `salt` 原样吐给前端。
+    return { ...result, items: result.items.map(sanitizeUser) }
   }
 
   /** 获取用户详情 */
@@ -42,7 +50,7 @@ export class SystemUserService {
     const user = await SystemUserRepository.findById(id)
     if (!user) throw new Error(`用户不存在: ${id}`)
 
-    const { password, ...rest } = user
+    const rest = sanitizeUser(user)
     const [roleIds, postIds] = await Promise.all([
       SystemPermissionService.getUserRoleIds(id),
       SystemUserRepository.findPostIdsByUserId(id),
