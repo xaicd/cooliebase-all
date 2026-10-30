@@ -11,7 +11,7 @@ export const aiApiKeyPageQuerySchema = z.object({
 }).strict()
 
 export const aiApiKeyCreateSchema = z.object({
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   api_key: z.string().trim().optional(),
   platform: z.string().trim().optional(),
   url: z.string().trim().optional(),

@@ -104,6 +104,7 @@
     "tables:metadata-draft": "node scripts/draft-missing-table-metadata.cjs",
     "tables:migration": "tsx scripts/generate-table-migration.ts",
     "verify:real-db": "node scripts/verify-real-db.cjs",
+    "verify:zero-to-one": "node scripts/verify-zero-to-one.mjs",
     "hatch:e2e": "node scripts/hatch-e2e.cjs",
     "postinstall": "prisma generate && node scripts/setup-git-hooks.cjs",
     "domains:capabilities": "node scripts/scan-domain-capabilities.cjs",
