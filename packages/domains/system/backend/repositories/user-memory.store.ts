@@ -4,13 +4,51 @@
 
 import type { PageResult } from "@/modules/shared/backend/lib/database"
 import { overlayUserNickname } from "@/modules/shared/contract/project-profile-overlay"
+import { projectProfile } from "@/modules/shared/contract/project-profile"
+import { hashPassword } from "@/modules/shared/backend/lib/crypto"
 import { SEED_USERS } from "@prisma/data"
 import type { SystemUserRow, CreateUserData, UpdateUserData, UserListParams } from "./user.types"
 
-const MEMORY_STORE: SystemUserRow[] = SEED_USERS.map((user) => ({
-  ...user,
-  nickname: overlayUserNickname(user.username, user.nickname),
-}))
+/**
+ * 内存模式（无真实库）下也必须存在**引导管理员**。
+ *
+ * 否则 `.env.local` 预填的 `ADMIN_BOOTSTRAP_USERNAME/PASSWORD` 在登录时查无此人，
+ * 永远报「用户名或密码错误」—— 交付物在内存模式下根本进不去（实测 supervip 即如此）。
+ * 取值与 PostgreSQL 种子 `scripts/seed-postgresql.ts` 同源同规则；有真实库时不会走到这里。
+ */
+function bootstrapAdminFromEnv(): SystemUserRow | null {
+  const username = process.env.ADMIN_BOOTSTRAP_USERNAME
+  const password = process.env.ADMIN_BOOTSTRAP_PASSWORD
+  const salt = process.env.ADMIN_BOOTSTRAP_SALT
+  if (!username || !password || !salt) return null
+  const template = SEED_USERS[0]
+  const now = "2026-01-01T00:00:00.000Z"
+  return {
+    id: "0",
+    username,
+    nickname: overlayUserNickname(username, projectProfile.bootstrapAdmin.nickname),
+    password: hashPassword(password, salt),
+    salt,
+    phone: template?.phone ?? null,
+    email: template?.email ?? null,
+    avatar: null,
+    status: "ACTIVE",
+    deptId: template?.deptId ?? null,
+    remark: "内存模式引导管理员（与 PostgreSQL 种子同源）",
+    tenantId: template?.tenantId ?? "1",
+    createdAt: now,
+    updatedAt: now,
+  }
+}
+
+const BOOTSTRAP_ADMIN = bootstrapAdminFromEnv()
+const MEMORY_STORE: SystemUserRow[] = [
+  ...SEED_USERS.map((user) => ({
+    ...user,
+    nickname: overlayUserNickname(user.username, user.nickname),
+  })),
+  ...(BOOTSTRAP_ADMIN ? [BOOTSTRAP_ADMIN] : []),
+]
 const MEMORY_USER_POSTS = new Map<string, Set<string>>()
 let memoryIdSeq = 100
 
