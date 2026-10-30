@@ -29,11 +29,23 @@ flowchart TD
    ```bash
    NODE_ENV=production
    PORT=3200
-   DATABASE_URL="file:./data/cooliebase-prod.db"
+   DB_DRIVER=postgresql
+   # **必须是真实 PostgreSQL**：Prisma 的 provider 固定 postgresql，15 个业务域（ai/aigw/bpm/
+   # crm/erp/im/iot/mall/member/mes/mp/pay/report/wms/online）全部走 Prisma。
+   # `DATABASE_URL=file:*.db`(SQLite) 或 `DB_DRIVER=memory` 只能跑 system/infra 两个域，
+   # 且 production 下 memory 会被 `datasource-manager` 直接拒绝。
+   DATABASE_URL="postgresql://<user>:<password>@<pg-host>:5432/<db>?schema=public"
+   # Redis（缓存/限流/会话）；生产 compose 会注入带密码的 REDIS_URL
+   REDIS_URL="redis://:<password>@<redis-host>:6379"
    JWT_SECRET="<生产随机强密钥-至少32位>"
    COOLIEBASE_RPC_TOKEN="<内部RPC通信鉴权令牌>"
    TENANT_PLATFORM_USERNAMES="admin,platform_root"
    ```
+
+   > **测试路径 ≠ 真运行路径（重要）**：`DB_DRIVER=memory`、`DATABASE_URL=file:*.db`（SQLite）
+   > 与 `pnpm run db:embedded`（嵌入式 Postgres）都**只用于开发与验证**。
+   > 真实部署必须接入**真实 PostgreSQL + Redis**（`deploy/docker-compose.prod.yml`，或客户自管的
+   > 托管实例）。该 compose 里 `DATABASE_URL` 是 `${DATABASE_URL:?…}` 硬性必填，缺了就起不来。
 
 ---
 
@@ -67,19 +79,25 @@ pnpm run build
 pnpm exec prisma migrate deploy
 ```
 
-### Step 5: 第一方插件静态注册
+### Step 5: 第一方插件路由声明同步与静态注册
 ```bash
-# 注册 15 个业务域插件清单
-npm run plugins:register
+# 1. 让 plugin.manifest.json 的 apiRoutes 与真实路由文件一致
+#    （它是脚手架时生成的一次性产物，新增路由不会自动回填 —— 不同步会让新接口 404/500）
+pnpm run plugins:sync-routes
+
+# 2. 注册 15 个业务域插件清单（运行期只读数据库里的 manifest_json）
+pnpm run plugins:register
 ```
 
-### Step 6: 启动服务与存活探针核验
+### Step 6: 启动服务与存活/就绪探针核验
 ```bash
 # 启动生产服务
 pnpm run start
 
-# 执行健康体检
-curl -f http://localhost:3200/api/v1/health || exit 1
+# 存活探针（liveness）—— 进程活着即 200
+curl -f http://localhost:3200/healthz || exit 1
+# 就绪探针（readiness）—— 依赖（DB 等）可用才 200；生产 compose/Traefik 用的就是它
+curl -f http://localhost:3200/readyz || exit 1
 ```
 
 ---
