@@ -9,7 +9,7 @@
 
 const fs = require("node:fs")
 const path = require("node:path")
-const { execSync, spawnSync } = require("node:child_process")
+const { execSync, execFileSync, spawnSync } = require("node:child_process")
 // **不要在这里 require("pg")**：`hatch.sh` 会从 degit 的**裸克隆**（没有 node_modules）
 // 里直接跑本脚本，模块级 require 第三方包会直接 MODULE_NOT_FOUND ——
 // 实测：`curl .../hatch.sh | bash -s -- my-app` 就是这么崩的（EXIT=1，产物都没建出来）。
