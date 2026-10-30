@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { request } from "@/modules/shared/frontend/lib/request"
+import { AIGW_UNIMPLEMENTED_MESSAGE } from "../lib/unimplemented"
 
 interface AgentConfig {
   id: string
@@ -139,11 +140,8 @@ export default function AigwWorkbenchPage() {
         "hotline": "HOTLINE_12345_KNOWLEDGE",
       }
 
-      const res: any = await request.post("/api/v1/admin/aigw/demo/execute", {
-        scenario: scenarioMap[selectedAgent.id] || "GOV_DOC_DRAFTING",
-        prompt: textToSend,
-        model: selectedAgent.targetModel.includes("r1") ? "deepseek-r1-moma" : "deepseek-v3-moma",
-      })
+      // aigw **没有** /demo/execute 后端（已知缺口）：不发起必 404 的请求，走下面的错误分支
+      const res: any = { success: false, error: AIGW_UNIMPLEMENTED_MESSAGE }
 
       const data = res?.data || {}
       let replyContent = ""

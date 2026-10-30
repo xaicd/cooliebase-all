@@ -2,6 +2,7 @@
 
 import { useState } from "react"
 import { request } from "@/modules/shared/frontend/lib/request"
+import { AIGW_UNIMPLEMENTED_MESSAGE } from "../lib/unimplemented"
 
 interface PresetUser {
   name: string
@@ -65,10 +66,8 @@ export default function AgentSandboxPage() {
     setErrorMsg(null)
     setAuthResponse(null)
     try {
-      const res: any = await request.post("/api/v1/admin/aigw/auth/agent-verify", {
-        phone: testPhone,
-        appCode: testApp,
-      })
+      // aigw **没有** /auth/agent-verify 后端（已知缺口）：不发起必 404 的请求，如实返回未开通
+      const res: any = { success: false, error: AIGW_UNIMPLEMENTED_MESSAGE }
       if (res.success && res.data) {
         setAuthResponse(res.data)
       } else {

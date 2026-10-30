@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react"
 import { request } from "@/modules/shared/frontend/lib/request"
 import { AigwModelApi } from "../api/models.api"
+import { AIGW_UNIMPLEMENTED_MESSAGE } from "../lib/unimplemented"
 
 export default function AigwPlaygroundPage() {
   const [runningScenario, setRunningScenario] = useState<string | null>(null)
@@ -34,15 +35,7 @@ export default function AigwPlaygroundPage() {
       })
       .catch(() => {})
 
-    // 动态拉取 ISV 智能体应用生态
-    request
-      .get("/api/v1/admin/aigw/isv-apps")
-      .then((res: any) => {
-        if (res?.success && res?.data?.items?.length) {
-          setAppsList(res.data.items)
-        }
-      })
-      .catch(() => {})
+    // aigw **没有** /isv-apps 后端（已知缺口）：不发起必 404 的请求，应用列表保持为空（下拉回落内置选项）
   }, [])
 
   const runScenario = async (scenario: string, name: string, overrideParams?: any) => {
@@ -56,7 +49,8 @@ export default function AigwPlaygroundPage() {
         ...(overrideParams || customParams),
       }
 
-      const res: any = await request.post("/api/v1/admin/aigw/demo/execute", payload)
+      // aigw **没有** /demo/execute 后端（已知缺口）：不发起必 404 的请求，走错误展示
+      const res: any = { success: false, error: AIGW_UNIMPLEMENTED_MESSAGE }
       setConsoleOutput(res)
     } catch (err: any) {
       setConsoleOutput({ error: err.message || "请求失败" })
