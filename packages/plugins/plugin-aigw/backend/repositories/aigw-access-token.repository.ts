@@ -1,6 +1,6 @@
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
 import { getCurrentTenantId, isTenantRequired, isPlatformContext } from "@/modules/shared/backend/lib/biz-tenant"
-import { SEED_AI_TOKENS } from "@prisma/data"
+import { INIT_AI_TOKENS } from "@prisma/data"
 
 export type AigwAccessTokenRow = {
   id: string
@@ -19,7 +19,7 @@ export type AigwAccessTokenRow = {
   deleted?: boolean
 }
 
-const MEMORY_STORE: AigwAccessTokenRow[] = JSON.parse(JSON.stringify(SEED_AI_TOKENS))
+const MEMORY_STORE: AigwAccessTokenRow[] = JSON.parse(JSON.stringify(INIT_AI_TOKENS))
 let memorySeq = 100
 
 function mapFromDb(r: any): AigwAccessTokenRow {

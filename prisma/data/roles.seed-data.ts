@@ -1,6 +1,6 @@
 import type { SystemRoleRow } from "@/modules/system/backend/repositories/role.repository"
 
-export const SEED_ROLES: SystemRoleRow[] = [
+export const INIT_ROLES: SystemRoleRow[] = [
   {
     id: "1",
     name: "平台超级管理员",

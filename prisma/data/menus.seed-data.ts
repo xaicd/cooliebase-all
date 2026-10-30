@@ -3,7 +3,7 @@
 // 1441 active menus; do not edit manually.
 import type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"
 
-export const SEED_MENUS: SystemMenuRow[] =  [
+export const INIT_MENUS: SystemMenuRow[] =  [
   {
     "id": "1",
     "name": "系统管理",

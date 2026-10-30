@@ -6,8 +6,14 @@ import type { PageResult } from "@/modules/shared/backend/lib/database"
 import { overlayUserNickname } from "@/modules/shared/contract/project-profile-overlay"
 import { projectProfile } from "@/modules/shared/contract/project-profile"
 import { hashPassword } from "@/modules/shared/backend/lib/crypto"
-import { SEED_USERS } from "@prisma/data"
+import { INIT_USERS } from "@prisma/data"
 import type { SystemUserRow, CreateUserData, UpdateUserData, UserListParams } from "./user.types"
+
+/**
+ * 内存模式引导管理员的固定 id。
+ * `permission.repository.ts` 的内存 RBAC 绑定要引用它（否则登录后侧栏为空）。
+ */
+export const MEMORY_BOOTSTRAP_ADMIN_ID = "0"
 
 /**
  * 内存模式（无真实库）下也必须存在**引导管理员**。
@@ -21,10 +27,10 @@ function bootstrapAdminFromEnv(): SystemUserRow | null {
   const password = process.env.ADMIN_BOOTSTRAP_PASSWORD
   const salt = process.env.ADMIN_BOOTSTRAP_SALT
   if (!username || !password || !salt) return null
-  const template = SEED_USERS[0]
+  const template = INIT_USERS[0]
   const now = "2026-01-01T00:00:00.000Z"
   return {
-    id: "0",
+    id: MEMORY_BOOTSTRAP_ADMIN_ID,
     username,
     nickname: overlayUserNickname(username, projectProfile.bootstrapAdmin.nickname),
     password: hashPassword(password, salt),
@@ -43,7 +49,7 @@ function bootstrapAdminFromEnv(): SystemUserRow | null {
 
 const BOOTSTRAP_ADMIN = bootstrapAdminFromEnv()
 const MEMORY_STORE: SystemUserRow[] = [
-  ...SEED_USERS.map((user) => ({
+  ...INIT_USERS.map((user) => ({
     ...user,
     nickname: overlayUserNickname(user.username, user.nickname),
   })),

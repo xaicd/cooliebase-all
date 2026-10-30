@@ -2,7 +2,7 @@
 // source sha256: 2dc660a101b0973095c8d2e3b618329639c3a2cda118a5184858b8044775fc56
 // 1441 menus extracted
 
-export const SEED_MENUS = [
+export const INIT_MENUS = [
   {
     "id": "1",
     "name": "系统管理",

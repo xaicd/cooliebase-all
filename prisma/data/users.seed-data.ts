@@ -1,6 +1,6 @@
 import type { SystemUserRow } from "@/modules/system/backend/repositories/user.repository"
 
-export const SEED_USERS: SystemUserRow[] = [
+export const INIT_USERS: SystemUserRow[] = [
   {
     id: "1",
     username: "vps_adm",

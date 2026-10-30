@@ -1,5 +1,5 @@
 // Auto-generated
-export const SEED_DICT_DATA = [
+export const INIT_DICT_DATA = [
   {
     "id": "1",
     "dictType": "system_user_sex",

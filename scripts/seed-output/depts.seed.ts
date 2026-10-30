@@ -1,5 +1,5 @@
 // Auto-generated
-export const SEED_DEPTS = [
+export const INIT_DEPTS = [
   {
     "id": "100",
     "name": "芋道源码",

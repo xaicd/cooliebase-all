@@ -3,10 +3,10 @@
  */
 
 import type { PageResult } from "@/modules/shared/backend/lib/database"
-import { SEED_ROLES } from "@prisma/data"
+import { INIT_ROLES } from "@prisma/data"
 import type { SystemRoleRow, CreateRoleData, UpdateRoleData, RoleListParams } from "./role.types"
 
-const MEMORY_STORE: SystemRoleRow[] = [...SEED_ROLES]
+const MEMORY_STORE: SystemRoleRow[] = [...INIT_ROLES]
 let memoryIdSeq = 100
 
 export function findRoleListFromMemory(params: RoleListParams, tenantId?: string): PageResult<SystemRoleRow> {

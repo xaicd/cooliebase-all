@@ -2,20 +2,20 @@ import { createHash, randomUUID } from "node:crypto"
 import { existsSync, readFileSync } from "node:fs"
 import { resolve } from "node:path"
 import { Client } from "pg"
-import { SEED_DEPTS } from "../prisma/data/depts.seed-data"
-import { SEED_DICT_DATA } from "../prisma/data/dict-data.seed-data"
-import { SEED_DICT_TYPES } from "../prisma/data/dict-types.seed-data"
+import { INIT_DEPTS } from "../prisma/data/depts.seed-data"
+import { INIT_DICT_DATA } from "../prisma/data/dict-data.seed-data"
+import { INIT_DICT_TYPES } from "../prisma/data/dict-types.seed-data"
 import { withCompanionPackageMenuIds } from "@/modules/shared/backend/constants/companion-menu"
 import { SIDEBAR_COMPONENT_ROUTES } from "@/modules/system/backend/services/sidebar-component-routes"
-import { SEED_MENUS } from "../prisma/data/menus.seed-data"
+import { INIT_MENUS } from "../prisma/data/menus.seed-data"
 import { INFRA_CONFIG_DEFAULTS } from "@/modules/infra/backend/repositories/config.repository"
-import { SEED_POSTS } from "../prisma/data/posts.seed-data"
-import { SEED_ROLES } from "../prisma/data/roles.seed-data"
-import { SEED_TENANT_PACKAGES } from "../prisma/data/tenant-packages.seed-data"
+import { INIT_POSTS } from "../prisma/data/posts.seed-data"
+import { INIT_ROLES } from "../prisma/data/roles.seed-data"
+import { INIT_TENANT_PACKAGES } from "../prisma/data/tenant-packages.seed-data"
 import { projectProfile } from "../packages/shared/contract/project-profile"
 import { overlayPackageName } from "../packages/shared/contract/project-profile-overlay"
 import { TenantMenuScope } from "../packages/domains/system/backend/services/tenant-menu-scope.service"
-import { SEED_USERS } from "../prisma/data/users.seed-data"
+import { INIT_USERS } from "../prisma/data/users.seed-data"
 
 function localEnvironment(): Record<string, string> {
   const values: Record<string, string> = {}
@@ -58,7 +58,7 @@ async function fullMenuCatalog(): Promise<Array<{ id: string }>> {
     ["aigw", "withAigwMenuCatalog"],
     ["ai", "withAiMenuCatalog"],
   ]
-  let catalog: Array<{ id: string }> = SEED_MENUS
+  let catalog: Array<{ id: string }> = INIT_MENUS
   for (const [domain, exportName] of companions) {
     try {
       const mod = (await import(`@/modules/${domain}/contract/menu-catalog`)) as Record<string, (menus: never) => never>
@@ -92,7 +92,7 @@ async function main() {
   try {
     await client.query("BEGIN")
 
-    for (const pkg of SEED_TENANT_PACKAGES) {
+    for (const pkg of INIT_TENANT_PACKAGES) {
       await client.query(`INSERT INTO system_tenant_package (id, name, status, account_limit, remark, created_at, updated_at, deleted) VALUES ($1,$2,$3,NULL,$4,$5,$6,false) ON CONFLICT (id) DO UPDATE SET name = EXCLUDED.name, status = EXCLUDED.status, remark = EXCLUDED.remark, updated_at = EXCLUDED.updated_at, deleted = false`, [pkg.id, overlayPackageName(pkg.id, pkg.name), pkg.status, pkg.remark, pkg.createdAt, pkg.updatedAt])
     }
 
@@ -106,26 +106,26 @@ async function main() {
       await client.query(`INSERT INTO system_tenant_subscription (id, tenant_id, package_id, effective_at, expire_at, account_limit, status, change_type, remark) VALUES ($1,$2,$3,$4,$5,$6,'ACTIVE','MIGRATION',$7) ON CONFLICT (id) DO NOTHING`, [`initial-${tenant.id}`, tenant.id, tenant.packageId, lifecycle.effectiveAt, lifecycle.expireTime, lifecycle.accountLimit, `初始化${tenant.name}权益`])
     }
 
-    for (const dept of SEED_DEPTS) {
+    for (const dept of INIT_DEPTS) {
       await client.query(`INSERT INTO system_dept (id, name, parent_id, sort, leader_id, phone, email, status, tenant_id, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,false) ON CONFLICT (id) DO NOTHING`, [dept.id, dept.name, dept.parentId, dept.sort, dept.leaderId, dept.phone, dept.email, dept.status, dept.tenantId, dept.createdAt, dept.updatedAt])
     }
-    for (const role of SEED_ROLES) {
+    for (const role of INIT_ROLES) {
       await client.query(`INSERT INTO system_role (id, name, code, sort, status, remark, data_scope, tenant_id, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,false) ON CONFLICT (code) DO NOTHING`, [role.id, role.name, role.code, role.sort, role.status, role.remark, role.dataScope, role.tenantId, role.createdAt, role.updatedAt])
     }
-    for (const post of SEED_POSTS) {
+    for (const post of INIT_POSTS) {
       await client.query(`INSERT INTO system_post (id, name, code, sort, status, remark, tenant_id, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,false) ON CONFLICT (code) DO NOTHING`, [post.id, post.name, post.code, post.sort, post.status, post.remark, post.tenantId, post.createdAt, post.updatedAt])
     }
 
-    const typeIds = new Set(SEED_DICT_TYPES.map((item) => item.id))
-    const missingTypeIds = [...new Set(SEED_DICT_DATA.filter((item) => !typeIds.has(item.dictTypeId)).map((item) => item.dictTypeId))]
-    for (const type of SEED_DICT_TYPES) {
+    const typeIds = new Set(INIT_DICT_TYPES.map((item) => item.id))
+    const missingTypeIds = [...new Set(INIT_DICT_DATA.filter((item) => !typeIds.has(item.dictTypeId)).map((item) => item.dictTypeId))]
+    for (const type of INIT_DICT_TYPES) {
       await client.query(`INSERT INTO system_dict_type (id, name, type, status, remark, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,false) ON CONFLICT (type) DO NOTHING`, [type.id, type.name, type.type, type.status, type.remark, type.createdAt, type.updatedAt])
     }
     for (const id of missingTypeIds) {
       await client.query(`INSERT INTO system_dict_type (id, name, type, status, created_at, updated_at, deleted) VALUES ($1,$2,$3,'ACTIVE',$4,$4,false) ON CONFLICT (id) DO NOTHING`, [id, `补充字典类型：${id}`, `bootstrap_${id.replace(/[^A-Za-z0-9_]/g, "_")}`, new Date().toISOString()])
     }
     const seenDictDataIds = new Set<string>()
-    for (const item of SEED_DICT_DATA) {
+    for (const item of INIT_DICT_DATA) {
       const id = seenDictDataIds.has(item.id) ? `${item.id}-${item.dictTypeId}` : item.id
       seenDictDataIds.add(item.id)
       await client.query(`INSERT INTO system_dict_data (id, dict_type_id, label, value, sort, status, color_type, remark, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,false) ON CONFLICT (id) DO NOTHING`, [id, item.dictTypeId, item.label, item.value, item.sort, item.status, item.colorType, item.remark, item.createdAt, item.updatedAt])
@@ -150,7 +150,7 @@ async function main() {
 
     await client.query(`UPDATE "system_user" SET status = 'DISABLED', updated_at = $1 WHERE username IN ('admin', 'cooliebase_local_operator') AND username <> $2`, [new Date().toISOString(), bootstrapUsername])
     await client.query(`DELETE FROM system_user_role AS ur USING "system_user" AS u WHERE ur.user_id = u.id AND u.username IN ('admin', 'cooliebase_local_operator') AND u.username <> $1`, [bootstrapUsername])
-    const templateUser = SEED_USERS[0]
+    const templateUser = INIT_USERS[0]
     const adminResult = await client.query<{ id: string }>(`INSERT INTO "system_user" (id, username, nickname, password, salt, phone, email, avatar, status, dept_id, remark, tenant_id, created_at, updated_at, deleted) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,'ACTIVE',$9,$10,$11,$12,$13,false) ON CONFLICT (username) DO UPDATE SET nickname = EXCLUDED.nickname, password = EXCLUDED.password, salt = EXCLUDED.salt, status = 'ACTIVE', deleted = false, updated_at = EXCLUDED.updated_at RETURNING id`, [randomUUID(), bootstrapUsername, projectProfile.bootstrapAdmin.nickname, passwordHash(bootstrapPassword, bootstrapSalt), bootstrapSalt, templateUser.phone, templateUser.email, templateUser.avatar, templateUser.deptId, "本地环境专用管理员", templateUser.tenantId, templateUser.createdAt, new Date().toISOString()])
     const adminId = adminResult.rows[0].id
     await client.query(`UPDATE system_menu SET deleted = true WHERE id LIKE 'ys-%' OR id LIKE 'ai-gateway-%' OR id IN ('9000', '9004', '9005', '9100', '9101', '9103', '9104', '9200', '9201', '9203', '9300', '9400', '9402')`)
@@ -172,7 +172,7 @@ async function main() {
       [reachableComponents],
     )
     const tenantMenuScope = new TenantMenuScope(await fullMenuCatalog())
-    for (const pkg of SEED_TENANT_PACKAGES) {
+    for (const pkg of INIT_TENANT_PACKAGES) {
       await client.query(`DELETE FROM system_tenant_package_menu WHERE package_id = $1`, [pkg.id])
       for (const menuId of tenantMenuScope.normalize(withCompanionPackageMenuIds(pkg.menuIds))) await client.query(`INSERT INTO system_tenant_package_menu (id, package_id, menu_id) VALUES ($1,$2,$3) ON CONFLICT (package_id, menu_id) DO NOTHING`, [randomUUID(), pkg.id, menuId])
     }
@@ -213,7 +213,7 @@ async function main() {
       )
     }
     await client.query("COMMIT")
-    console.log(`[seed] PostgreSQL catalog seeded: ${SEED_ROLES.length} roles, ${SEED_DEPTS.length} departments, ${SEED_POSTS.length} posts, ${SEED_DICT_TYPES.length} dictionary types, ${SEED_DICT_DATA.length} dictionary entries, and ${(await fullMenuCatalog()).length} menus.`)
+    console.log(`[seed] PostgreSQL catalog seeded: ${INIT_ROLES.length} roles, ${INIT_DEPTS.length} departments, ${INIT_POSTS.length} posts, ${INIT_DICT_TYPES.length} dictionary types, ${INIT_DICT_DATA.length} dictionary entries, and ${(await fullMenuCatalog()).length} menus.`)
   } catch (error) {
     await client.query("ROLLBACK")
     throw error

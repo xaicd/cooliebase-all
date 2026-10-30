@@ -177,8 +177,8 @@ function extractMenus() {
     return
   }
 
-  fs.writeFileSync(path.join(OUTPUT_DIR, "menus.seed.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} menus extracted\n\nexport const SEED_MENUS = ${JSON.stringify(output, null, 2)}\n`)
-  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "menus.seed-data.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} active menus; do not edit manually.\nimport type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"\n\nexport const SEED_MENUS: SystemMenuRow[] = ${JSON.stringify(output.map((menu) => ({ ...menu, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" })), null, 2)}\n`)
+  fs.writeFileSync(path.join(OUTPUT_DIR, "menus.seed.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} menus extracted\n\nexport const INIT_MENUS = ${JSON.stringify(output, null, 2)}\n`)
+  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "menus.seed-data.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// ${output.length} active menus; do not edit manually.\nimport type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"\n\nexport const INIT_MENUS: SystemMenuRow[] = ${JSON.stringify(output.map((menu) => ({ ...menu, createdAt: "2026-01-01T00:00:00.000Z", updatedAt: "2026-01-01T00:00:00.000Z" })), null, 2)}\n`)
   console.log(`[MENU] 写入完整运行时菜单 prisma/data/menus.seed-data.ts`)
 }
 
@@ -201,8 +201,8 @@ function extractTenantPackages() {
     return
   }
 
-  fs.writeFileSync(path.join(OUTPUT_DIR, "tenant-packages.seed.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n\nexport const SEED_TENANT_PACKAGES = ${JSON.stringify(output, null, 2)}\n`)
-  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "tenant-packages.seed-data.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// Tenant package menu_ids are expanded into system_tenant_package_menu at seed time.\n\nexport type TenantPackageSeed = { id: string; name: string; status: "ACTIVE" | "DISABLED"; menuIds: string[]; remark: string | null; createdAt: string; updatedAt: string }\n\nexport const SEED_TENANT_PACKAGES: TenantPackageSeed[] = ${JSON.stringify(output, null, 2)}\n`)
+  fs.writeFileSync(path.join(OUTPUT_DIR, "tenant-packages.seed.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n\nexport const INIT_TENANT_PACKAGES = ${JSON.stringify(output, null, 2)}\n`)
+  fs.writeFileSync(path.join(RUNTIME_DATA_DIR, "tenant-packages.seed-data.ts"), `// Auto-generated from upstream seed SQL\n// source sha256: ${SOURCE_HASH}\n// Tenant package menu_ids are expanded into system_tenant_package_menu at seed time.\n\nexport type TenantPackageSeed = { id: string; name: string; status: "ACTIVE" | "DISABLED"; menuIds: string[]; remark: string | null; createdAt: string; updatedAt: string }\n\nexport const INIT_TENANT_PACKAGES: TenantPackageSeed[] = ${JSON.stringify(output, null, 2)}\n`)
   console.log(`[TENANT_PACKAGE] 写入 ${output.length} 个默认套餐`)
 }
 
@@ -225,7 +225,7 @@ function extractDictTypes() {
     return
   }
 
-  const content = `// Auto-generated\nexport const SEED_DICT_TYPES = ${JSON.stringify(output, null, 2)}\n`
+  const content = `// Auto-generated\nexport const INIT_DICT_TYPES = ${JSON.stringify(output, null, 2)}\n`
   fs.writeFileSync(path.join(OUTPUT_DIR, "dict-types.seed.ts"), content)
   console.log(`[DICT_TYPE] 写入 seed-output/dict-types.seed.ts`)
 }
@@ -252,7 +252,7 @@ function extractDictData() {
     return
   }
 
-  const content = `// Auto-generated\nexport const SEED_DICT_DATA = ${JSON.stringify(output, null, 2)}\n`
+  const content = `// Auto-generated\nexport const INIT_DICT_DATA = ${JSON.stringify(output, null, 2)}\n`
   fs.writeFileSync(path.join(OUTPUT_DIR, "dict-data.seed.ts"), content)
   console.log(`[DICT_DATA] 写入 seed-output/dict-data.seed.ts`)
 }
@@ -279,7 +279,7 @@ function extractDepts() {
     return
   }
 
-  const content = `// Auto-generated\nexport const SEED_DEPTS = ${JSON.stringify(output, null, 2)}\n`
+  const content = `// Auto-generated\nexport const INIT_DEPTS = ${JSON.stringify(output, null, 2)}\n`
   fs.writeFileSync(path.join(OUTPUT_DIR, "depts.seed.ts"), content)
   console.log(`[DEPT] 写入 seed-output/depts.seed.ts`)
 }
@@ -304,7 +304,7 @@ function extractPosts() {
     return
   }
 
-  const content = `// Auto-generated\nexport const SEED_POSTS = ${JSON.stringify(output, null, 2)}\n`
+  const content = `// Auto-generated\nexport const INIT_POSTS = ${JSON.stringify(output, null, 2)}\n`
   fs.writeFileSync(path.join(OUTPUT_DIR, "posts.seed.ts"), content)
   console.log(`[POST] 写入 seed-output/posts.seed.ts`)
 }

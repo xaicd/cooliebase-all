@@ -1,5 +1,5 @@
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
-import { SEED_AI_MODELS } from "@prisma/data"
+import { INIT_AI_MODELS } from "@prisma/data"
 
 export type AigwModelRow = {
   id: string
@@ -17,7 +17,7 @@ export type AigwModelRow = {
   deleted?: boolean
 }
 
-const MEMORY_STORE: AigwModelRow[] = JSON.parse(JSON.stringify(SEED_AI_MODELS))
+const MEMORY_STORE: AigwModelRow[] = JSON.parse(JSON.stringify(INIT_AI_MODELS))
 let memorySeq = 100
 
 function mapFromDb(r: any): AigwModelRow {

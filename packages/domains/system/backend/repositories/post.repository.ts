@@ -6,7 +6,7 @@ import { randomUUID } from "node:crypto"
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
 import type { PageResult } from "@/modules/shared/backend/lib/database"
 import { getCurrentTenantId, isPlatformContext, isTenantRequired } from "@/modules/shared/backend/lib/biz-tenant"
-import { SEED_POSTS } from "@prisma/data"
+import { INIT_POSTS } from "@prisma/data"
 
 export type SystemPostRow = {
   id: string
@@ -31,7 +31,7 @@ function currentTenantId(): string | undefined {
   return undefined
 }
 
-const MEMORY_STORE: SystemPostRow[] = [...SEED_POSTS]
+const MEMORY_STORE: SystemPostRow[] = [...INIT_POSTS]
 let memoryIdSeq = 100
 
 export const SystemPostRepository = {

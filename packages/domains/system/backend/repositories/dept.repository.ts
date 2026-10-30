@@ -4,7 +4,7 @@
 
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
 import { getCurrentTenantId, isPlatformContext, isTenantRequired } from "@/modules/shared/backend/lib/biz-tenant"
-import { SEED_DEPTS } from "@prisma/data"
+import { INIT_DEPTS } from "@prisma/data"
 
 export type SystemDeptRow = {
   id: string
@@ -40,7 +40,7 @@ function currentTenantId(): string | undefined {
 }
 
 // === 内存存储（部门树 init 种子） ===
-const MEMORY_STORE: SystemDeptRow[] = [...SEED_DEPTS]
+const MEMORY_STORE: SystemDeptRow[] = [...INIT_DEPTS]
 
 let memoryIdSeq = 200
 

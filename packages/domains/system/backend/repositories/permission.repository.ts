@@ -1,10 +1,14 @@
 import { withCompanionMenuCatalogs, withCompanionPackageMenuIds } from "@/modules/shared/backend/constants/companion-menu"
 import { getKyselyDb, hasRealDatabase } from "@/modules/shared/backend/lib/database"
-import { SEED_MENUS } from "@prisma/data"
+import { INIT_MENUS } from "@prisma/data"
+import { MEMORY_BOOTSTRAP_ADMIN_ID } from "./user-memory.store"
 
 // 内存模式也必须具备与 CoolieBase 初始化库一致的基础关联，不能只初始化菜单实体。
-const defaultMenuIds = withCompanionMenuCatalogs(SEED_MENUS).map((menu) => menu.id)
+const defaultMenuIds = withCompanionMenuCatalogs(INIT_MENUS).map((menu) => menu.id)
 const memoryUserRoles = new Map<string, string[]>([
+  // 内存模式引导管理员（见 user-memory.store.ts）→ 超级管理员。
+  // 缺了这条绑定，登录能成功但 `getEffectiveUserMenuIds` 返回空 → 侧栏一个菜单都没有。
+  [MEMORY_BOOTSTRAP_ADMIN_ID, ["1"]],
   ["1", ["1"]], // admin → 超级管理员
   ["2", ["2"]], // test → 普通角色
 ])

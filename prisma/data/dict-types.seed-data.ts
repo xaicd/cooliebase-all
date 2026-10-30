@@ -1,7 +1,7 @@
 // Auto-generated from seed-output/dict-types.seed.ts
 import type { SystemDictTypeRow } from "@/modules/system/backend/repositories/dict.repository"
 
-export const SEED_DICT_TYPES: SystemDictTypeRow[] = [
+export const INIT_DICT_TYPES: SystemDictTypeRow[] = [
   {
     "id": "1",
     "name": "用户性别",

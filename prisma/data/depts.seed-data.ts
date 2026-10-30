@@ -1,7 +1,7 @@
 // Auto-generated from seed-output/depts.seed.ts
 import type { SystemDeptRow } from "@/modules/system/backend/repositories/dept.repository"
 
-export const SEED_DEPTS: SystemDeptRow[] = [
+export const INIT_DEPTS: SystemDeptRow[] = [
   {
     "id": "100",
     "name": "芋道源码",

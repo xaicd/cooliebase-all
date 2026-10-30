@@ -1,5 +1,5 @@
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
-import { SEED_AI_CHANNELS } from "@prisma/data"
+import { INIT_AI_CHANNELS } from "@prisma/data"
 
 export type AigwChannelRow = {
   id: string
@@ -21,7 +21,7 @@ export type AigwChannelRow = {
   deleted?: boolean
 }
 
-const MEMORY_STORE: AigwChannelRow[] = JSON.parse(JSON.stringify(SEED_AI_CHANNELS))
+const MEMORY_STORE: AigwChannelRow[] = JSON.parse(JSON.stringify(INIT_AI_CHANNELS))
 let memorySeq = 100
 
 function mapFromDb(r: any): AigwChannelRow {

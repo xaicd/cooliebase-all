@@ -56,7 +56,7 @@ function genPosts() {
   const out = `// Auto-generated from seed-output/posts.seed.ts
 import type { SystemPostRow } from "@/modules/system/backend/repositories/post.repository"
 
-export const SEED_POSTS: SystemPostRow[] = ${JSON.stringify(rows, null, 2)}
+export const INIT_POSTS: SystemPostRow[] = ${JSON.stringify(rows, null, 2)}
 `
   fs.writeFileSync(path.join(OUT_DIR, 'posts.seed-data.ts'), out)
   console.log(`✅ posts.seed-data.ts (${rows.length} rows)`)
@@ -82,7 +82,7 @@ function genDepts() {
   const out = `// Auto-generated from seed-output/depts.seed.ts
 import type { SystemDeptRow } from "@/modules/system/backend/repositories/dept.repository"
 
-export const SEED_DEPTS: SystemDeptRow[] = ${JSON.stringify(rows, null, 2)}
+export const INIT_DEPTS: SystemDeptRow[] = ${JSON.stringify(rows, null, 2)}
 `
   fs.writeFileSync(path.join(OUT_DIR, 'depts.seed-data.ts'), out)
   console.log(`✅ depts.seed-data.ts (${rows.length} rows)`)
@@ -114,7 +114,7 @@ function genMenus() {
 // ${rows.length} menus extracted from upstream seed SQL
 import type { SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"
 
-export const SEED_MENUS: SystemMenuRow[] = ${JSON.stringify(rows, null, 2)}
+export const INIT_MENUS: SystemMenuRow[] = ${JSON.stringify(rows, null, 2)}
 `
   fs.writeFileSync(path.join(OUT_DIR, 'menus.seed-data.ts'), out)
   console.log(`✅ menus.seed-data.ts (${rows.length} rows)`)
@@ -136,7 +136,7 @@ function genDictTypes() {
   const out = `// Auto-generated from seed-output/dict-types.seed.ts
 import type { SystemDictTypeRow } from "@/modules/system/backend/repositories/dict.repository"
 
-export const SEED_DICT_TYPES: SystemDictTypeRow[] = ${JSON.stringify(rows, null, 2)}
+export const INIT_DICT_TYPES: SystemDictTypeRow[] = ${JSON.stringify(rows, null, 2)}
 `
   fs.writeFileSync(path.join(OUT_DIR, 'dict-types.seed-data.ts'), out)
   console.log(`✅ dict-types.seed-data.ts (${rows.length} rows)`)
@@ -173,7 +173,7 @@ function genDictData() {
   const out = `// Auto-generated from seed-output/dict-data.seed.ts
 import type { SystemDictDataRow } from "@/modules/system/backend/repositories/dict.repository"
 
-export const SEED_DICT_DATA: SystemDictDataRow[] = ${JSON.stringify(rows, null, 2)}
+export const INIT_DICT_DATA: SystemDictDataRow[] = ${JSON.stringify(rows, null, 2)}
 `
   fs.writeFileSync(path.join(OUT_DIR, 'dict-data.seed-data.ts'), out)
   console.log(`✅ dict-data.seed-data.ts (${rows.length} rows)`)
@@ -182,11 +182,11 @@ export const SEED_DICT_DATA: SystemDictDataRow[] = ${JSON.stringify(rows, null, 
 // ============ INDEX ============
 function genIndex() {
   const out = `// Seed data barrel export
-export { SEED_POSTS } from "./posts.seed-data"
-export { SEED_DEPTS } from "./depts.seed-data"
-export { SEED_MENUS } from "./menus.seed-data"
-export { SEED_DICT_TYPES } from "./dict-types.seed-data"
-export { SEED_DICT_DATA } from "./dict-data.seed-data"
+export { INIT_POSTS } from "./posts.seed-data"
+export { INIT_DEPTS } from "./depts.seed-data"
+export { INIT_MENUS } from "./menus.seed-data"
+export { INIT_DICT_TYPES } from "./dict-types.seed-data"
+export { INIT_DICT_DATA } from "./dict-data.seed-data"
 `
   fs.writeFileSync(path.join(OUT_DIR, 'index.ts'), out)
   console.log(`✅ index.ts`)

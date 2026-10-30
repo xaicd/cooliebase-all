@@ -1,5 +1,5 @@
 // Auto-generated
-export const SEED_DICT_TYPES = [
+export const INIT_DICT_TYPES = [
   {
     "id": "1",
     "name": "用户性别",

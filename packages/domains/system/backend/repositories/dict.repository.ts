@@ -5,7 +5,7 @@
 import { randomUUID } from "node:crypto"
 import { hasRealDatabase, getKyselyDb } from "@/modules/shared/backend/lib/database"
 import type { PageResult } from "@/modules/shared/backend/lib/database"
-import { SEED_DICT_TYPES, SEED_DICT_DATA } from "@prisma/data"
+import { INIT_DICT_TYPES, INIT_DICT_DATA } from "@prisma/data"
 
 // === 字典类型 ===
 export type SystemDictTypeRow = { id: string; name: string; type: string; status: string; remark: string | null; createdAt: string; updatedAt: string }
@@ -16,9 +16,9 @@ export type SystemDictDataRow = { id: string; dictTypeId: string; label: string;
 export type CreateDictDataInput = { dictTypeId: string; label: string; value: string; sort?: number; status?: string; colorType?: string; remark?: string }
 
 // === 内存存储（从种子数据加载） ===
-const DICT_TYPES: SystemDictTypeRow[] = [...SEED_DICT_TYPES]
+const DICT_TYPES: SystemDictTypeRow[] = [...INIT_DICT_TYPES]
 
-const DICT_DATA: SystemDictDataRow[] = [...SEED_DICT_DATA]
+const DICT_DATA: SystemDictDataRow[] = [...INIT_DICT_DATA]
 
 let typeIdSeq = 100
 let dataIdSeq = 100

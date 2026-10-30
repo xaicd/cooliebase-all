@@ -1,5 +1,5 @@
 // Auto-generated
-export const SEED_POSTS = [
+export const INIT_POSTS = [
   {
     "id": "2",
     "name": "项目经理",

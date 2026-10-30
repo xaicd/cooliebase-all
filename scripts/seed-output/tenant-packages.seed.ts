@@ -1,7 +1,7 @@
 // Auto-generated from cooliebase-vue-pro SQL
 // source sha256: 2dc660a101b0973095c8d2e3b618329639c3a2cda118a5184858b8044775fc56
 
-export const SEED_TENANT_PACKAGES = [
+export const INIT_TENANT_PACKAGES = [
   {
     "id": "111",
     "name": "普通套餐",

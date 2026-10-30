@@ -62,7 +62,7 @@ const ENTERPRISE_SELF_MENU_IDS = withAiPackageMenuIds([
   "1", "100", "103", "107", "aigw-dir", "aigw-tokens", "aigw-usages"
 ])
 
-export const SEED_TENANT_PACKAGES: TenantPackageSeed[] = [
+export const INIT_TENANT_PACKAGES: TenantPackageSeed[] = [
   {
     id: "111",
     name: "RoMA 智算运营旗舰套餐",

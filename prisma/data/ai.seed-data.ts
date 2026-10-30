@@ -2,7 +2,7 @@
  * AI 模型网关与中台 (new-api) 种子数据
  */
 
-export const SEED_AI_CHANNELS = [
+export const INIT_AI_CHANNELS = [
   {
     id: "ch-moma-gz-001",
     name: "中国移动 MOMA 智算中心 (广州天河核心区)",
@@ -95,7 +95,7 @@ export const SEED_AI_CHANNELS = [
   },
 ]
 
-export const SEED_AI_TOKENS = [
+export const INIT_AI_TOKENS = [
   {
     id: "tok-default-001",
     name: "全平台默认开发者令牌",
@@ -126,7 +126,7 @@ export const SEED_AI_TOKENS = [
   },
 ]
 
-export const SEED_AI_MODELS = [
+export const INIT_AI_MODELS = [
   {
     id: "mod-001",
     name: "DeepSeek-V3 深度思考",

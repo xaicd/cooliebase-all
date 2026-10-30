@@ -7,7 +7,7 @@ import { randomUUID } from "node:crypto"
 import { getKyselyDb, hasRealDatabase, type PageResult } from "@/modules/shared/backend/lib/database"
 import { getTenantAssignableMenuIds } from "@/modules/system/backend/services/tenant-menu-scope.service"
 import { overlayPackageName } from "@/modules/shared/contract/project-profile-overlay"
-import { SEED_TENANT_PACKAGES } from "@prisma/data"
+import { INIT_TENANT_PACKAGES } from "@prisma/data"
 
 export type TenantPackageRow = {
   id: string
@@ -25,7 +25,7 @@ export type CreateTenantPackageData = { name: string; status?: string; accountLi
 export type UpdateTenantPackageData = Partial<CreateTenantPackageData>
 
 // 无数据库开发模式也使用由本地 CoolieBase SQL 生成的同一套餐目录，禁止维护另一套手写数据。
-const MEMORY_STORE: TenantPackageRow[] = SEED_TENANT_PACKAGES.map((item) => ({ ...item, name: overlayPackageName(item.id, item.name), accountLimit: null, menuIds: [...item.menuIds] }))
+const MEMORY_STORE: TenantPackageRow[] = INIT_TENANT_PACKAGES.map((item) => ({ ...item, name: overlayPackageName(item.id, item.name), accountLimit: null, menuIds: [...item.menuIds] }))
 let memoryIdSeq = 100
 
 export const TenantPackageRepository = {

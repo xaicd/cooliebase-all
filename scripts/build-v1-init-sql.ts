@@ -3,14 +3,14 @@ import { writeFileSync, mkdirSync, existsSync } from "node:fs"
 import { resolve } from "node:path"
 import { createHash } from "node:crypto"
 
-import { SEED_DEPTS } from "../prisma/data/depts.seed-data"
-import { SEED_DICT_DATA } from "../prisma/data/dict-data.seed-data"
-import { SEED_DICT_TYPES } from "../prisma/data/dict-types.seed-data"
+import { INIT_DEPTS } from "../prisma/data/depts.seed-data"
+import { INIT_DICT_DATA } from "../prisma/data/dict-data.seed-data"
+import { INIT_DICT_TYPES } from "../prisma/data/dict-types.seed-data"
 import { withCompanionMenuCatalogs, withCompanionPackageMenuIds } from "@/modules/shared/backend/constants/companion-menu"
-import { SEED_MENUS } from "../prisma/data/menus.seed-data"
-import { SEED_POSTS } from "../prisma/data/posts.seed-data"
-import { SEED_ROLES } from "../prisma/data/roles.seed-data"
-import { SEED_TENANT_PACKAGES } from "../prisma/data/tenant-packages.seed-data"
+import { INIT_MENUS } from "../prisma/data/menus.seed-data"
+import { INIT_POSTS } from "../prisma/data/posts.seed-data"
+import { INIT_ROLES } from "../prisma/data/roles.seed-data"
+import { INIT_TENANT_PACKAGES } from "../prisma/data/tenant-packages.seed-data"
 
 function escapeSql(str: any): string {
   if (str === null || str === undefined) return "NULL"
@@ -57,7 +57,7 @@ async function main() {
   })
 
   // 2. 组装全量纯净 SEED 数据
-  const fullMenus = withCompanionMenuCatalogs((SEED_MENUS)))
+  const fullMenus = withCompanionMenuCatalogs((INIT_MENUS)))
 
   // 拓扑排序 Menus
   const ids = new Set(fullMenus.map((m) => m.id))
@@ -80,7 +80,7 @@ async function main() {
   // 注意：套餐与菜单的绑定**不在本表**（menu_ids 列已不存在），而在
   // system_tenant_package_menu 关联表，且必须在菜单插入之后写 —— 见下面 "6b"。
   seedSql += `-- 1. 租户套餐\n`
-  const pkgValues = SEED_TENANT_PACKAGES.map((pkg: any) =>
+  const pkgValues = INIT_TENANT_PACKAGES.map((pkg: any) =>
     `(${escapeSql(pkg.id)}, ${escapeSql(pkg.name)}, ${escapeSql(pkg.status)}, ${escapeSql(pkg.remark)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_tenant_package" ("id", "name", "status", "remark", "created_at", "updated_at") VALUES\n${pkgValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
@@ -98,21 +98,21 @@ async function main() {
 
   // 部门
   seedSql += `-- 3. 组织部门\n`
-  const deptValues = SEED_DEPTS.map((d: any) =>
+  const deptValues = INIT_DEPTS.map((d: any) =>
     `(${escapeSql(d.id)}, ${escapeSql(d.name)}, ${escapeSql(d.parentId)}, ${escapeSql(d.sort)}, ${escapeSql(d.leaderUserId)}, ${escapeSql(d.phone)}, ${escapeSql(d.email)}, ${escapeSql(d.status)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_dept" ("id", "name", "parent_id", "sort", "leader_id", "phone", "email", "status", "created_at", "updated_at") VALUES\n${deptValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
 
   // 岗位
   seedSql += `-- 4. 岗位信息\n`
-  const postValues = SEED_POSTS.map((p: any) =>
+  const postValues = INIT_POSTS.map((p: any) =>
     `(${escapeSql(p.id)}, ${escapeSql(p.name)}, ${escapeSql(p.code)}, ${escapeSql(p.sort)}, ${escapeSql(p.status)}, ${escapeSql(p.remark)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_post" ("id", "name", "code", "sort", "status", "remark", "created_at", "updated_at") VALUES\n${postValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
 
   // 角色
   seedSql += `-- 5. 角色信息 (含超级管理员、平台运营、渠道代理商)\n`
-  const roleValues = SEED_ROLES.map((r: any) =>
+  const roleValues = INIT_ROLES.map((r: any) =>
     `(${escapeSql(r.id)}, ${escapeSql(r.name)}, ${escapeSql(r.code)}, ${escapeSql(r.sort)}, ${escapeSql(r.dataScope)}, ${escapeSql(r.status)}, ${escapeSql(r.remark)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_role" ("id", "name", "code", "sort", "data_scope", "status", "remark", "created_at", "updated_at") VALUES\n${roleValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
@@ -127,7 +127,7 @@ async function main() {
   // 套餐与菜单的绑定（menu_ids 列已不存在，改为关联表）。
   // 必须放在菜单插入之后：menu_id 外键指向 system_menu(id)。
   seedSql += `-- 6b. 租户套餐菜单绑定\n`
-  const pkgMenuValues = SEED_TENANT_PACKAGES.flatMap((pkg: any, packageIndex: number) =>
+  const pkgMenuValues = INIT_TENANT_PACKAGES.flatMap((pkg: any, packageIndex: number) =>
     (pkg.menuIds ?? []).map(
       (menuId: string, menuIndex: number) =>
         `('tpm-${packageIndex + 1}-${menuIndex + 1}', ${escapeSql(pkg.id)}, ${escapeSql(menuId)})`,
@@ -139,14 +139,14 @@ async function main() {
 
   // 字典类型
   seedSql += `-- 7. 数据字典类型\n`
-  const dictTypeValues = SEED_DICT_TYPES.map((dt: any) =>
+  const dictTypeValues = INIT_DICT_TYPES.map((dt: any) =>
     `(${escapeSql(dt.id)}, ${escapeSql(dt.name)}, ${escapeSql(dt.type)}, ${escapeSql(dt.status)}, ${escapeSql(dt.remark)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_dict_type" ("id", "name", "type", "status", "remark", "created_at", "updated_at") VALUES\n${dictTypeValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
 
   // 字典数据
   seedSql += `-- 8. 数据字典项\n`
-  const dictDataValues = SEED_DICT_DATA.map((dd: any) =>
+  const dictDataValues = INIT_DICT_DATA.map((dd: any) =>
     `(${escapeSql(dd.id)}, ${escapeSql(dd.dictTypeId)}, ${escapeSql(dd.label)}, ${escapeSql(dd.value)}, ${escapeSql(dd.sort)}, ${escapeSql(dd.status)}, ${escapeSql(dd.colorType)}, ${escapeSql(dd.remark)}, NOW(), NOW())`
   ).join(",\n")
   seedSql += `INSERT INTO "system_dict_data" ("id", "dict_type_id", "label", "value", "sort", "status", "color_type", "remark", "created_at", "updated_at") VALUES\n${dictDataValues}\nON CONFLICT ("id") DO NOTHING;\n\n`
