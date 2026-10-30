@@ -11,7 +11,7 @@ export const aiToolPageQuerySchema = z.object({
 }).strict()
 
 export const aiToolCreateSchema = z.object({
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   description: z.string().trim().optional(),
   status: z.string().trim().optional(),
 

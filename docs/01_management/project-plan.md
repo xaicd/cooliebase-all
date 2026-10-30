@@ -249,6 +249,15 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **校验器 ↔ 物理 schema 对账（2026-10-30，能力面变化）**：新增 `pnpm run align:validators`
+  （`scripts/align-validators-to-schema.mjs`）。生成的 `*CreateSchema` 此前**没有可对账的真源**
+  （codegen import payload 不在本仓树内），实测 **9 个校验器 / 21 个字段**把物理 `NOT NULL`
+  列标成了可选 —— 空对象直插数据库即 **500**（`ai_api_key.name` 即此）。
+  现以**物理 schema 为真源**（离线解析 `prisma/migrations/**`）：必填 ⇔ `NOT NULL` 且无默认值
+  且非托管列；`--check` 进 `check` 链（棘轮，实测已 0 漂移）。
+  **纠正一条我此前的过度解读**：`313/342` 的 create 接受空对象里，**绝大多数是"列本就可空"**
+  （数据模型宽松，合法），真 bug 只有上述 9 个；`verify:zero-to-one --strict-create` 保留为可选硬门禁。
+
 - **0→1 可重复验证（2026-10-30，能力面变化）**：新增 `pnpm run verify:zero-to-one`
   （`scripts/verify-zero-to-one.mjs`）。把「登录 → 342 份契约 list 接口 → 470 个管理页外壳 →
   写路径校验」固化**一条命令 + 退出码**，不再靠人肉一次性验证。

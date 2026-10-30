@@ -12,21 +12,21 @@ export const aiModelPageQuerySchema = z.object({
 
 export const aiModelCreateSchema = z.object({
   key_id: z.string().trim().optional(),
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   model: z.string().trim().optional(),
   platform: z.string().trim().optional(),
   type: z.coerce.number().finite().optional(),
-  sort: z.coerce.number().finite().optional(),
-  status: z.string().trim().optional(),
+  sort: z.coerce.number().finite(),
+  status: z.string().trim().min(1, "status 不能为空"),
   temperature: z.coerce.number().finite().optional(),
   max_tokens: z.coerce.number().finite().optional(),
   max_contexts: z.coerce.number().finite().optional(),
 
-  model_key: z.string().trim().optional(),
-  provider: z.string().trim().optional(),
+  model_key: z.string().trim().min(1, "model_key 不能为空"),
+  provider: z.string().trim().min(1, "provider 不能为空"),
   description: z.string().trim().optional(),
-  input_ratio: z.coerce.number().finite().optional(),
-  output_ratio: z.coerce.number().finite().optional(),
+  input_ratio: z.coerce.number().finite(),
+  output_ratio: z.coerce.number().finite(),
 }).strict()
 
 export const aiModelUpdateSchema = aiModelCreateSchema.partial().extend({

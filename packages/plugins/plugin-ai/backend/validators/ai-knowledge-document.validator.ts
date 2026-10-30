@@ -12,7 +12,7 @@ export const aiKnowledgeDocumentPageQuerySchema = z.object({
 
 export const aiKnowledgeDocumentCreateSchema = z.object({
   knowledge_id: z.string().trim().optional(),
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   url: z.string().trim().optional(),
   content: z.string().trim().optional(),
   content_length: z.coerce.number().finite().optional(),

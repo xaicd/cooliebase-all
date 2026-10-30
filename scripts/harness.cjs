@@ -130,6 +130,8 @@ const GROUPS = {
   verify: {
     "": "verify:real-db",
     "real-db": "verify:real-db",
+    "align-validators": "align:validators",
+    "align-validators:check": "align:validators:check",
     "zero-to-one": "verify:zero-to-one",
   },
   tables: {

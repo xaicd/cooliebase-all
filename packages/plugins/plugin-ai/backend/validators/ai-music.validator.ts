@@ -12,7 +12,7 @@ export const aiMusicPageQuerySchema = z.object({
 
 export const aiMusicCreateSchema = z.object({
   user_id: z.string().trim().optional(),
-  title: z.string().trim().optional(),
+  title: z.string().trim().min(1, "title 不能为空"),
   lyric: z.string().trim().optional(),
   image_url: z.string().trim().optional(),
   audio_url: z.string().trim().optional(),

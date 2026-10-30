@@ -11,7 +11,7 @@ export const aiChatRolePageQuerySchema = z.object({
 }).strict()
 
 export const aiChatRoleCreateSchema = z.object({
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   avatar: z.string().trim().optional(),
   category: z.string().trim().optional(),
   description: z.string().trim().optional(),

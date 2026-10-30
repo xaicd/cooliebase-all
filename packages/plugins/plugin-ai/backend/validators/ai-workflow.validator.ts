@@ -11,7 +11,7 @@ export const aiWorkflowPageQuerySchema = z.object({
 }).strict()
 
 export const aiWorkflowCreateSchema = z.object({
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   code: z.string().trim().optional(),
   graph: z.string().trim().optional(),
   remark: z.string().trim().optional(),

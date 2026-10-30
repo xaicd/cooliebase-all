@@ -11,7 +11,7 @@ export const aiKnowledgePageQuerySchema = z.object({
 }).strict()
 
 export const aiKnowledgeCreateSchema = z.object({
-  name: z.string().trim().optional(),
+  name: z.string().trim().min(1, "name 不能为空"),
   description: z.string().trim().optional(),
   embedding_model_id: z.string().trim().optional(),
   embedding_model: z.string().trim().optional(),

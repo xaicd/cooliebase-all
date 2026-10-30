@@ -11,13 +11,13 @@ export const aiChatConversationPageQuerySchema = z.object({
 }).strict()
 
 export const aiChatConversationCreateSchema = z.object({
-  user_id: z.string().trim().optional(),
-  title: z.string().trim().optional(),
-  pinned: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
+  user_id: z.string().trim().min(1, "user_id 不能为空"),
+  title: z.string().trim().min(1, "title 不能为空"),
+  pinned: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()),
   pinned_time: z.string().trim().optional(),
   role_id: z.string().trim().optional(),
   model_id: z.string().trim().optional(),
-  model: z.string().trim().optional(),
+  model: z.string().trim().min(1, "model 不能为空"),
   system_message: z.string().trim().optional(),
   temperature: z.coerce.number().finite().optional(),
   max_tokens: z.coerce.number().finite().optional(),

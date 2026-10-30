@@ -11,22 +11,22 @@ export const aiChatMessagePageQuerySchema = z.object({
 }).strict()
 
 export const aiChatMessageCreateSchema = z.object({
-  conversation_id: z.string().trim().optional(),
+  conversation_id: z.string().trim().min(1, "conversation_id 不能为空"),
   reply_id: z.string().trim().optional(),
   type: z.string().trim().optional(),
   user_id: z.string().trim().optional(),
   role_id: z.string().trim().optional(),
   model: z.string().trim().optional(),
   model_id: z.string().trim().optional(),
-  content: z.string().trim().optional(),
+  content: z.string().trim().min(1, "content 不能为空"),
   reasoning_content: z.string().trim().optional(),
   use_context: z.preprocess((value) => value === "true" ? true : value === "false" ? false : value, z.boolean()).optional(),
   segment_ids: z.string().trim().optional(),
   web_search_pages: z.string().trim().optional(),
   attachment_urls: z.string().trim().optional(),
 
-  role: z.string().trim().optional(),
-  tokens: z.coerce.number().finite().optional(),
+  role: z.string().trim().min(1, "role 不能为空"),
+  tokens: z.coerce.number().finite(),
 }).strict()
 
 export const aiChatMessageUpdateSchema = aiChatMessageCreateSchema.partial().extend({
