@@ -313,6 +313,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:ai-model/[id]:delete",
+      "method": "DELETE",
+      "path": "/ai-model/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:ai-model/[id]:get",
+      "method": "GET",
+      "path": "/ai-model/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:ai-model/[id]:put",
+      "method": "PUT",
+      "path": "/ai-model/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:ai-model:get",
+      "method": "GET",
+      "path": "/ai-model",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:ai-model:post",
+      "method": "POST",
+      "path": "/ai-model",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:ai-music/[id]:delete",
       "method": "DELETE",
       "path": "/ai-music/[id]",

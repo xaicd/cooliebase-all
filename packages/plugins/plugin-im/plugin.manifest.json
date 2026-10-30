@@ -222,6 +222,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:im-channel/[id]:delete",
+      "method": "DELETE",
+      "path": "/im-channel/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-channel/[id]:get",
+      "method": "GET",
+      "path": "/im-channel/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-channel/[id]:put",
+      "method": "PUT",
+      "path": "/im-channel/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-channel:get",
+      "method": "GET",
+      "path": "/im-channel",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-channel:post",
+      "method": "POST",
+      "path": "/im-channel",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:im-conversation-read/[id]:delete",
       "method": "DELETE",
       "path": "/im-conversation-read/[id]",
@@ -279,6 +309,36 @@
       "routeKey": "admin:im-face-pack-item-manager:post",
       "method": "POST",
       "path": "/im-face-pack-item-manager",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-face-pack-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/im-face-pack-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-face-pack-item/[id]:get",
+      "method": "GET",
+      "path": "/im-face-pack-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-face-pack-item/[id]:put",
+      "method": "PUT",
+      "path": "/im-face-pack-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-face-pack-item:get",
+      "method": "GET",
+      "path": "/im-face-pack-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-face-pack-item:post",
+      "method": "POST",
+      "path": "/im-face-pack-item",
       "auth": "operator"
     },
     {
@@ -912,6 +972,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:im-rtc-participant/[id]:delete",
+      "method": "DELETE",
+      "path": "/im-rtc-participant/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-rtc-participant/[id]:get",
+      "method": "GET",
+      "path": "/im-rtc-participant/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-rtc-participant/[id]:put",
+      "method": "PUT",
+      "path": "/im-rtc-participant/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-rtc-participant:get",
+      "method": "GET",
+      "path": "/im-rtc-participant",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-rtc-participant:post",
+      "method": "POST",
+      "path": "/im-rtc-participant",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:im-sensitive-word-manager/[id]:delete",
       "method": "DELETE",
       "path": "/im-sensitive-word-manager/[id]",
@@ -939,6 +1029,36 @@
       "routeKey": "admin:im-sensitive-word-manager:post",
       "method": "POST",
       "path": "/im-sensitive-word-manager",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-sensitive-word/[id]:delete",
+      "method": "DELETE",
+      "path": "/im-sensitive-word/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-sensitive-word/[id]:get",
+      "method": "GET",
+      "path": "/im-sensitive-word/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-sensitive-word/[id]:put",
+      "method": "PUT",
+      "path": "/im-sensitive-word/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-sensitive-word:get",
+      "method": "GET",
+      "path": "/im-sensitive-word",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:im-sensitive-word:post",
+      "method": "POST",
+      "path": "/im-sensitive-word",
       "auth": "operator"
     },
     {

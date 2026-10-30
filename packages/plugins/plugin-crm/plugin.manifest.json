@@ -72,6 +72,66 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:crm-business-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/crm-business-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-product/[id]:get",
+      "method": "GET",
+      "path": "/crm-business-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-product/[id]:put",
+      "method": "PUT",
+      "path": "/crm-business-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-product:get",
+      "method": "GET",
+      "path": "/crm-business-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-product:post",
+      "method": "POST",
+      "path": "/crm-business-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-status-type/[id]:delete",
+      "method": "DELETE",
+      "path": "/crm-business-status-type/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-status-type/[id]:get",
+      "method": "GET",
+      "path": "/crm-business-status-type/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-status-type/[id]:put",
+      "method": "PUT",
+      "path": "/crm-business-status-type/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-status-type:get",
+      "method": "GET",
+      "path": "/crm-business-status-type",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-business-status-type:post",
+      "method": "POST",
+      "path": "/crm-business-status-type",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:crm-business-status/[id]:delete",
       "method": "DELETE",
       "path": "/crm-business-status/[id]",
@@ -162,6 +222,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:crm-contact-business/[id]:delete",
+      "method": "DELETE",
+      "path": "/crm-contact-business/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contact-business/[id]:get",
+      "method": "GET",
+      "path": "/crm-contact-business/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contact-business/[id]:put",
+      "method": "PUT",
+      "path": "/crm-contact-business/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contact-business:get",
+      "method": "GET",
+      "path": "/crm-contact-business",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contact-business:post",
+      "method": "POST",
+      "path": "/crm-contact-business",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:crm-contact/[id]:delete",
       "method": "DELETE",
       "path": "/crm-contact/[id]",
@@ -219,6 +309,36 @@
       "routeKey": "admin:crm-contract-config:post",
       "method": "POST",
       "path": "/crm-contract-config",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contract-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/crm-contract-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contract-product/[id]:get",
+      "method": "GET",
+      "path": "/crm-contract-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contract-product/[id]:put",
+      "method": "PUT",
+      "path": "/crm-contract-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contract-product:get",
+      "method": "GET",
+      "path": "/crm-contract-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-contract-product:post",
+      "method": "POST",
+      "path": "/crm-contract-product",
       "auth": "operator"
     },
     {
@@ -399,6 +519,36 @@
       "routeKey": "admin:crm-operate-log:post",
       "method": "POST",
       "path": "/crm-operate-log",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-owner-record/[id]:delete",
+      "method": "DELETE",
+      "path": "/crm-owner-record/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-owner-record/[id]:get",
+      "method": "GET",
+      "path": "/crm-owner-record/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-owner-record/[id]:put",
+      "method": "PUT",
+      "path": "/crm-owner-record/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-owner-record:get",
+      "method": "GET",
+      "path": "/crm-owner-record",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:crm-owner-record:post",
+      "method": "POST",
+      "path": "/crm-owner-record",
       "auth": "operator"
     },
     {

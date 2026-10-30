@@ -80,7 +80,7 @@ const TRUNK = [
   ["admin", "pnpm harness admin <pages|nav|routes>", "Admin 页面、侧栏导航与路由清单生成"],
   ["sql", "pnpm harness sql <init|build>", "生成全量初始化 SQL"],
   ["serve", "pnpm harness serve", "运行生产构建（standalone）"],
-  ["plugins", "pnpm harness plugins register", "插件登记"],
+  ["plugins", "pnpm harness plugins register|sync-routes", "插件登记 / 路由声明同步"],
   ["rpc", "pnpm harness rpc actions", "RPC actions 生成"],
   ["deploy", "pnpm harness deploy caddy", "部署（Caddy 反代）"],
   ["sbom", "pnpm harness sbom generate", "生成 SBOM 物料清单"],
@@ -102,6 +102,7 @@ const GROUPS = {
     generate: "db:generate",
     backup: "db:backup",
     "bootstrap:sqlite": "db:bootstrap:sqlite",
+    embedded: "db:embedded",
     "init:sql": "db:init:sql",
   },
   project: {
@@ -203,6 +204,7 @@ const GROUPS = {
   plugins: {
     "": "plugins:register",
     register: "plugins:register",
+    "sync-routes": "plugins:sync-routes",
   },
   rpc: {
     "": "rpc:actions",

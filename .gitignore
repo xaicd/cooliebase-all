@@ -212,3 +212,6 @@ docs/architecture/artifacts/harness-heartbeat.jsonl
 # Playwright 产物（本机运行生成，不提交）
 playwright-report/
 test-results/
+
+# 本地嵌入式 Postgres 的数据目录（pnpm db:embedded）
+.embedded-pg/

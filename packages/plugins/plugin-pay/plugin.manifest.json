@@ -50,6 +50,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:pay-app/[id]:delete",
+      "method": "DELETE",
+      "path": "/pay-app/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-app/[id]:get",
+      "method": "GET",
+      "path": "/pay-app/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-app/[id]:put",
+      "method": "PUT",
+      "path": "/pay-app/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-app:get",
+      "method": "GET",
+      "path": "/pay-app",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-app:post",
+      "method": "POST",
+      "path": "/pay-app",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:pay-channel/[id]:delete",
       "method": "DELETE",
       "path": "/pay-channel/[id]",
@@ -140,6 +170,66 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:pay-notify-log/[id]:delete",
+      "method": "DELETE",
+      "path": "/pay-notify-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-log/[id]:get",
+      "method": "GET",
+      "path": "/pay-notify-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-log/[id]:put",
+      "method": "PUT",
+      "path": "/pay-notify-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-log:get",
+      "method": "GET",
+      "path": "/pay-notify-log",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-log:post",
+      "method": "POST",
+      "path": "/pay-notify-log",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-task/[id]:delete",
+      "method": "DELETE",
+      "path": "/pay-notify-task/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-task/[id]:get",
+      "method": "GET",
+      "path": "/pay-notify-task/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-task/[id]:put",
+      "method": "PUT",
+      "path": "/pay-notify-task/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-task:get",
+      "method": "GET",
+      "path": "/pay-notify-task",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-notify-task:post",
+      "method": "POST",
+      "path": "/pay-notify-task",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:pay-notify/[id]:delete",
       "method": "DELETE",
       "path": "/pay-notify/[id]",
@@ -167,6 +257,36 @@
       "routeKey": "admin:pay-notify:post",
       "method": "POST",
       "path": "/pay-notify",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-order-extension/[id]:delete",
+      "method": "DELETE",
+      "path": "/pay-order-extension/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-order-extension/[id]:get",
+      "method": "GET",
+      "path": "/pay-order-extension/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-order-extension/[id]:put",
+      "method": "PUT",
+      "path": "/pay-order-extension/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-order-extension:get",
+      "method": "GET",
+      "path": "/pay-order-extension",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pay-order-extension:post",
+      "method": "POST",
+      "path": "/pay-order-extension",
       "auth": "operator"
     },
     {

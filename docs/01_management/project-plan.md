@@ -249,6 +249,15 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **内置数据库与插件路由同步（2026-10-30，能力面变化）**：
+  - `pnpm run db:embedded`（`scripts/dev-db-embedded.cjs`）：**常驻**嵌入式 Postgres（固定
+    dataDir/端口），本地开发**不需要 docker**。此前插件域因无可达 PG 一律
+    `DatabaseNotReachable` 500；docker 的端口转发在宿主机实测也可能连不通。
+  - `pnpm run plugins:sync-routes`（`scripts/sync-plugin-routes.cjs`）：把
+    `plugin.manifest.json#apiRoutes` 从**真实路由文件**重新派生并进 `check` 链。
+    此前它是脚手架时写死的一次性产物 —— 10 个插件漂移、共缺约 200 条声明，
+    342 份契约里有 48 个"契约声明了、插件没声明"的接口。
+
 - **管理端导航（2026-10-30，能力面变化）**：侧栏改由**生成的页面注册表**产出
   （`pnpm run admin:nav` → `packages/shared/contract/admin-nav.generated.ts`，18 组 / 470 项）。
   此前侧栏读上游菜单 + 手写 `SIDEBAR_COMPONENT_ROUTES`（66 条）判断"有没有落地页"，

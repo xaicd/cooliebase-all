@@ -192,6 +192,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:bpm-process-definition-info/[id]:delete",
+      "method": "DELETE",
+      "path": "/bpm-process-definition-info/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:bpm-process-definition-info/[id]:get",
+      "method": "GET",
+      "path": "/bpm-process-definition-info/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:bpm-process-definition-info/[id]:put",
+      "method": "PUT",
+      "path": "/bpm-process-definition-info/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:bpm-process-definition-info:get",
+      "method": "GET",
+      "path": "/bpm-process-definition-info",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:bpm-process-definition-info:post",
+      "method": "POST",
+      "path": "/bpm-process-definition-info",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:bpm-process-definition/[id]:delete",
       "method": "DELETE",
       "path": "/bpm-process-definition/[id]",

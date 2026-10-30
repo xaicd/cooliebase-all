@@ -43,6 +43,36 @@
   },
   "apiRoutes": [
     {
+      "routeKey": "admin:after-sale-log/[id]:delete",
+      "method": "DELETE",
+      "path": "/after-sale-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:after-sale-log/[id]:get",
+      "method": "GET",
+      "path": "/after-sale-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:after-sale-log/[id]:put",
+      "method": "PUT",
+      "path": "/after-sale-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:after-sale-log:get",
+      "method": "GET",
+      "path": "/after-sale-log",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:after-sale-log:post",
+      "method": "POST",
+      "path": "/after-sale-log",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:after-sale/[id]:delete",
       "method": "DELETE",
       "path": "/after-sale/[id]",
@@ -343,6 +373,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:cart/[id]:delete",
+      "method": "DELETE",
+      "path": "/cart/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:cart/[id]:get",
+      "method": "GET",
+      "path": "/cart/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:cart/[id]:put",
+      "method": "PUT",
+      "path": "/cart/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:cart:get",
+      "method": "GET",
+      "path": "/cart",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:cart:post",
+      "method": "POST",
+      "path": "/cart",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:combination-activity/[id]:delete",
       "method": "DELETE",
       "path": "/combination-activity/[id]",
@@ -370,6 +430,36 @@
       "routeKey": "admin:combination-activity:post",
       "method": "POST",
       "path": "/combination-activity",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:combination-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/combination-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:combination-product/[id]:get",
+      "method": "GET",
+      "path": "/combination-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:combination-product/[id]:put",
+      "method": "PUT",
+      "path": "/combination-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:combination-product:get",
+      "method": "GET",
+      "path": "/combination-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:combination-product:post",
+      "method": "POST",
+      "path": "/combination-product",
       "auth": "operator"
     },
     {
@@ -466,6 +556,66 @@
       "routeKey": "admin:coupons/issue:post",
       "method": "POST",
       "path": "/coupons/issue",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-charge/[id]:delete",
+      "method": "DELETE",
+      "path": "/delivery-express-template-charge/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-charge/[id]:get",
+      "method": "GET",
+      "path": "/delivery-express-template-charge/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-charge/[id]:put",
+      "method": "PUT",
+      "path": "/delivery-express-template-charge/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-charge:get",
+      "method": "GET",
+      "path": "/delivery-express-template-charge",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-charge:post",
+      "method": "POST",
+      "path": "/delivery-express-template-charge",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-free/[id]:delete",
+      "method": "DELETE",
+      "path": "/delivery-express-template-free/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-free/[id]:get",
+      "method": "GET",
+      "path": "/delivery-express-template-free/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-free/[id]:put",
+      "method": "PUT",
+      "path": "/delivery-express-template-free/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-free:get",
+      "method": "GET",
+      "path": "/delivery-express-template-free",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:delivery-express-template-free:post",
+      "method": "POST",
+      "path": "/delivery-express-template-free",
       "auth": "operator"
     },
     {
@@ -586,6 +736,36 @@
       "routeKey": "admin:discount-activity:post",
       "method": "POST",
       "path": "/discount-activity",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:discount-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/discount-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:discount-product/[id]:get",
+      "method": "GET",
+      "path": "/discount-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:discount-product/[id]:put",
+      "method": "PUT",
+      "path": "/discount-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:discount-product:get",
+      "method": "GET",
+      "path": "/discount-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:discount-product:post",
+      "method": "POST",
+      "path": "/discount-product",
       "auth": "operator"
     },
     {
@@ -829,6 +1009,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:point-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/point-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:point-product/[id]:get",
+      "method": "GET",
+      "path": "/point-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:point-product/[id]:put",
+      "method": "PUT",
+      "path": "/point-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:point-product:get",
+      "method": "GET",
+      "path": "/point-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:point-product:post",
+      "method": "POST",
+      "path": "/point-product",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:product-brand/[id]:delete",
       "method": "DELETE",
       "path": "/product-brand/[id]",
@@ -1039,6 +1249,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:product-sku/[id]:delete",
+      "method": "DELETE",
+      "path": "/product-sku/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:product-sku/[id]:get",
+      "method": "GET",
+      "path": "/product-sku/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:product-sku/[id]:put",
+      "method": "PUT",
+      "path": "/product-sku/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:product-sku:get",
+      "method": "GET",
+      "path": "/product-sku",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:product-sku:post",
+      "method": "POST",
+      "path": "/product-sku",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:product-spu/[id]:delete",
       "method": "DELETE",
       "path": "/product-spu/[id]",
@@ -1219,6 +1459,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:seckill-product/[id]:delete",
+      "method": "DELETE",
+      "path": "/seckill-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:seckill-product/[id]:get",
+      "method": "GET",
+      "path": "/seckill-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:seckill-product/[id]:put",
+      "method": "PUT",
+      "path": "/seckill-product/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:seckill-product:get",
+      "method": "GET",
+      "path": "/seckill-product",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:seckill-product:post",
+      "method": "POST",
+      "path": "/seckill-product",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:trade-config/[id]:delete",
       "method": "DELETE",
       "path": "/trade-config/[id]",
@@ -1246,6 +1516,66 @@
       "routeKey": "admin:trade-config:post",
       "method": "POST",
       "path": "/trade-config",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/trade-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-item/[id]:get",
+      "method": "GET",
+      "path": "/trade-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-item/[id]:put",
+      "method": "PUT",
+      "path": "/trade-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-item:get",
+      "method": "GET",
+      "path": "/trade-order-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-item:post",
+      "method": "POST",
+      "path": "/trade-order-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-log/[id]:delete",
+      "method": "DELETE",
+      "path": "/trade-order-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-log/[id]:get",
+      "method": "GET",
+      "path": "/trade-order-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-log/[id]:put",
+      "method": "PUT",
+      "path": "/trade-order-log/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-log:get",
+      "method": "GET",
+      "path": "/trade-order-log",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:trade-order-log:post",
+      "method": "POST",
+      "path": "/trade-order-log",
       "auth": "operator"
     },
     {

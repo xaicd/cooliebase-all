@@ -103,6 +103,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:member-address/[id]:delete",
+      "method": "DELETE",
+      "path": "/member-address/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:member-address/[id]:get",
+      "method": "GET",
+      "path": "/member-address/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:member-address/[id]:put",
+      "method": "PUT",
+      "path": "/member-address/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:member-address:get",
+      "method": "GET",
+      "path": "/member-address",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:member-address:post",
+      "method": "POST",
+      "path": "/member-address",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:member-config/[id]:delete",
       "method": "DELETE",
       "path": "/member-config/[id]",
@@ -466,7 +496,7 @@
       "routeKey": "app:auth/login:post",
       "method": "POST",
       "path": "/auth/login",
-      "auth": "public"
+      "auth": "company"
     },
     {
       "routeKey": "app:auth/logout:post",
@@ -478,7 +508,7 @@
       "routeKey": "app:auth/register:post",
       "method": "POST",
       "path": "/auth/register",
-      "auth": "public"
+      "auth": "company"
     },
     {
       "routeKey": "app:profile:get",

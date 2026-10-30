@@ -42,6 +42,24 @@
   },
   "apiRoutes": [
     {
+      "routeKey": "admin:wms-check-order-detail/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-check-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-check-order-detail/[id]:get",
+      "method": "GET",
+      "path": "/wms-check-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-check-order-detail/[id]:put",
+      "method": "PUT",
+      "path": "/wms-check-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-check-order-detail/export:post",
       "method": "POST",
       "path": "/wms-check-order-detail/export",
@@ -81,6 +99,24 @@
       "routeKey": "admin:wms-check-order-detail:put",
       "method": "PUT",
       "path": "/wms-check-order-detail",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-check-order/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-check-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-check-order/[id]:get",
+      "method": "GET",
+      "path": "/wms-check-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-check-order/[id]:put",
+      "method": "PUT",
+      "path": "/wms-check-order/[id]",
       "auth": "operator"
     },
     {
@@ -138,6 +174,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-inventory-history/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-inventory-history/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-inventory-history/[id]:get",
+      "method": "GET",
+      "path": "/wms-inventory-history/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-inventory-history/[id]:put",
+      "method": "PUT",
+      "path": "/wms-inventory-history/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-inventory-history/export:post",
       "method": "POST",
       "path": "/wms-inventory-history/export",
@@ -177,6 +231,24 @@
       "routeKey": "admin:wms-inventory-history:put",
       "method": "PUT",
       "path": "/wms-inventory-history",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-inventory/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-inventory/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-inventory/[id]:get",
+      "method": "GET",
+      "path": "/wms-inventory/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-inventory/[id]:put",
+      "method": "PUT",
+      "path": "/wms-inventory/[id]",
       "auth": "operator"
     },
     {
@@ -222,6 +294,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-item-brand/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-item-brand/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-brand/[id]:get",
+      "method": "GET",
+      "path": "/wms-item-brand/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-brand/[id]:put",
+      "method": "PUT",
+      "path": "/wms-item-brand/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-item-brand/export:post",
       "method": "POST",
       "path": "/wms-item-brand/export",
@@ -261,6 +351,24 @@
       "routeKey": "admin:wms-item-brand:put",
       "method": "PUT",
       "path": "/wms-item-brand",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-category/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-item-category/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-category/[id]:get",
+      "method": "GET",
+      "path": "/wms-item-category/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-category/[id]:put",
+      "method": "PUT",
+      "path": "/wms-item-category/[id]",
       "auth": "operator"
     },
     {
@@ -306,6 +414,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-item-sku/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-item-sku/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-sku/[id]:get",
+      "method": "GET",
+      "path": "/wms-item-sku/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item-sku/[id]:put",
+      "method": "PUT",
+      "path": "/wms-item-sku/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-item-sku/export:post",
       "method": "POST",
       "path": "/wms-item-sku/export",
@@ -345,6 +471,24 @@
       "routeKey": "admin:wms-item-sku:put",
       "method": "PUT",
       "path": "/wms-item-sku",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item/[id]:get",
+      "method": "GET",
+      "path": "/wms-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-item/[id]:put",
+      "method": "PUT",
+      "path": "/wms-item/[id]",
       "auth": "operator"
     },
     {
@@ -390,6 +534,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-merchant/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-merchant/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-merchant/[id]:get",
+      "method": "GET",
+      "path": "/wms-merchant/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-merchant/[id]:put",
+      "method": "PUT",
+      "path": "/wms-merchant/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-merchant/export:post",
       "method": "POST",
       "path": "/wms-merchant/export",
@@ -429,6 +591,24 @@
       "routeKey": "admin:wms-merchant:put",
       "method": "PUT",
       "path": "/wms-merchant",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-movement-order-detail/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-movement-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-movement-order-detail/[id]:get",
+      "method": "GET",
+      "path": "/wms-movement-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-movement-order-detail/[id]:put",
+      "method": "PUT",
+      "path": "/wms-movement-order-detail/[id]",
       "auth": "operator"
     },
     {
@@ -474,6 +654,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-movement-order/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-movement-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-movement-order/[id]:get",
+      "method": "GET",
+      "path": "/wms-movement-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-movement-order/[id]:put",
+      "method": "PUT",
+      "path": "/wms-movement-order/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-movement-order/export:post",
       "method": "POST",
       "path": "/wms-movement-order/export",
@@ -513,6 +711,24 @@
       "routeKey": "admin:wms-movement-order:put",
       "method": "PUT",
       "path": "/wms-movement-order",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-receipt-order-detail/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-receipt-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-receipt-order-detail/[id]:get",
+      "method": "GET",
+      "path": "/wms-receipt-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-receipt-order-detail/[id]:put",
+      "method": "PUT",
+      "path": "/wms-receipt-order-detail/[id]",
       "auth": "operator"
     },
     {
@@ -558,6 +774,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-receipt-order/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-receipt-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-receipt-order/[id]:get",
+      "method": "GET",
+      "path": "/wms-receipt-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-receipt-order/[id]:put",
+      "method": "PUT",
+      "path": "/wms-receipt-order/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-receipt-order/export:post",
       "method": "POST",
       "path": "/wms-receipt-order/export",
@@ -597,6 +831,24 @@
       "routeKey": "admin:wms-receipt-order:put",
       "method": "PUT",
       "path": "/wms-receipt-order",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-shipment-order-detail/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-shipment-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-shipment-order-detail/[id]:get",
+      "method": "GET",
+      "path": "/wms-shipment-order-detail/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-shipment-order-detail/[id]:put",
+      "method": "PUT",
+      "path": "/wms-shipment-order-detail/[id]",
       "auth": "operator"
     },
     {
@@ -642,6 +894,24 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:wms-shipment-order/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-shipment-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-shipment-order/[id]:get",
+      "method": "GET",
+      "path": "/wms-shipment-order/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-shipment-order/[id]:put",
+      "method": "PUT",
+      "path": "/wms-shipment-order/[id]",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:wms-shipment-order/export:post",
       "method": "POST",
       "path": "/wms-shipment-order/export",
@@ -681,6 +951,24 @@
       "routeKey": "admin:wms-shipment-order:put",
       "method": "PUT",
       "path": "/wms-shipment-order",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-warehouse/[id]:delete",
+      "method": "DELETE",
+      "path": "/wms-warehouse/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-warehouse/[id]:get",
+      "method": "GET",
+      "path": "/wms-warehouse/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:wms-warehouse/[id]:put",
+      "method": "PUT",
+      "path": "/wms-warehouse/[id]",
       "auth": "operator"
     },
     {

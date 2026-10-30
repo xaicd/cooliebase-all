@@ -102,6 +102,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-finance-payment-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-finance-payment-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-payment-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-finance-payment-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-payment-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-finance-payment-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-payment-item:get",
+      "method": "GET",
+      "path": "/erp-finance-payment-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-payment-item:post",
+      "method": "POST",
+      "path": "/erp-finance-payment-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-finance-payment/[id]:delete",
       "method": "DELETE",
       "path": "/erp-finance-payment/[id]",
@@ -129,6 +159,36 @@
       "routeKey": "admin:erp-finance-payment:post",
       "method": "POST",
       "path": "/erp-finance-payment",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-receipt-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-finance-receipt-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-receipt-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-finance-receipt-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-receipt-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-finance-receipt-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-receipt-item:get",
+      "method": "GET",
+      "path": "/erp-finance-receipt-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-finance-receipt-item:post",
+      "method": "POST",
+      "path": "/erp-finance-receipt-item",
       "auth": "operator"
     },
     {
@@ -252,6 +312,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-purchase-in-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-purchase-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-in-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-purchase-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-in-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-purchase-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-in-item:get",
+      "method": "GET",
+      "path": "/erp-purchase-in-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-in-item:post",
+      "method": "POST",
+      "path": "/erp-purchase-in-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-purchase-in/[id]:delete",
       "method": "DELETE",
       "path": "/erp-purchase-in/[id]",
@@ -282,6 +372,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-purchase-order-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-purchase-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-order-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-purchase-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-order-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-purchase-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-order-item:get",
+      "method": "GET",
+      "path": "/erp-purchase-order-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-order-item:post",
+      "method": "POST",
+      "path": "/erp-purchase-order-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-purchase-order/[id]:delete",
       "method": "DELETE",
       "path": "/erp-purchase-order/[id]",
@@ -309,6 +429,36 @@
       "routeKey": "admin:erp-purchase-order:post",
       "method": "POST",
       "path": "/erp-purchase-order",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-return-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-purchase-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-return-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-purchase-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-return-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-purchase-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-return-item:get",
+      "method": "GET",
+      "path": "/erp-purchase-return-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-purchase-return-item:post",
+      "method": "POST",
+      "path": "/erp-purchase-return-item",
       "auth": "operator"
     },
     {
@@ -372,6 +522,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-sale-order-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-sale-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-order-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-sale-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-order-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-sale-order-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-order-item:get",
+      "method": "GET",
+      "path": "/erp-sale-order-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-order-item:post",
+      "method": "POST",
+      "path": "/erp-sale-order-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-sale-order/[id]:delete",
       "method": "DELETE",
       "path": "/erp-sale-order/[id]",
@@ -402,6 +582,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-sale-out-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-sale-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-out-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-sale-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-out-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-sale-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-out-item:get",
+      "method": "GET",
+      "path": "/erp-sale-out-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-out-item:post",
+      "method": "POST",
+      "path": "/erp-sale-out-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-sale-out/[id]:delete",
       "method": "DELETE",
       "path": "/erp-sale-out/[id]",
@@ -429,6 +639,36 @@
       "routeKey": "admin:erp-sale-out:post",
       "method": "POST",
       "path": "/erp-sale-out",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-return-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-sale-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-return-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-sale-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-return-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-sale-return-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-return-item:get",
+      "method": "GET",
+      "path": "/erp-sale-return-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-sale-return-item:post",
+      "method": "POST",
+      "path": "/erp-sale-return-item",
       "auth": "operator"
     },
     {
@@ -492,6 +732,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-stock-check-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-stock-check-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-check-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-stock-check-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-check-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-stock-check-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-check-item:get",
+      "method": "GET",
+      "path": "/erp-stock-check-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-check-item:post",
+      "method": "POST",
+      "path": "/erp-stock-check-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-stock-check/[id]:delete",
       "method": "DELETE",
       "path": "/erp-stock-check/[id]",
@@ -519,6 +789,36 @@
       "routeKey": "admin:erp-stock-check:post",
       "method": "POST",
       "path": "/erp-stock-check",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-in-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-stock-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-in-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-stock-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-in-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-stock-in-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-in-item:get",
+      "method": "GET",
+      "path": "/erp-stock-in-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-in-item:post",
+      "method": "POST",
+      "path": "/erp-stock-in-item",
       "auth": "operator"
     },
     {
@@ -552,6 +852,36 @@
       "auth": "operator"
     },
     {
+      "routeKey": "admin:erp-stock-move-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-stock-move-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-move-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-stock-move-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-move-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-stock-move-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-move-item:get",
+      "method": "GET",
+      "path": "/erp-stock-move-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-move-item:post",
+      "method": "POST",
+      "path": "/erp-stock-move-item",
+      "auth": "operator"
+    },
+    {
       "routeKey": "admin:erp-stock-move/[id]:delete",
       "method": "DELETE",
       "path": "/erp-stock-move/[id]",
@@ -579,6 +909,36 @@
       "routeKey": "admin:erp-stock-move:post",
       "method": "POST",
       "path": "/erp-stock-move",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-out-item/[id]:delete",
+      "method": "DELETE",
+      "path": "/erp-stock-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-out-item/[id]:get",
+      "method": "GET",
+      "path": "/erp-stock-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-out-item/[id]:put",
+      "method": "PUT",
+      "path": "/erp-stock-out-item/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-out-item:get",
+      "method": "GET",
+      "path": "/erp-stock-out-item",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:erp-stock-out-item:post",
+      "method": "POST",
+      "path": "/erp-stock-out-item",
       "auth": "operator"
     },
     {
