@@ -27,6 +27,7 @@ const path = require("node:path")
 const ROOT = path.resolve(__dirname, "..")
 const DECLARATION = path.join(ROOT, "packages", "shared", "contract", "admin-pages.json")
 const CONTRACTS = path.join(ROOT, "docs", "agent", "contracts.json")
+const LABELS = path.join(ROOT, "packages", "shared", "contract", "admin-nav.labels.json")
 const MENU_SEED = path.join(ROOT, "prisma", "data", "menus.seed-data.ts")
 const OUT = path.join(ROOT, "packages", "shared", "contract", "admin-nav.generated.ts")
 
@@ -137,6 +138,16 @@ function menuNameFor(slug, menuNames) {
   return undefined
 }
 
+/** 补名表：仅用于 agent 契约与上游菜单都给不出中文名的页面。 */
+function readLabelPatch() {
+  if (!fs.existsSync(LABELS)) return {}
+  try {
+    return JSON.parse(fs.readFileSync(LABELS, "utf8")).labels ?? {}
+  } catch {
+    return {}
+  }
+}
+
 function buildNav() {
   const declaration = readJson(DECLARATION)
   // 动态路由（`infra/online-runtime/[code]`）不是"能点的功能"，进导航只会生出死条目。
@@ -159,11 +170,14 @@ function buildNav() {
 
   const domainTitles = readDomainTitles()
   const menuNames = readMenuNames()
+  const labelPatch = readLabelPatch()
   const groups = new Map()
   for (const page of pages) {
     const [domain] = page.slug.split("/")
     const href = `/admin/${page.slug}`
-    const label = titleByRoute.get(href) ?? menuNameFor(page.slug, menuNames) ?? humanize(page.slug)
+    // 优先级：契约中文标题 → 补名表 → 上游菜单中文名 → 可读 slug
+    const label =
+      titleByRoute.get(href) ?? labelPatch[page.slug] ?? menuNameFor(page.slug, menuNames) ?? humanize(page.slug)
     if (!groups.has(domain)) groups.set(domain, [])
     groups.get(domain).push({ id: page.slug, href, label })
   }
