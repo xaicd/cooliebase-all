@@ -552,6 +552,26 @@ function pruneDomainReferenceLists(destRoot, plan) {
     if (doomed.length > 0) console.log(`[REACTOR PRUNE] 删除 ${doomed.length} 个引用了被裁域的路由/测试文件`)
   }
 
+  // 4.12) 裁剪改了 admin-pages.json，而 admin-nav.generated.ts / admin-page-registry.ts 是它的**派生物**。
+  //        不重建 → `admin:nav:check` 必挂（实测：base 档孵化后 check exit=1 → 裁决 BLOCKED，缺陷 D-G2-1）。
+  //        顺序：先按现存页面重建注册表（admin:pages），再由注册表生成侧栏导航（admin:nav）。
+  {
+    const steps = [
+      ["scripts/generate-admin-pages.cjs", "admin:pages"],
+      ["scripts/generate-admin-nav.cjs", "admin:nav"],
+    ]
+    for (const [script, label] of steps) {
+      const abs = path.join(destRoot, script)
+      if (!fs.existsSync(abs)) continue
+      try {
+        execFileSync(process.execPath, [abs, "--write"], { cwd: destRoot, stdio: "pipe" })
+        dropped.push(`${label}: 裁剪后重建派生物（D-G2-1）`)
+      } catch (err) {
+        dropped.push(`${label}: ⚠️ 重建失败 ${String(err && err.message).slice(0, 80)}`)
+      }
+    }
+  }
+
   if (dropped.length > 0) {
     console.log(`[REACTOR PRUNE] 剔掉 ${dropped.length} 处指向被裁域的引用`)
     for (const item of dropped.slice(0, 8)) console.log(`  - ${item}`)
