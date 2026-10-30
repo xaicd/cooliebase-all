@@ -77,7 +77,7 @@ const TRUNK = [
   ["quick", "pnpm harness quick [start|dev|docker]", "快速启动（本机 / docker）"],
   ["cmmi", "pnpm harness cmmi <子命令>", "CMMI 01~09 过程资产（list / new / asset / check）"],
   ["workflow", "pnpm harness workflow <子命令>", "工作流引擎（list / new / run / dry-run / check）"],
-  ["admin", "pnpm harness admin <pages|routes>", "Admin 页面与路由清单生成"],
+  ["admin", "pnpm harness admin <pages|nav|routes>", "Admin 页面、侧栏导航与路由清单生成"],
   ["sql", "pnpm harness sql <init|build>", "生成全量初始化 SQL"],
   ["serve", "pnpm harness serve", "运行生产构建（standalone）"],
   ["plugins", "pnpm harness plugins register", "插件登记"],
@@ -188,6 +188,7 @@ const GROUPS = {
   admin: {
     "": "admin:pages",
     pages: "admin:pages",
+    nav: "admin:nav",
     routes: "admin:routes:manifest",
   },
   sql: {

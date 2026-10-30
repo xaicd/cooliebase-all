@@ -5,6 +5,7 @@
 import { SystemMenuRepository, type SystemMenuRow } from "@/modules/system/backend/repositories/menu.repository"
 import { isPlatformControlMenu } from "@/modules/system/backend/services/tenant-menu-scope.service"
 import { SIDEBAR_COMPONENT_ROUTES } from "./sidebar-component-routes"
+import { ADMIN_NAV } from "@/modules/shared/contract/admin-nav.generated"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
 
 type MenuTreeNode = SystemMenuRow & { children: MenuTreeNode[] }
@@ -113,6 +114,19 @@ export class SystemMenuService {
   static async deleteMenu(input: { id: string }) { return this.delete(input.id) }
 
   static async getSidebarNav(input: { userId: string; isPlatformAdmin?: boolean }) {
+    // **平台管理员的导航以"生成的页面注册表"为真源**（`scripts/generate-admin-nav.cjs`
+    // → `ADMIN_NAV`），因为已实现的页面远多于上游菜单能映射到的：
+    // 实测上游菜单 + 手写 `SIDEBAR_COMPONENT_ROUTES` 只出 9 个入口，而声明了 472 个页面 ——
+    // 400+ 个功能"直连 URL 能开、界面上点不到"。非平台管理员仍走权限过滤的上游菜单。
+    if (input.isPlatformAdmin) {
+      return ADMIN_NAV.map((group) => ({
+        id: group.id,
+        title: group.title,
+        icon: "folder",
+        children: group.items.map((item) => ({ id: item.id, href: item.href, label: item.label, icon: "file", children: [] })),
+      }))
+    }
+
     const { SystemPermissionService } = await import("@/modules/system/backend/services/permission.service")
     type MenuNode = { id: string; name: string; permission: string | null; type: string; path: string | null; component: string | null; icon: string | null; visible: boolean; children: MenuNode[] }
     type SidebarItem = { id: string; href: string | null; label: string; icon: string; children: SidebarItem[] }

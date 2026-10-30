@@ -421,7 +421,9 @@ function MenuGroup({
   onToggleFavorite: (id: string, e: React.MouseEvent) => void
 }) {
   const hasActiveChild = group.children.some((item) => isActive(item, pathname))
-  const [open, setOpen] = useState<boolean>(Boolean(hasActiveChild || true))
+  // 默认折叠：导航已由页面注册表生成（18 组 / 470 项），全展开会把侧栏撑成一条长龙，
+  // 反而找不到东西。只展开"当前所在"的组，其余点开即用。
+  const [open, setOpen] = useState<boolean>(hasActiveChild)
 
   useEffect(() => {
     if (hasActiveChild) setOpen(true)

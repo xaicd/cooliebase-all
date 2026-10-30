@@ -249,6 +249,12 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **管理端导航（2026-10-30，能力面变化）**：侧栏改由**生成的页面注册表**产出
+  （`pnpm run admin:nav` → `packages/shared/contract/admin-nav.generated.ts`，18 组 / 470 项）。
+  此前侧栏读上游菜单 + 手写 `SIDEBAR_COMPONENT_ROUTES`（66 条）判断"有没有落地页"，
+  **只暴露 9 个入口**，而 `admin-pages.json` 声明了 472 个页面 —— 400+ 个功能"直连 URL 能开、
+  界面上点不到"。现由注册表派生导航，`admin:nav:check` 进 `check` 链（棘轮：导航与注册表必须一致）。
+
 - **统一生命周期入口**：新增 `pnpm run all`, `init:all`, `test:all` 与 `scripts/lifecycle.sh` 独立全生命周期执行器。
 - **基座**：`pnpm run check` exit=0；全量 `pnpm exec vitest run` **0 failed**。
   **易变数字不写死**：测试 files/tests 数、规范规则条数、接线路由数一律以命令输出为准
