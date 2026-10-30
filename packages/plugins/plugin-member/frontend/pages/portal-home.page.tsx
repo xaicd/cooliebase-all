@@ -2,6 +2,7 @@
 
 import React, { useEffect, useState } from "react"
 import { fetchAppearance, appearanceStyle, getToken, type Appearance } from "./portal-shared"
+import { apiPath } from "@/modules/shared/frontend/lib/request"
 
 /** C 端前台首页（落地）。消费外观配置呈现品牌/主题，供"C 端预览"指向 /portal。 */
 export default function PortalHomePage() {
@@ -19,19 +20,19 @@ export default function PortalHomePage() {
         <div className="flex items-center gap-2">
           {appearance?.logoUrl ? (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={appearance.logoUrl} alt="logo" className="h-7 w-7" />
+            <img src={apiPath(appearance.logoUrl)} alt="logo" className="h-7 w-7" />
           ) : (
             <span className="h-7 w-7 rounded" style={{ background: "var(--brand)" }} />
           )}
           <span className="text-lg font-bold">{appearance?.siteName ?? "商城"}</span>
         </div>
         <nav className="flex items-center gap-3 text-sm">
-          <a href="/portal" className="text-slate-600 hover:text-slate-900">首页</a>
+          <a href={apiPath("/portal")} className="text-slate-600 hover:text-slate-900">首页</a>
           {loggedIn ? (
-            <a href="/portal/profile" className="text-slate-600 hover:text-slate-900">我的</a>
+            <a href={apiPath("/portal/profile")} className="text-slate-600 hover:text-slate-900">我的</a>
           ) : (
             <a
-              href="/portal/login"
+              href={apiPath("/portal/login")}
               className="px-3 py-1.5 text-white"
               style={{ background: "var(--brand)", borderRadius: "var(--radius)" }}
             >
@@ -50,14 +51,14 @@ export default function PortalHomePage() {
         </p>
         <div className="mt-8 flex justify-center gap-3">
           <a
-            href="/portal/login"
+            href={apiPath("/portal/login")}
             className="px-5 py-2.5 text-white font-medium"
             style={{ background: "var(--brand)", borderRadius: "var(--radius)" }}
           >
             进入
           </a>
           <a
-            href="/portal/profile"
+            href={apiPath("/portal/profile")}
             className="px-5 py-2.5 font-medium border border-slate-300"
             style={{ borderRadius: "var(--radius)" }}
           >

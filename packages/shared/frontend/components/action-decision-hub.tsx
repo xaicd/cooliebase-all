@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect, useCallback } from "react"
 import type { AutopilotHeartbeat } from "../../backend/lib/agent-autopilot"
+import { apiPath } from "../lib/request"
 
 export interface ActionCardItem {
   id: string
@@ -33,7 +34,7 @@ export function ActionDecisionHub() {
   const fetchTelemetry = useCallback(async () => {
     setLoading(true)
     try {
-      const res = await fetch("/api/internal/autopilot")
+      const res = await fetch(apiPath("/api/internal/autopilot"))
       if (res.ok) {
         const json = await res.json()
         if (json.data) {
@@ -52,7 +53,7 @@ export function ActionDecisionHub() {
     fetchTelemetry()
 
     let es: EventSource | null = null
-    let pollTimer: NodeJS.Timeout | null = null
+    let pollTimer: ReturnType<typeof setInterval> | null = null
 
     if (typeof window !== "undefined" && typeof EventSource !== "undefined") {
       try {
@@ -99,7 +100,7 @@ export function ActionDecisionHub() {
   const handleExecuteAction = async (card: ActionCardItem) => {
     setExecutingId(card.id)
     try {
-      const res = await fetch("/api/internal/autopilot", {
+      const res = await fetch(apiPath("/api/internal/autopilot"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ heal: true, cardId: card.id }),

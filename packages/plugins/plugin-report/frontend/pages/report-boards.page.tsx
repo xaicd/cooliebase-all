@@ -4,6 +4,7 @@ import React, { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { projectProfile } from "@/shared/contract/project-profile"
 import { ActionDecisionHub } from "@/shared/frontend/components/action-decision-hub"
+import { apiPath } from "@/shared/frontend/lib/request"
 
 // 17 个微内核原生领域元数据
 const DOMAIN_MESH = [
@@ -84,7 +85,7 @@ export default function ReportBoardsPage() {
   const executeRealProbe = async () => {
     const start = performance.now()
     try {
-      const res = await fetch("/readyz", { cache: "no-store" })  // request-contract-exempt: /readyz 是健康探针，不是业务 API；不能套 401 跳转逻辑
+      const res = await fetch(apiPath("/readyz"), { cache: "no-store" })  // request-contract-exempt: /readyz 是健康探针，不是业务 API；不能套 401 跳转逻辑
       const elapsed = Math.round(performance.now() - start)
       setPingLatency(elapsed)
       addConsoleLog(`[PROBE] /readyz 探针校验通过，耗时: ${elapsed}ms (状态: ${res.status})`)

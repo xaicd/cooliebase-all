@@ -10,6 +10,7 @@ import {
   isDemoMode,
   type Appearance,
 } from "./portal-shared"
+import { apiPath } from "@/modules/shared/frontend/lib/request"
 
 /** C 端登录/注册页。预览（demo）模式下默认预填 demo/demo123，点"登录"即进，无需输入。 */
 export default function PortalLoginPage() {
@@ -35,7 +36,7 @@ export default function PortalLoginPage() {
         await memberRegister({ account, password, nickname: nickname || undefined })
       }
       await memberLogin(account, password)
-      window.location.href = "/portal/profile"
+      window.location.href = apiPath("/portal/profile")
     } catch (err: any) {
       setError(err?.message || "操作失败")
     } finally {
@@ -49,7 +50,7 @@ export default function PortalLoginPage() {
         <div className="flex items-center gap-2 mb-6 justify-center">
           {appearance?.logoUrl && (
             // eslint-disable-next-line @next/next/no-img-element
-            <img src={appearance.logoUrl} alt="logo" className="h-8 w-8" />
+            <img src={apiPath(appearance.logoUrl)} alt="logo" className="h-8 w-8" />
           )}
           <span className="text-xl font-bold">{appearance?.siteName ?? "商城"}</span>
         </div>

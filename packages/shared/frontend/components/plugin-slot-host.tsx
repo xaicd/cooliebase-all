@@ -19,6 +19,7 @@
  *   - 槽位 id 已由宿主按插件命名空间化，跨插件不会冲突。
  */
 import { useEffect, useState, type ComponentType } from "react"
+import { apiPath } from "../lib/request"
 
 export type PluginUiSlotType =
   | "page"
@@ -52,7 +53,7 @@ export function PluginSlotHost({ type, className }: { type: PluginUiSlotType; cl
 
   useEffect(() => {
     let cancelled = false
-    fetch("/api/v1/admin/plugins")
+    fetch(apiPath("/api/v1/admin/plugins"))
       .then((response) => response.json())
       .then((payload) => {
         if (cancelled) return

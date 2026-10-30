@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect, useMemo, useState } from "react"
-import { API, request } from "@/modules/shared/frontend/lib/request"
+import { API, request, apiPath } from "@/modules/shared/frontend/lib/request"
 
 type DataSource = { id: string; name: string; driver: string }
 type ReportResult = { columns: string[]; rows: Array<Record<string, unknown>>; truncated: boolean; durationMs: number; maxRows: number }
@@ -20,7 +20,7 @@ export default function OnlineTestPage() {
   useEffect(() => { setParameters((current) => Object.fromEntries(names.map((name) => [name, current[name] ?? ""]))) }, [names])
   useEffect(() => {
     const code = new URLSearchParams(window.location.search).get("definition")
-    if (code) window.location.replace(`/admin/infra/online-runtime/${encodeURIComponent(code)}`)
+    if (code) window.location.replace(apiPath(`/admin/infra/online-runtime/${encodeURIComponent(code)}`))
   }, [])
   const loadSources = async () => { const response = await request.get<DataSource[]>(`${API.REPORT_CUSTOM_SQL}/data-sources`); if (response.success && response.data) { setSources(response.data); setDataSourceId((current) => current || response.data[0]?.id || ""); setMessage(response.data.length ? "" : "暂无可用数据源，请先在数据源配置中添加受限只读账号。") } else setMessage(response.error ?? "数据源加载失败") }
   useEffect(() => { void loadSources() }, [])

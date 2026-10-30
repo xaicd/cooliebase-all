@@ -4,7 +4,7 @@ import React, { useState, useEffect, useMemo } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { BrandMark } from "@/shared/frontend/components/brand-mark"
-import { request } from "@/shared/frontend/lib/request"
+import { request, apiPath } from "@/shared/frontend/lib/request"
 import { I18nProvider, useI18n } from "@/shared/frontend/lib/i18n"
 import { LanguageSwitcher } from "@/shared/frontend/components/language-switcher"
 
@@ -43,7 +43,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
 
     // Auth guard
     const token = localStorage.getItem("cooliebase_token")
-    if (!token) { window.location.href = "/login"; return }
+    if (!token) { window.location.href = apiPath("/login"); return }
 
     try {
       const parts = token.split(".")
@@ -52,14 +52,14 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
         if (payload.exp && payload.exp * 1000 < Date.now()) {
           localStorage.removeItem("cooliebase_token")
           localStorage.removeItem("cooliebase_user")
-          window.location.href = "/login?expired=1"
+          window.location.href = apiPath("/login?expired=1")
           return
         }
       }
     } catch {
       localStorage.removeItem("cooliebase_token")
       localStorage.removeItem("cooliebase_user")
-      window.location.href = "/login"
+      window.location.href = apiPath("/login")
       return
     }
 
@@ -165,7 +165,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   const handleLogout = () => {
     localStorage.removeItem("cooliebase_token")
     localStorage.removeItem("cooliebase_user")
-    window.location.href = "/login"
+    window.location.href = apiPath("/login")
   }
 
   return (

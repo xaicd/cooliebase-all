@@ -6,8 +6,8 @@ import { z } from "zod"
  */
 export const siteAppearanceSchema = z.object({
   siteName: z.string().trim().min(1).max(60).default("CoolieBase Next 商城"),
-  logoUrl: z.string().trim().max(500).default("/logo.svg"),
-  faviconUrl: z.string().trim().max(500).default("/favicon.ico"),
+  logoUrl: z.string().trim().max(500).default("/branding/logo.svg"),
+  faviconUrl: z.string().trim().max(500).default("/branding/favicon.svg"),
   primaryColor: z
     .string()
     .trim()

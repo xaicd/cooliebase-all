@@ -3,7 +3,20 @@
 import React, { useState, useEffect, useRef } from "react"
 import Link from "next/link"
 import { projectProfile } from "@/shared/contract/project-profile"
-import { request, API } from "@/shared/frontend/lib/request"
+import { request, API, apiPath } from "@/shared/frontend/lib/request"
+
+/**
+ * 登录成功后的落地页。优先消费被拦截时守卫写入的 `?redirect=`（request.ts 的
+ * handleUnauthorized 会把当时的 pathname 带进来，**已含预览前缀**，apiPath 幂等不会重复拼）；
+ * 非法值（非站内相对路径、协议相对 `//`）一律回落默认指挥中枢，避免开放重定向。
+ */
+function postLoginPath(): string {
+  const fallback = apiPath("/admin/report/boards")
+  if (typeof window === "undefined") return fallback
+  const target = new URLSearchParams(window.location.search).get("redirect")
+  if (!target || !target.startsWith("/") || target.startsWith("//")) return fallback
+  return apiPath(target)
+}
 
 type BootstrapCredentials = { username: string; password: string }
 type AccessMode = "operator" | "agent" | "passkey"
@@ -49,16 +62,19 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
   ])
   const terminalEndRef = useRef<HTMLDivElement>(null)
 
-  // 滚动终端
+  // 滚动终端。**只滚日志框自身**（scrollTop），绝不能用 scrollIntoView ——
+  // 它会连同整个页面一起滚动，登录表单会被顶出视口，用户进来看到的是遥测面板。
   useEffect(() => {
-    terminalEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    const end = terminalEndRef.current
+    const box = end?.parentElement
+    if (box) box.scrollTop = box.scrollHeight
   }, [logs])
 
   // 实时探测网关存活与延迟
   const probeGateway = async () => {
     const start = performance.now()
     try {
-      const res = await fetch("/readyz", { cache: "no-store" })  // request-contract-exempt: /readyz 是健康探针，不是业务 API；不能套 401 跳转逻辑
+      const res = await fetch(apiPath("/readyz"), { cache: "no-store" })  // request-contract-exempt: /readyz 是健康探针，不是业务 API；不能套 401 跳转逻辑
       const elapsed = Math.round(performance.now() - start)
       setPingLatency(elapsed)
       if (res.ok) {
@@ -129,7 +145,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
         localStorage.setItem("cooliebase_auth_type", "operator")
 
         // 成功后直通 AI Agent Command Cockpit (数据大屏指挥中心)
-        window.location.href = "/admin/report/boards"
+        window.location.href = postLoginPath()
       } else {
         const msg = res.message || res.error || "鉴权失败，请核实凭据与所属租户"
         setError(msg)
@@ -176,7 +192,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
       )
       localStorage.setItem("cooliebase_auth_type", "agent")
       addLog("SUCCESS", "AGENT-MESH", "智能体凭据校验通过，直通命令控制中枢")
-      window.location.href = "/admin/report/boards"
+      window.location.href = postLoginPath()
     } catch {
       setError("智能体连接握手失败，请确认密钥格式")
       addLog("WARN", "AGENT-MESH", "智能体连接签名校验未通过")
@@ -205,7 +221,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
       )
       localStorage.setItem("cooliebase_auth_type", "passkey")
       setTimeout(() => {
-        window.location.href = "/admin/report/boards"
+        window.location.href = postLoginPath()
       }, 600)
     }, 1200)
   }
@@ -258,7 +274,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
             </Link>
             <span className="text-slate-700">|</span>
             <a
-              href="/api/v1/open/openapi"
+              href={apiPath("/api/v1/open/openapi")}
               target="_blank"
               rel="noreferrer"
               className="text-slate-400 hover:text-cyan-400 transition"

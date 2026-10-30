@@ -13,6 +13,7 @@ import {
   type MemberPublic,
   type PageSchema,
 } from "./portal-shared"
+import { apiPath } from "@/modules/shared/frontend/lib/request"
 import { SchemaDetailView, SchemaForm } from "@/modules/member/frontend/components/SchemaFieldRenderer"
 
 /** C 端用户中心。需登录；消费外观主题 + Schema 驱动的动态字段（后台加字段这里立刻出现）。 */
@@ -28,7 +29,7 @@ export default function PortalProfilePage() {
   useEffect(() => {
     fetchAppearance().then(setAppearance).catch(() => {})
     if (!getToken()) {
-      window.location.href = "/portal/login"
+      window.location.href = apiPath("/portal/login")
       return
     }
     fetchProfile()
@@ -40,7 +41,7 @@ export default function PortalProfilePage() {
         setError(e?.message || "加载失败")
         if (String(e?.message || "").includes("登录") || String(e?.message || "").includes("401")) {
           clearToken()
-          window.location.href = "/portal/login"
+          window.location.href = apiPath("/portal/login")
         }
       })
     // 拉取 member_user 的页面 Schema（后台加的字段）
@@ -49,7 +50,7 @@ export default function PortalProfilePage() {
 
   const logout = () => {
     clearToken()
-    window.location.href = "/portal"
+    window.location.href = apiPath("/portal")
   }
 
   const save = async () => {
@@ -72,7 +73,7 @@ export default function PortalProfilePage() {
   return (
     <div style={appearanceStyle(appearance)} className="min-h-screen bg-slate-50">
       <header className="flex items-center justify-between px-6 py-4 border-b border-slate-200 bg-white">
-        <a href="/portal" className="text-lg font-bold">{appearance?.siteName ?? "商城"}</a>
+        <a href={apiPath("/portal")} className="text-lg font-bold">{appearance?.siteName ?? "商城"}</a>
         <button onClick={logout} className="text-sm text-slate-500 hover:text-slate-800">退出登录</button>
       </header>
 
