@@ -1,0 +1,123 @@
+# Cooliebase All 活体业务本体注册表 (Living Ontology Specification)
+# 对标 Layer B Gate G8-1：实体（Object Types）与动词（Action Types）必须可机检、可回指真实代码。
+platform: "cooliebase-all"
+version: "1.0.0"
+lastUpdated: "2026-10-31"
+
+# M1: 核心领域实体 (Object Types)
+M1_Objects:
+  - key: "actions"
+    name: "actions"
+    domain: "infra"
+    source: "packages/domains/infra"
+  - key: "index"
+    name: "index"
+    domain: "infra"
+    source: "packages/domains/infra"
+  - key: "common"
+    name: "common"
+    domain: "infra"
+    source: "packages/domains/infra"
+  - key: "route"
+    name: "route"
+    domain: "infra"
+    source: "packages/domains/infra"
+  - key: "actions"
+    name: "actions"
+    domain: "system"
+    source: "packages/domains/system"
+  - key: "index"
+    name: "index"
+    domain: "system"
+    source: "packages/domains/system"
+  - key: "route"
+    name: "route"
+    domain: "system"
+    source: "packages/domains/system"
+
+# M-Actions: 闭环业务动词（Action Types）—— 与 routes/contract 一一对应，禁止悬空动词
+M_ActionTypes:
+  - key: "actions.read"
+    object: "actions"
+    verb: "read"
+    readonlySafe: true
+  - key: "actions.create"
+    object: "actions"
+    verb: "create"
+    readonlySafe: false
+  - key: "actions.update"
+    object: "actions"
+    verb: "update"
+    readonlySafe: false
+  - key: "index.read"
+    object: "index"
+    verb: "read"
+    readonlySafe: true
+  - key: "index.create"
+    object: "index"
+    verb: "create"
+    readonlySafe: false
+  - key: "index.update"
+    object: "index"
+    verb: "update"
+    readonlySafe: false
+  - key: "common.read"
+    object: "common"
+    verb: "read"
+    readonlySafe: true
+  - key: "common.create"
+    object: "common"
+    verb: "create"
+    readonlySafe: false
+  - key: "common.update"
+    object: "common"
+    verb: "update"
+    readonlySafe: false
+  - key: "route.read"
+    object: "route"
+    verb: "read"
+    readonlySafe: true
+  - key: "route.create"
+    object: "route"
+    verb: "create"
+    readonlySafe: false
+  - key: "route.update"
+    object: "route"
+    verb: "update"
+    readonlySafe: false
+  - key: "actions.read"
+    object: "actions"
+    verb: "read"
+    readonlySafe: true
+  - key: "actions.create"
+    object: "actions"
+    verb: "create"
+    readonlySafe: false
+  - key: "actions.update"
+    object: "actions"
+    verb: "update"
+    readonlySafe: false
+  - key: "index.read"
+    object: "index"
+    verb: "read"
+    readonlySafe: true
+  - key: "index.create"
+    object: "index"
+    verb: "create"
+    readonlySafe: false
+  - key: "index.update"
+    object: "index"
+    verb: "update"
+    readonlySafe: false
+  - key: "route.read"
+    object: "route"
+    verb: "read"
+    readonlySafe: true
+  - key: "route.create"
+    object: "route"
+    verb: "create"
+    readonlySafe: false
+  - key: "route.update"
+    object: "route"
+    verb: "update"
+    readonlySafe: false

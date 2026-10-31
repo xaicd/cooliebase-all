@@ -1,0 +1,20 @@
+# Cooliebase All 领域拓扑与本体映射 (Domain Topology)
+# 由 packages/domains/* 真实契约文件推导，禁止臆造；实体键 = contract/backend/routes 文件名主干。
+platform: "cooliebase-all"
+architecture: "TypeScript + Next.js 16 + React 19 + Prisma（单语言全栈同构）"
+domains:
+  - name: "infra"
+    title: "infra 域"
+    basePath: "packages/domains/infra"
+    entities:
+      - actions
+      - index
+      - common
+      - route
+  - name: "system"
+    title: "system 域"
+    basePath: "packages/domains/system"
+    entities:
+      - actions
+      - index
+      - route

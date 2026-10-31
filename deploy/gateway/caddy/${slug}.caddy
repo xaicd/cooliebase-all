@@ -1,0 +1,17 @@
+# Caddy 片段（平台默认自测 / Caddy 生产）—— 由层A 公用网关 import
+# 关键防坑：未命中的 API 必须真 404 JSON，严禁被 SPA 通配兜底成 HTML 200（helloworld9 事故同款）
+handle /${slug}/api/* {
+	reverse_proxy 127.0.0.1:${PORT} {
+		header_up Host {host}
+		header_up X-Forwarded-Proto {scheme}
+		header_up X-Forwarded-For {remote_host}
+		header_up X-Real-IP {remote_host}
+	}
+}
+handle /${slug}/* {
+	uri strip_prefix /${slug}
+	root * ${DIST_DIR}
+	try_files {path} /index.html
+	file_server
+}
+respond `{"error":"not found","code":"GATEWAY_NO_SUCH_API"}` 404

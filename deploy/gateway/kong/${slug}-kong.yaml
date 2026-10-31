@@ -1,0 +1,16 @@
+# Kong decK 声明式配置（跨集群多租户网关）
+_format_version: "3.0"
+services:
+  - name: ${slug}
+    url: http://127.0.0.1:${PORT}
+    routes:
+      - name: ${slug}-api
+        paths: ["/${slug}/api"]
+        strip_path: true
+        plugins:
+          - name: correlation-id
+          - name: rate-limiting
+            config: { minute: 600 }
+      - name: ${slug}-web
+        paths: ["/${slug}"]
+        strip_path: true

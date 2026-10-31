@@ -1,0 +1,32 @@
+{
+  "uri": "/${slug}/*",
+  "name": "${slug}-route",
+  "plugins": {
+    "proxy-rewrite": {
+      "regex_uri": [
+        "^/${slug}/(.*)",
+        "/$1"
+      ]
+    }
+  },
+  "upstream": {
+    "type": "roundrobin",
+    "nodes": {
+      "127.0.0.1:${PORT}": 1
+    },
+    "checks": {
+      "active": {
+        "http_path": "/api/health",
+        "healthy": {
+          "interval": 2,
+          "successes": 2
+        },
+        "unhealthy": {
+          "interval": 2,
+          "http_failures": 3
+        }
+      }
+    }
+  },
+  "desc": "APISIX 路由（云原生/金融中台）；未命中 API 由后端回 404 JSON，禁止回退 HTML"
+}

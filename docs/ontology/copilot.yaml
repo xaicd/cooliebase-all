@@ -1,0 +1,21 @@
+# Cooliebase All AI Copilot 侧边栏与安全沙箱规范 (Copilot Specification)
+version: "1.0.0"
+component:
+  name: "OntologyCopilotDrawer"
+  type: "React 19 / React Native (Expo)"
+  mountStrategy: "layout-floating-dock"
+  ariaLabel: "AI 业务与数据探查 Copilot"
+  zeroDeadButtons: true
+
+security:
+  readonlyOnly: true
+  allowedStatements:
+    - "SELECT"
+    - "WITH"
+  forbiddenStatements:
+    - "DROP"
+    - "DELETE"
+    - "UPDATE"
+    - "INSERT"
+    - "ALTER"
+  onViolation: "HTTP_403_FORBIDDEN"
