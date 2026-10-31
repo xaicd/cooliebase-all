@@ -1,0 +1,61 @@
+{
+  "feature": "in-app-ontology-copilot",
+  "domain": "system",
+  "type": "feature",
+  "window": {
+    "minutes": 15
+  },
+  "steps": [
+    {
+      "id": "S1",
+      "name": "预检: 环境指纹核验",
+      "command": "pnpm run fingerprint:verify",
+      "timeoutMs": 60000
+    },
+    {
+      "id": "S2",
+      "name": "预检: 21项工程门禁全绿",
+      "command": "pnpm run check",
+      "timeoutMs": 600000
+    },
+    {
+      "id": "S3",
+      "name": "业务冒烟与平台可用性探活",
+      "command": "pnpm run smoke:login",
+      "timeoutMs": 120000
+    },
+    {
+      "id": "S4",
+      "name": "数据库迁移发布",
+      "command": "pnpm exec prisma migrate deploy",
+      "timeoutMs": 600000,
+      "irreversible": true
+    },
+    {
+      "id": "S5",
+      "name": "实施与全链路自动化测试矩阵",
+      "command": "pnpm run test:matrix",
+      "timeoutMs": 600000
+    }
+  ],
+  "rollback": [
+    {
+      "id": "R1",
+      "name": "回退代码与工作区至稳定版本",
+      "command": "git checkout -- .",
+      "timeoutMs": 60000
+    },
+    {
+      "id": "R2",
+      "name": "环境指纹自愈核验",
+      "command": "pnpm run fingerprint:verify",
+      "timeoutMs": 60000
+    },
+    {
+      "id": "R3",
+      "name": "数据库一致性核实与防污染验证",
+      "command": "pnpm run verify:real-db -- --reuse",
+      "timeoutMs": 300000
+    }
+  ]
+}

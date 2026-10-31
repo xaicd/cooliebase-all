@@ -1,5 +1,6 @@
 import type { Metadata } from "next"
 import { projectProfile } from "@/shared/contract/project-profile"
+import { OntologyCopilotDrawer } from "@/shared/frontend/components/ontology-copilot-drawer"
 import "./globals.css"
 
 // metadata 在**服务端**求值，而 next.config.mjs 的 `env`（NEXT_PUBLIC_BASE_PATH）
@@ -27,7 +28,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="zh-CN" className="h-full">
-      <body className="h-full antialiased">{children}</body>
+      <body className="h-full antialiased">
+        {children}
+        <OntologyCopilotDrawer />
+      </body>
     </html>
   )
 }

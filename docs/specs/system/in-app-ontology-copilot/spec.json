@@ -1,0 +1,12 @@
+{
+  "name": "in-app-ontology-copilot",
+  "domain": "system",
+  "title": "底座内嵌活体本体自省与AI Copilot抽屉",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 3,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-10-31T09:54:43.735Z"
+}

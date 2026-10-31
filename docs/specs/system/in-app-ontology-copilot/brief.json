@@ -122,9 +122,9 @@
     {
       "id": "T3",
       "parent": "main",
-      "title": "前端 AI Copilot 抽屉组件与单元测试: 编写 src/components/OntologyCopilotDrawer.tsx 并在 layout.tsx 挂载，补齐 test/unit/ontology-copilot.test.ts 并在 tasks.md 完成核销",
+      "title": "前端 AI Copilot 抽屉组件与单元测试: 编写 packages/shared/frontend/components/ontology-copilot-drawer.tsx 并在 layout.tsx 挂载，补齐 test/unit/ontology-copilot.test.ts 并在 tasks.md 完成核销",
       "files": [
-        "src/components/OntologyCopilotDrawer.tsx",
+        "packages/shared/frontend/components/ontology-copilot-drawer.tsx",
         "src/app/layout.tsx",
         "test/unit/ontology-copilot.test.ts",
         "docs/specs/system/in-app-ontology-copilot/tasks.md"
