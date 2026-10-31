@@ -3,13 +3,13 @@
   "kind": "deps-audit-baseline",
   "note": "冻结的依赖漏洞欠债（ratchet）。门禁只拦**新增**；基线内的既有项如实展示、不阻断。用 `pnpm run deps:audit:baseline` 刷新，并逐条复核增量后再提交 —— 刷新基线等于接受这些洞。",
   "counts": {
-    "total": 10,
+    "total": 23,
     "runtime": 6,
     "bySeverity": {
       "critical": 1,
-      "high": 5,
-      "moderate": 3,
-      "low": 1
+      "high": 10,
+      "moderate": 8,
+      "low": 4
     }
   },
   "entries": [
@@ -30,6 +30,22 @@
       "patchedVersions": ""
     },
     {
+      "key": "glob@GHSA-3g3m-2fjr-6pw4",
+      "package": "glob",
+      "severity": "moderate",
+      "ghsa": "GHSA-3g3m-2fjr-6pw4",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=14.0.2"
+    },
+    {
+      "key": "minimatch@GHSA-g3hv-75wg-m249",
+      "package": "minimatch",
+      "severity": "moderate",
+      "ghsa": "GHSA-g3hv-75wg-m249",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=11.0.1"
+    },
+    {
       "key": "mysql2@GHSA-3f6p-5ww8-9rcr",
       "package": "mysql2",
       "severity": "high",
@@ -46,10 +62,98 @@
       "patchedVersions": ">=3.23.1"
     },
     {
+      "key": "node-forge@GHSA-4487-j8r4-4g2f",
+      "package": "node-forge",
+      "severity": "low",
+      "ghsa": "GHSA-4487-j8r4-4g2f",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-4642-5mcj-2rqw",
+      "package": "node-forge",
+      "severity": "low",
+      "ghsa": "GHSA-4642-5mcj-2rqw",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-525v-9gp9-w22h",
+      "package": "node-forge",
+      "severity": "moderate",
+      "ghsa": "GHSA-525v-9gp9-w22h",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-5cwg-6vw7-rj6p",
+      "package": "node-forge",
+      "severity": "moderate",
+      "ghsa": "GHSA-5cwg-6vw7-rj6p",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-5x38-2vff-x55p",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-5x38-2vff-x55p",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-6wvx-3r32-xmcg",
+      "package": "node-forge",
+      "severity": "moderate",
+      "ghsa": "GHSA-6wvx-3r32-xmcg",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-7wch-p9px-956x",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-7wch-p9px-956x",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
       "key": "node-forge@GHSA-86w9-cpqp-85rv",
       "package": "node-forge",
       "severity": "high",
       "ghsa": "GHSA-86w9-cpqp-85rv",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-8hrf-8g6f-7xwp",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-8hrf-8g6f-7xwp",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-h6cr-wjv9-3cpp",
+      "package": "node-forge",
+      "severity": "low",
+      "ghsa": "GHSA-h6cr-wjv9-3cpp",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-hqq3-7jhf-c5jx",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-hqq3-7jhf-c5jx",
+      "tier": "client-toolchain",
+      "patchedVersions": ">=1.4.1"
+    },
+    {
+      "key": "node-forge@GHSA-jc66-7q78-782g",
+      "package": "node-forge",
+      "severity": "high",
+      "ghsa": "GHSA-jc66-7q78-782g",
       "tier": "client-toolchain",
       "patchedVersions": ">=1.4.1"
     },

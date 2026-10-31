@@ -298,7 +298,7 @@
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：活跃 **20 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **规格库**：活跃 **21 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
 - **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
   但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与

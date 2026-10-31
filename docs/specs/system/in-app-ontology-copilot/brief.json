@@ -1,0 +1,136 @@
+{
+  "name": "in-app-ontology-copilot",
+  "domain": "system",
+  "title": "底座内嵌活体本体自省与AI Copilot抽屉",
+  "type": "feature",
+  "goal": "在 cooliebase-all 底座中落地内嵌活体本体自省路由 (/api/ontology)、只读 SQL 沙箱查询端点 (/api/copilot/query) 与前端 AI Copilot 抽屉组件，实现底座独立自治运行并满足层B G8 质检规范。",
+  "roles": [
+    {
+      "role": "企业系统操作员 (Business Operator)",
+      "can": "在业务界面点击右侧 Copilot 侧边栏，通过自然语言进行安全只读数据探查与业务动词触发"
+    },
+    {
+      "role": "系统管理员 / 审计员 (System Admin)",
+      "can": "访问 /api/ontology 端点自省查看本系统的实体 (M1)、动词 (M2)、不变量 (M3) 与状态流转 (M6) 拓扑"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "底座必须暴露 GET /api/ontology 端点，动态返回系统的实体、动词、规则与状态机元数据"
+    },
+    {
+      "priority": "P0",
+      "text": "底座必须提供 POST /api/copilot/query 端点，通过 AST 审计器强制仅限只读 SELECT 查询，并自动注入租户隔离"
+    },
+    {
+      "priority": "P1",
+      "text": "底座前端必须提供 <OntologyCopilotDrawer /> 侧边栏抽屉组件并在 layout.tsx 挂载，支持环境变量控制开关且无假按钮死穴"
+    }
+  ],
+  "constraints": [
+    "只读安全沙箱：/api/copilot/query 严禁执行任何 UPDATE、DELETE、DROP、ALTER 等写操作，禁止访问系统敏感表。",
+    "多租户隔离：所有查询与元数据自省必须遵循租户隔离原则（从会话取 tenant_id）。",
+    "MU 零死穴原则：前端抽屉所有操作按钮均有真实绑定的事件处理逻辑，杜绝空函数与假按钮。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm vitest run test/unit/ontology-copilot.test.ts` exit=0"
+    },
+    {
+      "check": "GET /api/ontology 返回 HTTP 200 及合法的 M1/M2/M3 元数据 JSON"
+    },
+    {
+      "check": "POST /api/copilot/query 对非 SELECT 写入语句拒绝执行并返回 403"
+    }
+  ],
+  "nonGoals": [
+    "不引入重量级外部向量数据库或专用图数据库。",
+    "不破坏 cooliebase-all 现有的 15 域架构与路由契约。"
+  ],
+  "architecture": "前端 (<OntologyCopilotDrawer />) -> POST /api/copilot/query -> SQL AST 校验器 -> 只读 DB Client；外部/内部 GET /api/ontology -> 领域扫描器 -> 输出系统活体本体元数据。",
+  "entities": [],
+  "invariants": [
+    {
+      "name": "SQL 只读不可变不变量",
+      "how": "AST 语法解析强断言 statement.type === 'Select'，非 Select 立即抛出 403 异常拒绝。"
+    },
+    {
+      "name": "租户隔离守卫",
+      "how": "SQL 解析后强制追加 tenant_id 过滤条件或在参数中绑定租户上下文。"
+    }
+  ],
+  "ui": [
+    "前端右侧可折叠浮动抽屉 <OntologyCopilotDrawer />，支持快捷提问、指标图表渲染与动词卡片确认。"
+  ],
+  "ops": [
+    "运行 `pnpm vitest run test/unit/ontology-copilot.test.ts` 确保全绿",
+    "通过 `pnpm run check` 保持 20 道门禁自洽"
+  ],
+  "risks": [
+    {
+      "risk": "恶意 SQL 注入穿透沙箱",
+      "mitigation": "采用多层防御：AST 解析校验 + 关键词正则黑名单 + 数据库只读账号/事务连接"
+    }
+  ],
+  "screens": [
+    {
+      "name": "全局布局侧边栏 / (admin-pages)/layout.tsx",
+      "wireframe": "[Header] -> [Main Content] -> [Right Floating Copilot Button & Drawer]"
+    }
+  ],
+  "interactions": [
+    "点击右下角 Copilot 浮标展开抽屉，输入自然语言查数，结果以表格/指标卡片呈现，点击关闭按钮或按 ESC 折叠抽屉。"
+  ],
+  "states": [
+    "加载中：抽屉内展示骨架屏波浪动效。",
+    "空数据：提示未查到相关领域数据，提供示例提问提示词。",
+    "出错：明确展示错误原因并允许一键重试。"
+  ],
+  "candidates": [
+    {
+      "name": "自研轻量 AST 只读沙箱与 Copilot 抽屉",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无"
+    }
+  ],
+  "benchmarks": [
+    "对标 sharptoolbox/ontology-driven-dev 的 code-paas 内嵌注册表与只读沙箱规范"
+  ],
+  "scan": [
+    "自研组件保持轻量原生，与 Next.js 16 + React 19 + Tailwind CSS 100% 契合"
+  ],
+  "licenseConclusion": "自研组件，无开源许可风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "内嵌活体本体自省路由落地: 创建 src/app/api/ontology/route.ts 动态扫描并输出当前系统的 M1/M2/M3/M6 自省元数据",
+      "files": [
+        "src/app/api/ontology/route.ts"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "只读 SQL 沙箱查询端点与安全防御: 创建 src/app/api/copilot/query/route.ts 实现仅限 SELECT 的 AST 审计、租户隔离过滤与硬行数限制",
+      "files": [
+        "src/app/api/copilot/query/route.ts"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "main",
+      "title": "前端 AI Copilot 抽屉组件与单元测试: 编写 src/components/OntologyCopilotDrawer.tsx 并在 layout.tsx 挂载，补齐 test/unit/ontology-copilot.test.ts 并在 tasks.md 完成核销",
+      "files": [
+        "src/components/OntologyCopilotDrawer.tsx",
+        "src/app/layout.tsx",
+        "test/unit/ontology-copilot.test.ts",
+        "docs/specs/system/in-app-ontology-copilot/tasks.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 15
+}
