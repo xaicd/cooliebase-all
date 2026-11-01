@@ -4,7 +4,7 @@
 //      + docs/agent/contracts.json（页面中文标题）
 //      + packages/*/*/contract/module.manifest.json（域显示名）
 //
-// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 470 个页面 ——
+// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 471 个页面 ——
 // 手写映射与页面注册表必然漂移。页面注册表是唯一真源，导航由它派生。
 
 export type AdminNavItem = { id: string; href: string; label: string }
@@ -208,6 +208,13 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { id: "erp/erp-sale-order-item", href: "/admin/erp/erp-sale-order-item", label: "ERP 销售订单项管理" },
       { id: "erp/erp-sale-return", href: "/admin/erp/erp-sale-return", label: "ERP 销售退货管理" },
       { id: "erp/erp-sale-return-item", href: "/admin/erp/erp-sale-return-item", label: "ERP 销售退货项管理" },
+    ],
+  },
+  {
+    id: "flipshop",
+    title: "翻牌小店",
+    items: [
+      { id: "flipshop/products", href: "/admin/flipshop/products", label: "商品管理" },
     ],
   },
   {

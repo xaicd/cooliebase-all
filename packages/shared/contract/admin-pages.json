@@ -2852,6 +2852,20 @@
       "kind": "page",
       "exportName": "WmsWarehouseListPage",
       "module": "@/modules/wms/frontend/pages/wms-warehouse-list.page"
+    },
+    {
+      "slug": "flipshop/products",
+      "kind": "page",
+      "exportName": "FlipProductListPage",
+      "module": "@/modules/flipshop/frontend/pages/products.page"
+    },
+    {
+      "slug": "flipshop/products/[id]",
+      "kind": "unknown"
+    },
+    {
+      "slug": "flipshop/products/new",
+      "kind": "unknown"
     }
   ]
 }

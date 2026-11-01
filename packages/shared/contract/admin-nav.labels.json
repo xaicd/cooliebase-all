@@ -108,6 +108,8 @@
 
     "scheme/factories": "工厂方案",
 
-    "wms/wms-home-statistics": "首页统计"
+    "wms/wms-home-statistics": "首页统计",
+
+    "flipshop/products": "商品管理"
   }
 }
