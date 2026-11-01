@@ -137,6 +137,12 @@
       ],
       "@/modules/mes": [
         "packages/plugins/plugin-mes"
+      ],
+      "@/modules/flipshop/*": [
+        "packages/plugins/plugin-flipshop/*"
+      ],
+      "@/modules/flipshop": [
+        "packages/plugins/plugin-flipshop"
       ]
     }
   },

@@ -11,8 +11,8 @@
 ## 硬约束（SOP Check 3 / 3.1 / 3.2）
 
 1. **零软链**：`find docs/ontology -type l` 必须为空；根目录不得再出现第二个 `ontology/`。
-2. **禁止臆造**：实体键必须能在 `packages/domains/*` 或 `apps/*` 中找到真实来源。
-3. **动词不悬空**：`M_ActionTypes` 的每个动词必须对应真实 route / contract。
+2. **禁止臆造**：实体键必须能在 `packages/domains/*`、`packages/plugins/plugin-*`（第一方业务插件）或 `apps/*` 中找到真实来源。
+3. **动词不悬空**：`M_ActionTypes` 的每个动词必须对应真实 route / contract；若声明了 `http`（`METHOD /path`），则该 route 文件必须存在并导出该方法（由 `scripts/ontology-gate.mjs` 校验）。
 4. **Copilot 只读**：`forbiddenStatements` 命中即 HTTP 403，网关与后端双拦。
 
 生成/校验：`node scripts/ontology-gate.mjs`（本仓 scripts 下，G8-1/G8-2/G8-3）。

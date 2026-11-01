@@ -38,6 +38,7 @@ export default defineConfig({
       "@/modules/online": path.resolve(__dirname, "packages/plugins/plugin-online"),
       "@/modules/mall": path.resolve(__dirname, "packages/plugins/plugin-mall"),
       "@/modules/mes": path.resolve(__dirname, "packages/plugins/plugin-mes"),
+      "@/modules/flipshop": path.resolve(__dirname, "packages/plugins/plugin-flipshop"),
       "@/modules/shop": path.resolve(__dirname, "packages/plugins/plugin-shop"),
       "@/modules": path.resolve(__dirname, "packages/domains"),
       "@": path.resolve(__dirname, "src"),

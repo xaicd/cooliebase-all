@@ -18,3 +18,8 @@ domains:
       - actions
       - index
       - route
+  - name: "flipshop"
+    title: "翻牌小店"
+    basePath: "packages/plugins/plugin-flipshop"
+    entities:
+      - product

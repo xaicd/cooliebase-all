@@ -34,6 +34,11 @@ M1_Objects:
     name: "route"
     domain: "system"
     source: "packages/domains/system"
+  - key: "product"
+    name: "商品"
+    domain: "flipshop"
+    source: "packages/plugins/plugin-flipshop"
+    table: "flip_product"
 
 # M-Actions: 闭环业务动词（Action Types）—— 与 routes/contract 一一对应，禁止悬空动词
 M_ActionTypes:
@@ -121,3 +126,26 @@ M_ActionTypes:
     object: "route"
     verb: "update"
     readonlySafe: false
+
+  # 翻牌小店 (flipshop) —— 商品最小闭环；http 声明即门禁校验点（G8-2 动词不悬空）
+  - key: "product.list"
+    object: "product"
+    verb: "list"
+    readonlySafe: true
+    http: "GET /api/v1/admin/flipshop/products"
+    contract: "flipshop.pageProduct"
+    permission: "flipshop:product:query"
+  - key: "product.detail"
+    object: "product"
+    verb: "get"
+    readonlySafe: true
+    http: "GET /api/v1/admin/flipshop/products/{id}"
+    contract: "flipshop.getProduct"
+    permission: "flipshop:product:query"
+  - key: "product.create"
+    object: "product"
+    verb: "create"
+    readonlySafe: false
+    http: "POST /api/v1/admin/flipshop/products"
+    contract: "flipshop.createProduct"
+    permission: "flipshop:product:create"

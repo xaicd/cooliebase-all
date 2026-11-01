@@ -1,8 +1,32 @@
 {
-  "generatedAt": "2026-10-07T00:08:57.585Z",
-  "routeCount": 91,
-  "operationCount": 173,
+  "generatedAt": "2026-11-01T12:31:33.458Z",
+  "routeCount": 93,
+  "operationCount": 176,
   "routes": [
+    {
+      "path": "/api/v1/admin/flipshop/products",
+      "operations": [
+        {
+          "method": "GET",
+          "protection": "wrapper"
+        },
+        {
+          "method": "POST",
+          "protection": "wrapper"
+        }
+      ],
+      "source": "src/app/api/v1/admin/flipshop/products/route.ts"
+    },
+    {
+      "path": "/api/v1/admin/flipshop/products/[id]",
+      "operations": [
+        {
+          "method": "GET",
+          "protection": "wrapper"
+        }
+      ],
+      "source": "src/app/api/v1/admin/flipshop/products/[id]/route.ts"
+    },
     {
       "path": "/api/v1/admin/infra/api-access-log",
       "operations": [
