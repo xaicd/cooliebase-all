@@ -21,7 +21,7 @@
  *
  * 用法：
  *   BASE_URL=http://localhost:8080/t4-ad808ad1 \
- *   ADMIN_USERNAME=supervip ADMIN_PASSWORD='Test@SuperVip2026!' \
+ *   ADMIN_USERNAME=supervip ADMIN_PASSWORD='Sv1p-sR7b03IfJXqE#2026' \
  *   node scripts/verify-zero-to-one.mjs
  */
 import fs from "node:fs"
@@ -31,7 +31,7 @@ import { fileURLToPath } from "node:url"
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..")
 const BASE = (process.env.BASE_URL || "http://localhost:8080/t4-ad808ad1").replace(/\/+$/, "")
 const USERNAME = process.env.ADMIN_USERNAME || "supervip"
-const PASSWORD = process.env.ADMIN_PASSWORD || "Test@SuperVip2026!"
+const PASSWORD = process.env.ADMIN_PASSWORD || "Sv1p-sR7b03IfJXqE#2026"
 
 const results = []
 function record(group, name, ok, detail) {

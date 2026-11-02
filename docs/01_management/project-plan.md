@@ -249,6 +249,12 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **登录页凭据泄露守门 + 种子口令轮换（2026-11-02，能力面变化 / web-3503-实例正在公开泄露-01.1）**：新增
+  `pnpm run admin:login:credential-leak:check`（`scripts/check-admin-login-credential-leak.cjs`，已入 check 链）。
+  3300 实例曾因登录页 SSR 预填 env 引导口令被匿名可读（supervip 口令暴露约 13.5h，凭据视同已泄露）——
+  现登录页**结构性不读** `ADMIN_BOOTSTRAP_PASSWORD`（回填为显式开关 `ADMIN_LOGIN_PREFILL`，默认关，且只回填用户名），
+  种子口令同步轮换（旧口令登录实测 401，新口令 200）。
+
 - **校验器 ↔ 物理 schema 对账（2026-10-30，能力面变化）**：新增 `pnpm run align:validators`
   （`scripts/align-validators-to-schema.mjs`）。生成的 `*CreateSchema` 此前**没有可对账的真源**
   （codegen import payload 不在本仓树内），实测 **9 个校验器 / 21 个字段**把物理 `NOT NULL`

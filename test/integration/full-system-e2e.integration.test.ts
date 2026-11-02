@@ -71,7 +71,7 @@ describe('SpaceX Grade: Full-Stack E2E & Lifecycle Matrix Verification', () => {
     expect(user).toBeDefined();
     expect(user.status).toBe('ACTIVE');
 
-    const inputHash = passwordHash('Test@SuperVip2026!', user.salt);
+    const inputHash = passwordHash('Sv1p-sR7b03IfJXqE#2026', user.salt);
     expect(inputHash).toBe(user.password);
 
     // 验证用户与角色的多对多绑定

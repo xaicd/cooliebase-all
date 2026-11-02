@@ -18,7 +18,8 @@ function postLoginPath(): string {
   return apiPath(target)
 }
 
-type BootstrapCredentials = { username: string; password: string }
+// password 恒为可选且 MUST NOT 由服务端下发（COOA-610.2：口令永不进响应体）。
+type BootstrapCredentials = { username: string; password?: string }
 type AccessMode = "operator" | "agent" | "passkey"
 
 interface TelemetryLog {
@@ -379,8 +380,8 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
                       <button
                         type="button"
                         onClick={() => {
+                          // 只回填用户名；口令一律由用户手输（COOA-610.2）
                           setUsername(bootstrapCredentials.username)
-                          setPassword(bootstrapCredentials.password)
                           setError("")
                         }}
                         className="text-[11px] px-2 py-0.5 rounded bg-cyan-500/20 hover:bg-cyan-500/30 text-cyan-300 font-mono border border-cyan-500/30 transition"
