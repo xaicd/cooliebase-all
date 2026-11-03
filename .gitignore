@@ -81,6 +81,21 @@ tmp/**
 # vercel
 .vercel
 
+# AI worktree 副本（2026-11-04 · COOA-794 G4 定位）
+#
+# 为什么必须忽略：`.claude/worktrees/` 下是 Claude worktree 的**完整副本**。
+# 实测某个客户船坞里该目录被 git 跟踪了 6,713 个文件 / 59 MB，
+# 其中 441 个是 `*.test.ts`。后果有两处，都不是"不好看"的问题：
+#   ① 测试文件计数口径失真 —— `git ls-files | grep '\.test\.ts$'` 得 938，
+#      而 vitest 实际只加载 497（938 − 441 个 worktree 副本）。守卫按 938 判定，
+#      报告按 497 声明 ⇒ 判定基准与现实脱节。
+#   ② `git ls-files` 输出膨胀到 1.22 MB，**超过 Node 默认 maxBuffer 1 MB**，
+#      导致读取它的守卫直接 `ENOBUFS` 崩掉（实测 3 条用例因此失败）。
+#
+# 母本此前缺这一条，客户船坞派生时一并漏带 ⇒ 缺陷随派生扩散。
+# 补在母本，治的是「根」而不是「这一艘船」。
+.claude/worktrees/
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts
