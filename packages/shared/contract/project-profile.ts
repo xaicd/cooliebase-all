@@ -19,6 +19,19 @@ export const projectProfileSchema = z.object({
   version: z.string().min(1).max(20),
   loginHeadline: z.string().min(1).max(40),
   loginTagline: z.string().min(1).max(120),
+  /**
+   * 登录页底部的信任标识（客户可见文案）。
+   * 为什么走档案而不是写死在页面里：层B 交付物是按客户项目白标生成的，写死的
+   * 文案必然与客户业务无关（且常含平台内部词，如「本体」—— 客户看不懂也不该看）。
+   * 由平台孵化时按项目填写 → 页面动态渲染（实测 2026-11-03 老板口径）。
+   *
+   * 有默认值：老档案（缺该键）不得让整个底座起不来 —— zod 解析失败 = 全站 500。
+   */
+  loginTrustBadges: z
+    .array(z.string().min(1).max(40))
+    .min(1)
+    .max(4)
+    .default(["全流程留痕 · 操作可追溯", "真实数据库 · 零假数据"]),
   branding: z.object({
     mark: z.string().min(1).max(2),
     logoSrc: z.string().min(1),

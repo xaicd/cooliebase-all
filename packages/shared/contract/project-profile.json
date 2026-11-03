@@ -6,6 +6,10 @@
   "version": "1.0.0",
   "loginHeadline": "CoolieBase All 基座平台",
   "loginTagline": "模块化单体与微服务平滑演进，开箱即用的全栈企业级研发基座。",
+  "loginTrustBadges": [
+    "全流程留痕 · 操作可追溯",
+    "真实数据库 · 零假数据"
+  ],
   "branding": {
     "mark": "C",
     "logoSrc": "/branding/logo.svg",

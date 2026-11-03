@@ -602,10 +602,10 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
               )}
             </div>
 
-            {/* 底部防御信息（人话口径：说清这套系统凭什么可信，不要写模型厂商名 + 英文黑话） */}
+            {/* 底部信任标识：走 project-profile 档案（按客户项目动态替换），不写死在页面里 */}
             <div className="mt-8 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>本体约束守护中 · 需求与模型逐条对账</span>
-              <span>真实数据库 · 零假数据</span>
+              <span>{projectProfile.loginTrustBadges[0]}</span>
+              <span>{projectProfile.loginTrustBadges[1] ?? projectProfile.loginTrustBadges[0]}</span>
             </div>
           </div>
 
