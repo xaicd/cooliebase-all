@@ -1,6 +1,9 @@
 "use client";
 
 import React, { useState } from "react";
+// 必须走 apiPath：Next 的 basePath **不会**改写代码里手写的绝对路径字符串。
+// 层B 交付物挂在 /<slug>/ 下时，裸 "/api/..." 会打到网关根 → 404（实测 2026-11-03）。
+import { apiPath } from "../lib/request";
 
 interface QueryResultData {
   sql: string;
@@ -54,7 +57,7 @@ export function OntologyCopilotDrawer() {
       const isSql = /^\s*(SELECT|WITH)\b/i.test(textToSend);
       const payload = isSql ? { sql: textToSend } : { prompt: textToSend };
 
-      const res = await fetch("/api/copilot/query", {
+      const res = await fetch(apiPath("/api/copilot/query"), {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(payload),
@@ -80,7 +83,7 @@ export function OntologyCopilotDrawer() {
     setLoading(true);
     setError(null);
     try {
-      const res = await fetch("/api/ontology");
+      const res = await fetch(apiPath("/api/ontology"));
       const json = await res.json();
       if (!res.ok || json.code !== 0) {
         setError(json.error || "获取本体自省数据失败");

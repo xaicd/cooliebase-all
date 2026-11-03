@@ -57,7 +57,10 @@ export function ActionDecisionHub() {
 
     if (typeof window !== "undefined" && typeof EventSource !== "undefined") {
       try {
-        es = new EventSource("/api/internal/autopilot/stream")
+        // 必须走 apiPath：Next 的 basePath **不会**改写代码里手写的绝对路径字符串
+        // （见 packages/shared/frontend/lib/request.ts 注释）。层B 交付物挂在
+        // /<slug>/ 下时，裸 "/api/..." 会打到网关根 → 404（实测 2026-11-03）。
+        es = new EventSource(apiPath("/api/internal/autopilot/stream"))
 
         es.onopen = () => {
           setStreamMode("sse")

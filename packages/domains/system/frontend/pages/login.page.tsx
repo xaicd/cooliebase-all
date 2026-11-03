@@ -602,10 +602,10 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
               )}
             </div>
 
-            {/* 底部防御信息 */}
+            {/* 底部防御信息（人话口径：说清这套系统凭什么可信，不要写模型厂商名 + 英文黑话） */}
             <div className="mt-8 pt-4 border-t border-slate-800/80 flex items-center justify-between text-[11px] font-mono text-slate-500">
-              <span>DeepSeek Harness Invariant Guarded</span>
-              <span>100% Real DB · 0 Fake Mock</span>
+              <span>本体约束守护中 · 需求与模型逐条对账</span>
+              <span>真实数据库 · 零假数据</span>
             </div>
           </div>
 
