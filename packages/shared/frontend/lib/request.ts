@@ -86,7 +86,7 @@ class RequestClient {
     localStorage.removeItem("cooliebase_token")
     localStorage.removeItem("cooliebase_user")
     const current = window.location.pathname
-    const loginPath = apiPath("/login")
+    const loginPath = apiPath("/admin/login")
     if (current !== loginPath) {
       window.location.href = loginPath + "?redirect=" + encodeURIComponent(current)
     }
