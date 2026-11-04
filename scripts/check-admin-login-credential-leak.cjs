@@ -37,7 +37,7 @@ const fs = require("fs")
 const path = require("path")
 
 const root = path.resolve(__dirname, "..")
-const LOGIN_PAGE = path.join(root, "src", "app", "login", "page.tsx")
+const LOGIN_PAGE = path.join(root, "src", "app", "(admin-login)", "admin", "login", "page.tsx")
 const LOGIN_FORM = path.join(root, "packages", "domains", "system", "frontend", "pages", "login.page.tsx")
 
 const violations = []

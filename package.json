@@ -53,7 +53,7 @@
     "init:all": "bash scripts/lifecycle.sh . install",
     "test:all": "vitest run test/unit test/integration packages scripts src && playwright test",
     "dev": "prisma generate && next dev -p 3200",
-    "build": "prisma generate && next build",
+    "build": "prisma generate && next build && cp -r public .next-cooliebase/standalone/ && cp -r .next-cooliebase/static .next-cooliebase/standalone/.next-cooliebase/",
     "start": "node .next-cooliebase/standalone/server.js",
     "lint": "next lint",
     "test": "vitest run",

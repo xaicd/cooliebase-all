@@ -193,7 +193,7 @@ export const CURATED_BOOKS: BookItem[] = [
   }
 ]
 
-export function BookStorePortal() {
+export function BookStorePortal({ initialCategory }: { initialCategory?: string } = {}) {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [searchQuery, setSearchQuery] = useState<string>("")
   const [readingBook, setReadingBook] = useState<BookItem | null>(null)
@@ -261,9 +261,11 @@ export function BookStorePortal() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
             <Link href={apiPath("/portal")} className="flex items-center gap-3">
-              <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">书</div>
+              <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
+                肆
+              </div>
               <div>
-                <span className="text-base font-bold text-slate-900 tracking-tight block leading-tight">电子书城</span>
+                <span className="text-base font-bold text-slate-900 tracking-tight block leading-tight">九夏书肆</span>
                 <span className="text-xs text-slate-500 block leading-tight font-mono">DIGITAL BOOKSTORE</span>
               </div>
             </Link>

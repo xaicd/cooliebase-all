@@ -43,7 +43,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
 
     // Auth guard
     const token = localStorage.getItem("cooliebase_token")
-    if (!token) { window.location.href = apiPath("/login"); return }
+    if (!token) { window.location.href = apiPath("/admin/login"); return }
 
     try {
       const parts = token.split(".")
@@ -52,14 +52,14 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
         if (payload.exp && payload.exp * 1000 < Date.now()) {
           localStorage.removeItem("cooliebase_token")
           localStorage.removeItem("cooliebase_user")
-          window.location.href = apiPath("/login?expired=1")
+          window.location.href = apiPath("/admin/login?expired=1")
           return
         }
       }
     } catch {
       localStorage.removeItem("cooliebase_token")
       localStorage.removeItem("cooliebase_user")
-      window.location.href = apiPath("/login")
+      window.location.href = apiPath("/admin/login")
       return
     }
 
@@ -165,7 +165,7 @@ function AdminLayoutInner({ children }: { children: React.ReactNode }) {
   const handleLogout = () => {
     localStorage.removeItem("cooliebase_token")
     localStorage.removeItem("cooliebase_user")
-    window.location.href = apiPath("/login")
+    window.location.href = apiPath("/admin/login")
   }
 
   return (
