@@ -1,0 +1,12 @@
+{
+  "name": "compat-manifest-single-source",
+  "domain": "infra",
+  "title": "compat-manifest 单一真源：把 deployment/apiPartitions/harness 声明并入真源并加机检堵住静默丢失",
+  "type": "bugfix",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 4,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-11-04T06:58:18.688Z"
+}

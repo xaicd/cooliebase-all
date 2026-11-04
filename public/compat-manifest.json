@@ -9,6 +9,50 @@
     "releasedAt": "2026-10-10",
     "note": "templateVersion tracks the TEMPLATE, not the hatched project. package.json version is the project's own and is deliberately not compared."
   },
+  "deployment": {
+    "supportedModes": [
+      "base-path",
+      "custom-domain"
+    ],
+    "defaultMode": "base-path",
+    "basePathEnvKey": "NEXT_PUBLIC_BASE_PATH",
+    "backendPrefixPattern": "/${slug}",
+    "gatewayStripPrefix": false
+  },
+  "apiPartitions": {
+    "admin": {
+      "prefix": "/api/v1/admin",
+      "auth": "bearer-jwt",
+      "audit": true,
+      "rateLimit": {
+        "qps": 100,
+        "dim": "userId"
+      }
+    },
+    "app": {
+      "prefix": "/api/v1/app",
+      "auth": "bearer-jwt",
+      "audit": false,
+      "rateLimit": {
+        "qps": 50,
+        "dim": "memberId"
+      }
+    },
+    "open": {
+      "prefix": "/api/v1/open",
+      "auth": "hmac-sha256",
+      "audit": true,
+      "rateLimit": {
+        "qps": 50,
+        "dim": "appKey"
+      }
+    }
+  },
+  "harness": {
+    "type": "standalone-lightweight",
+    "checkCommand": "pnpm harness:check",
+    "doctorCommand": "pnpm harness doctor"
+  },
   "toolchain": {
     "engine": {
       "node": "^20.19.0 || ^22.12.0 || >=24.0.0"

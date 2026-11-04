@@ -10,6 +10,7 @@
 const fs = require("fs")
 const path = require("path")
 const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
+const { REQUIRED_SECTIONS, validateRequiredSections } = require("./lib/compat-manifest-sections.cjs")
 
 const MANIFEST_REL = "packages/shared/contract/compat-manifest.json"
 
@@ -34,6 +35,16 @@ if (!manifest.framework?.role) fail("framework.role is required")
 
 const pkg = readJson("package.json")
 const deps = { ...pkg.dependencies, ...pkg.devDependencies }
+
+// ── 真源必备声明（COO-55-1-1）────────────────────────────────────────────
+// 背景：曾出现「只改根 compat-manifest.json（那只是**生成物**）、没改真源」的改动。
+// 真源缺声明 → 下一次 `surface:sync` 把根文件回写成真源内容 → 声明**静默丢失**；
+// 而 check 链里 `contracts:sync` 在前、`surface:check` 在后，漂移被自动"治好"，
+// 于是**没有任何门禁变红**（实测：COO-64 的 deployment / apiPartitions / harness
+// 35 行声明就是这样没的 —— 改的是生成物，下次回写按真源覆盖，门禁全绿，没人知道丢了）。
+// 这里把"必须存在的声明"钉死：丢失、漂移都变成红灯，而不是靠人眼发现。
+// 校验逻辑放在 scripts/lib/compat-manifest-sections.cjs —— 单测要能直接调它。
+validateRequiredSections(manifest, pkg)
 
 const declaredEngine = manifest.toolchain?.engine?.node
 if (declaredEngine !== pkg.engines?.node) {
@@ -156,6 +167,23 @@ for (const script of gateValues) {
   if (!pkg.scripts?.[script]) fail(`MCP server gate "${script}" is not a package.json script`)
 }
 
+// ── 生成物镜像必须与真源逐字节一致（漂移即红）────────────────────────────
+// 根 compat-manifest.json 与 public/compat-manifest.json 都是 `surface:sync` 的**生成物**
+// （真源 = packages/shared/contract/compat-manifest.json）。两者不一致 = 有人改了生成物，
+// 或者忘了跑 `pnpm surface:sync` —— 两种都要当场判红，而不是等下一次回写把改动吃掉。
+const MIRRORS = ["compat-manifest.json", "public/compat-manifest.json"]
+const truthRaw = fs.readFileSync(abs(MANIFEST_REL), "utf8")
+for (const rel of MIRRORS) {
+  const full = abs(rel)
+  if (!fs.existsSync(full)) {
+    fail(`mirror ${rel} is missing (run: node scripts/sync-agent-surface.cjs)`)
+    continue
+  }
+  if (fs.readFileSync(full, "utf8") !== truthRaw) {
+    fail(`mirror ${rel} drifted from ${MANIFEST_REL} (run: node scripts/sync-agent-surface.cjs)`)
+  }
+}
+
 console.log(
-  `[compat-manifest] PASS: template ${manifest.framework.templateVersion}, ${catalog.domains.length} domains, ${skillCount} skills, ${actualTools.length} MCP tools, ${(surface.gates || []).length} gates`,
+  `[compat-manifest] PASS: template ${manifest.framework.templateVersion}, ${catalog.domains.length} domains, ${skillCount} skills, ${actualTools.length} MCP tools, ${(surface.gates || []).length} gates, ${REQUIRED_SECTIONS.length} required sections, ${MIRRORS.length} mirrors`,
 )
