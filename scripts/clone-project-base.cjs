@@ -745,7 +745,32 @@ async function autoProvisionDatabase(targetDbName) {
   console.log("----------------------------------------------------------------")
   console.log(`[REACTOR DB] 正在连接 PostgreSQL 并自动初始化数据库: ${targetDbName}...`)
 
-  const { Client } = require("pg")
+  let Client
+  try {
+    Client = require("pg").Client
+  } catch (_localErr) {
+    // pg is not installed in current directory; probe potential runtime paths
+    const candidatePaths = [
+      path.resolve(__dirname, "../../cooliebase-all/node_modules/pg"),
+      path.resolve(process.env.HOME || "", "workspace/xaicd/cooliebase-all/node_modules/pg"),
+      path.resolve(process.env.COOLIE_HOME || "/opt/coolie", "current/node_modules/pg"),
+      path.resolve(process.env.COOLIE_HOME || "/opt/coolie", "toolchain/node_modules/pg"),
+    ]
+    for (const p of candidatePaths) {
+      try {
+        Client = require(p).Client
+        if (Client) break
+      } catch (_candidateErr) {
+        // Candidate directory does not contain pg; continue scanning next candidate
+      }
+    }
+  }
+
+  if (!Client) {
+    console.warn(`[REACTOR DB] ⚠️ 未找到 pg 模块（已跳过自动建库，可稍后进入目标目录运行 pnpm run db:provision 初始化数据库）`)
+    return
+  }
+
   const client = new Client({
     connectionString: resolvePgAdminUrl(),
   })
