@@ -28,7 +28,7 @@ const clientChannels = [
 ]
 
 export default function HomePage() {
-  const [viewMode, setViewMode] = useState<"portal" | "blueprint">("portal")
+  const [viewMode, setViewMode] = useState<"portal" | "blueprint">("blueprint")
   const [activeTab, setActiveTab] = useState<"quick-start" | "docker" | "domain">("quick-start")
   const [copied, setCopied] = useState(false)
 
@@ -90,6 +90,12 @@ export default function HomePage() {
               <span>GitHub 源码</span>
             </a>
 
+            <Link
+              href="/portal"
+              className="rounded-lg border border-indigo-200 bg-indigo-50 px-3.5 py-1.5 text-xs font-semibold text-indigo-700 shadow-sm transition hover:bg-indigo-100"
+            >
+              业务门面演示
+            </Link>
             <Link
               href="/login"
               className="rounded-lg bg-blue-600 px-4 py-1.5 text-xs font-semibold text-white shadow-sm transition hover:bg-blue-700 active:bg-blue-800"
