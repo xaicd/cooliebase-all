@@ -220,6 +220,12 @@ const GROUPS = {
     skills: "skills:sync",
     catalog: "catalog:sync:cooliebase",
   },
+  // 派生后的公开脚本可执行性自检（de-leak 清洗 × 母本公开脚本的耦合守卫）
+  workspace: {
+    "": "workspace:executability:check",
+    check: "workspace:executability:check",
+    smoke: "workspace:executability:smoke",
+  },
 }
 
 /**

@@ -11,7 +11,7 @@
  */
 const fs = require("node:fs")
 const path = require("node:path")
-const { ROOT, resolveSpecDir } = require("./lib/spec-resolver.cjs")
+const { ROOT, resolveSpecDir } = require("./lib/spec-path-resolver.cjs")
 
 const arg = (flag) => {
   const index = process.argv.indexOf(flag)

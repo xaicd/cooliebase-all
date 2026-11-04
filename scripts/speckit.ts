@@ -45,7 +45,7 @@ const {
   resolveSpecDir,
   getTargetSpecDir,
   listAllSpecs,
-} = require("./lib/spec-resolver.cjs")
+} = require("./lib/spec-path-resolver.cjs")
 
 // 参数解析助手
 const args = process.argv.slice(2)

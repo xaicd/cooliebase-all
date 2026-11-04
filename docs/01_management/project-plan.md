@@ -131,6 +131,7 @@
 | B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `pnpm run repo:columns:check`（323 仓储 / 324 表，0 违规） |
 | B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce；条数以 `standards:check` 输出为准；反向对照三条） |
 | B11 | **WBS 时效性** | 能力面变化（新增 script / 门禁 / 域）必须在同一次提交里更新计划 | ✅ | `pnpm run plan:freshness`（pre-commit 内执行；硬失败=能力面，软提示=触及 `packages/`） |
+| B12 | **派生后可执行性自检** | 公开脚本不得依赖会被 de-leak 清洗的母港私有文件；派生后必须能跑通 speckit 校验链 | ✅ | `pnpm run workspace:executability:check`（静态层：相对依赖逐条解析 + 私有文件族依赖判红）+ `pnpm run workspace:executability:smoke`（运行层：真跑 speckit.ts / check-specs-health / verify-task-commit）。**反向对照实测**：抽掉公开解析器 → 7 处断链判红 exit 1 |
 
 ### WS-C Agent 消费面
 
@@ -248,6 +249,21 @@
 **反向对照必须真的移除被检对象**，否则是自我安慰。
 
 ## 5. 当前进展快照（2026-10-21）
+
+- **母本不再下发会被 de-leak 清洗的文件（2026-11-04，能力面变化）**：
+  平台 de-leak 清洗会删掉母港私有规约机文件族（含 `scripts/lib/spec-resolver.cjs`），
+  而本母本派发到客户工作区的**公开**脚本硬依赖它 ⇒ 客户工作区的 `speckit.ts check` /
+  `specs:health` / `verify-task-commit` / `speckit:check` 必然 MODULE_NOT_FOUND，
+  pre-commit 全量门禁恒红，客户侧自证链不可用。
+  现：① 新增**公开**规格路径解析器 `scripts/lib/spec-path-resolver.cjs`（纯路径解析，
+  不含母港本体语义，只依赖 node 内置模块），8 个公开脚本全部改依赖它；
+  母本**不再下发** `scripts/lib/spec-resolver.cjs`（母本发了会被清洗的文件 = 每次派生都在删自己的文件）；
+  ② 新增 `pnpm run workspace:executability:check`（进 check 链）与
+  `pnpm run workspace:executability:smoke`（派生后跑三条代表命令），把
+  「清洗策略 × 母本公开脚本」的耦合变成**可机检**；
+  ③ `deps:audit` 新增 `DEPS_AUDIT=auto|required|skip`：私有 registry 无 audit 端点时
+  记为**不可判定**（写 `deps-audit-status.json` + 提示配置）而不是恒红阻断 ——
+  既不把环境缺失误判成供应链风险，也不把「没审成」说成「0 漏洞」。
 
 - **登录页凭据泄露守门 + 种子口令轮换（2026-11-02，能力面变化 / web-3503-实例正在公开泄露-01.1）**：新增
   `pnpm run admin:login:credential-leak:check`（`scripts/check-admin-login-credential-leak.cjs`，已入 check 链）。

@@ -11,7 +11,7 @@
  */
 const fs = require("node:fs")
 const path = require("node:path")
-const { ROOT, listAllSpecs } = require("./lib/spec-resolver.cjs")
+const { ROOT, listAllSpecs } = require("./lib/spec-path-resolver.cjs")
 
 function checkHealth() {
   const errors = []

@@ -15,11 +15,27 @@
  * 它严格强于「runtime 层不新增」，再拆一条只是重复计数。
  * 分层只用于**展示影响半径**，不作为第二套判据。
  *
+ * 「不可审计」与「0 漏洞」是两件事（实测事故，不是假想）:
+ *   私有 registry（如 https://xrobinai.cn/npm/）**没有 audit 端点**，
+ *   `pnpm audit` 直接报 `ERR_PNPM_AUDIT_ENDPOINT_NOT_EXISTS`。
+ *   那既不是「0 漏洞」，也不是「有漏洞」—— 它是**不可判定**。
+ *   旧实现把它当成「审计失败」直接抛错 ⇒ 客户工作区 pre-commit 全量门禁**恒红**，
+ *   任何提交只能靠 AGENT_ROUTE_SKIP=1 绕过 —— 这比放过真漏洞更坏（门禁被 habit 化）。
+ *   现在：不可判定 → **记为不可判定并提示配置**（写状态工件 + 明确告警），
+ *   默认**不**把环境缺失误判为供应链风险；要不要把「不可判定」也判红由环境显式决定。
+ *
+ * 模式（DEPS_AUDIT 环境变量，或同名命令行开关）:
+ *   auto     （默认）不可判定 → 记工件 + 告警 + 退出 0；能审计 → 照常棘轮
+ *   required 不可判定 → 判红（要求「必须可审计」，用于公共 registry 的 CI）
+ *   skip     完全跳过审计（记工件 + 告警 + 退出 0）
+ *
  * Usage:
  *   node scripts/check-deps-audit.cjs                 # 门禁（供 pnpm run check 调用）
  *   node scripts/check-deps-audit.cjs --json          # 机器可读
  *   node scripts/check-deps-audit.cjs --audit         # 打印全部，永不失败
  *   node scripts/check-deps-audit.cjs --write-baseline
+ *   DEPS_AUDIT=required node scripts/check-deps-audit.cjs   # 不可判定即判红
+ *   DEPS_AUDIT=skip    node scripts/check-deps-audit.cjs   # 完全跳过
  */
 
 const fs = require("fs")
@@ -30,6 +46,8 @@ const { ROOT } = require("./lib/domain-catalog.cjs")
 const { LOCKFILE_REL, hostReachablePackageNames } = require("./lib/pnpm-lock.cjs")
 
 const BASELINE_REL = "docs/architecture/artifacts/deps-audit-baseline.json"
+// 「不可判定」也要留痕：状态工件是这次审计**能不能判定**的唯一可查证据。
+const STATUS_REL = "docs/architecture/artifacts/deps-audit-status.json"
 // pnpm audit 要联网查通告库，给足时间。
 const AUDIT_TIMEOUT_MS = 180000
 
@@ -42,6 +60,25 @@ const PNPM = process.platform === "win32" ? "pnpm.cmd" : "pnpm"
 const TIER_RUNTIME = "runtime"
 const TIER_CLIENT = "client-toolchain"
 
+const MODE_AUTO = "auto"
+const MODE_REQUIRED = "required"
+const MODE_SKIP = "skip"
+
+/**
+ * 解析审计模式。优先级：命令行开关 > DEPS_AUDIT 环境变量 > 默认 auto。
+ * 未知取值不静默 —— 判红并列出合法取值（拼错的环境变量名必须看得见）。
+ */
+function resolveMode() {
+  if (process.argv.includes("--require-audit")) return MODE_REQUIRED
+  if (process.argv.includes("--skip-audit")) return MODE_SKIP
+  const raw = String(process.env.DEPS_AUDIT || "").trim().toLowerCase()
+  if (!raw) return MODE_AUTO
+  if (raw === MODE_AUTO || raw === MODE_REQUIRED || raw === MODE_SKIP) return raw
+  fail(
+    `unknown DEPS_AUDIT mode "${raw}". Expected one of: ${MODE_AUTO} | ${MODE_REQUIRED} | ${MODE_SKIP}.`,
+  )
+}
+
 function abs(rel) {
   return path.join(ROOT, ...rel.split("/"))
 }
@@ -50,11 +87,39 @@ function fail(message) {
   throw new Error(`[deps-audit] ${message}`)
 }
 
+/** 写「本次审计能不能判定」的状态工件（未纳入版本库 —— 它是每次运行的环境快照）。 */
+function writeStatus(status) {
+  const payload = {
+    version: 1,
+    kind: "deps-audit-status",
+    mode: status.mode,
+    status: status.status,
+    reason: status.reason || null,
+    detail: status.detail || null,
+    registry: status.registry || null,
+    checkedAt: new Date().toISOString(),
+    note:
+      "「undecidable」= 本次无法审计（registry 无 audit 端点等），"
+      + "既不等于 0 漏洞也不等于有漏洞；解除办法：换用带 audit 端点的 registry，"
+      + "或显式声明 DEPS_AUDIT=skip（接受不可审计）/ DEPS_AUDIT=required（不可判定即判红）。",
+  }
+  const full = abs(STATUS_REL)
+  fs.mkdirSync(path.dirname(full), { recursive: true })
+  fs.writeFileSync(full, `${JSON.stringify(payload, null, 2)}\n`)
+  return full
+}
+
 /**
  * 跑 pnpm audit。
  *
  * 关键：**有漏洞时 pnpm 自己返回非 0**，那不是工具失败 —— 绝不能据此判定，
  * 但也绝不能因为"没拿到结果"就当作 0 漏洞通过（那是静默放行）。
+ *
+ * 返回两种结果：
+ *   { ok: true, data }              审计成功，data 是 pnpm 的 JSON
+ *   { ok: false, undecidable: true } **不可判定**（registry 没有 audit 端点）—— 只在
+ *                                   明确识别到 ERR_PNPM_AUDIT_ENDPOINT_NOT_EXISTS 时才这么判；
+ *                                   其它失败（网络/工具坏了）仍然是硬失败，不许被降级成「不可判定」。
  */
 function runAudit() {
   const result = spawnSync(PNPM, ["audit", "--json"], {
@@ -66,12 +131,31 @@ function runAudit() {
       shell: process.platform === "win32",
   })
   const stdout = (result.stdout || "").trim()
+  const stderr = String(result.stderr || "").trim()
+  const combined = `${stdout}\n${stderr}`
+
+  // 私有 registry 没有 audit 端点 —— 这是**环境缺口**，不是供应链风险信号。
+  if (
+    combined.includes("ERR_PNPM_AUDIT_ENDPOINT_NOT_EXISTS")
+    || combined.includes("ERR_PNPM_NO_AUDIT_ENDPOINT")
+    || /audit endpoint[\s\S]{0,120}(doesn't exist|not exist)/i.test(combined)
+  ) {
+    const endpoint = (combined.match(/https?:\/\/\S+/) || [null])[0]
+    return {
+      ok: false,
+      undecidable: true,
+      reason: "audit-endpoint-not-exists",
+      registry: endpoint,
+      detail: combined.replace(/\s+/g, " ").slice(0, 600),
+    }
+  }
+
   if (!stdout) {
     const detail = String(result.stderr || result.error?.message || "").trim().slice(0, 400)
     fail(`pnpm audit produced no JSON output (exit=${result.status}). Refusing to treat this as "0 vulnerabilities". ${detail}`)
   }
   try {
-    return JSON.parse(stdout)
+    return { ok: true, data: JSON.parse(stdout) }
   } catch (error) {
     fail(`pnpm audit output is not JSON: ${error.message}`)
   }
@@ -90,8 +174,7 @@ function tierOf(advisory) {
   return HOST_REACHABLE.has(advisory.module_name) ? TIER_RUNTIME : TIER_CLIENT
 }
 
-function collectEntries() {
-  const data = runAudit()
+function collectEntries(data) {
   return Object.values(data.advisories || {})
     .map((advisory) => ({
       key: `${advisory.module_name}@${advisory.github_advisory_id || advisory.id}`,
@@ -118,8 +201,92 @@ function loadBaseline() {
   return JSON.parse(fs.readFileSync(full, "utf8"))
 }
 
-const entries = collectEntries()
+const MODE = resolveMode()
+
+/**
+ * 「不可判定」的统一出口。
+ *
+ * 纪律：**绝不把「没审计成」说成「0 漏洞」**（那是静默放行）；
+ * 同时也**绝不把环境缺失误判成供应链风险**（那是恒红阻断 → 门禁被绕过）。
+ * 正确姿势：显式记为 undecidable + 提示配置 + 由 DEPS_AUDIT 决定要不要判红。
+ */
+function exitUndecidable(audit) {
+  writeStatus({
+    mode: MODE,
+    status: "undecidable",
+    reason: audit.reason,
+    detail: audit.detail,
+    registry: audit.registry,
+  })
+  const message = [
+    `[deps-audit] UNDECIDABLE: 本次无法完成依赖漏洞审计（${audit.reason}）。`,
+    `  registry: ${audit.registry || "未知"}`,
+    `  已记状态工件: ${STATUS_REL}`,
+    `  这既不是「0 漏洞」也不是「有漏洞」—— 本次审计**不可判定**。`,
+    `  解法：① 换用带 audit 端点的 registry；② DEPS_AUDIT=skip 显式接受不可审计；`,
+    `        ③ DEPS_AUDIT=required 要求「不可判定」也判红（公共 registry 的 CI 用这条）。`,
+  ].join("\n")
+  if (asJson) {
+    console.log(
+      JSON.stringify(
+        {
+          kind: "deps-audit-report",
+          status: "undecidable",
+          mode: MODE,
+          reason: audit.reason,
+          registry: audit.registry || null,
+          totals: { advisories: null, runtime: null, clientToolchain: null, bySeverity: null },
+          advisories: [],
+          newAdvisories: [],
+          newRuntimeReachable: null,
+          unfixable: [],
+        },
+        null,
+        2,
+      ),
+    )
+  }
+  if (MODE === MODE_REQUIRED) {
+    console.error(message)
+    console.error("")
+    console.error("  DEPS_AUDIT=required：不可判定即判红。")
+    process.exit(1)
+  }
+  console.warn(message)
+  process.exit(0)
+}
+
+if (MODE === MODE_SKIP) {
+  writeStatus({
+    mode: MODE,
+    status: "skipped",
+    reason: "explicit-skip",
+    detail: "DEPS_AUDIT=skip —— 显式跳过依赖漏洞审计",
+  })
+  console.warn(
+    `[deps-audit] SKIPPED: DEPS_AUDIT=skip —— 已跳过依赖漏洞审计（状态已记 ${STATUS_REL}）。`
+    + `本次提交**未经**供应链 CVE 审计，自行承担该风险。`,
+  )
+  process.exit(0)
+}
+
+const audit = runAudit()
+if (!audit.ok) {
+  // runAudit 只在明确识别到「registry 没有 audit 端点」时返回不可判定；
+  // 其它失败在上面已经 fail() 了（硬失败，不许降级）。
+  exitUndecidable(audit)
+}
+
+const entries = collectEntries(audit.data)
 const runtimeEntries = entries.filter((entry) => entry.tier === TIER_RUNTIME)
+
+// 本次**可判定** —— 同样留痕，好让「上次到底审没审成」有据可查（工件不入版本库）。
+writeStatus({
+  mode: MODE,
+  status: "decidable",
+  reason: null,
+  detail: `审计成功：${entries.length} 条通告（runtime 可达 ${runtimeEntries.length} 条）`,
+})
 
 if (writeBaseline) {
   const baseline = {
@@ -154,6 +321,8 @@ const newRuntime = newEntries.filter((entry) => entry.tier === TIER_RUNTIME)
 
 const report = {
   kind: "deps-audit-report",
+  status: "decidable",
+  mode: MODE,
   baselineExists: fs.existsSync(abs(BASELINE_REL)),
   tierSource: LOCKFILE_REL,
   totals: {

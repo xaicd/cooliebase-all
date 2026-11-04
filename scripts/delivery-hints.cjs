@@ -11,7 +11,7 @@ const path = require("node:path")
 const { execFileSync } = require("node:child_process")
 
 const ROOT = path.resolve(__dirname, "..")
-const { listAllSpecs } = require("./lib/spec-resolver.cjs")
+const { listAllSpecs } = require("./lib/spec-path-resolver.cjs")
 
 const allSpecs = listAllSpecs().filter((s) => !s.isArchived)
 if (allSpecs.length === 0) {

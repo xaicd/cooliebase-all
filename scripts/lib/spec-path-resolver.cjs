@@ -1,7 +1,52 @@
+/**
+ * 公开规格路径解析器 (Public Spec Path Resolver)
+ * ============================================================================
+ * 为什么有它（真实事故，不是假想）:
+ *   平台对**客户工作区**执行 de-leak 清洗时，会删除「母港私有规约机文件族」
+ *   （scripts/speckit.cjs、scripts/lib/spec-resolver.cjs 等，见平台
+ *     server/src/services/harness-delivery-engine.ts 的 PRIVATE_SPEC_ENGINE_FILES）。
+ *   而底座母本派发到客户工作区的**公开**脚本
+ *   （scripts/speckit.ts、scripts/check-specs-health.cjs、scripts/verify-task-commit.cjs …）
+ *   原先硬依赖 `require("./lib/spec-resolver.cjs")`
+ *   ⇒ 客户工作区里整条 speckit 校验链必然 MODULE_NOT_FOUND，客户侧自证链断裂。
+ *
+ * 契约（本文件是**公开**资产，必须逐条守住）:
+ *   1. **纯路径解析**：只做「规格包在磁盘上的位置」求解，不含任何母港本体语义
+ *      （不含本体角色表 / 不含调用链引擎 / 不含商业交付项目子包扫描）。
+ *   2. **不得**依赖任何会被 de-leak 清洗的文件 —— 本文件只用 node 内置模块。
+ *   3. 公开脚本只许依赖本文件；`scripts/lib/spec-resolver.cjs` 属母港私有，
+ *      公开脚本一律不许再 require 它。
+ *   4. 新增公开脚本后，`pnpm run workspace:executability:check` 必须仍然绿
+ *      （该门禁会把「公开脚本依赖了会被清洗的文件」判红）。
+ *
+ * 母港（Layer A）侧若需要本体语义，用母港自己的 scripts/lib/spec-resolver.cjs，
+ * 两份文件互不引用、各自演化。
+ */
+
 const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "../..")
+
+/** 读 JSON 文件；损坏/不存在返回 null（不抛 —— 调用方决定如何降级）。 */
+function readJsonSafe(file) {
+  try {
+    return JSON.parse(fs.readFileSync(file, "utf8"))
+  } catch {
+    // 说明: 元数据文件可能损坏或正在被并发写入；解析失败时按「无元数据」处理，
+    // 绝不让一次坏 JSON 打断整仓规格扫描。
+    return null
+  }
+}
+
+/** 规格包元数据文件（按优先级取第一个存在的）。 */
+function readSpecMeta(dir) {
+  for (const name of ["spec.json", "feature.json", "brief.json"]) {
+    const meta = readJsonSafe(path.join(dir, name))
+    if (meta) return meta
+  }
+  return {}
+}
 
 /**
  * 智能解析规格包所在物理路径 (Spec Directory Resolver)
@@ -53,15 +98,13 @@ function resolveSpecDir(name, domain) {
     if (fs.existsSync(archiveDir)) {
       const quarterEntries = fs.readdirSync(archiveDir, { withFileTypes: true })
       for (const qEntry of quarterEntries) {
-        if (qEntry.isDirectory()) {
-          const domainDir = path.join(archiveDir, qEntry.name)
-          const domainEntries = fs.readdirSync(domainDir, { withFileTypes: true })
-          for (const dEntry of domainEntries) {
-            if (dEntry.isDirectory()) {
-              const candidate = path.join(domainDir, dEntry.name, name)
-              if (fs.existsSync(candidate)) return candidate
-            }
-          }
+        if (!qEntry.isDirectory()) continue
+        const domainDir = path.join(archiveDir, qEntry.name)
+        const domainEntries = fs.readdirSync(domainDir, { withFileTypes: true })
+        for (const dEntry of domainEntries) {
+          if (!dEntry.isDirectory()) continue
+          const candidate = path.join(domainDir, dEntry.name, name)
+          if (fs.existsSync(candidate)) return candidate
         }
       }
     }
@@ -86,7 +129,7 @@ function resolveSpecDir(name, domain) {
  */
 function getTargetSpecDir(name, domain) {
   if (!domain) {
-    throw new Error(`[spec-resolver] 创建规格包必须指定 --domain 参数`)
+    throw new Error(`[spec-path-resolver] 创建规格包必须指定 --domain 参数`)
   }
   return path.join(ROOT, "docs", "specs", domain, name)
 }
@@ -120,19 +163,10 @@ function listAllSpecs() {
         }
         // 检查该目录是否是规格包（包含 brief.json 或 spec.json 或 feature.json）
         const hasBrief = fs.existsSync(path.join(fullPath, "brief.json"))
-        const hasSpec = fs.existsSync(path.join(fullPath, "spec.json")) || fs.existsSync(path.join(fullPath, "feature.json"))
+        const hasSpec =
+          fs.existsSync(path.join(fullPath, "spec.json")) || fs.existsSync(path.join(fullPath, "feature.json"))
         if (hasBrief || hasSpec) {
-          let meta = {}
-          try {
-            if (fs.existsSync(path.join(fullPath, "spec.json"))) {
-              meta = JSON.parse(fs.readFileSync(path.join(fullPath, "spec.json"), "utf8"))
-            } else if (fs.existsSync(path.join(fullPath, "feature.json"))) {
-              meta = JSON.parse(fs.readFileSync(path.join(fullPath, "feature.json"), "utf8"))
-            } else if (hasBrief) {
-              meta = JSON.parse(fs.readFileSync(path.join(fullPath, "brief.json"), "utf8"))
-            }
-          } catch {}
-
+          const meta = readSpecMeta(fullPath)
           const specName = meta.name || entry.name
           if (!seen.has(specName)) {
             seen.add(specName)
@@ -161,15 +195,7 @@ function listAllSpecs() {
       if (!entry.isDirectory() || entry.name.startsWith(".") || entry.name === "sprint-prod") continue
       if (seen.has(entry.name)) continue
       const fullPath = path.join(featuresRoot, entry.name)
-      let meta = {}
-      try {
-        const descPath = path.join(fullPath, "spec.json")
-        const featPath = path.join(fullPath, "feature.json")
-        const briefPath = path.join(fullPath, "brief.json")
-        if (fs.existsSync(descPath)) meta = JSON.parse(fs.readFileSync(descPath, "utf8"))
-        else if (fs.existsSync(featPath)) meta = JSON.parse(fs.readFileSync(featPath, "utf8"))
-        else if (fs.existsSync(briefPath)) meta = JSON.parse(fs.readFileSync(briefPath, "utf8"))
-      } catch {}
+      const meta = readSpecMeta(fullPath)
 
       seen.add(entry.name)
       specs.push({

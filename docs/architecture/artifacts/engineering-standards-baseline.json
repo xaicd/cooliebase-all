@@ -207,7 +207,6 @@
         "scripts/clean-generated.cjs": 2,
         "scripts/clone-project-base.cjs": 2,
         "scripts/hatch-e2e.cjs": 2,
-        "scripts/lib/spec-resolver.cjs": 2,
         "scripts/project-init.cjs": 2,
         "scripts/run-all.cjs": 3,
         "scripts/upstream-radar.cjs": 1

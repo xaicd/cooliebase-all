@@ -27,7 +27,7 @@ if (!feature) {
   process.exit(2)
 }
 
-const { resolveSpecDir } = require("./lib/spec-resolver.cjs")
+const { resolveSpecDir } = require("./lib/spec-path-resolver.cjs")
 const specDir = resolveSpecDir(feature)
 if (!specDir) {
   console.error(`[task] 找不到特性/规格: ${feature}（在 docs/specs 与 docs/features 中均未找到）`)

@@ -4,7 +4,7 @@ import path from "node:path"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 const ROOT = path.resolve(__dirname, "../..")
-const { resolveSpecDir, listAllSpecs } = require("../../scripts/lib/spec-resolver.cjs")
+const { resolveSpecDir, listAllSpecs } = require("../../scripts/lib/spec-path-resolver.cjs")
 
 const SPEC_NAME = "__agent_test_spec__"
 const DOMAIN = "mall"

@@ -204,6 +204,8 @@ apps/cooliebase
 # 运行期证据快照: 每次跑扫描/压测都会变，作为流水线产物而非源
 /docs/architecture/artifacts/security-scan-result.json
 /docs/architecture/artifacts/load-test-result.json
+# 依赖审计「可不可判定」状态: 每次审计都会变（环境快照），作为流水线产物而非源
+/docs/architecture/artifacts/deps-audit-status.json
 
 # 忽略 Axure 导出原型包中庞大的静态库资源，防止 Git 膨胀
 .kiro/specs/**/prototypes/axure/resources/

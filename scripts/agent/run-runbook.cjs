@@ -31,7 +31,7 @@ if (!feature) {
   process.exit(2)
 }
 
-const { resolveSpecDir } = require("../lib/spec-resolver.cjs")
+const { resolveSpecDir } = require("../lib/spec-path-resolver.cjs")
 const specDir = resolveSpecDir(feature)
 if (!specDir) {
   console.error(`[runbook] 找不到特性/规格: ${feature}`)

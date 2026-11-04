@@ -282,7 +282,7 @@ function main() {
   let scoped = null
   let specDir = null
   if (feature) {
-    const { resolveSpecDir } = require("./lib/spec-resolver.cjs")
+    const { resolveSpecDir } = require("./lib/spec-path-resolver.cjs")
     specDir = resolveSpecDir(feature)
     if (!specDir) {
       console.error(`[delivery] 找不到特性/规格: ${feature}（已在 docs/specs 与 docs/features 中检索）`)

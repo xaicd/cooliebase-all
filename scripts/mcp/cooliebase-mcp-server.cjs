@@ -537,7 +537,7 @@ const TOOLS = [
       additionalProperties: false,
     },
     run(args) {
-      const { listAllSpecs } = require("../lib/spec-resolver.cjs")
+      const { listAllSpecs } = require("../lib/spec-path-resolver.cjs")
       const all = listAllSpecs()
       const filtered = args.domain ? all.filter((s) => s.domain === args.domain) : all
       return { count: filtered.length, specs: filtered }
