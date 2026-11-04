@@ -1,0 +1,189 @@
+{
+  "name": "workspace-executability-purge-scope",
+  "domain": "infra",
+  "title": "派生后可执行性门禁口径对齐平台 cleanWorkspaceLeaks 全量清洗面（补 package.json 维度）",
+  "type": "feature",
+  "goal": "母本侧派生自检门禁 scripts/check-workspace-executability.cjs 的『清洗口径』必须与平台 cleanWorkspaceLeaks 的**全量清洗面**一致（不再只认 6 条母港规约机路径），并补上 package.json 维度：平台清洗会**整键删掉** harness / speckit 等公开 script 键 ⇒ 命令变成『不存在』（静默消失，不是报错），这条路径底座原先完全看不见。现在口径收窄 / 键被删 / 公开脚本引用被清洗文件（含 exec 形态）都在派生后当场变红，而不是留给客户踩。",
+  "roles": [
+    {
+      "role": "平台派生流水线（SRE / Core SWE）",
+      "can": "刷新母本快照后，派生工作区直接跑 workspace:executability:smoke 拿到 source=workspace-gate 的真判定，不再依赖覆盖面更窄的平台侧静态兜底"
+    },
+    {
+      "role": "底座维护者（门禁作者）",
+      "can": "只改 scripts/lib/workspace-executability-scope.cjs 一处口径常量即可对齐平台清洗面，机检口径可审、可单测"
+    },
+    {
+      "role": "客户侧工程负责人",
+      "can": "在派生工作区里立刻判定『公开入口是否已被平台清洗悄悄删掉』，命令消失会当场红灯而不是静默"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "新增 scripts/lib/workspace-executability-scope.cjs 作为清洗口径**单一真源**：把平台 cleanWorkspaceLeaks 的全量清洗面镜像成机检常量，拆成『无条件删除』（scripts/harness.sh、8 个 .agents/skills/<role> 内部角色包、母港 server/src/services 两文件）与『按来源鉴别删除』（母港规约机 6 条，保守口径全列）；同时声明必须留存的公开 script 键（harness / speckit）"
+    },
+    {
+      "priority": "P0",
+      "text": "升级 scripts/check-workspace-executability.cjs：① 静态层口径换成平台全量清洗面；② 新增 package.json 维度（script 值引用被清洗文件 ⇒ 判红 / 必须留存的公开键缺失 ⇒ 判红 / 生效口径比平台已知清洗面窄 ⇒ 自判红）；③ 新增『路径字面量依赖』扫描（exec / spawn / readFile 形态的真实依赖，旧门禁看不见）"
+    },
+    {
+      "priority": "P0",
+      "text": "本规格随 COO-55-1-2-1 落到**母本仓 main**：新版门禁（脚本 + 口径真源 + 反向对照单测）推到母本远端，并刷新平台母本快照 /opt/coolie/blueprints/cooliebase-all，使派生工作区能直接跑 workspace:executability:smoke"
+    },
+    {
+      "priority": "P1",
+      "text": "补 test/unit/workspace-executability-purge-scope.test.ts：13 条断言，每条正面断言都配反向对照（探针键引用被清洗文件 / 公开键被删 / exec 形态依赖 / 口径被收窄，四条必红对照）"
+    }
+  ],
+  "constraints": [
+    "不改平台侧接线：COO-55-1-2 已在平台仓完成（coolie @ f3ef139d10），本规格只管底座侧产物与快照刷新。",
+    "不改判定口径的『语义』：若新版门禁在派生侧误报红（例如依赖未安装被判断链），回单平台侧 SRE 处置，不在本规格内私改口径。",
+    "偏严不假绿：口径取『平台全量清洗面』的保守并集，宁可多红，不允许口径收窄（口径收窄 = 门禁变弱 = 假绿）。",
+    "不降级：不为了通过门禁把必填口径改成可选、加开关或用 AGENT_ROUTE_SKIP 绕过。",
+    "零对外契约变更：不改对外 API、数据库结构与运行时行为；只补门禁静态判定与文档口径。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0（母本仓全量静态门禁链全绿）"
+    },
+    {
+      "check": "`node scripts/check-workspace-executability.cjs` exit=0 且输出 PASS；`node scripts/check-workspace-executability.cjs --run` exit=0（运行层 4 条探针全部可启动）"
+    },
+    {
+      "check": "`pnpm exec vitest run test/unit/workspace-executability-purge-scope.test.ts` 13/13 PASS（含四条必红反向对照）"
+    },
+    {
+      "check": "母本仓 main 上存在 scripts/check-workspace-executability.cjs 与 scripts/lib/workspace-executability-scope.cjs，git log 能看到等价于 b45a3a6 的改动；package.json 含 workspace:executability:check / workspace:executability:smoke 两个键"
+    },
+    {
+      "check": "刷新后 /opt/coolie/blueprints/cooliebase-all/scripts/check-workspace-executability.cjs 存在；派生工作区跑平台侧 runWorkspaceExecutabilitySmoke ⇒ source=workspace-gate（不再走 platform-static 兜底）"
+    }
+  ],
+  "nonGoals": [
+    "不改平台仓的派生流水线接线（cleanWorkspaceLeaks 之后自动跑冒烟）—— 已由 COO-55-1-2 完成。",
+    "不新增或删除任何 npm script，不新增域，不改 compat-manifest 门禁集合（能力面零变化）。",
+    "不把母本自身的公开脚本迁移到新路径 —— 本次只改门禁的判定口径与覆盖面。",
+    "不处理平台 cleanWorkspaceLeaks 本身的实现缺陷（若有，另开工单）。"
+  ],
+  "architecture": "数据流：平台 server/src/services/harness-delivery-engine.ts 的 cleanWorkspaceLeaks（清洗面 + package.json 改写） ──镜像──▶ 底座 scripts/lib/workspace-executability-scope.cjs（口径单一真源，常量 + resolvePurgeTargets + auditPackageJson） ──消费──▶ 底座 scripts/check-workspace-executability.cjs（静态层：相对依赖解析 + 路径字面量依赖 + package.json 维度 + 口径收窄自检；运行层：真跑公开命令探针） ──产出──▶ --run --json 报告（kind=workspace-executability-report，failures/warnings/probes） ──透传──▶ 平台 packages/harness/src/delivery/workspace-executability.ts 的 runWorkspaceExecutabilitySmoke（主路径 source=workspace-gate；门禁缺席时退回 platform-static 静态兜底）。依赖方向单向：平台 → 口径真源 → 门禁脚本 → 报告；平台**不** import 底座实现（只透传命令与解析 JSON），口径真源单独成模块以便单测直接调用。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "不涉及数据库表；改动只落在门禁脚本、口径真源模块、单测与文档"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "口径不得比平台清洗面窄",
+      "how": "resolvePurgeTargets() 比对生效口径与 PLATFORM_CLEAN_SURFACE，缺条目即以 purge-scope-narrower-than-platform 判红（口径收窄 = 门禁变弱 = 假绿）"
+    },
+    {
+      "name": "公开 script 键不得被清洗后静默消失",
+      "how": "auditPackageJson() 断言 harness / speckit 必须在 package.json 中；缺失即 public-script-key-missing 判红"
+    },
+    {
+      "name": "公开脚本不得依赖任何会被清洗的文件",
+      "how": "静态层同时扫 require/import 依赖与路径字面量依赖（exec / spawn / readFile 形态），命中清洗面即判红"
+    },
+    {
+      "name": "偏严只多红、不假绿",
+      "how": "按来源鉴别的条目（scripts/speckit.cjs、scripts/lib/spec-resolver.cjs 等）保守全列；底座母本当前不含这 6 个文件 ⇒ 本仓无假红"
+    }
+  ],
+  "ui": [
+    "不涉及 UI 调整（纯门禁脚本 + 口径真源 + 单测 + 文档口径）"
+  ],
+  "ops": [
+    "母本侧复现与验证：node scripts/check-workspace-executability.cjs（静态层）、node scripts/check-workspace-executability.cjs --run（运行层探针）、pnpm exec vitest run test/unit/workspace-executability-purge-scope.test.ts（13 条断言 + 四条反向对照）",
+    "反向对照口径：DE_LEAK_PRIVATE_FILES=scripts/harness.sh ⇒ 口径收窄自检判红（exit 1）",
+    "平台侧复现与验证：刷新母本快照后跑 runWorkspaceExecutabilitySmoke(workspaceDir) ⇒ source=workspace-gate；platform 仓的记录脚本 node scripts/blueprints-record.mjs --check 用于核对快照与本地母本 HEAD 是否一致"
+  ],
+  "risks": [
+    {
+      "risk": "保守口径（按来源鉴别的 6 条全列）在底座母本产生假红",
+      "mitigation": "已机检：母本与派生工作区均不含这 6 个文件（scripts/speckit.cjs、scripts/check-contracts.mjs、scripts/lib/spec-resolver.cjs、scripts/lib/spec-ontology-driver.cjs、scripts/lib/speckit-issue-verifier.cjs、scripts/lib/ontology-callchain-engine.cjs）⇒ 本仓零假红；口径注释写清「平台已改来源鉴别」，避免下一个维护者照过期事实决策"
+    },
+    {
+      "risk": "平台清洗面继续扩张 ⇒ 底座口径再次落后（口径收窄 = 假绿）",
+      "mitigation": "口径真源是单一常量文件，且有 purge-scope-narrower-than-platform 自判红 + 反向对照单测；平台侧口径变更时只需改该常量并跑单测"
+    },
+    {
+      "risk": "刷新母本快照会影响之后所有新建客户工作区的模板版本",
+      "mitigation": "刷新只带入门禁脚本与口径真源（不改任何 npm script / 域 / 对外契约）；刷新后立即重跑一次派生冒烟，好样本应绿"
+    }
+  ],
+  "screens": [
+    {
+      "name": "无界面变更",
+      "wireframe": "不涉及 UI（门禁脚本与机检）"
+    }
+  ],
+  "interactions": [
+    "不涉及交互模式变更"
+  ],
+  "states": [
+    "加载中：不涉及。",
+    "空数据：不涉及。",
+    "出错：门禁以 exit 1 + 逐条失败项（kind/file:line/detail）输出，不静默吞掉。",
+    "无权限：不涉及。"
+  ],
+  "candidates": [
+    {
+      "name": "口径真源独立成模块（scripts/lib/workspace-executability-scope.cjs）+ 门禁脚本消费",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无（仓内自有代码）"
+    },
+    {
+      "name": "把口径常量继续塞在门禁脚本里",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "单测无法直接调用（import 即跑全仓校验），口径变更难被反向对照覆盖"
+    }
+  ],
+  "benchmarks": [
+    "同类做法：把『平台清洗策略』做成可机检镜像清单（single source of truth）而不是靠文档同步 —— 本仓 compat-manifest 单一真源（scripts/lib/compat-manifest-sections.cjs）是同源先例"
+  ],
+  "scan": [
+    "未引入任何第三方库：口径真源与门禁脚本均为仓内 node:cjs 模块，零新增依赖"
+  ],
+  "licenseConclusion": "无引入外部第三方库风险，可商用，零传染性",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "新增口径真源模块 scripts/lib/workspace-executability-scope.cjs（平台 cleanWorkspaceLeaks 全量清洗面镜像 + package.json 审计函数）",
+      "files": [
+        "scripts/lib/workspace-executability-scope.cjs"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "升级门禁脚本 scripts/check-workspace-executability.cjs：口径换全量清洗面 + package.json 维度 + 路径字面量依赖扫描",
+      "files": [
+        "scripts/check-workspace-executability.cjs"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "补反向对照单测 test/unit/workspace-executability-purge-scope.test.ts（13 条断言，四条必红对照）",
+      "files": [
+        "test/unit/workspace-executability-purge-scope.test.ts"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "口径同步到文档（计划 B12 行）+ 母本 main 提交并推远端 + 刷新平台母本快照 /opt/coolie/blueprints/cooliebase-all + 派生冒烟复验（source=workspace-gate）",
+      "files": [
+        "docs/01_management/project-plan.md",
+        "docs/05_verification/workspace-executability-purge-scope-evidence.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4",
+  "windowMinutes": 45
+}

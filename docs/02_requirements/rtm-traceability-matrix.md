@@ -59,7 +59,7 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 
 合计测试文件 **446**（15 个插件域合计 362；其余在 `shared` / `system` / `infra` / `test/`）。
 
-## 4. 活跃规格（22 份，`docs/specs/<域>/<名>/`）
+## 4. 活跃规格（23 份，`docs/specs/<域>/<名>/`）
 
 > 复算：`ls docs/specs/*/*/brief.json | wc -l`
 
@@ -76,6 +76,7 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 | infra | `expo-sdk-upgrade` | 6/6 |
 | infra | `archify-strix-integration` | 见其 `tasks.md` |
 | system | `cmmi-governance` | 见其 `tasks.md` |
+| infra | `workspace-executability-purge-scope` | 见其 `tasks.md` |
 
 投产后按 `npm run speckit:archive -- --name <名>` 归档至 `docs/specs/archive/<YYYY-Qx>/`。
 

@@ -1,0 +1,58 @@
+{
+  "feature": "workspace-executability-purge-scope",
+  "domain": "infra",
+  "gates": {
+    "G0_DAR": {
+      "status": "passed",
+      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
+      "evidence": [
+        "research.md",
+        "selection.md"
+      ],
+      "verifiedAt": "2026-11-04T08:15:52.508Z"
+    },
+    "G1_FDA": {
+      "status": "pending",
+      "summary": "架构设计就绪（design.md / plan.md）；本规格不涉及数据库持久化契约（零表变更），G1 结论待 FDA 侧确认",
+      "evidence": [
+        "plan.md",
+        "design.md"
+      ],
+      "verifiedAt": null
+    },
+    "G2_CoreSWE": {
+      "status": "passed",
+      "summary": "代码已落地并提交：scripts/lib/workspace-executability-scope.cjs（口径真源）+ scripts/check-workspace-executability.cjs（package.json 维度 + 路径字面量依赖）+ test/unit/workspace-executability-purge-scope.test.ts（13 条断言 / 四条必红对照）；母本 pnpm run check exit=0、静态层与运行层均 exit=0",
+      "evidence": [
+        "tasks.md",
+        "scripts/lib/workspace-executability-scope.cjs",
+        "scripts/check-workspace-executability.cjs",
+        "test/unit/workspace-executability-purge-scope.test.ts"
+      ],
+      "verifiedAt": "2026-11-04T08:16:02.500Z"
+    },
+    "G3_FDSE": {
+      "status": "pending",
+      "summary": "待门神（FDSE）真机走查：母本远端可达性、母本快照刷新后派生冒烟 source=workspace-gate、四条反向对照复跑",
+      "evidence": [],
+      "verifiedAt": null
+    },
+    "G4_DS": {
+      "status": "passed",
+      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
+      "evidence": [
+        "spec.md",
+        "requirements.md"
+      ],
+      "verifiedAt": "2026-11-04T08:15:52.508Z"
+    },
+    "G5_PRE": {
+      "status": "pending",
+      "summary": "待上线前割接演练：母本快照刷新影响之后所有新建客户工作区的模板版本，刷新后需重跑一次派生冒烟（好样本应绿）",
+      "evidence": [
+        "runbook.json"
+      ],
+      "verifiedAt": null
+    }
+  }
+}

@@ -131,7 +131,7 @@
 | B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `pnpm run repo:columns:check`（323 仓储 / 324 表，0 违规） |
 | B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce；条数以 `standards:check` 输出为准；反向对照三条） |
 | B11 | **WBS 时效性** | 能力面变化（新增 script / 门禁 / 域）必须在同一次提交里更新计划 | ✅ | `pnpm run plan:freshness`（pre-commit 内执行；硬失败=能力面，软提示=触及 `packages/`） |
-| B12 | **派生后可执行性自检** | 公开脚本不得依赖会被 de-leak 清洗的母港私有文件；派生后必须能跑通 speckit 校验链 | ✅ | `pnpm run workspace:executability:check`（静态层：相对依赖逐条解析 + 私有文件族依赖判红）+ `pnpm run workspace:executability:smoke`（运行层：真跑 speckit.ts / check-specs-health / verify-task-commit）。**反向对照实测**：抽掉公开解析器 → 7 处断链判红 exit 1 |
+| B12 | **派生后可执行性自检** | 公开脚本不得依赖会被 de-leak 清洗的文件；package.json 不得引用会被清洗的文件、公开 script 键不得被清洗删掉；派生后必须能跑通 speckit 校验链 | ✅ | `pnpm run workspace:executability:check`（静态层：相对依赖逐条解析 + 清洗面依赖判红 + **package.json 维度**：值引用被清洗文件 / 公开键缺失 / 口径收窄自检；口径真源 `scripts/lib/workspace-executability-scope.cjs` = 平台 `cleanWorkspaceLeaks` **全量清洗面**）+ `pnpm run workspace:executability:smoke`（运行层：真跑 speckit.ts / check-specs-health / verify-task-commit）。**反向对照实测**：抽掉公开解析器 → 7 处断链判红 exit 1；package.json 装引用 `scripts/harness.sh` 的探针键 → 判红「平台清洗会把这个 script 键删掉」exit 1；删掉 `speckit` 键 → 判红「静默消失」exit 1 |
 
 ### WS-C Agent 消费面
 
@@ -320,7 +320,7 @@
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：活跃 **22 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）。
+- **规格库**：活跃 **23 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `delivery-chain-local-verification` / `mcp-write-tools` / `validator-type-drift` / `npx-to-pnpm`（已归档）/ `workspace-executability-purge-scope`。
 - **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
   但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
