@@ -6,7 +6,18 @@
 // 使 Link/router/_next 静态资源/API routes 自动挂到该前缀下。
 // 不设置该变量时行为不变（应用运行在根路径 /，如子域名模式）。
 // 注意：basePath 必须以 / 开头且不以 / 结尾。
-const rawBasePath = (process.env.PREVIEW_BASE_PATH || "").trim();
+import fs from "node:fs";
+
+// 默认必须走 basePath 方案（与 compat-manifest.json 中的 defaultMode: "base-path" 保持契约一致）
+let autoSlug = "";
+try {
+  const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url), "utf8"));
+  if (pkg.name && pkg.name !== "cooliebase-all") {
+    autoSlug = "/" + pkg.name.replace(/^\/+/, "").replace(/\/+$/, "");
+  }
+} catch {}
+
+const rawBasePath = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || autoSlug || "").trim();
 const basePath = rawBasePath && rawBasePath !== "/"
   ? ("/" + rawBasePath.replace(/^\/+/, "").replace(/\/+$/, ""))
   : "";
