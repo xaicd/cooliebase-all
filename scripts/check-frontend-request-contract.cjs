@@ -14,7 +14,8 @@
  *
  * ## 判定
  *
- * - **扫描面**：`packages/*\/*\/frontend/{pages,components}/**\/*.{ts,tsx}`。
+ * - **扫描面**：`packages/*\/*\/frontend/{pages,components}/**\/*.{ts,tsx}`，
+ *   以及宿主应用的 `src/app/**`（排除 `api/` 与 `route.ts`）和 `src/components/**`。
  *   不扫 `frontend/api/**` —— 那一层本来就该用 `request.*`。
  * - **命中**：`fetch(` 调用（排除 `xx.fetch(` 这类成员调用，以及注释里的字样）。
  * - **棘轮**：存量 9 条冻结在基线里，**只减不增**。
@@ -31,12 +32,15 @@ const BASELINE = path.join(ROOT, BASELINE_REL)
 /** 扫描面：只看页面与组件，不看 api 层 */
 function collectFiles() {
   const files = []
-  const walk = (dir) => {
+  const walk = (dir, { skipApi = false } = {}) => {
     if (!fs.existsSync(dir)) return
     for (const e of fs.readdirSync(dir, { withFileTypes: true })) {
       const full = path.join(dir, e.name)
-      if (e.isDirectory()) walk(full)
-      else if (/\.(ts|tsx)$/.test(e.name)) files.push(full)
+      // src/app/api 是服务端 Route Handler，不是页面/组件，不受"页面不得裸 fetch"约束
+      if (e.isDirectory()) {
+        if (skipApi && e.name === "api") continue
+        walk(full, { skipApi })
+      } else if (/\.(ts|tsx)$/.test(e.name) && !/^route\.(ts|tsx)$/.test(e.name)) files.push(full)
     }
   }
   for (const group of ["plugins", "domains"]) {
@@ -46,6 +50,11 @@ function collectFiles() {
       for (const sub of ["pages", "components"]) walk(path.join(base, pkg, "frontend", sub))
     }
   }
+  // 宿主应用的页面/组件（src/app 页面、src/components）也必须走统一请求层：
+  // 派生物的 C 端页面（如电子书城 /books）就写在这里，此前扫描面只含 packages/*，
+  // 导致手写页面裸 fetch("/api/…") 绕过 basePath 前缀与统一错误处理（2026-11-04 事故）。
+  walk(path.join(ROOT, "src", "app"), { skipApi: true })
+  walk(path.join(ROOT, "src", "components"))
   return files
 }
 
