@@ -1,8 +1,9 @@
 "use client"
 
-import React, { useState } from "react"
+import React, { useState, useEffect } from "react"
 import Link from "next/link"
 import { projectProfile } from "@/shared/contract/project-profile"
+import { BookStorePortal } from "./(portal-pages)/portal/components/book-store-portal"
 
 const coreDomains = [
   { id: "system", name: "系统管理", path: "/admin/system/users", desc: "用户、角色、菜单权限、部门岗位、数据字典与多租户隔离", tag: "System" },
@@ -27,8 +28,22 @@ const clientChannels = [
 ]
 
 export default function HomePage() {
+  const [viewMode, setViewMode] = useState<"portal" | "blueprint">("portal")
   const [activeTab, setActiveTab] = useState<"quick-start" | "docker" | "domain">("quick-start")
   const [copied, setCopied] = useState(false)
+
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const params = new URLSearchParams(window.location.search)
+      if (params.get("view") === "blueprint" || process.env.NEXT_PUBLIC_LANDING_MODE === "blueprint") {
+        setViewMode("blueprint")
+      }
+    }
+  }, [])
+
+  if (viewMode === "portal") {
+    return <BookStorePortal />
+  }
 
   const repoUrl = "https://github.com/xaicd/cooliebase-all"
   const repoCloneUrl = "https://github.com/xaicd/cooliebase-all.git"

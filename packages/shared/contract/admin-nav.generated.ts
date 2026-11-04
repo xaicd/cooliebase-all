@@ -4,7 +4,7 @@
 //      + docs/agent/contracts.json（页面中文标题）
 //      + packages/*/*/contract/module.manifest.json（域显示名）
 //
-// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 471 个页面 ——
+// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 469 个页面 ——
 // 手写映射与页面注册表必然漂移。页面注册表是唯一真源，导航由它派生。
 
 export type AdminNavItem = { id: string; href: string; label: string }
@@ -42,8 +42,6 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { id: "system/dicts", href: "/admin/system/dicts", label: "字典管理" },
       { id: "system/dict-type", href: "/admin/system/dict-type", label: "字典类型" },
       { id: "system/dict-data", href: "/admin/system/dict-data", label: "字典数据" },
-      { id: "system/tenants", href: "/admin/system/tenants", label: "租户列表" },
-      { id: "system/tenant-packages", href: "/admin/system/tenant-packages", label: "租户套餐" },
       { id: "system/ip-areas", href: "/admin/system/ip-areas", label: "IP 地区" },
     ],
   },

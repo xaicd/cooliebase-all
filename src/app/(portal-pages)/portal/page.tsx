@@ -1,1 +1,7 @@
-export { default } from "@/modules/member/frontend/pages/portal-home.page"
+"use client"
+
+import { BookStorePortal } from "./components/book-store-portal"
+
+export default function PortalPage() {
+  return <BookStorePortal />
+}

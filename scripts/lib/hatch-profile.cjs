@@ -266,7 +266,8 @@ function shouldSkipRelPath(relPath, plan) {
   for (const prefix of RETIRED_FILE_PREFIXES) {
     if (rel.startsWith(prefix)) return true
   }
-  if (!plan.includeClients && (rel === "clients" || rel.startsWith("clients/"))) return true
+  // 当不包含客户端时，仅排除重型客户端子项目 (如 clients/expo)，保留 clients/ 目录及 README 标识
+  if (!plan.includeClients && (rel === "clients/expo" || rel.startsWith("clients/expo/"))) return true
   for (const domain of plan.excludedDomains || []) {
     if (matchesDomainPrefix(rel, domain)) return true
   }

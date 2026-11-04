@@ -30,7 +30,7 @@ function collectTypeErrors() {
   const started = Date.now()
   // **不要传 `--incremental false`**：实测它与 `--noEmit` 组合会**丢掉 2 条错误**（1268 → 1266），
   // 而 tsc 本身是确定的（连跑 4 次都是 1268）。基线必须建立在**同一条命令**上。
-  const result = spawnSync("node", ["node_modules/typescript/bin/tsc", "--noEmit"], {
+  const result = spawnSync("node", ["--max-old-space-size=4096", "node_modules/typescript/bin/tsc", "--noEmit"], {
     cwd: ROOT,
     encoding: "utf8",
     maxBuffer: 64 * 1024 * 1024,

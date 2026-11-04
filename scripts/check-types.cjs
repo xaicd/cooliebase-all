@@ -2,7 +2,7 @@ const { execSync } = require('child_process')
 const path = require('path')
 const root = path.resolve(__dirname, '..')
 try {
-  const out = execSync('node node_modules/typescript/bin/tsc --noEmit 2>&1', { cwd: root, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 })
+  const out = execSync('node --max-old-space-size=4096 node_modules/typescript/bin/tsc --noEmit 2>&1', { cwd: root, encoding: 'utf-8', maxBuffer: 10 * 1024 * 1024 })
   console.log('No errors!')
   console.log(out.substring(0, 500))
 } catch (e) {

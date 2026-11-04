@@ -151,7 +151,13 @@ function readLabelPatch() {
 function buildNav() {
   const declaration = readJson(DECLARATION)
   // 动态路由（`infra/online-runtime/[code]`）不是"能点的功能"，进导航只会生出死条目。
-  const pages = (declaration.pages ?? []).filter((page) => page.kind === "page" && page.slug && !page.slug.includes("["))
+  // 多租户能力属于平台内务/宿主运营层，单体/客户交付物默认不暴露（T-05 / Gate 6 防漂移）。
+  const includeTenants = process.env.COOLIEBASE_ENABLE_MULTI_TENANT === "true" || process.argv.includes("--include-tenants")
+  const pages = (declaration.pages ?? []).filter((page) => {
+    if (page.kind !== "page" || !page.slug || page.slug.includes("[")) return false
+    if (!includeTenants && (page.slug.includes("tenant") || page.slug.includes("tenants"))) return false
+    return true
+  })
   if (pages.length === 0) {
     console.error("[admin-nav] admin-pages.json 里没有 kind=page 的页面 —— 空导航会让人点不到任何功能，拒绝")
     process.exit(1)
