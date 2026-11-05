@@ -12,12 +12,14 @@ import fs from "node:fs";
 let autoSlug = "";
 try {
   const pkg = JSON.parse(fs.readFileSync(new URL("./package.json", import.meta.url), "utf8"));
-  if (pkg.name && pkg.name !== "cooliebase-all") {
+  // 派生项目若未显式指定 BASE_PATH，默认以自身 package.json name 作为 basePath
+  const isMasterBase = process.env.COOLIE_MASTER_BASE === "true" || pkg.name === "cooliebase" + "-all";
+  if (pkg.name && !isMasterBase) {
     autoSlug = "/" + pkg.name.replace(/^\/+/, "").replace(/\/+$/, "");
   }
 } catch {}
 
-const rawBasePath = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || autoSlug || "").trim();
+const rawBasePath = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || autoSlug || "").trim();
 const basePath = rawBasePath && rawBasePath !== "/"
   ? ("/" + rawBasePath.replace(/^\/+/, "").replace(/\/+$/, ""))
   : "";
@@ -45,9 +47,9 @@ const nextConfig = {
                 "default-src 'self'",
                 "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
                 "style-src 'self' 'unsafe-inline'",
-                "img-src 'self' data: blob:",
+                "img-src 'self' data: blob: https:",
                 "font-src 'self' data:",
-                "connect-src 'self'",
+                "connect-src 'self' https:",
                 "frame-ancestors 'none'",
                 "object-src 'none'",
                 "base-uri 'self'",

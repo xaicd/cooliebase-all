@@ -38,6 +38,7 @@ type RequestOptions = {
  * 因此这些手写请求必须用 apiPath() 拼上前缀。未配置时返回原路径，行为不变。
  */
 export const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/+$/, "")
+export { getBasePath, withBasePath } from "./base-path.js"
 
 /** 给以 / 开头的同源路径拼上预览子路径前缀（幂等：已带前缀则不重复拼） */
 export function apiPath(path: string): string {
