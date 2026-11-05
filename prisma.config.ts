@@ -14,7 +14,8 @@ if (!process.env.DATABASE_URL) {
 }
 
 const pgHost = process.env.PGHOST || (fs.existsSync("/host-workspace") ? "172.19.0.1" : "localhost")
-const defaultDbUrl = `postgresql://cooliebase:cooliebase123@${pgHost}:5433/cooliebase?schema=public`
+const pgPort = process.env.PGPORT || process.env.EMBEDDED_PG_PORT || "55432"
+const defaultDbUrl = `postgresql://postgres:postgres@${pgHost}:${pgPort}/postgres?schema=public`
 
 export default defineConfig({
   schema: "prisma/schema.prisma",

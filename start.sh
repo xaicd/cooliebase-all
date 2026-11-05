@@ -40,11 +40,12 @@ MODE="${1:-}"
 if [ -z "$MODE" ]; then
   echo "Please select startup mode:"
   echo "  [1] Fast Local Dev Mode - Next.js at http://localhost:${APP_PORT} [Recommended]"
-  echo "  [2] Full Docker Mode - PostgreSQL:5433 + Redis:6380 + Next.js"
-  echo "  [3] Infrastructure Only - Start DB + Redis containers"
-  echo "  [4] Architecture Governance Check - npm run check"
-  echo "  [5] Stop Project Docker Containers"
-  echo "  [6] Database Backup - npm run db:backup"
+  echo "  [2] Embedded Postgres Dev Mode - Embedded PostgreSQL:55432 (Zero Docker) + Next.js"
+  echo "  [3] Infrastructure Only - Start Embedded PostgreSQL (55432)"
+  echo "  [4] Full Docker Mode - Docker PostgreSQL:5433 + Redis:6380 + Next.js"
+  echo "  [5] Architecture Governance Check - pnpm run check"
+  echo "  [6] Stop Project Services (Embedded DB & Docker)"
+  echo "  [7] Database Backup - pnpm run db:backup"
   echo ""
   read -r -p "Enter number [default 1]: " CHOICE || true
   CHOICE="${CHOICE:-1}"
@@ -52,9 +53,10 @@ if [ -z "$MODE" ]; then
     1) MODE="app" ;;
     2) MODE="dev" ;;
     3) MODE="infra" ;;
-    4) MODE="check" ;;
-    5) MODE="stop" ;;
-    6) MODE="backup" ;;
+    4) MODE="docker" ;;
+    5) MODE="check" ;;
+    6) MODE="stop" ;;
+    7) MODE="backup" ;;
     *) MODE="app" ;;
   esac
 fi
@@ -81,28 +83,34 @@ app() {
   echo "[INFO] Access Homepage: http://localhost:${APP_PORT}"
   echo "[INFO] Access Admin:    http://localhost:${APP_PORT}/login"
   echo ""
-  exec npm run dev
+  exec pnpm run dev
 }
 
 infra() {
-  if ! command -v docker >/dev/null 2>&1; then
-    echo "[WARN] Docker is not installed or not in PATH."
-    echo "[WARN] Falling back to Fast Local Dev Mode..."
-    return 1
-  fi
-  if ! docker info >/dev/null 2>&1; then
-    echo "[WARN] Docker daemon is not running."
-    echo "[WARN] Falling back to Fast Local Dev Mode..."
-    return 1
-  fi
-  echo "[STEP] Starting PostgreSQL (5433) and Redis (6380)..."
-  "${COMPOSE[@]}" up -d --wait postgres redis
+  echo "[STEP] 启动嵌入式真实 PostgreSQL (端口 55432，零 Docker)..."
+  node scripts/dev-db-embedded.cjs -d
   echo "[STEP] Generating Prisma client, applying migrations, seeding and backing up data..."
-  npm run db:generate
-  npm run db:migrate
-  npm run db:seed
-  npm run db:backup
-  echo "[OK] Infrastructure is ready."
+  pnpm run db:generate
+  pnpm run db:migrate
+  pnpm run db:seed
+  pnpm run db:backup
+  echo "[OK] 嵌入式基础设施就绪 (PostgreSQL: 55432)。"
+  return 0
+}
+
+docker_infra() {
+  if ! command -v docker >/dev/null 2>&1 || ! docker info >/dev/null 2>&1; then
+    echo "[WARN] Docker 未运行，自动回退到嵌入式 PostgreSQL..."
+    infra
+    return 0
+  fi
+  echo "[STEP] 启动 Docker 容器 (PostgreSQL: 5433, Redis: 6380)..."
+  "${COMPOSE[@]}" up -d --wait postgres redis
+  pnpm run db:generate
+  pnpm run db:migrate
+  pnpm run db:seed
+  pnpm run db:backup
+  echo "[OK] Docker 容器基础设施就绪。"
   return 0
 }
 
@@ -133,23 +141,26 @@ case "$MODE" in
     ;;
   memory)
     echo "[INFO] Starting in pure in-memory mode..."
-    DB_DRIVER=memory DATABASE_URL=memory://cooliebase-all REDIS_URL= exec npm run dev
+    DB_DRIVER=memory DATABASE_URL=memory://cooliebase-all REDIS_URL= exec pnpm run dev
     ;;
   check)
     echo "[STEP] Running governance and lint checks..."
-    npm run check
+    pnpm run check
     ;;
   backup)
     echo "[STEP] Backing up database..."
-    npm run db:backup
+    pnpm run db:backup
     ;;
   status)
     "${COMPOSE[@]}" ps
     ;;
   stop)
-    echo '[STEP] Stopping project Docker services...'
-    "${COMPOSE[@]}" down
-    echo '[OK] Containers stopped.'
+    echo '[STEP] Stopping project services...'
+    node scripts/dev-db-embedded.cjs --stop || true
+    if command -v docker >/dev/null 2>&1 && docker info >/dev/null 2>&1; then
+      "${COMPOSE[@]}" down 2>/dev/null || true
+    fi
+    echo '[OK] Services and databases stopped.'
     ;;
   help|-h|--help)
     usage

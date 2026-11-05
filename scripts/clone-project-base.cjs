@@ -733,7 +733,7 @@ function resolveBootstrap() {
  * 拿它去 CREATE DATABASE 可能落到别人的实例上。故用专用变量。
  */
 function resolvePgAdminUrl() {
-  return process.env.PROJECT_PG_ADMIN_URL || "postgresql://cooliebase:cooliebase123@localhost:5433/postgres"
+  return process.env.PROJECT_PG_ADMIN_URL || "postgresql://postgres:postgres@localhost:55432/postgres"
 }
 function pgUrlFor(adminUrl, dbName) {
   const u = new URL(adminUrl)
@@ -941,7 +941,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     console.log("  三条路，任选其一：")
     console.log("    ① 指到任意可达的 Postgres（无需 Docker）:")
     console.log("         PROJECT_PG_ADMIN_URL=postgresql://user:pass@host:5432/postgres pnpm run project:create -- <目录>")
-    console.log("    ② 起本机 PostgreSQL 后重试（历史默认 5433）。")
+    console.log("    ② 起嵌入式 PostgreSQL 后重试 (pnpm db:up，默认 55432，零 Docker)。")
     console.log("    ③ **零容器**路线：改用 `pnpm run project:init -- --target <目录> --profile base`")
     console.log("       （走 SQLite，自带库文件，不依赖任何外部服务）。")
     process.exit(1)

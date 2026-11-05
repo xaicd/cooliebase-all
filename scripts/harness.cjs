@@ -125,6 +125,8 @@ const GROUPS = {
     "bootstrap:sqlite": "db:bootstrap:sqlite",
     embedded: "db:embedded",
     "init:sql": "db:init:sql",
+    "docker:up": "db:docker:up",
+    "docker:down": "db:docker:down",
   },
   project: {
     "": "project:create",
