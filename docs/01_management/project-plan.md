@@ -182,6 +182,7 @@
 | GATE-5 | 环境指纹 | 盖章→核对→篡改必失败 | ✅ | `pnpm run fingerprint` / `fingerprint:verify` |
 | GATE-6 | 容器化部署 | 一体镜像 + 域镜像 + compose | ✅ | `deploy/` |
 | GATE-7 | SRE 基线 | SLO/灾备/复盘资产真实存在 | ✅ | `SLO-SLI-ERROR-BUDGET-MATRIX.md`（Tier-1/2 + 错误预算，64 行真内容）；`06_incidents_postmortem`/`security-reports` **按零假 Demo 铁律留空 `.gitkeep`**；`cmmi:asset:check` 0 伪造 |
+| GATE-8 | 9大闭环生命周期控制器 | harness 与 service.sh 统一生命周期控制 (start/stop/restart/status/health/logs) | ✅ | `scripts/service.sh`, `pnpm harness service:*` |
 
 ### WS-H 文档与治理资产
 

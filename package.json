@@ -230,7 +230,13 @@
     "write:path:depth:baseline": "node scripts/check-write-path-depth.cjs --write-baseline",
     "write:path:depth:report": "node scripts/check-write-path-depth.cjs --report",
     "e2e:run": "node scripts/e2e-run.cjs",
-    "dbx:readonly:check": "node scripts/check-dbx-readonly-policy.cjs"
+    "dbx:readonly:check": "node scripts/check-dbx-readonly-policy.cjs",
+    "service:start": "bash scripts/service.sh start",
+    "service:stop": "bash scripts/service.sh stop",
+    "service:restart": "bash scripts/service.sh restart",
+    "service:status": "bash scripts/service.sh status",
+    "service:health": "bash scripts/service.sh health",
+    "service:logs": "bash scripts/service.sh logs"
   },
   "dependencies": {
     "@cooliebase/plugin-sdk": "workspace:*",

@@ -41,6 +41,11 @@ function pnpmRun(script, extra = [], opts = {}) {
   return result.status ?? 1
 }
 
+function bashScript(file, extra = []) {
+  const result = spawnSync("bash", [path.join(ROOT, file), ...extra], { cwd: ROOT, stdio: "inherit" })
+  return result.status ?? 1
+}
+
 function nodeScript(file, extra = []) {
   const result = spawnSync("node", [path.join(ROOT, file), ...extra], { cwd: ROOT, stdio: "inherit" })
   return result.status ?? 1
@@ -80,6 +85,13 @@ const TRUNK = [
   ["admin", "pnpm harness admin <pages|nav|routes>", "Admin 页面、侧栏导航与路由清单生成"],
   ["sql", "pnpm harness sql <init|build>", "生成全量初始化 SQL"],
   ["serve", "pnpm harness serve", "运行生产构建（standalone）"],
+  ["service", "pnpm harness service <start|stop|restart|status|health|logs>", "全栈服务运维控制台"],
+  ["start", "pnpm harness start", "启动全栈后台服务（带 PID 守卫与环境自愈）"],
+  ["stop", "pnpm harness stop", "停止全栈服务并释放端口"],
+  ["restart", "pnpm harness restart", "平滑重启全栈服务"],
+  ["status", "pnpm harness status", "查询服务运行状态与访问入口"],
+  ["health", "pnpm harness health", "实时就绪与健康探活（返回 200 OK）"],
+  ["logs", "pnpm harness logs", "查看最新运行日志"],
   ["plugins", "pnpm harness plugins register|sync-routes", "插件登记 / 路由声明同步"],
   ["rpc", "pnpm harness rpc actions", "RPC actions 生成"],
   ["deploy", "pnpm harness deploy caddy", "部署（Caddy 反代）"],
@@ -93,6 +105,15 @@ const TRUNK = [
  * 加一条新操作 = 在这里加一行，**不要**再另开一个平行 npm 入口。
  */
 const GROUPS = {
+  service: {
+    "": "service:status",
+    start: "service:start",
+    stop: "service:stop",
+    restart: "service:restart",
+    status: "service:status",
+    health: "service:health",
+    logs: "service:logs",
+  },
   db: {
     "": "db:generate",
     up: "db:up",
@@ -493,7 +514,8 @@ function main() {
     case "deploy":
     case "sbom":
     case "setup":
-    case "audit": {
+    case "audit":
+    case "service": {
       const group = GROUPS[sub]
       const action = rest[0] || ""
       const target = group[action]
@@ -515,6 +537,14 @@ function main() {
 
     case "evolve":
       return pnpmRun("evolution:backlog")
+
+    case "start":
+    case "stop":
+    case "restart":
+    case "status":
+    case "health":
+    case "logs":
+      return bashScript("scripts/service.sh", [sub, ...rest])
 
     default: {
       // **兜底转发**：`pnpm harness <任意 npm script>` 等价于 `pnpm run <script>`。
