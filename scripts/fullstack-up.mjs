@@ -141,8 +141,8 @@ async function main() {
     };
     if (hasStandalone) {
       if (!env.DATABASE_URL || env.DB_DRIVER === "memory") {
-        env.DB_DRIVER = "sqlite";
-        env.DATABASE_URL = `file:./data/${dbName}.db`;
+        env.DB_DRIVER = "postgresql";
+        env.DATABASE_URL = `postgresql://postgres:postgres@localhost:55432/${dbName}?schema=public`;
       }
       if (!env.JWT_SECRET || env.JWT_SECRET.length < 32 || env.JWT_SECRET === "local-dev-only") {
         env.JWT_SECRET = `${dbName}-production-jwt-secret-key-32bytes-secure-2026`;

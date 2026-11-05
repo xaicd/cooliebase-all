@@ -295,7 +295,8 @@ fi
 # 这里与 `project:init` 对齐，写 sqlite 三件套（三者指向**同一个**库文件）。
 DB_FILE="data/${PROJECT_NAME}.db"
 if [[ -f "$TARGET_DIR/.env" ]]; then
-  for kv in "DB_DRIVER=sqlite" "DATABASE_URL=file:./${DB_FILE}" "SQLITE_DB_PATH=${DB_FILE}"; do
+  DB_NAME="${PROJECT_NAME//-/_}"
+  for kv in "DB_DRIVER=postgresql" "DATABASE_URL=postgresql://postgres:postgres@localhost:55432/${DB_NAME}?schema=public"; do
     k="${kv%%=*}"
     if grep -qE "^${k}=" "$TARGET_DIR/.env" 2>/dev/null; then
       sed -i '' -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env" 2>/dev/null || sed -i -E "s#^${k}=.*#${kv}#" "$TARGET_DIR/.env"
@@ -314,18 +315,10 @@ fi
 
 # 注意 `set -euo pipefail`：`grep` 找不到时会返回 1，配合 pipefail 会**直接终止脚本**。
 # 本仓 AGENTS 记过同一类坑（`[ cond ] && cmd` 让脚本静默退出），这里补 `|| true` 兜住。
-SQLITE_PATH="$DB_FILE"
-if [[ -f "$TARGET_DIR/scripts/bootstrap-sqlite.ts" ]]; then
-  if [[ -d "$TARGET_DIR/node_modules" ]]; then
-    echo "🗄️  初始化零配置 SQLite 本地库 (${SQLITE_PATH})..."
-    (cd "$TARGET_DIR" && SQLITE_DB_PATH="$SQLITE_PATH" pnpm exec tsx scripts/bootstrap-sqlite.ts)
-  else
-    echo ""
-    echo "  ⚠️ 目标工程尚未安装依赖，已跳过 SQLite 初始化。安装后执行（**务必带路径**）："
-    echo "     cd $(basename "$TARGET_DIR") && pnpm install"
-    echo "     SQLITE_DB_PATH=${SQLITE_PATH} pnpm exec tsx scripts/bootstrap-sqlite.ts"
-    echo "  （或用 --install 让本脚本在安装后自动完成这一步）"
-  fi
+# 引导嵌入式 PostgreSQL 数据库就绪
+if [[ -d "$TARGET_DIR/node_modules" ]]; then
+  echo "🐘  正在迁移与初始化嵌入式 PostgreSQL 数据库..."
+  (cd "$TARGET_DIR" && pnpm run db:generate && pnpm run db:migrate && pnpm run db:seed) || true
 fi
 
 # `--port` 此前**不生效**：它只被写进 `.env` 的 `PORT`，而产物的 `dev` 脚本**写死了**
@@ -387,7 +380,8 @@ echo ""
 echo "  👉 极速运行指南:"
 echo "     1. cd $TARGET_DIR"
 echo "     2. pnpm install"
-echo "     3. npm run db:bootstrap:sqlite   # 零配置启动本地 SQLite 数据库"
+echo "     3. pnpm run db:up                # 启动本地嵌入式 PostgreSQL (端口 55432，零 Docker)
+     4. pnpm run db:migrate           # 执行全量数据库迁移"
 echo "     4. npm run dev                   # 启动开发服务器 (http://localhost:$PORT)"
 echo ""
 echo "  👉 平台超级管理员账号: supervip (随机安全密码详见 .env.local 或终端初始化日志)"

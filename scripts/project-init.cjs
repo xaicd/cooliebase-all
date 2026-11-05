@@ -257,7 +257,6 @@ function updateEnvFiles(targetDir, opts) {
     NEXT_PUBLIC_APP_SHORT_NAME: opts.shortName || opts.title.slice(0, 4),
     PORT: String(opts.port),
     DB_NAME: dbName,
-    SQLITE_DB_PATH: sqliteDbPath,
   }
 
   // 零配置 SQLite 路径必须把**运行时真正读取的变量**一起写全，否则会出现
@@ -278,11 +277,10 @@ function updateEnvFiles(targetDir, opts) {
   // 应用于是连到一个**没有种子**的库 —— 表现为"工程起得来、healthz 200、登录 500/401"，
   // 正是 AGENTS 里记录过的那个失败模式。
   const existingUrl = (/^DATABASE_URL=(.*)$/m.exec(existingEnvs)?.[1] ?? "").trim()
-  const pointsAtNonSqlite = existingUrl !== "" && !/^(file:|sqlite:)/i.test(existingUrl) && !/\.db(\?|$)/i.test(existingUrl)
-  if (!pointsAtNonSqlite) {
-    envUpdates.DB_DRIVER = "sqlite"
-    // file: 前缀让 detectDriverFromUrl 也能识别为 sqlite；相对路径以工程根为基准。
-    envUpdates.DATABASE_URL = `file:./${sqliteDbPath}`
+  const pointsAtValidPg = existingUrl !== "" && /^postgres/i.test(existingUrl)
+  if (!pointsAtValidPg) {
+    envUpdates.DB_DRIVER = "postgresql"
+    envUpdates.DATABASE_URL = `postgresql://postgres:postgres@localhost:55432/${dbName}?schema=public`
   }
   // 生产启动要求 JWT_SECRET ≥32 字节且非默认值。孵化时就生成，避免 `npm start` 起不来。
   if (!/^JWT_SECRET=/m.test(existingEnvs)) {
@@ -453,23 +451,16 @@ function refreshArtifacts(targetDir, opts) {
   }
 
   try {
-    if (!fs.existsSync(path.join(targetDir, "node_modules"))) {
-      // 目标工程尚未安装依赖时，`pnpm exec tsx` 解析不到依赖，bootstrap 必然失败。
-      // 之前会打印一大段 Node 栈、随后仍然宣布 SUCCESS —— 属于"把失败报成成功"。
-      console.log("[project-init] 跳过 SQLite 本地库：目标工程尚未安装依赖。")
-      console.log("  安装后如需零配置 SQLite 库：pnpm install 后重跑本命令，或直接")
-      console.log("  SQLITE_DB_PATH=data/<工程名>.db pnpm exec tsx scripts/bootstrap-sqlite.ts")
-    } else if (fs.existsSync(path.join(targetDir, "scripts", "bootstrap-sqlite.ts"))) {
-      const sqliteDbPath = resolveSqliteDbPath(opts)
-      console.log(`[project-init] 正在自动初始化零配置 SQLite 本地库 (${sqliteDbPath})...`)
-      // 必须显式传路径：bootstrap 默认 data/cooliebase.db，与 .env.local 的派生路径不一致时，
-      // 应用会连到从未被种子的空库 —— 表现为"工程起得来、但登录永远 401"（实测）。
-      execSync("pnpm exec tsx scripts/bootstrap-sqlite.ts", {
+    if (fs.existsSync(path.join(targetDir, "node_modules"))) {
+      console.log(`[project-init] 正在执行 PostgreSQL 数据库迁移与种子注入...`)
+      execSync("pnpm run db:generate && pnpm run db:migrate && pnpm run db:seed", {
         cwd: targetDir,
         stdio: "inherit",
-        env: { ...process.env, SQLITE_DB_PATH: sqliteDbPath },
+        env: { ...process.env, DB_DRIVER: "postgresql" },
       })
-      console.log("[project-init] ✓ 本地 SQLite 数据库已就绪 (预置平台超级管理员账号: supervip，随机安全密码已写入 .env.local)")
+      console.log("[project-init] ✓ PostgreSQL 数据库与全域元数据已就绪")
+    } else {
+      console.log("[project-init] 提示: 目标工程尚未安装依赖，安装依赖后执行: pnpm run db:generate && pnpm run db:migrate && pnpm run db:seed")
     }
   } catch (err) {
     console.warn("[project-init] 提示: SQLite 初始化提示:", err.message)
@@ -590,8 +581,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     // （包括 `project-profile.json` 与断言它的测试）。不传就回落到「由 name 推导」，
     // 于是身份契约写 `opts.title` 而测试断言写 name 推导值 → **产物 check 必红**（实测）。
     if (opts.title) cloneArgs.push("--title", opts.title)
-    // 本入口产物走 **SQLite**（见下方 updateEnvFiles），克隆阶段不该被 Postgres 拦住。
-    cloneArgs.push("--no-provision-db")
+    // 克隆阶段由 autoProvisionDatabase 自动在嵌入式 PostgreSQL (55432) 中准备库
     if (Array.isArray(opts.bundle) && opts.bundle.length > 0) cloneArgs.push("--bundle", opts.bundle.join(","))
     execFileSync("node", cloneArgs, { stdio: "inherit" })
     const targetDir = path.resolve(process.cwd(), opts.target)

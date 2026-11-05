@@ -154,6 +154,8 @@ function reactorCopy(src, dest, ctx, rel = "") {
       reactorCopy(srcPath, destPath, ctx, entryRel)
     } else if (entry.isFile()) {
       if (EXCLUDE_FILES.has(entry.name)) continue
+      const extCheck = path.extname(entry.name).toLowerCase()
+      if (extCheck === ".db" || extCheck === ".sqlite" || extCheck === ".sqlite3" || entry.name.endsWith(".db-shm") || entry.name.endsWith(".db-wal")) continue
 
       // 保护已有文档
       if (fs.existsSync(destPath) && PROTECTED_DOCS.has(entry.name)) {
@@ -931,7 +933,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     ? { ok: true, url: null, skipped: true }
     : await autoProvisionDatabase(targetDbName)
   if (options.noProvisionDb) {
-    console.log("[REACTOR DB] 已跳过数据库准备（--no-provision-db）—— 由调用方决定（project:init 走 SQLite）")
+    console.log("[REACTOR DB] 已跳过数据库准备（--no-provision-db）—— 由调用方决定（project:init 走嵌入式 PostgreSQL）")
   }
   if (!db.ok) {
     console.log("")
@@ -943,7 +945,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     console.log("         PROJECT_PG_ADMIN_URL=postgresql://user:pass@host:5432/postgres pnpm run project:create -- <目录>")
     console.log("    ② 起嵌入式 PostgreSQL 后重试 (pnpm db:up，默认 55432，零 Docker)。")
     console.log("    ③ **零容器**路线：改用 `pnpm run project:init -- --target <目录> --profile base`")
-    console.log("       （走 SQLite，自带库文件，不依赖任何外部服务）。")
+    console.log("       （嵌入式 PostgreSQL 零 Docker 路线）。")
     process.exit(1)
   }
 
