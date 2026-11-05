@@ -250,6 +250,13 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **全栈一键拉起与原生 BasePath 重定向守护（2026-11-05，能力面变化）**：
+  为彻底消除项目在带 basePath 独立部署或反向代理时的根路径 404 与拉起假死，
+  基座新增 scripts/fullstack-up.mjs，对外暴露 pnpm run up / pnpm run serve 与 pnpm harness up / pnpm harness serve；
+  自动探测独立构建产物与 dev 环境、端口空闲与就绪探针；
+  next.config.mjs 原生增加 async redirects()，将根路径 / 与带尾斜杠根无条件 307 重定向至 //2c，
+  让层A 与层B 拥有开箱即用的工业级傻瓜式拉起与路径防穿透能力。
+
 - **母本不再下发会被 de-leak 清洗的文件（2026-11-04，能力面变化）**：
   平台 de-leak 清洗会删掉母港私有规约机文件族（含 `scripts/lib/spec-resolver.cjs`），
   而本母本派发到客户工作区的**公开**脚本硬依赖它 ⇒ 客户工作区的 `speckit.ts check` /

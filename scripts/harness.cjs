@@ -201,8 +201,9 @@ const GROUPS = {
     init: "build:init-sql",
   },
   serve: {
-    "": "start",
+    "": "serve",
     start: "start",
+    up: "up",
   },
   plugins: {
     "": "plugins:register",
@@ -269,6 +270,7 @@ const ALIASES = {
   audit: ["audit-logs:retention", "validator:reachability", "foundation:ontology"],
   evolve: ["all", "init", "init:all"],
   e2e: ["hatch", "hatch:e2e", "e2e:run"],
+  serve: ["up", "serve"],
 }
 
 function help() {

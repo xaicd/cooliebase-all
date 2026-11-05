@@ -51,6 +51,8 @@
     "init:root": "node ./scripts/run-root-script.cjs docker:dev:core && node ./scripts/run-root-script.cjs db:init:force",
     "all": "node scripts/run-all.cjs",
     "init:all": "bash scripts/lifecycle.sh . install",
+    "up": "node scripts/fullstack-up.mjs",
+    "serve": "node scripts/fullstack-up.mjs",
     "test:all": "vitest run test/unit test/integration packages scripts src && playwright test",
     "dev": "prisma generate && next dev -p 3200",
     "build": "prisma generate && next build && cp -r public .next-cooliebase/standalone/ && cp -r .next-cooliebase/static .next-cooliebase/standalone/.next-cooliebase/",

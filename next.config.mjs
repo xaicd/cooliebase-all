@@ -59,6 +59,22 @@ const nextConfig = {
         },
       ]
     },
+    async redirects() {
+      if (!basePath) return [];
+      return [
+        {
+          source: "/",
+          destination: `${basePath}/2c`,
+          permanent: false,
+          basePath: false,
+        },
+        {
+          source: "/",
+          destination: `${basePath}/2c`,
+          permanent: false,
+        },
+      ];
+    },
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),
   typescript: {
     ignoreBuildErrors: true,
