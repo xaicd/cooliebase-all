@@ -39,6 +39,26 @@ const basePath = rawBasePath && rawBasePath !== "/" ? ("/" + rawBasePath.replace
 const port = parseInt(process.env.PORT || process.env.VITE_FRONTEND_PORT || "3300", 10);
 const host = process.env.HOSTNAME || "127.0.0.1";
 
+function parseEnv(filePath) {
+  if (!fs.existsSync(filePath)) return {};
+  const result = {};
+  const lines = fs.readFileSync(filePath, "utf8").split("\n");
+  for (const line of lines) {
+    const trimmed = line.trim();
+    if (!trimmed || trimmed.startsWith("#")) continue;
+    const eqIdx = trimmed.indexOf("=");
+    if (eqIdx > 0) {
+      const key = trimmed.slice(0, eqIdx).trim();
+      let val = trimmed.slice(eqIdx + 1).trim();
+      if ((val.startsWith('"') && val.endsWith('"')) || (val.startsWith("'") && val.endsWith("'"))) {
+        val = val.slice(1, -1);
+      }
+      result[key] = val;
+    }
+  }
+  return result;
+}
+
 let child = null;
 function cleanup() {
   if (child && child.pid) {
@@ -107,12 +127,27 @@ async function main() {
   }
 
   if (!portAlive) {
+    const fileEnv = {
+      ...parseEnv(path.join(ROOT, ".env")),
+      ...parseEnv(path.join(ROOT, ".env.local")),
+    };
+    const dbName = (pkg.name || "cooliebase").replace(/[^a-zA-Z0-9_-]/g, "");
     const env = {
+      ...fileEnv,
       ...process.env,
       PORT: String(port),
       HOSTNAME: "0.0.0.0",
       NEXT_PUBLIC_BASE_PATH: basePath,
     };
+    if (hasStandalone) {
+      if (!env.DATABASE_URL || env.DB_DRIVER === "memory") {
+        env.DB_DRIVER = "sqlite";
+        env.DATABASE_URL = `file:./data/${dbName}.db`;
+      }
+      if (!env.JWT_SECRET || env.JWT_SECRET.length < 32 || env.JWT_SECRET === "local-dev-only") {
+        env.JWT_SECRET = `${dbName}-production-jwt-secret-key-32bytes-secure-2026`;
+      }
+    }
 
     if (hasStandalone) {
       console.log(`  📦 [Production Standalone] 启动预构建优化运行时 (.next-cooliebase/standalone/server.js)...`);
@@ -129,6 +164,7 @@ async function main() {
   let cOk = false;
   let bOk = false;
   let apiOk = false;
+  let readyOk = false;
   const maxAttempts = 30;
 
   for (let i = 1; i <= maxAttempts; i++) {
@@ -145,7 +181,11 @@ async function main() {
       const res = await fetchHttp(`http://127.0.0.1:${port}${basePath}/api/v1/open/meta/project-profile`);
       if (res.ok) apiOk = true;
     }
-    if (cOk && bOk && apiOk) break;
+    if (!readyOk) {
+      const res = await fetchHttp(`http://127.0.0.1:${port}${basePath}/readyz`);
+      if (res.ok) readyOk = true;
+    }
+    if (cOk && bOk && apiOk && readyOk) break;
   }
 
   console.log("\n========================================================================");

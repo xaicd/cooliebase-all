@@ -68,11 +68,6 @@ const nextConfig = {
           permanent: false,
           basePath: false,
         },
-        {
-          source: "/",
-          destination: `${basePath}/2c`,
-          permanent: false,
-        },
       ];
     },
   ...(basePath ? { basePath, assetPrefix: basePath } : {}),

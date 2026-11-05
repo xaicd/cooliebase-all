@@ -266,14 +266,6 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
               <span>网关链路: {pingLatency !== null ? `${pingLatency}ms` : "自适应"}</span>
             </div>
 
-            <Link
-              href="/wiki"
-              className="text-slate-400 hover:text-cyan-400 transition"
-              title="查阅 OpenWiki 百科全景"
-            >
-              OpenWiki
-            </Link>
-            <span className="text-slate-700">|</span>
             <a
               href={apiPath("/api/v1/open/openapi")}
               target="_blank"
