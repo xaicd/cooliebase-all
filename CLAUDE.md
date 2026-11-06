@@ -55,3 +55,16 @@ All engineering rules and architectural standards are unified in `.agents/rules/
 
 > 为什么强制：此前入口文件写的是"所有 feature/bugfix/enhancement/refactor 都归规格管"，
 > 等于**全都需要、也等于没有判断** —— 小改被流程拖住、大改靠自觉。
+
+---
+
+## 工坊本地模型通道生存法则（层A 工坊规范 · 2026-11-06 沉淀）
+
+> 本工作区的作业 agent 跑 claude_local + qwen3.8:27b-32k（cwall，num_ctx 硬上限 32000）。
+> 2026-11-06 实测四连阵亡教训（500「no user query found」/30k 输出帽复读/静默死），作业时必须遵守：
+
+1. **微步**：单次回复 ≤300 行；单次 Write ≤300 行，大文件拆多次追加，禁止一次生成整篇长文/长报告。
+2. **限字**：最终回报 ≤100~150 字。
+3. **按节读**：只读需求相关节；严禁通读本仓 AGENTS.md（~95K）与 prisma/schema.prisma（~50K）全文——按节检索。
+4. **产出纪律**：run 状态不可信，完成与否以本仓 git log 为准；每波落盘 = 一次 git commit（信息含 [T<工单ID>]）。
+5. **单飞**：一次只做一件被派的事，不自行并发多任务。
