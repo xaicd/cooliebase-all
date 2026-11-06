@@ -6,6 +6,9 @@
  * - 本服务专注：配置校验、模板调度分发、多端联动装配与 ZIP 归档输出
  */
 
+import { readdirSync } from "node:fs"
+import path from "node:path"
+
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
 import type { CodegenTemplate } from "../../contract/codegen.types"
 import {
@@ -53,7 +56,17 @@ export const CodegenEngineService = {
       className: config.className,
       tableName: config.table.name,
     })
-    return generateAllCodegenOutputs(config, options)
+    // 迁移幂等：读磁盘已有迁移目录传给组装层，同表不重复产出迁移（2026-11-06 实测缺陷修复）。
+    // cwd 非 repo 根（如服务端运行）时目录不存在 → 空数组，行为与旧版一致。
+    let existingMigrationDirs: string[] = []
+    try {
+      existingMigrationDirs = readdirSync(path.resolve(process.cwd(), "prisma/migrations"), { withFileTypes: true })
+        .filter((e) => e.isDirectory())
+        .map((e) => e.name)
+    } catch {
+      existingMigrationDirs = []
+    }
+    return generateAllCodegenOutputs(config, { ...options, existingMigrationDirs })
   },
 
   /** 兼容别名 */

@@ -33,16 +33,18 @@ import {
   ${camel}UpdateSchema,
 } from "@/modules/${moduleName}${sub}/backend/validators/${kebab}.validator"
 import { ${constName}_ACTION_SCHEMAS } from "@/modules/${moduleName}${sub}/contract/${kebab}.actions"
-import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
+import { PERMISSIONS, type PermissionCode } from "@/modules/shared/backend/constants/permissions"
+import { ApiError } from "@/modules/shared/backend/http/api-error"
 
 const PERM_PREFIX = "${constPrefix}"
   // **禁止**兜底到其它权限码：那会让持有无关权限的人通过本表鉴权。
   // 查不到就落到本表自己的码上 —— 若它尚未在 permissions.ts 登记，该 API 仅超级管理员可用（fail-closed），
   // 这种未登记由 check-contract-governance.cjs 以棘轮方式暴露，而不是在这里悄悄放行。
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_VIEW\`]${managedPermFallback} ?? "${moduleName}:${kebab}:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_CREATE\`] ?? "${moduleName}:${kebab}:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_UPDATE\`] ?? "${moduleName}:${kebab}:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_DELETE\`] ?? "${moduleName}:${kebab}:delete"
+  // 断言 as PermissionCode：兜底串是动态拼接，裸串会撞 PermissionCode 联合类型（TS2322，2026-11-06 实测）。
+const VIEW_PERM = ((PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_VIEW\`]${managedPermFallback} ?? "${moduleName}:${kebab}:view") as PermissionCode
+const CREATE_PERM = ((PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_CREATE\`] ?? "${moduleName}:${kebab}:create") as PermissionCode
+const UPDATE_PERM = ((PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_UPDATE\`] ?? "${moduleName}:${kebab}:update") as PermissionCode
+const DELETE_PERM = ((PERMISSIONS as Record<string, string>)[\`\${PERM_PREFIX}_DELETE\`] ?? "${moduleName}:${kebab}:delete") as PermissionCode
 
 function parseActionQuery(request: Request) {
   const { searchParams } = new URL(request.url)

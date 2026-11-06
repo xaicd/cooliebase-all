@@ -12,6 +12,10 @@ import { tableDdl } from "./column-type"
  * 产物落在 `prisma/migrations/<时间戳>_add_<表名>/migration.sql`，
  * 解压/注入后 `prisma migrate deploy` 即可建表；`standards:check` 的
  * table-definition-coverage 规则正是以此为判据。
+ *
+ * 幂等与 slug 约定（2026-11-06）：组装层（index.ts）按 `existingMigrationDirs`
+ * 跳过已存在迁移（engine 自动读磁盘）；表名隔离用 **table.name 直接写带前缀全名**
+ * （如 `mrbs_meeting_room`），表名与迁移目录名自动携带前缀——多项目共享库不再撞通用表名。
  */
 export function generateTableDdl(config: CodegenConfig): CodegenOutput {
   const tableName = config.table.name

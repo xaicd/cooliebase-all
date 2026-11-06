@@ -1,5 +1,5 @@
 // Codegen Templates Master Index & Orchestration Pipeline
-import { type CodegenConfig, type CodegenOutput, toCamel } from "./common"
+import { type CodegenConfig, type CodegenOutput, toCamel, toKebab } from "./common"
 import { generateTypes } from "./types.template"
 import { generateValidator } from "./validator.template"
 import { generateRepository } from "./repository.template"
@@ -33,6 +33,12 @@ export * from "./agent-contract.template"
 
 export interface GenerateCodesOptions {
   includeClients?: boolean
+  /**
+   * 已存在的迁移目录名列表（如 `20261106141142_add_meeting-room`）。
+   * 传入后建表迁移按表名幂等：已存在 `*_add_<kebab 表名>` 目录则不再重复产出迁移
+   * （2026-11-06 实测缺陷：重复执行 scaffold 出两份同内容迁移，只差时间戳）。
+   */
+  existingMigrationDirs?: string[]
 }
 
 /**
@@ -44,6 +50,16 @@ export function generateAllCodegenOutputs(config: CodegenConfig, options?: Gener
     generateTypes(config),
     generateValidator(config),
   ]
+
+  // 建表迁移幂等：同表已有迁移目录则跳过（调用方经 engine 传入磁盘真值）。
+  // slug 约定：table.name 直接写带前缀全名（如 `mrbs_meeting_room`），表名与迁移目录名自动携带前缀。
+  const kebabTable = toKebab(config.table.name)
+  const migrationAlreadyExists = (options?.existingMigrationDirs ?? []).some((d) =>
+    d.endsWith(`_add_${kebabTable}`),
+  )
+  if (!migrationAlreadyExists) {
+    outputs.push(generateTableDdl(config))
+  }
 
   if (config.onlineRuntime?.storageKind !== "MANAGED_TABLE") {
     outputs.push(generateRepository(config))
@@ -61,7 +77,7 @@ export function generateAllCodegenOutputs(config: CodegenConfig, options?: Gener
     generateTest(config),
     generateRbacSql(config),
     // 建表迁移: 没有它，生成的 Repository 会查一张不存在的表（内存回退下看不出来）
-    generateTableDdl(config),
+    // —— 幂等已前置判断（见上方 migrationAlreadyExists），重复执行 scaffold 不再出双份
     // Agent 操作契约: 与代码**同源产出**。新域一生成就自动可被
     // agent-device / agent-browser 驱动，不需要另外补文档（文档必然过时）。
     generateAgentContract(config),
