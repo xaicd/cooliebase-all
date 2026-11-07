@@ -179,11 +179,31 @@ function reactorCopy(src, dest, ctx, rel = "") {
           // （实测: 孵化后 packages/plugins/sdk 的 name 变成目标工程名，install 直接失败）。
           if (pkg.name === BASE_PROJECT_NAME) pkg.name = ctx.targetName
           if (pkg.scripts && pkg.scripts.dev) {
-            pkg.scripts.dev = pkg.scripts.dev.replace("-p 3100", `-p ${ctx.targetPort}`)
+            pkg.scripts.dev = pkg.scripts.dev.replace(/-p \d+/, `-p ${ctx.targetPort}`)
           }
           fs.writeFileSync(destPath, JSON.stringify(pkg, null, 2), "utf8")
           continue
         } catch {}
+      }
+
+      // 特殊处理 project-profile.json：结构化白标，严防 shortName > 16 或 headline > 40 触发 ZodError 自撞 (D1)
+      if (entry.name === "project-profile.json") {
+        try {
+          const raw = fs.readFileSync(srcPath, "utf8")
+          const transformed = transformFileContent(raw, ctx.targetName, ctx.targetTitle, ctx.targetDbName, ctx.targetPort)
+          const profile = JSON.parse(transformed)
+          if (typeof profile.platformName === "string" && profile.platformName.length > 40) {
+            profile.platformName = profile.platformName.slice(0, 40).trim()
+          }
+          if (typeof profile.shortName === "string" && profile.shortName.length > 16) {
+            profile.shortName = profile.shortName.slice(0, 16).trim()
+          }
+          if (typeof profile.loginHeadline === "string" && profile.loginHeadline.length > 40) {
+            profile.loginHeadline = profile.loginHeadline.slice(0, 40).trim()
+          }
+          fs.writeFileSync(destPath, JSON.stringify(profile, null, 2) + "\n", "utf8")
+          continue
+        } catch (_err) { /* 非标准 JSON 时回退到下方通用文本替换 */ }
       }
 
       // 文本文件：执行反应堆内容替换
@@ -1069,6 +1089,15 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
         )
       }
       console.log(`[reactor] 产物脚本语法自检通过（scripts / prisma / deploy 下全部可解析）`)
+      // 产物 project-profile.json 契约自检（防 D1 白标替换超长自撞）
+      const profileCheckPath = path.join(resolvedTarget, "packages", "shared", "contract", "project-profile.json")
+      if (fs.existsSync(profileCheckPath)) {
+        const pData = JSON.parse(fs.readFileSync(profileCheckPath, "utf8"))
+        if (!pData.shortName || pData.shortName.length > 16 || !pData.platformName || pData.platformName.length > 40) {
+          throw new Error(`产物 project-profile.json 违反长度契约 (shortName=${pData.shortName?.length}/16, platformName=${pData.platformName?.length}/40)`)
+        }
+        console.log(`[reactor] 产物 project-profile.json 契约自检通过 (shortName="${pData.shortName}")`)
+      }
     }
 
     console.log("[reactor] 已 git init 并提交首个快照（任务痕迹与指纹需要它）")

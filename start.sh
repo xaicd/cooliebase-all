@@ -79,6 +79,18 @@ EOF
 }
 
 app() {
+  local pkg_slug
+  pkg_slug="$(node -p 'try { JSON.parse(require("fs").readFileSync("package.json","utf8")).name } catch { "cooliebase" }' 2>/dev/null || echo "cooliebase")"
+  if [ -f "scripts/port-registry.cjs" ]; then
+    if ! node scripts/port-registry.cjs check "${APP_PORT}" "${pkg_slug}"; then
+      echo "[ERROR] 端口 ${APP_PORT} 已被其他项目独占，拒绝静默换栈启动！请先释放端口。"
+      exit 1
+    fi
+  fi
+  if lsof -iTCP:"${APP_PORT}" -sTCP:LISTEN -t >/dev/null 2>&1; then
+    echo "[ERROR] 端口 ${APP_PORT} 已有活跃监听进程 (PID: $(lsof -iTCP:"${APP_PORT}" -sTCP:LISTEN -t | tr '\n' ' '))，拒绝冲突启动！"
+    exit 1
+  fi
   echo "[INFO] Starting Next.js development server..."
   echo "[INFO] Access Homepage: http://localhost:${APP_PORT}"
   echo "[INFO] Access Admin:    http://localhost:${APP_PORT}/login"

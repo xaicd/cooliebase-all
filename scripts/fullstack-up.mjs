@@ -154,10 +154,18 @@ async function main() {
       child = spawn(process.execPath, [standaloneServer], { cwd: ROOT, env, stdio: "inherit", detached: true });
     } else {
       console.log(`  ⚡ [Development] 启动 Next.js 极速开发服务 (next dev -p ${port})...`);
-      child = spawn("pnpm", ["exec", "next", "dev", "-p", String(port)], { cwd: ROOT, env, stdio: "inherit", detached: true });
+      child = spawn("pnpm", ["exec", "next", "dev", "-H", "127.0.0.1", "-p", String(port)], { cwd: ROOT, env, stdio: "inherit", detached: true });
     }
   } else {
-    console.log(`  🟢 端口 ${port} 已在运行中，复用已有进程...`);
+    // 校验已监听端口是否真属于当前项目（防 D5 外部项目占坑假阳性）
+    const idCheck = await fetchHttp(`http://127.0.0.1:${port}${basePath}/api/v1/open/meta/project-profile`);
+    const isSameApp = idCheck.status === 200 && idCheck.body && idCheck.body.includes("platformName");
+    if (!isSameApp) {
+      const loc = idCheck.headers?.location || "";
+      console.error(`❌ 端口冲突 (PORT_CONFLICT): 端口 ${port} 已被其他进程占用 (探针响应 HTTP ${idCheck.status}${loc ? ", Location: " + loc : ""})，并非当前项目 (${basePath || "/"})！请先释放端口。`);
+      process.exit(1);
+    }
+    console.log(`  🟢 端口 ${port} 已在运行中且语义指纹匹配，复用已有进程...`);
   }
 
   console.log(`\n⏳ 正在后台监听服务就绪探针 (Readiness Probe 轮询中)...`);
@@ -179,11 +187,11 @@ async function main() {
     }
     if (!apiOk) {
       const res = await fetchHttp(`http://127.0.0.1:${port}${basePath}/api/v1/open/meta/project-profile`);
-      if (res.ok) apiOk = true;
+      if (res.status === 200 && res.body && res.body.includes("platformName")) apiOk = true;
     }
     if (!readyOk) {
       const res = await fetchHttp(`http://127.0.0.1:${port}${basePath}/readyz`);
-      if (res.ok) readyOk = true;
+      if (res.status === 200) readyOk = true;
     }
     if (cOk && bOk && apiOk && readyOk) break;
   }
