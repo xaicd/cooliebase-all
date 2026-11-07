@@ -75,12 +75,22 @@ do_start() {
     echo "⚠️  服务已在运行 (PID: $pid, 端口: ${PORT})"
     return 0
   fi
+  # 启动前端口注册表检查与排他占用判定 (D5 防占坑假阳性)
+  if [ -f "scripts/port-registry.cjs" ]; then
+    if ! node scripts/port-registry.cjs check "${PORT}" "${SLUG:-cooliebase}"; then
+      echo "❌ 启动终止: 端口 ${PORT} 存在外部项目冲突，请排查释放后重试"
+      exit 1
+    fi
+  fi
   echo "🚀 [${SLUG:-cooliebase}] 启动全生命周期统一服务 (对外单一端口: ${PORT}${BASE_PATH})..."
 
   # 后台启动统一拉起引擎
   nohup node scripts/fullstack-up.mjs > "$LOG_FILE" 2>&1 &
   local new_pid=$!
   echo $new_pid > "$PID_FILE"
+  if [ -f "scripts/port-registry.cjs" ]; then
+    node scripts/port-registry.cjs claim "${PORT}" "${SLUG:-cooliebase}" "$new_pid" || true
+  fi
 
   # 等待探活
   local max_wait=30
@@ -105,6 +115,9 @@ do_start() {
 
 do_stop() {
   echo "🛑 停止 [${SLUG:-cooliebase}] 全栈服务..."
+  if [ -f "scripts/port-registry.cjs" ]; then
+    node scripts/port-registry.cjs release "${PORT}" "${SLUG:-cooliebase}" || true
+  fi
   if pid="$(get_pid)"; then
     kill "$pid" 2>/dev/null || kill -9 "$pid" 2>/dev/null || true
     rm -f "$PID_FILE"
