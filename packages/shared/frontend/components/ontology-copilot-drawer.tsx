@@ -125,7 +125,7 @@ export function OntologyCopilotDrawer() {
   return (
     <>
       {/* 悬浮唤出按钮 (零死穴，可交互) */}
-      <aside aria-label="Copilot Assistant" className="fixed bottom-6 right-6 z-50">
+      <aside aria-label="Copilot Assistant" className="hidden sm:block fixed bottom-6 right-6 z-50">
         <button
           type="button"
           onClick={handleToggle}
