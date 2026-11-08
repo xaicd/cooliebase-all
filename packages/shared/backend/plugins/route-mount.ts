@@ -78,6 +78,25 @@ export function resolvePluginRoute(input: {
 
   const want = pathname.slice(`${PLUGIN_ROUTE_PREFIX}/${pluginKey}/api`.length) || "/"
   const routes = manifest.apiRoutes ?? []
+
+  if (want.startsWith("/app/") || want.startsWith("/open/")) {
+    const surface = want.startsWith("/app/") ? "app" : "open"
+    const subWant = want.slice(`/${surface}`.length) || "/"
+    const surfaceExact = routes.find(
+      (route) => route.routeKey.startsWith(`${surface}:`) && route.method === method && route.path === subWant,
+    )
+    if (surfaceExact) {
+      return { ok: true, declaration: surfaceExact, params: {} }
+    }
+    for (const route of routes) {
+      if (!route.routeKey.startsWith(`${surface}:`) || route.method !== method || !route.path.includes("[")) continue
+      const matchedParams = matchDeclarationPath(route.path, subWant)
+      if (matchedParams) {
+        return { ok: true, declaration: route, params: matchedParams }
+      }
+    }
+  }
+
   const exact = routes.find((route) => route.method === method && route.path === want)
   if (exact) {
     return { ok: true, declaration: exact, params: {} }

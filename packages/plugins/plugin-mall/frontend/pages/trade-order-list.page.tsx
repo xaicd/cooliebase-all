@@ -5,11 +5,57 @@ import React, { useState, useEffect, useCallback } from "react"
 import { TradeOrderApi } from "../api/trade-order.api"
 import { TradeOrderForm } from "../components/TradeOrderForm"
 import { Pagination } from "@/modules/shared/frontend/components/pagination"
-import type { TradeOrderVO, TradeOrderPageQuery } from "@/modules/mall/backend/types/trade-order.types"
+import type { TradeOrderVO } from "@/modules/mall/backend/types/trade-order.types"
+
+type EnrichedTradeOrder = TradeOrderVO & {
+  items?: Array<{
+    id: number
+    spu_name?: string
+    properties?: string
+    count?: number
+    price?: number
+    pay_price?: number
+  }>
+  logs?: Array<{
+    id: number
+    content?: string
+    created_at?: string
+  }>
+}
+
+type OrderSummary = {
+  all: number
+  unpaid: number
+  paid: number
+  shipped: number
+  completed: number
+  cancelled: number
+  refunding: number
+  totalPaidRevenue: number
+}
+
+const STATUS_META: Record<number, { label: string; badgeClass: string }> = {
+  0: { label: "待支付", badgeClass: "bg-amber-50 text-amber-700 border-amber-200" },
+  10: { label: "待发货", badgeClass: "bg-blue-50 text-blue-700 border-blue-200" },
+  20: { label: "已发货", badgeClass: "bg-indigo-50 text-indigo-700 border-indigo-200" },
+  30: { label: "已完成", badgeClass: "bg-emerald-50 text-emerald-700 border-emerald-200" },
+  40: { label: "已取消", badgeClass: "bg-slate-100 text-slate-600 border-slate-200" },
+}
 
 export function TradeOrderListPage() {
-    const [data, setData] = useState<TradeOrderVO[]>([])
+  const [data, setData] = useState<EnrichedTradeOrder[]>([])
   const [total, setTotal] = useState(0)
+  const [summary, setSummary] = useState<OrderSummary>({
+    all: 0,
+    unpaid: 0,
+    paid: 0,
+    shipped: 0,
+    completed: 0,
+    cancelled: 0,
+    refunding: 0,
+    totalPaidRevenue: 0,
+  })
+  const [expressPartners, setExpressPartners] = useState<Array<{ id: number; code?: string; name?: string }>>([])
   const [page, setPage] = useState(1)
   const [pageSize, setPageSize] = useState(20)
   const [loading, setLoading] = useState(false)
@@ -17,12 +63,27 @@ export function TradeOrderListPage() {
   const [formOpen, setFormOpen] = useState(false)
   const [editItem, setEditItem] = useState<TradeOrderVO | null>(null)
 
+  // 发货弹窗与详情抽屉状态
+  const [shipTarget, setShipTarget] = useState<EnrichedTradeOrder | null>(null)
+  const [logisticsId, setLogisticsId] = useState<string>("1")
+  const [logisticsNo, setLogisticsNo] = useState<string>("")
+  const [detailTarget, setDetailTarget] = useState<EnrichedTradeOrder | null>(null)
+  const [actionFeedback, setActionFeedback] = useState<string | null>(null)
+
   const fetchData = useCallback(async () => {
     setLoading(true)
     try {
       const res = await TradeOrderApi.page({ page, pageSize, ...searchForm })
-      setData(res.data?.items || [])
-      setTotal(res.data?.total || 0)
+      const payload = (res.data ?? {}) as {
+        items?: EnrichedTradeOrder[]
+        total?: number
+        summary?: OrderSummary
+        expressPartners?: Array<{ id: number; code?: string; name?: string }>
+      }
+      setData(payload.items || [])
+      setTotal(payload.total || 0)
+      if (payload.summary) setSummary(payload.summary)
+      if (payload.expressPartners) setExpressPartners(payload.expressPartners)
     } catch (err) {
       console.error("加载数据失败:", err)
     } finally {
@@ -33,6 +94,11 @@ export function TradeOrderListPage() {
   useEffect(() => {
     fetchData()
   }, [fetchData])
+
+  const notify = (msg: string) => {
+    setActionFeedback(msg)
+    setTimeout(() => setActionFeedback(null), 3500)
+  }
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault()
@@ -59,14 +125,68 @@ export function TradeOrderListPage() {
     if (!window.confirm("确定要删除该记录吗？")) return
     try {
       await TradeOrderApi.delete(id)
+      notify("订单记录已删除")
       fetchData()
     } catch (err: any) {
       alert(err?.message || "删除失败")
     }
   }
 
-  // Agent-Native: 根节点暴露就绪信号；弹窗打开时基底打 inert，让无障碍树只留弹窗一层
-  const agentState = loading ? "loading" : formOpen ? "modal-open" : total === 0 ? "empty" : "ready"
+  const handleConfirmPay = async (item: EnrichedTradeOrder) => {
+    const res = await TradeOrderApi.confirmPay(item.id, "admin_confirm")
+    if (res.success) {
+      notify(`订单 ${item.no} 已确认收款，状态流转为「待发货」`)
+      fetchData()
+    } else {
+      alert(res.error || "确认收款失败")
+    }
+  }
+
+  const openShipModal = (item: EnrichedTradeOrder) => {
+    setShipTarget(item)
+    setLogisticsId(String(expressPartners[0]?.id ?? "1"))
+    setLogisticsNo(`SF${Date.now().toString().slice(-10)}`)
+  }
+
+  const handleConfirmShip = async (e: React.FormEvent) => {
+    e.preventDefault()
+    if (!shipTarget || !logisticsNo.trim()) return
+    const res = await TradeOrderApi.ship(shipTarget.id, {
+      logisticsId,
+      logisticsNo: logisticsNo.trim(),
+    })
+    if (res.success) {
+      notify(`订单 ${shipTarget.no} 已完成发货，单号：${logisticsNo.trim()}`)
+      setShipTarget(null)
+      fetchData()
+    } else {
+      alert(res.error || "发货失败")
+    }
+  }
+
+  const handleApproveRefund = async (item: EnrichedTradeOrder) => {
+    const res = await TradeOrderApi.approveRefund(item.id, "商家审核通过，已原路退款并回滚商品库存")
+    if (res.success) {
+      notify(`订单 ${item.no} 售后退款已完成，SKU 库存已自动回滚`)
+      fetchData()
+    } else {
+      alert(res.error || "退款处理失败")
+    }
+  }
+
+  const handleCancelOrder = async (item: EnrichedTradeOrder) => {
+    const res = await TradeOrderApi.cancelOrder(item.id, "商家后台手动取消订单")
+    if (res.success) {
+      notify(`订单 ${item.no} 已取消并释放锁定库存`)
+      fetchData()
+    } else {
+      alert(res.error || "取消订单失败")
+    }
+  }
+
+  const anyModalOpen = formOpen || Boolean(shipTarget) || Boolean(detailTarget)
+  const agentState = loading ? "loading" : anyModalOpen ? "modal-open" : total === 0 ? "empty" : "ready"
+  const activeStatusTab = searchForm.status === undefined || searchForm.status === "" ? "ALL" : String(searchForm.status)
 
   return (
     <div
@@ -75,187 +195,520 @@ export function TradeOrderListPage() {
       data-agent-page-ready={String(!loading)}
       className="p-6 space-y-4"
     >
-      {/* 弹窗打开时基底内容 inert —— Agent 不会误点到被遮挡的元素 */}
-      <div inert={formOpen ? true : undefined} className="space-y-4">
-      {/* 页面头部 */}
-      <div className="flex items-center justify-between">
-        <div>
-          <h1 data-testid="trade-order-title" className="text-xl font-bold tracking-tight text-slate-900">交易订单管理</h1>
-          <p className="text-xs text-slate-500 mt-0.5">交易订单列表与配置管理</p>
+      <div inert={anyModalOpen ? true : undefined} className="space-y-4">
+        {/* 页面头部 */}
+        <div className="flex items-center justify-between">
+          <div>
+            <h1 data-testid="trade-order-title" className="text-xl font-bold tracking-tight text-slate-900">
+              交易订单履约与售后工作台
+            </h1>
+            <p className="text-xs text-slate-500 mt-0.5">
+              支持订单算价核验、确认收款、快递发货录入、物流追踪与售后原路退款闭环
+            </p>
+          </div>
+          <div className="flex items-center gap-2">
+            <button
+              onClick={fetchData}
+              data-testid="trade-order-refresh"
+              data-agent-target="trade-order:refresh"
+              className="px-3 py-1.5 text-xs text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
+            >
+              刷新
+            </button>
+            <button
+              onClick={handleAdd}
+              data-testid="trade-order-create"
+              data-agent-target="trade-order:create"
+              className="px-3.5 py-1.5 text-xs text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-xs"
+            >
+              + 新增交易订单
+            </button>
+          </div>
         </div>
-        <div className="flex items-center gap-2">
-          <button
-            onClick={fetchData}
-            data-testid="trade-order-refresh"
-            data-agent-target="trade-order:refresh"
-            className="px-3 py-1.5 text-xs text-slate-600 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors"
-          >
-            刷新
-          </button>
-          <button
-            onClick={handleAdd}
-            data-testid="trade-order-create"
-            data-agent-target="trade-order:create"
-            className="px-3.5 py-1.5 text-xs text-white bg-blue-600 rounded-lg hover:bg-blue-700 transition-colors font-medium shadow-xs"
-          >
-            + 新增交易订单
-          </button>
-        </div>
-      </div>
 
-      {/* 搜索工具栏 */}
-      <form
-        onSubmit={handleSearch}
-        data-testid="trade-order-search"
-        data-agent-scope="trade-order:search"
-        aria-label="交易订单搜索"
-        className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3">
-        <div className="flex flex-wrap items-center gap-3">
-        <div className="flex items-center gap-1.5">
-          <label htmlFor="trade-order-search-no" className="text-xs text-slate-500 whitespace-nowrap">订单流水号:</label>
-          <input
-            type="text"
-            id="trade-order-search-no"
-            data-testid="search-no"
-            data-agent-target="trade-order:field:no"
-            data-agent-state={searchForm.no ? "filled" : "empty"}
-            aria-label="订单流水号"
-            value={searchForm.no ?? ""}
-            onChange={(e) => setSearchForm((prev) => ({ ...prev, no: e.target.value }))}
-            placeholder="搜索订单流水号"
-            className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex items-center gap-1.5">
-          <label htmlFor="trade-order-search-type" className="text-xs text-slate-500 whitespace-nowrap">订单类型:</label>
-          <input
-            type="text"
-            id="trade-order-search-type"
-            data-testid="search-type"
-            data-agent-target="trade-order:field:type"
-            data-agent-state={searchForm.type ? "filled" : "empty"}
-            aria-label="订单类型"
-            value={searchForm.type ?? ""}
-            onChange={(e) => setSearchForm((prev) => ({ ...prev, type: e.target.value }))}
-            placeholder="搜索订单类型"
-            className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex items-center gap-1.5">
-          <label htmlFor="trade-order-search-user_id" className="text-xs text-slate-500 whitespace-nowrap">用户编号:</label>
-          <input
-            type="text"
-            id="trade-order-search-user_id"
-            data-testid="search-user_id"
-            data-agent-target="trade-order:field:user_id"
-            data-agent-state={searchForm.user_id ? "filled" : "empty"}
-            aria-label="用户编号"
-            value={searchForm.user_id ?? ""}
-            onChange={(e) => setSearchForm((prev) => ({ ...prev, user_id: e.target.value }))}
-            placeholder="搜索用户编号"
-            className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex items-center gap-1.5">
-          <label htmlFor="trade-order-search-status" className="text-xs text-slate-500 whitespace-nowrap">订单状态:</label>
-          <input
-            type="text"
-            id="trade-order-search-status"
-            data-testid="search-status"
-            data-agent-target="trade-order:field:status"
-            data-agent-state={searchForm.status ? "filled" : "empty"}
-            aria-label="订单状态"
-            value={searchForm.status ?? ""}
-            onChange={(e) => setSearchForm((prev) => ({ ...prev, status: e.target.value }))}
-            placeholder="搜索订单状态"
-            className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-        <div className="flex items-center gap-1.5">
-          <label htmlFor="trade-order-search-brokerage_user_id" className="text-xs text-slate-500 whitespace-nowrap">推广人编号:</label>
-          <input
-            type="text"
-            id="trade-order-search-brokerage_user_id"
-            data-testid="search-brokerage_user_id"
-            data-agent-target="trade-order:field:brokerage_user_id"
-            data-agent-state={searchForm.brokerage_user_id ? "filled" : "empty"}
-            aria-label="推广人编号"
-            value={searchForm.brokerage_user_id ?? ""}
-            onChange={(e) => setSearchForm((prev) => ({ ...prev, brokerage_user_id: e.target.value }))}
-            placeholder="搜索推广人编号"
-            className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
-          />
-        </div>
-          <button type="submit" data-testid="trade-order-search-submit" data-agent-target="trade-order:search" className="px-3 py-1 text-xs text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors">查询</button>
-          <button type="button" onClick={handleReset} data-testid="trade-order-search-reset" data-agent-target="trade-order:reset" className="px-3 py-1 text-xs text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">重置</button>
-        </div>
-        <div className="text-xs text-slate-500">共 <span data-testid="trade-order-total" className="font-semibold text-slate-700">{total}</span> 条记录</div>
-      </form>
+        {actionFeedback && (
+          <div className="px-4 py-2.5 rounded-xl bg-emerald-50 border border-emerald-200 text-xs font-medium text-emerald-800 flex items-center justify-between">
+            <span>✓ {actionFeedback}</span>
+            <button type="button" onClick={() => setActionFeedback(null)} className="text-emerald-600 hover:underline">
+              关闭
+            </button>
+          </div>
+        )}
 
-      {/* 数据表格 */}
-      <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
-        <div className="overflow-x-auto">
-          <table data-testid="trade-order-table" aria-label="交易订单列表" className="min-w-full divide-y divide-slate-200">
-            <thead className="bg-slate-50/80">
-              <tr>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">订单流水号</th>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">订单类型</th>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">订单来源</th>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">用户编号</th>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">用户 IP</th>
-                <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">用户备注</th>
-                <th className="px-4 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wider min-w-[140px]">操作</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-200 bg-white">
-              {loading ? (
+        {/* 订单核心指标卡 */}
+        <div className="grid grid-cols-2 md:grid-cols-6 gap-3">
+          <div className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs">
+            <div className="text-[11px] text-slate-500">全部交易订单</div>
+            <div className="text-lg font-bold text-slate-900 mt-1">{summary.all}</div>
+          </div>
+          <div className="p-3.5 bg-white rounded-xl border border-amber-200/80 shadow-xs">
+            <div className="text-[11px] text-amber-700">待支付 (UNPAID)</div>
+            <div className="text-lg font-bold text-amber-600 mt-1">{summary.unpaid}</div>
+          </div>
+          <div className="p-3.5 bg-white rounded-xl border border-blue-200/80 shadow-xs">
+            <div className="text-[11px] text-blue-700">待发货 (PAID)</div>
+            <div className="text-lg font-bold text-blue-600 mt-1">{summary.paid}</div>
+          </div>
+          <div className="p-3.5 bg-white rounded-xl border border-indigo-200/80 shadow-xs">
+            <div className="text-[11px] text-indigo-700">已发货 (SHIPPED)</div>
+            <div className="text-lg font-bold text-indigo-600 mt-1">{summary.shipped}</div>
+          </div>
+          <div className="p-3.5 bg-white rounded-xl border border-rose-200/80 shadow-xs">
+            <div className="text-[11px] text-rose-700">售后待审</div>
+            <div className="text-lg font-bold text-rose-600 mt-1">{summary.refunding}</div>
+          </div>
+          <div className="p-3.5 bg-white rounded-xl border border-emerald-200/80 shadow-xs">
+            <div className="text-[11px] text-emerald-700">已支付实收总额</div>
+            <div className="text-lg font-bold text-emerald-600 mt-1">¥{summary.totalPaidRevenue.toFixed(2)}</div>
+          </div>
+        </div>
+
+        {/* 状态流转快捷页签 */}
+        <div className="flex flex-wrap items-center gap-1.5 bg-slate-100/80 p-1.5 rounded-xl border border-slate-200/70">
+          {[
+            { key: "ALL", label: `全部 (${summary.all})` },
+            { key: "0", label: `待支付 (${summary.unpaid})` },
+            { key: "10", label: `待发货 (${summary.paid})` },
+            { key: "20", label: `已发货 (${summary.shipped})` },
+            { key: "30", label: `已完成 (${summary.completed})` },
+            { key: "40", label: `已取消/退款 (${summary.cancelled})` },
+          ].map((tab) => (
+            <button
+              key={tab.key}
+              type="button"
+              onClick={() => {
+                setPage(1)
+                setSearchForm((prev) => ({
+                  ...prev,
+                  status: tab.key === "ALL" ? "" : tab.key,
+                }))
+              }}
+              className={`px-3 py-1.5 text-xs font-medium rounded-lg transition-all ${
+                activeStatusTab === tab.key
+                  ? "bg-white text-blue-600 shadow-xs border border-slate-200/80"
+                  : "text-slate-600 hover:text-slate-900"
+              }`}
+            >
+              {tab.label}
+            </button>
+          ))}
+        </div>
+
+        {/* 搜索工具栏 */}
+        <form
+          onSubmit={handleSearch}
+          data-testid="trade-order-search"
+          data-agent-scope="trade-order:search"
+          aria-label="交易订单搜索"
+          className="p-3.5 bg-white rounded-xl border border-slate-200 shadow-xs flex flex-wrap items-center justify-between gap-3"
+        >
+          <div className="flex flex-wrap items-center gap-3">
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="trade-order-search-no" className="text-xs text-slate-500 whitespace-nowrap">订单流水号:</label>
+              <input
+                type="text"
+                id="trade-order-search-no"
+                data-testid="search-no"
+                data-agent-target="trade-order:field:no"
+                data-agent-state={searchForm.no ? "filled" : "empty"}
+                aria-label="订单流水号"
+                value={searchForm.no ?? ""}
+                onChange={(e) => setSearchForm((prev) => ({ ...prev, no: e.target.value }))}
+                placeholder="搜索订单流水号"
+                className="w-36 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="trade-order-search-type" className="text-xs text-slate-500 whitespace-nowrap">订单类型:</label>
+              <input
+                type="text"
+                id="trade-order-search-type"
+                data-testid="search-type"
+                data-agent-target="trade-order:field:type"
+                data-agent-state={searchForm.type ? "filled" : "empty"}
+                aria-label="订单类型"
+                value={searchForm.type ?? ""}
+                onChange={(e) => setSearchForm((prev) => ({ ...prev, type: e.target.value }))}
+                placeholder="0普通 / 1秒杀"
+                className="w-28 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="trade-order-search-user_id" className="text-xs text-slate-500 whitespace-nowrap">用户编号:</label>
+              <input
+                type="text"
+                id="trade-order-search-user_id"
+                data-testid="search-user_id"
+                data-agent-target="trade-order:field:user_id"
+                data-agent-state={searchForm.user_id ? "filled" : "empty"}
+                aria-label="用户编号"
+                value={searchForm.user_id ?? ""}
+                onChange={(e) => setSearchForm((prev) => ({ ...prev, user_id: e.target.value }))}
+                placeholder="搜索用户编号"
+                className="w-32 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="trade-order-search-status" className="text-xs text-slate-500 whitespace-nowrap">订单状态:</label>
+              <input
+                type="text"
+                id="trade-order-search-status"
+                data-testid="search-status"
+                data-agent-target="trade-order:field:status"
+                data-agent-state={searchForm.status ? "filled" : "empty"}
+                aria-label="订单状态"
+                value={searchForm.status ?? ""}
+                onChange={(e) => setSearchForm((prev) => ({ ...prev, status: e.target.value }))}
+                placeholder="0/10/20/30/40"
+                className="w-28 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex items-center gap-1.5">
+              <label htmlFor="trade-order-search-brokerage_user_id" className="text-xs text-slate-500 whitespace-nowrap">推广人编号:</label>
+              <input
+                type="text"
+                id="trade-order-search-brokerage_user_id"
+                data-testid="search-brokerage_user_id"
+                data-agent-target="trade-order:field:brokerage_user_id"
+                data-agent-state={searchForm.brokerage_user_id ? "filled" : "empty"}
+                aria-label="推广人编号"
+                value={searchForm.brokerage_user_id ?? ""}
+                onChange={(e) => setSearchForm((prev) => ({ ...prev, brokerage_user_id: e.target.value }))}
+                placeholder="搜索推广人编号"
+                className="w-28 px-2.5 py-1 text-xs border border-slate-200 rounded-lg focus:outline-none focus:ring-1 focus:ring-blue-500"
+              />
+            </div>
+            <button type="submit" data-testid="trade-order-search-submit" data-agent-target="trade-order:search" className="px-3 py-1 text-xs text-white bg-slate-900 rounded-lg hover:bg-slate-800 transition-colors">查询</button>
+            <button type="button" onClick={handleReset} data-testid="trade-order-search-reset" data-agent-target="trade-order:reset" className="px-3 py-1 text-xs text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200 transition-colors">重置</button>
+          </div>
+          <div className="text-xs text-slate-500">共 <span data-testid="trade-order-total" className="font-semibold text-slate-700">{total}</span> 条记录</div>
+        </form>
+
+        {/* 数据表格 */}
+        <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+          <div className="overflow-x-auto">
+            <table data-testid="trade-order-table" aria-label="交易订单列表" className="min-w-full divide-y divide-slate-200">
+              <thead className="bg-slate-50/80">
                 <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-xs text-slate-400">加载中...</td>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">订单号 / 类型</th>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">商品明细 (SPU/SKU)</th>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">实付 / 算价明细</th>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">买家与收货信息</th>
+                  <th className="px-4 py-2.5 text-left text-[11px] font-semibold text-slate-500 uppercase tracking-wider">履约状态 / 物流</th>
+                  <th className="px-4 py-2.5 text-right text-[11px] font-semibold text-slate-500 uppercase tracking-wider min-w-[220px]">履约操作</th>
                 </tr>
-              ) : data.length === 0 ? (
-                <tr>
-                  <td colSpan={7} className="px-4 py-8 text-center text-xs text-slate-400">暂无数据</td>
-                </tr>
-              ) : (
-                data.map((item) => (
-                  <tr
-                    key={item.id}
-                    data-testid="trade-order-row"
-                    data-agent-target="trade-order:row"
-                    data-agent-state={editItem?.id === item.id ? "editing" : "idle"}
-                    data-agent-id={item.id}
-                    className="hover:bg-slate-50/60 transition-colors"
-                  >
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.no ?? "-")}>{String(item.no ?? "-")}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.type ?? "-")}>{String(item.type ?? "-")}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.terminal ?? "-")}>{String(item.terminal ?? "-")}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.user_id ?? "-")}>{String(item.user_id ?? "-")}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.user_ip ?? "-")}>{String(item.user_ip ?? "-")}</td>
-                  <td className="px-4 py-2.5 text-xs text-slate-700 max-w-[200px] truncate" title={String(item.user_remark ?? "-")}>{String(item.user_remark ?? "-")}</td>
-                    <td className="px-4 py-2.5 text-xs text-right whitespace-nowrap space-x-2">
-                      <button onClick={() => handleEdit(item)} data-testid="trade-order-edit" data-agent-target="trade-order:edit" data-agent-id={item.id} aria-label={"编辑 " + item.id} className="text-blue-600 hover:text-blue-800 font-medium">编辑</button>
-                      <button onClick={() => handleDelete(String(item.id))} data-testid="trade-order-delete" data-agent-target="trade-order:delete" data-agent-id={item.id} aria-label={"删除 " + item.id} className="text-rose-600 hover:text-rose-800 font-medium">删除</button>
+              </thead>
+              <tbody className="divide-y divide-slate-200 bg-white">
+                {loading ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-8 text-center text-xs text-slate-400">加载中...</td>
+                  </tr>
+                ) : data.length === 0 ? (
+                  <tr>
+                    <td colSpan={6} className="px-4 py-8 text-center text-xs text-slate-400">
+                      暂无订单数据（可在 C 端 /portal 选品下单或点击右上角新增交易订单）
                     </td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
-        </div>
+                ) : (
+                  data.map((item) => {
+                    const st = Number(item.status ?? 0)
+                    const statusInfo = STATUS_META[st] ?? { label: `状态(${st})`, badgeClass: "bg-slate-100 text-slate-600 border-slate-200" }
+                    const refundStatus = Number(item.refund_status ?? 0)
+                    return (
+                      <tr
+                        key={item.id}
+                        data-testid="trade-order-row"
+                        data-agent-target="trade-order:row"
+                        data-agent-state={editItem?.id === item.id ? "editing" : "idle"}
+                        data-agent-id={item.id}
+                        className="hover:bg-slate-50/60 transition-colors"
+                      >
+                        <td className="px-4 py-3 text-xs text-slate-800">
+                          <div className="font-mono font-semibold text-slate-900">{String(item.no ?? `#${item.id}`)}</div>
+                          <div className="flex items-center gap-1.5 mt-1">
+                            <span className="px-1.5 py-0.5 text-[10px] rounded bg-slate-100 text-slate-600">
+                              {Number(item.type ?? 0) === 1 ? "限时秒杀单" : "普通交易单"}
+                            </span>
+                            <span className="text-[11px] text-slate-400">用户: {String(item.user_id ?? "-")}</span>
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-700 max-w-[260px]">
+                          {item.items && item.items.length > 0 ? (
+                            <div className="space-y-1">
+                              {item.items.map((sub) => (
+                                <div key={sub.id} className="flex items-center justify-between gap-2 text-xs">
+                                  <span className="font-medium text-slate-800 truncate">{sub.spu_name}</span>
+                                  <span className="text-slate-500 whitespace-nowrap">
+                                    {sub.properties ? `(${sub.properties}) ` : ""}×{sub.count ?? 1}
+                                  </span>
+                                </div>
+                              ))}
+                            </div>
+                          ) : (
+                            <span className="text-slate-400">共 {item.product_count ?? 1} 件商品</span>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          <div className="font-bold text-slate-900">¥{Number(item.pay_price ?? item.total_price ?? 0).toFixed(2)}</div>
+                          <div className="text-[11px] text-slate-400 mt-0.5">
+                            原价 ¥{Number(item.total_price ?? 0).toFixed(2)}
+                            {Number(item.discount_price ?? 0) > 0 ? ` · 活动减 ¥${Number(item.discount_price).toFixed(2)}` : ""}
+                            {Number(item.coupon_price ?? 0) > 0 ? ` · 券抵 ¥${Number(item.coupon_price).toFixed(2)}` : ""}
+                          </div>
+                        </td>
+                        <td className="px-4 py-3 text-xs text-slate-700 max-w-[220px]">
+                          <div className="font-medium text-slate-800">
+                            {item.receiver_name || "默认收货人"} {item.receiver_mobile || ""}
+                          </div>
+                          <div className="text-[11px] text-slate-400 truncate" title={item.receiver_detail_address || ""}>
+                            {item.receiver_detail_address || "线上极速履约"}
+                          </div>
+                          {item.user_remark && (
+                            <div className="text-[11px] text-amber-600 truncate mt-0.5">买家留言: {item.user_remark}</div>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-xs">
+                          <div className="flex items-center gap-1.5 flex-wrap">
+                            <span className={`px-2 py-0.5 text-[11px] font-medium rounded-full border ${statusInfo.badgeClass}`}>
+                              {statusInfo.label}
+                            </span>
+                            {refundStatus === 10 && (
+                              <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-rose-50 text-rose-700 border border-rose-200">
+                                售后待审
+                              </span>
+                            )}
+                            {refundStatus === 20 && (
+                              <span className="px-2 py-0.5 text-[11px] font-medium rounded-full bg-slate-100 text-slate-600 border border-slate-200">
+                                已原路退款
+                              </span>
+                            )}
+                          </div>
+                          {item.logistics_no && (
+                            <div className="text-[11px] text-slate-500 mt-1 font-mono">
+                              物流单号: {item.logistics_no}
+                            </div>
+                          )}
+                        </td>
+                        <td className="px-4 py-3 text-xs text-right whitespace-nowrap space-x-2">
+                          {st === 0 && (
+                            <button
+                              type="button"
+                              onClick={() => handleConfirmPay(item)}
+                              data-testid="trade-order-pay"
+                              className="px-2 py-1 rounded bg-amber-50 text-amber-700 hover:bg-amber-100 font-medium border border-amber-200"
+                            >
+                              确认收款
+                            </button>
+                          )}
+                          {st === 10 && (
+                            <button
+                              type="button"
+                              onClick={() => openShipModal(item)}
+                              data-testid="trade-order-ship"
+                              className="px-2.5 py-1 rounded bg-blue-600 text-white hover:bg-blue-700 font-medium shadow-2xs"
+                            >
+                              发货
+                            </button>
+                          )}
+                          {refundStatus === 10 && (
+                            <button
+                              type="button"
+                              onClick={() => handleApproveRefund(item)}
+                              data-testid="trade-order-approve-refund"
+                              className="px-2 py-1 rounded bg-rose-600 text-white hover:bg-rose-700 font-medium"
+                            >
+                              同意退款
+                            </button>
+                          )}
+                          {(st === 0 || st === 10) && refundStatus === 0 && (
+                            <button
+                              type="button"
+                              onClick={() => handleCancelOrder(item)}
+                              className="text-slate-500 hover:text-slate-800 font-medium"
+                            >
+                              关单
+                            </button>
+                          )}
+                          <button
+                            type="button"
+                            onClick={() => setDetailTarget(item)}
+                            className="text-indigo-600 hover:text-indigo-800 font-medium"
+                          >
+                            详情
+                          </button>
+                          <button
+                            onClick={() => handleEdit(item)}
+                            data-testid="trade-order-edit"
+                            data-agent-target="trade-order:edit"
+                            data-agent-id={item.id}
+                            aria-label={"编辑 " + item.id}
+                            className="text-blue-600 hover:text-blue-800 font-medium"
+                          >
+                            编辑
+                          </button>
+                          <button
+                            onClick={() => handleDelete(String(item.id))}
+                            data-testid="trade-order-delete"
+                            data-agent-target="trade-order:delete"
+                            data-agent-id={item.id}
+                            aria-label={"删除 " + item.id}
+                            className="text-rose-600 hover:text-rose-800 font-medium"
+                          >
+                            删除
+                          </button>
+                        </td>
+                      </tr>
+                    )
+                  })
+                )}
+              </tbody>
+            </table>
+          </div>
 
-        {/* 分页组件 */}
-        <div data-agent-target="trade-order:pagination" className="p-3 border-t border-slate-200">
-          <Pagination
-            total={total}
-            page={page}
-            pageSize={pageSize}
-            onPageChange={(p) => setPage(p)}
-            onPageSizeChange={(ps) => setPageSize(ps)}
-          />
+          {/* 分页组件 */}
+          <div data-agent-target="trade-order:pagination" className="p-3 border-t border-slate-200">
+            <Pagination
+              total={total}
+              page={page}
+              pageSize={pageSize}
+              onPageChange={(p) => setPage(p)}
+              onPageSizeChange={(ps) => setPageSize(ps)}
+            />
+          </div>
         </div>
       </div>
 
-      </div>
+      {/* 订单发货弹窗 (对标芋道 OrderDeliveryForm) */}
+      {shipTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+          <form
+            onSubmit={handleConfirmShip}
+            className="w-full max-w-md bg-white rounded-2xl border border-slate-200 shadow-xl p-6 space-y-4"
+          >
+            <div className="flex items-center justify-between">
+              <h3 className="text-base font-bold text-slate-900">订单快递发货 · {shipTarget.no}</h3>
+              <button
+                type="button"
+                onClick={() => setShipTarget(null)}
+                className="text-xs text-slate-400 hover:text-slate-600"
+              >
+                关闭
+              </button>
+            </div>
+            <div className="p-3 rounded-xl bg-slate-50 border border-slate-200 text-xs space-y-1">
+              <div className="text-slate-700 font-medium">
+                收货人：{shipTarget.receiver_name || "张明远"} ({shipTarget.receiver_mobile || "13800138000"})
+              </div>
+              <div className="text-slate-500">{shipTarget.receiver_detail_address || "上海市浦东新区张江高科园区"}</div>
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-medium text-slate-700">选择物流公司</label>
+              <select
+                value={logisticsId}
+                onChange={(e) => setLogisticsId(e.target.value)}
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+              >
+                {expressPartners.length > 0 ? (
+                  expressPartners.map((exp) => (
+                    <option key={exp.id} value={String(exp.id)}>
+                      {exp.name} ({exp.code})
+                    </option>
+                  ))
+                ) : (
+                  <>
+                    <option value="1">顺丰速运 (SF)</option>
+                    <option value="2">京东物流 (JD)</option>
+                    <option value="3">圆通速递 (YTO)</option>
+                  </>
+                )}
+              </select>
+            </div>
+            <div className="space-y-1.5">
+              <label className="block text-xs font-medium text-slate-700">物流运单号</label>
+              <input
+                type="text"
+                required
+                value={logisticsNo}
+                onChange={(e) => setLogisticsNo(e.target.value)}
+                placeholder="请输入快递运单号"
+                className="w-full px-3 py-2 text-xs border border-slate-300 rounded-lg font-mono focus:outline-none focus:ring-2 focus:ring-blue-500"
+              />
+            </div>
+            <div className="flex justify-end gap-2 pt-2">
+              <button
+                type="button"
+                onClick={() => setShipTarget(null)}
+                className="px-4 py-1.5 text-xs text-slate-600 bg-slate-100 rounded-lg hover:bg-slate-200"
+              >
+                取消
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-1.5 text-xs text-white bg-blue-600 rounded-lg hover:bg-blue-700 font-medium"
+              >
+                确认发货并通知买家
+              </button>
+            </div>
+          </form>
+        </div>
+      )}
+
+      {/* 订单详情与操作轨迹弹窗 */}
+      {detailTarget && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/50 p-4">
+          <div className="w-full max-w-lg bg-white rounded-2xl border border-slate-200 shadow-xl p-6 space-y-4 max-h-[85vh] overflow-y-auto">
+            <div className="flex items-center justify-between border-b border-slate-100 pb-3">
+              <div>
+                <h3 className="text-base font-bold text-slate-900">订单全链路详情 · {detailTarget.no}</h3>
+                <p className="text-xs text-slate-500 mt-0.5">支付单号：{detailTarget.pay_order_id || "待生成"}</p>
+              </div>
+              <button
+                type="button"
+                onClick={() => setDetailTarget(null)}
+                className="px-2.5 py-1 text-xs text-slate-500 hover:bg-slate-100 rounded-lg"
+              >
+                关闭
+              </button>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-xs font-semibold text-slate-800">商品明细</div>
+              <div className="divide-y divide-slate-100 border border-slate-200 rounded-xl overflow-hidden">
+                {(detailTarget.items ?? []).map((sub) => (
+                  <div key={sub.id} className="p-3 flex items-center justify-between text-xs bg-slate-50/50">
+                    <div>
+                      <div className="font-medium text-slate-900">{sub.spu_name}</div>
+                      <div className="text-slate-500 text-[11px]">{sub.properties || "标准规格"}</div>
+                    </div>
+                    <div className="text-right">
+                      <div className="font-semibold text-slate-900">¥{Number(sub.pay_price ?? sub.price ?? 0).toFixed(2)}</div>
+                      <div className="text-[11px] text-slate-400">× {sub.count ?? 1}</div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <div className="text-xs font-semibold text-slate-800">状态机流转与审计日志</div>
+              <div className="space-y-1.5 border border-slate-200 rounded-xl p-3 bg-slate-50/40">
+                {(detailTarget.logs ?? []).length === 0 ? (
+                  <div className="text-xs text-slate-400">暂无流转日志</div>
+                ) : (
+                  (detailTarget.logs ?? []).map((log) => (
+                    <div key={log.id} className="text-xs text-slate-700 flex items-start justify-between gap-2">
+                      <span>• {log.content}</span>
+                      <span className="text-[10px] text-slate-400 whitespace-nowrap">
+                        {log.created_at ? new Date(log.created_at).toLocaleTimeString() : ""}
+                      </span>
+                    </div>
+                  ))
+                )}
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* 弹窗表单 */}
       <TradeOrderForm

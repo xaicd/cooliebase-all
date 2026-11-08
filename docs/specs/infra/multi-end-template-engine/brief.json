@@ -288,8 +288,46 @@
         "docs/specs/infra/multi-end-template-engine/bugs.md",
         "docs/features/sprint-prod/1108.md"
       ]
+    },
+    {
+      "id": "T7",
+      "parent": "T6",
+      "title": "对标芋道电商解决方案：100%数据库动态驱动的商品SPU/SKU、优惠券/秒杀/满减营销引擎、购物车结算算价、收银台支付与B端订单发货/售后工作台全闭环",
+      "files": [
+        "packages/plugins/plugin-mall/backend/services/mall-solution.service.ts",
+        "packages/plugins/plugin-mall/routes/app/products/route.ts",
+        "packages/plugins/plugin-mall/routes/admin/trade-order/route.ts",
+        "packages/plugins/plugin-mall/routes/admin/trade-order/[id]/route.ts",
+        "packages/plugins/plugin-mall/frontend/api/trade-order.api.ts",
+        "packages/plugins/plugin-mall/frontend/pages/trade-order-list.page.tsx",
+        "packages/plugins/plugin-mall/plugin.manifest.json",
+        "packages/plugins/plugin-mall/plugin-entry.ts",
+        "packages/plugins/plugin-pay/routes/app/cashier/route.ts",
+        "packages/plugins/plugin-pay/plugin-entry.ts",
+        "packages/plugins/plugin-member/routes/app/profile/route.ts",
+        "packages/shared/backend/plugins/route-mount.ts",
+        "src/app/api/v1/plugins/[pluginKey]/api/[...path]/route.ts",
+        "src/app/(portal-pages)/portal/components/book-store-portal.tsx",
+        "test/unit/multi-end-template-engine.test.ts",
+        "docs/specs/infra/multi-end-template-engine/brief.json",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/spec.json",
+        "docs/specs/infra/multi-end-template-engine/feature.json",
+        "docs/specs/infra/multi-end-template-engine/plan.md",
+        "docs/specs/infra/multi-end-template-engine/design.md",
+        "docs/specs/infra/multi-end-template-engine/requirements.md",
+        "docs/specs/infra/multi-end-template-engine/spec.md",
+        "docs/specs/infra/multi-end-template-engine/checklist.md",
+        "docs/specs/infra/multi-end-template-engine/deployment.md",
+        "docs/specs/infra/multi-end-template-engine/prototype.md",
+        "docs/specs/infra/multi-end-template-engine/research.md",
+        "docs/specs/infra/multi-end-template-engine/selection.md",
+        "docs/specs/infra/multi-end-template-engine/runbook.json",
+        "docs/specs/infra/multi-end-template-engine/bugs.md"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7",
   "windowMinutes": 20
 }

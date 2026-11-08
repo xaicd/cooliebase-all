@@ -43,4 +43,28 @@ export const TradeOrderApi = {
     formData.append("file", file)
     return request.post<{ importedCount: number }>(`${BASE_URL}/import`, formData)
   },
+
+  async ship(id: string | number, payload: { logisticsId?: string | number; logisticsNo: string }) {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "ship", ...payload })
+  },
+
+  async confirmPay(id: string | number, channelCode = "admin_confirm") {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "pay", channelCode })
+  },
+
+  async receive(id: string | number) {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "receive" })
+  },
+
+  async cancelOrder(id: string | number, reason = "管理员取消订单") {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "cancel", reason })
+  },
+
+  async approveRefund(id: string | number, auditReason = "同意售后原路退款") {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "approveRefund", auditReason })
+  },
+
+  async updateRemark(id: string | number, remark: string) {
+    return request.put<TradeOrderVO>(`${BASE_URL}/${id}`, { action: "remark", remark })
+  },
 }

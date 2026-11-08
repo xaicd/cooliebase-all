@@ -53,7 +53,9 @@ async function invoke(handler: (request: Request, context?: unknown) => Promise<
     headers: input.headers,
     body: input.body === undefined ? undefined : JSON.stringify(input.body),
   })
-  const response = await handler(request)
+  const fallbackId = String(input.path ?? "").split("/").filter(Boolean).pop() ?? ""
+  const params = input.params && Object.keys(input.params).length > 0 ? input.params : { id: fallbackId }
+  const response = await handler(request, { params: Promise.resolve(params) })
   const text = await response.text()
   let body: unknown = text
   try { body = text ? JSON.parse(text) : null } catch { /* 非 JSON 原样返回 */ }

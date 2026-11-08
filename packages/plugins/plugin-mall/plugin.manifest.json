@@ -1643,6 +1643,12 @@
       "method": "GET",
       "path": "/products",
       "auth": "company"
+    },
+    {
+      "routeKey": "app:products:post",
+      "method": "POST",
+      "path": "/products",
+      "auth": "company"
     }
   ]
 }

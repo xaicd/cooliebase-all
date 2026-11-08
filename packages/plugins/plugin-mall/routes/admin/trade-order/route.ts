@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server"
 import { TradeOrderService } from "@/modules/mall/backend/services/trade-order.service"
-import { tradeOrderCreateSchema, tradeOrderPageQuerySchema, tradeOrderUpdateSchema } from "@/modules/mall/backend/validators/trade-order.validator"
+import { MallSolutionService } from "@/modules/mall/backend/services/mall-solution.service"
+import { tradeOrderCreateSchema, tradeOrderPageQuerySchema } from "@/modules/mall/backend/validators/trade-order.validator"
 
 export async function GET(request: Request) {
   try {
@@ -8,7 +9,7 @@ export async function GET(request: Request) {
     const raw: Record<string, unknown> = {}
     searchParams.forEach((value, key) => { raw[key] = value })
     const input = tradeOrderPageQuerySchema.parse(raw)
-    const data = await TradeOrderService.page(input)
+    const data = await MallSolutionService.listOrdersWithDetails({ ...raw, ...input })
     return NextResponse.json({ success: true, data })
   } catch (error: any) {
     return NextResponse.json({ success: false, error: error?.message || "查询失败" }, { status: 400 })

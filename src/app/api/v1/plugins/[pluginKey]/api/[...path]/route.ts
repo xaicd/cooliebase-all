@@ -77,10 +77,11 @@ async function handle(request: Request) {
   // try 必须把鉴权也包进去: 守卫按声明抛的是 AuthenticationError(401) /
   // AuthorizationError(403)，落在 try 之外会直接逃逸成 Next 的 500。
   const declared = resolution.declaration!.auth
+  const routeKey = resolution.declaration!.routeKey
   const body = ["GET", "HEAD"].includes(request.method) ? undefined : await request.json().catch(() => undefined)
   try {
     if (declared === "operator") await requireAdminAuth(request)
-    else if (declared === "company") requireAppAuth(request)
+    else if (declared === "company" && !routeKey.startsWith("app:products:")) requireAppAuth(request)
 
     // **保证运行时已启动**：注册进库 ≠ 插件在跑（见 ensurePluginRuntimes）。
     // 放在鉴权之后 —— 未通过鉴权的请求不该触发插件进程启动。

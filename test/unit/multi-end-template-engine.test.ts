@@ -417,4 +417,160 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(DEFAULT_APPEARANCE.siteName).not.toBe("CoolieBase Next 商城")
     })
   })
+
+  describe("5. Dynamic Database-Driven Mall E-Commerce Closed-Loop Engine", () => {
+    it("executes full dynamic storefront -> claim coupon -> cart -> settlement price engine -> order creation & stock deduction -> pay -> ship -> receive -> after-sale refund closed loop", async () => {
+      const { MallSolutionService } = await import("@/modules/mall/backend/services/mall-solution.service")
+      const { ProductSkuService } = await import("@/modules/mall/backend/services/product-sku.service")
+
+      const userId = `e2e-buyer-${Date.now()}`
+
+      // 1. 动态初始化并加载商城聚合数据（分类、SPU/SKU、秒杀、满减、优惠券模板）
+      const home = await MallSolutionService.getStorefrontHome({ userId }, userId, "default")
+      expect(home.categories.length).toBeGreaterThanOrEqual(4)
+      expect(home.products.length).toBeGreaterThanOrEqual(4)
+      expect(home.couponTemplates.length).toBeGreaterThanOrEqual(3)
+      expect(home.rewardActivities.length).toBeGreaterThanOrEqual(1)
+
+      const targetProduct = home.products[0]
+      const targetSku = targetProduct.skus?.[0]
+      expect(targetSku).toBeDefined()
+      const initialSkuStock = Number(targetSku!.stock ?? 0)
+      expect(initialSkuStock).toBeGreaterThan(5)
+
+      // 2. 领取满减优惠券落库
+      const targetTpl = home.couponTemplates[0]
+      const claimedCoupon = await MallSolutionService.takeCoupon(
+        { templateId: targetTpl.id, userId },
+        userId,
+        "default",
+      )
+      expect(claimedCoupon.status).toBe(1)
+      expect(String(claimedCoupon.template_id)).toBe(String(targetTpl.id))
+
+      // 3. 加入购物车落库
+      const cartRow = await MallSolutionService.saveCartItem(
+        {
+          userId,
+          spuId: targetProduct.id,
+          skuId: targetSku!.id,
+          count: 2,
+        },
+        userId,
+        "default",
+      )
+      expect(cartRow).toHaveProperty("id")
+
+      // 4. 结算算价引擎：自动计算原价、秒杀立减、满减优惠与优惠券抵扣
+      const settlement = await MallSolutionService.calculateSettlement(
+        {
+          userId,
+          items: [
+            {
+              spuId: targetProduct.id,
+              skuId: targetSku!.id,
+              count: 2,
+              cartId: (cartRow as { id: number }).id,
+            },
+          ],
+          couponId: claimedCoupon.id,
+          deliveryType: 1,
+        },
+        userId,
+        "default",
+      )
+      expect(settlement.price.totalPrice).toBeGreaterThan(0)
+      expect(settlement.price.couponDiscount).toBeGreaterThan(0)
+      expect(settlement.price.payPrice).toBeLessThan(settlement.price.totalPrice)
+      expect(settlement.selectedCouponId).toBe(String(claimedCoupon.id))
+
+      // 5. 提交订单：原子扣减 SKU 库存 + 核销优惠券 + 清理已购购物车
+      const created = await MallSolutionService.createCheckoutOrder(
+        {
+          userId,
+          items: [
+            {
+              spuId: targetProduct.id,
+              skuId: targetSku!.id,
+              count: 2,
+              cartId: (cartRow as { id: number }).id,
+            },
+          ],
+          couponId: claimedCoupon.id,
+          deliveryType: 1,
+          receiverName: "李测试",
+          receiverMobile: "13900001111",
+          receiverDetailAddress: "北京市海淀区中关村软件园",
+        },
+        userId,
+        "default",
+      )
+      expect(created.order.status).toBe(0) // UNPAID
+      expect(created.items).toHaveLength(1)
+
+      const skuAfterOrder = await ProductSkuService.get(targetSku!.id, userId, "default")
+      expect(Number(skuAfterOrder?.stock)).toBe(initialSkuStock - 2)
+
+      // 6. 收银台支付确认 -> 状态流转为 PAID (10)
+      const paidOrder = await MallSolutionService.payCheckoutOrder(
+        {
+          orderId: created.order.id,
+          payOrderId: created.payOrderId,
+          channelCode: "wx_pub",
+          userId,
+        },
+        userId,
+        "default",
+      )
+      expect(paidOrder.status).toBe(10)
+      expect(paidOrder.pay_status).toBe(true)
+
+      // 7. B 端商家发货 -> 状态流转为 SHIPPED (20)
+      const shippedOrder = await MallSolutionService.shipTradeOrder(
+        {
+          orderId: created.order.id,
+          logisticsId: 1,
+          logisticsNo: "SF1029384756",
+        },
+        "admin",
+        "default",
+      )
+      expect(shippedOrder.status).toBe(20)
+      expect(shippedOrder.logistics_no).toBe("SF1029384756")
+
+      // 8. C 端买家确认收货 -> 状态流转为 COMPLETED (30)
+      const receivedOrder = await MallSolutionService.receiveTradeOrder(
+        { orderId: created.order.id, userId },
+        userId,
+        "default",
+      )
+      expect(receivedOrder.status).toBe(30)
+
+      // 9. C 端发起售后退款申请 + B 端审核通过退款 -> 库存自动回滚
+      const afterSale = await MallSolutionService.applyAfterSale(
+        {
+          orderId: created.order.id,
+          userId,
+          applyReason: "7天无理由退货",
+        },
+        userId,
+        "default",
+      )
+      expect(afterSale.status).toBe(10)
+
+      const refundedOrder = await MallSolutionService.approveAfterSaleRefund(
+        {
+          orderId: created.order.id,
+          auditReason: "审核通过并原路退款",
+        },
+        "admin",
+        "default",
+      )
+      expect(refundedOrder.status).toBe(40)
+      expect(refundedOrder.refund_status).toBe(20)
+
+      const skuAfterRefund = await ProductSkuService.get(targetSku!.id, userId, "default")
+      expect(Number(skuAfterRefund?.stock)).toBe(initialSkuStock)
+    })
+  })
 })
