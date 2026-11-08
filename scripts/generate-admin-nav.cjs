@@ -31,10 +31,10 @@ const LABELS = path.join(ROOT, "packages", "shared", "contract", "admin-nav.labe
 const MENU_SEED = path.join(ROOT, "prisma", "data", "menus.seed-data.ts")
 const OUT = path.join(ROOT, "packages", "shared", "contract", "admin-nav.generated.ts")
 
-/** 平台地基优先，其余按域 id 排序 —— 让侧栏顺序稳定、可解释。 */
-const DOMAIN_PRIORITY = ["system", "infra"]
-/** 没有 module.manifest.json 的"伪域"（页面前缀），补中文名。 */
-const DOMAIN_TITLE_PATCH = { aigw: "AI 网关", mall: "商城中心", overview: "总览", scheme: "方案" }
+/** 侧栏排序：业务域排在最前（用户核心业务一目了然），平台基座下沉在后。 */
+const PLATFORM_DOMAINS = ["online", "ai", "aigw", "infra", "system"]
+/** 常见业务域与没有 module.manifest.json 的域补中文名。 */
+const DOMAIN_TITLE_PATCH = { meeting: "会议室管理", booking: "预订中心", aigw: "AI 网关", mall: "商城中心", overview: "总览", scheme: "方案" }
 
 function readJson(file) {
   if (!fs.existsSync(file)) {
@@ -189,8 +189,8 @@ function buildNav() {
   }
 
   const rank = (domain) => {
-    const index = DOMAIN_PRIORITY.indexOf(domain)
-    return index === -1 ? DOMAIN_PRIORITY.length : index
+    const pIndex = PLATFORM_DOMAINS.indexOf(domain)
+    return pIndex === -1 ? 0 : 100 + pIndex
   }
   return [...groups.entries()]
     .sort((a, b) => rank(a[0]) - rank(b[0]) || a[0].localeCompare(b[0]))

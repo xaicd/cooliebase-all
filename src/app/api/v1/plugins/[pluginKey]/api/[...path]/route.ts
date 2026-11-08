@@ -99,11 +99,16 @@ async function handle(request: Request) {
       method: request.method,
       path: url.pathname,
       query: Object.fromEntries(url.searchParams),
+      params: resolution.params ?? {},
       body,
       headers: Object.fromEntries(request.headers),
       pluginKey,
     })
-    return NextResponse.json({ success: true, data: result?.body ?? null }, { status: result?.status ?? 200 })
+    const payload = result?.body ?? null
+    if (payload && typeof payload === "object" && "success" in (payload as Record<string, unknown>)) {
+      return NextResponse.json(payload, { status: result?.status ?? 200 })
+    }
+    return NextResponse.json({ success: true, data: payload }, { status: result?.status ?? 200 })
   } catch (error) {
     // 必须走平台统一的错误映射: 守卫按 manifest 声明抛出的是 AuthenticationError(401) /
     // AuthorizationError(403)，一律当 500 会把"未登录"报成"服务器错误"（实测踩过）。

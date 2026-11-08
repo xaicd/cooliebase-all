@@ -6,7 +6,7 @@
 const PROFILES = Object.freeze(["base", "minimal", "standard", "vertical", "creator"])
 
 /** system/infra 通过 Facade 依赖这些业务域；裁掉会导致基座无法编译。 */
-const PLATFORM_COMPANIONS = Object.freeze(["online", "ai", "aigw"])
+const PLATFORM_COMPANIONS = Object.freeze(["online"])
 
 const DOMAIN_PATH_PREFIXES = Object.freeze([
   "packages/domains/",

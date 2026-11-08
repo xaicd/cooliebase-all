@@ -33,8 +33,26 @@ export function pluginRoutePath(pluginKey: string, declarationPath: string): str
 export type RouteMountResolution = {
   ok: boolean
   declaration?: PluginApiRouteDeclaration
+  params?: Record<string, string>
   status?: number
   error?: string
+}
+
+function matchDeclarationPath(pattern: string, actual: string): Record<string, string> | null {
+  const patternParts = pattern.split("/").filter(Boolean)
+  const actualParts = actual.split("/").filter(Boolean)
+  if (patternParts.length !== actualParts.length) return null
+  const params: Record<string, string> = {}
+  for (let i = 0; i < patternParts.length; i += 1) {
+    const p = patternParts[i]
+    const a = actualParts[i]
+    if (p.startsWith("[") && p.endsWith("]") && p.length > 2) {
+      params[p.slice(1, -1)] = decodeURIComponent(a)
+      continue
+    }
+    if (p !== a) return null
+  }
+  return params
 }
 
 /**
@@ -59,11 +77,19 @@ export function resolvePluginRoute(input: {
   // 差别只在派发时走 worker 还是同进程（见 runtime-manager.invokeRoute）。
 
   const want = pathname.slice(`${PLUGIN_ROUTE_PREFIX}/${pluginKey}/api`.length) || "/"
-  const declaration = (manifest.apiRoutes ?? []).find(
-    (route) => route.method === method && route.path === want,
-  )
-  if (!declaration) {
-    return { ok: false, status: 404, error: `插件未声明该路由: ${method} ${want}` }
+  const routes = manifest.apiRoutes ?? []
+  const exact = routes.find((route) => route.method === method && route.path === want)
+  if (exact) {
+    return { ok: true, declaration: exact, params: {} }
   }
-  return { ok: true, declaration }
+
+  for (const route of routes) {
+    if (route.method !== method || !route.path.includes("[")) continue
+    const matchedParams = matchDeclarationPath(route.path, want)
+    if (matchedParams) {
+      return { ok: true, declaration: route, params: matchedParams }
+    }
+  }
+
+  return { ok: false, status: 404, error: `插件未声明该路由: ${method} ${want}` }
 }

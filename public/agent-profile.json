@@ -129,9 +129,7 @@
         "platform"
       ],
       "companions": [
-        "online",
-        "ai",
-        "aigw"
+        "online"
       ],
       "use": "identity-only hatch; keep menu-catalog and codegen facades"
     },

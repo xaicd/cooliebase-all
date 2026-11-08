@@ -47,6 +47,86 @@ try {
   console.error(`[admin-pages] 声明不是合法 JSON —— ${error.message}`)
   process.exit(1)
 }
+
+/**
+ * 自动发现新业务域的管理端落地页。
+ * 针对新孵化/新建的业务域（如 meeting, booking），自动将其 `*-list.page.tsx`
+ * （或单页面 `*.page.tsx`）收编进 admin-pages.json，确保侧栏与派发器立即可达。
+ */
+function discoverBusinessDomainPages(existingPages) {
+  const existingModules = new Set(existingPages.map((p) => p.module).filter(Boolean));
+  const existingSlugs = new Set(existingPages.map((p) => p.slug).filter(Boolean));
+  const BUILTIN_DOMAINS = new Set(["system", "infra", "ai", "aigw", "bpm", "crm", "erp", "im", "iot", "mall", "member", "mes", "mp", "overview", "pay", "report", "scheme", "wms", "flipshop"]);
+  const discovered = [];
+
+  const scanDir = (dir, domain) => {
+    if (BUILTIN_DOMAINS.has(domain)) return;
+    if (!fs.existsSync(dir)) return;
+    const files = fs.readdirSync(dir).filter((f) => f.endsWith(".page.tsx") && !f.startsWith("_"));
+    const listPages = files.filter((f) => f.endsWith("-list.page.tsx"));
+    const targetFiles = listPages.length > 0 ? listPages : files;
+
+    for (const f of targetFiles) {
+      if (f === "login.page.tsx") continue;
+      const baseName = f.replace(/\.page\.tsx$/, "");
+      const mod = `@/modules/${domain}/frontend/pages/${baseName}.page`;
+      if (existingModules.has(mod)) continue;
+
+      const fullPath = path.join(dir, f);
+      const fileContent = fs.readFileSync(fullPath, "utf8");
+      let exportName = "default";
+      if (fileContent.includes("export default")) {
+        exportName = "default";
+      } else {
+        const match =
+          fileContent.match(/export\s+(?:function|const)\s+([A-Za-z0-9_]+Page)/) ||
+          fileContent.match(/export\s+(?:function|const)\s+([A-Z][A-Za-z0-9_]+)/);
+        if (match) exportName = match[1];
+      }
+
+      let entityName = baseName.endsWith("-list") ? baseName.replace(/-list$/, "") : baseName;
+      let slug = `${domain}/${entityName}`;
+      if (existingSlugs.has(slug)) slug = `${domain}/${baseName}`;
+
+      discovered.push({
+        slug,
+        kind: "page",
+        exportName,
+        module: mod,
+      });
+      existingModules.add(mod);
+      existingSlugs.add(slug);
+    }
+  };
+
+  const domainsDir = path.join(ROOT, "packages", "domains");
+  if (fs.existsSync(domainsDir)) {
+    for (const d of fs.readdirSync(domainsDir)) {
+      if (d.startsWith(".")) continue;
+      scanDir(path.join(domainsDir, d, "frontend", "pages"), d);
+    }
+  }
+  const pluginsDir = path.join(ROOT, "packages", "plugins");
+  if (fs.existsSync(pluginsDir)) {
+    for (const p of fs.readdirSync(pluginsDir)) {
+      if (p.startsWith("plugin-")) {
+        const d = p.replace(/^plugin-/, "");
+        scanDir(path.join(pluginsDir, p, "frontend", "pages"), d);
+      }
+    }
+  }
+
+  return discovered;
+}
+
+const discoveredPages = discoverBusinessDomainPages(declaration.pages ?? []);
+if (discoveredPages.length > 0) {
+  declaration.pages = [...(declaration.pages ?? []), ...discoveredPages];
+  if (process.argv.includes("--write")) {
+    fs.writeFileSync(DECLARATION, JSON.stringify(declaration, null, 2) + "\n");
+    console.log(`[admin-pages] 自动收编 ${discoveredPages.length} 个新业务域落地页: ${discoveredPages.map((p) => p.slug).join(", ")}`);
+  }
+}
 const pages = (declaration.pages ?? []).map((row) => ({ ...row }))
 if (pages.length === 0) {
   console.error("[admin-pages] 声明里没有页面 —— 空声明会生成空映射，拒绝")

@@ -14,6 +14,7 @@ const DERIVED_ARTIFACTS = [
   { script: "scripts/generate-domain-service-loaders.cjs", args: ["--write"], label: "跨域 loader(domain:loaders)" },
   { script: "scripts/generate-domain-rbac-migration.cjs", args: ["--write"], label: "菜单/权限迁移" },
   { script: "scripts/generate-admin-pages.cjs", args: ["--write"], label: "管理端页面清单(admin:pages)" },
+  { script: "scripts/generate-admin-nav.cjs", args: ["--write"], label: "侧栏导航(admin:nav)" },
 ]
 
 module.exports = { DERIVED_ARTIFACTS }

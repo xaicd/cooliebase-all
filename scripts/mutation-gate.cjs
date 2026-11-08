@@ -39,8 +39,8 @@ const MUTANTS = [
     id: "hatch-drop-companion",
     file: "scripts/lib/hatch-profile.cjs",
     description: "从平台伴生域清单里丢掉 aigw（伴生域是地基的静态依赖，裁掉会让产物构建失败）",
-    find: 'const PLATFORM_COMPANIONS = Object.freeze(["online", "ai", "aigw"])',
-    replace: 'const PLATFORM_COMPANIONS = Object.freeze(["online", "ai"])',
+    find: 'const PLATFORM_COMPANIONS = Object.freeze(["online"])',
+    replace: 'const PLATFORM_COMPANIONS = Object.freeze([])',
     tests: ["scripts/lib/__tests__/hatch-profile.test.ts"],
   },
   {

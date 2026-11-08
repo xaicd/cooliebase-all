@@ -47,7 +47,7 @@ describe("hatch-profile", () => {
     const plan = resolveHatchPlan(catalog, { profile: "minimal" })
     expect(plan.includeClients).toBe(false)
     expect(plan.domains).toEqual(["system", "infra", ...PLATFORM_COMPANIONS])
-    expect(plan.excludedDomains).toEqual(["mall", "crm", "pay"])
+    expect(plan.excludedDomains).toEqual(["ai", "aigw", "mall", "crm", "pay"])
     expect(shouldSkipRelPath("packages/domains/mall", plan)).toBe(true)
     expect(shouldSkipRelPath("packages/domains/system", plan)).toBe(false)
     // 原断言 clients/h5/... 应被跳过 —— h5/uniapp/flutter/desktop-pc 已删除，
@@ -107,7 +107,7 @@ describe("hatch-profile", () => {
     const plan = resolveHatchPlan(catalog, { profile: "minimal" })
     const nextCatalog = pruneCatalog(catalog, plan)
     expect(nextCatalog.domains.map((item) => item.name)).toEqual(plan.domains)
-    expect(nextCatalog.layers.business.domains).toEqual(["online", "ai", "aigw"])
+    expect(nextCatalog.layers.business.domains).toEqual(["online"])
     const rpc = pruneRpcActions({ domains: { system: {}, pay: {}, mall: {} } }, plan)
     expect(rpc.domains).toEqual({ system: {} })
     expect(buildHatchManifest(plan).pruned).toBe(true)

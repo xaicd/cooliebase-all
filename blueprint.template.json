@@ -520,14 +520,44 @@
       "group": "infrastructure",
       "type": "string",
       "default": "sqlite",
-      "enum": ["sqlite", "postgres"],
-      "description": "默认数据库驱动方言"
+      "enum": ["sqlite", "postgres", "memory"],
+      "description": "默认数据库驱动方言（轻量单机交付默认 sqlite，企业生产推荐 postgres）"
     },
     "DB_NAME": {
       "group": "infrastructure",
       "type": "string",
       "default": "cooliebase_next",
-      "description": "PostgreSQL 数据库名称"
+      "description": "PostgreSQL 物理数据库名称"
+    },
+    "DB_HOST": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "127.0.0.1",
+      "description": "PostgreSQL 数据库主机地址"
+    },
+    "DB_PORT": {
+      "group": "infrastructure",
+      "type": "number",
+      "default": 5432,
+      "description": "PostgreSQL 数据库端口"
+    },
+    "DB_USER": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "postgres",
+      "description": "PostgreSQL 数据库连接用户名"
+    },
+    "DB_PASSWORD": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "postgres",
+      "description": "PostgreSQL 数据库连接密码"
+    },
+    "TABLE_PREFIX": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "",
+      "description": "业务物理表前缀，避免与平台表命名冲突"
     },
     "SQLITE_DB_PATH": {
       "group": "infrastructure",

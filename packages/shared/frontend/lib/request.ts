@@ -67,10 +67,13 @@ const PLUGIN_DOMAINS = new Set([
 
 export function toRuntimeApiPath(path: string): string {
   if (typeof path !== "string") return path
-  const matched = /^\/api\/v1\/admin\/([^/?#]+)(\/.*)?$/.exec(path)
+  const matched = /^\/api\/v1\/(admin|app|open)\/([^/?#]+)(\/.*)?$/.exec(path)
   if (!matched) return path
-  const [, domain, rest = ""] = matched
+  const [, surface, domain, rest = ""] = matched
   if (!PLUGIN_DOMAINS.has(domain)) return path
+  if (surface === "app" || surface === "open") {
+    return `/api/v1/plugins/cooliebase.${domain}/api/${surface}${rest}`
+  }
   return `/api/v1/plugins/cooliebase.${domain}/api${rest}`
 }
 

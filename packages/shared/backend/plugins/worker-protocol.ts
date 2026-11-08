@@ -26,6 +26,7 @@ export type PluginRouteInvokeRequest = {
   method: string
   path: string
   query: Record<string, string>
+  params?: Record<string, string>
   body: unknown
   headers: Record<string, string>
   pluginKey: string
