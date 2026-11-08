@@ -165,6 +165,10 @@ function reactorCopy(src, dest, ctx, rel = "") {
 
       const ext = path.extname(entry.name).toLowerCase()
       // 如果属于二进制白名单，直接以流/Buffer 复制
+      if (entry.name === "project-reactor.mjs") {
+        fs.copyFileSync(srcPath, destPath)
+        continue
+      }
       if (BINARY_EXTENSIONS.has(ext)) {
         fs.copyFileSync(srcPath, destPath)
         continue

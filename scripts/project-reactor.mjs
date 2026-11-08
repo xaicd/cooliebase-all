@@ -882,7 +882,7 @@ export async function runProjectReactor(options) {
     } else {
       // 容错回退机制：检测已知交付物物理脚本
       const hasCooliebaseHarness = fs.existsSync(path.join(targetDir, 'scripts', 'harness.cjs'));
-      const hasYudaoHarness = fs.existsSync(path.join(targetDir, 'scripts', 'gate-check.mjs'));
+      const hasGateCheckHarness = fs.existsSync(path.join(targetDir, 'scripts', 'gate-check.mjs'));
       if (hasCooliebaseHarness) {
         if (!quiet) console.log('🛡️  [HARNESS] 触发 cooliebase-all 交付物出厂自检 (harness doctor)...');
         try {
@@ -892,7 +892,7 @@ export async function runProjectReactor(options) {
         } catch (e) {
           harnessVerification = { executed: true, passed: false, error: e.message };
         }
-      } else if (hasYudaoHarness) {
+      } else if (hasGateCheckHarness) {
         if (!quiet) console.log('🛡️  [HARNESS] 触发 yudao-quad-terminal 交付物出厂自检 (gate-check fast)...');
         try {
           const { spawnSync } = await import('node:child_process');
