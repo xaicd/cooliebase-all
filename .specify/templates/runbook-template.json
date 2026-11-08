@@ -33,6 +33,12 @@
     },
     {
       "id": "S5",
+      "name": "E2E 页面拟人运营配置与反 Seed 契约核验",
+      "command": "pnpm run e2e:ops:check",
+      "timeoutMs": 120000
+    },
+    {
+      "id": "S6",
       "name": "实施与全链路自动化测试矩阵",
       "command": "pnpm run test:matrix",
       "timeoutMs": 600000

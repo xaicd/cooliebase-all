@@ -316,9 +316,12 @@ function handleNew() {
         "多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。",
         "跨域：只走 Domain Facade，不 import 别的域 Service（§3.3）。",
         "定制业务不回写基座（§17.3）；全动词 API（§5.1）；UI 带 Agent-Native 属性（§5.2.1）。",
+        "反 Seed 铁律（Rule 0.8）：严禁通过数据库脚本或后台静默函数直接灌入业务运营配置数据，必须 100% 通过 E2E 页面拟人操作（Playwright 登录 B 端后台 -> 打开页面 -> 点击新建 -> 填写表单 -> 提交落库）完成运营配置与 C 端联动验证。",
       ],
       acceptance: [
         { check: "`pnpm run check` exit=0" },
+        { check: "`pnpm run e2e:ops:check` exit=0（E2E 页面拟人运营配置契约与反 Seed 门禁通过）" },
+        { check: "`pnpm run test:matrix` exit=0（全链路自动化测试矩阵通过）" },
         { check: "<!-- 待填: 每条都要可执行验证，不要写『体验良好』 -->" },
       ],
       nonGoals: ["<!-- 待填: 显式划出边界，这一节能挡掉一半范围蔓延 -->"],
@@ -326,7 +329,7 @@ function handleNew() {
       entities: [{ table: "<!-- 待填: 表名 -->", note: "<!-- 待填 -->" }],
       invariants: [{ name: "<!-- 待填: 不变量名（如 不超卖） -->", how: "<!-- 待填: 怎么保证，且要与验收标准对应 -->" }],
       ui: ["<!-- 待填: admin 与 C 端各有什么页面、复用哪个模板 -->"],
-      ops: ["<!-- 待填: 门禁链、部署方式、agent:ops 的体检/造数/清数 -->"],
+      ops: ["E2E 页面拟人运营配置（`pnpm run e2e:ops`）：严禁直接 Seed 数据库，通过 B 端页面拟人点击填表完成业务运营配置；配合 `pnpm run test:matrix` 与 `pnpm run agent:ops` 完成自动化验证与巡检"],
       risks: [{ risk: "<!-- 待填 -->", mitigation: "<!-- 待填 -->" }],
       screens: [{ name: "<!-- 待填: 页面名与路径 -->", wireframe: "<!-- 待填: 文本线框 -->" }],
       interactions: ["<!-- 待填: 搜索回车、二次确认、弹窗时底层 inert（§5.2.1） -->"],
@@ -336,11 +339,12 @@ function handleNew() {
       scan: ["<!-- 待填: 检索了哪些库/框架，为什么选它/不选别的 -->"],
       licenseConclusion: "<!-- 待填: 必须有明确结论。可商用/需开源/需购买/不可用 + 传染性风险 -->",
       tasks: [
-        { id: "T1", parent: "main", title: "<!-- 待填: 第一条主线任务 -->", files: ["<!-- 待填: 文件白名单，逗号分隔；纯验证任务写 - -->"] },
-        { id: "T2", parent: "T1", title: "<!-- 待填 -->", files: ["-"] },
-        { id: "T3", parent: "main", title: "<!-- 待填 -->", files: ["-"] },
+        { id: "T1", parent: "main", title: "地基契约与数据模型准备", files: ["<!-- 待填: 文件白名单，逗号分隔；纯验证任务写 - -->"] },
+        { id: "T2", parent: "T1", title: "核心服务与 Agent-Native 页面落地", files: ["-"] },
+        { id: "T3", parent: "T2", title: "E2E 页面拟人操作运营配置（严禁 DB Seed，通过 B 端页面拟人点击新建填表完成运营配置）", files: ["test/agent/e2e-human-ops.spec.ts"] },
+        { id: "T4", parent: "T3", title: "全链路自动化测试与门禁核销（B端拟人配置 -> C端消费 -> B端履约闭环验证）", files: ["-"] },
       ],
-      dependencies: "<!-- 待填: 画出 DAG，如 T1 → T2 -->",
+      dependencies: "T1 → T2 → T3 → T4",
       windowMinutes: 10,
     }
   }
@@ -479,7 +483,8 @@ function handleBuild() {
   const taskWaves = [
     { id: "wave-1", title: "地基与契约准备", tasks: ["T1"], dependsOn: [] },
     { id: "wave-2", title: "核心服务与数据流落地", tasks: ["T2"], dependsOn: ["wave-1"] },
-    { id: "wave-3", title: "端到端测试与集成验证", tasks: ["T3"], dependsOn: ["wave-2"] },
+    { id: "wave-3", title: "E2E 页面拟人操作运营配置（严禁直接 Seed 数据库）", tasks: ["T3"], dependsOn: ["wave-2"] },
+    { id: "wave-4", title: "端到端自动化测试与集成验证", tasks: ["T4"], dependsOn: ["wave-3"] },
   ]
 
   const tasksChecklistText = (brief.tasks ?? []).map((t: any) => `- [ ] **${t.id}**: ${t.title}

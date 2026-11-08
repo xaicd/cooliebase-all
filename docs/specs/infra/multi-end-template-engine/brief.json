@@ -326,8 +326,39 @@
         "docs/specs/infra/multi-end-template-engine/runbook.json",
         "docs/specs/infra/multi-end-template-engine/bugs.md"
       ]
+    },
+    {
+      "id": "T8",
+      "parent": "T7",
+      "title": "Speckit 自动化测试与 E2E 页面拟人运营配置体系（严禁 DB Seed，全量通过 B 端页面拟人点击填表完成运营配置与 C 端联动验证）",
+      "files": [
+        "packages/plugins/plugin-mall/backend/services/mall-solution.service.ts",
+        "scripts/speckit.ts",
+        "scripts/harness.cjs",
+        "scripts/agent/run-e2e-ops.cjs",
+        "test/agent/e2e-human-ops.spec.ts",
+        "test/unit/multi-end-template-engine.test.ts",
+        ".specify/templates/runbook-template.json",
+        ".specify/templates/checklist-template.md",
+        ".specify/templates/plan-template.md",
+        ".agents/workflows/feature-delivery.workflow.json",
+        "package.json",
+        "docs/01_management/project-plan.md",
+        "docs/specs/infra/multi-end-template-engine/brief.json",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/spec.json",
+        "docs/specs/infra/multi-end-template-engine/feature.json",
+        "docs/specs/infra/multi-end-template-engine/plan.md",
+        "docs/specs/infra/multi-end-template-engine/design.md",
+        "docs/specs/infra/multi-end-template-engine/requirements.md",
+        "docs/specs/infra/multi-end-template-engine/spec.md",
+        "docs/specs/infra/multi-end-template-engine/checklist.md",
+        "docs/specs/infra/multi-end-template-engine/runbook.json",
+        "docs/features/sprint-prod/1108.md"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8",
   "windowMinutes": 20
 }

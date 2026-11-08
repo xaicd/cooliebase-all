@@ -1,72 +1,42 @@
 {
-  "$schema": "cooliebase.gate-evidence/v1",
   "feature": "multi-end-template-engine",
   "domain": "infra",
-  "updatedAt": "2026-11-08",
   "gates": {
     "G0_DAR": {
       "status": "passed",
-      "owner": "架构",
-      "summary": "对标 cloudtogo/pageplug 与百度 Amis / NocoBase 完成 DAR 选型论证（MIT 合规零传染）",
-      "evidence": [
-        "research.md",
-        "selection.md"
-      ],
-      "verifiedAt": "2026-11-08T06:50:00.000Z"
+      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
+      "evidence": ["research.md", "selection.md"],
+      "verifiedAt": "2026-11-08T13:41:32.699Z"
     },
     "G1_FDA": {
-      "status": "passed",
-      "owner": "设计",
-      "summary": "完成 PageBlockDSL v2、零 eval 表达式沙箱、clients/expo 模块化目录与 8 大蓝图变量域设计",
-      "evidence": [
-        "design.md",
-        "blueprint.template.json",
-        "packages/shared/contract/blueprint-vars.ts"
-      ],
-      "verifiedAt": "2026-11-08T06:50:00.000Z"
+      "status": "pending",
+      "summary": "架构设计就绪，等待真实数据库持久化契约验证",
+      "evidence": ["plan.md", "design.md"],
+      "verifiedAt": null
     },
     "G2_CoreSWE": {
-      "status": "passed",
-      "owner": "开发",
-      "summary": "T1~T5 全量研发落地并通过 11 项全链路单测、低代码开发手册与门禁校验",
-      "evidence": [
-        "packages/shared/frontend/lib/expression-engine.ts",
-        "packages/shared/frontend/components/universal-schema-canvas.tsx",
-        "scripts/blueprint-engine.cjs",
-        "docs/04_implementation/lowcode-system-dev-manual.md",
-        "test/unit/multi-end-template-engine.test.ts"
-      ],
-      "verifiedAt": "2026-11-08T06:50:00.000Z"
+      "status": "pending",
+      "summary": "任务分解就绪，等待代码落地与 1 Task = 1 Commit 提交核查",
+      "evidence": ["tasks.md"],
+      "verifiedAt": null
     },
     "G3_FDSE": {
-      "status": "passed",
-      "owner": "前端",
-      "summary": "完成 PagePlug 风格双视口 (PC 1440px / 手机小程序 375px) 设计器与移动端多区块渲染器升级",
-      "evidence": [
-        "packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx",
-        "clients/expo/src/SchemaFieldRenderer.tsx",
-        "clients/expo/src/app/AppShell.tsx"
-      ],
-      "verifiedAt": "2026-11-08T06:50:00.000Z"
+      "status": "pending",
+      "summary": "等待真实数据库单测与状态机测试全绿",
+      "evidence": [],
+      "verifiedAt": null
     },
     "G4_DS": {
       "status": "passed",
-      "owner": "产品",
-      "summary": "IEEE 29148 / EARS 需求规格、原型设计与 27B 模型使用说明完备",
-      "evidence": [
-        "requirements.md",
-        "spec.md",
-        "prototype.md",
-        "docs/04_implementation/lowcode-system-dev-manual.md"
-      ],
-      "verifiedAt": "2026-11-08T06:50:00.000Z"
+      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
+      "evidence": ["spec.md", "requirements.md"],
+      "verifiedAt": "2026-11-08T13:41:32.699Z"
     },
     "G5_PRE": {
-      "status": "not_applicable",
-      "owner": "—",
-      "summary": "本规格是模板源头与设计器框架级能力改动，不涉及独立容器网络割接，由 pnpm run check、blueprint-engine.cjs check 与 11 项全链路单元测试直接验证。",
-      "evidence": []
+      "status": "pending",
+      "summary": "待上线前实施割接演练、安全扫描与压测达标",
+      "evidence": ["runbook.json"],
+      "verifiedAt": null
     }
-  },
-  "defects": []
+  }
 }

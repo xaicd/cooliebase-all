@@ -67,3 +67,8 @@ sequenceDiagram
 
 - **风险**: 客户端拆分为 modules/<domain> 后，若某个业务域在 vertical 孵化时被裁掉，客户端入口静态 import 会报 Module not found -> **缓释策略**: 在 clients/expo/src/modules/index.ts 采用安全模块装配与可选发现机制，并在 hatch-profile.cjs 中同步裁剪被排除域的模块目录
 - **风险**: 用户编写错误语法的 {{ 表达式 }} 导致前端页面白屏崩溃 -> **缓释策略**: expression-engine.ts 全程捕获解析异常并回退默认值 (false/undefined)，绝不向 React 渲染树抛出未捕获异常
+
+## 7. E2E 页面拟人操作运营配置与全链路自动化测试 (E2E Human-Like Ops & Automated Testing)
+
+- **反 Seed 铁律（Rule 0.8）**：严禁通过 SQL 脚本或后台静默函数直接灌入商品、分类、优惠券、营销活动等业务运营数据；必须通过 Playwright 驱动真实浏览器页面拟人操作（登录 `/admin/login` -> 打开 `/admin/infra/...` 运营页 -> 点击 `createButton` -> 填写 `[data-testid="field-..."]` -> 点击 `formSubmit` -> 断言 `table` 新增行）完成运营配置。
+- **B 端运营配置 → C 端消费体验 → B 端履约闭环**：通过 `pnpm run e2e:ops` 与 `pnpm run test:matrix` 执行端到端拟人配置与真实数据库状态机全链路验证。

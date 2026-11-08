@@ -119,6 +119,8 @@
     "agent:ops:health": "node scripts/agent/run-ops.cjs health",
     "agent:ops:suite": "pnpm exec tsx scripts/agent/agent-ops-suite.ts",
     "agent:ops:suite:check": "pnpm exec tsx scripts/agent/agent-ops-suite.ts --check",
+    "e2e:ops": "node scripts/agent/run-e2e-ops.cjs",
+    "e2e:ops:check": "node scripts/agent/run-e2e-ops.cjs --check",
     "agent:autopilot": "pnpm exec tsx scripts/agent-autopilot-daemon.ts",
     "agent:autopilot:daemon": "pnpm exec tsx scripts/agent-autopilot-daemon.ts --daemon",
     "agent:autopilot:heal": "pnpm exec tsx scripts/agent-autopilot-daemon.ts --heal",

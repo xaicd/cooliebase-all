@@ -252,6 +252,12 @@
 
 ## 5. 当前进展快照（2026-10-21）
 
+- **Speckit E2E 页面拟人运营配置与反 Seed 门禁体系（2026-11-08，能力面变化）**：
+  新增 `pnpm run e2e:ops` 与 `pnpm run e2e:ops:check`（`scripts/agent/run-e2e-ops.cjs` + `test/agent/e2e-human-ops.spec.ts`），
+  并将 `e2e:ops` / `e2e:ops:check` 接入 `pnpm harness`；
+  彻底移除 `MallSolutionService` 后台静默数据库 Seed 逻辑（`ensureMallSeedData` / `deriveDynamicSeedCatalog`），
+  将 Speckit 引擎（`scripts/speckit.ts`）、实施剧本模板（`.specify/templates/runbook-template.json`）及交付工作流（`.agents/workflows/feature-delivery.workflow.json`）统一升级为 4 波次闭环（Wave 3 强制通过 B 端页面拟人点击新建填表完成运营配置，Wave 4 执行全链路自动化测试与门禁核销）。
+
 - **全栈一键拉起与原生 BasePath 重定向守护（2026-11-05，能力面变化）**：
   为彻底消除项目在带 basePath 独立部署或反向代理时的根路径 404 与拉起假死，
   基座新增 scripts/fullstack-up.mjs，对外暴露 pnpm run up / pnpm run serve 与 pnpm harness up / pnpm harness serve；

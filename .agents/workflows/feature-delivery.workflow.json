@@ -11,14 +11,14 @@
       "type": "step",
       "id": "scaffold",
       "agent": "wf-planner",
-      "prompt": "Scaffold feature specification for '{{inputs.name}}' in domain '{{inputs.domain}}' with title '{{inputs.title}}'. Run `npm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type feature`."
+      "prompt": "Scaffold feature specification for '{{inputs.name}}' in domain '{{inputs.domain}}' with title '{{inputs.title}}'. Run `pnpm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type feature`."
     },
     {
       "type": "step",
       "id": "requirements",
       "agent": "wf-planner",
       "dependsOn": ["scaffold"],
-      "prompt": "Refine docs/specs/{{inputs.domain}}/{{inputs.name}}/brief.json. Formulate strict EARS 5-state requirements (Ubiquitous, Event, State, Unwanted, Optional) without ambiguity. Run `npm run speckit:build -- --name {{inputs.name}}`."
+      "prompt": "Refine docs/specs/{{inputs.domain}}/{{inputs.name}}/brief.json. Formulate strict EARS 5-state requirements (Ubiquitous, Event, State, Unwanted, Optional) without ambiguity. Run `pnpm run speckit:build -- --name {{inputs.name}}`."
     },
     {
       "type": "step",
@@ -32,21 +32,28 @@
       "id": "plan-waves",
       "agent": "wf-planner",
       "dependsOn": ["design"],
-      "prompt": "Review tasks.md dependency graph. Ensure tasks are organized into Kiro Waves (Wave 1: Contracts/Tables/RedTest, Wave 2: Service Implementation, Wave 3: Verification & Gates). White-list exact files per task."
+      "prompt": "Review tasks.md dependency graph. Ensure tasks are organized into 4 Kiro Waves (Wave 1: Contracts/Tables/RedTest, Wave 2: Service & Agent-Native UI Implementation, Wave 3: E2E Human-Like Page Operational Configuration with Zero DB Seed, Wave 4: Automated Testing & Gates). White-list exact files per task."
     },
     {
       "type": "step",
       "id": "implement",
       "agent": "wf-coder",
       "dependsOn": ["plan-waves"],
-      "prompt": "Implement the waves sequentially following 1 Task = 1 Commit. Reuse BaseMapper<T> and QueryWrapper, strictly zero console.log and zero duplicate CRUD."
+      "prompt": "Implement the waves sequentially following 1 Task = 1 Commit. Reuse BaseMapper<T> and QueryWrapper, strictly zero console.log, zero duplicate CRUD, and zero secret backend DB seed."
+    },
+    {
+      "type": "step",
+      "id": "e2e-human-ops",
+      "agent": "wf-tester",
+      "dependsOn": ["implement"],
+      "prompt": "Execute E2E human-like page operational configuration (strictly no direct DB seed). Verify selector contracts and anti-seed gate with `pnpm run e2e:ops:check` and run Playwright human-like B-end form configuration -> C-end portal interaction via `pnpm run e2e:ops -- --domain {{inputs.domain}}`."
     },
     {
       "type": "step",
       "id": "verify",
       "agent": "wf-tester",
-      "dependsOn": ["implement"],
-      "prompt": "Run full test matrix and quality gates. Verify with `npm run check && npm run test:matrix`. Confirm 0 lint errors, 0 fake mocks, and 100% exit code 0."
+      "dependsOn": ["e2e-human-ops"],
+      "prompt": "Run full test matrix and quality gates. Verify with `pnpm run check && pnpm run e2e:ops:check && pnpm run test:matrix`. Confirm 0 lint errors, 0 fake mocks, 0 DB seed shortcuts, and 100% exit code 0."
     }
   ]
 }

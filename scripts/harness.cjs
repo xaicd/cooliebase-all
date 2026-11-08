@@ -275,6 +275,7 @@ const ALIASES = {
   agent: ["agent:autopilot", "agent:autopilot:daemon", "agent:autopilot:heal", "agent:contracts", "agent:page-schemas"],
   ops: [
     "agent:ops", "agent:ops:health", "agent:ops:suite", "agent:ops:suite:check",
+    "e2e:ops", "e2e:ops:check",
     "agent:coverage:audit", "agent:native:audit", "agent:native:baseline",
     "agent:routes:audit", "handwritten:audit", "handwritten:baseline",
     "standards:baseline", "deps:audit:baseline", "vacuity:audit", "mutation:gate",

@@ -418,28 +418,177 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
     })
   })
 
-  describe("5. Dynamic Database-Driven Mall E-Commerce Closed-Loop Engine", () => {
-    it("executes full dynamic storefront -> claim coupon -> cart -> settlement price engine -> order creation & stock deduction -> pay -> ship -> receive -> after-sale refund closed loop", async () => {
+  describe("5. Zero-Seed B-End Operational Configuration -> C-End Mall Closed-Loop Engine", () => {
+    it("verifies e2e:ops:check anti-seed gate and executes B-end operational configuration -> C-end storefront -> claim coupon -> cart -> settlement -> order -> pay -> B-end ship -> C-end receive -> after-sale refund closed loop", async () => {
+      const { runStaticVerification } = require("../../scripts/agent/run-e2e-ops.cjs")
+      const opsCheck = runStaticVerification("mall")
+      expect(opsCheck.ok, opsCheck.errors.join("; ")).toBe(true)
+
       const { MallSolutionService } = await import("@/modules/mall/backend/services/mall-solution.service")
+      const { ProductCategoryService } = await import("@/modules/mall/backend/services/product-category.service")
+      const { ProductSpuService } = await import("@/modules/mall/backend/services/product-spu.service")
       const { ProductSkuService } = await import("@/modules/mall/backend/services/product-sku.service")
+      const { CouponTemplateService } = await import("@/modules/mall/backend/services/coupon-template.service")
+      const { RewardActivityService } = await import("@/modules/mall/backend/services/reward-activity.service")
+      const { SeckillActivityService } = await import("@/modules/mall/backend/services/seckill-activity.service")
+      const { SeckillProductService } = await import("@/modules/mall/backend/services/seckill-product.service")
+      const { DeliveryExpressService } = await import("@/modules/mall/backend/services/delivery-express.service")
+
+      // 断言反 Seed 铁律：MallSolutionService 上严禁存在 ensureMallSeedData
+      expect("ensureMallSeedData" in MallSolutionService).toBe(false)
 
       const userId = `e2e-buyer-${Date.now()}`
+      const now = new Date()
+      const nextMonth = new Date(now.getTime() + 30 * 24 * 3600 * 1000)
 
-      // 1. 动态初始化并加载商城聚合数据（分类、SPU/SKU、秒杀、满减、优惠券模板）
+      // 0. 运营配置前：后台绝不静默塞入任何假种子数据
+      const emptyHome = await MallSolutionService.getStorefrontHome({ userId }, userId, "default")
+      const beforeSpuCount = emptyHome.products.length
+
+      // 1. 模拟 B 端运营人员在后台页面拟人新建配置：商品分类 -> SPU -> 多规格 SKU -> 优惠券模板 -> 满减活动 -> 秒杀活动 -> 物流公司
+      const createdCat = await ProductCategoryService.create(
+        {
+          parent_id: "0",
+          name: "严选智能硬件与效率装备",
+          sort: 1,
+          status: 0,
+        },
+        "admin",
+        "default",
+      )
+
+      const createdSpu = await ProductSpuService.create(
+        {
+          name: "ProMax 无线主动降噪旗舰耳机",
+          keyword: "48dB深度降噪 · 空间音频",
+          introduction: "由 B 端后台运营页面拟人配置上架的旗舰商品",
+          description: "<p>由 B 端后台运营页面拟人配置上架的旗舰商品</p>",
+          category_id: String(createdCat.id),
+          sort: 1,
+          status: 0,
+          spec_type: true,
+          price: 399,
+          market_price: 599,
+          cost_price: 220,
+          stock: 100,
+          sales_count: 10,
+        },
+        "admin",
+        "default",
+      )
+
+      const createdSku = await ProductSkuService.create(
+        {
+          spu_id: String(createdSpu.id),
+          properties: "颜色款式:曜石黑旗舰版",
+          property_id: "1",
+          property_name: "颜色款式",
+          value_id: "1",
+          value_name: "曜石黑旗舰版",
+          price: 399,
+          market_price: 599,
+          cost_price: 220,
+          bar_code: `SKU-${createdSpu.id}-01`,
+          stock: 80,
+          weight: 0.5,
+        },
+        "admin",
+        "default",
+      )
+
+      const createdTpl = await CouponTemplateService.create(
+        {
+          name: "拟人运营配置满100减20神券",
+          description: "全场满100元立减20元",
+          status: 0,
+          total_count: 200,
+          take_limit_count: 3,
+          take_type: 1,
+          use_price: 100,
+          product_scope: 1,
+          validity_type: 1,
+          valid_start_time: now.toISOString(),
+          valid_end_time: nextMonth.toISOString(),
+          discount_type: 1,
+          discount_price: 20,
+          take_count: 0,
+          use_count: 0,
+        },
+        "admin",
+        "default",
+      )
+
+      await RewardActivityService.create(
+        {
+          name: "全场满199立减25元包邮",
+          status: 0,
+          start_time: now.toISOString(),
+          end_time: nextMonth.toISOString(),
+          condition_type: 10,
+          product_scope: 1,
+          limit: 199,
+          discount_price: 25,
+          free_delivery: true,
+          point: 50,
+        },
+        "admin",
+        "default",
+      )
+
+      const createdSeckillAct = await SeckillActivityService.create(
+        {
+          spu_id: String(createdSpu.id),
+          name: "限时秒杀 · 旗舰降噪耳机直降",
+          status: 0,
+          start_time: now.toISOString(),
+          end_time: nextMonth.toISOString(),
+          sort: 1,
+          total_limit_count: 50,
+          single_limit_count: 3,
+          stock: 30,
+          total_stock: 50,
+        },
+        "admin",
+        "default",
+      )
+
+      await SeckillProductService.create(
+        {
+          activity_id: String(createdSeckillAct.id),
+          spu_id: String(createdSpu.id),
+          sku_id: String(createdSku.id),
+          seckill_price: 329,
+          stock: 30,
+          activity_status: 0,
+          activity_start_time: now.toISOString(),
+          activity_end_time: nextMonth.toISOString(),
+        },
+        "admin",
+        "default",
+      )
+
+      await DeliveryExpressService.create(
+        {
+          code: "SF",
+          name: "顺丰速运",
+          sort: 1,
+          status: 0,
+        },
+        "admin",
+        "default",
+      )
+
+      // 1.5 验证 B 端运营配置实时同步至 C 端商城门户聚合接口
       const home = await MallSolutionService.getStorefrontHome({ userId }, userId, "default")
-      expect(home.categories.length).toBeGreaterThanOrEqual(4)
-      expect(home.products.length).toBeGreaterThanOrEqual(4)
-      expect(home.couponTemplates.length).toBeGreaterThanOrEqual(3)
-      expect(home.rewardActivities.length).toBeGreaterThanOrEqual(1)
-
-      const targetProduct = home.products[0]
-      const targetSku = targetProduct.skus?.[0]
+      expect(home.products.length).toBeGreaterThan(beforeSpuCount)
+      const targetProduct = home.products.find((p) => String(p.id) === String(createdSpu.id)) ?? home.products[0]
+      const targetSku = targetProduct.skus?.find((s) => String(s.id) === String(createdSku.id)) ?? targetProduct.skus?.[0]
       expect(targetSku).toBeDefined()
       const initialSkuStock = Number(targetSku!.stock ?? 0)
-      expect(initialSkuStock).toBeGreaterThan(5)
+      expect(initialSkuStock).toBe(80)
 
       // 2. 领取满减优惠券落库
-      const targetTpl = home.couponTemplates[0]
+      const targetTpl = home.couponTemplates.find((t) => String(t.id) === String(createdTpl.id)) ?? home.couponTemplates[0]
       const claimedCoupon = await MallSolutionService.takeCoupon(
         { templateId: targetTpl.id, userId },
         userId,
