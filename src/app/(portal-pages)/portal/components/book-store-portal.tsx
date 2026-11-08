@@ -247,7 +247,7 @@ export function BookStorePortal({ initialCategory }: { initialCategory?: string 
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-600 selection:text-white">
+    <div data-portal-shell="cooliebase-portal-v1" className="min-h-screen bg-slate-50 text-slate-900 font-sans selection:bg-indigo-600 selection:text-white">
       {/* Toast Notification */}
       {toastMessage && (
         <div className="fixed top-6 left-1/2 -translate-x-1/2 z-50 px-5 py-2.5 bg-slate-900 text-white text-sm font-medium rounded-full shadow-xl border border-slate-700 animate-fade-in flex items-center gap-2">
@@ -260,7 +260,7 @@ export function BookStorePortal({ initialCategory }: { initialCategory?: string 
       <header className="sticky top-0 z-40 bg-white/95 backdrop-blur border-b border-slate-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between gap-4">
           <div className="flex items-center gap-6">
-            <Link href={apiPath("/portal")} className="flex items-center gap-3">
+            <Link href="/portal" className="flex items-center gap-3">
               <div className="w-9 h-9 rounded-lg bg-indigo-600 flex items-center justify-center text-white font-bold text-lg shadow-sm">
                 肆
               </div>
@@ -332,7 +332,7 @@ export function BookStorePortal({ initialCategory }: { initialCategory?: string 
 
             {/* Admin Console Link */}
             <Link
-              href={apiPath("/admin")}
+              href="/admin"
               className="hidden lg:inline-flex items-center gap-1 px-3 py-1.5 text-xs font-medium text-slate-600 bg-slate-100 hover:bg-slate-200 rounded-lg border border-slate-200 transition-colors"
             >
               <span>⚙️</span>
@@ -341,7 +341,7 @@ export function BookStorePortal({ initialCategory }: { initialCategory?: string 
 
             {/* Login / Profile */}
             <Link
-              href={apiPath("/portal/profile")}
+              href="/portal/profile"
               className="inline-flex items-center gap-2 px-3 py-1.5 text-xs font-semibold text-white bg-indigo-600 hover:bg-indigo-700 rounded-lg shadow-sm transition-colors"
             >
               <span>研读中心</span>

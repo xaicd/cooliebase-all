@@ -68,3 +68,12 @@ All engineering rules and architectural standards are unified in `.agents/rules/
 3. **按节读**：只读需求相关节；严禁通读本仓 AGENTS.md（~95K）与 prisma/schema.prisma（~50K）全文——按节检索。
 4. **产出纪律**：run 状态不可信，完成与否以本仓 git log 为准；每波落盘 = 一次 git commit（信息含 [T<工单ID>]）。
 5. **单飞**：一次只做一件被派的事，不自行并发多任务。
+
+
+---
+
+## C 端门户壳层规范 (PortalShell · 强制继承)
+
+1. **统一蓝图壳层**：所有 `src/app/(portal-pages)/**` 下的 C 端页面（如 `/2c`、`/portal`、`/booking`、`/approvals` 等）必须使用 `src/app/(portal-pages)/components/portal-shell.tsx`（`<PortalShell>`）包裹，保留 `data-portal-shell="cooliebase-portal-v1"`、顶部毛玻璃品牌导航、深靛蓝点阵 Hero 抬头、`max-w-7xl` 响应式多列容器与标准页脚；严禁退化为裸 `<main className="max-w-md">` 窄盒。
+2. **业务正门对齐**：非图书商城类派生项目必须将 `/2c`、`/portal` 及 `src/app/page.tsx` 替换为本项目的真实业务门户组件，严禁残留底座默认演示书城（`BookStorePortal` / `九夏书肆` / `电子书城`）。
+3. **站内跳转反双前缀**：Next.js `<Link href="...">` 会自动拼接 `basePath`，因此 `<Link>` 的 `href` 一律传裸路径（如 `href="/admin"`、`href="/booking"`），严禁在 `<Link href>` 内再包一层 `apiPath(...)`。
