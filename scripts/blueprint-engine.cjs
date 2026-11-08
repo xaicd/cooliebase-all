@@ -117,7 +117,7 @@ function runCheck() {
   }
 
   for (const tpl of manifest.templateFiles || []) {
-    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients"))) continue
+    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients/expo/package.json"))) continue
     const absTpl = path.join(ROOT, tpl.templatePath)
     if (!fs.existsSync(absTpl)) {
       errors.push(`模板文件不存在: ${tpl.templatePath}`)
@@ -216,7 +216,7 @@ function runRender(opts) {
 
   const results = []
   for (const tpl of manifest.templateFiles || []) {
-    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients"))) continue
+    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients/expo/package.json"))) continue
     const absTpl = path.join(ROOT, tpl.templatePath)
     if (!fs.existsSync(absTpl)) continue
     const absTarget = path.join(ROOT, tpl.targetPath)
