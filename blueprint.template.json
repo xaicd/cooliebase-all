@@ -1,0 +1,571 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schemaVersion": "2.0.0",
+  "templateId": "cooliebase-all-multi-end-blueprint",
+  "syntax": "{{VAR_NAME}}",
+  "description": "Coolie工坊与27B本地大模型专用的全栈多端蓝图母版契约。定义新业务项目涉及的全部8大动态变量域（62个标准变量）、显式{{VAR}}模板文件映射、5套行业场景预设词包与模块裁剪槽位。",
+  "engineCompatibility": [
+    "coolie-workshop",
+    "local-llm-27b",
+    "mustache",
+    "handlebars",
+    "blueprint-engine-cli"
+  ],
+  "llm27bQuickGuide": {
+    "maxOutputTokens": 400,
+    "instruction": "你是Coolie工坊的新业务蓝图实例化助手。请勿手写React/TS样板代码。只需根据用户的业务需求，输出一份覆盖以下变量的极简 JSON (values.json)，然后执行 `node scripts/blueprint-engine.cjs render --values values.json` 即可一键完成 PC管理端 + C端门户 + 移动App/小程序 + BFF后端的全栈定制。",
+    "minimalExample": {
+      "PROJECT_NAME": "pet-care-pro",
+      "PLATFORM_TITLE": "宠爱有家智慧动物医院平台",
+      "SHORT_NAME": "宠爱医疗",
+      "BRAND_MARK": "宠",
+      "BRAND_PRIMARY_COLOR": "#0d9488",
+      "INDUSTRY_PRESET": "smart-healthcare",
+      "HERO_TITLE": "宠爱有家智慧医疗",
+      "HERO_SUBTITLE": "全连锁宠物诊疗、疫苗预约与住院监护数字化平台",
+      "PORTAL_TITLE": "宠爱线上预约门户",
+      "PORTAL_SEARCH_PLACEHOLDER": "搜索诊疗科室、体检套餐、医师...",
+      "PORTAL_CART_LABEL": "预约单",
+      "PORTAL_PRIMARY_CTA": "立即预约",
+      "ADMIN_PORT": 3320,
+      "DB_NAME": "pet_care_pro",
+      "IOS_BUNDLE_ID": "com.petcare.app",
+      "ANDROID_PACKAGE": "com.petcare.app",
+      "HATCH_PROFILE": "commerce"
+    }
+  },
+  "templateFiles": [
+    {
+      "templatePath": "packages/shared/contract/project-profile.template.json",
+      "targetPath": "packages/shared/contract/project-profile.json",
+      "format": "json",
+      "description": "全栈运行时业务身份、门面、C端门户、多租户与多端主题唯一真源"
+    },
+    {
+      "templatePath": "clients/expo/app.template.json",
+      "targetPath": "clients/expo/app.json",
+      "format": "json",
+      "description": "Expo (iOS / Android / 微信小程序 / H5) 客户端构建与渠道坐标配置"
+    },
+    {
+      "templatePath": ".env.template",
+      "targetPath": ".env.example",
+      "format": "dotenv",
+      "description": "服务端端口、数据库方言、连接串、引导超管与预览子路径环境变量模板"
+    }
+  ],
+  "variables": {
+    "PROJECT_NAME": {
+      "group": "engineering",
+      "type": "string",
+      "default": "cooliebase-all",
+      "pattern": "^[a-z][a-z0-9-]{4,39}$",
+      "description": "英文工程标识与目录名 (kebab-case，至少5个字符)"
+    },
+    "PACKAGE_SCOPE": {
+      "group": "engineering",
+      "type": "string",
+      "default": "@cooliebase",
+      "description": "Monorepo 内部包作用域前缀"
+    },
+    "PROJECT_VERSION": {
+      "group": "engineering",
+      "type": "string",
+      "default": "1.0.0",
+      "description": "工程初始语义化版本号"
+    },
+    "GIT_REMOTE_URL": {
+      "group": "engineering",
+      "type": "string",
+      "default": "https://github.com/cooliebase/cooliebase-all.git",
+      "description": "新业务项目 Git 远程仓库地址"
+    },
+    "AUTHOR_ORG": {
+      "group": "engineering",
+      "type": "string",
+      "default": "CoolieBase All Team",
+      "description": "交付团队或客户企业名称"
+    },
+    "PREVIEW_BASE_PATH": {
+      "group": "engineering",
+      "type": "string",
+      "default": "",
+      "description": "反向代理子路径前缀（如 /my-app，根路径留空）"
+    },
+    "PLATFORM_TITLE": {
+      "group": "branding",
+      "type": "string",
+      "default": "CoolieBase All",
+      "maxLength": 40,
+      "description": "中文业务系统全称（用于浏览器标题、顶栏、登录页与法务落款）"
+    },
+    "SHORT_NAME": {
+      "group": "branding",
+      "type": "string",
+      "default": "CoolieBase All",
+      "maxLength": 16,
+      "description": "系统简称（用于侧边栏收起态、移动端顶栏与页面标题后缀，<=16字）"
+    },
+    "PROJECT_DESCRIPTION": {
+      "group": "branding",
+      "type": "string",
+      "default": "CoolieBase All — 基于 Next.js 的企业级通用研发基座与能力复用平台。",
+      "maxLength": 200,
+      "description": "系统 SEO 描述与项目简介"
+    },
+    "BRAND_MARK": {
+      "group": "branding",
+      "type": "string",
+      "default": "C",
+      "maxLength": 2,
+      "description": "1~2 字品牌徽标字符（显示在左上角 Logo 方块内）"
+    },
+    "BRAND_PRIMARY_COLOR": {
+      "group": "branding",
+      "type": "string",
+      "default": "#4f46e5",
+      "pattern": "^#[0-9a-fA-F]{6}$",
+      "description": "全端品牌主色调 Hex（PC 后台、C端门户与移动端共用）"
+    },
+    "BRAND_ACCENT_COLOR": {
+      "group": "branding",
+      "type": "string",
+      "default": "#0284c7",
+      "pattern": "^#[0-9a-fA-F]{6}$",
+      "description": "品牌辅助高亮色 Hex"
+    },
+    "BRAND_LOGO_SRC": {
+      "group": "branding",
+      "type": "string",
+      "default": "/branding/logo.svg",
+      "description": "品牌 Logo 静态资源路径"
+    },
+    "BRAND_FAVICON_SRC": {
+      "group": "branding",
+      "type": "string",
+      "default": "/branding/favicon.svg",
+      "description": "浏览器 Favicon 路径"
+    },
+    "COPYRIGHT_YEAR": {
+      "group": "branding",
+      "type": "string",
+      "default": "2026",
+      "description": "版权年份"
+    },
+    "COPYRIGHT_TEXT": {
+      "group": "branding",
+      "type": "string",
+      "default": "© 2026 CoolieBase All Team",
+      "maxLength": 80,
+      "description": "页脚完整版权声明文案"
+    },
+    "SITE_NAME": {
+      "group": "facade",
+      "type": "string",
+      "default": "CoolieBase",
+      "maxLength": 40,
+      "description": "门面站点名称"
+    },
+    "DOMAIN_TAGLINE": {
+      "group": "facade",
+      "type": "string",
+      "default": "全栈蓝图底座",
+      "maxLength": 120,
+      "description": "门面领域定位短语"
+    },
+    "HERO_BADGE": {
+      "group": "facade",
+      "type": "string",
+      "default": "企业级多端数字化业务平台 · 生产就绪",
+      "description": "首页首屏顶部状态胶囊文案"
+    },
+    "HERO_TITLE": {
+      "group": "facade",
+      "type": "string",
+      "default": "CoolieBase",
+      "maxLength": 80,
+      "description": "首页首屏核心主标题"
+    },
+    "HERO_HIGHLIGHT": {
+      "group": "facade",
+      "type": "string",
+      "default": "Blueprint Matrix",
+      "description": "首页首屏主标题旁的高亮英文/副标"
+    },
+    "HERO_SUBTITLE": {
+      "group": "facade",
+      "type": "string",
+      "default": "全栈蓝图底座",
+      "maxLength": 160,
+      "description": "首页首屏第二行副标题"
+    },
+    "HERO_DESCRIPTION": {
+      "group": "facade",
+      "type": "string",
+      "default": "融合 15 大企业级原生业务域，打通从 C 端用户在线服务、商品检索与互动交易，到 B 端运营管控、聚合支付对账、供应链协同与流程审批的全流程闭环体系。",
+      "description": "首页首屏业务价值详述段落"
+    },
+    "C_END_ENTRY_LABEL": {
+      "group": "facade",
+      "type": "string",
+      "default": "C端入口",
+      "maxLength": 24,
+      "description": "顶栏 C 端快捷入口按钮文案"
+    },
+    "C_END_ENTRY_HREF": {
+      "group": "facade",
+      "type": "string",
+      "default": "/",
+      "description": "顶栏 C 端快捷入口跳转路径"
+    },
+    "C_END_CARD_TITLE": {
+      "group": "facade",
+      "type": "string",
+      "default": "进入 C 端业务门户",
+      "description": "首屏左卡标题"
+    },
+    "C_END_CARD_CTA": {
+      "group": "facade",
+      "type": "string",
+      "default": "立即访问 →",
+      "description": "首屏左卡行动按钮文案"
+    },
+    "C_END_CARD_DESC": {
+      "group": "facade",
+      "type": "string",
+      "default": "精选商品与服务检索、在线体验/预约、会员权益中心与即时结算闭环。",
+      "description": "首屏左卡业务描述"
+    },
+    "B_END_ENTRY_LABEL": {
+      "group": "facade",
+      "type": "string",
+      "default": "B端后台",
+      "maxLength": 24,
+      "description": "顶栏 B 端管理后台入口文案"
+    },
+    "B_END_ENTRY_HREF": {
+      "group": "facade",
+      "type": "string",
+      "default": "/admin",
+      "description": "顶栏 B 端管理后台跳转路径"
+    },
+    "B_END_CARD_TITLE": {
+      "group": "facade",
+      "type": "string",
+      "default": "进入 B 端运营中台",
+      "description": "首屏右卡标题"
+    },
+    "B_END_CARD_CTA": {
+      "group": "facade",
+      "type": "string",
+      "default": "控制台 →",
+      "description": "首屏右卡行动按钮文案"
+    },
+    "B_END_CARD_DESC": {
+      "group": "facade",
+      "type": "string",
+      "default": "核心业务台账管理、交易订单履约、会员成长等级、聚合支付对账与 BPM 流程审批。",
+      "description": "首屏右卡业务描述"
+    },
+    "LOGIN_HEADLINE": {
+      "group": "facade",
+      "type": "string",
+      "default": "CoolieBase All 基座平台",
+      "maxLength": 40,
+      "description": "B 端登录页主标题"
+    },
+    "LOGIN_TAGLINE": {
+      "group": "facade",
+      "type": "string",
+      "default": "模块化单体与微服务平滑演进，开箱即用的全栈企业级研发基座。",
+      "maxLength": 120,
+      "description": "B 端登录页副标题标语"
+    },
+    "LOGIN_SUBTITLE": {
+      "group": "facade",
+      "type": "string",
+      "default": "全栈蓝图底座",
+      "maxLength": 160,
+      "description": "登录页门面副标题"
+    },
+    "LOGIN_TRUST_BADGE_1": {
+      "group": "facade",
+      "type": "string",
+      "default": "全流程留痕 · 操作可追溯",
+      "maxLength": 40,
+      "description": "登录页底部信任徽章 1"
+    },
+    "LOGIN_TRUST_BADGE_2": {
+      "group": "facade",
+      "type": "string",
+      "default": "真实数据库 · 零假数据",
+      "maxLength": 40,
+      "description": "登录页底部信任徽章 2"
+    },
+    "TELEMETRY_ENABLED": {
+      "group": "facade",
+      "type": "boolean",
+      "default": false,
+      "description": "登录页是否开启右侧遥测态势面板"
+    },
+    "PORTAL_BRAND_MARK": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "C",
+      "maxLength": 2,
+      "description": "C 端门户 (/2c, /portal) 左上角徽标字"
+    },
+    "PORTAL_TITLE": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "数字化精选服务门户",
+      "maxLength": 40,
+      "description": "C 端门户站点标题（取代写死的九夏书肆）"
+    },
+    "PORTAL_SUBTITLE_EN": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "DIGITAL SERVICE PORTAL",
+      "maxLength": 40,
+      "description": "C 端门户英文副标（取代写死的 DIGITAL BOOKSTORE）"
+    },
+    "PORTAL_HERO_BADGE": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "ENTERPRISE CONSUMER PORTAL · 全端契约驱动",
+      "description": "C 端门户横幅顶部胶囊文案"
+    },
+    "PORTAL_HERO_TITLE": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "探索精选企业级商品与数字化服务",
+      "description": "C 端门户横幅主标题"
+    },
+    "PORTAL_HERO_DESC": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "打通线上浏览、方案预览、即时申购与会员权益积分，全链路对接真实后端业务域。",
+      "description": "C 端门户横幅描述文案"
+    },
+    "PORTAL_SEARCH_PLACEHOLDER": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "搜索商品、服务、方案或标签...",
+      "description": "C 端门户搜索框占位提示"
+    },
+    "PORTAL_CART_LABEL": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "选购清单",
+      "description": "C 端门户购物车/清单名称（如购物袋、预约单、阅读车）"
+    },
+    "PORTAL_PRIMARY_CTA": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "立即选购",
+      "description": "C 端门户卡片主操作按钮文案（如立即购买、立即预约、解锁全本）"
+    },
+    "PORTAL_PREVIEW_CTA": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "详情预览",
+      "description": "C 端门户卡片预览按钮文案（如方案详情、免费试读、套餐明细）"
+    },
+    "PORTAL_PROFILE_LABEL": {
+      "group": "consumerPortal",
+      "type": "string",
+      "default": "会员中心",
+      "description": "C 端门户右上角个人中心入口文案"
+    },
+    "EXPO_APP_NAME": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "CoolieBase",
+      "description": "移动端 App / 小程序显示名称"
+    },
+    "EXPO_APP_SLUG": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "cooliebase-all-app",
+      "description": "Expo 工程 Slug 标识"
+    },
+    "IOS_BUNDLE_ID": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "com.cooliebase.app",
+      "description": "iOS Bundle Identifier"
+    },
+    "ANDROID_PACKAGE": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "com.cooliebase.app",
+      "description": "Android Package Name"
+    },
+    "WECHAT_APP_ID": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "wx0000000000000000",
+      "description": "微信小程序 AppID"
+    },
+    "MOBILE_TAB_HOME_LABEL": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "首页商城",
+      "description": "移动端底部导航 Tab 1 标题"
+    },
+    "MOBILE_TAB_STUDIO_LABEL": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "工作台",
+      "description": "移动端底部导航 Tab 2 标题"
+    },
+    "MOBILE_TAB_MEMBER_LABEL": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "会员中心",
+      "description": "移动端底部导航 Tab 3 标题"
+    },
+    "MOBILE_DEFAULT_ENTITY": {
+      "group": "multiClient",
+      "type": "string",
+      "default": "mall.product-spu",
+      "description": "移动端默认加载的实体契约标识"
+    },
+    "BOOTSTRAP_ADMIN_USERNAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "admin",
+      "description": "初始超级管理员登录账号"
+    },
+    "BOOTSTRAP_ADMIN_NICKNAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "平台超级管理员",
+      "maxLength": 32,
+      "description": "初始超级管理员显示昵称"
+    },
+    "DEFAULT_USER_USERNAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "test",
+      "description": "默认测试操作员账号"
+    },
+    "DEFAULT_USER_NICKNAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "测试用户",
+      "maxLength": 32,
+      "description": "默认测试操作员昵称"
+    },
+    "DEFAULT_TENANT_CODE": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "default",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "默认主租户编码"
+    },
+    "DEFAULT_TENANT_NAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "默认租户",
+      "maxLength": 40,
+      "description": "默认主租户名称"
+    },
+    "DEFAULT_TENANT_CONTACT": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "管理员",
+      "description": "默认主租户联系人"
+    },
+    "DEFAULT_TENANT_PHONE": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "13800000001",
+      "description": "默认主租户联系电话"
+    },
+    "DEMO_TENANT_CODE": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "demo",
+      "pattern": "^[a-z][a-z0-9-]*$",
+      "description": "演示租户编码"
+    },
+    "DEMO_TENANT_NAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "演示租户",
+      "maxLength": 40,
+      "description": "演示租户名称"
+    },
+    "DEMO_TENANT_DOMAIN": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "demo.cooliebase.local",
+      "description": "演示租户绑定域名"
+    },
+    "PRIMARY_PACKAGE_NAME": {
+      "group": "tenancyAndAuth",
+      "type": "string",
+      "default": "普通套餐",
+      "maxLength": 40,
+      "description": "默认租户套餐名称"
+    },
+    "ADMIN_PORT": {
+      "group": "infrastructure",
+      "type": "number",
+      "default": 3210,
+      "description": "Next.js 全栈服务监听端口"
+    },
+    "DB_DIALECT": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "sqlite",
+      "enum": ["sqlite", "postgres"],
+      "description": "默认数据库驱动方言"
+    },
+    "DB_NAME": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "cooliebase_next",
+      "description": "PostgreSQL 数据库名称"
+    },
+    "SQLITE_DB_PATH": {
+      "group": "infrastructure",
+      "type": "string",
+      "default": "data/cooliebase-all.db",
+      "description": "SQLite 本地嵌入式数据库文件路径"
+    },
+    "INDUSTRY_PRESET": {
+      "group": "topologyAndDomains",
+      "type": "string",
+      "default": "general-enterprise",
+      "enum": [
+        "general-enterprise",
+        "retail-commerce",
+        "smart-healthcare",
+        "digital-publishing",
+        "smart-manufacturing"
+      ],
+      "description": "行业场景预设包（27B模型只需切换此枚举，即可自动切换全站C端门户分类、精选商品/服务样例与15大业务域行业术语）"
+    },
+    "HATCH_PROFILE": {
+      "group": "topologyAndDomains",
+      "type": "string",
+      "default": "standard",
+      "enum": ["base", "minimal", "standard", "commerce", "manufacturing", "vertical", "full"],
+      "description": "项目孵化裁剪档位"
+    },
+    "ENABLED_DOMAINS": {
+      "group": "topologyAndDomains",
+      "type": "string",
+      "default": "system,infra,online,mall,member,pay,bpm,crm,erp,wms,mes,ai,aigw,iot,im,mp,report",
+      "description": "启用的业务域列表（逗号分隔）"
+    },
+    "ENABLED_CLIENTS": {
+      "group": "topologyAndDomains",
+      "type": "string",
+      "default": "expo",
+      "description": "启用的多端客户端渠道（逗号分隔，空串表示仅保留Web端）"
+    }
+  }
+}

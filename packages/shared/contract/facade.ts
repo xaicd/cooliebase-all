@@ -1,4 +1,5 @@
-import { projectProfile, type ProjectProfile } from "./project-profile"
+import { projectProfile, type FacadeSection, type ProjectProfile } from "./project-profile"
+import { BLUEPRINT_DEFAULT_VARS, resolveBlueprintPlaceholders } from "./blueprint-vars"
 
 /**
  * 门面身份唯一读口（[T1] [COO-219]）。
@@ -26,6 +27,18 @@ export interface FacadeIdentity {
   telemetryEnabled: boolean
   /** dev 脚本端口缺省值；避开控制面保留端口 3200（T4 接线 PORT env）。 */
   devPort: number
+}
+
+export interface ExtendedFacadeIdentity extends FacadeIdentity {
+  heroBadge: string
+  heroHighlight: string
+  heroDescription: string
+  cEndCardTitle: string
+  cEndCardCta: string
+  cEndCardDesc: string
+  bEndCardTitle: string
+  bEndCardCta: string
+  bEndCardDesc: string
 }
 
 /** 中立默认门面：不携带任何他业身份字样。 */
@@ -56,8 +69,9 @@ function pickEntry(entry: unknown, fallback: FacadeEntry): FacadeEntry {
 
 export function readFacadeIdentity(profile: ProjectProfile = projectProfile): FacadeIdentity {
   try {
-    const facade = profile?.facade
-    if (!facade) return NEUTRAL_FACADE
+    const rawFacade = profile?.facade
+    if (!rawFacade) return NEUTRAL_FACADE
+    const facade = resolveBlueprintPlaceholders(rawFacade)
     return {
       siteName: pickText(facade.siteName, NEUTRAL_FACADE.siteName),
       domainTagline: pickText(facade.domainTagline, NEUTRAL_FACADE.domainTagline),
@@ -76,5 +90,57 @@ export function readFacadeIdentity(profile: ProjectProfile = projectProfile): Fa
     }
   } catch {
     return NEUTRAL_FACADE
+  }
+}
+
+/**
+ * 读取完整门面与首屏动态变量（供首页 / 登录页 / 27B 模型模板化消费）
+ */
+export function readExtendedFacade(profile: ProjectProfile = projectProfile): ExtendedFacadeIdentity {
+  const base = readFacadeIdentity(profile)
+  const rawFacade: Partial<FacadeSection> = resolveBlueprintPlaceholders(
+    (profile?.facade || {}) as Partial<FacadeSection>
+  )
+  return {
+    ...base,
+    heroBadge: pickText(
+      rawFacade.heroBadge,
+      String(BLUEPRINT_DEFAULT_VARS.HERO_BADGE || "企业级多端数字化业务平台 · 生产就绪")
+    ),
+    heroHighlight: pickText(
+      rawFacade.heroHighlight,
+      String(BLUEPRINT_DEFAULT_VARS.HERO_HIGHLIGHT || "Blueprint Matrix")
+    ),
+    heroDescription: pickText(
+      rawFacade.heroDescription,
+      String(
+        BLUEPRINT_DEFAULT_VARS.HERO_DESCRIPTION ||
+          "融合 15 大企业级原生业务域，打通从 C 端用户在线服务、商品检索与互动交易，到 B 端运营管控、聚合支付对账、供应链协同与流程审批的全流程闭环体系。"
+      )
+    ),
+    cEndCardTitle: pickText(
+      rawFacade.cEndCardTitle,
+      String(BLUEPRINT_DEFAULT_VARS.C_END_CARD_TITLE || "进入 C 端业务门户")
+    ),
+    cEndCardCta: pickText(
+      rawFacade.cEndCardCta,
+      String(BLUEPRINT_DEFAULT_VARS.C_END_CARD_CTA || "立即访问 →")
+    ),
+    cEndCardDesc: pickText(
+      rawFacade.cEndCardDesc,
+      String(BLUEPRINT_DEFAULT_VARS.C_END_CARD_DESC || "精选商品与服务检索、在线体验/预约、会员权益中心与即时结算闭环。")
+    ),
+    bEndCardTitle: pickText(
+      rawFacade.bEndCardTitle,
+      String(BLUEPRINT_DEFAULT_VARS.B_END_CARD_TITLE || "进入 B 端运营中台")
+    ),
+    bEndCardCta: pickText(
+      rawFacade.bEndCardCta,
+      String(BLUEPRINT_DEFAULT_VARS.B_END_CARD_CTA || "控制台 →")
+    ),
+    bEndCardDesc: pickText(
+      rawFacade.bEndCardDesc,
+      String(BLUEPRINT_DEFAULT_VARS.B_END_CARD_DESC || "核心业务台账管理、交易订单履约、会员成长等级、聚合支付对账与 BPM 流程审批。")
+    ),
   }
 }

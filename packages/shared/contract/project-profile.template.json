@@ -1,0 +1,110 @@
+{
+  "platformName": "{{PLATFORM_TITLE}}",
+  "shortName": "{{SHORT_NAME}}",
+  "description": "{{PROJECT_DESCRIPTION}}",
+  "copyright": "{{COPYRIGHT_TEXT}}",
+  "version": "{{PROJECT_VERSION}}",
+  "industryPreset": "{{INDUSTRY_PRESET}}",
+  "loginHeadline": "{{LOGIN_HEADLINE}}",
+  "loginTagline": "{{LOGIN_TAGLINE}}",
+  "loginTrustBadges": [
+    "{{LOGIN_TRUST_BADGE_1}}",
+    "{{LOGIN_TRUST_BADGE_2}}"
+  ],
+  "facade": {
+    "siteName": "{{SITE_NAME}}",
+    "domainTagline": "{{DOMAIN_TAGLINE}}",
+    "cEndEntry": {
+      "label": "{{C_END_ENTRY_LABEL}}",
+      "href": "{{C_END_ENTRY_HREF}}"
+    },
+    "bEndEntry": {
+      "label": "{{B_END_ENTRY_LABEL}}",
+      "href": "{{B_END_ENTRY_HREF}}"
+    },
+    "heroBadge": "{{HERO_BADGE}}",
+    "heroTitle": "{{HERO_TITLE}}",
+    "heroHighlight": "{{HERO_HIGHLIGHT}}",
+    "heroSubtitle": "{{HERO_SUBTITLE}}",
+    "heroDescription": "{{HERO_DESCRIPTION}}",
+    "cEndCardTitle": "{{C_END_CARD_TITLE}}",
+    "cEndCardCta": "{{C_END_CARD_CTA}}",
+    "cEndCardDesc": "{{C_END_CARD_DESC}}",
+    "bEndCardTitle": "{{B_END_CARD_TITLE}}",
+    "bEndCardCta": "{{B_END_CARD_CTA}}",
+    "bEndCardDesc": "{{B_END_CARD_DESC}}",
+    "loginSubtitle": "{{LOGIN_SUBTITLE}}",
+    "telemetryEnabled": false,
+    "devPort": 3210
+  },
+  "branding": {
+    "mark": "{{BRAND_MARK}}",
+    "primaryColor": "{{BRAND_PRIMARY_COLOR}}",
+    "accentColor": "{{BRAND_ACCENT_COLOR}}",
+    "logoSrc": "{{BRAND_LOGO_SRC}}",
+    "favicon": "{{BRAND_FAVICON_SRC}}"
+  },
+  "consumerPortal": {
+    "brandMark": "{{PORTAL_BRAND_MARK}}",
+    "title": "{{PORTAL_TITLE}}",
+    "subtitleEn": "{{PORTAL_SUBTITLE_EN}}",
+    "heroBadge": "{{PORTAL_HERO_BADGE}}",
+    "heroTitle": "{{PORTAL_HERO_TITLE}}",
+    "heroDesc": "{{PORTAL_HERO_DESC}}",
+    "searchPlaceholder": "{{PORTAL_SEARCH_PLACEHOLDER}}",
+    "cartLabel": "{{PORTAL_CART_LABEL}}",
+    "primaryCta": "{{PORTAL_PRIMARY_CTA}}",
+    "previewCta": "{{PORTAL_PREVIEW_CTA}}",
+    "profileLabel": "{{PORTAL_PROFILE_LABEL}}"
+  },
+  "multiClient": {
+    "expoAppName": "{{EXPO_APP_NAME}}",
+    "expoAppSlug": "{{EXPO_APP_SLUG}}",
+    "iosBundleId": "{{IOS_BUNDLE_ID}}",
+    "androidPackage": "{{ANDROID_PACKAGE}}",
+    "wechatAppId": "{{WECHAT_APP_ID}}",
+    "tabHomeLabel": "{{MOBILE_TAB_HOME_LABEL}}",
+    "tabStudioLabel": "{{MOBILE_TAB_STUDIO_LABEL}}",
+    "tabMemberLabel": "{{MOBILE_TAB_MEMBER_LABEL}}",
+    "defaultEntity": "{{MOBILE_DEFAULT_ENTITY}}"
+  },
+  "bootstrapAdmin": {
+    "nickname": "{{BOOTSTRAP_ADMIN_NICKNAME}}"
+  },
+  "defaultUsers": [
+    {
+      "username": "{{DEFAULT_USER_USERNAME}}",
+      "nickname": "{{DEFAULT_USER_NICKNAME}}"
+    }
+  ],
+  "tenants": [
+    {
+      "id": "1",
+      "code": "{{DEFAULT_TENANT_CODE}}",
+      "name": "{{DEFAULT_TENANT_NAME}}",
+      "contactName": "{{DEFAULT_TENANT_CONTACT}}",
+      "contactPhone": "{{DEFAULT_TENANT_PHONE}}",
+      "domain": null,
+      "packageId": "111"
+    },
+    {
+      "id": "2",
+      "code": "{{DEMO_TENANT_CODE}}",
+      "name": "{{DEMO_TENANT_NAME}}",
+      "contactName": "张三",
+      "contactPhone": "13900000001",
+      "domain": "{{DEMO_TENANT_DOMAIN}}",
+      "packageId": "111"
+    }
+  ],
+  "packages": [
+    {
+      "id": "111",
+      "name": "{{PRIMARY_PACKAGE_NAME}}"
+    },
+    {
+      "id": "113",
+      "name": "测试套餐（啥都没有）"
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "expo": {
+    "name": "{{EXPO_APP_NAME}}",
+    "slug": "{{EXPO_APP_SLUG}}",
+    "version": "{{PROJECT_VERSION}}",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "platforms": [
+      "ios",
+      "android",
+      "web"
+    ],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "{{IOS_BUNDLE_ID}}"
+    },
+    "android": {
+      "package": "{{ANDROID_PACKAGE}}"
+    },
+    "extra": {
+      "apiBase": "http://localhost:{{ADMIN_PORT}}",
+      "projectName": "{{PROJECT_NAME}}",
+      "platformTitle": "{{PLATFORM_TITLE}}",
+      "shortName": "{{SHORT_NAME}}",
+      "brandMark": "{{BRAND_MARK}}",
+      "primaryColor": "{{BRAND_PRIMARY_COLOR}}",
+      "wechatAppId": "{{WECHAT_APP_ID}}",
+      "tabHomeLabel": "{{MOBILE_TAB_HOME_LABEL}}",
+      "tabStudioLabel": "{{MOBILE_TAB_STUDIO_LABEL}}",
+      "tabMemberLabel": "{{MOBILE_TAB_MEMBER_LABEL}}",
+      "defaultEntity": "{{MOBILE_DEFAULT_ENTITY}}"
+    }
+  }
+}
