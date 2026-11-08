@@ -101,7 +101,11 @@ export class PageSchemaService {
     const merged = pageSchemaSchema.parse({
       entity,
       title: parsedPatch.title ?? current.title,
+      layoutMode: parsedPatch.layoutMode ?? current.layoutMode,
       fields: parsedPatch.fields ?? current.fields,
+      blocks: parsedPatch.blocks ?? current.blocks,
+      queries: parsedPatch.queries ?? current.queries,
+      actions: parsedPatch.actions ?? current.actions,
     })
     // 🆕 真加列：把 fields 同步为实体表的物理列（ALTER TABLE ADD COLUMN，分方言，幂等）。
     // 「加字段就真加列」——ORM/table 那层落实；失败不吞（让调用方知道 DDL 未成功）。
