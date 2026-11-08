@@ -68,17 +68,15 @@
       "surface": "app",
       "workspace": "clients/expo",
       "runtime": "expo",
-      "status": "standard-only",
+      "status": "ga",
       "platforms": [
         "android",
-        "ios"
+        "ios",
+        "web"
       ],
       "tokenStore": "expo-secure-store",
       "packageKind": "standalone",
-      "notes": "本仓唯一的独立客户端包。按自身实际结构要求 src/shared（共享 DTO/API 层），不强制 app/modules —— 它是 src/App.tsx 经典结构，未使用 Expo Router。",
-      "requiredSourceDirs": [
-        "shared"
-      ]
+      "notes": "本仓标准多端移动/Web 同构客户端包，严格遵循 src/{app,shared,modules/<domain>} 三层架构与 PageBlockDSL v2 同源渲染。"
     }
   ],
   "rules": [

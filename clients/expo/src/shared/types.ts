@@ -1,23 +1,75 @@
 /**
- * 端无关的类型契约（Web 与 Expo 共用同一套后端返回结构）。
- *
- * 从原 `shared/api.ts` 抽出 —— 那里同时放了类型与请求实现，
- * 现在拆开: 类型在 types.ts，请求在 request.ts，按实体的接口在 api/<域>/<实体>.ts。
+ * 端无关的类型契约（Web、小程序与 Expo 共用同一套 PageBlockDSL v2 与后端返回结构）。
  */
 
-// 端无关字段协议（与 portal-shared / 后端 page-schema 一致）
+export type FieldWidgetType =
+  | "text"
+  | "textarea"
+  | "number"
+  | "boolean"
+  | "date"
+  | "datetime"
+  | "select"
+  | "radio"
+  | "checkbox"
+  | "switch"
+  | "cascader"
+  | "tree_select"
+  | "slider"
+  | "rate"
+  | "tags"
+  | "currency"
+  | "color"
+  | "image"
+  | "file"
+  | "richtext"
+  | "sub_table"
+  | "json"
+
 export type FieldDef = {
   code: string
   label: string
-  type: "text" | "textarea" | "number" | "boolean" | "date" | "select" | "image"
+  type: FieldWidgetType
   required?: boolean
   showInList?: boolean
   showInForm?: boolean
-  options?: Array<{ label: string; value: string }>
+  options?: Array<{ label: string; value: string; color?: string }>
   placeholder?: string
   sort?: number
+  span?: number
+  group?: string
+  visibleOn?: string
+  disabledOn?: string
+  requiredOn?: string
+  defaultValue?: unknown
 }
-export type PageSchema = { entity: string; title: string; fields: FieldDef[] }
+
+export type MobileBlockItem = {
+  title: string
+  subtitle?: string
+  icon?: string
+  imageUrl?: string
+  badge?: string
+  actionUrl?: string
+  color?: string
+}
+
+export type MobileBlockDef = {
+  id: string
+  type: "banner" | "grid_nav" | "product_waterfall" | "stat_metrics"
+  title?: string
+  surface?: "all" | "pc" | "mobile"
+  visibleOn?: string
+  items?: MobileBlockItem[]
+}
+
+export type PageSchema = {
+  entity: string
+  title: string
+  layoutMode?: "table" | "kanban" | "split" | "dashboard" | "mobile_portal"
+  fields: FieldDef[]
+  blocks?: MobileBlockDef[]
+}
 
 export type Appearance = {
   siteName: string

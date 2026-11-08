@@ -206,6 +206,22 @@ function reactorCopy(src, dest, ctx, rel = "") {
         } catch (_err) { /* 非标准 JSON 时回退到下方通用文本替换 */ }
       }
 
+      // 特殊处理客户端 app.json（如 clients/expo/app.json）：同步重写移动端名称、slug 与 apiBase 端口
+      if (entry.name === "app.json") {
+        try {
+          const appCfg = JSON.parse(fs.readFileSync(srcPath, "utf8"))
+          if (appCfg.expo) {
+            appCfg.expo.name = `${ctx.targetTitle}`
+            appCfg.expo.slug = `${ctx.targetName}-app`
+            if (appCfg.expo.extra && typeof appCfg.expo.extra.apiBase === "string") {
+              appCfg.expo.extra.apiBase = `http://localhost:${ctx.targetPort}`
+            }
+          }
+          fs.writeFileSync(destPath, JSON.stringify(appCfg, null, 2) + "\n", "utf8")
+          continue
+        } catch (_err) { /* 回退通用替换 */ }
+      }
+
       // 文本文件：执行反应堆内容替换
       try {
         const raw = fs.readFileSync(srcPath, "utf8")
@@ -311,6 +327,29 @@ function pruneDomainReferenceLists(destRoot, plan) {
         if (!prunedDomainNames.has(m[1])) return true
         dropped.push(`${rel}: @/modules/${m[1]}`)
         return false
+      })
+      write(rel, lines.join("\n"))
+    }
+  }
+
+  // 3.5) 客户端业务域注册表 (clients/expo/src/modules/index.ts): 同步剔除已被裁剪的业务域导入与注册项
+  {
+    const rel = "clients/expo/src/modules/index.ts"
+    const text = read(rel)
+    if (text) {
+      const prunedDomainNames = new Set(ALL_DOMAINS.filter((name) => !keep.has(name)))
+      const lines = text.split("\n").filter((line) => {
+        const importMatch = line.match(/from\s+"\.\/*([a-z0-9_]+)\/pages\//)
+        if (importMatch && prunedDomainNames.has(importMatch[1])) {
+          dropped.push(`${rel}: import ${importMatch[1]}`)
+          return false
+        }
+        const entryMatch = line.match(/domain:\s*"([a-z0-9_]+)"/)
+        if (entryMatch && prunedDomainNames.has(entryMatch[1])) {
+          dropped.push(`${rel}: module ${entryMatch[1]}`)
+          return false
+        }
+        return true
       })
       write(rel, lines.join("\n"))
     }

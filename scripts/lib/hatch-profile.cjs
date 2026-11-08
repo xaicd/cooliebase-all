@@ -18,6 +18,8 @@ const DOMAIN_PATH_PREFIXES = Object.freeze([
   "src/app/api/v1/open/",
   "src/app/(admin-pages)/admin/",
   "src/app/(cpc-pages)/cpc/",
+  // 客户端内按域组织的模块（clients/<channel>/src/modules/<domain>）随被排除域同步裁剪
+  "clients/expo/src/modules/",
 ])
 
 function splitCsv(value) {
@@ -37,6 +39,7 @@ function parseArgv(argv) {
     target: undefined,
     profile: "base",
     bundle: [],
+    clients: [],
     help: false,
     dryRun: false,
     /**
@@ -87,6 +90,15 @@ function parseArgv(argv) {
     }
     if (arg.startsWith("--bundle=")) {
       out.bundle = splitCsv(arg.slice("--bundle=".length))
+      continue
+    }
+    if (arg === "--clients") {
+      out.clients = splitCsv(args[i + 1])
+      i += 1
+      continue
+    }
+    if (arg.startsWith("--clients=")) {
+      out.clients = splitCsv(arg.slice("--clients=".length))
       continue
     }
     if (arg === "--title") {
@@ -212,12 +224,17 @@ function resolveHatchPlan(catalog, options = {}) {
   }
 
   selected = selected.filter((name) => known.has(name))
+  const requestedClients = unique(options.clients || [])
+  if (requestedClients.length > 0) {
+    includeClients = requestedClients.includes("expo")
+  }
   const excludedDomains = catalogDomainNames(catalog).filter((name) => !selected.includes(name))
   const pruned = excludedDomains.length > 0 || !includeClients
 
   return {
     profile,
     includeClients,
+    clients: requestedClients.length > 0 ? requestedClients : includeClients ? ["admin-web", "expo"] : ["admin-web"],
     pruned,
     companions,
     domains: selected,
