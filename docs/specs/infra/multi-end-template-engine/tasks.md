@@ -1,0 +1,100 @@
+# Tasks Breakdown & WBS: 对标 PagePlug 与商业低代码平台：多端模版源头与响应式区块画布升级
+
+> **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
+> 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
+> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`multi-end-template-engine`
+> 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
+
+---
+
+## 1. 任务依赖波次图 (Task Dependency Waves)
+
+```json
+{
+  "waves": [
+    {
+      "id": "wave-1",
+      "title": "地基与契约准备",
+      "tasks": [
+        "T1"
+      ],
+      "dependsOn": []
+    },
+    {
+      "id": "wave-2",
+      "title": "核心服务与数据流落地",
+      "tasks": [
+        "T2"
+      ],
+      "dependsOn": [
+        "wave-1"
+      ]
+    },
+    {
+      "id": "wave-3",
+      "title": "端到端测试与集成验证",
+      "tasks": [
+        "T3"
+      ],
+      "dependsOn": [
+        "wave-2"
+      ]
+    }
+  ]
+}
+```
+
+## 2. 交互式任务清单 (Interactive Execution Tasks)
+
+- [x] **T1**: PageBlockDSL v2 契约、零 eval 表达式沙箱与 UniversalSchemaCanvas 多区块/看板/联动升级
+  - 归属: `main`
+  - 文件白名单: `packages/plugins/plugin-online/backend/validators/page-schema.validators.ts, packages/plugins/plugin-online/backend/services/page-schema.service.ts, packages/shared/frontend/lib/expression-engine.ts, packages/shared/frontend/components/universal-schema-canvas.tsx`
+  - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
+
+- [x] **T2**: 多端客户端 app+shared+modules/<domain> 模块化重构、移动端区块渲染器升级与 ProjectReactor 多端联动裁剪
+  - 归属: `T1`
+  - 文件白名单: `packages/shared/contract/client-channels.json, clients/expo/src/shared/types.ts, clients/expo/src/App.tsx, clients/expo/src/SchemaFieldRenderer.tsx, clients/expo/src/app/AppShell.tsx, clients/expo/src/modules/index.ts, clients/expo/src/modules/member/api/index.ts, clients/expo/src/modules/member/models/index.ts, clients/expo/src/modules/member/pages/MemberCenterPage.tsx, clients/expo/src/modules/member/components/MemberProfileCard.tsx, clients/expo/src/modules/mall/api/index.ts, clients/expo/src/modules/mall/models/index.ts, clients/expo/src/modules/mall/pages/MallHomePage.tsx, clients/expo/src/modules/mall/components/ProductWaterfallCard.tsx, scripts/lib/hatch-profile.cjs, scripts/clone-project-base.cjs`
+  - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
+
+- [x] **T3**: 对标 PagePlug 升级 Online 双视口 (PC 1440px / 手机小程序 375px) 可视化区块与联动设计器
+  - 归属: `T2`
+  - 文件白名单: `packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx`
+  - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
+
+- [x] **T4**: 多端模板源头与表达式画布全链路单元测试及门禁核销
+  - 归属: `T3`
+  - 文件白名单: `test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/, docs/01_management/project-plan.md, docs/02_requirements/rtm-traceability-matrix.md, docs/features/sprint-prod/1108.md`
+  - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
+
+- [x] **T5**: 面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析)
+  - 归属: `T4`
+  - 文件白名单: `blueprint.template.json, .env.template, .gitignore, clients/expo/app.template.json, packages/shared/contract/project-profile.template.json, packages/shared/contract/blueprint-vars.ts, packages/shared/contract/project-profile.ts, packages/shared/contract/facade.ts, src/app/page.tsx, src/app/(portal-pages)/portal/components/book-store-portal.tsx, scripts/blueprint-engine.cjs`
+  - 验收要求: 必须携带提交标识 `[T5]` 并附带真实测试验证
+
+
+## 3. CMMI 双向追溯与 Git 提交核实矩阵 (RTM & Git Trace)
+
+> **两条硬规矩**（对齐 CMMI「主线-支线任务树」与「1 Task = 1 Commit」）:
+> 1. **归属**必须写 `main`（主线）或某个已存在的任务 ID —— **不允许孤儿任务**
+> 2. **文件白名单**必填（逗号分隔）；`-` 表示该任务不改文件（纯验证类）
+>
+> 完成度**不看"状态"列**，而是从 git 推导: commit message 带 `[T<ID>]`
+> 且改动文件落在白名单内，才算这条任务真的做了（`pnpm run task:verify`）。
+
+| ID | 归属 | 任务 | 文件白名单 | 状态 |
+|---|---|---|---|---|
+| T1 | main | PageBlockDSL v2 契约、零 eval 表达式沙箱与 UniversalSchemaCanvas 多区块/看板/联动升级 | packages/plugins/plugin-online/backend/validators/page-schema.validators.ts, packages/plugins/plugin-online/backend/services/page-schema.service.ts, packages/shared/frontend/lib/expression-engine.ts, packages/shared/frontend/components/universal-schema-canvas.tsx | 已完成 |
+| T2 | T1 | 多端客户端 app+shared+modules/<domain> 模块化重构、移动端区块渲染器升级与 ProjectReactor 多端联动裁剪 | packages/shared/contract/client-channels.json, clients/expo/src/shared/types.ts, clients/expo/src/App.tsx, clients/expo/src/SchemaFieldRenderer.tsx, clients/expo/src/app/AppShell.tsx, clients/expo/src/modules/index.ts, clients/expo/src/modules/member/api/index.ts, clients/expo/src/modules/member/models/index.ts, clients/expo/src/modules/member/pages/MemberCenterPage.tsx, clients/expo/src/modules/member/components/MemberProfileCard.tsx, clients/expo/src/modules/mall/api/index.ts, clients/expo/src/modules/mall/models/index.ts, clients/expo/src/modules/mall/pages/MallHomePage.tsx, clients/expo/src/modules/mall/components/ProductWaterfallCard.tsx, scripts/lib/hatch-profile.cjs, scripts/clone-project-base.cjs | 已完成 |
+| T3 | T2 | 对标 PagePlug 升级 Online 双视口 (PC 1440px / 手机小程序 375px) 可视化区块与联动设计器 | packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx | 已完成 |
+| T4 | T3 | 多端模板源头与表达式画布全链路单元测试及门禁核销 | test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/, docs/01_management/project-plan.md, docs/02_requirements/rtm-traceability-matrix.md, docs/features/sprint-prod/1108.md | 已完成 |
+| T5 | T4 | 面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析) | blueprint.template.json, .env.template, .gitignore, clients/expo/app.template.json, packages/shared/contract/project-profile.template.json, packages/shared/contract/blueprint-vars.ts, packages/shared/contract/project-profile.ts, packages/shared/contract/facade.ts, src/app/page.tsx, src/app/(portal-pages)/portal/components/book-store-portal.tsx, scripts/blueprint-engine.cjs | 已完成 |
+
+## 4. 依赖说明与波次流转 (Dependencies & Progression)
+
+T1 → T2 → T3 → T4 → T5
+
+## 5. 阶段状态基线 (Phase Baseline)
+
+* 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
+* 开发：待开始
+* 独立测试：待开始

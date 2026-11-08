@@ -1,0 +1,228 @@
+{
+  "name": "multi-end-template-engine",
+  "domain": "infra",
+  "title": "对标 PagePlug 与商业低代码平台：多端模版源头与响应式区块画布升级",
+  "type": "feature",
+  "goal": "对标 cloudtogo/pageplug (Appsmith+Formily+ECharts+Taro) 与百度 Amis/NocoBase，将当前仅支持单表 7 种字段的简陋画布升级为支持多区块 (指标卡/图表/看板/主子表/C端瀑布流)、{{表达式}} 响应式联动、PC+移动双视口设计器、以及按业务域同步裁剪的『商业级多端模版源头』。",
+  "roles": [
+    {
+      "role": "业务应用搭建者 / 实施工程师",
+      "can": "在可视化设计器中配置多区块页面 (StatMetrics/Chart/Kanban/ProTable) 与 {{表达式}} 字段联动，并在 PC 与 375px 移动/小程序双视口实时预览"
+    },
+    {
+      "role": "多端模板孵化工程师 / AI Agent",
+      "can": "通过 project:create 按 --bundle 与 --clients 一键派生后端插件与客户端 modules/<domain> 同步裁剪的多端工程，直接获得高颜值 B 端与 C 端样板"
+    },
+    {
+      "role": "C 端移动与小程序用户",
+      "can": "在移动端体验由同一份 PageBlockDSL 驱动的轮播、金刚区宫格、商品瀑布流、动态联动表单与订单流转"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "系统必须提供零 eval 风险的安全沙箱表达式引擎 (expression-engine.ts)，支持 {{ $form.xxx }}、{{ $state.xxx }}、{{ $row.xxx }} 动态求值，驱动字段 visibleOn / disabledOn / requiredOn 实时联动（对标 PagePlug + Formily）"
+    },
+    {
+      "priority": "P0",
+      "text": "PageSchema 协议必须向后兼容升级为 PageBlockDSL v2，支持 20+ 种字段控件与多区块拼装（指标统计卡 StatMetrics、可视化图表 Chart、状态看板 Kanban、表格 ProTable 及 C 端轮播/宫格/商品流区块）"
+    },
+    {
+      "priority": "P0",
+      "text": "clients/expo 必须重构为严格的 app/ + shared/ + modules/<domain>/ 标准模块化结构，升级移动端区块与高级控件渲染器，且 hatch-profile.cjs 支持按 --bundle 与 --clients 同步裁剪客户端域模块"
+    },
+    {
+      "priority": "P1",
+      "text": "online-definition-designer 必须提供『左区块组件库 + 中间 PC/375px 移动双视口实时预览画布 + 右侧联动表达式配置』的可视化设计体验（对标 PagePlug 双端画布）"
+    }
+  ],
+  "constraints": [
+    "100% 向后兼容：现有的 342 份 PageSchema (entity + title + fields[]) 必须零修改正常解析与渲染，blocks[] 与联动表达式作为渐进增强字段。",
+    "零 eval 安全红线：表达式引擎严禁使用 eval() 或 new Function()，必须采用受控词法/语法 AST 求值器，彻底阻断原型链污染与代码注入。",
+    "多端包结构铁律：独立客户端必须通过 collectClientPackageLayoutErrors 的 app/ + shared/ + modules/<domain>/{api,models,pages,components} 校验，不再保留豁免后门。",
+    "多租户与真实数据库：PageSchema 存储继续复用 system_config 与真实 SQLite/Postgres，严禁引入 MongoDB 等外部重型异构数据库。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm vitest run test/unit/multi-end-template-engine.test.ts` exit=0（覆盖表达式沙箱求值、安全拦截、PageBlockDSL v2 校验、客户端布局与孵化裁剪）"
+    },
+    {
+      "check": "`collectClientPackageLayoutErrors(ROOT)` 返回空数组 `[]`，且 `client-channels.json` 中 `expo` 已移除 `requiredSourceDirs: [\"shared\"]` 特批豁免"
+    },
+    {
+      "check": "`resolveHatchPlan` 在 `--profile vertical --bundle member` 下自动排除 `clients/expo/src/modules/mall`，实现前后端按域同步裁剪"
+    },
+    {
+      "check": "`pnpm run clients:build:check` exit=0（Expo Web 导出构建包含重构后的模块化与区块渲染产物）"
+    },
+    {
+      "check": "`pnpm run check` exit=0（全量静态、契约、路由、门禁 100% 通过）"
+    }
+  ],
+  "nonGoals": [
+    "不引入 PagePlug/Appsmith 的 Java Spring WebFlux + MongoDB 重型后端，保持本仓 Next.js + TypeScript + Kysely 单一技术栈。",
+    "不破坏现有 15 个业务域插件的后端 API 路由契约。"
+  ],
+  "architecture": "契约层 (page-schema.validators.ts 定义 PageBlockDSL v2：20+ 控件 + blocks[] + queries[] + visibleOn/disabledOn 表达式) -> 引擎层 (packages/shared/frontend/lib/expression-engine.ts 提供零 eval 响应式求值) -> 渲染层 (B 端 UniversalSchemaCanvas 支持指标卡/图表/看板/表格切换与联动表单；C 端 clients/expo 按 app+shared+modules/<domain> 组织并渲染移动端区块；设计器 OnlineDefinitionDesigner 提供 PC/375px 手机双视口预览) -> 孵化层 (hatch-profile.cjs 联动裁剪后端插件与客户端 modules/<domain>)。",
+  "entities": [
+    {
+      "table": "system_config",
+      "note": "复用 key='page.schema.<entity>' 持久化存储升级后的 PageBlockDSL v2 JSON，零破坏性 DDL"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "表达式沙箱零代码执行注入 (Zero-Eval Sandbox)",
+      "how": "表达式求值器仅解析标识符、字面量、算术/比较/逻辑/三元运算符与安全白名单方法，访问 __proto__/constructor/process/window 立即拦截并返回 undefined。"
+    },
+    {
+      "name": "存量 342 份 PageSchema 100% 向下兼容",
+      "how": "blocks、queries、visibleOn 等全部声明为 optional，当未配置 blocks 时 UniversalSchemaCanvas 自动根据字段推导默认统计摘要与增强视图。"
+    },
+    {
+      "name": "前后端业务域同源裁剪一致性",
+      "how": "DOMAIN_PATH_PREFIXES 包含 clients/expo/src/modules/，被排除的业务域在客户端源码中同步物理剔除，且客户端模块注册表支持优雅降级。"
+    }
+  ],
+  "ui": [
+    "Admin 通用动态画布 (UniversalSchemaCanvas)：新增顶部核心指标卡 (StatMetrics)、内联趋势/分布图 (ChartBlock)、『表格视图 / 状态看板 (Kanban)』切换器、以及支持 {{表达式}} 动态显隐/禁用的联动表单弹窗。",
+    "Online 多端可视化设计器 (OnlineDefinitionDesignerPage)：新增『多端区块与联动画布』工作台，支持左侧添加区块/控件、中间切换 PC 宽屏与 375px 手机小程序视口实时预览、右侧配置 visibleOn 表达式。",
+    "C 端移动客户端 (clients/expo)：重构为 app/ + shared/ + modules/{member,mall}，支持移动端轮播、金刚区宫格、商品双列瀑布流、SKU 规格选择与扩展字段联动渲染。"
+  ],
+  "ops": [
+    "运行 `pnpm vitest run test/unit/multi-end-template-engine.test.ts` 验证核心引擎与裁剪逻辑",
+    "运行 `pnpm run clients:build:check` 验证多端客户端打包导出",
+    "运行 `pnpm run check` 确保全仓门禁通过"
+  ],
+  "risks": [
+    {
+      "risk": "客户端拆分为 modules/<domain> 后，若某个业务域在 vertical 孵化时被裁掉，客户端入口静态 import 会报 Module not found",
+      "mitigation": "在 clients/expo/src/modules/index.ts 采用安全模块装配与可选发现机制，并在 hatch-profile.cjs 中同步裁剪被排除域的模块目录"
+    },
+    {
+      "risk": "用户编写错误语法的 {{ 表达式 }} 导致前端页面白屏崩溃",
+      "mitigation": "expression-engine.ts 全程捕获解析异常并回退默认值 (false/undefined)，绝不向 React 渲染树抛出未捕获异常"
+    }
+  ],
+  "screens": [
+    {
+      "name": "UniversalSchemaCanvas v2 (多区块+看板+联动表单)",
+      "wireframe": "[顶部指标卡组 StatMetrics: 总记录 / 正常态 / 待处理 / 合计金额] -> [可折叠可视化图表区 ChartBlock] -> [工具栏: 搜索过滤 + 表格/看板(Kanban)视图切换 + 新建] -> [主视图: Table 或按状态分列 Kanban] -> [联动表单 Modal: 根据 {{ $form.xxx }} 实时显隐字段]"
+    },
+    {
+      "name": "Online 多端双视口设计器 (/admin/online/[code]/designer)",
+      "wireframe": "[顶栏: 模型JSON | 交互配置 | 多端画布与联动预览 (PC 1440px / 手机小程序 375px 切换)] -> [左侧: 区块与20+控件库] + [中间: 实时交互画布] + [右侧: 字段属性 & {{visibleOn}} 联动规则配置]"
+    },
+    {
+      "name": "Expo 模块化多端样板 (clients/expo)",
+      "wireframe": "[顶栏动态品牌 + 渠道标识] -> [轮播 BannerBlock + 宫格导航 GridNavBlock] -> [modules/mall 双列商品瀑布流 & 规格下单 | modules/member 会员中心 & Schema 联动扩展表单]"
+    }
+  ],
+  "interactions": [
+    "在画布点击『看板视图』自动按状态/分类字段分组为多列卡片；在弹窗表单中修改触发字段值，依赖该字段的 visibleOn/disabledOn 控件毫秒级显隐切换。",
+    "在 Online 设计器点击『手机/小程序视口 (375px)』，画布立即切换为移动端外框并实时渲染移动端区块与表单。",
+    "在孵化命令传入 `--profile vertical --bundle member` 或 `--clients` 时，自动裁剪对应后端与客户端目录。"
+  ],
+  "states": [
+    "加载中：指标卡、图表与表格/看板区域局部脉冲骨架屏，不阻塞顶栏。",
+    "空数据：表格与看板列展示结构化空态与快捷新建引导，保留筛选栏。",
+    "出错：展示错误原因与一键重试按钮；表达式语法错误时静默降级并在设计器高亮提示。",
+    "无权限：受权限码与 Action 条件表达式双重守卫控制。"
+  ],
+  "candidates": [
+    {
+      "name": "方案 A: 自研轻量 PageBlockDSL v2 + 零 eval 表达式沙箱 + 多端模块化同源渲染 (吸收 PagePlug/Amis/NocoBase 精华)",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无（零外部 GPL/重型运行时依赖，100% 契合 Next.js + Expo + AI Agent 生成）"
+    },
+    {
+      "name": "方案 B: 直接整体引入 cloudtogo/pageplug (Java WebFlux + MongoDB + Redux 巨石前端)",
+      "type": "开源",
+      "license": "Apache-2.0",
+      "risk": "高（技术栈异构割裂，MongoDB 破坏本仓 Kysely AST 租户隔离，几万行黑盒 JSON 无法导出纯净源码）"
+    }
+  ],
+  "benchmarks": [
+    "cloudtogo/pageplug (Appsmith 中国增强版)：学习其 {{JS表达式}} 响应式绑定、Formily 表单联动、ECharts 图表区块与 Web+移动端/小程序双视口画布理念。",
+    "百度 Amis / NocoBase：学习其精简 JSON 区块 (Block) 树协议与一表多视图（表格/看板/统计图）拼装模式。"
+  ],
+  "scan": [
+    "已核查 packages/plugins/plugin-online/backend/validators/page-schema.validators.ts 仅 62 行、7 种控件，具备直接无损扩展为 PageBlockDSL v2 的极佳条件。",
+    "已核查 packages/shared/contract/client-package-layout.ts 已内置 app/shared/modules/<domain> 校验逻辑，重构 clients/expo 即可立即闭环。"
+  ],
+  "licenseConclusion": "采用方案 A 自研轻量协议与渲染引擎，MIT 许可，100% 可商用且无任何传染性合规风险。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "PageBlockDSL v2 契约、零 eval 表达式沙箱与 UniversalSchemaCanvas 多区块/看板/联动升级",
+      "files": [
+        "packages/plugins/plugin-online/backend/validators/page-schema.validators.ts",
+        "packages/plugins/plugin-online/backend/services/page-schema.service.ts",
+        "packages/shared/frontend/lib/expression-engine.ts",
+        "packages/shared/frontend/components/universal-schema-canvas.tsx"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "多端客户端 app+shared+modules/<domain> 模块化重构、移动端区块渲染器升级与 ProjectReactor 多端联动裁剪",
+      "files": [
+        "packages/shared/contract/client-channels.json",
+        "clients/expo/src/shared/types.ts",
+        "clients/expo/src/App.tsx",
+        "clients/expo/src/SchemaFieldRenderer.tsx",
+        "clients/expo/src/app/AppShell.tsx",
+        "clients/expo/src/modules/index.ts",
+        "clients/expo/src/modules/member/api/index.ts",
+        "clients/expo/src/modules/member/models/index.ts",
+        "clients/expo/src/modules/member/pages/MemberCenterPage.tsx",
+        "clients/expo/src/modules/member/components/MemberProfileCard.tsx",
+        "clients/expo/src/modules/mall/api/index.ts",
+        "clients/expo/src/modules/mall/models/index.ts",
+        "clients/expo/src/modules/mall/pages/MallHomePage.tsx",
+        "clients/expo/src/modules/mall/components/ProductWaterfallCard.tsx",
+        "scripts/lib/hatch-profile.cjs",
+        "scripts/clone-project-base.cjs"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "对标 PagePlug 升级 Online 双视口 (PC 1440px / 手机小程序 375px) 可视化区块与联动设计器",
+      "files": [
+        "packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx"
+      ]
+    },
+    {
+      "id": "T4",
+      "parent": "T3",
+      "title": "多端模板源头与表达式画布全链路单元测试及门禁核销",
+      "files": [
+        "test/unit/multi-end-template-engine.test.ts",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json"
+      ]
+    },
+    {
+      "id": "T5",
+      "parent": "T4",
+      "title": "面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析)",
+      "files": [
+        "blueprint.template.json",
+        ".env.template",
+        "clients/expo/app.template.json",
+        "packages/shared/contract/project-profile.template.json",
+        "packages/shared/contract/blueprint-vars.ts",
+        "packages/shared/contract/project-profile.ts",
+        "packages/shared/contract/facade.ts",
+        "src/app/page.tsx",
+        "src/app/(portal-pages)/portal/components/book-store-portal.tsx",
+        "scripts/blueprint-engine.cjs"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3 → T4 → T5",
+  "windowMinutes": 20
+}

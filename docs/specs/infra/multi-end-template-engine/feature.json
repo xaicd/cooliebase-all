@@ -1,0 +1,12 @@
+{
+  "name": "multi-end-template-engine",
+  "domain": "infra",
+  "title": "对标 PagePlug 与商业低代码平台：多端模版源头与响应式区块画布升级",
+  "type": "feature",
+  "status": "PLAN_APPROVED",
+  "stories": 4,
+  "acceptance": 5,
+  "invariants": 3,
+  "tasks": 5,
+  "updatedAt": "2026-11-08T04:54:10.898Z"
+}
