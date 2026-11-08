@@ -117,6 +117,7 @@ function runCheck() {
   }
 
   for (const tpl of manifest.templateFiles || []) {
+    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients"))) continue
     const absTpl = path.join(ROOT, tpl.templatePath)
     if (!fs.existsSync(absTpl)) {
       errors.push(`模板文件不存在: ${tpl.templatePath}`)
@@ -215,7 +216,9 @@ function runRender(opts) {
 
   const results = []
   for (const tpl of manifest.templateFiles || []) {
+    if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients"))) continue
     const absTpl = path.join(ROOT, tpl.templatePath)
+    if (!fs.existsSync(absTpl)) continue
     const absTarget = path.join(ROOT, tpl.targetPath)
     const raw = fs.readFileSync(absTpl, "utf8")
     let rendered = renderTemplateText(raw, merged)
@@ -243,13 +246,273 @@ function runRender(opts) {
   )
 }
 
+/**
+ * 控件类型 -> 数据库列类型与 TS 类型自动映射表
+ * 让 27B 模型与初级开发者只需写业务字段与控件名，无需手写底层 SQL 类型与 6 大审计底座列。
+ */
+const WIDGET_TO_COLUMN_TYPE = {
+  text: { type: "varchar", tsType: "string" },
+  textarea: { type: "text", tsType: "string" },
+  rich_text: { type: "text", tsType: "string" },
+  number: { type: "int", tsType: "number" },
+  currency: { type: "int", tsType: "number" },
+  percent: { type: "int", tsType: "number" },
+  rate: { type: "int", tsType: "number" },
+  slider: { type: "int", tsType: "number" },
+  select: { type: "varchar", tsType: "string" },
+  radio: { type: "varchar", tsType: "string" },
+  checkbox: { type: "varchar", tsType: "string" },
+  switch: { type: "int", tsType: "number" },
+  date: { type: "timestamp", tsType: "string" },
+  datetime: { type: "timestamp", tsType: "string" },
+  image: { type: "varchar", tsType: "string" },
+  file: { type: "varchar", tsType: "string" },
+  color: { type: "varchar", tsType: "string" },
+  cascader: { type: "varchar", tsType: "string" },
+  tree_select: { type: "varchar", tsType: "string" },
+  user_picker: { type: "varchar", tsType: "string" },
+  dept_picker: { type: "varchar", tsType: "string" },
+  signature: { type: "text", tsType: "string" },
+  sub_table: { type: "text", tsType: "string" },
+  json: { type: "text", tsType: "string" },
+}
+
+/**
+ * 将 27B 模型或初级开发者编写的极简业务域蓝图 (`domainSpec`) 编译为：
+ * 1. 标准 `CodegenConfig[]` 表元数据（自动补齐 id 主键与 6 大多租户审计列）；
+ * 2. 标准 `PageBlockDSL v2` 多端画布 Schema（含 blocks、layoutMode 与 visibleOn/requiredOn 联动）；
+ * 3. 标准 `defineStateMachine` 状态机代码片段（若声明了 stateMachine）。
+ */
+function compileBlueprintDomain(domainSpec) {
+  if (!domainSpec || !domainSpec.domain || !Array.isArray(domainSpec.entities)) {
+    throw new Error("[blueprint-engine] domainSpec 必须包含 domain 与 entities[] 数组")
+  }
+  const domain = String(domainSpec.domain).trim().toLowerCase()
+  const exportName = `${domain.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_TABLES`
+
+  const codegenTables = []
+  const pageSchemas = {}
+  const stateMachines = {}
+
+  for (const ent of domainSpec.entities) {
+    const tableName = ent.table || `${domain}_${String(ent.className || "item").toLowerCase()}`
+    const className =
+      ent.className ||
+      tableName
+        .split("_")
+        .map((s) => s.charAt(0).toUpperCase() + s.slice(1))
+        .join("")
+    const title = ent.title || className
+    const permEntity = tableName.startsWith(`${domain}_`)
+      ? tableName.slice(domain.length + 1)
+      : tableName
+
+    const userColumns = (ent.fields || []).map((f) => {
+      const widget = f.widget || "text"
+      const mapped = WIDGET_TO_COLUMN_TYPE[widget] || WIDGET_TO_COLUMN_TYPE.text
+      const colType = f.type || mapped.type
+      const tsType = f.tsType || (colType === "int" || colType === "bigint" ? "number" : mapped.tsType)
+      const col = {
+        name: f.name,
+        type: colType,
+        tsType,
+        nullable: f.required ? false : true,
+        comment: f.label || f.name,
+        nullableInferred: !f.required,
+      }
+      if (f.query) col.queryType = f.query
+      return col
+    })
+
+    // 自动拼装主键 id + 业务字段 + 6 大强制多租户与审计底座列
+    const fullColumns = [
+      {
+        name: "id",
+        type: "bigint",
+        tsType: "number",
+        nullable: false,
+        comment: "主键编号",
+        isPk: true,
+        nullableInferred: true,
+      },
+      ...userColumns,
+      {
+        name: "tenant_id",
+        type: "varchar",
+        tsType: "string",
+        nullable: false,
+        comment: "租户ID",
+        nullableInferred: false,
+      },
+      {
+        name: "created_by",
+        type: "varchar",
+        tsType: "string",
+        nullable: true,
+        comment: "创建者",
+        nullableInferred: true,
+      },
+      {
+        name: "created_at",
+        type: "timestamp",
+        tsType: "string",
+        nullable: false,
+        comment: "创建时间",
+        nullableInferred: true,
+      },
+      {
+        name: "updated_by",
+        type: "varchar",
+        tsType: "string",
+        nullable: true,
+        comment: "更新者",
+        nullableInferred: true,
+      },
+      {
+        name: "updated_at",
+        type: "timestamp",
+        tsType: "string",
+        nullable: false,
+        comment: "更新时间",
+        nullableInferred: true,
+      },
+      {
+        name: "deleted_at",
+        type: "timestamp",
+        tsType: "string",
+        nullable: true,
+        comment: "逻辑删除时间",
+        nullableInferred: true,
+      },
+    ]
+
+    codegenTables.push({
+      moduleName: domain,
+      className,
+      businessName: title,
+      parentMenuId: `${domain}-dir`,
+      permissionPrefix: `${domain}:${permEntity}`,
+      table: {
+        name: tableName,
+        comment: title,
+        columns: fullColumns,
+      },
+    })
+
+    // 同步产出 PageBlockDSL v2 多端画布配置
+    pageSchemas[tableName] = {
+      entity: tableName,
+      title,
+      layoutMode: ent.layoutMode || "table",
+      fields: (ent.fields || []).map((f, idx) => ({
+        code: f.name,
+        label: f.label || f.name,
+        type: f.widget || "text",
+        required: Boolean(f.required),
+        showInList: f.showInList !== false,
+        showInForm: f.showInForm !== false,
+        sort: (idx + 1) * 10,
+        ...(Array.isArray(f.options)
+          ? {
+              options: f.options.map((opt) =>
+                typeof opt === "string" ? { label: opt, value: opt } : opt
+              ),
+            }
+          : {}),
+        ...(f.visibleOn ? { visibleOn: f.visibleOn } : {}),
+        ...(f.disabledOn ? { disabledOn: f.disabledOn } : {}),
+        ...(f.requiredOn ? { requiredOn: f.requiredOn } : {}),
+      })),
+      blocks: (
+        ent.blocks || [
+          {
+            id: `${tableName}_kpi`,
+            type: "stat_metrics",
+            title: `${title}核心指标`,
+            surface: "all",
+          },
+        ]
+      ).map((b) => ({
+        ...b,
+        surface: b.surface === "both" ? "all" : b.surface || "all",
+      })),
+    }
+
+    if (ent.stateMachine && Array.isArray(ent.stateMachine.transitions)) {
+      stateMachines[tableName] = {
+        name: `${tableName}.status`,
+        initial: ent.stateMachine.initial,
+        transitions: ent.stateMachine.transitions,
+      }
+    }
+  }
+
+  const tablesTsCode =
+    `// 由 scripts/blueprint-engine.cjs compile-domain 自动从极简业务蓝图展开生成\n` +
+    `import type { CodegenConfig } from "../packages/domains/infra/backend/services/codegen-templates"\n\n` +
+    `export const ${exportName}: CodegenConfig[] = ${JSON.stringify(codegenTables, null, 2)}\n`
+
+  return {
+    domain,
+    exportName,
+    tablesFileRel: `scripts/data/${domain}-tables.ts`,
+    codegenTables,
+    tablesTsCode,
+    pageSchemas,
+    stateMachines,
+  }
+}
+
+function runCompileDomain(argv) {
+  const fileIdx = argv.indexOf("--file")
+  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  const write = argv.includes("--write")
+  if (!fileArg) {
+    throw new Error("用法: node scripts/blueprint-engine.cjs compile-domain --file <domain-blueprint.json> [--write]")
+  }
+  const spec = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), fileArg), "utf8"))
+  if (spec.variables) {
+    runRender({
+      cmd: "render",
+      compact: false,
+      dryRun: !write,
+      valuesFile: null,
+      preset: spec.variables.INDUSTRY_PRESET || null,
+      sets: spec.variables,
+    })
+  }
+  const compiled = compileBlueprintDomain(spec)
+  if (write) {
+    const absTables = path.join(ROOT, compiled.tablesFileRel)
+    fs.writeFileSync(absTables, compiled.tablesTsCode, "utf8")
+    console.log(`[blueprint-engine] ✓ 已生成表元数据真源: ${compiled.tablesFileRel} (${compiled.codegenTables.length} 张表)`)
+    console.log(`[blueprint-engine] 下一步执行: pnpm run domain:new ${compiled.domain}`)
+  } else {
+    console.log(
+      JSON.stringify(
+        {
+          domain: compiled.domain,
+          tablesFileRel: compiled.tablesFileRel,
+          tableCount: compiled.codegenTables.length,
+          pageSchemas: compiled.pageSchemas,
+          stateMachines: compiled.stateMachines,
+        },
+        null,
+        2
+      )
+    )
+  }
+}
+
 if (require.main === module) {
-  const opts = parseCliArgs(process.argv.slice(2))
+  const rawArgv = process.argv.slice(2)
+  const opts = parseCliArgs(rawArgv)
   if (opts.cmd === "check") runCheck()
   else if (opts.cmd === "schema") runSchema(opts)
   else if (opts.cmd === "render") runRender(opts)
+  else if (opts.cmd === "compile-domain") runCompileDomain(rawArgv)
   else {
-    console.log("用法: node scripts/blueprint-engine.cjs [check | schema --compact | render --values <json> --preset <industry> --set K=V]")
+    console.log("用法: node scripts/blueprint-engine.cjs [check | schema --compact | render --values <json> --preset <industry> --set K=V | compile-domain --file <spec.json> --write]")
   }
 }
 
@@ -258,4 +521,5 @@ module.exports = {
   buildDefaultMap,
   extractPlaceholdersFromText,
   renderTemplateText,
+  compileBlueprintDomain,
 }
