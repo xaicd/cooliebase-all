@@ -1,18 +1,19 @@
 import { z } from "zod"
+import { projectProfile } from "@/shared/contract/project-profile"
 
 /**
  * 站点/主题外观配置（WordPress 式：后台配 → C 端呈现）。
- * 全字段带默认值，缺字段回填默认。
+ * 全字段带默认值，缺字段回填项目档案 `projectProfile`（禁止写死平台母版名）。
  */
 export const siteAppearanceSchema = z.object({
-  siteName: z.string().trim().min(1).max(60).default("CoolieBase Next 商城"),
-  logoUrl: z.string().trim().max(500).default("/branding/logo.svg"),
-  faviconUrl: z.string().trim().max(500).default("/branding/favicon.svg"),
+  siteName: z.string().trim().min(1).max(60).default(projectProfile.platformName || "数字化业务服务平台"),
+  logoUrl: z.string().trim().max(500).default(projectProfile.branding?.logoSrc || "/branding/logo.svg"),
+  faviconUrl: z.string().trim().max(500).default(projectProfile.branding?.favicon || "/branding/favicon.svg"),
   primaryColor: z
     .string()
     .trim()
     .regex(/^#([0-9a-fA-F]{6}|[0-9a-fA-F]{3})$/, "主色需为 hex 颜色，如 #4f46e5")
-    .default("#4f46e5"),
+    .default(projectProfile.branding?.primaryColor || "#4f46e5"),
   radius: z.coerce.number().int().min(0).max(32).default(8),
   fontFamily: z
     .string()

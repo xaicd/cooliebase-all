@@ -135,19 +135,36 @@ function runCheck() {
     }
   }
 
-  // 检查门面与 C 端门户页面不得再出现旧电子书城硬编码泄漏
+  // 检查门面与 C 端门户页面不得再出现旧电子书城硬编码泄漏或平台母版品牌串味
   const pageChecks = [
     "src/app/page.tsx",
     "src/app/(portal-pages)/portal/components/book-store-portal.tsx",
+    "src/app/(portal-pages)/components/portal-shell.tsx",
+    "packages/domains/infra/backend/validators/appearance.validators.ts",
+    "packages/shared/contract/blueprint-vars.ts",
+    "packages/domains/system/frontend/pages/login.page.tsx",
   ]
-  const forbiddenLiterals = ["电子书城", "E-book Mall", "九夏书肆", "DIGITAL BOOKSTORE", "三体：死神永生"]
+  const forbiddenLiterals = [
+    "电子书城",
+    "E-book Mall",
+    "九夏书肆",
+    "DIGITAL BOOKSTORE",
+    "三体：死神永生",
+    "CoolieBase Next 商城",
+    "CoolieBase 商业中台团队",
+    "CoolieBase AI 实验室",
+    "CoolieBase 工业互联团队",
+    "CoolieBase 平台工程组",
+    "CoolieBase-All-Next Sovereign Mesh",
+    "CoolieBase Enterprise Portal",
+  ]
   for (const rel of pageChecks) {
     const abs = path.join(ROOT, rel)
     if (!fs.existsSync(abs)) continue
     const src = fs.readFileSync(abs, "utf8")
     for (const word of forbiddenLiterals) {
       if (src.includes(word)) {
-        errors.push(`${rel} 仍残留特定行业硬编码 "${word}"，未彻底抽离为模板变量`)
+        errors.push(`${rel} 仍残留特定行业或母版硬编码 "${word}"，未彻底抽离为模板变量`)
       }
     }
   }

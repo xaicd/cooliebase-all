@@ -238,7 +238,11 @@ export function BookStorePortal({ initialCategory }: { initialCategory?: string 
             return (
               <div
                 key={book.id}
-                className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group"
+                onClick={(e) => {
+                  if ((e.target as HTMLElement).closest("button")) return
+                  setReadingBook(book)
+                }}
+                className="bg-white rounded-xl border border-slate-200 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col group cursor-pointer"
               >
                 <div
                   className="h-48 w-full p-6 flex flex-col justify-between relative overflow-hidden text-white"

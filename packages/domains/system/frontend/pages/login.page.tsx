@@ -56,7 +56,7 @@ export default function LoginPage({ bootstrapCredentials }: { bootstrapCredentia
 
   // 终端日志流
   const [logs, setLogs] = useState<TelemetryLog[]>([
-    { id: "1", time: "00:00:01", level: "INFO", source: "KERNEL", message: "CoolieBase-All-Next Sovereign Mesh 初始化完成" },
+    { id: "1", time: "00:00:01", level: "INFO", source: "KERNEL", message: `${projectProfile.platformName} 安全网关初始化完成` },
     { id: "2", time: "00:00:02", level: "AUTH", source: "RBAC", message: "多租户 AST 动态上下文拦截器已挂载" },
     { id: "3", time: "00:00:03", level: "INFO", source: "BROKER", message: "17 个微内核领域事件总线已接入 (自研 NATS 语义)" },
     { id: "4", time: "00:00:04", level: "SUCCESS", source: "STRIX", message: "零信任安全边界激活，AST SQL 注入防御在线" },

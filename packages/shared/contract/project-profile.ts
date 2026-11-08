@@ -50,6 +50,27 @@ export const consumerPortalSchema = z.object({
   primaryCta: z.string().min(1).max(24).optional(),
   previewCta: z.string().min(1).max(24).optional(),
   profileLabel: z.string().min(1).max(24).optional(),
+  categories: z.array(z.object({
+    key: z.string().min(1).max(32),
+    label: z.string().min(1).max(24),
+  })).optional(),
+  catalogItems: z.array(z.object({
+    id: z.string().min(1).max(40),
+    title: z.string().min(1).max(80),
+    author: z.string().min(1).max(40),
+    category: z.string().min(1).max(32),
+    categoryLabel: z.string().min(1).max(24),
+    priceCents: z.number().int().min(0),
+    rating: z.number().min(0).max(5),
+    ratingCount: z.number().int().min(0),
+    tags: z.array(z.string().min(1).max(24)),
+    intro: z.string().min(1).max(400),
+    accentColor: z.string().min(1).max(20),
+    trialChapter: z.object({
+      title: z.string().min(1).max(120),
+      paragraphs: z.array(z.string().min(1).max(500)),
+    }),
+  })).optional(),
 })
 
 export const multiClientSchema = z.object({

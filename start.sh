@@ -26,13 +26,15 @@ fi
 # 2. 智能感知当前目录与同步环境
 node scripts/auto-detect-env.cjs
 
-APP_PORT="3200"
-if [ -f ".env" ]; then
+# 默认端口避开 Coolie 控制面 :3200，优先取调用方传入的 PORT，其次取 .env，缺省回退 3301
+APP_PORT="${PORT:-}"
+if [ -z "$APP_PORT" ] && [ -f ".env" ]; then
   DETECTED_PORT=$(grep -E '^PORT=' .env | cut -d'=' -f2 | tr -d ' "' || true)
   if [ -n "$DETECTED_PORT" ]; then
     APP_PORT="$DETECTED_PORT"
   fi
 fi
+APP_PORT="${APP_PORT:-3301}"
 
 # 3. 解析模式或展示交互式菜单
 MODE="${1:-}"
@@ -152,8 +154,8 @@ case "$MODE" in
     echo "[OK] App running in Docker at http://localhost:${APP_PORT}"
     ;;
   memory)
-    echo "[INFO] Starting in pure in-memory mode..."
-    DB_DRIVER=memory DATABASE_URL=memory://cooliebase-all REDIS_URL= exec pnpm run dev
+    echo "[INFO] Starting in pure in-memory mode on http://localhost:${APP_PORT}..."
+    DB_DRIVER=memory DATABASE_URL=memory://cooliebase-all REDIS_URL= PORT="${APP_PORT}" exec pnpm exec next dev -H 0.0.0.0 -p "${APP_PORT}"
     ;;
   check)
     echo "[STEP] Running governance and lint checks..."

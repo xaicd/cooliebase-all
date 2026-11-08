@@ -182,7 +182,7 @@ export const DEFAULT_PORTAL_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
   {
     id: "srv-01",
     title: "企业级全渠道商城与会员营销套件",
-    author: "CoolieBase 商业中台团队",
+    author: "{{SHORT_NAME}} 商业中台团队",
     category: "commerce",
     categoryLabel: "数字商业",
     priceCents: 9900,
@@ -203,7 +203,7 @@ export const DEFAULT_PORTAL_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
   {
     id: "srv-02",
     title: "AI Agent 驱动的智能客服与知识助手",
-    author: "CoolieBase AI 实验室",
+    author: "{{SHORT_NAME}} AI 实验室",
     category: "ai",
     categoryLabel: "智能体应用",
     priceCents: 6800,
@@ -224,7 +224,7 @@ export const DEFAULT_PORTAL_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
   {
     id: "srv-03",
     title: "多组织供应链与智能制造协同套件 (ERP+WMS+MES)",
-    author: "CoolieBase 工业互联团队",
+    author: "{{SHORT_NAME}} 工业互联团队",
     category: "supply",
     categoryLabel: "供应链制造",
     priceCents: 12800,
@@ -245,7 +245,7 @@ export const DEFAULT_PORTAL_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
   {
     id: "srv-04",
     title: "可视化低代码表单与跨部门 BPM 审批中心",
-    author: "CoolieBase 平台工程组",
+    author: "{{SHORT_NAME}} 平台工程组",
     category: "workflow",
     categoryLabel: "流程与低代码",
     priceCents: 4900,
@@ -260,6 +260,354 @@ export const DEFAULT_PORTAL_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
         "1. 响应式表单联动：通过 {{ $form.xxx }} 表达式秒级配置字段显隐、禁用与动态必填，前后端共享同一套校验规则。",
         "2. 多区块自由拼装：单页即可组合 KPI 指标卡、分布图表、状态看板 (Kanban) 与高密度数据表格。",
         "3. 移动审批随行：审批待办自动同步至移动端工作台，支持电子签名与附件归档。"
+      ]
+    }
+  }
+]
+
+export const RETAIL_COMMERCE_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
+  {
+    id: "ret-01",
+    title: "智能降噪无线耳机 Pro · 旗舰版",
+    author: "{{SHORT_NAME}} 数码严选",
+    category: "commerce",
+    categoryLabel: "数码家电",
+    priceCents: 89900,
+    rating: 4.9,
+    ratingCount: 5120,
+    tags: ["主动降噪", "空间音频", "次日达"],
+    intro: "搭载双核自适应降噪芯片与 36 小时超长续航充电盒，支持多设备无缝流转与门店同城闪送。",
+    accentColor: "#4f46e5",
+    trialChapter: {
+      title: "商品详情 · 声学参数与售后保障",
+      paragraphs: [
+        "1. 旗舰声学架构：定制 11mm 动圈单元配合实时耳道声学补偿，高达 48dB 深度主动降噪。",
+        "2. 全渠道无忧退换：支持 7 天无理由退货、1 年全国联保只换不修与门店现场试听。",
+        "3. 会员专属权益：下单立返双倍购物积分，支持会员积分抵现与免息分期。"
+      ]
+    }
+  },
+  {
+    id: "ret-02",
+    title: "全天候健康监测智能手表 S5",
+    author: "{{SHORT_NAME}} 智能穿戴馆",
+    category: "ai",
+    categoryLabel: "智能穿戴",
+    priceCents: 129900,
+    rating: 4.8,
+    ratingCount: 3180,
+    tags: ["血氧心率", "50米防水", "NFC门禁"],
+    intro: "蓝宝石玻璃表镜配钛金属表圈，支持 100+ 运动模式识别、睡眠呼吸质量分析与微信离线支付。",
+    accentColor: "#059669",
+    trialChapter: {
+      title: "商品详情 · 传感器规格与续航表现",
+      paragraphs: [
+        "1. 多通道生物追踪光学传感器：24 小时连续监测心率、血氧饱和度与压力指数。",
+        "2. 双频五星定位系统：户外跑步与骑行轨迹精准还原，支持离线地图导航。",
+        "3. 磁吸闪充体验：充电 10 分钟即可满足全天佩戴，典型场景续航长达 14 天。"
+      ]
+    }
+  },
+  {
+    id: "ret-03",
+    title: "北欧极简恒温意式浓缩咖啡机",
+    author: "{{SHORT_NAME}} 居家生活馆",
+    category: "supply",
+    categoryLabel: "居家生活",
+    priceCents: 158000,
+    rating: 4.9,
+    ratingCount: 2040,
+    tags: ["20Bar高压", "PID温控", "蒸汽奶泡"],
+    intro: "可视化压力表与商业级预浸泡系统，在家即可萃取出浓郁油脂的精品意式浓缩与丝滑拿铁。",
+    accentColor: "#0284c7",
+    trialChapter: {
+      title: "商品详情 · 萃取工艺与附赠配件",
+      paragraphs: [
+        "1. PID 精准数字控温：水温恒定在 92°C 黄金萃取区间，充分释放咖啡豆原本果香与醇厚风味。",
+        "2. 强劲干式蒸汽棒：轻松打发绵密微奶泡，新手也能快速掌握拉花技巧。",
+        "3. 全套咖啡师礼盒：随箱附赠 58mm 实木手柄、不锈钢拉花缸、压粉锤与精选拼配咖啡豆。"
+      ]
+    }
+  },
+  {
+    id: "ret-04",
+    title: "黑金 PLUS 年度尊享会员权益卡",
+    author: "{{SHORT_NAME}} 会员中心",
+    category: "workflow",
+    categoryLabel: "会员专享",
+    priceCents: 19900,
+    rating: 5.0,
+    ratingCount: 8460,
+    tags: ["全场95折", "每月免邮券", "专属客服"],
+    intro: "开通即享全年 360 元无门槛津贴、会员专享补贴价、生日礼遇及全年无限次免运费极速达。",
+    accentColor: "#ea580c",
+    trialChapter: {
+      title: "权益明细 · 黑金 PLUS 六大尊享特权",
+      paragraphs: [
+        "1. 折上95折：覆盖商城 90% 以上自营数码、家电与居家日用百货，大促期间可叠加使用。",
+        "2. 运费全免：全年享受 36 张标准免邮券与上门取件免首重退换货权益。",
+        "3. 贵宾专线：1 对 1 专属生活管家极速响应，优先参与新品首发内购。"
+      ]
+    }
+  }
+]
+
+export const SMART_HEALTHCARE_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
+  {
+    id: "med-01",
+    title: "年度全项深度健康体检套餐（含全身精密筛查）",
+    author: "{{SHORT_NAME}} 预防医学中心",
+    category: "commerce",
+    categoryLabel: "全身体检",
+    priceCents: 68800,
+    rating: 4.9,
+    ratingCount: 3820,
+    tags: ["血常规24项", "彩超+DR", "主任医师解读"],
+    intro: "涵盖一般理学检查、血常规、生化全套、腹部彩超、胸部 DR 与心电图筛查，出具数字化终身健康档案并提供 1 对 1 主任医师报告解读。",
+    accentColor: "#0d9488",
+    trialChapter: {
+      title: "套餐明细 · 体检流程与检验项目清单",
+      paragraphs: [
+        "1. 基础体征与检验：包含内科、外科、眼科、耳鼻喉科理学检查，以及 24 项全血细胞分析与肝肾功能、血脂血糖全套。",
+        "2. 精密影像学筛查：配备高分辨率彩色多普勒超声与低剂量数字化 DR 影像，精准排查早期潜在病灶。",
+        "3. 数字化健康报告：体检完成后 24 小时内自动推送结构化电子报告，支持历年指标趋势对比与异常指标智能预警。"
+      ]
+    }
+  },
+  {
+    id: "med-02",
+    title: "主任医师专家专科门诊分时段预约",
+    author: "{{SHORT_NAME}} 专家诊疗中心",
+    category: "ai",
+    categoryLabel: "专科门诊",
+    priceCents: 15000,
+    rating: 5.0,
+    ratingCount: 2450,
+    tags: ["三甲级专家", "分时段候诊", "多学科会诊"],
+    intro: "覆盖内科、外科、皮肤科、眼科与骨科专科门诊，按 15 分钟精准分时段预约到院，告别排队等待与交叉感染风险。",
+    accentColor: "#059669",
+    trialChapter: {
+      title: "就诊指南 · 分时段预约与标准化问诊流程",
+      paragraphs: [
+        "1. 预检分诊建档：线上预约时即可上传既往病历与检查单，智能预问诊助手自动整理核心主诉供接诊专家审阅。",
+        "2. 充足问诊时长：每位预约患者保障不少于 15 分钟深度面诊沟通，诊疗方案、处方与收费明细全程透明公开。",
+        "3. 诊后随访闭环：离院后自动生成用药提醒与复诊日历，住院或手术患者直通绿色转诊通道。"
+      ]
+    }
+  },
+  {
+    id: "med-03",
+    title: "四价/多联免疫疫苗接种与抗体滴度检测套餐",
+    author: "{{SHORT_NAME}} 免疫预防门诊",
+    category: "supply",
+    categoryLabel: "疫苗接种",
+    priceCents: 29800,
+    rating: 4.9,
+    ratingCount: 4120,
+    tags: ["冷链溯源", "抗体检测", "电子免疫证"],
+    intro: "采用全程 2-8℃ 物联网冷链温控进口/国标疫苗，接种前进行体况评估，接种后留观 30 分钟并签发电子免疫凭证。",
+    accentColor: "#0284c7",
+    trialChapter: {
+      title: "服务说明 · 冷链追溯与接种安全规范",
+      paragraphs: [
+        "1. 一苗一码溯源：每一支疫苗均绑定药品监管码与冷链温度曲线，扫码即可核验生产批号与效期。",
+        "2. 科学免疫程序：根据年龄与既往免疫史定制首免或加强免疫计划，支持接种后 IgG 保护性抗体滴度定量检测。",
+        "3. 全周期到期提醒：下一针加强免疫到期前 7 天自动通过短信与小程序推送提醒。"
+      ]
+    }
+  },
+  {
+    id: "med-04",
+    title: "慢性病居家监测与私人健康管理年卡",
+    author: "{{SHORT_NAME}} 慢病管理团队",
+    category: "workflow",
+    categoryLabel: "慢病管理",
+    priceCents: 99900,
+    rating: 4.8,
+    ratingCount: 1860,
+    tags: ["动态监测", "营养处方", "季度复查"],
+    intro: "面向高血压、糖尿病、术后康复及老年群体，提供居家体征远端监测、个性化营养与运动处方、季度随访复查及紧急绿通服务。",
+    accentColor: "#ea580c",
+    trialChapter: {
+      title: "方案概览 · 院内诊疗与居家康复无缝衔接",
+      paragraphs: [
+        "1. 物联网体征联动：支持血压计、血糖仪与心率监测数据自动同步至健康档案，指标超限即时触发医护工作台预警。",
+        "2. 多师共管服务：由专科医师、临床药师与注册营养师组成专属小组，按月评估康复进展并动态调整用药与膳食方案。",
+        "3. 家属协同看板：授权家属可随时在移动端查看每日健康日报与复诊计划。"
+      ]
+    }
+  }
+]
+
+export const DIGITAL_PUBLISHING_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
+  {
+    id: "pub-01",
+    title: "《云原生分布式系统架构与工程实践》典藏版",
+    author: "{{SHORT_NAME}} 技术出版中心",
+    category: "supply",
+    categoryLabel: "系统工程",
+    priceCents: 7900,
+    rating: 4.9,
+    ratingCount: 4210,
+    tags: ["高并发架构", "多活容灾", "配套源码"],
+    intro: "深入剖析大规模分布式系统的服务治理、共识算法、可观测性与混沌工程实践，随书附赠完整可运行实验沙箱。",
+    accentColor: "#4f46e5",
+    trialChapter: {
+      title: "免费试读 · 第一章：从单体到领域驱动微内核",
+      paragraphs: [
+        "1. 架构演进的本质：优秀的系统架构并非追求最复杂的分布式原语，而是在业务演进速率与运维复杂度之间建立清晰的契约边界。",
+        "2. 领域内聚与显式依赖：通过严格的模块边界守卫，让单体应用具备微服务的工程自治能力，同时规避跨网调用的分布式税。",
+        "3. 可验证的稳定性：每一条架构红线都必须转化为自动化静态门禁与契约测试。"
+      ]
+    }
+  },
+  {
+    id: "pub-02",
+    title: "《大模型智能体 (AI Agent) 工程化落地指南》",
+    author: "{{SHORT_NAME}} 智能科学研究院",
+    category: "ai",
+    categoryLabel: "人工智能",
+    priceCents: 8800,
+    rating: 5.0,
+    ratingCount: 5630,
+    tags: ["端侧模型", "工具编排", "RAG架构"],
+    intro: "系统讲解 27B/70B 本地大模型部署、结构化工具调用、长短期记忆网络与企业级安全护栏设计。",
+    accentColor: "#059669",
+    trialChapter: {
+      title: "免费试读 · 第二章：小参数模型的确定性契约设计",
+      paragraphs: [
+        "1. 认知负荷收敛：面对 27B 级本地模型，紧凑的 JSON Schema 契约远比冗长的自然语言提示词更能保证百次调用零漂移。",
+        "2. 沙箱化执行闭环：将模型输出严格限制在声明式 DSL 与参数字典内，由确定性编译器负责生成最终代码与 SQL。",
+        "3. 全链路可观测审计：记录每一次推理的 Token 消耗、工具入参与状态机迁移轨迹。"
+      ]
+    }
+  },
+  {
+    id: "pub-03",
+    title: "《数字化零售与全渠道会员增长方法论》",
+    author: "{{SHORT_NAME}} 数字商业智库",
+    category: "commerce",
+    categoryLabel: "数字商业",
+    priceCents: 5900,
+    rating: 4.8,
+    ratingCount: 2890,
+    tags: ["全域增长", "LTV模型", "私域运营"],
+    intro: "结合 50+ 行业标杆案例，拆解从公域获客、门店导购协同到会员全生命周期价值 (LTV) 提升的实战沙盘。",
+    accentColor: "#0284c7",
+    trialChapter: {
+      title: "免费试读 · 序言：重构人、货、场的数字化底座",
+      paragraphs: [
+        "1. 统一身份识别：打通小程序、POS 门店与电商平台的 OneID 会员主档，消除多渠道积分与权益割裂。",
+        "2. 数据驱动选品：基于实时动销率与复购漏斗动态调整商品陈列与组合促销策略。",
+        "3. 敏捷活动编排：运营人员通过可视化区块画布 10 分钟上线专题会场。"
+      ]
+    }
+  },
+  {
+    id: "pub-04",
+    title: "《高成熟度软件研发组织与 CMMI 精益治理》",
+    author: "{{SHORT_NAME}} 工程管理委员会",
+    category: "workflow",
+    categoryLabel: "组织管理",
+    priceCents: 6900,
+    rating: 4.9,
+    ratingCount: 3150,
+    tags: ["Spec驱动", "统计过程控制", "零缺陷交付"],
+    intro: "如何将 CMMI 5 级过程资产转化为开发者友好的自动化流水线，实现高速度与高质量的工程并轨。",
+    accentColor: "#ea580c",
+    trialChapter: {
+      title: "免费试读 · 第三章：Doc as Code 与不可变机器证据",
+      paragraphs: [
+        "1. 消灭形式主义文档：需求规格、架构决策与测试用例必须与源码同仓演进，并由 CI 门禁实时校验双向追溯矩阵。",
+        "2. 缺陷根因阻断 (CAR)：每一次线上回归都必须沉淀为一条永久生效的静态扫描或端到端断言。",
+        "3. 度量驱动改进：用构建时长、一次通过率与覆盖率基线替代主观经验判断。"
+      ]
+    }
+  }
+]
+
+export const SMART_MANUFACTURING_CATALOG_ITEMS: PortalCatalogItemBlueprint[] = [
+  {
+    id: "mfg-01",
+    title: "高精密行星减速机与伺服传动总成 (IP65)",
+    author: "{{SHORT_NAME}} 精密传动事业部",
+    category: "commerce",
+    categoryLabel: "传动组件",
+    priceCents: 368000,
+    rating: 4.9,
+    ratingCount: 1420,
+    tags: ["背隙≤3弧分", "渗碳合金钢", "3D图纸下载"],
+    intro: "适用于工业机器人、数控机床与自动化装配线，提供标准法兰接口、满负载寿命测试报告与交期实时追踪。",
+    accentColor: "#0284c7",
+    trialChapter: {
+      title: "规格图纸 · 额定扭矩参数与安装尺寸说明",
+      paragraphs: [
+        "1. 机械性能指标：额定输出扭矩 120 N·m，最大径向载荷 4200 N，传动效率 ≥ 97%，全合成润滑脂终身免维护。",
+        "2. 工况适配清单：支持法兰式与轴输出式安装，防护等级 IP65，适应 -25℃ 至 +90℃ 连续工业作业环境。",
+        "3. 供应链齐套保障：常备标准速比（5/10/15/20）现货库存，支持 BOM 批量导入与批次质检报告随货同行。"
+      ]
+    }
+  },
+  {
+    id: "mfg-02",
+    title: "工业级多模态振动温湿度边缘传感终端",
+    author: "{{SHORT_NAME}} 工业物联中心",
+    category: "ai",
+    categoryLabel: "工业传感",
+    priceCents: 86000,
+    rating: 5.0,
+    ratingCount: 1980,
+    tags: ["Modbus/MQTT", "预测性维护", "防爆认证"],
+    intro: "内置三轴高频加速度计与边缘 FFT 频谱分析算法，毫秒级捕捉电机轴承早期磨损特征并直连 IoT 告警大屏。",
+    accentColor: "#059669",
+    trialChapter: {
+      title: "规格图纸 · 通信协议与边缘推理物模型",
+      paragraphs: [
+        "1. 采集精度参数：三轴振动采样率高达 25.6 kHz，温度测量精度 ±0.3℃，支持磁吸与螺柱双模固定。",
+        "2. 标准物模型接入：原生支持工业 Modbus-RTU、OPC-UA 与 MQTT 协议，上电即自动注册至平台设备台账。",
+        "3. 异常闭环联动：检测到频谱包络超阈值时自动触发 MES 设备点检工单，避免产线非计划停机。"
+      ]
+    }
+  },
+  {
+    id: "mfg-03",
+    title: "柔性产线气动快换夹具与零点定位工装模组",
+    author: "{{SHORT_NAME}} 智能装备工装部",
+    category: "supply",
+    categoryLabel: "产线工装",
+    priceCents: 215000,
+    rating: 4.8,
+    ratingCount: 1160,
+    tags: ["重复定位5μm", "快速换型", "阳极硬化"],
+    intro: "专为多品种小批量柔性制造产线设计，实现 30 秒内工装托盘快速换型，重复定位精度达 ±0.005mm。",
+    accentColor: "#4f46e5",
+    trialChapter: {
+      title: "规格图纸 · 锁紧力曲线与气路接口定义",
+      paragraphs: [
+        "1. 高刚性自锁机构：采用高强度模具钢整体淬火研磨，断气状态下依靠碟簧机械自锁保持 18 kN 拉紧力。",
+        "2. 智能在位检测：集成气密座面吹扫与夹紧到位微动开关信号反馈，直连 PLC 安全互锁回路。",
+        "3. 定制化非标服务：支持在线提交工件 STEP 模型，48 小时内出具夹具干涉仿真与选型方案。"
+      ]
+    }
+  },
+  {
+    id: "mfg-04",
+    title: "产线核心设备年度预防性维保与备件托管服务",
+    author: "{{SHORT_NAME}} 客户工程服务部",
+    category: "workflow",
+    categoryLabel: "维保服务",
+    priceCents: 580000,
+    rating: 4.9,
+    ratingCount: 890,
+    tags: ["4小时到场", "备件先行", "OEE提升"],
+    intro: "提供季度全套激光精度校准、关键易损件安全库存寄售托管与 7×24 小时驻厂/远程工程师应急保障。",
+    accentColor: "#ea580c",
+    trialChapter: {
+      title: "规格图纸 · SLA 响应等级与巡检标准作业程序",
+      paragraphs: [
+        "1. 确定性 SLA 承诺：P1 级停线故障 15 分钟内远程接入诊断，核心工业圈 4 小时内备件与工程师携工具到场。",
+        "2. 数字化巡检台账：每次保养均提供主轴振动、反向间隙与润滑油品检测报告，全程同步至客户工作台。",
+        "3. 备件寄售零资金占用：常用易损件前置部署至客户现场智能物料柜，按实际领用扫码结算。"
       ]
     }
   }
@@ -318,7 +666,7 @@ export const INDUSTRY_PRESETS: Record<
         { key: "supply", label: "居家生活" },
         { key: "workflow", label: "会员专享" },
       ],
-      catalogItems: DEFAULT_PORTAL_CATALOG_ITEMS,
+      catalogItems: RETAIL_COMMERCE_CATALOG_ITEMS,
     },
   },
   "smart-healthcare": {
@@ -341,7 +689,7 @@ export const INDUSTRY_PRESETS: Record<
         { key: "supply", label: "疫苗接种" },
         { key: "workflow", label: "慢病管理" },
       ],
-      catalogItems: DEFAULT_PORTAL_CATALOG_ITEMS,
+      catalogItems: SMART_HEALTHCARE_CATALOG_ITEMS,
     },
     domainOverrides: {
       mall: { name: "医疗服务商城 (Mall)", desc: "体检套餐、专科诊疗项目、康养产品上下架与在线预约结算" },
@@ -369,7 +717,7 @@ export const INDUSTRY_PRESETS: Record<
         { key: "supply", label: "系统工程" },
         { key: "workflow", label: "组织管理" },
       ],
-      catalogItems: DEFAULT_PORTAL_CATALOG_ITEMS,
+      catalogItems: DIGITAL_PUBLISHING_CATALOG_ITEMS,
     },
   },
   "smart-manufacturing": {
@@ -392,7 +740,7 @@ export const INDUSTRY_PRESETS: Record<
         { key: "supply", label: "产线工装" },
         { key: "workflow", label: "维保服务" },
       ],
-      catalogItems: DEFAULT_PORTAL_CATALOG_ITEMS,
+      catalogItems: SMART_MANUFACTURING_CATALOG_ITEMS,
     },
   },
 }
@@ -414,23 +762,30 @@ export function readPortalBlueprint(profile?: {
   ) as IndustryPresetKey
   const base = INDUSTRY_PRESETS[presetKey].portal
   const custom = profile?.consumerPortal || {}
+  const runtimeOverrides: Record<string, string> = {}
+  if (profile?.shortName || profile?.platformName) {
+    runtimeOverrides.SHORT_NAME = profile.shortName || profile.platformName || ""
+  }
 
-  return resolveBlueprintPlaceholders({
-    brandMark: custom.brandMark || profile?.branding?.mark || base.brandMark,
-    title: custom.title || base.title,
-    subtitleEn: custom.subtitleEn || base.subtitleEn,
-    heroBadge: custom.heroBadge || base.heroBadge,
-    heroTitle: custom.heroTitle || base.heroTitle,
-    heroDesc: custom.heroDesc || base.heroDesc,
-    searchPlaceholder: custom.searchPlaceholder || base.searchPlaceholder,
-    cartLabel: custom.cartLabel || base.cartLabel,
-    primaryCta: custom.primaryCta || base.primaryCta,
-    previewCta: custom.previewCta || base.previewCta,
-    profileLabel: custom.profileLabel || base.profileLabel,
-    categories: Array.isArray(custom.categories) && custom.categories.length > 0 ? custom.categories : base.categories,
-    catalogItems:
-      Array.isArray(custom.catalogItems) && custom.catalogItems.length > 0 ? custom.catalogItems : base.catalogItems,
-  })
+  return resolveBlueprintPlaceholders(
+    {
+      brandMark: custom.brandMark || profile?.branding?.mark || base.brandMark,
+      title: custom.title || base.title,
+      subtitleEn: custom.subtitleEn || base.subtitleEn,
+      heroBadge: custom.heroBadge || base.heroBadge,
+      heroTitle: custom.heroTitle || base.heroTitle,
+      heroDesc: custom.heroDesc || base.heroDesc,
+      searchPlaceholder: custom.searchPlaceholder || base.searchPlaceholder,
+      cartLabel: custom.cartLabel || base.cartLabel,
+      primaryCta: custom.primaryCta || base.primaryCta,
+      previewCta: custom.previewCta || base.previewCta,
+      profileLabel: custom.profileLabel || base.profileLabel,
+      categories: Array.isArray(custom.categories) && custom.categories.length > 0 ? custom.categories : base.categories,
+      catalogItems:
+        Array.isArray(custom.catalogItems) && custom.catalogItems.length > 0 ? custom.catalogItems : base.catalogItems,
+    },
+    runtimeOverrides
+  )
 }
 
 /**
@@ -465,7 +820,7 @@ export function readMultiClientBlueprint(profile?: {
 }): MultiClientBlueprintConfig {
   const custom = profile?.multiClient || {}
   return resolveBlueprintPlaceholders({
-    expoAppName: custom.expoAppName || profile?.shortName || String(BLUEPRINT_DEFAULT_VARS.EXPO_APP_NAME || "CoolieBase"),
+    expoAppName: custom.expoAppName || profile?.shortName || String(BLUEPRINT_DEFAULT_VARS.EXPO_APP_NAME || "数字化客户端"),
     expoAppSlug: custom.expoAppSlug || String(BLUEPRINT_DEFAULT_VARS.EXPO_APP_SLUG || "cooliebase-all-app"),
     iosBundleId: custom.iosBundleId || String(BLUEPRINT_DEFAULT_VARS.IOS_BUNDLE_ID || "com.cooliebase.app"),
     androidPackage: custom.androidPackage || String(BLUEPRINT_DEFAULT_VARS.ANDROID_PACKAGE || "com.cooliebase.app"),

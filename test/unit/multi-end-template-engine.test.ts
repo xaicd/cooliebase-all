@@ -20,12 +20,14 @@ import { collectClientPackageLayoutErrors } from "@/shared/contract/client-packa
 import { getClientChannel } from "@/shared/contract/client-channels"
 import {
   BLUEPRINT_DEFAULT_VARS,
+  INDUSTRY_PRESETS,
   resolveBlueprintPlaceholders,
   readPortalBlueprint,
   readDomainShowcase,
   readMultiClientBlueprint,
 } from "@/shared/contract/blueprint-vars"
-import { projectProfileSchema } from "@/shared/contract/project-profile"
+import { projectProfileSchema, consumerPortalSchema } from "@/shared/contract/project-profile"
+import { DEFAULT_APPEARANCE } from "@/domains/infra/backend/validators/appearance.validators"
 
 const require = createRequire(import.meta.url)
 const { parseArgv, resolveHatchPlan, shouldSkipRelPath } = require("../../scripts/lib/hatch-profile.cjs")
@@ -360,6 +362,59 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(parsedPageSchema.layoutMode).toBe("kanban")
       expect(parsedPageSchema.fields[2].visibleOn).toBe("{{ $form.service_type === '急诊手术' }}")
       expect(compiled.stateMachines.pet_appointment.initial).toBe("PENDING")
+    })
+
+    it("prevents white-label brand leakage across all 5 industry presets, consumerPortalSchema, and siteAppearance (COO-226 T6)", () => {
+      // 1. 5 套行业预设必须各自拥有独立的 catalogItems，不得共用同一套企业 SaaS 商品
+      const firstIds = new Set<string>()
+      for (const [presetKey, preset] of Object.entries(INDUSTRY_PRESETS)) {
+        expect(preset.portal.catalogItems.length).toBeGreaterThanOrEqual(4)
+        firstIds.add(preset.portal.catalogItems[0].id)
+        for (const item of preset.portal.catalogItems) {
+          expect(item.author, `${presetKey} item ${item.id} author must not hardcode CoolieBase`).not.toContain("CoolieBase")
+        }
+      }
+      expect(firstIds.size).toBe(5)
+
+      // 2. consumerPortalSchema 必须保留自定义 categories 与 catalogItems（不得被 Zod strip 剥掉）
+      const customPortal = consumerPortalSchema.parse({
+        title: "宠爱线上预约门户",
+        categories: [{ key: "all", label: "全部诊疗" }],
+        catalogItems: [
+          {
+            id: "pet-01",
+            title: "幼宠全项体检套餐",
+            author: "宠爱医疗预防中心",
+            category: "commerce",
+            categoryLabel: "全身体检",
+            priceCents: 26800,
+            rating: 4.9,
+            ratingCount: 520,
+            tags: ["血常规", "传染病筛查"],
+            intro: "面向幼犬幼猫的全面健康体检。",
+            accentColor: "#0d9488",
+            trialChapter: {
+              title: "体检流程",
+              paragraphs: ["1. 基础理学检查", "2. 血液生化检验"],
+            },
+          },
+        ],
+      })
+      expect(customPortal.categories).toHaveLength(1)
+      expect(customPortal.catalogItems).toHaveLength(1)
+      expect(customPortal.catalogItems?.[0].title).toBe("幼宠全项体检套餐")
+
+      // 3. readPortalBlueprint 在传入 shortName 时自动替换 catalogItems.author 中的 {{SHORT_NAME}}
+      const healthcarePortal = readPortalBlueprint({
+        industryPreset: "smart-healthcare",
+        shortName: "宠爱医疗",
+      })
+      expect(healthcarePortal.catalogItems[0].id).toBe("med-01")
+      expect(healthcarePortal.catalogItems[0].author).toContain("宠爱医疗")
+      expect(healthcarePortal.catalogItems[0].author).not.toContain("CoolieBase")
+
+      // 4. DEFAULT_APPEARANCE.siteName 不得硬编码为 "CoolieBase Next 商城"
+      expect(DEFAULT_APPEARANCE.siteName).not.toBe("CoolieBase Next 商城")
     })
   })
 })

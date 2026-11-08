@@ -49,8 +49,8 @@ export function PortalShell({
   children,
 }: PortalShellProps) {
   const brandMark = projectProfile.branding?.mark || "C"
-  const shortName = projectProfile.shortName || projectProfile.platformName || "CoolieBase"
-  const platformName = projectProfile.platformName || "CoolieBase Enterprise Portal"
+  const shortName = projectProfile.shortName || projectProfile.platformName || "数字化门户"
+  const platformName = projectProfile.platformName || "数字化业务服务平台"
 
   return (
     <div

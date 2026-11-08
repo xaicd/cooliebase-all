@@ -7,6 +7,7 @@
 // 不设置该变量时行为不变（应用运行在根路径 /，如子域名模式）。
 // 注意：basePath 必须以 / 开头且不以 / 结尾。
 import fs from "node:fs";
+import os from "node:os";
 
 // 默认必须走 basePath 方案（与 compat-manifest.json 中的 defaultMode: "base-path" 保持契约一致）
 let autoSlug = "";
@@ -19,6 +20,20 @@ try {
   }
 } catch {}
 
+// Next.js 16 dev 默认拒跨 origin 的 /_next/* 请求 —— 老板从本机局域网 IP (如 192.168.3.85)
+// 试玩时 JS chunk 被拦，React 不水合，所有 onClick 死掉。自动探测宿主机全部局域网 IPv4 并白名单放行。
+const detectedLanIps = Object.values(os.networkInterfaces())
+  .flat()
+  .filter((iface) => iface && iface.family === "IPv4" && !iface.internal)
+  .map((iface) => iface.address);
+const allowedDevOrigins = Array.from(
+  new Set([
+    "192.168.3.85",
+    ...detectedLanIps,
+    ...(process.env.LAN_TRIAL_HOST ? [process.env.LAN_TRIAL_HOST] : []),
+  ])
+);
+
 const rawBasePath = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || autoSlug || "").trim();
 const basePath = rawBasePath && rawBasePath !== "/"
   ? ("/" + rawBasePath.replace(/^\/+/, "").replace(/\/+$/, ""))
@@ -27,6 +42,7 @@ const basePath = rawBasePath && rawBasePath !== "/"
 const nextConfig = {
   distDir: ".next-cooliebase",
   output: "standalone",
+  allowedDevOrigins,
     // monorepo: 显式声明仓库根，否则 standalone 的依赖追踪以 app 目录为根。
     // 现在 app 就在仓库根，行为不变；一旦宿主搬进 apps/web/ 就必须保留这一行，
     // 否则产物不会带上工作区依赖（Next + pnpm monorepo 的经典要求）。
