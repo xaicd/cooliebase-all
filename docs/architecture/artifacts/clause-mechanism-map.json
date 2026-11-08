@@ -165,10 +165,9 @@
     "build",
     "deps:audit",
     "domain:up",
+    "gen:paths:check",
     "lint",
     "llms:check",
-    "openwiki:check",
-    "openwiki:sync",
     "start",
     "surface:sync",
     "test:summary"

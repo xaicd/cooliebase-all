@@ -1,20 +1,16 @@
 /**
- * 生成物路径真实性门禁。
+ * Wiki 与生成物路径真实性及陈旧词条门禁。
  *
- * 为什么只查**生成物**：全仓文档的路径引用里混着大量**合法**的"不存在的路径" ——
- * 反例语境（"严禁建立 `docs/skills/`"）、外部项目路径（DigitalStaff / Paperclip）、
- * 对标框架示例、历史记录。对全仓做这件事**误报率极高**，必然逼出无意义豁免。
+ * 职责：
+ * 1. 检查 `wiki/**` 中引用的仓内路径（`packages/...` 等）与裸文件名是否真实存在；
+ * 2. 检查 `wiki/domains/*.md` 是否存在已被裁剪或无对应 `domain-catalog.json` 元数据的陈旧词条；
+ * 3. 支持 `--prune` / `--write`：在新项目孵化裁剪（`project:create` / `project:init`）后，
+ *    自动清理被裁域的 `wiki/domains/<domain>.md`、`wiki/index.md` 对应行及已清理归档目录的引用，
+ *    无需再用臃肿的脚本全量覆盖重写静态 Markdown。
  *
- * 但**生成物**不一样：`wiki/**` 由 `scripts/sync-openwiki.cjs` 产出，
- * 它**只应该引用真实存在的路径**。实测该范围 **95 处引用、0 处不存在**（零误报），
- * 因此可以、也应该作为门禁。
- *
- * 已实证它能抓到的真实缺陷（本门禁建立之前修掉的）：
- *   · 生成器给**每个**插件都硬写 `backend/repositories/`，而 `plugin-online` 并无该目录；
- *   · 生成器把 `packages/shared/backend/database/` 写成不存在的位置（真值为 `.../lib/database/`）；
- *   · 生成器引用已迁移的 `docs/features/ecommerce/brief.json`。
- *
- * Usage: node scripts/check-generated-paths.cjs [--json]
+ * Usage:
+ *   node scripts/check-generated-paths.cjs [--check] [--json]
+ *   node scripts/check-generated-paths.cjs --prune | --write
  */
 
 const fs = require("fs")
@@ -23,24 +19,70 @@ const { spawnSync } = require("child_process")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
 const asJson = process.argv.includes("--json")
+const isPrune = process.argv.includes("--prune") || process.argv.includes("--write")
 
-/** 生成物范围（目前只有 wiki；新增生成式 markdown 时在此登记）。 */
+/** 受检文档目录 */
 const GENERATED_ROOTS = ["wiki"]
 
-/**
- * 只检仓内路径（外部项目引用不在生成物里出现，若出现即为缺陷）。
- *
- * **两道口径缺一不可** —— 第二道是被实际漏检逼出来的：
- *  · 第一道：以目录开头的完整路径（`packages/...`）；
- *  · 第二道：**裸文件名**（`xxx.generated.json` 这种）。
- * 只做第一道时，`wiki/architecture/*.md` 里引用的 `agent-page-schemas.generated.json`
- * **整整溜了过去** —— 因为它是裸文件名、没有前导目录。而该文件**根本不存在**
- * （真值是 `packages/shared/contract/page-schemas.generated.ts`）。
- * 实测第二道在本仓 wiki 上 **339 处引用、0 处误报**（唯二命中的就是那个真缺陷）。
- */
 const PATH_PATTERN = "`((?:packages|docs|src|scripts|clients|test|prisma|sql|deploy)/[A-Za-z0-9_@./[\\]-]+)`"
-/** 裸文件名口径：带已知产物扩展名、且**不含斜杠**的反引号 token。 */
 const BARE_NAME_PATTERN = "`([A-Za-z0-9_@.-]+\\.(?:json|ts|tsx|md|cjs|mjs|sql|yaml|yml))`"
+
+function loadActiveDomainNames() {
+  const catalogPath = path.join(ROOT, "packages/shared/backend/constants/domain-catalog.json")
+  if (!fs.existsSync(catalogPath)) return new Set()
+  const catalog = JSON.parse(fs.readFileSync(catalogPath, "utf8"))
+  return new Set((catalog.domains || []).map((d) => d.name))
+}
+
+function pruneStaleWikiArtifacts(activeDomains) {
+  const domainsDir = path.join(ROOT, "wiki", "domains")
+  const removed = []
+  if (fs.existsSync(domainsDir)) {
+    for (const entry of fs.readdirSync(domainsDir, { withFileTypes: true })) {
+      if (!entry.isFile() || !entry.name.endsWith(".md")) continue
+      const domainName = entry.name.replace(/\.md$/, "")
+      if (!activeDomains.has(domainName)) {
+        const full = path.join(domainsDir, entry.name)
+        fs.unlinkSync(full)
+        removed.push(`wiki/domains/${entry.name}`)
+        console.log(`[wiki:prune] 已删除陈旧词条: wiki/domains/${entry.name}`)
+      }
+    }
+  }
+
+  // 同步过滤 wiki/index.md 中已被裁剪的领域行
+  const indexMdPath = path.join(ROOT, "wiki", "index.md")
+  if (fs.existsSync(indexMdPath)) {
+    const raw = fs.readFileSync(indexMdPath, "utf8")
+    const filtered = raw
+      .split("\n")
+      .filter((line) => {
+        const m = line.match(/^\|\s*\[([a-z0-9_-]+)\]\(domains\/[a-z0-9_-]+\.md\)\s*\|/)
+        if (!m) return true
+        return activeDomains.has(m[1])
+      })
+      .join("\n")
+    if (filtered !== raw) {
+      fs.writeFileSync(indexMdPath, filtered, "utf8")
+    }
+  }
+
+  // 若派生项目已清理 docs/specs/archive，同步清理 wiki/cmmi/cmmi-lifecycle.md 中的归档示例路径引用
+  const cmmiPath = path.join(ROOT, "wiki", "cmmi", "cmmi-lifecycle.md")
+  const archiveSampleDir = path.join(ROOT, "docs/specs/archive/2026-Q4/shop/ecommerce")
+  if (fs.existsSync(cmmiPath) && !fs.existsSync(archiveSampleDir)) {
+    const raw = fs.readFileSync(cmmiPath, "utf8")
+    const next = raw.replace(
+      /.*docs\/specs\/archive\/2026-Q4\/shop\/ecommerce\/.*/g,
+      "   - 历史规格归档区：详见项目各季度迭代归档目录（新孵化项目默认已清空基座历史）",
+    )
+    if (next !== raw) {
+      fs.writeFileSync(cmmiPath, next, "utf8")
+    }
+  }
+
+  return removed
+}
 
 function collectMarkdown(dir) {
   const out = []
@@ -65,13 +107,19 @@ function collectMarkdown(dir) {
   return out
 }
 
+const activeDomains = loadActiveDomainNames()
+if (isPrune) {
+  pruneStaleWikiArtifacts(activeDomains)
+  console.log("[wiki:prune] PASS: Wiki 词条已与当前域目录对齐")
+  process.exit(0)
+}
+
 const files = GENERATED_ROOTS.flatMap(collectMarkdown)
 if (files.length === 0) {
-  console.error(`[gen-paths] ✗ 未找到任何生成物（目录: ${GENERATED_ROOTS.join(", ")}）—— 拒绝在零命中时判定通过`)
+  console.error(`[gen-paths] ✗ 未找到任何 Wiki 文档（目录: ${GENERATED_ROOTS.join(", ")}）—— 拒绝在零命中时判定通过`)
   process.exit(1)
 }
 
-// 仓内所有**被跟踪文件**的 basename —— 裸文件名口径的判定集合。
 const trackedBasenames = (() => {
   const result = spawnSync("git", ["ls-files"], { cwd: ROOT, encoding: "utf8", maxBuffer: 16 * 1024 * 1024 })
   if (result.status !== 0) {
@@ -86,13 +134,29 @@ let checkedBare = 0
 let skipped = 0
 const problems = []
 
+// 检查 wiki/domains/*.md 是否有陈旧词条
+const domainsDir = path.join(ROOT, "wiki", "domains")
+if (fs.existsSync(domainsDir)) {
+  for (const entry of fs.readdirSync(domainsDir, { withFileTypes: true })) {
+    if (!entry.isFile() || !entry.name.endsWith(".md")) continue
+    const domainName = entry.name.replace(/\.md$/, "")
+    if (!activeDomains.has(domainName)) {
+      problems.push({
+        file: `wiki/domains/${entry.name}`,
+        line: 1,
+        target: `wiki/domains/${entry.name}`,
+        kind: "stale-domain",
+      })
+    }
+  }
+}
+
 for (const full of files) {
   const rel = path.relative(ROOT, full).split(path.sep).join("/")
   const text = fs.readFileSync(full, "utf8")
   text.split("\n").forEach((line, index) => {
     for (const match of line.matchAll(new RegExp(PATH_PATTERN, "g"))) {
       const target = match[1]
-      // 通配/占位写法不是"具体路径声明"，不参与判定
       if (target.includes("*") || target.includes("...")) {
         skipped += 1
         continue
@@ -124,18 +188,21 @@ if (asJson) {
   console.log(JSON.stringify({ ok: problems.length === 0, checked, skipped, problems }, null, 2))
 } else if (problems.length === 0) {
   console.log(
-    `[gen-paths] PASS: 生成物中的 ${checked} 处路径与 ${checkedBare} 处文件名引用全部真实存在`
+    `[gen-paths] PASS: Wiki 中的 ${checked} 处路径与 ${checkedBare} 处文件名引用全部真实存在`
     + `（跳过通配写法 ${skipped} 处）`,
   )
 } else {
   for (const problem of problems) {
-    const what = problem.kind === "bare-name" ? "引用了不存在的文件名" : "引用了不存在的路径"
-    console.error(`[gen-paths] ✗ ${problem.file}:${problem.line} — ${what}: ${problem.target}`)
+    if (problem.kind === "stale-domain") {
+      console.error(`[gen-paths] 陈旧词条（已无对应元数据，应删除）: ${problem.file}`)
+    } else {
+      const what = problem.kind === "bare-name" ? "引用了不存在的文件名" : "引用了不存在的路径"
+      console.error(`[gen-paths] ✗ ${problem.file}:${problem.line} — ${what}: ${problem.target}`)
+    }
   }
   console.error(
-    `\n[gen-paths] FAIL: ${problems.length} 处生成物引用了不存在的路径`
-    + "\n  生成物只应引用真实存在的东西 —— 请修**生成器**（scripts/sync-openwiki.cjs），而不是改生成物"
-    + "（生成物会在下次 pnpm run openwiki:sync 时被覆盖）。",
+    `\n[gen-paths] FAIL: ${problems.length} 处 Wiki 引用了不存在的路径或存在陈旧词条`
+    + "\n  请修正对应 Wiki 文档，或运行 `node scripts/check-generated-paths.cjs --prune` 清理被裁域词条。",
   )
 }
 

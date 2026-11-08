@@ -971,13 +971,13 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
     }
   }
 
-  const wikiSync = path.join(resolvedTarget, "scripts", "sync-openwiki.cjs")
-  if (fs.existsSync(wikiSync)) {
+  const wikiPrune = path.join(resolvedTarget, "scripts", "check-generated-paths.cjs")
+  if (fs.existsSync(wikiPrune)) {
     try {
-      execSync("node scripts/sync-openwiki.cjs --write", { cwd: resolvedTarget, stdio: "pipe" })
-      console.log("[REACTOR WIKI] ✓ 已按裁剪后的域目录重生成 wiki（消除指向被裁域的悬空引用）")
+      execSync("node scripts/check-generated-paths.cjs --prune", { cwd: resolvedTarget, stdio: "pipe" })
+      console.log("[REACTOR WIKI] ✓ 已按裁剪后的域目录清理陈旧 wiki 词条（消除指向被裁域的悬空引用）")
     } catch (error) {
-      console.log(`[REACTOR WIKI WARN] 重生成 wiki 失败: ${String(error?.message ?? error).split("\n")[0]}`)
+      console.log(`[REACTOR WIKI WARN] 清理 wiki 失败: ${String(error?.message ?? error).split("\n")[0]}`)
     }
   }
 

@@ -63,7 +63,7 @@ flowchart TD
 
 ### 3. OpenWiki 动态全息本体知识库与机器契约 (RFC 8615 & LLM-Wiki)
 - 自动提取 17 领域元数据、跨域 Seam 图谱与 342 份机器可读契约，编译生成 30 篇高内聚动态维基百科（[`wiki/`](wiki/index.md)）；
-- 挂载 `openwiki:sync` 与 `openwiki:check` 进入全仓自动化门禁，消除文档口径打架，AI 进场 Token 消耗直降 80%。
+- 挂载 `gen:paths:check` 与 `llms:check` 进入全仓自动化门禁，消除文档口径打架，AI 进场 Token 消耗直降 80%。
 
 ### 4. 高可拔插第一方插件架构与微服务平滑演进 (Dual-Mode Evolution)
 - 平台地基（`system`、`infra`）与 15 个业务域（`mall`、`pay`、`crm`、`erp`、`bpm`、`wms`、`mes` 等）采用第一方插件化彻底物理隔离；
@@ -237,7 +237,7 @@ cooliebase-all/
 |---|---|---|
 | **工程初始化** | `pnpm run project:init` | 交互式/参数化重构品牌、初始化真实本地 SQLite 数据库 |
 | **契约同步** | `pnpm run contracts:sync` | 自动同步 `compat-manifest.json`、`agent-profile.json` 等端点 |
-| **OpenWiki 同步** | `pnpm run openwiki:sync` | 自动从元数据与契约抽取生成 30 篇机器可读架构与业务维基 |
+| **OpenWiki 路径守卫** | `pnpm run gen:paths:check` | 校验 `wiki/` 架构与业务维基词条路径真实性及陈旧词条清理 |
 | **全量门禁总检** | `pnpm run check` | 严格检验 20 道工程标准（包含跨域隔离、路由规范、微服务边界） |
 | **真实数据库测试**| `pnpm run test:matrix` | 运行真实数据库驱动的所有单元与集成测试（零假 Mock、CAS 验证） |
 | **平台登录冒烟** | `pnpm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录。**本机零容器可跑**（嵌入式 Postgres） |

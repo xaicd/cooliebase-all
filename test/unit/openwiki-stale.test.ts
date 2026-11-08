@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url"
 import { describe, expect, it } from "vitest"
 
 const ROOT = fileURLToPath(new URL("../..", import.meta.url))
-const GENERATOR = "scripts/sync-openwiki.cjs"
+const GENERATOR = "scripts/check-generated-paths.cjs"
 /** 已无对应元数据的词条 —— 生成器此前**只写不删**，这类文件会永远留着。 */
 const STALE = path.join(ROOT, "wiki", "domains", "__stale_probe__.md")
 

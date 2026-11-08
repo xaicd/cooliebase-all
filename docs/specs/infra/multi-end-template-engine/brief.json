@@ -223,7 +223,21 @@
         "docs/04_implementation/lowcode-system-dev-manual.md",
         ".agents/skills/project-init/SKILL.md",
         ".agents/skills/new-business-plugin/SKILL.md",
-        "scripts/sync-openwiki.cjs"
+        ".agents/skills/compliance-auditor/SKILL.md",
+        "wiki/index.md",
+        "wiki/cmmi/cmmi-lifecycle.md",
+        "package.json",
+        "AGENTS.md",
+        "README.md",
+        "llms.txt",
+        "docs/architecture/artifacts/clause-mechanism-map.json",
+        "scripts/harness.cjs",
+        "scripts/clone-project-base.cjs",
+        "scripts/project-init.cjs",
+        "scripts/check-generated-paths.cjs",
+        "test/unit/openwiki-stale.test.ts",
+        "docs/01_management/project-plan.md",
+        "docs/features/sprint-prod/1108.md"
       ]
     }
   ],

@@ -68,7 +68,7 @@ const TRUNK = [
   ["db", "pnpm harness db <子命令>", "数据库（migrate / seed / generate / up / down / backup / bootstrap:sqlite / init:sql）"],
   ["project", "pnpm harness project <子命令>", "孵化与派生工程（init / create / hatch / clone / refactor）"],
   ["domain", "pnpm harness domain <子命令>", "域操作（list / pack / contracts / manifests / seams / up ...）"],
-  ["sync", "pnpm harness sync <子命令>", "契约与文档同步（surface / openwiki / skills / catalog）"],
+  ["sync", "pnpm harness sync <子命令>", "契约与文档同步（surface / skills / catalog）"],
   ["release", "pnpm harness release", "发布打包（release:package）"],
   ["verify", "pnpm harness verify <子命令>", "真实库验证（real-db）"],
   ["tables", "pnpm harness tables <子命令>", "表定义（inventory / metadata-draft / migration）"],
@@ -240,7 +240,6 @@ const GROUPS = {
   sync: {
     "": "surface:sync",
     surface: "surface:sync",
-    openwiki: "openwiki:sync",
     skills: "skills:sync",
     catalog: "catalog:sync:cooliebase",
   },

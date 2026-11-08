@@ -66,7 +66,7 @@ flowchart TD
 | 11 | `pnpm run skills:check` | Agent Skills 唯一真源与格式规范校验 |
 | 12 | `pnpm run compat:check` | 客户端与下游契约兼容性清单校验 |
 | 13 | `pnpm run surface:check` | 对外消费暴露面合规审查 |
-| 14 | `pnpm run openwiki:check` | OpenWiki 百科全景文档动态同步校验 |
+| 14 | `pnpm run gen:paths:check` | OpenWiki 百科全景文档路径与陈旧词条校验 |
 | 15 | `pnpm run standards:check` | 架构与代码编码通用规范静态扫描 |
 | 16 | `pnpm run agent:native:check` | Agent Native 协议运行时接口健康检查 |
 | 17 | `pnpm run agent:contracts:check` | Agent 契约模型与元数据完整性 |

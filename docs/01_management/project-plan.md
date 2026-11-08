@@ -193,7 +193,7 @@
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `pnpm run speckit:check -- --spec <名>` |
 | H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `pnpm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状；**另**：路径引用准确性——全仓实测 62 处不存在中约 26 处属**合法**（反例语境/外部项目/示例），故只对**生成物**建门禁 `gen:paths:check`（`wiki/**`，95 处引用零误报），并修掉 18 处真实陈旧引用（含生成器把已修掉的测试假数字**写回** wiki 这一回流风险） |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
-| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | `openwiki:check` 43 篇 100% 同步；新增 `llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致（修掉 8 处实际漂移） |
+| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | 退役 `sync-openwiki.cjs` 静态覆盖生成器，将 43 篇 `wiki/` 词条收敛为直接维护的静态 Markdown，由 `gen:paths:check` 校验路径真实性及陈旧词条清理；`llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致 |
 
 ---
 

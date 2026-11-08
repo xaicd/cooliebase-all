@@ -439,11 +439,9 @@ function refreshArtifacts(targetDir, opts) {
     if (fs.existsSync(path.join(targetDir, "scripts", "sync-agent-surface.cjs"))) {
       execSync("node scripts/sync-agent-surface.cjs", { cwd: targetDir, stdio: "pipe" })
     }
-    // **必须重生成 wiki**：sanitizeProjectFiles 会删掉 `docs/specs/archive` 与
-    // `docs/architecture/archive`（派生工程不继承基座历史），而 wiki 里仍有指向它们的链接。
-    // 不重生成 → `gen:paths:check` 在派生工程里必红（实测：wiki/cmmi/cmmi-lifecycle.md）。
-    if (fs.existsSync(path.join(targetDir, "scripts", "sync-openwiki.cjs"))) {
-      execSync("node scripts/sync-openwiki.cjs --write", { cwd: targetDir, stdio: "pipe" })
+    // 同步清理 wiki 中因裁剪或清空归档目录而失效的词条引用
+    if (fs.existsSync(path.join(targetDir, "scripts", "check-generated-paths.cjs"))) {
+      execSync("node scripts/check-generated-paths.cjs --prune", { cwd: targetDir, stdio: "pipe" })
     }
     console.log("[project-init] ✓ 契约图谱与发现表面已重新编译对齐")
   } catch (err) {

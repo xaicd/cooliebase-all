@@ -715,7 +715,7 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. 发布前必须通过 strict 治理检查。
 2. 发布前必须生成最新扫描证据与迁移作战板。
-3. 发布前必须同步文档索引：`pnpm run openwiki:sync && pnpm run surface:sync`，并跑 `pnpm run openwiki:check` / `pnpm run llms:check` 确认无漂移。
+3. 发布前必须同步文档索引：`pnpm run surface:sync`，并跑 `pnpm run gen:paths:check` / `pnpm run llms:check` 确认无漂移。
    （原文写的是 `docs:sync-context` —— **该脚本并不存在**，已由 `docs:commands:check` 拦出。）
 4. 发布前必须**重新生成测试总结报告**：`pnpm run test:summary`
    （`docs/05_verification/test-summary-report.md` 是**生成物**，禁止手写 —— 手写版曾比实测少报约 30 倍）。
