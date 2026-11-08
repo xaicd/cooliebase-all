@@ -1,43 +1,71 @@
 {
   "$schema": "cooliebase.gate-evidence/v1",
   "feature": "multi-end-template-engine",
+  "domain": "infra",
   "updatedAt": "2026-11-08",
   "gates": {
-    "G1": {
+    "G0_DAR": {
       "status": "passed",
-      "by": "speckit:build",
-      "at": "2026-11-08",
-      "note": "规格与原型确认完成：对标 cloudtogo/pageplug 与 Amis/NocoBase 完成 PageBlockDSL v2、双视口设计器、多端模块化与全栈动态蓝图模板规划"
+      "owner": "架构",
+      "summary": "对标 cloudtogo/pageplug 与百度 Amis / NocoBase 完成 DAR 选型论证（MIT 合规零传染）",
+      "evidence": [
+        "research.md",
+        "selection.md"
+      ],
+      "verifiedAt": "2026-11-08T06:50:00.000Z"
     },
-    "G2": {
+    "G1_FDA": {
       "status": "passed",
-      "by": "speckit:build",
-      "at": "2026-11-08",
-      "note": "开源选型与 MIT 合规审查通过，零 eval 表达式沙箱、clients/expo 模块化架构与 8 大蓝图变量域评审完成"
+      "owner": "设计",
+      "summary": "完成 PageBlockDSL v2、零 eval 表达式沙箱、clients/expo 模块化目录与 8 大蓝图变量域设计",
+      "evidence": [
+        "design.md",
+        "blueprint.template.json",
+        "packages/shared/contract/blueprint-vars.ts"
+      ],
+      "verifiedAt": "2026-11-08T06:50:00.000Z"
     },
-    "G3": {
+    "G2_CoreSWE": {
       "status": "passed",
-      "by": "vitest",
-      "at": "2026-11-08",
-      "note": "T1~T5 研发完成并通过 test/unit/multi-end-template-engine.test.ts 11 项全链路单元测试与低代码说明手册核验"
+      "owner": "开发",
+      "summary": "T1~T5 全量研发落地并通过 11 项全链路单测、低代码开发手册与门禁校验",
+      "evidence": [
+        "packages/shared/frontend/lib/expression-engine.ts",
+        "packages/shared/frontend/components/universal-schema-canvas.tsx",
+        "scripts/blueprint-engine.cjs",
+        "docs/04_implementation/lowcode-system-dev-manual.md",
+        "test/unit/multi-end-template-engine.test.ts"
+      ],
+      "verifiedAt": "2026-11-08T06:50:00.000Z"
     },
-    "G4": {
+    "G3_FDSE": {
       "status": "passed",
-      "by": "qa-agent",
-      "at": "2026-11-08",
-      "note": "独立验证通过：零 eval 沙箱、22 种控件、双视口画布、clients/expo 模块裁剪、blueprint.template.json 与 compile-domain 编译器全部通过验证"
+      "owner": "前端",
+      "summary": "完成 PagePlug 风格双视口 (PC 1440px / 手机小程序 375px) 设计器与移动端多区块渲染器升级",
+      "evidence": [
+        "packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx",
+        "clients/expo/src/SchemaFieldRenderer.tsx",
+        "clients/expo/src/app/AppShell.tsx"
+      ],
+      "verifiedAt": "2026-11-08T06:50:00.000Z"
     },
-    "G5": {
+    "G4_DS": {
       "status": "passed",
-      "by": "pnpm run check",
-      "at": "2026-11-08",
-      "note": "全量工程门禁、契约一致性与安全红线检查通过"
+      "owner": "产品",
+      "summary": "IEEE 29148 / EARS 需求规格、原型设计与 27B 模型使用说明完备",
+      "evidence": [
+        "requirements.md",
+        "spec.md",
+        "prototype.md",
+        "docs/04_implementation/lowcode-system-dev-manual.md"
+      ],
+      "verifiedAt": "2026-11-08T06:50:00.000Z"
     },
-    "G6": {
-      "status": "pending",
-      "by": "",
-      "at": "",
-      "note": "上线后 7 天稳定运行 + 监控就绪 → G6_OBSERVING → CLOSED"
+    "G5_PRE": {
+      "status": "not_applicable",
+      "owner": "—",
+      "summary": "本规格是模板源头与设计器框架级能力改动，不涉及独立容器网络割接，由 pnpm run check、blueprint-engine.cjs check 与 11 项全链路单元测试直接验证。",
+      "evidence": []
     }
   },
   "defects": []

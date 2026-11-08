@@ -202,7 +202,8 @@
       "files": [
         "test/unit/multi-end-template-engine.test.ts",
         "docs/specs/infra/multi-end-template-engine/tasks.md",
-        "docs/specs/infra/multi-end-template-engine/evidence.json"
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/bugs.md"
       ]
     },
     {

@@ -63,7 +63,7 @@
 
 - [x] **T4**: 多端模板源头与表达式画布全链路单元测试及门禁核销
   - 归属: `T3`
-  - 文件白名单: `test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/tasks.md, docs/specs/infra/multi-end-template-engine/evidence.json`
+  - 文件白名单: `test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/tasks.md, docs/specs/infra/multi-end-template-engine/evidence.json, docs/specs/infra/multi-end-template-engine/bugs.md`
   - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
 
 - [x] **T5**: 面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析 + 低代码使用说明)
@@ -86,7 +86,7 @@
 | T1 | main | PageBlockDSL v2 契约、零 eval 表达式沙箱与 UniversalSchemaCanvas 多区块/看板/联动升级 | packages/plugins/plugin-online/backend/validators/page-schema.validators.ts, packages/plugins/plugin-online/backend/services/page-schema.service.ts, packages/shared/frontend/lib/expression-engine.ts, packages/shared/frontend/components/universal-schema-canvas.tsx | 已完成 |
 | T2 | T1 | 多端客户端 app+shared+modules/<domain> 模块化重构、移动端区块渲染器升级与 ProjectReactor 多端联动裁剪 | packages/shared/contract/client-channels.json, clients/expo/src/shared/types.ts, clients/expo/src/App.tsx, clients/expo/src/SchemaFieldRenderer.tsx, clients/expo/src/app/AppShell.tsx, clients/expo/src/modules/index.ts, clients/expo/src/modules/member/api/index.ts, clients/expo/src/modules/member/models/index.ts, clients/expo/src/modules/member/pages/MemberCenterPage.tsx, clients/expo/src/modules/member/components/MemberProfileCard.tsx, clients/expo/src/modules/mall/api/index.ts, clients/expo/src/modules/mall/models/index.ts, clients/expo/src/modules/mall/pages/MallHomePage.tsx, clients/expo/src/modules/mall/components/ProductWaterfallCard.tsx, scripts/lib/hatch-profile.cjs, scripts/clone-project-base.cjs | 已完成 |
 | T3 | T2 | 对标 PagePlug 升级 Online 双视口 (PC 1440px / 手机小程序 375px) 可视化区块与联动设计器 | packages/plugins/plugin-online/frontend/pages/online-definition-designer.page.tsx | 已完成 |
-| T4 | T3 | 多端模板源头与表达式画布全链路单元测试及门禁核销 | test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/tasks.md, docs/specs/infra/multi-end-template-engine/evidence.json | 已完成 |
+| T4 | T3 | 多端模板源头与表达式画布全链路单元测试及门禁核销 | test/unit/multi-end-template-engine.test.ts, docs/specs/infra/multi-end-template-engine/tasks.md, docs/specs/infra/multi-end-template-engine/evidence.json, docs/specs/infra/multi-end-template-engine/bugs.md | 已完成 |
 | T5 | T4 | 面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析 + 低代码使用说明) | blueprint.template.json, .env.template, clients/expo/app.template.json, packages/shared/contract/project-profile.template.json, packages/shared/contract/blueprint-vars.ts, packages/shared/contract/project-profile.ts, packages/shared/contract/facade.ts, src/app/page.tsx, src/app/(portal-pages)/portal/components/book-store-portal.tsx, scripts/blueprint-engine.cjs, docs/04_implementation/lowcode-system-dev-manual.md, .agents/skills/project-init/SKILL.md, .agents/skills/new-business-plugin/SKILL.md, .agents/skills/compliance-auditor/SKILL.md, wiki/index.md, wiki/cmmi/cmmi-lifecycle.md, package.json, AGENTS.md, README.md, llms.txt, docs/architecture/artifacts/clause-mechanism-map.json, scripts/harness.cjs, scripts/clone-project-base.cjs, scripts/project-init.cjs, scripts/check-generated-paths.cjs, test/unit/openwiki-stale.test.ts, docs/01_management/project-plan.md, docs/features/sprint-prod/1108.md | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
