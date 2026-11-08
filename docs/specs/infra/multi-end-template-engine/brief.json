@@ -208,7 +208,7 @@
     {
       "id": "T5",
       "parent": "T4",
-      "title": "面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析)",
+      "title": "面向 Coolie工坊与 27B 本地模型的全栈动态变量抽离 (blueprint.template.json + 8大变量域 + 双态占位符解析 + 低代码使用说明)",
       "files": [
         "blueprint.template.json",
         ".env.template",
@@ -219,7 +219,11 @@
         "packages/shared/contract/facade.ts",
         "src/app/page.tsx",
         "src/app/(portal-pages)/portal/components/book-store-portal.tsx",
-        "scripts/blueprint-engine.cjs"
+        "scripts/blueprint-engine.cjs",
+        "docs/04_implementation/lowcode-system-dev-manual.md",
+        ".agents/skills/project-init/SKILL.md",
+        ".agents/skills/new-business-plugin/SKILL.md",
+        "scripts/sync-openwiki.cjs"
       ]
     }
   ],

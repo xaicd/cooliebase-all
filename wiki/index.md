@@ -47,6 +47,7 @@
 ## 📚 架构百科词条 (Architecture Pillars)
 
 - [全能力 AI Agent 驱动架构与闭环执行法则](architecture/ai-agent-driven-paradigm.md)
+- [Coolie工坊与 27B 模型低代码系统开发使用说明书](../docs/04_implementation/lowcode-system-dev-manual.md)
 - [高阶反向思维与自循环反思飞轮 (Socratic Inversion Flywheel)](architecture/socratic-inversion-flywheel.md)
 - [通用动态本体画布与零样板代码体系 (Universal Schema Canvas)](architecture/universal-schema-canvas.md)
 - [自主巡检自愈守护中枢 (Agent Autopilot Daemon)](architecture/autonomous-heartbeat-autopilot.md)

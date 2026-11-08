@@ -38,13 +38,36 @@ node scripts/project-init.cjs \
   --git "<git-remote-url>"
 ```
 
-## 3. 重构覆盖范围与自动化闭环
+## 3. Coolie工坊与 27B 本地模型蓝图变量引擎 (`blueprint.template.json`)
+
+当由 **Coolie工坊 (Coolie Workshop)** 或 **27B 本地大模型** 驱动新业务系统初始化与全栈定制时，优先使用根目录的 **`blueprint.template.json`** 与 **`scripts/blueprint-engine.cjs`**：
+
+- **全栈使用说明手册（必读）**：`docs/04_implementation/lowcode-system-dev-manual.md`
+- **模板变量注册表**：`blueprint.template.json`（涵盖 8 大动态变量域、79 个 `{{VAR}}` 占位符与 5 套行业预设：`ecommerce` / `culture_tourism` / `smart_manufacturing` / `saas_crm_erp` / `healthcare_service`）
+- **4 条核心执行指令**：
+  ```bash
+  # 1. 输出 <800 Tokens 极简变量清单（供 27B 模型上下文直接读取）
+  node scripts/blueprint-engine.cjs schema --compact
+
+  # 2. 按行业预设 + 自定义键值一键渲染全仓模板文件 (.env / project-profile.json / clients/expo/app.json)
+  node scripts/blueprint-engine.cjs render --preset culture_tourism \
+    --set PROJECT_DISPLAY_NAME="云栖智慧文旅平台" \
+    --set PORTAL_HERO_TITLE="全域景区票务与酒店一站式预订中枢"
+
+  # 3. 校验模板完整性与残留未替换的 {{VAR}}
+  node scripts/blueprint-engine.cjs check
+
+  # 4. 将 30 行极简业务实体 JSON 自动编译为全栈 CodegenConfig + PageBlockDSL v2 画布
+  node scripts/blueprint-engine.cjs compile-domain --input <domain.json>
+  ```
+
+## 4. 重构覆盖范围与自动化闭环
 
 执行此命令后，系统会自动完成以下 7 项闭环操作：
-1. **业务身份契约更新**：自动重写 `packages/shared/contract/project-profile.json` 中的 `platformName`, `shortName`, `loginHeadline`, `copyright`；
+1. **业务身份契约更新**：自动重写 `packages/shared/contract/project-profile.json` 中的 `platformName`, `shortName`, `loginHeadline`, `copyright` 以及门户/多端/设计器蓝图变量；
 2. **工程包名重写**：自动重写 `package.json` 的 `name` 与 `dev` 端口；
 3. **环境变量更新**：自动同步 `.env` 与 `.env.local` 中的 `NEXT_PUBLIC_APP_TITLE`, `DB_NAME`, `SQLITE_DB_PATH`, `PORT`；
 4. **Git 远程仓库绑定**：如果提供了 `--git` 参数，自动执行 `git remote set-url origin` 或 `git remote add origin`；
 5. **契约图谱重新编译**：自动执行 `node scripts/write-seam-graph.cjs` 与 `node scripts/write-domain-manifests.cjs`；
 6. **本地轻量数据库自检**：重构后执行 `pnpm run db:bootstrap:sqlite` 生成新项目的专属 SQLite 库；
-7. **全自动化门禁自检**：重构完成后运行 `pnpm run check` 确保 10 项工程门禁依然 100% 通过。
+7. **全自动化门禁自检**：重构完成后运行 `pnpm run check` 确保工程门禁依然 100% 通过。

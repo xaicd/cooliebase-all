@@ -29,7 +29,12 @@ import { projectProfileSchema } from "@/shared/contract/project-profile"
 
 const require = createRequire(import.meta.url)
 const { parseArgv, resolveHatchPlan, shouldSkipRelPath } = require("../../scripts/lib/hatch-profile.cjs")
-const { loadManifest, extractPlaceholdersFromText, renderTemplateText } = require("../../scripts/blueprint-engine.cjs")
+const {
+  loadManifest,
+  extractPlaceholdersFromText,
+  renderTemplateText,
+  compileBlueprintDomain,
+} = require("../../scripts/blueprint-engine.cjs")
 
 describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)", () => {
   describe("1. Zero-Eval Reactive Expression Sandbox (expression-engine.ts)", () => {
@@ -292,6 +297,69 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       const renderedEnv = renderTemplateText(envTpl, { ...BLUEPRINT_DEFAULT_VARS, ...petClinicVars, ADMIN_PORT: 3320 })
       expect(renderedEnv).toContain("PORT=3320")
       expect(renderedEnv).toContain('NEXT_PUBLIC_APP_TITLE="宠爱有家智慧动物医院"')
+    })
+
+    it("compiles a shorthand 27B/junior-dev domain blueprint into full CodegenConfig[] + PageBlockDSL v2 + stateMachine", () => {
+      const compiled = compileBlueprintDomain({
+        domain: "pet",
+        title: "宠物诊疗管理",
+        entities: [
+          {
+            table: "pet_appointment",
+            className: "PetAppointment",
+            title: "宠物挂号预约单",
+            layoutMode: "kanban",
+            fields: [
+              { name: "pet_name", label: "宠物昵称", widget: "text", required: true, query: "LIKE" },
+              { name: "service_type", label: "就诊类型", widget: "radio", options: ["常规体检", "急诊手术"], required: true },
+              {
+                name: "anesthesia_consent_no",
+                label: "麻醉知情书编号",
+                widget: "text",
+                visibleOn: "{{ $form.service_type === '急诊手术' }}",
+                requiredOn: "{{ $form.service_type === '急诊手术' }}",
+              },
+              { name: "fee_cents", label: "预计诊疗费(分)", widget: "currency", required: true },
+            ],
+            blocks: [
+              { id: "pet_kpi", type: "stat_metrics", title: "今日门诊核心指标", surface: "both" },
+            ],
+            stateMachine: {
+              initial: "PENDING",
+              transitions: [
+                { name: "confirm", from: ["PENDING"], to: "CONFIRMED" },
+                { name: "complete", from: ["CONFIRMED"], to: "COMPLETED" },
+              ],
+            },
+          },
+        ],
+      })
+
+      expect(compiled.domain).toBe("pet")
+      expect(compiled.exportName).toBe("PET_TABLES")
+      expect(compiled.codegenTables).toHaveLength(1)
+
+      const colNames = compiled.codegenTables[0].table.columns.map((c: { name: string }) => c.name)
+      // 自动补齐主键 id 与 6 大多租户审计列
+      expect(colNames).toEqual([
+        "id",
+        "pet_name",
+        "service_type",
+        "anesthesia_consent_no",
+        "fee_cents",
+        "tenant_id",
+        "created_by",
+        "created_at",
+        "updated_by",
+        "updated_at",
+        "deleted_at",
+      ])
+
+      // 编译产出的 PageBlockDSL v2 直接通过 pageSchemaSchema 严格校验
+      const parsedPageSchema = pageSchemaSchema.parse(compiled.pageSchemas.pet_appointment)
+      expect(parsedPageSchema.layoutMode).toBe("kanban")
+      expect(parsedPageSchema.fields[2].visibleOn).toBe("{{ $form.service_type === '急诊手术' }}")
+      expect(compiled.stateMachines.pet_appointment.initial).toBe("PENDING")
     })
   })
 })

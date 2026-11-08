@@ -95,6 +95,13 @@ pnpm run domain:new <域> --dry-run  # 只校验元数据与表清单
 
 ## 4. 建表：先写**元数据**（唯一真源，别手写 DDL）
 
+> **面向 27B 本地模型与 Coolie工坊的极简捷径（强烈推荐）**：
+> 无需手写冗长的 TypeScript，直接对照 **`docs/04_implementation/lowcode-system-dev-manual.md`** 编写 `<50` 行的极简业务域 JSON，运行：
+> ```bash
+> node scripts/blueprint-engine.cjs compile-domain --input <domain.json> --out scripts/data/<域>-tables.ts
+> ```
+> 编译器会自动补齐 `id` 主键、6 大必填租户/审计底座字段（`tenant_id`, `creator`, `create_time`, `updater`, `update_time`, `deleted`）、状态机与 **PageBlockDSL v2** 多端画布配置（统计卡、趋势图、看板/表格双视图与 `{{form.xxx}}` 联动表达式）！
+
 域的表定义写进 `scripts/data/<域>-tables.ts`（`CodegenConfig[]`），列里带上
 `type / tsType / nullable / comment`，需要时补 `maxLength / precision / scale /
 defaultValueTyped`。

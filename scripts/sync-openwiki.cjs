@@ -139,6 +139,7 @@ ${domainRows}
 ## 📚 架构百科词条 (Architecture Pillars)
 
 - [全能力 AI Agent 驱动架构与闭环执行法则](architecture/ai-agent-driven-paradigm.md)
+- [Coolie工坊与 27B 模型低代码系统开发使用说明书](../docs/04_implementation/lowcode-system-dev-manual.md)
 - [高阶反向思维与自循环反思飞轮 (Socratic Inversion Flywheel)](architecture/socratic-inversion-flywheel.md)
 - [通用动态本体画布与零样板代码体系 (Universal Schema Canvas)](architecture/universal-schema-canvas.md)
 - [自主巡检自愈守护中枢 (Agent Autopilot Daemon)](architecture/autonomous-heartbeat-autopilot.md)
@@ -759,6 +760,7 @@ ${ARCHIVED_SPEC_SAMPLE}
    - 第一方业务插件隔离：\`packages/plugins/plugin-*/\` (15 个业务域)
    - 泛型 BaseMapper/QueryWrapper 引擎：\`packages/shared/backend/lib/database/\`
    - 极简 Brief 声明驱动：\`docs/specs/<domain>/<name>/brief.json\` 与 1 Task = 1 Commit
+   - 低代码系统开发使用说明书（面向 Coolie工坊与 27B 模型）：\`docs/04_implementation/lowcode-system-dev-manual.md\` 与 \`blueprint.template.json\`
 5. **05_verification (验证与打假)**：
    - 真实测试执行总结：\`docs/05_verification/test-summary-report.md\`（**由 \`pnpm run test:summary\` 生成；数字以该文件为准，此处不写死**）
    - 变异测试目录：\`docs/05_verification/mutation/\` (保持留空待实际 Stryker 工具集成)

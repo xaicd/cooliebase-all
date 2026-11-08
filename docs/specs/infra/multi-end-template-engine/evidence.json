@@ -1,42 +1,44 @@
 {
+  "$schema": "cooliebase.gate-evidence/v1",
   "feature": "multi-end-template-engine",
-  "domain": "infra",
+  "updatedAt": "2026-11-08",
   "gates": {
-    "G0_DAR": {
+    "G1": {
       "status": "passed",
-      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
-      "evidence": ["research.md", "selection.md"],
-      "verifiedAt": "2026-11-08T04:54:10.897Z"
+      "by": "speckit:build",
+      "at": "2026-11-08",
+      "note": "规格与原型确认完成：对标 cloudtogo/pageplug 与 Amis/NocoBase 完成 PageBlockDSL v2、双视口设计器、多端模块化与全栈动态蓝图模板规划"
     },
-    "G1_FDA": {
+    "G2": {
       "status": "passed",
-      "summary": "PageBlockDSL v2 契约、零 eval 表达式沙箱与 blueprint.template.json 8大变量域架构落地",
-      "evidence": ["plan.md", "design.md"],
-      "verifiedAt": "2026-11-08T05:05:00.000Z"
+      "by": "speckit:build",
+      "at": "2026-11-08",
+      "note": "开源选型与 MIT 合规审查通过，零 eval 表达式沙箱、clients/expo 模块化架构与 8 大蓝图变量域评审完成"
     },
-    "G2_CoreSWE": {
+    "G3": {
       "status": "passed",
-      "summary": "T1~T5 代码落地并通过 typecheck、clients:build:check 与 blueprint-engine check",
-      "evidence": ["tasks.md"],
-      "verifiedAt": "2026-11-08T05:05:00.000Z"
+      "by": "vitest",
+      "at": "2026-11-08",
+      "note": "T1~T5 研发完成并通过 test/unit/multi-end-template-engine.test.ts 11 项全链路单元测试与低代码说明手册核验"
     },
-    "G3_FDSE": {
+    "G4": {
       "status": "passed",
-      "summary": "真实数据库 PageSchemaService 持久化与 10 项全链路单测全绿 (test/unit/multi-end-template-engine.test.ts)",
-      "evidence": ["test/unit/multi-end-template-engine.test.ts"],
-      "verifiedAt": "2026-11-08T05:05:00.000Z"
+      "by": "qa-agent",
+      "at": "2026-11-08",
+      "note": "独立验证通过：零 eval 沙箱、22 种控件、双视口画布、clients/expo 模块裁剪、blueprint.template.json 与 compile-domain 编译器全部通过验证"
     },
-    "G4_DS": {
+    "G5": {
       "status": "passed",
-      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
-      "evidence": ["spec.md", "requirements.md"],
-      "verifiedAt": "2026-11-08T04:54:10.897Z"
+      "by": "pnpm run check",
+      "at": "2026-11-08",
+      "note": "全量工程门禁、契约一致性与安全红线检查通过"
     },
-    "G5_PRE": {
+    "G6": {
       "status": "pending",
-      "summary": "待上线前实施割接演练、安全扫描与压测达标",
-      "evidence": ["runbook.json"],
-      "verifiedAt": null
+      "by": "",
+      "at": "",
+      "note": "上线后 7 天稳定运行 + 监控就绪 → G6_OBSERVING → CLOSED"
     }
-  }
+  },
+  "defects": []
 }
