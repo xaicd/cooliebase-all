@@ -1,0 +1,157 @@
+{
+  "name": "g1-requirements-baseline",
+  "domain": "system",
+  "title": "G1 需求门禁 · EARS 需求基线（Spec-Kit SRS）",
+  "type": "enhancement",
+  "goal": "以 EARS 五态句式（普遍/事件/状态/异常/可选）标准化底座全部规格的用户故事与验收准则，经 speckit 流水线（brief.json → requirements.md）固化需求基线，使每条需求可追溯、可测试、无二义性，通过 gate_g1_spec 需求门禁。",
+  "roles": [
+    {
+      "role": "产品 / 业务 Owner",
+      "can": "以 EARS 句式声明用户故事与验收准则，拥有需求单一真源 brief.json"
+    },
+    {
+      "role": "系统架构师",
+      "can": "评审需求可行性、非功能需求（NFR）指标与架构影响"
+    },
+    {
+      "role": "测试 / QA",
+      "can": "将验收准则逐条转化为可执行断言与门禁检查"
+    },
+    {
+      "role": "平台研发工程师",
+      "can": "按 tasks.md 波次实施需求并保持实现与基线一致"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "The system shall 将每条用户故事标准化为 EARS 五态句式之一（普遍/事件/状态/异常/可选），主语恒为『THE system』，消除『应当/可能/大概』类二义性措辞。"
+    },
+    {
+      "priority": "P0",
+      "text": "WHEN 开发者执行 `pnpm harness speckit new` 创建新规格, the system shall 生成 brief.json、evidence.json 与 spec.json 骨架并将规格置为 PLAN_APPROVED 基线状态。"
+    },
+    {
+      "priority": "P0",
+      "text": "WHILE 执行 `pnpm harness speckit build`, the system shall 以 brief.json 为唯一真源渲染 requirements.md、design.md、plan.md、tasks.md 等阶段文档，禁止手写渲染产物。"
+    },
+    {
+      "priority": "P0",
+      "text": "WHEN 执行 `pnpm harness speckit check --spec <名> --phase requirement --strict`, the system shall 逐一校验规格 requirements.md 存在且零『待填』占位注释（HTML 注释形式的未填标记），任一缺陷即以非零退出码阻断。"
+    },
+    {
+      "priority": "P1",
+      "text": "IF 规格 brief.json 缺失 title/domain/goal、角色少于 2、用户故事少于 3、验收准则少于 2、不变量少于 1 或任务少于 3, THEN the system shall 以退出码 2 拒绝 build 并逐项打印缺失清单。"
+    },
+    {
+      "priority": "P1",
+      "text": "WHERE 规格声明非功能需求（性能/可用性/租户隔离）, the system shall 为每一个数字指标标注度量方式与实测日期，无实测数据的指标保持留空而非臆造。"
+    }
+  ],
+  "constraints": [
+    "单一真源：brief.json 是需求唯一真源，requirements.md 是渲染产物；严禁绕过 brief.json 另建单体 SRS 第二真源或手写 requirements.md 骨架。",
+    "门禁纪律：G1（gate_g1_spec）必须经 `pnpm harness speckit check --phase requirement --strict` 真实退出码 0 方可通过，严禁口头声明通过。",
+    "波次纪律：tasks 表必须为 T1 → T2 → T3 波次结构（渲染层硬编码波次顺序），父任务必须是 main 或已存在任务 ID。"
+  ],
+  "acceptance": [
+    { "check": "`pnpm harness speckit build --name g1-requirements-baseline` 成功渲染 requirements.md，其中每条用户故事均为 EARS 五态句式、每条验收准则以『THE system SHALL 验证』开头" },
+    { "check": "`node scripts/check-delivery.cjs --spec g1-requirements-baseline --phase requirement --strict` 返回退出码 0，requirements.md 零『待填』占位注释" },
+    { "check": "`pnpm harness speckit list` 中 g1-requirements-baseline 显示为 system 域、enhancement 型、PLAN_APPROVED、活跃施工" },
+    { "check": "requirements.md 的验收准则条数与 brief.json acceptance 数组一一对应（≥2 条，含真实可执行命令与预期退出码）" }
+  ],
+  "nonGoals": [
+    "不实现新业务功能代码，不改动任何既有规格（如 multi-end-template-engine、cmmi-governance）的 brief.json",
+    "不建立绕过 per-spec brief.json 的单体 SRS 文档作为第二真源（docs/02_requirements/software-requirements.md 定位为收敛入口，非真源）"
+  ],
+  "architecture": "需求真源分布在各规格 docs/specs/<域>/<名>/brief.json（<500 Tokens 声明式），由 scripts/speckit.ts 渲染流水线展开为 docs/specs/<域>/<名>/ 下 requirements.md 等 8 类阶段文档；scripts/check-delivery.cjs 作为 G1 门禁判定器读取渲染产物与 evidence.json 输出退出码。",
+  "entities": [
+    { "table": "-", "note": "本规格为需求工程治理增强，不涉及新增业务数据库表" }
+  ],
+  "invariants": [
+    {
+      "name": "无占位符基线",
+      "how": "任何进入门禁的规格 requirements.md 必须零『待填』占位注释；check-delivery.cjs inspectFeatureDocs 以占位注释计数一票否决"
+    },
+    {
+      "name": "单一真源防漂移",
+      "how": "需求变更只允许修改 brief.json 后重新 build 渲染；直接改渲染产物即视为基线漂移，check 阶段判红"
+    },
+    {
+      "name": "数字可追溯",
+      "how": "每条性能/可用性数字（如 26,877 RPS 容量护栏、P95 ≤ 20ms）必须标注度量方式与实测日期，无实测则留空"
+    }
+  ],
+  "ui": [
+    "纯需求工程治理增强，无管理端与 C 端业务 UI 页面变更"
+  ],
+  "ops": [
+    "门禁：`pnpm harness speckit check --spec g1-requirements-baseline --phase requirement --strict`（exit=0 为通过）",
+    "全量健康：`pnpm harness speckit health` 扫描 docs/specs/*/*/evidence.json 与规格目录",
+    "清单核对：`pnpm harness speckit list` 输出 26 个规格的域/类型/状态/归档矩阵"
+  ],
+  "risks": [
+    {
+      "risk": "需求基线与实现脱节漂移（文档腐化）",
+      "mitigation": "单一真源 brief.json + check-delivery 占位符一票否决 + No Artifact No Done 门禁链"
+    },
+    {
+      "risk": "EARS 句式执行不严格导致验收准则不可测试",
+      "mitigation": "验收准则强制『THE system SHALL 验证 + 可执行命令 + 预期退出码』格式，QA 逐条转断言"
+    }
+  ],
+  "screens": [
+    { "name": "纯需求工程无页面", "wireframe": "无" }
+  ],
+  "interactions": [
+    "无前端交互，交付物为需求基线文档与门禁退出码凭证"
+  ],
+  "states": [
+    "加载中：不适用",
+    "空数据：无实测数据的 NFR 指标保持严格留空",
+    "出错：门禁检出占位符或缺项时退出码非 0 阻断流水线",
+    "成功：exit=0 且 list 状态 PLAN_APPROVED"
+  ],
+  "candidates": [
+    {
+      "name": "EARS (Easy Approach to Requirements Syntax) 需求句式",
+      "type": "业界标准规范",
+      "license": "公开标准（Alistair Mawhinney）",
+      "risk": "无"
+    },
+    {
+      "name": "IEEE 29148 需求工程",
+      "type": "国际标准规范",
+      "license": "IEEE",
+      "risk": "无"
+    }
+  ],
+  "benchmarks": [
+    "自然语言模糊需求（『系统应当足够快』）vs EARS 五态句式 + 可执行验收准则（『WHEN …, THE system SHALL … + exit=0』）"
+  ],
+  "scan": [
+    "对齐 EARS 五态、IEEE 29148、CMMI Requirements Development (RD) 实践与仓内 cmmi-governance 门禁纪律"
+  ],
+  "licenseConclusion": "EARS/IEEE 29148 为公开标准句式与规范引用，无商业传染性与合规风险。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "speckit new 创建 g1-requirements-baseline 规格骨架并编写 EARS 用户故事/验收准则/不变量 brief.json",
+      "files": ["docs/specs/system/g1-requirements-baseline/brief.json"]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "speckit build 以 brief.json 为单一真源渲染 requirements.md 及阶段文档",
+      "files": ["docs/specs/system/g1-requirements-baseline/requirements.md", "docs/specs/system/g1-requirements-baseline/tasks.md"]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "G1 门禁验证（check --phase requirement --strict + health + list）并固化基线提交",
+      "files": ["-"]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 30
+}

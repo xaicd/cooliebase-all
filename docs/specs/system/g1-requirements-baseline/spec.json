@@ -1,0 +1,12 @@
+{
+  "name": "g1-requirements-baseline",
+  "domain": "system",
+  "title": "G1 需求门禁 · EARS 需求基线（Spec-Kit SRS）",
+  "type": "enhancement",
+  "status": "PLAN_APPROVED",
+  "stories": 6,
+  "acceptance": 4,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-11-08T08:06:14.963Z"
+}
