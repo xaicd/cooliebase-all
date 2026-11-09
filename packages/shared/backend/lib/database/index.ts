@@ -90,4 +90,14 @@ export {
 } from "./base-mapper"
 export type { QueryCondition, OrderItem, QueryOperator } from "./base-mapper"
 
+export {
+  DataScopeEnum,
+  DataScopeIsolationPlugin,
+  dataScopeIsolationPlugin,
+  runWithDataScope,
+  getCurrentDataScope,
+} from "./data-scope-plugin"
+export type { DataScopeLevel, DataScopeContext } from "./data-scope-plugin"
+
+
 

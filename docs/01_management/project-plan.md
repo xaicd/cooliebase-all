@@ -564,3 +564,12 @@ windows      success  416s      mutation     success   31s
 
 **共同教训**：「本地全绿」证明的是**本地**。凡是跨平台/跨环境的门禁，**必须真的在目标环境跑一次** ——
 这次它藏了至少 9 个缺陷，而 `pnpm run check` 一直是绿的。
+
+---
+
+## ✅ 审计待办全量闭环与对标增强（2026-11-09）
+
+- **数据库设计规范 v1 四项机检挂载**：在 `scripts/check-engineering-standards.cjs` 新增 `db-column-type-discipline`、`db-varchar-length-discipline`、`db-tenant-column-index`、`db-migration-idempotency` 四条 `enforce` 规则，校准 `column-type.ts` 默认长度（名称 100、描述 500）与租户索引生成。
+- **活跃规格阶段 100% 完备**：补齐 `crypto-default-key-guard` 与 `test-shared-file-isolation` 的交互/状态声明，`pnpm run delivery:hints` 实测全部活跃规格 9 阶段全齐。
+- **进化待办闭环率度量**：`scripts/build-evolution-backlog.cjs` 新增 `closureMetrics`（零欠债规则占比与阻塞项清零率）。
+- **对标芋道 DataScope 5 级数据权限 AST 插件与 `/api/docs` OpenAPI 3.1 交互式调试沙箱**：落地 `packages/shared/backend/lib/database/data-scope-plugin.ts` 与 `src/app/api/docs/route.ts`。

@@ -274,13 +274,29 @@ const summary = items.reduce(
   { blocker: 0, high: 0, medium: 0, low: 0, total: 0 },
 )
 
+const rulesList = Array.isArray(report?.rules) ? report.rules : []
+const zeroDebtRules = rulesList.filter((r) => (r.violations ?? 0) === 0).length
+const totalTracked = rulesList.length
+const closureMetrics = {
+  totalStandardsRules: totalTracked,
+  zeroDebtRules,
+  activeBacklogItems: summary.total,
+  blockerCount: summary.blocker,
+  rulesZeroDebtRatePct: totalTracked > 0 ? Number(((zeroDebtRules / totalTracked) * 100).toFixed(1)) : 100,
+  blockerClosureRatePct: summary.blocker === 0 ? 100 : 0,
+}
+
 const backlog = {
   version: 1,
   kind: "evolution-backlog",
   generatedAt: new Date().toISOString(),
   head: gitHead(),
   note: "Aggregated from real gate artifacts. Read-only signal for external agents; no agent loop runs in this repository (AGENTS.md §18).",
-  summary,
+  summary: {
+    ...summary,
+    closureMetrics,
+  },
+  closureMetrics,
   items,
 }
 

@@ -121,7 +121,7 @@ gantt
     dateFormat  YYYY-MM
     section Phase A 短期攻坚 (基座增强)
     数据权限 AST 拦截插件 (Data Scope)     :done, p1, 2026-10, 2026-11
-    交互式 OpenAPI Scalar 调试沙箱 (/api/docs) :active, p2, 2026-10, 2026-11
+    交互式 OpenAPI Scalar 调试沙箱 (/api/docs) :done, p2, 2026-10, 2026-11
     OpenTelemetry 自动埋点与 /api/metrics   :active, p3, 2026-10, 2026-11
     section Phase B 中期飞跃 (流程与交互)
     TypeScript 原生 Saga/Workflow 编排运行时  :p4, 2026-11, 2026-12

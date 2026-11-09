@@ -65,9 +65,16 @@ sequenceDiagram
 
 ## 5. 状态机流转与边界守卫 (State Machine Transitions)
 
-
+- production-missing-key（阻断抛错）
+- production-valid-key（正常加解密）
+- non-production-fallback（开发/测试回退默认密钥）
 
 ## 6. 技术风险评估与缓解策略 (Technical Risks & Mitigations)
 
 - **风险**: 守卫放在模块加载时会导致 `next build` 失败（NODE_ENV=production）。 -> **缓释策略**: 守卫放调用时；并用「只 import 不调用 → 不抛错」的用例锁住这一点。
 - **风险**: 把现有部署打挂：若某环境确实没配密钥，上线后加密调用会立刻抛错。 -> **缓释策略**: 这正是本规格的目的（宁可炸也不要静默用公开钥匙）；同时在 `.env.example` 与文档里补上变量说明，并让错误信息给出确切变量名。
+
+## 7. E2E 页面拟人操作运营配置与全链路自动化测试 (E2E Human-Like Ops & Automated Testing)
+
+- **反 Seed 铁律（Rule 0.8）**：严禁通过 SQL 脚本或后台静默函数直接灌入商品、分类、优惠券、营销活动等业务运营数据；必须通过 Playwright 驱动真实浏览器页面拟人操作（登录 `/admin/login` -> 打开 `/admin/infra/...` 运营页 -> 点击 `createButton` -> 填写 `[data-testid="field-..."]` -> 点击 `formSubmit` -> 断言 `table` 新增行）完成运营配置。
+- **B 端运营配置 → C 端消费体验 → B 端履约闭环**：通过 `pnpm run e2e:ops` 与 `pnpm run test:matrix` 执行端到端拟人配置与真实数据库状态机全链路验证。

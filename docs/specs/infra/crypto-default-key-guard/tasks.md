@@ -32,12 +32,22 @@
     },
     {
       "id": "wave-3",
-      "title": "端到端测试与集成验证",
+      "title": "E2E 页面拟人操作运营配置（严禁直接 Seed 数据库）",
       "tasks": [
         "T3"
       ],
       "dependsOn": [
         "wave-2"
+      ]
+    },
+    {
+      "id": "wave-4",
+      "title": "端到端自动化测试与集成验证",
+      "tasks": [
+        "T4"
+      ],
+      "dependsOn": [
+        "wave-3"
       ]
     }
   ]

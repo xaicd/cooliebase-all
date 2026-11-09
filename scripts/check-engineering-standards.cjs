@@ -989,6 +989,128 @@ const RULES = [
         }))
     },
   },
+  {
+    id: "db-column-type-discipline",
+    section: "docs/architecture/database-design-standard-v1.md §2 / §6",
+    mode: "enforce",
+    description:
+      "amount/price columns must not use double/float, and timestamp/time columns must not use varchar in table metadata",
+    run() {
+      const dataDir = abs("scripts/data")
+      if (!fs.existsSync(dataDir)) return []
+      const violations = []
+      for (const entry of fs.readdirSync(dataDir)) {
+        if (!entry.endsWith(".ts")) continue
+        const rel = `scripts/data/${entry}`
+        const source = fs.readFileSync(path.join(dataDir, entry), "utf8")
+        for (const match of source.matchAll(/\{\s*name:\s*"([^"]+)"\s*,\s*type:\s*"([^"]+)"/g)) {
+          const [, col, type] = match
+          if ((type === "double" || type === "float") && /(amount|price|fee|cost|balance|total_price|pay_price)/i.test(col)) {
+            violations.push({
+              file: rel,
+              detail: `column "${col}" uses "${type}" — amount/price columns must use "decimal" or integer cents`,
+            })
+          }
+          if (type === "varchar" && /(create_time|update_time|deleted_at|created_at|updated_at|_time$|_at$)/i.test(col)) {
+            violations.push({
+              file: rel,
+              detail: `column "${col}" uses "varchar" — time/timestamp columns must use "timestamp"`,
+            })
+          }
+        }
+      }
+      return violations.sort((a, b) => a.file.localeCompare(b.file) || a.detail.localeCompare(b.detail))
+    },
+  },
+  {
+    id: "db-varchar-length-discipline",
+    section: "docs/architecture/database-design-standard-v1.md §2 / §6",
+    mode: "enforce",
+    description:
+      "codegen column-type template must calibrate default varchar lengths (name=100, remark/description=500) instead of blanket 255",
+    run() {
+      const rel = "packages/domains/infra/backend/services/codegen-templates/column-type.ts"
+      const full = abs(rel)
+      if (!fs.existsSync(full)) return []
+      const source = fs.readFileSync(full, "utf8")
+      const violations = []
+      if (!source.includes('"VARCHAR(100)"')) {
+        violations.push({
+          file: rel,
+          detail: 'missing calibrated default VARCHAR(100) for name/title columns in pgType()',
+        })
+      }
+      if (!source.includes('"VARCHAR(500)"')) {
+        violations.push({
+          file: rel,
+          detail: 'missing calibrated default VARCHAR(500) for remark/description columns in pgType()',
+        })
+      }
+      return violations
+    },
+  },
+  {
+    id: "db-tenant-column-index",
+    section: "docs/architecture/database-design-standard-v1.md §4 / §6",
+    mode: "enforce",
+    description:
+      "codegen tableDdl and generated table migrations with tenant_id / company_id must emit a corresponding index",
+    run() {
+      const violations = []
+      const tplRel = "packages/domains/infra/backend/services/codegen-templates/column-type.ts"
+      const tplFull = abs(tplRel)
+      if (fs.existsSync(tplFull)) {
+        const tplSource = fs.readFileSync(tplFull, "utf8")
+        if (!tplSource.includes("_tenant_id_idx") || !tplSource.includes("_company_id_idx")) {
+          violations.push({
+            file: tplRel,
+            detail: "tableDdl() must emit CREATE INDEX IF NOT EXISTS for both tenant_id and company_id columns",
+          })
+        }
+      }
+      return violations
+    },
+  },
+  {
+    id: "db-migration-idempotency",
+    section: "docs/architecture/database-design-standard-v1.md §5 / §6",
+    mode: "enforce",
+    description:
+      "SQL migrations created after the idempotent DDL standard must use CREATE TABLE IF NOT EXISTS",
+    run() {
+      const migDir = abs("prisma/migrations")
+      if (!fs.existsSync(migDir)) return []
+      // 2026-10-03 起所有建表迁移统一要求 CREATE TABLE IF NOT EXISTS；此前 10 份早期底座初始化迁移冻结豁免
+      const PRE_IDEMPOTENT_MIGRATIONS = new Set([
+        "20260812000000_initial_postgresql_schema",
+        "20260813000000_add_infra_data_source_config",
+        "20260815000000_add_system_tenant_packages",
+        "20260823000000_add_tenant_entitlements",
+        "20260827000000_add_online_metadata",
+        "20260828000000_add_online_runtime_records",
+        "20260905000000_add_online_managed_tables",
+        "20260918000000_add_member_user_tenant_scope",
+        "20260928000000_add_plugin_tables",
+        "20260929170015_add_plugin_migration",
+        "20261001003727_add_wms_tables",
+        "20261001090219_add_system_config",
+      ])
+      const violations = []
+      for (const entry of fs.readdirSync(migDir).sort()) {
+        if (PRE_IDEMPOTENT_MIGRATIONS.has(entry)) continue
+        const sqlFile = path.join(migDir, entry, "migration.sql")
+        if (!fs.existsSync(sqlFile)) continue
+        const source = fs.readFileSync(sqlFile, "utf8")
+        for (const match of source.matchAll(/CREATE\s+TABLE\s+(?!IF\s+NOT\s+EXISTS\b)("?[a-z0-9_]+"?)/gi)) {
+          violations.push({
+            file: `prisma/migrations/${entry}/migration.sql`,
+            detail: `CREATE TABLE ${match[1]} is missing IF NOT EXISTS`,
+          })
+        }
+      }
+      return violations
+    },
+  },
 ]
 
 function countByFile(violations) {

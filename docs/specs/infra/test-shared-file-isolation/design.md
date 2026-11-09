@@ -57,10 +57,17 @@ sequenceDiagram
 
 ## 5. 状态机流转与边界守卫 (State Machine Transitions)
 
-
+- isolated-workspace-created（临时根初始化完成）
+- mutated-under-test（测试注入坏数据验证门禁变红）
+- cleaned-up（测试结束清理临时目录，主仓零污染）
 
 ## 6. 技术风险评估与缓解策略 (Technical Risks & Mitigations)
 
 - **风险**: 为了隔离改成「临时根」，但只读件用软链，某些门禁可能顺着软链读回真仓，隔离失效却看起来通过了。 -> **缓释策略**: 反向对照必须包含「在临时根里注入违规 → 必须红」，确保读到的是临时根。
 - **风险**: 把共享文件改成可注入路径，等于给门禁加开关，未来有人用开关放行。 -> **缓释策略**: 候选里写明：若采用注入，开关只能影响「从哪读」，不能影响「怎么判」。
 - **风险**: 「连跑 3 次」在慢机器上耗时过长，被后续开发者删掉。 -> **缓释策略**: 把 3 次拆成可单独运行的脚本入口（`pnpm harness` 下），不塞进默认 `check` 链。
+
+## 7. E2E 页面拟人操作运营配置与全链路自动化测试 (E2E Human-Like Ops & Automated Testing)
+
+- **反 Seed 铁律（Rule 0.8）**：严禁通过 SQL 脚本或后台静默函数直接灌入商品、分类、优惠券、营销活动等业务运营数据；必须通过 Playwright 驱动真实浏览器页面拟人操作（登录 `/admin/login` -> 打开 `/admin/infra/...` 运营页 -> 点击 `createButton` -> 填写 `[data-testid="field-..."]` -> 点击 `formSubmit` -> 断言 `table` 新增行）完成运营配置。
+- **B 端运营配置 → C 端消费体验 → B 端履约闭环**：通过 `pnpm run e2e:ops` 与 `pnpm run test:matrix` 执行端到端拟人配置与真实数据库状态机全链路验证。

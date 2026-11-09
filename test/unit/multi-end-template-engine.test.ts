@@ -721,5 +721,111 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       const skuAfterRefund = await ProductSkuService.get(targetSku!.id, userId, "default")
       expect(Number(skuAfterRefund?.stock)).toBe(initialSkuStock)
     })
+
+    it("enforces Kysely AST DataScope 5-level ABAC, OpenAPI 3.1 sandbox, and database design v1 rules (COO-226 T9)", async () => {
+      const { Kysely, DummyDriver, PostgresAdapter, PostgresIntrospector, PostgresQueryCompiler } = await import(
+        "kysely"
+      )
+      const { DataScopeEnum, DataScopeIsolationPlugin, runWithDataScope } = await import(
+        "@/shared/backend/lib/database/data-scope-plugin"
+      )
+      const { pgType, tableDdl } = await import(
+        "@/domains/infra/backend/services/codegen-templates/column-type"
+      )
+      const { buildOpenApi31Spec, GET: getDocsRoute } = await import("../../src/app/api/docs/route")
+      const { NextRequest } = await import("next/server")
+
+      const db = new Kysely<any>({
+        dialect: {
+          createAdapter: () => new PostgresAdapter(),
+          createDriver: () => new DummyDriver(),
+          createIntrospector: (d) => new PostgresIntrospector(d),
+          createQueryCompiler: () => new PostgresQueryCompiler(),
+        },
+        plugins: [new DataScopeIsolationPlugin()],
+      })
+
+      // 1. ALL (1): 不追加 dept_id / created_by 条件
+      const sqlAll = runWithDataScope({ scope: DataScopeEnum.ALL, userId: "u-1", userDeptId: "dept-10" }, () =>
+        db.selectFrom("crm_contract").selectAll().compile(),
+      )
+      expect(sqlAll.sql).toBe('select * from "crm_contract"')
+
+      // 2. DEPT_ONLY (3): 自动注入 dept_id = 'dept-10'
+      const sqlDeptOnly = runWithDataScope({ scope: DataScopeEnum.DEPT_ONLY, userDeptId: "dept-10" }, () =>
+        db.selectFrom("crm_contract").selectAll().compile(),
+      )
+      expect(sqlDeptOnly.sql).toContain('"dept_id" = $1')
+      expect(sqlDeptOnly.parameters).toEqual(["dept-10"])
+
+      // 3. DEPT_AND_CHILD (4): 自动注入 dept_id in ('dept-10', 'dept-11', 'dept-12')
+      const sqlDeptTree = runWithDataScope(
+        {
+          scope: DataScopeEnum.DEPT_AND_CHILD,
+          userDeptId: "dept-10",
+          deptIds: ["dept-11", "dept-12"],
+        },
+        () => db.selectFrom("crm_contract").selectAll().compile(),
+      )
+      expect(sqlDeptTree.sql).toContain('"dept_id" in ($1, $2, $3)')
+      expect(sqlDeptTree.parameters).toEqual(["dept-10", "dept-11", "dept-12"])
+
+      // 4. DEPT_CUSTOM (2): 自动注入自定义部门列表与 UPDATE / DELETE 拦截
+      const sqlDeptCustomUpdate = runWithDataScope(
+        {
+          scope: DataScopeEnum.DEPT_CUSTOM,
+          deptIds: ["dept-20", "dept-30"],
+        },
+        () => db.updateTable("crm_contract").set({ status: "active" }).compile(),
+      )
+      expect(sqlDeptCustomUpdate.sql).toContain('"dept_id" in ($2, $3)')
+      expect(sqlDeptCustomUpdate.parameters).toContain("dept-20")
+      expect(sqlDeptCustomUpdate.parameters).toContain("dept-30")
+
+      // 5. SELF_ONLY (5): 自动注入 created_by = 'u-99'，且对平台豁免表 system_menu 不拦截
+      const sqlSelfOnly = runWithDataScope({ scope: DataScopeEnum.SELF_ONLY, userId: "u-99" }, () =>
+        db.selectFrom("crm_contract").selectAll().compile(),
+      )
+      expect(sqlSelfOnly.sql).toContain('"created_by" = $1')
+      expect(sqlSelfOnly.parameters).toEqual(["u-99"])
+
+      const sqlExempt = runWithDataScope({ scope: DataScopeEnum.SELF_ONLY, userId: "u-99" }, () =>
+        db.selectFrom("system_menu").selectAll().compile(),
+      )
+      expect(sqlExempt.sql).toBe('select * from "system_menu"')
+
+      // 6. 数据库设计规范 v1 模板口径验证
+      expect(pgType({ name: "name", type: "varchar" })).toBe("VARCHAR(100)")
+      expect(pgType({ name: "product_title", type: "varchar" })).toBe("VARCHAR(100)")
+      expect(pgType({ name: "remark", type: "varchar" })).toBe("VARCHAR(500)")
+      expect(pgType({ name: "order_desc", type: "varchar" })).toBe("VARCHAR(500)")
+      expect(pgType({ name: "code", type: "varchar" })).toBe("VARCHAR(64)")
+      const ddl = tableDdl({
+        name: "demo_order",
+        columns: [
+          { name: "id", type: "varchar", nullable: false, isPk: true },
+          { name: "tenant_id", type: "varchar", nullable: false },
+          { name: "company_id", type: "varchar", nullable: false },
+        ],
+      })
+      expect(ddl).toContain("CREATE TABLE IF NOT EXISTS")
+      expect(ddl).toContain("demo_order_tenant_id_idx")
+      expect(ddl).toContain("demo_order_company_id_idx")
+
+      // 7. OpenAPI 3.1 在线沙箱 (/api/docs) 验证
+      const mallSpec = buildOpenApi31Spec("mall")
+      expect(mallSpec.openapi).toBe("3.1.0")
+      expect(Object.keys(mallSpec.paths).length).toBeGreaterThan(20)
+
+      const jsonRes = await getDocsRoute(new NextRequest("http://localhost:3200/api/docs?format=json&domain=mall"))
+      expect(jsonRes.status).toBe(200)
+      const jsonBody = await jsonRes.json()
+      expect(jsonBody.openapi).toBe("3.1.0")
+
+      const htmlRes = await getDocsRoute(new NextRequest("http://localhost:3200/api/docs"))
+      expect(htmlRes.status).toBe(200)
+      const htmlText = await htmlRes.text()
+      expect(htmlText).toContain("CoolieBase OpenAPI 3.1 交互式调试沙箱")
+    })
   })
 })

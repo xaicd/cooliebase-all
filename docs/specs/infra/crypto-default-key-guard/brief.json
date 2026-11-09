@@ -94,9 +94,21 @@
       "mitigation": "这正是本规格的目的（宁可炸也不要静默用公开钥匙）；同时在 `.env.example` 与文档里补上变量说明，并让错误信息给出确切变量名。"
     }
   ],
-  "screens": [],
-  "interactions": [],
-  "states": [],
+  "screens": [
+    {
+      "name": "密钥配置启动守卫（CLI / Server 控制台诊断输出）",
+      "route": "/api/v1/admin/infra/data-source-configs",
+      "purpose": "当生产环境缺失或配置弱密钥时阻断数据源密码加解密并输出可读诊断错误"
+    }
+  ],
+  "interactions": [
+    "启动或首次调用 encrypt/decrypt 时读取 NODE_ENV 与 COOLIEBASE_SHARED_AES_KEY / COOLIEBASE_VAULT_AES_KEY，生产环境未配置时立即抛出明确异常"
+  ],
+  "states": [
+    "production-missing-key（阻断抛错）",
+    "production-valid-key（正常加解密）",
+    "non-production-fallback（开发/测试回退默认密钥）"
+  ],
   "candidates": [
     {
       "name": "① 调用时解析 + 生产抛错 + 子进程行为测试",

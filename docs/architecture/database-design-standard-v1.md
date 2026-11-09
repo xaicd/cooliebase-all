@@ -51,11 +51,11 @@
 2. 迁移文件名 `<时间戳>_add_<表名>`（表名带 slug 则目录自动带）。
 3. 高级约束（EXCLUDE USING gist 等）允许手写追加迁移，但必须注释业务理由与并发语义。
 
-## 6. 机检守卫（待挂 standards:check）
+## 6. 机检守卫（已挂 standards:check）
 
-- [ ] 类型口径检查：金额列禁 double、时间列禁 varchar
-- [ ] 长度口径检查：varchar(255) 用于名称类告警（对齐 §2 裁决规则）
-- [ ] 租户列检查：含 company_id 必含其索引
-- [ ] 幂等检查：手写迁移 CREATE TABLE 缺 IF NOT EXISTS 拦截
+- [x] 类型口径检查：金额列禁 double、时间列禁 varchar（`db-column-type-discipline`，enforce）
+- [x] 长度口径检查：varchar(255) 用于名称类告警，校准默认名称 100、描述 500（`db-varchar-length-discipline`，enforce）
+- [x] 租户列检查：含 tenant_id / company_id 必含其索引（`db-tenant-column-index`，enforce）
+- [x] 幂等检查：迁移 CREATE TABLE 缺 IF NOT EXISTS 拦截（`db-migration-idempotency`，enforce）
 
-> v1 落地顺序：先成文（本文）→ 口径校准模板（v1.1）→ 机检挂卫（standards:check 数据库规则组）。
+> v1 落地状态：已完成成文、模板口径校准（`column-type.ts`）与 `standards:check` 四项机检守卫挂载。

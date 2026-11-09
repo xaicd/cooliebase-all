@@ -8,7 +8,7 @@
 - **定位**: AI-Native 低代码业务底座 (CoolieBase), TS 单仓: Next.js (^16.4.2) + Prisma (58 model) + Kysely 双轨 + 可替换后端与微服务边界 (§3.3)。
 - **核心思想**: Zero Token Waste + Tool-First Low-Code — 大模型输出压缩至 <500 token 的 Schema/DSL 声明, 由通用引擎展开 (RULE-0)。
 - **agent-profile.json** (8.1KB): kind=workspace-bundle, role=business-project-template; 本仓**不是** agent-runtime (Agent loop 在 DigitalStaff NativeCodingEngine, runtimePath 指向 D:/workspace/cw/ai/DigitalStaff); promptAssembly 定义组装顺序 (identity→rule-0→inverse-thinking→spec-first→…→skills on-demand→gates)。
-- **compat-manifest.json** (5.6KB): templateVersion 1.2.0 (2026-10-10); 工具链锁 (node/next/react/kysely/zod/prisma/TS); 契约含 domainCatalog (**17 域**) / rpcActions / agentProfile / seamGraph, `pnpm run compat:check` 强校验。
+- **compat-manifest.json** (5.6KB): templateVersion 1.2.0 (2026-10-10); 工具链锁 (node/next/react/kysely/zod/prisma/TS); 契约含 domainCatalog (**17 域**) / rpcActions / agentProfile / seamGraph / consumptionSurface (**22 道门禁** + **14 个 MCP 工具**), `pnpm run compat:check` 强校验。
 
 ## 2. 入口文件
 
@@ -26,22 +26,22 @@
 
 专项章: §3.4 AI-Driven 交付链 / §5 Domain-First 六要素 / §6.1 多模型三阶段协作 (规划/开发/独立测试) / §6.2 Skill Registry / §6.3 standards:check 机检 / §6.4 evolution:backlog 进化回流 / §9.4 测试必须内存模式 / §9.5 表定义真源=低代码元数据 (2026-10) / §14 代码生成器 / §15 需求会话记录 MANDATORY / §16 ProjectReactor / §17 Core Base vs Business Domain / §18 Harness 进化 (DeepSeek × DigitalStaff NPC) / §20 需求三叉戟分流。
 
-## 4. Rules (10) / Commands (11) / Workflows (4) / Hooks
+## 4. Rules (9 个 `.agents/rules/*.md`) / Commands (11) / Workflows (4) / Hooks
 
-- `.agents/rules/`: RULE-0-UNIVERSAL-DIRECTIVES (13 条可执行版) / API-CONTRACT-FIRST (禁口头规范、机检化) / ALL-ROLE-CONTRACT-FAMILIES / MULTI-TENANT-ISOLATION (getCurrentTenantId @/shared/backend/lib/biz-tenant) / PROJECT-INIT-AND-REFACTOR / PROJECT-REACTOR / FEATURE-SPEC-AND-PROTOTYPE-STANDARD (CMMI V2.0/ISO 29148 Spec Bundle) / HIGH-ORDER-INVERSE-THINKING (苏格拉底自循环) / SPEC-FIRST-ENGINEERING-ARTIFACTS (7 类资产硬规矩) + 共 10 文件
+- `.agents/rules/`: RULE-0-UNIVERSAL-DIRECTIVES (13 条可执行版) / API-CONTRACT-FIRST (禁口头规范、机检化) / ALL-ROLE-CONTRACT-FAMILIES / MULTI-TENANT-ISOLATION (getCurrentTenantId @/shared/backend/lib/biz-tenant) / PROJECT-INIT-AND-REFACTOR / PROJECT-REACTOR / FEATURE-SPEC-AND-PROTOTYPE-STANDARD (CMMI V2.0/ISO 29148 Spec Bundle) / HIGH-ORDER-INVERSE-THINKING (苏格拉底自循环) / SPEC-FIRST-ENGINEERING-ARTIFACTS (7 类资产硬规矩) — 共 **9** 个规则文件（全部在 `.agents/context/ASSEMBLY.md` 登记并受 `harness:check` 覆盖守卫）
 - `.agents/commands/`: speckit.* 11 个 (specify/plan/tasks/implement/gate/checklist/eval/archive/constitution/cmmi/ops)
 - `.agents/workflows/`: feature-delivery / bugfix / security-patch / architecture-refactor (workflow-engine 驱动: new/list/check/dry-run/run)
 - `.agents/hooks/`: **spec-gate.sh 挂 PreToolUse** (matcher *, timeout 10s, `.agents/hooks.json`) + adapters.json (Paperclip 适配) + parse-payload.js
 
-## 5. Skills (40 个, `.agents/skills/`)
+## 5. Skills (38 个, `.agents/skills/`)
 
 工程规范族: api-design (OpenAPI 3.1) / database-design / database-compatibility (Tier-A/B/C 多库) / automated-testing / mutation-tester / ears-spec-writer / dar-decision-matrix / postmortem-analyzer / sre-slo-manager / compliance-auditor (CMMI PPQA/FCA/PCA) / security / strix-penetration-testing / devops / service-governance。
 AI/资产族: spec-driven-development (Kiro SDD 五类型) / cmmi-asset-authoring / skill-authoring / skill-creator / mcp-builder / plugin-authoring / agent-harness (DigitalStaff NPC 模板) / new-business-plugin (一句话→新业务域插件全链路) / new-feature / project-init / coding (Modules-First CRUD) / webapp-testing (Playwright)。
 架构/前端族: architecture-design / adr-architect (ADR/MADR) / archify / microservice-evolution (A/B/C 域拆分) / product-requirements / financial-reconciliation-agent / frontend-design / ui-design / ui-framework-governance / canvas-design / theme-factory / brand-guidelines。
 
-## 6. 脚本命令面 (~130 条 npm scripts, 160+ 文件)
+## 6. 脚本命令面 (~190 条 pnpm scripts, 160+ 文件)
 
-- **check-\* 门禁家族 (20+)**: engineering-standards / domain-manifests / compat-manifest / agent-native(+baseline) / agent-routes / agent-selectors / agent-contract-coverage / handwritten-files (生成物防手改+baseline) / delivery(--strict) / route-validation / repository-column-coverage / microservice-governance / doc-claims / docs-commands / llms-sync / harness-bundle / specs-health / deps-audit / version-consistency / plan-freshness / audit-log-contracts / contract-governance / generated-paths / client-build
+- **check-\* 门禁家族 (22 道静态交付门禁)**: engineering-standards (24 条规则: enforce 19 / ratchet 4 / report 1) / domain-manifests / compat-manifest / agent-native(+baseline) / agent-routes / agent-selectors / agent-contract-coverage / handwritten-files (生成物防手改+baseline) / delivery(--strict) / route-validation / repository-column-coverage / microservice-governance / doc-claims (`docs:claims:check`) / docs-commands / llms-sync / harness-bundle / specs-health / deps-audit / version-consistency / plan-freshness / audit-log-contracts / contract-governance (`contracts:governance:check`) / dict-catalog (`dict:catalog:check`) / generated-paths / client-build / typecheck-ratchet (`typecheck:check`) / crypto-key-guard (`crypto:key:guard:check`)
 - **generate/sync 家族**: admin-route-manifest / rpc-actions / page-schemas / domain-service-loaders / agent-contracts / table-migration / admin-pages / sbom / dict-catalog / domain-rbac-migration; sync-skills / sync-openwiki / sync-agent-surface / sync-kiro / sync-nullability
 - **Agent 自治**: `agent:route` (需求分诊) / agent:contracts / agent:ops (:health/:suite) / agent:autopilot (:daemon/:heal) / agent:native:check (:audit/:baseline) / agent:page-schemas; `scripts/agent-autopilot-daemon.ts` 常驻心跳守护 (逻辑在 packages/shared/backend/lib/agent-autopilot); `scripts/agent/run-ops.cjs` 契约驱动"走接口不开浏览器"运营 runner; `scripts/mcp/cooliebase-mcp-server.cjs` (40.2KB stdio 只读 MCP)
 - **规格/交付**: speckit 全家 + cmmi:asset + delivery:check/status + runbook + fingerprint + task:verify + plan:freshness

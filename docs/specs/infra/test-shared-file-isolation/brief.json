@@ -103,9 +103,21 @@
       "mitigation": "把 3 次拆成可单独运行的脚本入口（`pnpm harness` 下），不塞进默认 `check` 链。"
     }
   ],
-  "screens": [],
-  "interactions": [],
-  "states": [],
+  "screens": [
+    {
+      "name": "Vitest 并行门禁隔离沙箱诊断输出",
+      "route": "CLI://vitest/isolated-root",
+      "purpose": "为 spawn 门禁脚本的单元测试提供临时目录隔离（拷可变件、软链只读件），消除并发读写真仓根文件的竞态"
+    }
+  ],
+  "interactions": [
+    "测试调用 createIsolatedRoot 构造含软链只读目录与独立可变文件的临时工作区，传入 --root 环境变量或 cwd 执行门禁断言，结束后自动清理"
+  ],
+  "states": [
+    "isolated-workspace-created（临时根初始化完成）",
+    "mutated-under-test（测试注入坏数据验证门禁变红）",
+    "cleaned-up（测试结束清理临时目录，主仓零污染）"
+  ],
   "candidates": [
     {
       "name": "① 门禁接受 `--root <dir>`，测试在临时根跑",

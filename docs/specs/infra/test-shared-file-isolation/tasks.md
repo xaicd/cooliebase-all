@@ -32,12 +32,22 @@
     },
     {
       "id": "wave-3",
-      "title": "端到端测试与集成验证",
+      "title": "E2E 页面拟人操作运营配置（严禁直接 Seed 数据库）",
       "tasks": [
         "T3"
       ],
       "dependsOn": [
         "wave-2"
+      ]
+    },
+    {
+      "id": "wave-4",
+      "title": "端到端自动化测试与集成验证",
+      "tasks": [
+        "T4"
+      ],
+      "dependsOn": [
+        "wave-3"
       ]
     }
   ]
@@ -58,7 +68,7 @@
 
 - [ ] **T3**: 把其余会改共享文件的测试一并迁到隔离方式（实测清单为准）
   - 归属: `T2`
-  - 文件白名单: `test/unit/plan-freshness-gate.test.ts, test/unit/version-consistency.test.ts, test/unit/generated-paths-gate.test.ts`
+  - 文件白名单: `test/helpers/isolated-root.ts, test/unit/plan-freshness-gate.test.ts, test/unit/version-consistency.test.ts, test/unit/generated-paths-gate.test.ts, test/unit/docs-commands-gate.test.ts, test/unit/llms-sync-gate.test.ts, test/unit/vacuous-assertion-rule.test.ts, test/unit/doc-claims-gate.test.ts, test/unit/deps-audit-gate.test.ts, test/unit/json-duplicate-keys.test.ts, test/unit/route-update-arity-rule.test.ts, test/unit/frontend-api-url-shape-rule.test.ts`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
 - [ ] **T4**: 验收：连跑 3 次全绿、失败集合一致、跑完 git status 干净、反向对照能发现污染
@@ -80,7 +90,7 @@
 |---|---|---|---|---|
 | T1 | main | 写红灯：稳定复现「读方看到写方的中间态」，并列出共享文件与涉及门禁的完整清单 | - | 未开始 |
 | T2 | T1 | 实现隔离（按选定候选；不动判定语义，只改数据来源） | scripts/check-harness-integrity.cjs, scripts/check-harness-trunk-dispatch.cjs, test/unit/harness-entry.test.ts | 未开始 |
-| T3 | T2 | 把其余会改共享文件的测试一并迁到隔离方式（实测清单为准） | test/unit/plan-freshness-gate.test.ts, test/unit/version-consistency.test.ts, test/unit/generated-paths-gate.test.ts | 未开始 |
+| T3 | T2 | 把其余会改共享文件的测试一并迁到隔离方式（实测清单为准） | test/helpers/isolated-root.ts, test/unit/plan-freshness-gate.test.ts, test/unit/version-consistency.test.ts, test/unit/generated-paths-gate.test.ts, test/unit/docs-commands-gate.test.ts, test/unit/llms-sync-gate.test.ts, test/unit/vacuous-assertion-rule.test.ts, test/unit/doc-claims-gate.test.ts, test/unit/deps-audit-gate.test.ts, test/unit/json-duplicate-keys.test.ts, test/unit/route-update-arity-rule.test.ts, test/unit/frontend-api-url-shape-rule.test.ts | 未开始 |
 | T4 | T3 | 验收：连跑 3 次全绿、失败集合一致、跑完 git status 干净、反向对照能发现污染 | - | 未开始 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)

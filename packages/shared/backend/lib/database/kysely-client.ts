@@ -11,6 +11,7 @@ import { Kysely, DummyDriver, SqliteAdapter, SqliteIntrospector, SqliteQueryComp
 import { getDataSourceConfig, isMemoryMode } from "./datasource-manager"
 import { writeCompactError } from "../observability"
 import { tenantIsolationPlugin } from "./tenant-isolation-plugin"
+import { dataScopeIsolationPlugin } from "./data-scope-plugin"
 import { multiDataSourceManager } from "./multi-datasource-manager"
 import type { DatabaseDriver, DataSourceConfig } from "./types"
 import type { DB } from "./schema"
@@ -139,7 +140,7 @@ export async function createKyselyInstance(config: DataSourceConfig): Promise<Ky
       dialect = createDummyDialect()
   }
 
-  return new Kysely<DB>({ dialect, plugins: [tenantIsolationPlugin] })
+  return new Kysely<DB>({ dialect, plugins: [tenantIsolationPlugin, dataScopeIsolationPlugin] })
 }
 
 /**

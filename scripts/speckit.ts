@@ -498,7 +498,7 @@ function handleBuild() {
   ).join("\n")
 
   const screensText = (brief.screens ?? [])
-    .map((s: any) => `### ${s.name}\n\n\`\`\`\n${s.wireframe}\n\`\`\``)
+    .map((s: any) => `### ${s.name}\n\n\`\`\`\n${s.wireframe ?? s.purpose ?? s.route ?? s.name}\n\`\`\``)
     .join("\n\n")
 
   const interactionsText = (brief.interactions ?? []).map((i: string) => `* ${i}`).join("\n")
@@ -600,8 +600,8 @@ const specKitPointer = (target: string, title: string) =>
   // 10. 原型与交互规范 (Spec-Kit Native: prototype.md)
   const prototypeTpl = loadTemplate("prototype-template.md")
   const prototypeContent = prototypeTpl ? render(prototypeTpl, templateVars) : ""
-  // **按规格类型裁剪**：prototype.md 只在带界面的类型产（refactor/bugfix 无 UI，产出即空壳）
-  if (brief.type === "feature" || brief.type === "enhancement") files["prototype.md"] = prototypeContent
+  // **按规格类型裁剪**：prototype.md 只在带界面的类型或显式声明了 screens 时产
+  if (brief.type === "feature" || brief.type === "enhancement" || (brief.screens ?? []).length > 0) files["prototype.md"] = prototypeContent
 
   // 10. 规格元数据 (Spec-Kit Native: spec.json + feature.json)
   const specJson = {

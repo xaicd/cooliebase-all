@@ -23,8 +23,13 @@ export function pgType(column: {
   switch (column.type) {
     case "varchar":
       if (column.maxLength) return `VARCHAR(${column.maxLength})`
-      // 租户/外键类给窄一点，正文类宽一些；统一 VARCHAR 避免 TEXT 无法建唯一索引的坑。
-      return column.name === "tenant_id" ? "VARCHAR(64)" : "VARCHAR(255)"
+      // 对齐 docs/architecture/database-design-standard-v1.md §2 长度裁决规则：
+      // 租户/编码/状态类 64，名称/标题类 100，描述/备注类 500，其余常规文本 255。
+      if (column.name === "tenant_id" || column.name === "company_id") return "VARCHAR(64)"
+      if (/^(code|status|type|.*_code|.*_status|.*_type)$/.test(column.name)) return "VARCHAR(64)"
+      if (/^(name|title|.*_name|.*_title)$/.test(column.name)) return "VARCHAR(100)"
+      if (/^(remark|description|summary|.*_desc|.*_remark)$/.test(column.name)) return "VARCHAR(500)"
+      return "VARCHAR(255)"
     case "text":
       return "TEXT"
     case "int":
@@ -112,9 +117,12 @@ export function tableDdl(table: {
       statements.push(`ALTER TABLE "${table.name}" ALTER COLUMN "${column.name}" TYPE TEXT USING "${column.name}"::TEXT;`)
     }
   }
-  // 多租户过滤（AGENTS §4.8）几乎总是按 tenant_id 走，补索引。
+  // 多租户过滤（AGENTS §4.8 & database-design-standard-v1 §4）必建索引。
   if (columns.some((column) => column.name === "tenant_id")) {
     statements.push(`CREATE INDEX IF NOT EXISTS "${table.name}_tenant_id_idx" ON "${table.name}"("tenant_id");`)
+  }
+  if (columns.some((column) => column.name === "company_id")) {
+    statements.push(`CREATE INDEX IF NOT EXISTS "${table.name}_company_id_idx" ON "${table.name}"("company_id");`)
   }
   return `-- ${table.comment ?? table.name}\n${statements.join("\n")}`
 }
