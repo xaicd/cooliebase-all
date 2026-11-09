@@ -124,6 +124,7 @@ function parseArgs(args) {
     dbName: null,
     port: 3200,
     author: null,
+    basePath: null,
     profile: "standard",
     // vertical profile 需要；此前 project-init 完全不认 --bundle，
     // 于是 `--profile vertical --bundle mall` 会在 clone 阶段报
@@ -152,6 +153,8 @@ function parseArgs(args) {
     else if (arg.startsWith("--port=")) options.port = parseInt(arg.split("=")[1], 10) || 3200
     else if (arg === "--author" && args[i + 1]) options.author = args[++i]
     else if (arg.startsWith("--author=")) options.author = arg.split("=")[1]
+    else if (arg === "--base-path" && args[i + 1]) options.basePath = args[++i]
+    else if (arg.startsWith("--base-path=")) options.basePath = arg.split("=")[1]
     else if (arg === "--profile" && args[i + 1]) options.profile = args[++i]
     else if (arg.startsWith("--profile=")) options.profile = arg.split("=")[1]
     else if (arg === "--bundle" && args[i + 1]) options.bundle = String(args[++i]).split(",").map((v) => v.trim()).filter(Boolean)
@@ -248,15 +251,34 @@ function resolveSqliteDbPath(opts) {
   return `data/${opts.name}.db`
 }
 
+/**
+ * 与 next.config.mjs 及 compat-manifest.json (defaultMode: "base-path") 保持严格契约对齐：
+ * 派生工程默认以 /<project-name> 作为 basePath（除非显式指定 --base-path / 设为根路径）。
+ */
+function resolveInitBasePath(opts) {
+  if (opts.basePath !== null && opts.basePath !== undefined) {
+    const raw = String(opts.basePath).trim()
+    if (!raw || raw === "/") return ""
+    return "/" + raw.replace(/^\/+/, "").replace(/\/+$/, "")
+  }
+  const isMasterBase = opts.name === "cooliebase" + "-all"
+  if (isMasterBase) return ""
+  return "/" + String(opts.name).replace(/^\/+/, "").replace(/\/+$/, "")
+}
+
 function updateEnvFiles(targetDir, opts) {
   const dbName = opts.dbName || opts.name.replace(/[^a-zA-Z0-9]/g, "_").toLowerCase()
   const sqliteDbPath = resolveSqliteDbPath(opts)
+  const basePath = resolveInitBasePath(opts)
 
   const envUpdates = {
     NEXT_PUBLIC_APP_TITLE: opts.title,
     NEXT_PUBLIC_APP_SHORT_NAME: opts.shortName || opts.title.slice(0, 4),
     PORT: String(opts.port),
     DB_NAME: dbName,
+    BASE_PATH: basePath,
+    PREVIEW_BASE_PATH: basePath,
+    NEXT_PUBLIC_BASE_PATH: basePath,
   }
 
   // 零配置 SQLite 路径必须把**运行时真正读取的变量**一起写全，否则会出现
@@ -554,6 +576,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   --git <url>            新业务 Git 远程仓库地址
   --db <dbname>          自定义数据库名称 (默认按英文名转换)
   --port <port>          启动端口 (默认: 3200)
+  --base-path <path>     网关子路径前缀 (默认: /<name>，传 / 则为根路径)
   --author <author>      公司或作者名称 (用于版权声明)
   --profile <profile>    保留域模板: standard (全量 17 域) | minimal | base
   --bundle <a,b>         vertical profile 的业务域白名单 (例如: mall,crm)
@@ -610,9 +633,13 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     console.log(`\n🎉 [SUCCESS] 当前底座已成功重构为专属业务工程: [${opts.title} (${opts.name})]`)
   }
 
+  const basePath = resolveInitBasePath(opts)
   console.log(`
 后续启动步骤:
-  1. pnpm dev                       # 启动本地开发服务 (http://localhost:${opts.port})
+  1. pnpm dev                       # 启动本地开发服务 (http://localhost:${opts.port}${basePath})
+     • C端门户:  http://localhost:${opts.port}${basePath}/2c
+     • B端后台:  http://localhost:${opts.port}${basePath}/admin
+     • 接口沙盒: http://localhost:${opts.port}${basePath}/api/docs
   2. pnpm run check                 # 门禁自检全绿验证
 `)
 }

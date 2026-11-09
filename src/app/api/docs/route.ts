@@ -1,6 +1,7 @@
 import fs from "node:fs"
 import path from "node:path"
 import { NextResponse, type NextRequest } from "next/server"
+import { getBasePath, withBasePath } from "@/shared/frontend/lib/base-path"
 
 interface AgentMethodSpec {
   http: string
@@ -55,7 +56,7 @@ function loadAgentContractsRegistry(): AgentContractsRegistry {
 /**
  * 将全量 Agent 契约（docs/agent/contracts.json）动态编译为 OpenAPI 3.1.0 标准文档
  */
-export function buildOpenApi31Spec(domainFilter?: string) {
+export function buildOpenApi31Spec(domainFilter?: string, basePath = getBasePath()) {
   const registry = loadAgentContractsRegistry()
   const contracts = domainFilter
     ? registry.contracts.filter((c) => c.domain === domainFilter)
@@ -166,7 +167,12 @@ export function buildOpenApi31Spec(domainFilter?: string) {
       version: "1.2.0",
       description: `聚合全仓 ${registry.total} 份机器可读 Agent 契约（覆盖 ${registry.domains.length} 个业务域），支持 Bearer JWT 注入与浏览器端实时 HTTP 调试。`,
     },
-    servers: [{ url: "/", description: "当前网关实例" }],
+    servers: [
+      {
+        url: basePath || "/",
+        description: basePath ? `当前子路径网关实例 (${basePath})` : "当前网关实例",
+      },
+    ],
     tags: registry.domains.map((d) => ({
       name: d.domain,
       description: `${d.domain} 域（${d.count} 个业务实体契约）`,
@@ -185,7 +191,12 @@ export function buildOpenApi31Spec(domainFilter?: string) {
   }
 }
 
-function renderInteractiveSandboxHtml(specUrl: string, totalContracts: number, totalDomains: number): string {
+function renderInteractiveSandboxHtml(
+  specUrl: string,
+  totalContracts: number,
+  totalDomains: number,
+  basePath = "",
+): string {
   return `<!DOCTYPE html>
 <html lang="zh-CN">
 <head>
@@ -220,6 +231,7 @@ function renderInteractiveSandboxHtml(specUrl: string, totalContracts: number, t
       <strong>CoolieBase OpenAPI 3.1 交互式调试沙箱</strong>
       <span class="badge">OpenAPI 3.1.0</span>
       <span class="badge">${totalDomains} 业务域 / ${totalContracts} 契约</span>
+      <span class="badge">basePath: ${basePath || "/"}</span>
     </div>
     <div class="toolbar">
       <input id="jwt-token" type="password" placeholder="Bearer JWT Token (可选)" style="width: 260px;" />
@@ -243,7 +255,12 @@ function renderInteractiveSandboxHtml(specUrl: string, totalContracts: number, t
   </main>
   <script>
     (async function () {
-      const res = await fetch("${specUrl}");
+      const BASE_PATH = ${JSON.stringify(basePath)};
+      function withBase(u) {
+        if (!BASE_PATH || typeof u !== "string" || !u.startsWith("/")) return u;
+        return (u === BASE_PATH || u.startsWith(BASE_PATH + "/")) ? u : BASE_PATH + u;
+      }
+      const res = await fetch(withBase("${specUrl}"));
       const spec = await res.json();
       const listEl = document.getElementById("endpoint-list");
       listEl.innerHTML = "";
@@ -270,7 +287,7 @@ function renderInteractiveSandboxHtml(specUrl: string, totalContracts: number, t
         const out = document.getElementById("res-output");
         out.textContent = "请求发送中...";
         try {
-          const r = await fetch(url, {
+          const r = await fetch(withBase(url), {
             method,
             headers,
             body: (method === "POST" || method === "PUT") && bodyText ? bodyText : undefined,
@@ -292,9 +309,10 @@ export async function GET(request: NextRequest) {
   const format = searchParams.get("format")
   const domain = searchParams.get("domain") || undefined
   const accept = request.headers.get("accept") || ""
+  const basePath = getBasePath()
 
   if (format === "json" || accept.includes("application/openapi+json")) {
-    const spec = buildOpenApi31Spec(domain)
+    const spec = buildOpenApi31Spec(domain, basePath)
     return NextResponse.json(spec, {
       status: 200,
       headers: { "Cache-Control": "no-store" },
@@ -302,8 +320,9 @@ export async function GET(request: NextRequest) {
   }
 
   const registry = loadAgentContractsRegistry()
-  const jsonUrl = domain ? `/api/docs?format=json&domain=${encodeURIComponent(domain)}` : "/api/docs?format=json"
-  const html = renderInteractiveSandboxHtml(jsonUrl, registry.total, registry.domains.length)
+  const rawJsonUrl = domain ? `/api/docs?format=json&domain=${encodeURIComponent(domain)}` : "/api/docs?format=json"
+  const jsonUrl = withBasePath(rawJsonUrl)
+  const html = renderInteractiveSandboxHtml(jsonUrl, registry.total, registry.domains.length, basePath)
   return new NextResponse(html, {
     status: 200,
     headers: { "Content-Type": "text/html; charset=utf-8" },

@@ -6,7 +6,7 @@ import { OnlineJeecgConfigurationTabs } from "@/modules/online/frontend/componen
 import { OnlineMasterDetailSemanticsEditor } from "@/modules/online/frontend/components/online-master-detail-semantics-editor"
 import { OnlineTreeSemanticsEditor } from "@/modules/online/frontend/components/online-tree-semantics-editor"
 import type { OnlineDefinitionDetail } from "@/modules/online/backend/application/online-definition.contract"
-import { request } from "@/modules/shared/frontend/lib/request"
+import { apiPath, request, toRuntimeApiPath } from "@/modules/shared/frontend/lib/request"
 import { evaluateBooleanExpression } from "@/modules/shared/frontend/lib/expression-engine"
 
 const endpoint = "/api/v1/admin/online/definitions"
@@ -207,7 +207,7 @@ export default function OnlineDefinitionDesignerPage({ code }: { code: string })
     setBusy(true); setMessage("")
     try {
       const token = localStorage.getItem("cooliebase_token")
-      const response = await fetch(`${endpoint}/${detail.code}/codegen/download`, { headers: token ? { Authorization: `Bearer ${token}` } : {} })  // request-contract-exempt: 下载生成代码包需要 Response.blob()，统一请求层只解 JSON
+      const response = await fetch(apiPath(toRuntimeApiPath(`${endpoint}/${detail.code}/codegen/download`)), { headers: token ? { Authorization: `Bearer ${token}` } : {} })  // request-contract-exempt: 下载生成代码包需要 Response.blob()，统一请求层只解 JSON
       if (!response.ok) { const body = await response.json().catch(() => null); setMessageTone("error"); setMessage(body?.error ?? "代码生成失败：当前发布版本可能包含尚未受共享模板支持的配置"); return }
       const blob = await response.blob(); const url = URL.createObjectURL(blob); const link = document.createElement("a")
       link.href = url; link.download = `online-${detail.code}-release-${detail.currentRelease?.schemaRevision ?? 0}.zip`; link.click(); URL.revokeObjectURL(url)

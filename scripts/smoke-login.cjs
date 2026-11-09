@@ -30,7 +30,21 @@ const DB = "cooliebase_smoke"
 // `prisma generate && next dev -p 3200`，**写死了 3200**，给 PORT 环境变量无效。
 // 实测踩到: 冒烟探 3201 而应用在 3200，报起服务失败（其实服务是好的）。
 const PORT = process.env.SMOKE_PORT || "3200"
-const BASE = `http://localhost:${PORT}`
+const BASE_PATH = (() => {
+  let autoSlug = ""
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+    const isMasterBase = process.env.COOLIE_MASTER_BASE === "true" || pkg.name === "cooliebase" + "-all"
+    if (pkg.name && !isMasterBase) {
+      autoSlug = "/" + String(pkg.name).replace(/^@.*\//, "").replace(/^\/+/, "").replace(/\/+$/, "")
+    }
+  } catch {
+    /* package.json 不可读时回退根路径 */
+  }
+  const raw = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || autoSlug || "").trim()
+  return raw && raw !== "/" ? "/" + raw.replace(/^\/+/, "").replace(/\/+$/, "") : ""
+})()
+const BASE = `http://localhost:${PORT}${BASE_PATH}`
 const PASSWORD = "Smoke@123456"
 const SALT = "smoke-salt"
 const { resolveDatabaseEndpoint, query, withDatabase } = require("./lib/ephemeral-pg.cjs")

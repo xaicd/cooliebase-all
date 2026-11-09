@@ -22,7 +22,25 @@ const path = require("node:path")
 const ROOT = path.resolve(__dirname, "..", "..")
 const REGISTRY = path.join(ROOT, "docs", "agent", "contracts.json")
 
-const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")
+const defaultBaseUrl = (() => {
+  let autoSlug = ""
+  let devPort = process.env.PORT || "3200"
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+    const isMasterBase = process.env.COOLIE_MASTER_BASE === "true" || pkg.name === "cooliebase" + "-all"
+    if (pkg.name && !isMasterBase) {
+      autoSlug = "/" + String(pkg.name).replace(/^@.*\//, "").replace(/^\/+/, "").replace(/\/+$/, "")
+    }
+    const m = /-p\s+(\d+)/.exec(pkg.scripts?.dev || "")
+    if (!process.env.PORT && m?.[1]) devPort = m[1]
+  } catch {
+    /* package.json 不可读时使用默认端口与根路径 */
+  }
+  const rawBp = (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH || autoSlug || "").trim()
+  const bp = rawBp && rawBp !== "/" ? "/" + rawBp.replace(/^\/+/, "").replace(/\/+$/, "") : ""
+  return `http://localhost:${devPort}${bp}`
+})()
+const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || defaultBaseUrl).replace(/\/$/, "")
 // `--json`：机器可读报告。MCP 的 `cooliebase_api_probe` 就是 spawn 本脚本并解析它 ——
 // **探测逻辑只有这一份**，不另写一套（避免第二个真源）。
 const asJson = process.argv.includes("--json")

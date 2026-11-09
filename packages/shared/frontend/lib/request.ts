@@ -38,14 +38,16 @@ type RequestOptions = {
  * 因此这些手写请求必须用 apiPath() 拼上前缀。未配置时返回原路径，行为不变。
  */
 export const BASE_PATH = (process.env.NEXT_PUBLIC_BASE_PATH || "").replace(/\/+$/, "")
-export { getBasePath, withBasePath } from "./base-path"
+import { getBasePath, withBasePath } from "./base-path"
+export { getBasePath, withBasePath }
 
 /** 给以 / 开头的同源路径拼上预览子路径前缀（幂等：已带前缀则不重复拼） */
 export function apiPath(path: string): string {
-  if (!BASE_PATH) return path
+  const base = getBasePath() || BASE_PATH
+  if (!base) return path
   if (typeof path !== "string" || !path.startsWith("/")) return path
-  if (path === BASE_PATH || path.startsWith(BASE_PATH + "/")) return path
-  return BASE_PATH + path
+  if (path === base || path.startsWith(base + "/")) return path
+  return base + path
 }
 
 /**
@@ -55,22 +57,18 @@ export function apiPath(path: string): string {
  * 会被 proxy perimeter 统一要求管理员鉴权，而插件鉴权是**运行期按 manifest 声明**的
  * （operator / company / public），静态白名单表达不了。
  *
- * 但代码生成模板（`codegen-templates/frontend-api.template.ts`）把 344 个前端 API 客户端
- * 一律生成为 `/api/v1/admin/<域>/<资源>` —— 于是**页面 200、数据全 404**（实测 118 个接口）。
- * 这里做一次**单一收敛点**的归一化：平台域（system/infra）保持原样，插件域改写到真实挂载点。
- *
- * 与 `packages/shared/backend/constants/domain-catalog.json` 的 `kind` 对齐（platform / plugin）。
+ * 平台地基域（`system` / `infra`）保持 `/api/v1/admin/<域>` 原样；
+ * 其余 15 个内置插件域及任何通过 `blueprint:deliver` / `domain:new` 新增的第一方业务插件域，
+ * 统一归一化到 `/api/v1/plugins/cooliebase.<域>/api` 真实挂载点。
  */
-const PLUGIN_DOMAINS = new Set([
-  "ai", "aigw", "bpm", "crm", "erp", "im", "iot", "mall", "member", "mes", "mp", "online", "pay", "report", "wms",
-])
+const PLATFORM_DOMAINS = new Set(["system", "infra"])
 
 export function toRuntimeApiPath(path: string): string {
   if (typeof path !== "string") return path
   const matched = /^\/api\/v1\/(admin|app|open)\/([^/?#]+)(\/.*)?$/.exec(path)
   if (!matched) return path
   const [, surface, domain, rest = ""] = matched
-  if (!PLUGIN_DOMAINS.has(domain)) return path
+  if (PLATFORM_DOMAINS.has(domain) || domain === "plugins") return path
   if (surface === "app" || surface === "open") {
     return `/api/v1/plugins/cooliebase.${domain}/api/${surface}${rest}`
   }
@@ -121,7 +119,7 @@ class RequestClient {
     }
 
     try {
-      const response = await fetch(this.baseUrl + toRuntimeApiPath(url), fetchOptions)
+      const response = await fetch(apiPath(toRuntimeApiPath(url)), fetchOptions)
 
       if (response.status === 401 && !noAuth) {
         this.handleUnauthorized()

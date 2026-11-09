@@ -1018,8 +1018,12 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   const destEnv = path.join(resolvedTarget, ".env")
   const srcEnv = path.join(SOURCE_ROOT, ".env")
   const bootstrap = resolveBootstrap()
+  const targetBasePath = targetName === "cooliebase" + "-all" ? "" : `/${targetName}`
   const required = {
     PORT: String(targetPort),
+    BASE_PATH: targetBasePath,
+    PREVIEW_BASE_PATH: targetBasePath,
+    NEXT_PUBLIC_BASE_PATH: targetBasePath,
     JWT_SECRET: require("node:crypto").randomBytes(32).toString("hex"),
     TENANT_MODE: "disabled",
     TENANT_PLATFORM_USERNAMES: bootstrap.username,
@@ -1075,7 +1079,8 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   console.log("")
   console.log("  首次启动后需要**登记第一方插件**（走鉴权）:")
   console.log("    curl -X POST -H \"Authorization: Bearer <token>\" \\")
-  console.log("         http://localhost:<port>/api/v1/admin/plugins")
+  console.log(`         http://localhost:${targetPort}${targetBasePath}/api/v1/admin/plugins`)
+  console.log(`  统一入口: http://localhost:${targetPort}${targetBasePath} (C端: /2c · B端: /admin · 沙盒: /api/docs)`)
   console.log("  不登记的话，插件域的接口（/api/v1/plugins/<id>/api/…）会一直 404 ——")
   console.log("  因为宿主只挂载**已登记**的插件（实测: 登记前 404、登记后 200）。")
   console.log(`  Hatch: ${plan.profile} → ${HATCH_MANIFEST_REL}`)

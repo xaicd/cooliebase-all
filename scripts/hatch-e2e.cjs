@@ -195,9 +195,18 @@ async function verifyOutOfTheBox(target, label) {
   const envFile = readEnv(".env")
   const envLocal = readEnv(".env.local")
   const sqlitePath = pick(envFile, "SQLITE_DB_PATH") || pick(envLocal, "SQLITE_DB_PATH")
-  const devScript = JSON.parse(fsMod.readFileSync(pathMod.join(target, "package.json"), "utf8")).scripts?.dev ?? ""
+  const pkgObj = JSON.parse(fsMod.readFileSync(pathMod.join(target, "package.json"), "utf8"))
+  const devScript = pkgObj.scripts?.dev ?? ""
   const port = Number(/-p\s+(\d+)/.exec(devScript)?.[1] ?? 0)
-  const base = `http://127.0.0.1:${port || 3200}`
+  const rawBasePath = (
+    pick(envLocal, "BASE_PATH") ||
+    pick(envLocal, "NEXT_PUBLIC_BASE_PATH") ||
+    pick(envFile, "BASE_PATH") ||
+    pick(envFile, "NEXT_PUBLIC_BASE_PATH") ||
+    (pkgObj.name && pkgObj.name !== "cooliebase" + "-all" ? `/${pkgObj.name}` : "")
+  ).trim()
+  const basePath = rawBasePath && rawBasePath !== "/" ? "/" + rawBasePath.replace(/^\/+/, "").replace(/\/+$/, "") : ""
+  const base = `http://127.0.0.1:${port || 3200}${basePath}`
 
   // 只对**自带持久库**的产物做开箱验活。`project:create` 用的是 PostgreSQL，
   // 而在 e2e 里那台是**嵌入式、随 reactor 进程结束而消失**的 —— 产物 `.env` 里

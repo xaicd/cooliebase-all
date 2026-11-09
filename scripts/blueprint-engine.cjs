@@ -231,6 +231,19 @@ function runRender(opts) {
     merged.BRAND_MARK = merged.BRAND_MARK.slice(0, 2)
   }
 
+  // 与 compat-manifest.json (defaultMode: "base-path") 及 next.config.mjs 保持严格一致：
+  // 派生项目 (PROJECT_NAME !== "cooliebase-all") 若未显式传 PREVIEW_BASE_PATH，自动推导为 /<PROJECT_NAME>
+  const isDerivedProject =
+    merged.PROJECT_NAME &&
+    String(merged.PROJECT_NAME).trim() !== "" &&
+    String(merged.PROJECT_NAME).trim() !== "cooliebase" + "-all"
+  if (isDerivedProject && !merged.PREVIEW_BASE_PATH && opts.sets.PREVIEW_BASE_PATH === undefined) {
+    merged.PREVIEW_BASE_PATH = "/" + String(merged.PROJECT_NAME).trim().replace(/^\/+/, "").replace(/\/+$/, "")
+  } else if (merged.PREVIEW_BASE_PATH) {
+    const rawBp = String(merged.PREVIEW_BASE_PATH).trim()
+    merged.PREVIEW_BASE_PATH = rawBp === "/" ? "" : "/" + rawBp.replace(/^\/+/, "").replace(/\/+$/, "")
+  }
+
   const results = []
   for (const tpl of manifest.templateFiles || []) {
     if (tpl.templatePath.startsWith("clients/") && !fs.existsSync(path.join(ROOT, "clients/expo/package.json"))) continue
@@ -248,6 +261,7 @@ function runRender(opts) {
           merged.TELEMETRY_ENABLED === true || merged.TELEMETRY_ENABLED === "true"
         )
         parsed.facade.devPort = Number(merged.ADMIN_PORT) || 3210
+        parsed.facade.basePath = merged.PREVIEW_BASE_PATH || ""
       }
       rendered = JSON.stringify(parsed, null, 2) + "\n"
     }
@@ -637,6 +651,17 @@ function compileBlueprintDomain(domainSpec) {
     }
   }
 
+  const basePath = resolveBlueprintBasePath(healedSpec)
+  const runtimeEndpoints = {
+    basePath,
+    portalEntry: `${basePath}/2c`,
+    adminEntry: `${basePath}/admin`,
+    pluginApiPrefix: `${basePath}/api/v1/plugins/cooliebase.${domain}/api`,
+    openApiDocs: `${basePath}/api/docs?domain=${domain}`,
+    metricsEndpoint: `${basePath}/api/metrics`,
+    sseEndpoint: `${basePath}/api/v1/realtime/sse`,
+  }
+
   const tablesTsCode =
     `// 由 scripts/blueprint-engine.cjs compile-domain 自动从极简业务蓝图展开生成\n` +
     `import type { CodegenConfig } from "../packages/domains/infra/backend/services/codegen-templates"\n\n` +
@@ -644,6 +669,8 @@ function compileBlueprintDomain(domainSpec) {
 
   return {
     domain,
+    basePath,
+    runtimeEndpoints,
     exportName,
     tablesFileRel: `scripts/data/${domain}-tables.ts`,
     codegenTables,
@@ -655,9 +682,53 @@ function compileBlueprintDomain(domainSpec) {
   }
 }
 
-function runCompileDomain(argv) {
+/**
+ * 解析当前蓝图或派生工程生效的 basePath（与 next.config.mjs 及 compat-manifest.json 严格一致）
+ */
+function resolveBlueprintBasePath(domainSpec, rootDir = ROOT) {
+  const normalize = (raw) => {
+    const trimmed = String(raw || "").trim()
+    if (!trimmed || trimmed === "/") return ""
+    return "/" + trimmed.replace(/^\/+/, "").replace(/\/+$/, "")
+  }
+  if (domainSpec && domainSpec.basePath !== undefined) {
+    return normalize(domainSpec.basePath)
+  }
+  if (domainSpec?.variables?.PREVIEW_BASE_PATH !== undefined && domainSpec.variables.PREVIEW_BASE_PATH !== "") {
+    return normalize(domainSpec.variables.PREVIEW_BASE_PATH)
+  }
+  if (
+    domainSpec?.variables?.PROJECT_NAME &&
+    String(domainSpec.variables.PROJECT_NAME).trim() !== "cooliebase" + "-all"
+  ) {
+    return normalize(domainSpec.variables.PROJECT_NAME)
+  }
+  if (process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH) {
+    return normalize(process.env.BASE_PATH || process.env.PREVIEW_BASE_PATH || process.env.NEXT_PUBLIC_BASE_PATH)
+  }
+  try {
+    const pkg = JSON.parse(fs.readFileSync(path.join(rootDir, "package.json"), "utf8"))
+    const isMaster = process.env.COOLIE_MASTER_BASE === "true" || pkg.name === "cooliebase" + "-all"
+    if (pkg.name && !isMaster) {
+      return normalize(String(pkg.name).replace(/^@.*\//, ""))
+    }
+  } catch {
+    /* package.json 缺失或解析失败时回退根路径 */
+  }
+  return ""
+}
+
+function resolveBlueprintFileArg(argv) {
   const fileIdx = argv.indexOf("--file")
-  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  if (fileIdx >= 0 && argv[fileIdx + 1]) return argv[fileIdx + 1]
+  const fromIdx = argv.indexOf("--from")
+  if (fromIdx >= 0 && argv[fromIdx + 1]) return argv[fromIdx + 1]
+  const positional = argv.slice(1).find((a) => !a.startsWith("-"))
+  return positional || null
+}
+
+function runCompileDomain(argv) {
+  const fileArg = resolveBlueprintFileArg(argv)
   const write = argv.includes("--write")
   if (!fileArg) {
     throw new Error("用法: node scripts/blueprint-engine.cjs compile-domain --file <domain-blueprint.json> [--write]")
@@ -684,6 +755,8 @@ function runCompileDomain(argv) {
       JSON.stringify(
         {
           domain: compiled.domain,
+          basePath: compiled.basePath,
+          runtimeEndpoints: compiled.runtimeEndpoints,
           tablesFileRel: compiled.tablesFileRel,
           tableCount: compiled.codegenTables.length,
           pageSchemas: compiled.pageSchemas,
@@ -697,19 +770,18 @@ function runCompileDomain(argv) {
 }
 
 function runDoctor(argv) {
-  const fileIdx = argv.indexOf("--file")
-  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  const fileArg = resolveBlueprintFileArg(argv)
   if (!fileArg) {
     throw new Error("用法: node scripts/blueprint-engine.cjs doctor --file <domain-blueprint.json>")
   }
   const spec = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), fileArg), "utf8"))
   const { healedSpec, diagnostics } = diagnoseAndHealBlueprint(spec)
-  console.log(JSON.stringify({ domain: healedSpec.domain, diagnostics, healedSpec }, null, 2))
+  const basePath = resolveBlueprintBasePath(healedSpec)
+  console.log(JSON.stringify({ domain: healedSpec.domain, basePath, diagnostics, healedSpec }, null, 2))
 }
 
 function runDeliver(argv) {
-  const fileIdx = argv.indexOf("--file")
-  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  const fileArg = resolveBlueprintFileArg(argv)
   const dryRun = argv.includes("--dry-run")
   if (!fileArg) {
     throw new Error("用法: node scripts/blueprint-engine.cjs deliver --file <domain-blueprint.json> [--dry-run]")
@@ -736,7 +808,10 @@ function runDeliver(argv) {
     })
   }
   console.log(
-    `[blueprint-engine] ${dryRun ? "DELIVER DRY-RUN" : "DELIVERED"}: 域 "${compiled.domain}" (${compiled.codegenTables.length} 张表, 自愈诊断 ${compiled.diagnostics.length} 项)`
+    `[blueprint-engine] ${dryRun ? "DELIVER DRY-RUN" : "DELIVERED"}: 域 "${compiled.domain}" (${compiled.codegenTables.length} 张表, 自愈诊断 ${compiled.diagnostics.length} 项, basePath="${compiled.basePath || "/"}")`
+  )
+  console.log(
+    `  • B端后台: ${compiled.runtimeEndpoints.adminEntry}  · C端门户: ${compiled.runtimeEndpoints.portalEntry}  · 插件API: ${compiled.runtimeEndpoints.pluginApiPrefix}  · OpenAPI沙盒: ${compiled.runtimeEndpoints.openApiDocs}`
   )
 }
 
@@ -759,6 +834,7 @@ module.exports = {
   buildDefaultMap,
   extractPlaceholdersFromText,
   renderTemplateText,
+  resolveBlueprintBasePath,
   diagnoseAndHealBlueprint,
   compileBlueprintDomain,
 }

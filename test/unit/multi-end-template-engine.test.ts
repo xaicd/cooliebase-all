@@ -35,8 +35,10 @@ const {
   loadManifest,
   extractPlaceholdersFromText,
   renderTemplateText,
+  resolveBlueprintBasePath,
   compileBlueprintDomain,
 } = require("../../scripts/blueprint-engine.cjs")
+import { apiPath, toRuntimeApiPath } from "@/shared/frontend/lib/request"
 
 describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)", () => {
   describe("1. Zero-Eval Reactive Expression Sandbox (expression-engine.ts)", () => {
@@ -1012,6 +1014,57 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(sseText).toContain("event: connected")
       expect(sseText).toContain("event: approval.approved")
       expect(sseText).toContain("REQ-01")
+    })
+
+    it("T12: propagates basePath across blueprint compiler, runtime plugin API routing, and OpenAPI sandbox", async () => {
+      const { buildOpenApi31Spec } = await import("../../src/app/api/docs/route")
+      // 1. 蓝图编译器自动从 PROJECT_NAME 或显式 basePath 推导子路径与运行时端点
+      const compiled = compileBlueprintDomain({
+        domain: "bookstore",
+        variables: { PROJECT_NAME: "try-bookstore" },
+        entities: [
+          {
+            table: "book",
+            title: "电子图书",
+            fields: [{ name: "title", label: "书名", widget: "text", required: true }],
+          },
+        ],
+      })
+      expect(compiled.basePath).toBe("/try-bookstore")
+      expect(compiled.runtimeEndpoints).toEqual({
+        basePath: "/try-bookstore",
+        portalEntry: "/try-bookstore/2c",
+        adminEntry: "/try-bookstore/admin",
+        pluginApiPrefix: "/try-bookstore/api/v1/plugins/cooliebase.bookstore/api",
+        openApiDocs: "/try-bookstore/api/docs?domain=bookstore",
+        metricsEndpoint: "/try-bookstore/api/metrics",
+        sseEndpoint: "/try-bookstore/api/v1/realtime/sse",
+      })
+      expect(resolveBlueprintBasePath({ basePath: "/" })).toBe("")
+      expect(resolveBlueprintBasePath({ basePath: "custom-subpath" })).toBe("/custom-subpath")
+
+      // 2. 新生成的业务插件域（如 bookstore / flipshop）自动归一化到插件挂载点并拼接 basePath
+      expect(toRuntimeApiPath("/api/v1/admin/bookstore/books")).toBe(
+        "/api/v1/plugins/cooliebase.bookstore/api/books",
+      )
+      expect(toRuntimeApiPath("/api/v1/admin/system/users")).toBe("/api/v1/admin/system/users")
+
+      const prevBasePath = process.env.BASE_PATH
+      try {
+        process.env.BASE_PATH = "/try-bookstore"
+        expect(apiPath(toRuntimeApiPath("/api/v1/admin/bookstore/books"))).toBe(
+          "/try-bookstore/api/v1/plugins/cooliebase.bookstore/api/books",
+        )
+        // 幂等性：已带 basePath 前缀的不重复拼接
+        expect(apiPath("/try-bookstore/api/docs")).toBe("/try-bookstore/api/docs")
+
+        // 3. OpenAPI 3.1 沙盒自动将 servers[0].url 绑定到当前 basePath
+        const spec = buildOpenApi31Spec("mall")
+        expect(spec.servers[0]?.url).toBe("/try-bookstore")
+      } finally {
+        if (prevBasePath === undefined) delete process.env.BASE_PATH
+        else process.env.BASE_PATH = prevBasePath
+      }
     })
   })
 })
