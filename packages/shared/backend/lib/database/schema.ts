@@ -492,30 +492,6 @@ export interface DB {
   online_managed_table: OnlineManagedTableTable
   online_test_session: OnlineTestSessionTable
   online_record: OnlineRecordTable
-
-  // Flipshop
-  flip_product: FlipProductTable
-}
-
-
-// === Flipshop 域（翻牌小店） ===
-
-export interface FlipProductTable {
-  id: string
-  tenant_id: string
-  name: string
-  sku_code: string
-  price_cents: number
-  stock: number
-  status: string
-  cover_url: string | null
-  description: string | null
-  created_by: string
-  created_at: Generated<Date>
-  updated_at: Date
-  updated_by: string
-  deleted_at: Date | null
-  version: number
 }
 
 

@@ -18,7 +18,8 @@
       "package": "{{ANDROID_PACKAGE}}"
     },
     "extra": {
-      "apiBase": "http://localhost:{{ADMIN_PORT}}",
+      "apiBase": "http://localhost:{{ADMIN_PORT}}{{PREVIEW_BASE_PATH}}",
+      "basePath": "{{PREVIEW_BASE_PATH}}",
       "projectName": "{{PROJECT_NAME}}",
       "platformTitle": "{{PLATFORM_TITLE}}",
       "shortName": "{{SHORT_NAME}}",

@@ -14,10 +14,38 @@
 
 import Constants from "expo-constants"
 
-const API_BASE =
+const extra = (Constants.expoConfig?.extra ?? {}) as { apiBase?: string; basePath?: string }
+const rawBase =
   process.env.EXPO_PUBLIC_API_BASE ||
-  (Constants.expoConfig?.extra as { apiBase?: string } | undefined)?.apiBase ||
+  extra.apiBase ||
   "http://localhost:3200"
+const rawBasePath = (
+  process.env.EXPO_PUBLIC_BASE_PATH ||
+  process.env.NEXT_PUBLIC_BASE_PATH ||
+  extra.basePath ||
+  ""
+).trim()
+const normalizedBasePath =
+  rawBasePath && rawBasePath !== "/" ? "/" + rawBasePath.replace(/^\/+/, "").replace(/\/+$/, "") : ""
+const trimmedBase = rawBase.replace(/\/+$/, "")
+const API_BASE =
+  normalizedBasePath && !trimmedBase.endsWith(normalizedBasePath)
+    ? `${trimmedBase}${normalizedBasePath}`
+    : trimmedBase
+
+const PLATFORM_DOMAINS = new Set(["system", "infra"])
+
+export function toRuntimeApiPath(path: string): string {
+  if (typeof path !== "string") return path
+  const matched = /^\/api\/v1\/(admin|app|open)\/([^/?#]+)(\/.*)?$/.exec(path)
+  if (!matched) return path
+  const [, surface, domain, rest = ""] = matched
+  if (PLATFORM_DOMAINS.has(domain) || domain === "plugins") return path
+  if (surface === "app" || surface === "open") {
+    return `/api/v1/plugins/cooliebase.${domain}/api/${surface}${rest}`
+  }
+  return `/api/v1/plugins/cooliebase.${domain}/api${rest}`
+}
 
 /** 调用方可声明的 UI 反馈策略（对齐上游的 custom 块）。 */
 export interface RequestFeedback {
@@ -107,7 +135,7 @@ export async function request<T = unknown>(options: RequestOptions): Promise<T> 
   const timer = setTimeout(() => controller.abort(), options.timeoutMs ?? 15000)
 
   try {
-    const response = await fetch(`${API_BASE}${options.url}`, {
+    const response = await fetch(`${API_BASE}${toRuntimeApiPath(options.url)}`, {
       method,
       headers: {
         "Content-Type": "application/json",

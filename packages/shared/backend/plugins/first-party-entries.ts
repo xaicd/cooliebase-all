@@ -31,7 +31,6 @@ export const FIRST_PARTY_PLUGIN_ENTRIES: Record<string, PluginEntryFactory> = {
   "cooliebase.online": () => import("@/plugins/plugin-online/plugin-entry"),
   "cooliebase.mall": () => import("@/plugins/plugin-mall/plugin-entry"),
   "cooliebase.mes": () => import("@/plugins/plugin-mes/plugin-entry"),
-  "cooliebase.flipshop": () => import("@/plugins/plugin-flipshop/plugin-entry"),
 }
 
 /** 取第一方插件入口工厂；不是第一方插件时返回 undefined（调用方回退到运行期 import）。 */

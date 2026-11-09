@@ -1615,10 +1615,6 @@ export const PERMISSIONS = {
   WMS_WAREHOUSE_DELETE: "wms:wms-warehouse:delete",
   WMS_WAREHOUSE_UPDATE: "wms:wms-warehouse:update",
 
-  // 翻牌小店 (flipshop) —— 商品最小闭环
-  FLIPSHOP_PRODUCT_QUERY: "flipshop:product:query",
-  FLIPSHOP_PRODUCT_CREATE: "flipshop:product:create",
-
 } as const
 
 export type PermissionCode = (typeof PERMISSIONS)[keyof typeof PERMISSIONS]

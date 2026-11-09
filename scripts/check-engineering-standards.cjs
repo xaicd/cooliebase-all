@@ -979,7 +979,7 @@ const RULES = [
 
       const { loadCatalog } = require("./lib/domain-catalog.cjs")
       const catalog = loadCatalog()
-      return (catalog.domains || [])
+      const violations = (catalog.domains || [])
         .filter((domain) => !NATIVE_DOMAINS.has(domain.name) && !KNOWN_CUSTOM.has(domain.name))
         .map((domain) => ({
           file: domain.name,
@@ -987,6 +987,23 @@ const RULES = [
             "不在 AGENTS §2 的 CoolieBase 原生域清单内 —— 定制业务应放在由基座衍生的业务工程，"
             + "而不是基座本身；确属原生能力则把它加进 AGENTS §2 与 NATIVE_DOMAINS",
         }))
+
+      // 同时扫描物理目录 packages/plugins/plugin-* 与 packages/domains/*，防止绕过 domain-catalog.json 塞入非原生业务插件
+      for (const dirRel of ["packages/plugins", "packages/domains"]) {
+        const dirAbs = abs(dirRel)
+        if (!fs.existsSync(dirAbs)) continue
+        for (const entry of fs.readdirSync(dirAbs, { withFileTypes: true })) {
+          if (!entry.isDirectory() || entry.name === "sdk") continue
+          const domName = entry.name.startsWith("plugin-") ? entry.name.slice("plugin-".length) : entry.name
+          if (!NATIVE_DOMAINS.has(domName) && !KNOWN_CUSTOM.has(domName)) {
+            violations.push({
+              file: `${dirRel}/${entry.name}`,
+              detail: `物理目录 "${dirRel}/${entry.name}" 不属于 CoolieBase 原生域清单，禁止将垂直定制业务插件留在基座仓库`,
+            })
+          }
+        }
+      }
+      return violations
     },
   },
   {

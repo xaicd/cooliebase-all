@@ -342,12 +342,6 @@ importers:
         specifier: workspace:*
         version: link:../sdk
 
-  packages/plugins/plugin-flipshop:
-    dependencies:
-      '@cooliebase/plugin-sdk':
-        specifier: workspace:*
-        version: link:../sdk
-
   packages/plugins/plugin-im:
     dependencies:
       '@cooliebase/plugin-sdk':
