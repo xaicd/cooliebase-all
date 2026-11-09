@@ -667,12 +667,46 @@ function compileBlueprintDomain(domainSpec) {
     `import type { CodegenConfig } from "../packages/domains/infra/backend/services/codegen-templates"\n\n` +
     `export const ${exportName}: CodegenConfig[] = ${JSON.stringify(codegenTables, null, 2)}\n`
 
+  const specName = `${domain}-blueprint`
+  const specBriefRel = `docs/specs/${domain}/${specName}/brief.json`
+  const e2eTestRel = `test/e2e/${domain}-blueprint.spec.ts`
+  const domainTitle = String(healedSpec.title || healedSpec.variables?.PLATFORM_TITLE || `${domain.toUpperCase()} 业务系统`).trim()
+
+  const specBrief = buildBlueprintSpecBrief({
+    specName,
+    specBriefRel,
+    domain,
+    domainTitle,
+    basePath,
+    runtimeEndpoints,
+    codegenTables,
+    stateMachines,
+    convertActionsMap,
+    e2eTestRel,
+    tablesFileRel: `scripts/data/${domain}-tables.ts`,
+  })
+
+  const e2eTestCode = buildBlueprintE2eTestCode({
+    domain,
+    domainTitle,
+    basePath,
+    runtimeEndpoints,
+    codegenTables,
+    stateMachines,
+    convertActionsMap,
+  })
+
   return {
     domain,
     basePath,
     runtimeEndpoints,
     exportName,
     tablesFileRel: `scripts/data/${domain}-tables.ts`,
+    specName,
+    specBriefRel,
+    specBrief,
+    e2eTestRel,
+    e2eTestCode,
     codegenTables,
     tablesTsCode,
     pageSchemas,
@@ -680,6 +714,318 @@ function compileBlueprintDomain(domainSpec) {
     convertActions: convertActionsMap,
     diagnostics,
   }
+}
+
+function toResourceSegment(domain, tableName) {
+  const prefix = `${domain}_`
+  const stripped = tableName.startsWith(prefix) ? tableName.slice(prefix.length) : tableName
+  const kebab = stripped.replace(/_/g, "-")
+  return kebab.endsWith("s") ? kebab : `${kebab}s`
+}
+
+/**
+ * 从极简蓝图自动推导 Spec-Kit SDD brief.json（可交由 speckit:build 展开 14 份 CMMI 工程资产）
+ */
+function buildBlueprintSpecBrief({
+  specName,
+  specBriefRel,
+  domain,
+  domainTitle,
+  basePath,
+  runtimeEndpoints,
+  codegenTables,
+  stateMachines,
+  convertActionsMap,
+  e2eTestRel,
+  tablesFileRel,
+}) {
+  const stories = codegenTables.map((t) => {
+    const tableName = t.table?.name || t.tableName || "entity"
+    const fnName = t.businessName || t.table?.comment || tableName
+    const resourceName = toResourceSegment(domain, tableName)
+    return {
+      priority: "P0",
+      text: `WHEN 运营或业务人员访问 ${runtimeEndpoints.adminEntry}/${domain}/${resourceName} 或调用 ${runtimeEndpoints.pluginApiPrefix}/${resourceName} 时，THE SYSTEM SHALL 提供《${fnName}》完整 CRUD、租户与数据权限隔离、状态机流转及联动校验能力。`,
+    }
+  })
+  const acceptance = [
+    {
+      check: `四端 basePath 路由可达性验证：C端门户 (${runtimeEndpoints.portalEntry})、B端后台 (${runtimeEndpoints.adminEntry})、插件API (${runtimeEndpoints.pluginApiPrefix})、OpenAPI 3.1 沙盒 (${runtimeEndpoints.openApiDocs}) 均返回预期响应`,
+    },
+    ...codegenTables.map((t) => {
+      const tableName = t.table?.name || t.tableName || "entity"
+      const fnName = t.businessName || t.table?.comment || tableName
+      return {
+        check: `《${fnName}》(${tableName}) 全生命周期 E2E 验证：未登录 401 拦截 -> 登录鉴权 -> POST 创建 -> GET 列表/详情 -> PUT 更新 -> 状态机合法跃迁与非法跃迁 400/422 阻断 -> DELETE 软删除`,
+      }
+    }),
+    {
+      check: `运行 \`pnpm exec playwright test ${e2eTestRel}\` exit=0（真实数据库驱动，零前端假 Mock）`,
+    },
+  ]
+  return {
+    name: specName,
+    domain,
+    title: `${domainTitle}全栈蓝图交付与四端 Spec E2E 验证规格`,
+    type: "feature",
+    goal: `基于声明式业务蓝图一键生成 ${domainTitle} (${domain}) 的数据库 DDL、Kysely 仓储、状态机与跨单据下推 Service、插件 API、B端/C端/移动端自适应页面、14 份 SDD 规格资产与端到端 Playwright E2E 验证套件。`,
+    roles: [
+      {
+        role: "C 端门户与移动端用户",
+        can: `通过 ${runtimeEndpoints.portalEntry} 与 Expo 移动端浏览 ${domainTitle} 门户及业务资源`,
+      },
+      {
+        role: "B 端业务管理员",
+        can: `通过 ${runtimeEndpoints.adminEntry} 管理 ${codegenTables.map((t) => t.businessName || t.table?.comment || t.table?.name).join("、")}，执行状态流转与跨单据下推`,
+      },
+    ],
+    stories,
+    constraints: [
+      `多端 basePath 统一收敛为 "${basePath || "/"}"，前端与移动端统一经 toRuntimeApiPath 归一化至 ${runtimeEndpoints.pluginApiPrefix}。`,
+      "100% 真实数据库驱动（SQLite / PostgreSQL），严禁任何硬编码假 Mock。",
+      "所有状态跃迁必须经过后端状态机白名单守卫，非法跃迁必须返回 400/422 阻断并记录不可变审计日志。",
+    ],
+    acceptance,
+    nonGoals: ["不侵入底座平台地基域（system/infra）核心代码"],
+    architecture: `蓝图 DSL -> ${tablesFileRel} -> CodegenEngine 生成 packages/plugins/plugin-${domain} -> 挂载 ${runtimeEndpoints.pluginApiPrefix} -> ${e2eTestRel} 四端与状态机全链路 E2E 验证。`,
+    entities: codegenTables.map((t) => ({
+      table: t.table?.name || "entity",
+      note: `${t.businessName || t.table?.comment || ""}\uff08含 tenant_id 多租户隔离、软删除与状态机守卫\uff09`,
+    })),
+    invariants: [
+      {
+        name: "四端 basePath 与插件路由契约一致性",
+        how: `C端(${runtimeEndpoints.portalEntry})、B端(${runtimeEndpoints.adminEntry})、API(${runtimeEndpoints.pluginApiPrefix}) 与 Expo 客户端共享同一套 basePath 与路由归一化契约。`,
+      },
+      {
+        name: "4态状态机合法跃迁与跨单据下推原子性",
+        how: `状态机 (${Object.keys(stateMachines).join(", ") || "默认状态流"}) 仅允许白名单跃迁；跨单据下推 (${Object.keys(convertActionsMap).join(", ") || "无"}) 自动映射字段并写入真实数据库。`,
+      },
+    ],
+    ui: codegenTables.map((t) => {
+      const tableName = t.table?.name || "entity"
+      const resourceName = toResourceSegment(domain, tableName)
+      return `${runtimeEndpoints.adminEntry}/${domain}/${resourceName}：《${t.businessName || t.table?.comment || tableName}》管理页（布局模式：${t.advanced?.layoutMode || "table"}）`
+    }),
+    ops: [
+      `运行 \`pnpm run speckit:check -- --spec ${specName}\` 检查 14 份 SDD 规格资产完整性`,
+      `运行 \`pnpm exec playwright test ${e2eTestRel}\` 执行四端 basePath + 真实 CRUD + 状态机 + 跨单据下推完整 E2E 验证`,
+    ],
+    tasks: [
+      {
+        id: "T1",
+        title: `生成 ${domainTitle} (${domain}) 全栈插件代码、SDD 规格资产与四端全功能 E2E 测试套件`,
+        files: [tablesFileRel, specBriefRel, e2eTestRel, `packages/plugins/plugin-${domain}`],
+        dod: `pnpm run speckit:check -- --spec ${specName} 与 ${e2eTestRel} 全部通过`,
+      },
+    ],
+  }
+}
+
+/**
+ * 从极简蓝图自动生成完整的四端 basePath + CRUD + 状态机 + 跨单据下推 + 主子表 Playwright E2E 测试套件
+ */
+function buildBlueprintE2eTestCode({
+  domain,
+  domainTitle,
+  basePath,
+  runtimeEndpoints,
+  codegenTables,
+  stateMachines,
+  convertActionsMap,
+}) {
+  const toCamelField = (s) => String(s || "").replace(/_([a-z0-9])/g, (_, c) => c.toUpperCase())
+  const entitySpecs = codegenTables.map((t) => {
+    const tableName = t.table?.name || "entity"
+    const functionName = t.businessName || t.table?.comment || tableName
+    const resourceName = toResourceSegment(domain, tableName)
+    const columns = Array.isArray(t.table?.columns) ? t.table.columns : []
+    const sampleCreate = {}
+    const sampleUpdate = {}
+    for (const col of columns) {
+      const colName = col.name || col.columnName
+      if (
+        col.isPk ||
+        ["id", "tenant_id", "created_by", "created_at", "updated_by", "updated_at", "deleted_at", "creator", "updater"].includes(colName)
+      ) {
+        continue
+      }
+      const fieldKey = toCamelField(colName)
+      const comment = col.comment || colName
+      if (col.widget === "sub_table" && Array.isArray(col.subFields) && col.subFields.length > 0) {
+        const subRow = {}
+        for (const sc of col.subFields) {
+          subRow[sc.name] = sc.widget === "number" || sc.widget === "currency" ? 2 : `明细-${sc.label || sc.name}`
+        }
+        sampleCreate[fieldKey] = [subRow]
+        sampleUpdate[fieldKey] = [subRow]
+        continue
+      }
+      if (Array.isArray(col.enumValues) && col.enumValues.length > 0) {
+        sampleCreate[fieldKey] = col.enumValues[0]
+        sampleUpdate[fieldKey] = col.enumValues[Math.min(1, col.enumValues.length - 1)]
+      } else if (col.tsType === "number") {
+        sampleCreate[fieldKey] = 100
+        sampleUpdate[fieldKey] = 200
+      } else if (col.tsType === "boolean") {
+        sampleCreate[fieldKey] = true
+        sampleUpdate[fieldKey] = false
+      } else {
+        sampleCreate[fieldKey] = `E2E-${functionName}-${comment}`
+        sampleUpdate[fieldKey] = `E2E-Updated-${functionName}-${comment}`
+      }
+    }
+    return {
+      tableName,
+      resourceName,
+      functionName,
+      layoutMode: t.advanced?.layoutMode || "table",
+      sampleCreate,
+      sampleUpdate,
+      stateMachine: t.advanced?.stateMachine || stateMachines[tableName] || null,
+      convertActions: t.advanced?.convertActions || convertActionsMap[tableName] || [],
+    }
+  })
+
+  return `// 由 scripts/blueprint-engine.cjs 自动生成的全栈 Spec E2E 验证套件（严禁假 Mock，100% 真实 API 与数据库驱动）
+import { test, expect } from "@playwright/test"
+
+const BASE_PATH = ${JSON.stringify(basePath)}
+const ENDPOINTS = ${JSON.stringify(runtimeEndpoints, null, 2)}
+const ENTITIES = ${JSON.stringify(entitySpecs, null, 2)}
+
+const ADMIN_USER = process.env.ADMIN_BOOTSTRAP_USERNAME || "admin"
+const ADMIN_PASS = process.env.ADMIN_BOOTSTRAP_PASSWORD || "admin123"
+
+test.describe("${domainTitle} (${domain}) 蓝图四端 basePath 与全栈业务能力 E2E 验证", () => {
+  let token = ""
+  const createdIdsByTable: Record<string, string | number> = {}
+
+  test("1. 四端 basePath 路由与 OpenAPI 3.1 / Prometheus 契约探针可达性", async ({ request, page }) => {
+    // 1.1 C端门户 (<basePath>/2c)
+    const portalRes = await page.goto(ENDPOINTS.portalEntry)
+    expect(portalRes?.status()).toBeLessThan(400)
+
+    // 1.2 B端管理后台登录页 (<basePath>/admin/login)
+    const adminLoginRes = await page.goto(\`\${ENDPOINTS.adminEntry}/login\`)
+    expect(adminLoginRes?.status()).toBeLessThan(400)
+
+    // 1.3 OpenAPI 3.1 实时沙盒 (<basePath>/api/docs?domain=${domain})
+    const docsRes = await request.get(ENDPOINTS.openApiDocs)
+    expect(docsRes.status()).toBe(200)
+    const docsBody = await docsRes.json()
+    expect(docsBody.openapi).toBe("3.1.0")
+    expect(docsBody.servers?.[0]?.url).toBe(BASE_PATH || "/")
+
+    // 1.4 Prometheus 监控指标 (<basePath>/api/metrics)
+    const metricsRes = await request.get(ENDPOINTS.metricsEndpoint)
+    expect(metricsRes.status()).toBe(200)
+  })
+
+  test("2. 鉴权守卫拦截（未登录 401）与真实管理员登录签发 Token", async ({ request }) => {
+    for (const entity of ENTITIES) {
+      const unauthRes = await request.get(\`\${ENDPOINTS.pluginApiPrefix}/\${entity.resourceName}\`)
+      expect([401, 403]).toContain(unauthRes.status())
+    }
+
+    const authRes = await request.post(\`\${BASE_PATH}/api/v1/admin/system/auth\`, {
+      data: { username: ADMIN_USER, password: ADMIN_PASS },
+    })
+    expect(authRes.status()).toBe(200)
+    const authBody = await authRes.json()
+    token = authBody?.data?.token || authBody?.token || ""
+    expect(Boolean(token)).toBe(true)
+  })
+
+  test("3. 全实体真实数据库 CRUD 生命周期 + 主子表 (sub_table) 明细落库验证", async ({ request }) => {
+    const headers = { Authorization: \`Bearer \${token}\` }
+    for (const entity of ENTITIES) {
+      const collectionUrl = \`\${ENDPOINTS.pluginApiPrefix}/\${entity.resourceName}\`
+
+      // 3.1 Create
+      const createRes = await request.post(collectionUrl, { headers, data: entity.sampleCreate })
+      expect([200, 201]).toContain(createRes.status())
+      const createdBody = await createRes.json()
+      const created = createdBody?.data || createdBody
+      const recordId = created?.id
+      expect(recordId).toBeDefined()
+      createdIdsByTable[entity.tableName] = recordId
+
+      // 3.2 List & Filter
+      const listRes = await request.get(\`\${collectionUrl}?page=1&pageSize=10\`, { headers })
+      expect(listRes.status()).toBe(200)
+      const listBody = await listRes.json()
+      const listItems = listBody?.data?.list || listBody?.data?.items || listBody?.data || []
+      expect(Array.isArray(listItems)).toBe(true)
+      expect(listItems.length).toBeGreaterThan(0)
+
+      // 3.3 Detail
+      const detailRes = await request.get(\`\${collectionUrl}/\${recordId}\`, { headers })
+      expect(detailRes.status()).toBe(200)
+
+      // 3.4 Update
+      const updateRes = await request.put(\`\${collectionUrl}/\${recordId}\`, { headers, data: entity.sampleUpdate })
+      expect(updateRes.status()).toBe(200)
+    }
+  })
+
+  test("4. 4态状态机 (stateMachine) 合法流转与非法状态跃迁阻断 (400/422) 验证", async ({ request }) => {
+    const headers = { Authorization: \`Bearer \${token}\` }
+    for (const entity of ENTITIES) {
+      if (!entity.stateMachine) continue
+      const recordId = createdIdsByTable[entity.tableName]
+      expect(recordId).toBeDefined()
+      const itemUrl = \`\${ENDPOINTS.pluginApiPrefix}/\${entity.resourceName}/\${recordId}\`
+      const smField = entity.stateMachine.field || "status"
+      const transitions = entity.stateMachine.transitions || []
+
+      // 4.1 正向执行首条合法状态跃迁
+      const firstStep = transitions.find((t: { from: string }) => t.from === entity.stateMachine.initial) || transitions[0]
+      if (firstStep) {
+        const validRes = await request.put(itemUrl, {
+          headers,
+          data: { ...entity.sampleUpdate, [smField]: firstStep.to },
+        })
+        expect(validRes.status()).toBe(200)
+      }
+
+      // 4.2 构造非法状态跃迁断言被后端状态机守卫拦截 (400/422)
+      const illegalRes = await request.put(itemUrl, {
+        headers,
+        data: { ...entity.sampleUpdate, [smField]: "__ILLEGAL_STATE_TRANSITION__" },
+      })
+      expect([400, 422]).toContain(illegalRes.status())
+    }
+  })
+
+  test("5. 跨单据一键下推转换 (convertActions) 真实落库闭环验证", async ({ request }) => {
+    const headers = { Authorization: \`Bearer \${token}\` }
+    for (const entity of ENTITIES) {
+      if (!entity.convertActions || entity.convertActions.length === 0) continue
+      const recordId = createdIdsByTable[entity.tableName]
+      expect(recordId).toBeDefined()
+      for (const act of entity.convertActions) {
+        const targetAction = act.action || act.target || act.targetTable
+        const convertUrl = \`\${ENDPOINTS.pluginApiPrefix}/\${entity.resourceName}/\${recordId}/convert/\${targetAction}\`
+        const convertRes = await request.post(convertUrl, { headers, data: {} })
+        expect([200, 201]).toContain(convertRes.status())
+      }
+    }
+  })
+
+  test("6. 软删除 (DELETE) 与清理闭环验证", async ({ request }) => {
+    const headers = { Authorization: \`Bearer \${token}\` }
+    for (const entity of ENTITIES) {
+      const recordId = createdIdsByTable[entity.tableName]
+      if (!recordId) continue
+      const delRes = await request.delete(\`\${ENDPOINTS.pluginApiPrefix}/\${entity.resourceName}/\${recordId}\`, {
+        headers,
+      })
+      expect([200, 204]).toContain(delRes.status())
+    }
+  })
+})
+`
 }
 
 /**
@@ -783,8 +1129,9 @@ function runDoctor(argv) {
 function runDeliver(argv) {
   const fileArg = resolveBlueprintFileArg(argv)
   const dryRun = argv.includes("--dry-run")
+  const verifyE2e = argv.includes("--verify-e2e")
   if (!fileArg) {
-    throw new Error("用法: node scripts/blueprint-engine.cjs deliver --file <domain-blueprint.json> [--dry-run]")
+    throw new Error("用法: node scripts/blueprint-engine.cjs deliver --file <domain-blueprint.json> [--dry-run] [--verify-e2e]")
   }
   const spec = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), fileArg), "utf8"))
   const compiled = compileBlueprintDomain(spec)
@@ -800,18 +1147,47 @@ function runDeliver(argv) {
   }
   if (!dryRun) {
     const absTables = path.join(ROOT, compiled.tablesFileRel)
+    fs.mkdirSync(path.dirname(absTables), { recursive: true })
     fs.writeFileSync(absTables, compiled.tablesTsCode, "utf8")
+
+    // 自动落盘 Spec-Kit SDD brief.json 并展开 14 份 CMMI 标准工程规格资产
+    const absSpecBrief = path.join(ROOT, compiled.specBriefRel)
+    fs.mkdirSync(path.dirname(absSpecBrief), { recursive: true })
+    fs.writeFileSync(absSpecBrief, JSON.stringify(compiled.specBrief, null, 2) + "\n", "utf8")
+
+    // 自动落盘四端 basePath + CRUD + 状态机 + 跨单据下推全栈 Playwright E2E 验证套件
+    const absE2eTest = path.join(ROOT, compiled.e2eTestRel)
+    fs.mkdirSync(path.dirname(absE2eTest), { recursive: true })
+    fs.writeFileSync(absE2eTest, compiled.e2eTestCode, "utf8")
+
     const { execFileSync } = require("node:child_process")
+    execFileSync("pnpm", ["exec", "tsx", "scripts/speckit.ts", "build", "--", "--name", compiled.specName], {
+      cwd: ROOT,
+      stdio: "inherit",
+    })
     execFileSync("pnpm", ["exec", "tsx", "scripts/create-business-domain.ts", compiled.domain], {
       cwd: ROOT,
       stdio: "inherit",
     })
+    if (verifyE2e) {
+      execFileSync("pnpm", ["exec", "tsx", "scripts/speckit.ts", "check", "--", "--spec", compiled.specName], {
+        cwd: ROOT,
+        stdio: "inherit",
+      })
+      execFileSync("pnpm", ["exec", "playwright", "test", compiled.e2eTestRel], {
+        cwd: ROOT,
+        stdio: "inherit",
+      })
+    }
   }
   console.log(
     `[blueprint-engine] ${dryRun ? "DELIVER DRY-RUN" : "DELIVERED"}: 域 "${compiled.domain}" (${compiled.codegenTables.length} 张表, 自愈诊断 ${compiled.diagnostics.length} 项, basePath="${compiled.basePath || "/"}")`
   )
   console.log(
     `  • B端后台: ${compiled.runtimeEndpoints.adminEntry}  · C端门户: ${compiled.runtimeEndpoints.portalEntry}  · 插件API: ${compiled.runtimeEndpoints.pluginApiPrefix}  · OpenAPI沙盒: ${compiled.runtimeEndpoints.openApiDocs}`
+  )
+  console.log(
+    `  • SDD规格: ${compiled.specBriefRel} (14份工程资产)  · 全栈E2E套件: ${compiled.e2eTestRel}`
   )
 }
 

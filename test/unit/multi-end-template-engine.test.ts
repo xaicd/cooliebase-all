@@ -1066,5 +1066,85 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
         else process.env.BASE_PATH = prevBasePath
       }
     })
+
+    it("T14: auto-compiles Spec-Kit SDD brief.json and 6-stage Playwright full-stack E2E suite from shorthand blueprint", () => {
+      const compiled = compileBlueprintDomain({
+        domain: "oahub",
+        title: "协同办公OA系统",
+        variables: { PROJECT_NAME: "oa-hub" },
+        entities: [
+          {
+            table: "leave_request",
+            title: "请假申请单",
+            layoutMode: "kanban",
+            fields: [
+              { name: "applicant_name", label: "申请人", widget: "text", required: true },
+              { name: "days", label: "请假天数", widget: "number", required: true },
+              {
+                name: "leave_items",
+                label: "请假时段明细",
+                widget: "sub_table",
+                columns: [
+                  { name: "segment_date", label: "日期", widget: "text" },
+                  { name: "hours", label: "时长", widget: "number" },
+                ],
+              },
+              {
+                name: "status",
+                label: "审批状态",
+                widget: "select",
+                options: [
+                  { label: "草稿", value: "DRAFT" },
+                  { label: "审批中", value: "PENDING" },
+                  { label: "已通过", value: "APPROVED" },
+                  { label: "已驳回", value: "REJECTED" },
+                ],
+              },
+            ],
+            stateMachine: {
+              field: "status",
+              initial: "DRAFT",
+              transitions: [
+                { from: "DRAFT", to: "PENDING", action: "submit", label: "提交审批" },
+                { from: "PENDING", to: "APPROVED", action: "approve", label: "审批通过" },
+                { from: "PENDING", to: "REJECTED", action: "reject", label: "驳回申请" },
+              ],
+            },
+            convertActions: [
+              {
+                action: "to_attendance_exception",
+                label: "生成考勤异动单",
+                targetTable: "oahub_attendance_exception",
+                fromStates: ["APPROVED"],
+                fieldMapping: { applicant_name: "employee_name", days: "exception_days" },
+              },
+            ],
+          },
+        ],
+      })
+
+      // 1. 验证 Spec-Kit SDD brief.json 完整性（可交由 speckit:build 展开 14 份工程资产）
+      expect(compiled.specName).toBe("oahub-blueprint")
+      expect(compiled.specBriefRel).toBe("docs/specs/oahub/oahub-blueprint/brief.json")
+      expect(compiled.specBrief.domain).toBe("oahub")
+      expect(compiled.specBrief.stories.length).toBe(1)
+      expect(compiled.specBrief.stories[0]?.text).toContain("/oa-hub/api/v1/plugins/cooliebase.oahub/api/leave-requests")
+      expect(compiled.specBrief.acceptance.length).toBeGreaterThanOrEqual(3)
+
+      // 2. 验证自动生成的 6 阶段 Playwright 全栈 E2E 测试套件
+      expect(compiled.e2eTestRel).toBe("test/e2e/oahub-blueprint.spec.ts")
+      expect(compiled.e2eTestCode).toContain('const BASE_PATH = "/oa-hub"')
+      expect(compiled.e2eTestCode).toContain('"portalEntry": "/oa-hub/2c"')
+      expect(compiled.e2eTestCode).toContain('"adminEntry": "/oa-hub/admin"')
+      expect(compiled.e2eTestCode).toContain('"pluginApiPrefix": "/oa-hub/api/v1/plugins/cooliebase.oahub/api"')
+      expect(compiled.e2eTestCode).toContain("1. 四端 basePath 路由与 OpenAPI 3.1 / Prometheus 契约探针可达性")
+      expect(compiled.e2eTestCode).toContain("2. 鉴权守卫拦截（未登录 401）与真实管理员登录签发 Token")
+      expect(compiled.e2eTestCode).toContain("3. 全实体真实数据库 CRUD 生命周期 + 主子表 (sub_table) 明细落库验证")
+      expect(compiled.e2eTestCode).toContain("4. 4态状态机 (stateMachine) 合法流转与非法状态跃迁阻断 (400/422) 验证")
+      expect(compiled.e2eTestCode).toContain("5. 跨单据一键下推转换 (convertActions) 真实落库闭环验证")
+      expect(compiled.e2eTestCode).toContain("6. 软删除 (DELETE) 与清理闭环验证")
+      expect(compiled.e2eTestCode).toContain("__ILLEGAL_STATE_TRANSITION__")
+      expect(compiled.e2eTestCode).toContain("to_attendance_exception")
+    })
   })
 })

@@ -581,8 +581,30 @@
         "docs/specs/infra/multi-end-template-engine/runbook.json",
         "docs/features/sprint-prod/1109.md"
       ]
+    },
+    {
+      "id": "T14",
+      "title": "蓝图交付引擎自动生成完整 Spec-Kit SDD 规格与 6 阶段 Playwright 全栈 E2E 验证套件（覆盖四端 basePath、鉴权、CRUD+主子表、4态状态机正反向守卫、跨单据一键下推、软删除闭环）",
+      "files": [
+        "scripts/blueprint-engine.cjs",
+        "test/unit/multi-end-template-engine.test.ts",
+        "docs/architecture/artifacts/socratic-inquiry-latest.json",
+        "docs/specs/infra/multi-end-template-engine/brief.json",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/spec.json",
+        "docs/specs/infra/multi-end-template-engine/feature.json",
+        "docs/specs/infra/multi-end-template-engine/plan.md",
+        "docs/specs/infra/multi-end-template-engine/design.md",
+        "docs/specs/infra/multi-end-template-engine/requirements.md",
+        "docs/specs/infra/multi-end-template-engine/spec.md",
+        "docs/specs/infra/multi-end-template-engine/checklist.md",
+        "docs/specs/infra/multi-end-template-engine/runbook.json",
+        "docs/features/sprint-prod/1109.md",
+        "docs/features/sprint-prod/1110.md"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10 → T11 → T12 → T13",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10 → T11 → T12 → T13 → T14",
   "windowMinutes": 20
 }
