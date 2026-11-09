@@ -88,6 +88,12 @@ describe("Modular Codegen Engine with Templates", () => {
     expect(listPage?.content).toContain("编辑")
     expect(listPage?.content).toContain("删除")
 
+    // 10. Frontend API Client complies with item-level PUT/DELETE path rule
+    const apiClient = outputs.find((o) => o.path.endsWith("api/wms-warehouse.api.ts"))
+    expect(apiClient).toBeDefined()
+    expect(apiClient?.content).toContain("`${BASE_URL}/${data.id}`")
+    expect(apiClient?.content).toContain("`${BASE_URL}/${id}`")
+
     // 原「10. Multi-Channel Clients (H5, UniApp, Flutter)」断言已随这些客户端渠道一并移除 ——
     // 本仓只保留 clients/expo，代码生成器不再产出 h5/uniapp/flutter 目标。
   })

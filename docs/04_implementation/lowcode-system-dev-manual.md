@@ -272,3 +272,18 @@ pnpm run domain:new pet
 # 运行全量质量门禁与构建验证
 pnpm run check
 ```
+
+---
+
+## 9. 通用蓝图底座 4 大业务原语（面向应届生与 27B 本地模型零手写交付任意领域系统）
+
+为了让普通刚毕业的大学生与本地 27B 模型（`qwen-local`）无需手写复杂 Service 状态守卫、跨表转化逻辑与 React 操作按钮即可构建任意领域系统（如办公 OA、CRM、数字内容平台、医院 HIS、物业工单等），[`scripts/blueprint-engine.cjs`](../../scripts/blueprint-engine.cjs) 与 [`codegen-templates/`](../../packages/domains/infra/backend/services/codegen-templates/) 内置了 **4 大通用全栈展开原语**：
+
+1. **通用状态机全栈展开 (`stateMachine`)**：
+   - 蓝图中声明 `stateMachine: { initial, transitions: [{ name, label, from, to }] }` 后，编译器自动补齐 `status` 枚举列，并在生成的 `Service` 中注入 `transition(id, action)` 状态守卫、在 `Route` 生成 `POST /.../transition`、在 `ListPage` 表格操作列按当前行状态动态渲染业务流转按钮（如【审批通过】【驳回】【发布上架】）。
+2. **通用跨单据一键转化原语 (`convertActions`)**：
+   - 蓝图中声明 `convertActions: [{ name, label, targetClassName, whenStatus, nextStatus, fieldMap }]` 后，自动生成跨单据字段映射转化方法 `Service.convert(id, actionName)` 与前端行级转化按钮（如 CRM 线索一键转客户、OA 审批单转归档单）。
+3. **通用表格/看板双视图切换 (`layoutMode: "table" | "kanban"`)**：
+   - 列表页原生内置「切换看板 / 切换表格」视图开关（`data-testid="<kebab>-view-toggle"`）。
+4. **27B 口语同义词防呆自愈诊断器 (`diagnoseAndHealBlueprint`)**：
+   - 自动将非标准控件名（如 `money`/`price` ➔ `currency`、`dropdown`/`enum` ➔ `select`、`boolean`/`toggle` ➔ `switch`、`input` ➔ `text`）自愈为 22 种标准商业控件，并自动补齐缺失的 `<domain>_` 表名前缀与状态机枚举列。

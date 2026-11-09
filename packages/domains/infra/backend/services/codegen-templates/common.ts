@@ -61,6 +61,29 @@ export interface CodegenMasterDetailChild {
   fields: Array<ConfiguredColumn & { readOnly?: boolean; uiComponent?: string }>
 }
 
+export interface CodegenStateTransition {
+  name: string
+  label?: string
+  from: string[]
+  to: string
+}
+
+export interface CodegenStateMachine {
+  field?: string
+  initial: string
+  transitions: CodegenStateTransition[]
+}
+
+export interface CodegenConvertAction {
+  name: string
+  label: string
+  targetClassName: string
+  targetModule?: string
+  whenStatus?: string
+  nextStatus?: string
+  fieldMap: Record<string, string>
+}
+
 export type CodegenTemplateType = "CRUD" | "TREE" | "MASTER_DETAIL"
 
 export interface CodegenConfig {
@@ -79,6 +102,9 @@ export interface CodegenConfig {
   author?: string
   permissionPrefix?: string
   advanced?: {
+    layoutMode?: "table" | "kanban" | "split-detail"
+    stateMachine?: CodegenStateMachine
+    convertActions?: CodegenConvertAction[]
     model?: {
       tree?: {
         parentField: string

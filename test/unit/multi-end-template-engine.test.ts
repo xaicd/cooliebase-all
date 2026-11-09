@@ -342,13 +342,14 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(compiled.codegenTables).toHaveLength(1)
 
       const colNames = compiled.codegenTables[0].table.columns.map((c: { name: string }) => c.name)
-      // 自动补齐主键 id 与 6 大多租户审计列
+      // 自动补齐主键 id、声明了 stateMachine 自动自愈补齐 status 列、以及 6 大多租户审计列
       expect(colNames).toEqual([
         "id",
         "pet_name",
         "service_type",
         "anesthesia_consent_no",
         "fee_cents",
+        "status",
         "tenant_id",
         "created_by",
         "created_at",
@@ -826,6 +827,80 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(htmlRes.status).toBe(200)
       const htmlText = await htmlRes.text()
       expect(htmlText).toContain("CoolieBase OpenAPI 3.1 交互式调试沙箱")
+    })
+
+    it("expands universal blueprint primitives (stateMachine + convertActions + kanban + 27B self-healing doctor) into full-stack code (COO-226 T10)", async () => {
+      const { CodegenEngineService } = await import("@/domains/infra/backend/services/codegen-engine.service")
+
+      // 模拟刚毕业大学生或 27B 模型编写的任意领域蓝图（含口语化控件名 money/dropdown/boolean、漏写域前缀、漏写 status 列、含跨单据转化与状态机）
+      const compiled = compileBlueprintDomain({
+        domain: "oa",
+        entities: [
+          {
+            table: "leave_request",
+            className: "OaLeaveRequest",
+            title: "请假审批单",
+            layoutMode: "kanban",
+            fields: [
+              { name: "applicant_name", label: "申请人", widget: "input", required: true, query: "LIKE" },
+              { name: "leave_type", label: "请假类型", widget: "dropdown", options: ["年假", "事假", "病假"], required: true },
+              { name: "subsidy_cents", label: "补贴金额(分)", widget: "money", required: false },
+              { name: "urgent", label: "是否加急", widget: "boolean" },
+            ],
+            stateMachine: {
+              initial: "PENDING",
+              transitions: [
+                { name: "approve", label: "主管批准", from: ["PENDING"], to: "APPROVED" },
+                { name: "reject", label: "驳回申请", from: ["PENDING"], to: "REJECTED" },
+              ],
+            },
+            convertActions: [
+              {
+                name: "toAttendanceRecord",
+                label: "生成考勤归档单",
+                targetClassName: "OaAttendanceArchive",
+                whenStatus: "APPROVED",
+                nextStatus: "ARCHIVED",
+                fieldMap: { employee_name: "applicant_name", archive_type: "leave_type" },
+              },
+            ],
+          },
+        ],
+      })
+
+      // 1. 验证 27B 防呆自愈器自动修复了表前缀、3 个口语化控件名及缺失的 status 列
+      expect(compiled.diagnostics.length).toBeGreaterThanOrEqual(5)
+      const tableCfg = compiled.codegenTables[0]
+      expect(tableCfg.table.name).toBe("oa_leave_request")
+      expect(tableCfg.advanced?.layoutMode).toBe("kanban")
+      expect(tableCfg.advanced?.stateMachine?.initial).toBe("PENDING")
+      expect(tableCfg.advanced?.convertActions).toHaveLength(1)
+
+      // 2. 验证 CodegenEngineService 将通用蓝图原语展开为全栈代码（Service + Route + API + ListPage）
+      const outputs = CodegenEngineService.generateCodes(tableCfg)
+      const serviceOut = outputs.find((o) => o.path.endsWith("services/oa-leave-request.service.ts"))
+      expect(serviceOut?.content).toContain("static readonly STATE_MACHINE =")
+      expect(serviceOut?.content).toContain("static async transition(")
+      expect(serviceOut?.content).toContain("static readonly CONVERT_ACTIONS =")
+      expect(serviceOut?.content).toContain("static async convert(")
+
+      const transitionRoute = outputs.find((o) => o.path.endsWith("oa-leave-request/transition/route.ts"))
+      expect(transitionRoute).toBeDefined()
+      expect(transitionRoute?.content).toContain("OaLeaveRequestService.transition(")
+
+      const convertRoute = outputs.find((o) => o.path.endsWith("oa-leave-request/convert/route.ts"))
+      expect(convertRoute).toBeDefined()
+      expect(convertRoute?.content).toContain("OaLeaveRequestService.convert(")
+
+      const apiOut = outputs.find((o) => o.path.endsWith("api/oa-leave-request.api.ts"))
+      expect(apiOut?.content).toContain("`${BASE_URL}/${data.id}`")
+      expect(apiOut?.content).toContain("async transition(id: string, action: string)")
+      expect(apiOut?.content).toContain("async convert(id: string, action: string")
+
+      const listPageOut = outputs.find((o) => o.path.endsWith("pages/oa-leave-request-list.page.tsx"))
+      expect(listPageOut?.content).toContain('data-testid="oa-leave-request-transition-approve"')
+      expect(listPageOut?.content).toContain('data-testid="oa-leave-request-convert-toAttendanceRecord"')
+      expect(listPageOut?.content).toContain('data-testid="oa-leave-request-view-toggle"')
     })
   })
 })

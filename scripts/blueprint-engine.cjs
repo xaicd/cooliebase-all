@@ -295,6 +295,148 @@ const WIDGET_TO_COLUMN_TYPE = {
 }
 
 /**
+ * 面向普通应届毕业生与本地 27B 模型的控件同义词容错字典
+ * 当输入非标准控件名（如 money/price/amount/dropdown/boolean 等）时自动归一化为 22 种标准商业控件。
+ */
+const WIDGET_SYNONYM_MAP = {
+  money: "currency",
+  price: "currency",
+  amount: "currency",
+  decimal: "currency",
+  int: "number",
+  integer: "number",
+  float: "number",
+  bool: "switch",
+  boolean: "switch",
+  toggle: "switch",
+  enum: "select",
+  dropdown: "select",
+  combobox: "select",
+  multi_select: "checkbox",
+  tags: "checkbox",
+  string: "text",
+  input: "text",
+  phone: "text",
+  email: "text",
+  url: "text",
+  longtext: "textarea",
+  multiline: "textarea",
+  markdown: "rich_text",
+  html: "rich_text",
+  editor: "rich_text",
+  time: "datetime",
+  timestamp: "datetime",
+  avatar: "image",
+  photo: "image",
+  picture: "image",
+  upload: "file",
+  attachment: "file",
+  user: "user_picker",
+  member: "user_picker",
+  dept: "dept_picker",
+  department: "dept_picker",
+  tree: "tree_select",
+  table: "sub_table",
+  children: "sub_table",
+}
+
+/**
+ * 蓝图防呆诊断与自愈器（27B & 应届生友好）：
+ * 1. 自动将口语化/同义词控件名纠正为 22 种标准控件；
+ * 2. 表名未带 `<domain>_` 前缀时自动补齐；
+ * 3. 声明了 `stateMachine` 但 `fields` 中漏写状态列时，自动补齐状态列并推导 `enumValues` / `enumLabels`；
+ * 4. 返回结构化中文诊断报告 `diagnostics[]` 与自愈后的 `healedSpec`。
+ */
+function diagnoseAndHealBlueprint(domainSpec) {
+  if (!domainSpec || typeof domainSpec !== "object") {
+    throw new Error("[blueprint-doctor] 蓝图必须是合法的 JSON 对象")
+  }
+  const diagnostics = []
+  const healed = JSON.parse(JSON.stringify(domainSpec))
+  const domain = String(healed.domain || "custom")
+    .trim()
+    .toLowerCase()
+    .replace(/[^a-z0-9_]/g, "")
+  healed.domain = domain
+
+  if (!Array.isArray(healed.entities) || healed.entities.length === 0) {
+    throw new Error("[blueprint-doctor] 蓝图必须包含非空的 entities[] 业务实体数组")
+  }
+
+  for (const ent of healed.entities) {
+    const rawTable = String(ent.table || ent.name || "item")
+      .trim()
+      .toLowerCase()
+      .replace(/[^a-z0-9_]/g, "_")
+    if (!rawTable.startsWith(`${domain}_`)) {
+      const fixedTable = `${domain}_${rawTable}`
+      diagnostics.push({
+        level: "healed",
+        entity: rawTable,
+        message: `表名 "${rawTable}" 未包含域前缀 "${domain}_"，已自动规范化为 "${fixedTable}"`,
+      })
+      ent.table = fixedTable
+    } else {
+      ent.table = rawTable
+    }
+
+    ent.fields = Array.isArray(ent.fields) ? ent.fields : []
+    for (const f of ent.fields) {
+      const rawWidget = String(f.widget || "text").trim().toLowerCase()
+      if (!WIDGET_TO_COLUMN_TYPE[rawWidget]) {
+        const mapped = WIDGET_SYNONYM_MAP[rawWidget] || "text"
+        diagnostics.push({
+          level: "healed",
+          entity: ent.table,
+          field: f.name,
+          message: `字段 "${f.name}" 的控件 "${rawWidget}" 非标准名称，已自动自愈为 "${mapped}"`,
+        })
+        f.widget = mapped
+      } else {
+        f.widget = rawWidget
+      }
+    }
+
+    if (ent.stateMachine && Array.isArray(ent.stateMachine.transitions)) {
+      const statusField = ent.stateMachine.field || "status"
+      const allStates = new Set([ent.stateMachine.initial || "DRAFT"])
+      const labels = { ...(ent.stateMachine.labels || {}) }
+      for (const tr of ent.stateMachine.transitions) {
+        for (const s of tr.from || []) allStates.add(String(s))
+        if (tr.to) {
+          allStates.add(String(tr.to))
+          if (tr.label && !labels[tr.to]) labels[tr.to] = tr.label
+        }
+      }
+      const existingField = ent.fields.find((f) => f.name === statusField)
+      if (!existingField) {
+        diagnostics.push({
+          level: "healed",
+          entity: ent.table,
+          field: statusField,
+          message: `实体 "${ent.table}" 声明了 stateMachine 但未定义 "${statusField}" 字段，已自动补齐状态列与枚举值 [${[...allStates].join(", ")}]`,
+        })
+        ent.fields.push({
+          name: statusField,
+          label: "状态",
+          widget: "select",
+          required: true,
+          query: "EQ",
+          options: [...allStates].map((val) => ({ label: labels[val] || val, value: val })),
+          enumValues: [...allStates],
+          enumLabels: labels,
+        })
+      } else if (!existingField.enumValues) {
+        existingField.enumValues = [...allStates]
+        existingField.enumLabels = labels
+      }
+    }
+  }
+
+  return { healedSpec: healed, diagnostics }
+}
+
+/**
  * 将 27B 模型或初级开发者编写的极简业务域蓝图 (`domainSpec`) 编译为：
  * 1. 标准 `CodegenConfig[]` 表元数据（自动补齐 id 主键与 6 大多租户审计列）；
  * 2. 标准 `PageBlockDSL v2` 多端画布 Schema（含 blocks、layoutMode 与 visibleOn/requiredOn 联动）；
@@ -304,14 +446,16 @@ function compileBlueprintDomain(domainSpec) {
   if (!domainSpec || !domainSpec.domain || !Array.isArray(domainSpec.entities)) {
     throw new Error("[blueprint-engine] domainSpec 必须包含 domain 与 entities[] 数组")
   }
-  const domain = String(domainSpec.domain).trim().toLowerCase()
+  const { healedSpec, diagnostics } = diagnoseAndHealBlueprint(domainSpec)
+  const domain = String(healedSpec.domain).trim().toLowerCase()
   const exportName = `${domain.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_TABLES`
 
   const codegenTables = []
   const pageSchemas = {}
   const stateMachines = {}
+  const convertActionsMap = {}
 
-  for (const ent of domainSpec.entities) {
+  for (const ent of healedSpec.entities) {
     const tableName = ent.table || `${domain}_${String(ent.className || "item").toLowerCase()}`
     const className =
       ent.className ||
@@ -338,6 +482,15 @@ function compileBlueprintDomain(domainSpec) {
         nullableInferred: !f.required,
       }
       if (f.query) col.queryType = f.query
+      if (Array.isArray(f.enumValues) && f.enumValues.length > 0) {
+        col.enumValues = f.enumValues
+        if (f.enumLabels) col.enumLabels = f.enumLabels
+      } else if (Array.isArray(f.options) && f.options.length > 0) {
+        col.enumValues = f.options.map((opt) => (typeof opt === "string" ? opt : opt.value))
+        col.enumLabels = Object.fromEntries(
+          f.options.map((opt) => (typeof opt === "string" ? [opt, opt] : [opt.value, opt.label || opt.value]))
+        )
+      }
       return col
     })
 
@@ -403,12 +556,27 @@ function compileBlueprintDomain(domainSpec) {
       },
     ]
 
+    const advanced = {}
+    if (ent.layoutMode) advanced.layoutMode = ent.layoutMode
+    if (ent.stateMachine && Array.isArray(ent.stateMachine.transitions)) {
+      advanced.stateMachine = {
+        field: ent.stateMachine.field || "status",
+        initial: ent.stateMachine.initial || "DRAFT",
+        transitions: ent.stateMachine.transitions,
+      }
+    }
+    if (Array.isArray(ent.convertActions) && ent.convertActions.length > 0) {
+      advanced.convertActions = ent.convertActions
+      convertActionsMap[tableName] = ent.convertActions
+    }
+
     codegenTables.push({
       moduleName: domain,
       className,
       businessName: title,
       parentMenuId: `${domain}-dir`,
       permissionPrefix: `${domain}:${permEntity}`,
+      ...(Object.keys(advanced).length > 0 ? { advanced } : {}),
       table: {
         name: tableName,
         comment: title,
@@ -477,6 +645,8 @@ function compileBlueprintDomain(domainSpec) {
     tablesTsCode,
     pageSchemas,
     stateMachines,
+    convertActions: convertActionsMap,
+    diagnostics,
   }
 }
 
@@ -538,5 +708,6 @@ module.exports = {
   buildDefaultMap,
   extractPlaceholdersFromText,
   renderTemplateText,
+  diagnoseAndHealBlueprint,
   compileBlueprintDomain,
 }

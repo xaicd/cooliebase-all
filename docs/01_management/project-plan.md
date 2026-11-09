@@ -573,3 +573,4 @@ windows      success  416s      mutation     success   31s
 - **活跃规格阶段 100% 完备**：补齐 `crypto-default-key-guard` 与 `test-shared-file-isolation` 的交互/状态声明，`pnpm run delivery:hints` 实测全部活跃规格 9 阶段全齐。
 - **进化待办闭环率度量**：`scripts/build-evolution-backlog.cjs` 新增 `closureMetrics`（零欠债规则占比与阻塞项清零率）。
 - **对标芋道 DataScope 5 级数据权限 AST 插件与 `/api/docs` OpenAPI 3.1 交互式调试沙箱**：落地 `packages/shared/backend/lib/database/data-scope-plugin.ts` 与 `src/app/api/docs/route.ts`。
+- **通用蓝图底座 4 大业务原语全栈展开（T10）**：升级 `scripts/blueprint-engine.cjs` 与 `codegen-templates/`（`common.ts`、`service.template.ts`、`route.template.ts`、`frontend-api.template.ts`、`frontend-list.template.ts`），支持任意领域系统的 `stateMachine` 全栈状态跃迁、`convertActions` 跨单据一键转化、`layoutMode` 看板/表格视图切换及 27B 模型同义词防呆自愈器 `diagnoseAndHealBlueprint`。
