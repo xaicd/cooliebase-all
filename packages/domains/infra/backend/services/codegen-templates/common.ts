@@ -39,6 +39,10 @@ export interface ConfiguredColumn {
   formValidation?: "required" | "optional"
   widget?: string
   queryType?: string
+  visibleOn?: string
+  requiredOn?: string
+  disabledOn?: string
+  subFields?: Array<{ name: string; label: string; widget?: string }>
   validation?: {
     required?: boolean
     minLength?: number

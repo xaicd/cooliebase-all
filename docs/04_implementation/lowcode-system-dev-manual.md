@@ -287,3 +287,7 @@ pnpm run check
    - 列表页原生内置「切换看板 / 切换表格」视图开关（`data-testid="<kebab>-view-toggle"`）。
 4. **27B 口语同义词防呆自愈诊断器 (`diagnoseAndHealBlueprint`)**：
    - 自动将非标准控件名（如 `money`/`price` ➔ `currency`、`dropdown`/`enum` ➔ `select`、`boolean`/`toggle` ➔ `switch`、`input` ➔ `text`）自愈为 22 种标准商业控件，并自动补齐缺失的 `<domain>_` 表名前缀与状态机枚举列。
+5. **生成表单反应式表达式与主子表内联明细 (`frontend-form.template.ts`)**：
+   - 字段声明 `visibleOn` / `requiredOn` / `disabledOn` 时，生成的 `<XxxForm>` 自动引入 `evaluateBooleanExpression` 进行零 `eval` 动态显隐/必填/禁用控制；声明 `widget: "sub_table"` 时自动渲染内联主子表增删行编辑器。
+6. **单命令端到端蓝图交付 (`pnpm run blueprint:deliver`)**：
+   - 执行 `pnpm run blueprint:deliver -- --file <domain.blueprint.json>` 一条命令即可串起：自愈诊断 (`doctor`) ➔ 品牌门户渲染 (`render`) ➔ 表元数据生成 (`compile-domain`) ➔ 建表迁移与全栈插件注册 (`domain:new`)。

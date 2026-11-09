@@ -452,8 +452,40 @@
         "docs/specs/infra/multi-end-template-engine/runbook.json",
         "docs/features/sprint-prod/1109.md"
       ]
+    },
+    {
+      "id": "T11",
+      "parent": "T10",
+      "title": "通用蓝图底座终极收口与对标演进闭环：生成表单反应式联动与主子表内联增删行、列表页真实看板分栏泳道、blueprint:deliver单命令交付、Prometheus指标端点(A3)、TS原生Saga补偿工作流引擎(B1)与SSE实时通知流(B3)",
+      "files": [
+        "scripts/blueprint-engine.cjs",
+        "scripts/harness.cjs",
+        "package.json",
+        "packages/domains/infra/backend/services/codegen-templates/common.ts",
+        "packages/domains/infra/backend/services/codegen-templates/frontend-form.template.ts",
+        "packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts",
+        "packages/shared/backend/lib/workflow/saga-runner.ts",
+        "src/app/api/metrics/route.ts",
+        "src/app/api/v1/realtime/sse/route.ts",
+        "docs/04_implementation/lowcode-system-dev-manual.md",
+        "docs/architecture/BENCHMARK-GAP-ANALYSIS-AND-CONTINUOUS-IMPROVEMENT.md",
+        "docs/01_management/project-plan.md",
+        "test/unit/multi-end-template-engine.test.ts",
+        "docs/specs/infra/multi-end-template-engine/brief.json",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/spec.json",
+        "docs/specs/infra/multi-end-template-engine/feature.json",
+        "docs/specs/infra/multi-end-template-engine/plan.md",
+        "docs/specs/infra/multi-end-template-engine/design.md",
+        "docs/specs/infra/multi-end-template-engine/requirements.md",
+        "docs/specs/infra/multi-end-template-engine/spec.md",
+        "docs/specs/infra/multi-end-template-engine/checklist.md",
+        "docs/specs/infra/multi-end-template-engine/runbook.json",
+        "docs/features/sprint-prod/1109.md"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10 → T11",
   "windowMinutes": 20
 }

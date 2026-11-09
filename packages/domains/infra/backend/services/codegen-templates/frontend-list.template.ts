@@ -262,7 +262,48 @@ ${searchControls}
         <div className="text-xs text-slate-500">共 <span data-testid="${kebab}-total" className="font-semibold text-slate-700">{total}</span> 条记录</div>
       </form>
 
-      {/* 数据表格 */}
+      {/* 数据展示区（支持表格视图与状态看板泳道视图无缝切换） */}
+      {viewMode === "kanban" ? (
+        <div data-testid="${kebab}-kanban-board" className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          {Array.from(
+            new Set([
+              ...(${JSON.stringify(
+                stateMachine
+                  ? [
+                      stateMachine.initial,
+                      ...stateMachine.transitions.flatMap((t) => [...t.from, t.to]),
+                    ]
+                  : ["DEFAULT"],
+              )}),
+              ...data.map((item) => String((item as Record<string, unknown>)["${statusField}"] ?? "DEFAULT")),
+            ]),
+          ).map((laneStatus) => {
+            const laneItems = data.filter(
+              (item) => String((item as Record<string, unknown>)["${statusField}"] ?? "DEFAULT") === laneStatus,
+            )
+            return (
+              <div key={laneStatus} data-testid={"${kebab}-kanban-lane-" + laneStatus} className="bg-slate-50 rounded-xl border border-slate-200 p-3 space-y-2.5">
+                <div className="flex items-center justify-between px-1">
+                  <span className="text-xs font-semibold text-slate-700">{laneStatus}</span>
+                  <span className="text-[11px] px-2 py-0.5 bg-white border border-slate-200 rounded-full text-slate-600">{laneItems.length}</span>
+                </div>
+                <div className="space-y-2">
+                  {laneItems.map((item) => (
+                    <div key={item.id} data-testid="${kebab}-kanban-card" className="bg-white rounded-lg border border-slate-200 p-3 shadow-xs space-y-2">
+                      <div className="text-xs font-medium text-slate-800 truncate">{String((item as Record<string, unknown>)["${displayCols[0]?.name ?? "id"}"] ?? item.id)}</div>
+                      <div className="flex flex-wrap items-center justify-end gap-2 pt-1 border-t border-slate-100 text-xs">
+${stateActionButtons}
+${convertActionButtons}
+                        <button onClick={() => handleEdit(item)} className="text-blue-600 hover:text-blue-800 font-medium">编辑</button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )
+          })}
+        </div>
+      ) : (
       <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
         <div className="overflow-x-auto">
           <table data-testid="${kebab}-table" aria-label="${businessName}列表" className="min-w-full divide-y divide-slate-200">
@@ -316,6 +357,7 @@ ${convertActionButtons}
           />
         </div>
       </div>
+      )}
 
       </div>
 

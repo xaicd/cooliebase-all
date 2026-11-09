@@ -113,6 +113,8 @@
     "domains:capabilities": "node scripts/scan-domain-capabilities.cjs",
     "domains:parity": "node scripts/scan-source-parity.cjs",
     "domain:new": "tsx scripts/create-business-domain.ts",
+    "blueprint:deliver": "node scripts/blueprint-engine.cjs deliver",
+    "blueprint:doctor": "node scripts/blueprint-engine.cjs doctor",
     "agent:contracts": "node scripts/agent/collect-contracts.cjs",
     "agent:contracts:check": "node scripts/agent/collect-contracts.cjs --check",
     "agent:ops": "node scripts/agent/run-ops.cjs",

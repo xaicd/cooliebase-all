@@ -122,11 +122,11 @@ gantt
     section Phase A 短期攻坚 (基座增强)
     数据权限 AST 拦截插件 (Data Scope)     :done, p1, 2026-10, 2026-11
     交互式 OpenAPI Scalar 调试沙箱 (/api/docs) :done, p2, 2026-10, 2026-11
-    OpenTelemetry 自动埋点与 /api/metrics   :active, p3, 2026-10, 2026-11
+    OpenTelemetry 自动埋点与 /api/metrics   :done, p3, 2026-10, 2026-11
     section Phase B 中期飞跃 (流程与交互)
-    TypeScript 原生 Saga/Workflow 编排运行时  :p4, 2026-11, 2026-12
+    TypeScript 原生 Saga/Workflow 编排运行时  :done, p4, 2026-11, 2026-12
     可视化 Low-Code 动态 Schema 设计器       :p5, 2026-11, 2026-12
-    Server-Sent Events (SSE) 实时通知总线   :p6, 2026-12, 2027-01
+    Server-Sent Events (SSE) 实时通知总线   :done, p6, 2026-12, 2027-01
     TanStack Table v8 + 虚拟滚动优化        :p7, 2026-12, 2027-01
     section Phase C 长期领先 (AI生态与热插拔)
     内置多租户 RAG 向量检索与企业知识库     :p8, 2027-01, 2027-02

@@ -189,6 +189,8 @@ const GROUPS = {
   },
   scaffold: {
     "": "scaffold",
+    deliver: "blueprint:deliver",
+    doctor: "blueprint:doctor",
   },
   quick: {
     "": "quick-start",

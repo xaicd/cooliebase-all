@@ -901,6 +901,117 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(listPageOut?.content).toContain('data-testid="oa-leave-request-transition-approve"')
       expect(listPageOut?.content).toContain('data-testid="oa-leave-request-convert-toAttendanceRecord"')
       expect(listPageOut?.content).toContain('data-testid="oa-leave-request-view-toggle"')
+      expect(listPageOut?.content).toContain('data-testid="oa-leave-request-kanban-board"')
+    })
+
+    it("generates reactive form expressions + inline sub_table, and verifies Saga compensation (B1), Prometheus /api/metrics (A3), and SSE /api/v1/realtime/sse (B3) (COO-226 T11)", async () => {
+      const { CodegenEngineService } = await import("@/domains/infra/backend/services/codegen-engine.service")
+      const { defineSagaWorkflow } = await import("@/shared/backend/lib/workflow/saga-runner")
+      const { GET: getMetricsRoute, recordSpanMetric } = await import("../../src/app/api/metrics/route")
+      const { GET: getSseRoute, publishRealtimeEvent } = await import("../../src/app/api/v1/realtime/sse/route")
+      const { NextRequest } = await import("next/server")
+
+      // 1. 验证生成表单组件包含反应式表达式 (visibleOn / requiredOn) 与主子表 (sub_table) 内联编辑器
+      const compiled = compileBlueprintDomain({
+        domain: "erp",
+        entities: [
+          {
+            table: "purchase_order",
+            className: "ErpPurchaseOrder",
+            title: "采购订单",
+            fields: [
+              { name: "order_type", label: "采购类型", widget: "select", options: ["常规采购", "紧急采购"], required: true },
+              {
+                name: "emergency_reason",
+                label: "紧急采购事由",
+                widget: "textarea",
+                visibleOn: "{{ $form.order_type === '紧急采购' }}",
+                requiredOn: "{{ $form.order_type === '紧急采购' }}",
+              },
+              {
+                name: "order_items",
+                label: "采购物料明细",
+                widget: "sub_table",
+                subFields: [
+                  { name: "item_name", label: "物料名称" },
+                  { name: "qty", label: "采购数量" },
+                ],
+              },
+            ],
+          },
+        ],
+      })
+      const outputs = CodegenEngineService.generateCodes(compiled.codegenTables[0])
+      const formOut = outputs.find((o) => o.path.endsWith("components/ErpPurchaseOrderForm.tsx"))
+      expect(formOut?.content).toContain("evaluateBooleanExpression")
+      expect(formOut?.content).toContain('data-testid="subtable-order_items"')
+      expect(formOut?.content).toContain('data-testid="subtable-add-order_items"')
+
+      // 2. 验证 B1: TS 原生 Saga 补偿事务引擎（第 3 步失败时逆序执行 step2 -> step1 的 compensate）
+      const ledger: string[] = []
+      const orderSaga = defineSagaWorkflow<{ orderId: string }>("mall-checkout-saga", [
+        {
+          name: "deduct-stock",
+          run: () => {
+            ledger.push("run:deduct-stock")
+            return { reservedSku: "SKU-01", qty: 2 }
+          },
+          compensate: (out) => {
+            ledger.push(`compensate:deduct-stock:${out.reservedSku}`)
+          },
+        },
+        {
+          name: "lock-coupon",
+          run: () => {
+            ledger.push("run:lock-coupon")
+            return { couponId: "CPN-88" }
+          },
+          compensate: (out) => {
+            ledger.push(`compensate:lock-coupon:${out.couponId}`)
+          },
+        },
+        {
+          name: "charge-payment",
+          run: () => {
+            ledger.push("run:charge-payment")
+            throw new Error("支付渠道余额不足")
+          },
+        },
+      ])
+
+      const sagaRes = await orderSaga.execute({ orderId: "ORD-1001" })
+      expect(sagaRes.status).toBe("compensated")
+      expect(sagaRes.failedStep).toBe("charge-payment")
+      expect(sagaRes.completedSteps).toEqual(["deduct-stock", "lock-coupon"])
+      expect(sagaRes.compensatedSteps).toEqual(["lock-coupon", "deduct-stock"])
+      expect(ledger).toEqual([
+        "run:deduct-stock",
+        "run:lock-coupon",
+        "run:charge-payment",
+        "compensate:lock-coupon:CPN-88",
+        "compensate:deduct-stock:SKU-01",
+      ])
+
+      // 3. 验证 A3: /api/metrics Prometheus 格式与慢 SQL 计数暴露
+      recordSpanMetric("db.select.mall_order", 260, 200)
+      const promRes = await getMetricsRoute(new NextRequest("http://localhost:3200/api/metrics"))
+      expect(promRes.status).toBe(200)
+      const promText = await promRes.text()
+      expect(promText).toContain("cooliebase_http_requests_total")
+      expect(promText).toContain("cooliebase_db_slow_queries_total")
+      expect(promText).toContain('cooliebase_span_duration_ms_count{operation="db.select.mall_order"}')
+
+      // 4. 验证 B3: /api/v1/realtime/sse 实时通知流广播与读取
+      publishRealtimeEvent("oa-approvals", "approval.approved", { requestId: "REQ-01", approver: "admin" })
+      const sseRes = await getSseRoute(
+        new NextRequest("http://localhost:3200/api/v1/realtime/sse?topic=oa-approvals&once=1"),
+      )
+      expect(sseRes.status).toBe(200)
+      expect(sseRes.headers.get("content-type")).toContain("text/event-stream")
+      const sseText = await sseRes.text()
+      expect(sseText).toContain("event: connected")
+      expect(sseText).toContain("event: approval.approved")
+      expect(sseText).toContain("REQ-01")
     })
   })
 })

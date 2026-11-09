@@ -480,8 +480,13 @@ function compileBlueprintDomain(domainSpec) {
         nullable: f.required ? false : true,
         comment: f.label || f.name,
         nullableInferred: !f.required,
+        widget,
       }
       if (f.query) col.queryType = f.query
+      if (f.visibleOn) col.visibleOn = f.visibleOn
+      if (f.requiredOn) col.requiredOn = f.requiredOn
+      if (f.disabledOn) col.disabledOn = f.disabledOn
+      if (Array.isArray(f.subFields) && f.subFields.length > 0) col.subFields = f.subFields
       if (Array.isArray(f.enumValues) && f.enumValues.length > 0) {
         col.enumValues = f.enumValues
         if (f.enumLabels) col.enumLabels = f.enumLabels
@@ -691,6 +696,50 @@ function runCompileDomain(argv) {
   }
 }
 
+function runDoctor(argv) {
+  const fileIdx = argv.indexOf("--file")
+  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  if (!fileArg) {
+    throw new Error("用法: node scripts/blueprint-engine.cjs doctor --file <domain-blueprint.json>")
+  }
+  const spec = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), fileArg), "utf8"))
+  const { healedSpec, diagnostics } = diagnoseAndHealBlueprint(spec)
+  console.log(JSON.stringify({ domain: healedSpec.domain, diagnostics, healedSpec }, null, 2))
+}
+
+function runDeliver(argv) {
+  const fileIdx = argv.indexOf("--file")
+  const fileArg = fileIdx >= 0 ? argv[fileIdx + 1] : argv[1]
+  const dryRun = argv.includes("--dry-run")
+  if (!fileArg) {
+    throw new Error("用法: node scripts/blueprint-engine.cjs deliver --file <domain-blueprint.json> [--dry-run]")
+  }
+  const spec = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), fileArg), "utf8"))
+  const compiled = compileBlueprintDomain(spec)
+  if (spec.variables) {
+    runRender({
+      cmd: "render",
+      compact: false,
+      dryRun,
+      valuesFile: null,
+      preset: spec.variables.INDUSTRY_PRESET || null,
+      sets: spec.variables,
+    })
+  }
+  if (!dryRun) {
+    const absTables = path.join(ROOT, compiled.tablesFileRel)
+    fs.writeFileSync(absTables, compiled.tablesTsCode, "utf8")
+    const { execFileSync } = require("node:child_process")
+    execFileSync("pnpm", ["exec", "tsx", "scripts/create-business-domain.ts", compiled.domain], {
+      cwd: ROOT,
+      stdio: "inherit",
+    })
+  }
+  console.log(
+    `[blueprint-engine] ${dryRun ? "DELIVER DRY-RUN" : "DELIVERED"}: 域 "${compiled.domain}" (${compiled.codegenTables.length} 张表, 自愈诊断 ${compiled.diagnostics.length} 项)`
+  )
+}
+
 if (require.main === module) {
   const rawArgv = process.argv.slice(2)
   const opts = parseCliArgs(rawArgv)
@@ -698,8 +747,10 @@ if (require.main === module) {
   else if (opts.cmd === "schema") runSchema(opts)
   else if (opts.cmd === "render") runRender(opts)
   else if (opts.cmd === "compile-domain") runCompileDomain(rawArgv)
+  else if (opts.cmd === "doctor") runDoctor(rawArgv)
+  else if (opts.cmd === "deliver") runDeliver(rawArgv)
   else {
-    console.log("用法: node scripts/blueprint-engine.cjs [check | schema --compact | render --values <json> --preset <industry> --set K=V | compile-domain --file <spec.json> --write]")
+    console.log("用法: node scripts/blueprint-engine.cjs [check | schema --compact | render --values <json> --preset <industry> --set K=V | compile-domain --file <spec.json> --write | doctor --file <spec.json> | deliver --file <spec.json> [--dry-run]]")
   }
 }
 
