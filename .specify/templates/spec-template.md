@@ -17,23 +17,34 @@
 
 | 术语 / 概念 | 英文标识 | 领域定义与所属模块 |
 |---|---|---|
-| {{TITLE}} | {{NAME}} | 本规格所交付的业务与技术上下文，严格收敛于 `{{DOMAIN}}` 领域边界 |
-| 行级租户隔离 | Multi-Tenant AST | 基于 Kysely AST 自动在 SQL 注入 `tenant_id` 过滤条件，严禁跨租户越权 |
-| 审计底座字段 | Audit Base Columns | 实体必须自动继承 8 大审计字段，严禁业务层手工更新审计元数据 |
+| {{TITLE}} | {{NAME}} | 本规格所交付的真实业务与技术上下文，严格收敛于 `{{DOMAIN}}` 领域边界 |
+| 领域门面契约 | Domain Facade | 业务模块对外暴露的标准契约接口，跨域通信单向调用，内部实现自闭环 |
+| 数据隔离策略 | Data Isolation Policy | 依据客户交付形态按需选择（单租户物理独立库 / 多租户行级租户隔离可选特性） |
 
-## 3. 用户故事与角色矩阵 (User Stories & Personas)
+## 3. 业务需求立项与多端建设交付范围 (Business Intake & Multi-Terminal Scope)
+
+### 3.1 真实业务立项背景
+- **交付目标**: 面向客户真实业务场景，消灭手工低效流程与断点。
+- **服务对象**: 涵盖 B 端业务操作员、管理员及终端客户角色，杜绝无主需求。
+
+### 3.2 多端建设覆盖边界
+- **B端管理中台**: 负责业务运营配置、流程审核、数据对账与大盘监控。
+- **C端用户门户/移动端**: 负责业务直接录入、消费结算与进度查询（按需）。
+- **多端协议对齐**: 多端统一遵循 OpenAPI/REST 契约规范，共享领域状态机。
+
+## 4. 用户故事与角色矩阵 (User Stories & Personas)
 
 {{USER_STORIES}}
 
-## 4. 关键业务不变量 (Key Business Invariants)
+## 5. 关键业务不变量 (Key Business Invariants)
 
 {{INVARIANTS}}
 
-## 5. 验收标准清单 (Acceptance Criteria)
+## 6. 验收标准清单 (Acceptance Criteria)
 
 {{ACCEPTANCE_CRITERIA}}
 
-## 6. 约束条件与技术边界 (Constraints & Non-Goals)
+## 7. 约束条件与技术边界 (Constraints & Non-Goals)
 
 ### 系统必须满足的架构约束 (The System SHALL Comply With)
 {{CONSTRAINTS}}
