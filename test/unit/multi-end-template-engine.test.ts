@@ -1127,8 +1127,9 @@ describe("multi-end-template-engine (PagePlug & Commercial Low-Code Benchmark)",
       expect(compiled.specName).toBe("oahub-blueprint")
       expect(compiled.specBriefRel).toBe("docs/specs/oahub/oahub-blueprint/brief.json")
       expect(compiled.specBrief.domain).toBe("oahub")
-      expect(compiled.specBrief.stories.length).toBe(1)
-      expect(compiled.specBrief.stories[0]?.text).toContain("/oa-hub/api/v1/plugins/cooliebase.oahub/api/leave-requests")
+      expect(compiled.specBrief.stories.length).toBeGreaterThanOrEqual(3)
+      expect(compiled.specBrief.tasks.length).toBeGreaterThanOrEqual(3)
+      expect(compiled.specBrief.stories[0]?.text).toContain("/oa-hub/api/v1/plugins/cooliebase.oahub/api/oahub-leave-request")
       expect(compiled.specBrief.acceptance.length).toBeGreaterThanOrEqual(3)
 
       // 2. 验证自动生成的 6 阶段 Playwright 全栈 E2E 测试套件

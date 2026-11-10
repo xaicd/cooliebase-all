@@ -603,8 +603,31 @@
         "docs/features/sprint-prod/1109.md",
         "docs/features/sprint-prod/1110.md"
       ]
+    },
+    {
+      "id": "T15",
+      "title": "外部沙盒零污染实测收口：修复 project-init SQLite 零外部库分支、状态机/下推归一化与 HTTP 400 错误码映射、新增 6 阶段秒级 Vitest E2E 闭环验证器",
+      "files": [
+        "scripts/project-init.cjs",
+        "scripts/create-business-domain.ts",
+        "scripts/blueprint-engine.cjs",
+        "packages/domains/infra/backend/services/codegen-templates/service.template.ts",
+        "test/unit/multi-end-template-engine.test.ts",
+        "docs/specs/infra/multi-end-template-engine/brief.json",
+        "docs/specs/infra/multi-end-template-engine/tasks.md",
+        "docs/specs/infra/multi-end-template-engine/evidence.json",
+        "docs/specs/infra/multi-end-template-engine/spec.json",
+        "docs/specs/infra/multi-end-template-engine/feature.json",
+        "docs/specs/infra/multi-end-template-engine/plan.md",
+        "docs/specs/infra/multi-end-template-engine/design.md",
+        "docs/specs/infra/multi-end-template-engine/requirements.md",
+        "docs/specs/infra/multi-end-template-engine/spec.md",
+        "docs/specs/infra/multi-end-template-engine/checklist.md",
+        "docs/specs/infra/multi-end-template-engine/runbook.json",
+        "docs/features/sprint-prod/1110.md"
+      ]
     }
   ],
-  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10 → T11 → T12 → T13 → T14",
+  "dependencies": "T1 → T2 → T3 → T4 → T5 → T6 → T7 → T8 → T9 → T10 → T11 → T12 → T13 → T14 → T15",
   "windowMinutes": 20
 }

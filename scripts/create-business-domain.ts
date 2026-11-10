@@ -51,6 +51,13 @@ function step(n: number, message: string) {
 }
 
 function run(command: string, args: string[]) {
+  if (command === "pnpm" && args[0] === "exec" && args[1] === "tsx") {
+    const localTsx = path.join(ROOT, "node_modules", ".bin", process.platform === "win32" ? "tsx.cmd" : "tsx")
+    if (fs.existsSync(localTsx)) {
+      execFileSync(localTsx, args.slice(2), { cwd: ROOT, stdio: "inherit", shell: process.platform === "win32" })
+      return
+    }
+  }
   execFileSync(command, args, { cwd: ROOT, stdio: "inherit" })
 }
 
@@ -140,10 +147,10 @@ function main() {
     console.log(`  已重建${label}`)
   }
   // contracts 会重写 module.manifest.json，必须跑在 manifests **之前** —— 反了会一直报漂移。
-  run("pnpm", ["run", "domain:contracts"])
-  run("pnpm", ["run", "domain:seams"])
-  run("pnpm", ["run", "domain:manifests"])
-  run("pnpm", ["run", "admin:routes:manifest"])
+  run("node", ["scripts/write-domain-contracts.cjs"])
+  run("node", ["scripts/write-seam-graph.cjs"])
+  run("node", ["scripts/write-domain-manifests.cjs"])
+  run("node", ["scripts/generate-admin-route-manifest.cjs"])
 
   step(6, "门禁自检")
   console.log("  下一步请手动执行（工具不替你决定部署与提交）:")

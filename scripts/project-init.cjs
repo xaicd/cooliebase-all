@@ -125,6 +125,7 @@ function parseArgs(args) {
     port: 3200,
     author: null,
     basePath: null,
+    dbType: "sqlite",
     profile: "standard",
     // vertical profile 需要；此前 project-init 完全不认 --bundle，
     // 于是 `--profile vertical --bundle mall` 会在 clone 阶段报
@@ -141,16 +142,18 @@ function parseArgs(args) {
     else if (arg.startsWith("--target=")) options.target = arg.split("=")[1]
     else if (arg === "--name" && args[i + 1]) options.name = args[++i]
     else if (arg.startsWith("--name=")) options.name = arg.split("=")[1]
-    else if (arg === "--title" && args[i + 1]) options.title = args[++i]
-    else if (arg.startsWith("--title=")) options.title = arg.split("=")[1]
+    else if ((arg === "--title" || arg === "--zh-name") && args[i + 1]) options.title = args[++i]
+    else if (arg.startsWith("--title=") || arg.startsWith("--zh-name=")) options.title = arg.split("=")[1]
     else if (arg === "--short-name" && args[i + 1]) options.shortName = args[++i]
     else if (arg.startsWith("--short-name=")) options.shortName = arg.split("=")[1]
     else if (arg === "--git" && args[i + 1]) options.git = args[++i]
     else if (arg.startsWith("--git=")) options.git = arg.split("=")[1]
     else if (arg === "--db" || arg === "--db-name") options.dbName = args[++i]
     else if (arg.startsWith("--db=") || arg.startsWith("--db-name=")) options.dbName = arg.split("=")[1]
-    else if (arg === "--port" && args[i + 1]) options.port = parseInt(args[++i], 10) || 3200
-    else if (arg.startsWith("--port=")) options.port = parseInt(arg.split("=")[1], 10) || 3200
+    else if (arg === "--db-type" && args[i + 1]) options.dbType = args[++i]
+    else if (arg.startsWith("--db-type=")) options.dbType = arg.split("=")[1]
+    else if ((arg === "--port" || arg === "--admin-port") && args[i + 1]) options.port = parseInt(args[++i], 10) || 3200
+    else if (arg.startsWith("--port=") || arg.startsWith("--admin-port=")) options.port = parseInt(arg.split("=")[1], 10) || 3200
     else if (arg === "--author" && args[i + 1]) options.author = args[++i]
     else if (arg.startsWith("--author=")) options.author = arg.split("=")[1]
     else if (arg === "--base-path" && args[i + 1]) options.basePath = args[++i]
@@ -301,8 +304,14 @@ function updateEnvFiles(targetDir, opts) {
   const existingUrl = (/^DATABASE_URL=(.*)$/m.exec(existingEnvs)?.[1] ?? "").trim()
   const pointsAtValidPg = existingUrl !== "" && /^postgres/i.test(existingUrl)
   if (!pointsAtValidPg) {
-    envUpdates.DB_DRIVER = "postgresql"
-    envUpdates.DATABASE_URL = `postgresql://postgres:postgres@localhost:55432/${dbName}?schema=public`
+    if (opts.dbType === "postgresql" || opts.dbType === "postgres") {
+      envUpdates.DB_DRIVER = "postgresql"
+      envUpdates.DATABASE_URL = `postgresql://postgres:postgres@localhost:55432/${dbName}?schema=public`
+    } else {
+      envUpdates.DB_DRIVER = "sqlite"
+      envUpdates.SQLITE_DB_PATH = sqliteDbPath
+      envUpdates.DATABASE_URL = `file:./${sqliteDbPath}`
+    }
   }
   // 生产启动要求 JWT_SECRET ≥32 字节且非默认值。孵化时就生成，避免 `npm start` 起不来。
   if (!/^JWT_SECRET=/m.test(existingEnvs)) {
@@ -602,7 +611,10 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     // （包括 `project-profile.json` 与断言它的测试）。不传就回落到「由 name 推导」，
     // 于是身份契约写 `opts.title` 而测试断言写 name 推导值 → **产物 check 必红**（实测）。
     if (opts.title) cloneArgs.push("--title", opts.title)
-    // 克隆阶段由 autoProvisionDatabase 自动在嵌入式 PostgreSQL (55432) 中准备库
+    // project:init --target 默认走零外部依赖 SQLite（除非显式指定 --db-type postgresql），克隆阶段不因未启动 Postgres 55432 中止
+    if (opts.dbType !== "postgresql" && opts.dbType !== "postgres") {
+      cloneArgs.push("--no-provision-db")
+    }
     if (Array.isArray(opts.bundle) && opts.bundle.length > 0) cloneArgs.push("--bundle", opts.bundle.join(","))
     execFileSync("node", cloneArgs, { stdio: "inherit" })
     const targetDir = path.resolve(process.cwd(), opts.target)
