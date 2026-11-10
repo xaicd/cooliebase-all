@@ -72,8 +72,11 @@ pnpm run db:bootstrap:sqlite        # 初始化数据库
 pnpm run dev                        # 访问 http://localhost:3200 (预填 supervip 与安全随机密码)
 ```
 
-## 自动化测试与质量门禁 (Gates)
-- `pnpm run check`: 运行 10 大工程标准自检（0 Blocker, 0 High Debt 铁律）。
+## 自动化测试、双支柱架构与质量门禁 (Two-Pillar Harness × Spec-Kit CMMI & Gates)
+- **支柱一 `harness` (`HARNESS.md` + `scripts/harness.cjs`)**：定义 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>` 9 大标准运行生命周期环节。
+- **支柱二 `speckit` + CMMI 00~09 扩展 (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)**：通过 `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]` 统一治理每个环节的宏观过程文档 (`docs/00_meta_standards/`~`docs/09_operations/`) 与特性规格阶段文档 (`docs/specs/<domain>/<name>/`)。
+- **`<500 Tokens` 蓝图一键交付**：`pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`（自动完成 `doctor` 自愈 + Spec-Kit 展开 + 全栈插件代码生成 + 基于 `scripts/lib/ephemeral-pg.cjs` **Embedded PostgreSQL 18.4** 的 6 阶段真库 E2E）。
+- `pnpm run check`: 运行工程标准自检（0 Blocker, 0 High Debt 铁律）。
 - `pnpm run test:unit`: 运行 Vitest 单元与集成测试（100% PASS 门禁）。
 - `pnpm run smoke:login`: 登录链冒烟测试（建库 -> 迁移 -> 种子 -> 启动 -> 登录 200 -> 受保护接口 200）。
 

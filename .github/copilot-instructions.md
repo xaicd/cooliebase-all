@@ -1,15 +1,17 @@
 # GitHub Copilot Instructions for cooliebase-all
 
-This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5.
+This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, with zero-Docker Embedded PostgreSQL 18.4 (`embedded-postgres`) and SQLite support.
 
-## Architecture & Technology Stack
-- Next.js 16 (App Router) + React 19 + TypeScript 5
-- Database: Kysely query builder + SQLite (local development) / PostgreSQL (production)
-- Multi-tenancy: Strictly obtain tenant scope from `getCurrentTenantId()`, never pass explicit tenantId across layers.
-- Project Initialization: Use `pnpm run project:init` to customize project names, titles, and remotes.
-- Quality Gates: Must pass `pnpm run check` and `pnpm run test:unit`.
-- Spec-Driven Architecture: Review `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`. All features, bugfixes, enhancements, and refactors are governed by Spec Bundles in `docs/specs/<domain>/<name>` with `assets/` and `prototypes/`. Commands: `pnpm run spec:new`, `pnpm run spec:build`, `pnpm run spec:check`, `pnpm run spec:archive`.
-- Detailed Rules: Review `AGENTS.md`, `CLAUDE.md`, and `llms.txt`.
+## Architecture & Two-Pillar Engineering System
+- **Pillar 1 — `harness` (`HARNESS.md` + `scripts/harness.cjs`) = Master Workflow & Lifecycle Specification**:
+  `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>`
+- **Pillar 2 — `speckit` (`pnpm run speckit`) + CMMI 00~09 Extensions (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`) = Stage Document & Process Asset Engine**:
+  `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]`
+- **Zero-Pollution Sandbox Hatching**: `pnpm run project:init -- --name <slug> --title "<系统名>" --target /tmp/<slug>-sandbox`
+- **`<500 Tokens` Blueprint + Embedded PostgreSQL 18.4 E2E**: `pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`
+- **Multi-tenancy**: Strictly obtain tenant scope from `getCurrentTenantId()`, never pass explicit tenantId across layers.
+- **Spec-Driven Architecture**: Review `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`. Commands: `pnpm run spec:new`, `pnpm run spec:build`, `pnpm run spec:check`, `pnpm run spec:archive`.
+- **Detailed Rules**: Review `AGENTS.md`, `HARNESS.md`, `CLAUDE.md`, and `llms.txt`.
 
 ## 第一步（强制）：需求分诊
 
@@ -24,8 +26,4 @@ This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built
 - `NOT_A_REQUIREMENT` → 这句话不是一个需求（确认 / 授权 / 上下文陈述 / 调研提问 / 续作指令），既不立规格也不改代码
 
 它同时把用户原始输入记入 `docs/features/sprint-prod/{MMDD}.md`（AGENTS §15）。
-判定规则真源：`scripts/lib/spec-necessity-rules.cjs` —— 规则表可审阅、可修改；
-**认为判错了就改规则表**（并跑 `test/unit/agent-route.test.ts`），而不是绕过它。
-
-> 为什么强制：此前入口文件写的是"所有 feature/bugfix/enhancement/refactor 都归规格管"，
-> 等于**全都需要、也等于没有判断** —— 小改被流程拖住、大改靠自觉。
+判定规则真源：`scripts/lib/spec-necessity-rules.cjs`。

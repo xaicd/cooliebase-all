@@ -26,6 +26,55 @@
 
 ---
 
+## 🧭 0. AI Agent 进场 30 秒续作与交付决策树（与 `yudao-quad-terminal` 100% 同名同参）
+
+> **进场首屏双支柱定位**（详见 [`HARNESS.md`](HARNESS.md)）：
+> - **支柱一 `harness`（[`HARNESS.md`](HARNESS.md) + `scripts/harness.cjs`）= 工作流程与运行生命周期总规范**：统一管控 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>`。
+> - **支柱二 `speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**：每个 CMMI 环节均属于 `speckit` 的文档扩展（`pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]`），同时承载宏观工程文档（`docs/00_meta_standards/`~`docs/09_operations/`）与规格包阶段文档（`docs/specs/<domain>/<name>/`）。
+
+### 三大高频开发场景：AI Agent 打开项目后直接按场景执行
+
+```bash
+# ─────────────────────────────────────────────────────────────────────────────
+# 场景 A：从底座派生客户新项目（零污染外部沙箱，绝不污染母本 Git 工作区）
+# ─────────────────────────────────────────────────────────────────────────────
+node scripts/cmmi-01-management.cjs init --name <slug> --title "<系统中文名>" --target /tmp/<slug>-sandbox
+# （等价于: pnpm run project:init -- --name <slug> --title "<系统中文名>" --target /tmp/<slug>-sandbox）
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 场景 B：新增业务域 / 新业务表 / 全栈功能交付（<500 Tokens 蓝图驱动 + 嵌入式真 PG 18.4 E2E）
+# ─────────────────────────────────────────────────────────────────────────────
+# 1. 编写或渲染 <500 Tokens 的 <domain>.blueprint.json（禁止手写数百行 CRUD 样板）
+node scripts/cmmi-01-management.cjs render --name "<系统名>" --domain <domain> --entities "a:实体A,b:实体B" --out <domain>.blueprint.json
+# 2. 蓝图口语化字段/状态机/权限码自愈诊断 (CMMI-03)
+node scripts/cmmi-03-design.cjs doctor --file <domain>.blueprint.json --write
+# 3. 一键展开 Spec 文档 + 全栈插件代码 + 嵌入式真 PostgreSQL 18.4 (ephemeral-pg.cjs) 6 阶段 E2E (CMMI-04 & 05)
+node scripts/cmmi-04-implementation.cjs deliver --file <domain>.blueprint.json --verify-e2e
+# （等价于: pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e）
+
+# ─────────────────────────────────────────────────────────────────────────────
+# 场景 C：存量项目继续开发 / 修 Bug / 增量改特性（Spec-Kit × CMMI 00~09 闭环）
+# ─────────────────────────────────────────────────────────────────────────────
+# Step 0 [CMMI-02 需求分诊]: 确定性判定 SPEC_REQUIRED / DIRECT_OK / NOT_A_REQUIREMENT
+pnpm run agent:route -- "<用户的原始需求原文>"
+# Step 1 [CMMI-02 规格立项]: 若需立项，创建 <500 Tokens brief.json 并展开标准规格文档
+node scripts/cmmi-02-requirements.cjs new --name <spec> --domain <域> --title "<标题>" --type <feature|bugfix|refactor>
+node scripts/cmmi-02-requirements.cjs build --name <spec>
+# Step 2 [CMMI-04 任务追踪]: 查看当前未完成任务 [T1..Tn] 及阶段文档状态
+pnpm run speckit -- cmmi 04 docs --spec <spec>
+node scripts/cmmi-04-implementation.cjs tasks --spec <spec>
+# Step 3 [CMMI-05 真库验证]: 编码实现后运行真 PostgreSQL 18.4 E2E 与单元测试
+node scripts/cmmi-05-verification.cjs e2e
+# Step 4 [CMMI-06 门禁与提交]: 跑通全量门禁，并按 1 Task = 1 Commit 提交（带 [<spec>/T<ID>]）
+node scripts/cmmi-06-quality.cjs check
+git commit -m "[<spec>/T1] feat(<domain>): ..."
+# Step 5 [CMMI-07~09 发布与归档]: 生成制品指纹并归档规格至 docs/specs/archive/
+node scripts/cmmi-07-release.cjs fingerprint
+node scripts/cmmi-09-operations.cjs archive --name <spec>
+```
+
+---
+
 ## 1. 项目定位
 
 
@@ -207,20 +256,20 @@
 > **入口唯一性（强制）**：所有流程与操作都必须能从 **`pnpm harness <主干>`** 进 ——
 > 主干表是**唯一**的入口声明（`scripts/harness.cjs` 的 `TRUNK` + `GROUPS`）。
 
-### 3.4.1 跨底座统一 CMMI 00~09 全生命周期 `.cjs` 标准脚本矩阵（与 `yudao-quad-terminal` 100% 同名同参）
+### 3.4.1 双支柱架构：`harness` 定工作流程总规范 × `speckit` 扩展 CMMI 00~09 全生命周期 `.cjs` 矩阵（与 `yudao-quad-terminal` 100% 同名同参）
 
-| CMMI 阶段与文档目录 | 统一 `.cjs` 脚本路径 | 统一 `pnpm` / `harness` 入口 | 标准动作与交付闭环 |
+| CMMI 阶段与宏观文档目录 (Layer A) | 特性规格阶段文档 (Layer B: `docs/specs/<域>/<名>/`) | `speckit` 扩展入口 / 统一 `.cjs` 脚本 | 标准动作与交付闭环 (`docs \| check \| asset` + 阶段动作) |
 |---|---|---|---|
-| **00 规范与元契约** (`docs/00_meta_standards`) | `scripts/cmmi-00-meta.cjs` | `pnpm run cmmi:00` / `pnpm harness 00` | `check \| schema \| sync`：校验 `compat-manifest`、蓝图 Schema 与 OpenWiki |
-| **01 立项与沙箱孵化** (`docs/01_management`) | `scripts/cmmi-01-management.cjs` | `pnpm run cmmi:01` / `pnpm harness 01` | `init --name <slug> --title "<项目名>" --target /tmp/<slug>-sandbox` |
-| **02 需求与规格工程** (`docs/02_requirements`) | `scripts/cmmi-02-requirements.cjs` | `pnpm run cmmi:02` / `pnpm harness 02` | `route \| new \| build \| check`：需求分诊与 Spec-Kit EARS 规格立项展开 |
-| **03 架构设计与自愈** (`docs/03_architecture_and_design`) | `scripts/cmmi-03-design.cjs` | `pnpm run cmmi:03` / `pnpm harness 03` | `doctor --file <bp.json> --write \| compile-domain`：蓝图自愈与契约编译 |
-| **04 全栈实现与生成** (`docs/04_implementation`) | `scripts/cmmi-04-implementation.cjs` | `pnpm run cmmi:04` / `pnpm harness 04` | `deliver --file <bp.json> \| codegen`：`<500 Tokens` 蓝图全栈代码生成 |
-| **05 测试与真 PG E2E** (`docs/05_verification_and_testing`) | `scripts/cmmi-05-verification.cjs` | `pnpm run cmmi:05` / `pnpm harness 05` | `e2e \| unit \| mutation`：基于 `ephemeral-pg.cjs` (PostgreSQL 18.4) 的 6 阶段 Spec E2E |
-| **06 质量门禁与审计** (`docs/06_quality_and_audit`) | `scripts/cmmi-06-quality.cjs` | `pnpm run cmmi:06` / `pnpm harness 06` | `check [--tier fast\|full] \| tasks \| controls`：PPQA/FCA/PCA 质量门禁 |
-| **07 构建与不可变发布** (`docs/07_release_and_deployment`) | `scripts/cmmi-07-release.cjs` | `pnpm run cmmi:07` / `pnpm harness 07` | `gateway \| build \| fingerprint \| runbook`：四端网关渲染与 SHA-256 指纹 |
-| **08 SRE 运维与探活** (`docs/08_sre_and_resilience`) | `scripts/cmmi-08-sre.cjs` | `pnpm run cmmi:08` / `pnpm harness 08` | `start \| stop \| restart \| status \| health \| logs \| security \| load` |
-| **09 持续运营与归档** (`docs/09_operations`) | `scripts/cmmi-09-operations.cjs` | `pnpm run cmmi:09` / `pnpm harness 09` | `ops \| archive --name <spec> \| check`：持续运营与规格防污染归档 |
+| **00 规范与元契约** (`docs/00_meta_standards`) | `spec.json` | `pnpm run speckit -- cmmi 00`<br>`scripts/cmmi-00-meta.cjs` | `docs \| check \| constitution \| schema \| sync`：校验元规范、`compat-manifest` 与蓝图 Schema |
+| **01 立项与沙箱孵化** (`docs/01_management`) | `selection.md`, `research.md` | `pnpm run speckit -- cmmi 01`<br>`scripts/cmmi-01-management.cjs` | `docs \| check \| asset \| init \| render`：立项/DAR 文档管理 + 零污染沙箱孵化 (`/tmp/<slug>-sandbox`) |
+| **02 需求与规格工程** (`docs/02_requirements`) | `brief.json`, `requirements.md`, `spec.md` | `pnpm run speckit -- cmmi 02`<br>`scripts/cmmi-02-requirements.cjs` | `docs \| check \| asset \| route \| new \| build`：需求分诊与 Spec-Kit EARS 规格立项展开 |
+| **03 架构设计与自愈** (`docs/03_design`) | `design.md`, `prototype.md` | `pnpm run speckit -- cmmi 03`<br>`scripts/cmmi-03-design.cjs` | `docs \| check \| asset \| doctor \| compile-domain`：ADR/ERD 文档管理 + 蓝图自愈与契约编译 |
+| **04 研发计划与实现** (`docs/04_implementation`) | `plan.md`, `tasks.md` | `pnpm run speckit -- cmmi 04`<br>`scripts/cmmi-04-implementation.cjs` | `docs \| check \| asset \| tasks \| deliver \| codegen`：WBS 任务矩阵 + `<500 Tokens` 蓝图全栈代码生成 |
+| **05 测试与真 PG E2E** (`docs/05_verification`) | `testing.md`, `evidence.json`, `bugs.md` | `pnpm run speckit -- cmmi 05`<br>`scripts/cmmi-05-verification.cjs` | `docs \| check \| asset \| e2e \| unit \| mutation`：基于 `ephemeral-pg.cjs` (PostgreSQL 18.4) 的 6 阶段 Spec E2E |
+| **06 质量门禁与审计** (`docs/06_quality_assurance`) | `checklist.md` | `pnpm run speckit -- cmmi 06`<br>`scripts/cmmi-06-quality.cjs` | `docs \| check \| asset \| tasks \| controls`：Checklist 核对单 + PPQA/FCA/PCA 质量门禁 |
+| **07 发布 SOP 与指纹** (`docs/07_release`) | `deployment.md`, `runbook.json` | `pnpm run speckit -- cmmi 07`<br>`scripts/cmmi-07-release.cjs` | `docs \| check \| asset \| gateway \| build \| fingerprint \| runbook`：部署 SOP + 四端网关渲染与 SHA-256 指纹 |
+| **08 SRE 与事故复盘** (`docs/08_sre`) | `operations.md` | `pnpm run speckit -- cmmi 08`<br>`scripts/cmmi-08-sre.cjs` | `docs \| check \| asset \| start \| stop \| status \| health \| security \| load`：SLO/SLI 矩阵与服务生命周期 |
+| **09 持续运营与归档** (`docs/09_operations`) | `operations.md` | `pnpm run speckit -- cmmi 09`<br>`scripts/cmmi-09-operations.cjs` | `docs \| check \| asset \| archive --name <spec> \| ops`：运营对账单与历史规格防污染归档 |
 > 加一个新操作 = 在主干表/分组映射里加一行，**不是**再加一个平行 npm script。
 > 机检：`harness-integrity` 的「脚本可达性」（棘轮，冻结存量于
 > `docs/architecture/artifacts/harness-unreachable-scripts.json`）+

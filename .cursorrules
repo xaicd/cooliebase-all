@@ -1,22 +1,26 @@
 # Cursor Forwarder for cooliebase-all
-# The authoritative rules for this project live in `.agents/rules/` and `AGENTS.md`.
+# The authoritative rules for this project live in `.agents/rules/`, `AGENTS.md`, and `HARNESS.md`.
 
 - Core Directives: `.agents/rules/RULE-0-UNIVERSAL-DIRECTIVES.md`
 - High-Order Inverse Thinking: `.agents/rules/HIGH-ORDER-INVERSE-THINKING.md`
 - Engineering Deliverables: `.agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md`
 - Spec & Prototype Standard: `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`
+- Two-Pillar Architecture:
+  - Pillar 1 (`harness` = Master Workflow): `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>` (`scripts/harness.cjs`)
+  - Pillar 2 (`speckit` + CMMI 00~09 Stage Document Extensions): `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]` (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)
+- `<500 Tokens` Blueprint + Embedded PostgreSQL 18.4 E2E: `pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`
 - Spec Commands (Slash Commands - /speckit.*):
-  - `/speckit.specify`: 规格立项与需求初始化 (npm run speckit:new)
-  - `/speckit.plan`: 展开编译 15 份标准化资产与任务波次图 (npm run speckit:build)
-  - `/speckit.tasks`: 原子任务树与 Git 提交核对 (npm run speckit:tasks)
-  - `/speckit.checklist`: 11 阶段与门禁健康扫描 (npm run speckit:check)
-  - `/speckit.constitution`: 项目工程宪法与零造假铁律 (npm run speckit:constitution)
-  - `/speckit.eval`: 6 阶哲学反问与激进减法 (npm run socratic:inquire)
-  - `/speckit.implement`: SpaceX 级真实数据库驱动测试 (npm run verify:real-db)
-  - `/speckit.gate`: 23 道 CMMI 全仓质量总门禁 (npm run check)
-  - `/speckit.ops`: 全域 326 契约无头运营体检 (npm run agent:ops:suite)
-  - `/speckit.cmmi`: CMMI 01~09 过程资产创建与健康守卫 (npm run speckit:cmmi)
-  - `/speckit.archive`: 生产割接完毕后防污染归档 (npm run speckit:archive)
+  - `/speckit.specify`: 规格立项与需求初始化 (`pnpm run speckit:new`)
+  - `/speckit.plan`: 展开编译 15 份标准化资产与任务波次图 (`pnpm run speckit:build`)
+  - `/speckit.tasks`: 原子任务树与 Git 提交核对 (`pnpm run speckit:tasks`)
+  - `/speckit.checklist`: 11 阶段与门禁健康扫描 (`pnpm run speckit:check`)
+  - `/speckit.constitution`: 项目工程宪法与零造假铁律 (`pnpm run speckit:constitution`)
+  - `/speckit.eval`: 6 阶哲学反问与激进减法 (`pnpm run socratic:inquire`)
+  - `/speckit.implement`: SpaceX 级真实数据库驱动测试 (`pnpm run verify:real-db`)
+  - `/speckit.gate`: 23 道 CMMI 全仓质量总门禁 (`pnpm run check`)
+  - `/speckit.ops`: 全域契约无头运营体检 (`pnpm run agent:ops:suite`)
+  - `/speckit.cmmi`: CMMI 00~09 全生命周期阶段文档与过程资产扩展 (`pnpm run speckit:cmmi`)
+  - `/speckit.archive`: 生产割接完毕后防污染归档 (`pnpm run speckit:archive`)
 - Project Initialization: `.agents/rules/PROJECT-INIT-AND-REFACTOR.md`
 - Multi-Tenant Isolation: `.agents/rules/MULTI-TENANT-ISOLATION.md`
 - Engineering Gates: `AGENTS.md`
@@ -25,17 +29,14 @@
 
 动手做任何需求之前，先跑：
 
-    npm run agent:route -- "<用户的原始需求原文>"
+    pnpm run agent:route -- "<用户的原始需求原文>"
 
 它会给出**确定性判定**，而不是靠模型自行揣测：
 
-- `SPEC_REQUIRED` → 先 `npm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
-- `DIRECT_OK` → 可直接改（改完仍须 `npm run check` 全绿）
+- `SPEC_REQUIRED` → 先 `pnpm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"`
+- `DIRECT_OK` → 可直接改（改完仍须 `pnpm run check` 全绿）
 - `NOT_A_REQUIREMENT` → 这句话不是一个需求（确认 / 授权 / 上下文陈述 / 调研提问 / 续作指令），既不立规格也不改代码
 
 它同时把用户原始输入记入 `docs/features/sprint-prod/{MMDD}.md`（AGENTS §15）。
 判定规则真源：`scripts/lib/spec-necessity-rules.cjs` —— 规则表可审阅、可修改；
 **认为判错了就改规则表**（并跑 `test/unit/agent-route.test.ts`），而不是绕过它。
-
-> 为什么强制：此前入口文件写的是"所有 feature/bugfix/enhancement/refactor 都归规格管"，
-> 等于**全都需要、也等于没有判断** —— 小改被流程拖住、大改靠自觉。
