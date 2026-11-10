@@ -317,18 +317,21 @@ export async function runProjectReactor(options) {
     [new RegExp('CoolieBase All 基座平台', 'gi'), `${projectTitle} · 管理后台`],
     [new RegExp('CoolieBase All 基座', 'gi'), projectTitle],
     [new RegExp('CoolieBase All', 'gi'), projectTitle],
+    [new RegExp('@cooliebase/plugin-sdk', 'g'), '@cooliebase/plugin-sdk'],
+    // 保护第一方插件 ID 前缀 cooliebase.<domain> 与 NATS/EventBus subject 前缀 cooliebase.cmd./cooliebase.evt.
+    [new RegExp('cooliebase\\.[a-z0-9_-]+', 'g'), (m) => m],
     [new RegExp('cooliebase-all', 'gi'), cleanName],
     [new RegExp('cooliebase-', 'gi'), `${cleanName}-`],
     // 裸词兜底（2026-11-08 实测漏网）：@cooliebase / com.cooliebase.app / cooliebase_next
     // 这类「.」「_」「@」连接的形态，带后缀词条（-all / -）命中不了，必须补裸词。
     // 词典按长度降序优先匹配，组合词仍先于裸词命中，不会产生半截替换。
     // 变体映射：全大写→项目大写标识（环境变量风格）、帕斯卡→项目类名风格、
-    // TitleCase→商业全称、全小写→项目代号。
+    // TitleCase→商业全称、全小写→项目合法标识符 cleanIdent（避免连字符破坏 JS 变量名如 cooliebasePrisma）。
     [new RegExp('cooliebase', 'gi'), (m) => {
       if (m === 'COOLIEBASE') return projectUpper;
       if (m === 'Cooliebase') return projectPascal;
       if (m === 'CoolieBase') return projectTitle;
-      return cleanName;
+      return cleanIdent;
     }],
   ];
 
@@ -595,6 +598,9 @@ export async function runProjectReactor(options) {
         DB_NAME: cleanName,
         SQLITE_DB_PATH: `data/${cleanName}.db`,
         DEMO_TENANT_DOMAIN: `demo.${cleanName}.local`,
+        BASE_PATH: `/${cleanName}`,
+        PREVIEW_BASE_PATH: `/${cleanName}`,
+        NEXT_PUBLIC_BASE_PATH: `/${cleanName}`,
         // 历史仓库地址不外泄：客户项目不保留上游 git remote
         GIT_REMOTE_URL: '',
       };
@@ -776,7 +782,7 @@ export async function runProjectReactor(options) {
       const fullPath = path.join(dir, entry.name);
       if (entry.isDirectory()) {
         renameVendorFilesAndDirs(fullPath);
-        if (entry.name === cleanName || entry.name === cleanIdent || entry.name === projectPascal || entry.name === safeJavaIdent) {
+        if (entry.name === cleanName || entry.name === cleanIdent || entry.name === projectPascal || entry.name === safeJavaIdent || entry.name === 'cooliebase-plugin-sdk') {
           continue;
         }
         if (

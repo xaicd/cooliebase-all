@@ -58,6 +58,7 @@ function parseCliArgs(argv) {
     cmd,
     compact: false,
     dryRun: false,
+    force: false,
     valuesFile: null,
     preset: null,
     sets: {},
@@ -66,18 +67,20 @@ function parseCliArgs(argv) {
     const arg = argv[i]
     if (arg === "--compact") opts.compact = true
     else if (arg === "--dry-run") opts.dryRun = true
+    else if (arg === "--force") opts.force = true
     else if (arg === "--values" && argv[i + 1]) opts.valuesFile = argv[++i]
     else if (arg.startsWith("--values=")) opts.valuesFile = arg.split("=")[1]
     else if (arg === "--preset" && argv[i + 1]) opts.preset = argv[++i]
     else if (arg.startsWith("--preset=")) opts.preset = arg.split("=")[1]
-    else if (arg === "--set" && argv[i + 1]) {
+    else if ((arg === "--set" || arg === "--set-var") && argv[i + 1]) {
       const pair = argv[++i]
       const eqIdx = pair.indexOf("=")
       if (eqIdx > 0) {
         opts.sets[pair.slice(0, eqIdx).trim()] = pair.slice(eqIdx + 1).trim()
       }
-    } else if (arg.startsWith("--set=")) {
-      const pair = arg.slice("--set=".length)
+    } else if (arg.startsWith("--set=") || arg.startsWith("--set-var=")) {
+      const prefix = arg.startsWith("--set-var=") ? "--set-var=" : "--set="
+      const pair = arg.slice(prefix.length)
       const eqIdx = pair.indexOf("=")
       if (eqIdx > 0) {
         opts.sets[pair.slice(0, eqIdx).trim()] = pair.slice(eqIdx + 1).trim()
