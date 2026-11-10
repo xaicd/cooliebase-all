@@ -10,15 +10,19 @@
  *   - 特性规格文档: docs/specs/<domain>/<name>/{selection.md, research.md}
  *
  * 统一跨底座命令:
- *   pnpm run speckit -- cmmi 01 [docs|check|asset|init|render]
- *   node scripts/cmmi-01-management.cjs [docs|check|asset|init|render]
+ *   pnpm run pmo  (等价于: node scripts/cmmi-01-management.cjs pmo [--write|--json|--federated])
+ *   pnpm run speckit -- cmmi 01 [pmo|docs|check|asset|init|render]
+ *   node scripts/cmmi-01-management.cjs [pmo|docs|check|asset|init|render]
  */
 
 "use strict";
 
 const { spawnSync } = require("node:child_process");
+const fs = require("node:fs");
 const path = require("node:path");
-const { tryHandleDocSubcommand, checkStageDocs } = require("./lib/speckit-cmmi-docs.cjs");
+const { tryHandleDocSubcommand, checkStageDocs } = require(
+  fs.existsSync(path.join(__dirname, "lib/speckit-cmmi-docs.cjs")) ? "./lib/speckit-cmmi-docs.cjs" : "./cmmi-spec-docs.cjs"
+);
 
 const ROOT = path.resolve(__dirname, "..");
 
@@ -85,7 +89,8 @@ if (sub === "render" || sub === "blueprint") {
 }
 
 if (sub === "--help" || sub === "-h" || sub === "help") {
-  console.log(`用法 (Spec-Kit × CMMI-01 立项策划扩展):
+  console.log(`用法 (Spec-Kit × CMMI-01 PMO 待办总控与立项策划扩展):
+  node scripts/cmmi-01-management.cjs pmo [--write|--json|--federated]          作为本项目 PMO 扫描接下来的待办工作与全息状态大盘
   node scripts/cmmi-01-management.cjs docs [--spec <名>]                        列出立项章程/风险/DAR 与规格选型文档 (selection.md, research.md)
   node scripts/cmmi-01-management.cjs check [--spec <名>]                       校验 CMMI-01 立项与选型文档完备度
   node scripts/cmmi-01-management.cjs asset --type <charter|plan|risk|dar> ...  创建 CMMI-01 标准立项文档

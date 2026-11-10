@@ -205,6 +205,7 @@ const GROUPS = {
   },
   cmmi: {
     "": "cmmi:list",
+    pmo: "pmo",
     list: "cmmi:list",
     new: "cmmi:new",
     asset: "cmmi:asset",

@@ -19,7 +19,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
-const { tryHandleDocSubcommand, checkStageDocs, runSpeckit } = require("./lib/speckit-cmmi-docs.cjs");
+const { tryHandleDocSubcommand, checkStageDocs, runSpeckit } = require(
+  fs.existsSync(path.join(__dirname, "lib/speckit-cmmi-docs.cjs")) ? "./lib/speckit-cmmi-docs.cjs" : "./cmmi-spec-docs.cjs"
+);
 
 const ROOT = path.resolve(__dirname, "..");
 
@@ -46,10 +48,17 @@ if (sub === "check") {
   console.log("═══ [Spec-Kit × CMMI-00] 规范文档与元契约校验 (00_meta_standards) ═══");
   const d0 = checkStageDocs("00");
   if (d0 !== 0) process.exit(d0);
-  const c1 = runNode("scripts/compat-check.cjs", rest);
-  if (c1 !== 0) process.exit(c1);
-  const c2 = runNode("scripts/blueprint-engine.cjs", ["check"]);
-  process.exit(c2);
+  if (fs.existsSync(path.join(ROOT, "scripts/compat-check.cjs"))) {
+    const c1 = runNode("scripts/compat-check.cjs", rest);
+    if (c1 !== 0) process.exit(c1);
+  }
+  if (fs.existsSync(path.join(ROOT, "scripts/blueprint-engine.cjs"))) {
+    process.exit(runNode("scripts/blueprint-engine.cjs", ["check"]));
+  }
+  if (fs.existsSync(path.join(ROOT, "scripts/check-agent-entry.mjs"))) {
+    process.exit(runNode("scripts/check-agent-entry.mjs"));
+  }
+  process.exit(0);
 }
 
 if (sub === "schema") {

@@ -680,7 +680,7 @@ function handleTasks() {
 
   const git = (gitArgs: string[]): string => {
     try {
-      const res = spawnSync("git", gitArgs, { cwd: ROOT, encoding: "utf8" })
+      const res = spawnSync("git", gitArgs, { cwd: ROOT, encoding: "utf8", maxBuffer: 64 * 1024 * 1024 })
       return (res.stdout || "").trim()
     } catch {
       return ""
@@ -1100,6 +1100,16 @@ switch (command) {
   case "health":
     handleHealth()
     break
+  case "pmo":
+  case "backlog":
+  case "radar": {
+    const res = spawnSync(process.execPath, [path.join(ROOT, "scripts/cmmi-01-management.cjs"), "pmo", ...process.argv.slice(3)], {
+      cwd: ROOT,
+      stdio: "inherit",
+    })
+    process.exit(res.status ?? 0)
+    break
+  }
   case "00":
   case "01":
   case "02":

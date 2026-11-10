@@ -19,7 +19,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
-const { tryHandleDocSubcommand, checkStageDocs } = require("./lib/speckit-cmmi-docs.cjs");
+const { tryHandleDocSubcommand, checkStageDocs } = require(
+  fs.existsSync(path.join(__dirname, "lib/speckit-cmmi-docs.cjs")) ? "./lib/speckit-cmmi-docs.cjs" : "./cmmi-spec-docs.cjs"
+);
 
 const ROOT = path.resolve(__dirname, "..");
 
@@ -47,7 +49,13 @@ if (sub === "check") {
   console.log("═══ [Spec-Kit × CMMI-03] 架构设计文档与蓝图契约校验 (03_design) ═══");
   const d3 = checkStageDocs("03");
   if (d3 !== 0) process.exit(d3);
-  process.exit(runNode("scripts/blueprint-engine.cjs", ["check", ...rest]));
+  if (fs.existsSync(path.join(ROOT, "scripts/blueprint-engine.cjs"))) {
+    process.exit(runNode("scripts/blueprint-engine.cjs", ["check", ...rest]));
+  }
+  if (fs.existsSync(path.join(ROOT, "scripts/harness-ontology-audit.mjs"))) {
+    process.exit(runNode("scripts/harness-ontology-audit.mjs", rest));
+  }
+  process.exit(0);
 }
 
 if (sub === "compile-domain" || sub === "contract") {

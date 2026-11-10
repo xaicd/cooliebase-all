@@ -195,6 +195,7 @@
     "cmmi:new": "node scripts/cmmi-asset-scaffold.cjs new",
     "cmmi:list": "node scripts/cmmi-asset-scaffold.cjs list",
     "cmmi:check": "node scripts/cmmi-asset-scaffold.cjs check",
+    "pmo": "node scripts/cmmi-01-management.cjs pmo",
     "runbook": "node scripts/agent/run-runbook.cjs",
     "deliver": "node scripts/deliver.cjs",
     "plugins:register": "pnpm exec tsx scripts/register-plugins.ts",

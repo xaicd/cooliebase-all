@@ -6,8 +6,9 @@
 - Engineering Deliverables: `.agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md`
 - Spec & Prototype Standard: `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md`
 - Two-Pillar Architecture:
-  - Pillar 1 (`harness` = Master Workflow): `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>` (`scripts/harness.cjs`)
-  - Pillar 2 (`speckit` + CMMI 00~09 Stage Document Extensions): `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]` (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)
+  - Project PMO Radar (First Step on Open): `pnpm run pmo` / `node scripts/cmmi-01-management.cjs pmo` (`docs/01_management/pmo-dashboard.md`)
+  - Pillar 1 (`harness` = Master Workflow): `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver|pmo>` (`scripts/harness.cjs`)
+  - Pillar 2 (`speckit` + CMMI 00~09 Stage Document Extensions): `pnpm run speckit -- cmmi <00..09> [docs|check|asset|pmo|...]` (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)
 - `<500 Tokens` Blueprint + Embedded PostgreSQL 18.4 E2E: `pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`
 - Spec Commands: `pnpm run spec:new`, `pnpm run spec:build`, `pnpm run spec:check`, `pnpm run spec:archive`
 - Project Initialization: `.agents/rules/PROJECT-INIT-AND-REFACTOR.md`

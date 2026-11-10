@@ -19,7 +19,9 @@
 const fs = require("node:fs");
 const path = require("node:path");
 const { spawnSync } = require("node:child_process");
-const { tryHandleDocSubcommand, checkStageDocs, runSpeckit } = require("./lib/speckit-cmmi-docs.cjs");
+const { tryHandleDocSubcommand, checkStageDocs, runSpeckit } = require(
+  fs.existsSync(path.join(__dirname, "lib/speckit-cmmi-docs.cjs")) ? "./lib/speckit-cmmi-docs.cjs" : "./cmmi-spec-docs.cjs"
+);
 
 const ROOT = path.resolve(__dirname, "..");
 
@@ -42,7 +44,13 @@ if (sub === "check" || sub === "gate") {
   console.log("═══ [Spec-Kit × CMMI-06] 质量核对单 (checklist.md) 与 PPQA/FCA/PCA 门禁审计 ═══");
   const d6 = checkStageDocs("06");
   if (d6 !== 0) process.exit(d6);
-  process.exit(runNode("scripts/gate-check.cjs", rest));
+  if (fs.existsSync(path.join(ROOT, "scripts/gate-check.cjs"))) {
+    process.exit(runNode("scripts/gate-check.cjs", rest));
+  }
+  if (fs.existsSync(path.join(ROOT, "scripts/pre-commit-check.mjs"))) {
+    process.exit(runNode("scripts/pre-commit-check.mjs", rest));
+  }
+  process.exit(0);
 }
 
 if (sub === "tasks") {

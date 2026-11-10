@@ -3,10 +3,11 @@
 This workspace is `cooliebase-all`, an enterprise-grade fullstack platform built on Next.js 16 + React 19 + TypeScript 5, with zero-Docker Embedded PostgreSQL 18.4 (`embedded-postgres`) and SQLite support.
 
 ## Architecture & Two-Pillar Engineering System
+- **Project PMO Instant Backlog Radar (First Step on Open)**: `pnpm run pmo` (or `node scripts/cmmi-01-management.cjs pmo`, see `docs/01_management/pmo-dashboard.md`)
 - **Pillar 1 — `harness` (`HARNESS.md` + `scripts/harness.cjs`) = Master Workflow & Lifecycle Specification**:
-  `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>`
+  `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver|pmo>`
 - **Pillar 2 — `speckit` (`pnpm run speckit`) + CMMI 00~09 Extensions (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`) = Stage Document & Process Asset Engine**:
-  `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]`
+  `pnpm run speckit -- cmmi <00..09> [docs|check|asset|pmo|...]`
 - **Zero-Pollution Sandbox Hatching**: `pnpm run project:init -- --name <slug> --title "<系统名>" --target /tmp/<slug>-sandbox`
 - **`<500 Tokens` Blueprint + Embedded PostgreSQL 18.4 E2E**: `pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`
 - **Multi-tenancy**: Strictly obtain tenant scope from `getCurrentTenantId()`, never pass explicit tenantId across layers.

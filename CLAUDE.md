@@ -15,7 +15,10 @@ All engineering rules and architectural standards are unified in [`AGENTS.md`](A
 - **Project Refactor & Init**: `.agents/rules/PROJECT-INIT-AND-REFACTOR.md`
 - **Multi-Tenant Isolation**: `.agents/rules/MULTI-TENANT-ISOLATION.md`
 
-## 3-Scenario AI Agent Playbook (Identical Across `cooliebase-all` & `yudao-quad-terminal`)
+## Project PMO & 4-Scenario AI Agent Playbook (Identical Across `coolie`, `cooliebase-all` & `yudao-quad-terminal`)
+0. **Scenario 0 — Project PMO Instant Backlog & Next-Action Radar (CMMI-01)**:
+   - Run `pnpm run pmo` (or `node scripts/cmmi-01-management.cjs pmo [--write|--json]` / `pnpm harness pmo`)
+   - Inspect [`docs/01_management/pmo-dashboard.md`](docs/01_management/pmo-dashboard.md) for active WIP specs, unverified tasks `[T1..Tn]`, ready-to-archive specs, and the prioritized `P0 / P1 / P2` Next Action Queue.
 1. **Scenario A — Zero-Pollution Sandbox Hatching (CMMI-01)**:
    `node scripts/cmmi-01-management.cjs init --name <slug> --title "<系统中文名>" --target /tmp/<slug>-sandbox`
    (or `pnpm run project:init -- --name <slug> --title "<系统中文名>" --target /tmp/<slug>-sandbox`)

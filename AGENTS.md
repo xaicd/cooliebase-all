@@ -26,15 +26,26 @@
 
 ---
 
-## 🧭 0. AI Agent 进场 30 秒续作与交付决策树（与 `yudao-quad-terminal` 100% 同名同参）
+## 🧭 0. AI Agent 进场 30 秒续作与项目 PMO 待办决策树（与 `yudao-quad-terminal` / `coolie` 100% 同名同参）
 
+> **进场第一视角：你即本项目 PMO (Project Management Office)**
+> 任何 AI Agent 打开本项目时，**第一步先看项目 PMO 待办大盘**（耗时 `< 0.5s`，零 Token 盲扫浪费）：
+> - **一键查看实时待办队列 (`P0/P1/P2`)**：`pnpm run pmo`（或 `node scripts/cmmi-01-management.cjs pmo [--write|--json]` / `pnpm run speckit -- cmmi 01 pmo` / `pnpm harness pmo`）
+> - **持久化 PMO 待办大盘真源**：[`docs/01_management/pmo-dashboard.md`](docs/01_management/pmo-dashboard.md)（配合 [`docs/01_management/project-plan.md`](docs/01_management/project-plan.md)）
+>
 > **进场首屏双支柱定位**（详见 [`HARNESS.md`](HARNESS.md)）：
-> - **支柱一 `harness`（[`HARNESS.md`](HARNESS.md) + `scripts/harness.cjs`）= 工作流程与运行生命周期总规范**：统一管控 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>`。
-> - **支柱二 `speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**：每个 CMMI 环节均属于 `speckit` 的文档扩展（`pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]`），同时承载宏观工程文档（`docs/00_meta_standards/`~`docs/09_operations/`）与规格包阶段文档（`docs/specs/<domain>/<name>/`）。
+> - **支柱一 `harness`（[`HARNESS.md`](HARNESS.md) + `scripts/harness.cjs`）= 工作流程与运行生命周期总规范**：统一管控 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver|pmo>`。
+> - **支柱二 `speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**：每个 CMMI 环节均属于 `speckit` 的文档扩展（`pnpm run speckit -- cmmi <00..09> [docs|check|asset|pmo|...]`），同时承载宏观工程文档（`docs/00_meta_standards/`~`docs/09_operations/`）与规格包阶段文档（`docs/specs/<domain>/<name>/`）。
 
-### 三大高频开发场景：AI Agent 打开项目后直接按场景执行
+### 四大高频开发场景：AI Agent 打开项目后直接按场景执行
 
 ```bash
+# ─────────────────────────────────────────────────────────────────────────────
+# 场景 0 [PMO 首屏雷达]：进场 1 秒摸清项目全貌、施工中规格 (WIP) 与 P0/P1/P2 下一跳待办
+# ─────────────────────────────────────────────────────────────────────────────
+pnpm run pmo
+# （等价于: node scripts/cmmi-01-management.cjs pmo [--write|--json] | 查看 docs/01_management/pmo-dashboard.md）
+
 # ─────────────────────────────────────────────────────────────────────────────
 # 场景 A：从底座派生客户新项目（零污染外部沙箱，绝不污染母本 Git 工作区）
 # ─────────────────────────────────────────────────────────────────────────────
