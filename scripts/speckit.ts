@@ -1100,7 +1100,40 @@ switch (command) {
   case "health":
     handleHealth()
     break
+  case "00":
+  case "01":
+  case "02":
+  case "03":
+  case "04":
+  case "05":
+  case "06":
+  case "07":
+  case "08":
+  case "09": {
+    const { CMMI_SPEC_STAGES } = require("./lib/speckit-cmmi-docs.cjs")
+    const stage = CMMI_SPEC_STAGES[command]
+    const res = spawnSync(process.execPath, [path.join(ROOT, stage.script), ...process.argv.slice(3)], {
+      cwd: ROOT,
+      stdio: "inherit",
+    })
+    process.exit(res.status ?? 0)
+    break
+  }
   case "cmmi": {
+    const { CMMI_SPEC_STAGES, printCmmiSpecMatrix } = require("./lib/speckit-cmmi-docs.cjs")
+    const sub = process.argv[3] || "matrix"
+    if (/^0[0-9]$/.test(sub)) {
+      const stage = CMMI_SPEC_STAGES[sub]
+      const res = spawnSync(process.execPath, [path.join(ROOT, stage.script), ...process.argv.slice(4)], {
+        cwd: ROOT,
+        stdio: "inherit",
+      })
+      process.exit(res.status ?? 0)
+    }
+    if (sub === "matrix" || sub === "stages") {
+      printCmmiSpecMatrix()
+      process.exit(0)
+    }
     const cmmiScript = path.join(__dirname, "cmmi-asset-scaffold.cjs")
     const cmmiArgs = process.argv.slice(3)
     const res = spawnSync(process.execPath, [cmmiScript, ...cmmiArgs], { stdio: "inherit" })

@@ -57,7 +57,7 @@
     "manifest": "blueprint.template.json",
     "engineScript": "scripts/blueprint-engine.cjs",
     "initScript": "scripts/project-init.cjs",
-    "speckitScript": "scripts/speckit.cjs",
+    "speckitScript": "scripts/cmmi-asset-scaffold.cjs",
     "codegenScript": "scripts/codegen-module.cjs",
     "gateScript": "scripts/gate-check.cjs",
     "compatScript": "scripts/compat-check.cjs",

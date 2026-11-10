@@ -30,25 +30,31 @@
 | ★★ | [`scripts/project-init.cjs`](scripts/project-init.cjs) | `pnpm run project:init -- ...` | 统一零污染沙箱派生与白标重构引擎（兼容 `pnpm project:hatch`） |
 | ★★ | [`scripts/blueprint-engine.cjs`](scripts/blueprint-engine.cjs) | `pnpm run blueprint:deliver` | 统一 `<500 Tokens` 蓝图自愈 (`doctor`)、编译 (`compile-domain`) 与真库交付 (`deliver --verify-e2e`) |
 | ★★ | [`scripts/lib/ephemeral-pg.cjs`](scripts/lib/ephemeral-pg.cjs) | — | 统一零 Docker **嵌入式真 PostgreSQL 18.4 (`embedded-postgres`)** 端点解析器 |
-| ★★ | [`scripts/speckit.cjs`](scripts/speckit.cjs) | `pnpm run speckit:<cmd>` | 统一 Spec-Kit SDD 工程规格管理引擎 (`new \| build \| check \| tasks \| archive`) |
+| ★★ | [`scripts/cmmi-asset-scaffold.cjs`](scripts/cmmi-asset-scaffold.cjs) | `pnpm run speckit` / `pnpm run speckit:cmmi` | 统一 Spec-Kit SDD 工程规格与 CMMI 00~09 阶段文档扩展引擎 |
 | ★★ | [`scripts/codegen-module.cjs`](scripts/codegen-module.cjs) | `pnpm run gen:module` | 统一业务域全栈代码生成器 |
 | ★★ | [`scripts/gate-check.cjs`](scripts/gate-check.cjs) | `pnpm run check` / `pnpm run gate:fast` | 统一工程质量与架构边界门禁 |
 | ★★ | [`scripts/service.sh`](scripts/service.sh) | `pnpm run service:<cmd>` | 物理服务运维控制器（与 `pnpm harness` 完全等价映射） |
 
-### 2.1 CMMI 00~09 全生命周期 `.cjs` 标准脚本矩阵（两套底座 100% 同名同参）
+### 2.1 双支柱架构：`harness` 定工作流程总规范 × `speckit` 扩展 CMMI 00~09 全生命周期文档体系
 
-| CMMI 阶段与文档目录 | 统一 `.cjs` 脚本路径 | 统一 `pnpm` / `harness` 入口 | 阶段核心职责与标准子命令 |
-|---|---|---|---|
-| **00 规范与元契约** (`docs/00_meta_standards`) | [`scripts/cmmi-00-meta.cjs`](scripts/cmmi-00-meta.cjs) | `pnpm run cmmi:00` / `pnpm harness 00` | `check \| schema \| sync`：校验 `compat-manifest`、蓝图 Schema 与同步表面契约 |
-| **01 立项与沙箱孵化** (`docs/01_management`) | [`scripts/cmmi-01-management.cjs`](scripts/cmmi-01-management.cjs) | `pnpm run cmmi:01` / `pnpm harness 01` | `init \| render`：零污染沙箱孵化 (`/tmp/<slug>-sandbox`) + 渲染蓝图草案 |
-| **02 需求与规格工程** (`docs/02_requirements`) | [`scripts/cmmi-02-requirements.cjs`](scripts/cmmi-02-requirements.cjs) | `pnpm run cmmi:02` / `pnpm harness 02` | `route \| new \| build \| check`：需求分诊与 Spec-Kit EARS 规格立项展开 |
-| **03 架构设计与自愈** (`docs/03_architecture_and_design`) | [`scripts/cmmi-03-design.cjs`](scripts/cmmi-03-design.cjs) | `pnpm run cmmi:03` / `pnpm harness 03` | `doctor \| check \| compile-domain`：蓝图字段/状态机/权限码自愈诊断与契约编译 |
-| **04 全栈实现与生成** (`docs/04_implementation`) | [`scripts/cmmi-04-implementation.cjs`](scripts/cmmi-04-implementation.cjs) | `pnpm run cmmi:04` / `pnpm harness 04` | `deliver \| compile \| codegen`：`<500 Tokens` 蓝图全栈代码与 PostgreSQL DDL 生成 |
-| **05 测试与真 PG E2E** (`docs/05_verification_and_testing`) | [`scripts/cmmi-05-verification.cjs`](scripts/cmmi-05-verification.cjs) | `pnpm run cmmi:05` / `pnpm harness 05` | `e2e \| unit \| mutation`：基于 `ephemeral-pg.cjs` (PostgreSQL 18.4) 的 6 阶段 Spec E2E 与变异测试 |
-| **06 质量门禁与审计** (`docs/06_quality_and_audit`) | [`scripts/cmmi-06-quality.cjs`](scripts/cmmi-06-quality.cjs) | `pnpm run cmmi:06` / `pnpm harness 06` | `check \| tasks \| controls`：PPQA/FCA/PCA 质量门禁与 Git 原子任务追溯 |
-| **07 构建与不可变发布** (`docs/07_release_and_deployment`) | [`scripts/cmmi-07-release.cjs`](scripts/cmmi-07-release.cjs) | `pnpm run cmmi:07` / `pnpm harness 07` | `gateway \| build \| fingerprint \| runbook`：四端网关渲染、制品构建与 SHA-256 指纹校验 |
-| **08 SRE 运维与探活** (`docs/08_sre_and_resilience`) | [`scripts/cmmi-08-sre.cjs`](scripts/cmmi-08-sre.cjs) | `pnpm run cmmi:08` / `pnpm harness 08` | `start \| stop \| restart \| status \| health \| logs \| security \| load`：服务生命周期与安全/容量基线 |
-| **09 持续运营与归档** (`docs/09_operations`) | [`scripts/cmmi-09-operations.cjs`](scripts/cmmi-09-operations.cjs) | `pnpm run cmmi:09` / `pnpm harness 09` | `ops \| archive \| check`：无头造数体检与规格防污染归档 (`docs/specs/archive/`) |
+> **核心分工哲学**：
+> 1. **支柱一：`harness`（[`HARNESS.md`](HARNESS.md) + [`scripts/harness.cjs`](scripts/harness.cjs)）= 工作流程与运行生命周期总规范**
+>    负责定义从依赖安装、静态检查、构建打包、服务启停、健康探活到真库 E2E 与出厂终验的 9 阶段标准工作流（`install -> check -> build -> start -> health -> status -> stop -> e2e -> deliver`）。
+> 2. **支柱二：`speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**
+>    因为**每个 CMMI 00~09 环节本质上都与工程文档强绑定**（同时承载 **Layer A 宏观过程文档 `docs/00_meta_standards/`~`docs/09_operations/`** 与 **Layer B 特性规格包阶段文档 `docs/specs/<domain>/<name>/`**），所以每个 CMMI 环节均属于 `speckit` 的一等公民扩展，统一通过 `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]`（或 `node scripts/cmmi-0X-*.cjs`）调用：
+
+| CMMI 阶段 | `speckit` 阶段扩展入口 / `.cjs` 脚本 | 宏观工程过程文档 (Layer A) | 特性规格包阶段文档 (Layer B: `docs/specs/<域>/<名>/`) | 阶段专属动作与文档门禁 |
+|---|---|---|---|---|
+| **00 规范与元契约** | `pnpm run speckit -- cmmi 00`<br>([`scripts/cmmi-00-meta.cjs`](scripts/cmmi-00-meta.cjs)) | `docs/00_meta_standards/`、`.specify/memory/constitution.md`、`wiki/` | `spec.json` | `docs \| check \| constitution \| schema \| sync` |
+| **01 立项与沙箱孵化** | `pnpm run speckit -- cmmi 01`<br>([`scripts/cmmi-01-management.cjs`](scripts/cmmi-01-management.cjs)) | `docs/01_management/` (`project-charter.md`, `risk-register.md`, `dar-decision-records/`) | `selection.md`, `research.md` | `docs \| check \| asset \| init \| render` |
+| **02 需求与规格工程** | `pnpm run speckit -- cmmi 02`<br>([`scripts/cmmi-02-requirements.cjs`](scripts/cmmi-02-requirements.cjs)) | `docs/02_requirements/` (`rtm-traceability-matrix.md`, `non-functional-reqs.md`) | `brief.json`, `requirements.md`, `spec.md` | `docs \| check \| asset \| route \| new \| build` |
+| **03 架构设计与自愈** | `pnpm run speckit -- cmmi 03`<br>([`scripts/cmmi-03-design.cjs`](scripts/cmmi-03-design.cjs)) | `docs/03_design/` (`database-design-erd.md`, `adr/`, `diagrams/`) | `design.md`, `prototype.md` | `docs \| check \| asset \| doctor \| compile-domain` |
+| **04 研发计划与实现** | `pnpm run speckit -- cmmi 04`<br>([`scripts/cmmi-04-implementation.cjs`](scripts/cmmi-04-implementation.cjs)) | `docs/04_implementation/` (`coding-standards-and-guidelines.md`, `code-review-*`) | `plan.md`, `tasks.md` | `docs \| check \| asset \| tasks \| deliver \| codegen` |
+| **05 测试与真 PG E2E** | `pnpm run speckit -- cmmi 05`<br>([`scripts/cmmi-05-verification.cjs`](scripts/cmmi-05-verification.cjs)) | `docs/05_verification/` (`test-plan.md`, `test-summary-report.md`, `uat-acceptance-certificate.md`) | `testing.md`, `evidence.json`, `bugs.md` | `docs \| check \| asset \| e2e \| unit \| mutation` |
+| **06 质量门禁与审计** | `pnpm run speckit -- cmmi 06`<br>([`scripts/cmmi-06-quality.cjs`](scripts/cmmi-06-quality.cjs)) | `docs/06_quality_assurance/` (`audit/fca-pca-audit-*.md`, `car-root-cause-*.md`) | `checklist.md` | `docs \| check \| asset \| tasks \| controls` |
+| **07 发布 SOP 与指纹** | `pnpm run speckit -- cmmi 07`<br>([`scripts/cmmi-07-release.cjs`](scripts/cmmi-07-release.cjs)) | `docs/07_release/` (`system-deployment-sop.md`, `rollback-emergency-plan.md`) | `deployment.md`, `runbook.json` | `docs \| check \| asset \| gateway \| build \| fingerprint \| runbook` |
+| **08 SRE 与事故复盘** | `pnpm run speckit -- cmmi 08`<br>([`scripts/cmmi-08-sre.cjs`](scripts/cmmi-08-sre.cjs)) | `docs/08_sre/` (`01_slo_sli_metrics/`, `06_incidents_postmortem/`) | `operations.md` | `docs \| check \| asset \| status \| health \| security \| load` |
+| **09 持续运营与归档** | `pnpm run speckit -- cmmi 09`<br>([`scripts/cmmi-09-operations.cjs`](scripts/cmmi-09-operations.cjs)) | `docs/09_operations/` (`tenant-governance.md`, `01_financial_reconciliation/`)、`docs/specs/archive/` | `operations.md` | `docs \| check \| asset \| archive \| ops` |
 
 ---
 

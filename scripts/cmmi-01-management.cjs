@@ -1,24 +1,24 @@
 #!/usr/bin/env node
 /**
- * CMMI-01: 立项策划与零污染沙箱孵化 (01_management)
+ * CMMI-01 (Spec-Kit 扩展): 立项章程、DAR 决策文档与零污染沙箱孵化 (01_management)
  * --------------------------------------------------------------------------
- * 对齐文档目录: docs/01_management/
- * 统一跨底座命令:
- *   node scripts/cmmi-01-management.cjs init --name <slug> --title "<项目名>" --target /tmp/<slug>-sandbox
- *   node scripts/cmmi-01-management.cjs render --name "<系统名>" --domain <域> --entities "a:实体A,b:实体B" --out <file>
- *   pnpm run cmmi:01 -- init ...
- *   pnpm harness 01 init ...
+ * 架构定位:
+ *   - `harness.cjs` 定工作流程总规范
+ *   - `cmmi-01-management.cjs` 属于 `speckit` 在 CMMI-01 立项策划环节的文档与孵化扩展
+ * 关联文档:
+ *   - 宏观过程文档: docs/01_management/{project-charter.md, project-plan.md, risk-register.md, dar-decision-records/*}
+ *   - 特性规格文档: docs/specs/<domain>/<name>/{selection.md, research.md}
  *
- * 核心职责:
- *   1. 零污染外部沙箱孵化 (默认隔离到 /tmp/<slug>-sandbox，绝不污染底座 Git 工作区)
- *   2. 立项蓝图草案渲染 (生成 Blueprint v1 JSON)
- *   3. 立项章程、DAR 决策矩阵与风险台账管理
+ * 统一跨底座命令:
+ *   pnpm run speckit -- cmmi 01 [docs|check|asset|init|render]
+ *   node scripts/cmmi-01-management.cjs [docs|check|asset|init|render]
  */
 
 "use strict";
 
 const { spawnSync } = require("node:child_process");
 const path = require("node:path");
+const { tryHandleDocSubcommand, checkStageDocs } = require("./lib/speckit-cmmi-docs.cjs");
 
 const ROOT = path.resolve(__dirname, "..");
 
@@ -57,8 +57,14 @@ function runNode(scriptRel, extraArgs = []) {
 }
 
 const rawArgs = process.argv.slice(2);
+tryHandleDocSubcommand("01", rawArgs);
+
 const parsed = parseArgs(rawArgs);
-const sub = parsed._[0] || (parsed.name || parsed.target ? "init" : "help");
+const sub = parsed._[0] || (parsed.name || parsed.target ? "init" : "check");
+
+if (sub === "check") {
+  process.exit(checkStageDocs("01", { spec: parsed.spec, strict: Boolean(parsed.strict) }));
+}
 
 if (sub === "init" || sub === "hatch" || sub === "sandbox") {
   const forward = rawArgs[0] === sub ? rawArgs.slice(1) : rawArgs;
@@ -68,20 +74,23 @@ if (sub === "init" || sub === "hatch" || sub === "sandbox") {
       .replace(/[^a-z0-9-_]/g, "-");
     forward.push("--target", `/tmp/${slug}-sandbox`);
   }
-  console.log("═══ [CMMI-01] 立项策划与零污染沙箱孵化 (01_management) ═══");
+  console.log("═══ [Spec-Kit × CMMI-01] 立项策划与零污染沙箱孵化 (01_management) ═══");
   process.exit(runNode("scripts/project-init.cjs", forward));
 }
 
 if (sub === "render" || sub === "blueprint") {
   const forward = rawArgs[0] === sub ? rawArgs.slice(1) : rawArgs;
-  console.log("═══ [CMMI-01] 渲染立项蓝图契约 (Blueprint v1) ═══");
+  console.log("═══ [Spec-Kit × CMMI-01] 渲染立项蓝图契约 (Blueprint v1) ═══");
   process.exit(runNode("scripts/blueprint-engine.cjs", ["render", ...forward]));
 }
 
 if (sub === "--help" || sub === "-h" || sub === "help") {
-  console.log(`用法:
-  node scripts/cmmi-01-management.cjs init --name <slug> --title "<项目名>" [--target /tmp/<slug>-sandbox]
-  node scripts/cmmi-01-management.cjs render --name "<系统名>" --domain <域> --entities "a:实体A" --out <blueprint.json>`);
+  console.log(`用法 (Spec-Kit × CMMI-01 立项策划扩展):
+  node scripts/cmmi-01-management.cjs docs [--spec <名>]                        列出立项章程/风险/DAR 与规格选型文档 (selection.md, research.md)
+  node scripts/cmmi-01-management.cjs check [--spec <名>]                       校验 CMMI-01 立项与选型文档完备度
+  node scripts/cmmi-01-management.cjs asset --type <charter|plan|risk|dar> ...  创建 CMMI-01 标准立项文档
+  node scripts/cmmi-01-management.cjs init --name <slug> --title "<项目名>"     零污染外部沙箱孵化 (/tmp/<slug>-sandbox)
+  node scripts/cmmi-01-management.cjs render --name "<系统名>" --domain <域> ... 渲染 Blueprint v1 立项蓝图`);
   process.exit(0);
 }
 
