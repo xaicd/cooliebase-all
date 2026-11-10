@@ -191,6 +191,11 @@ const GROUPS = {
     "": "scaffold",
     deliver: "blueprint:deliver",
     doctor: "blueprint:doctor",
+    check: "blueprint:check",
+    compile: "blueprint:compile",
+    render: "blueprint:render",
+    schema: "blueprint:schema",
+    module: "gen:module",
   },
   quick: {
     "": "quick-start",
@@ -205,6 +210,26 @@ const GROUPS = {
     asset: "cmmi:asset",
     check: "cmmi:check",
     "asset:check": "cmmi:asset:check",
+    "00": "cmmi:00",
+    "01": "cmmi:01",
+    "02": "cmmi:02",
+    "03": "cmmi:03",
+    "04": "cmmi:04",
+    "05": "cmmi:05",
+    "06": "cmmi:06",
+    "07": "cmmi:07",
+    "08": "cmmi:08",
+    "09": "cmmi:09",
+    s00: "cmmi:00",
+    s01: "cmmi:01",
+    s02: "cmmi:02",
+    s03: "cmmi:03",
+    s04: "cmmi:04",
+    s05: "cmmi:05",
+    s06: "cmmi:06",
+    s07: "cmmi:07",
+    s08: "cmmi:08",
+    s09: "cmmi:09",
   },
   workflow: {
     "": "workflow:list",
@@ -286,8 +311,8 @@ const ALIASES = {
     "write:path:depth:report",
     "dbx:readonly:check",
   ],
-  doctor: ["harness:health", "harness:check", "harness:high-order:check", "harness:hermes-hook", "typecheck", "plan:freshness", "health-check"],
-  check: ["check:all", "contracts:audit-logs:check", "admin:routes:manifest:check"],
+  doctor: ["harness:health", "harness:check", "harness:high-order:check", "harness:hermes-hook", "typecheck", "plan:freshness", "health-check", "harness:doctor"],
+  check: ["check:all", "contracts:audit-logs:check", "admin:routes:manifest:check", "gate:fast", "gate:full"],
   deploy: ["deploy:caddy"],
   sbom: ["sbom:generate"],
   setup: ["setup:hooks", "postinstall"],
@@ -551,6 +576,7 @@ function main() {
       return bashScript("scripts/service.sh", [sub, ...rest])
 
     default: {
+      if (/^0[0-9]$/.test(sub)) return pnpmRun(`cmmi:${sub}`, rest)
       // **兜底转发**：`pnpm harness <任意 npm script>` 等价于 `pnpm run <script>`。
       // 这不是"绕过主干" —— 可达性门禁保证每个脚本都能从主干进，这里只是让**入口统一**：
       // 用户记不住某个动作属于哪条主干时，直接敲名字也能跑（含 `ALIASES` 里登记的旧写法）。

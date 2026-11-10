@@ -145,11 +145,40 @@ async function resolveDatabaseEndpoint(options = {}) {
 
   const port = await findFreePort()
   const dataDir = fs.mkdtempSync(path.join(os.tmpdir(), "cooliebase-epg-"))
+  const isRoot = typeof process.getuid === "function" && process.getuid() === 0
+  if (isRoot) {
+    try {
+      fs.chmodSync(dataDir, 0o777)
+    } catch {
+      /* chmod 失败不阻断后续 initdb 自检 */
+    }
+  }
   logger.log(`[pg-endpoint] 启动嵌入式 Postgres（port=${port}, dataDir=${dataDir}）`)
 
-  // ESM-only 包：CJS 里必须动态 import
-  const mod = await import("embedded-postgres")
-  const EmbeddedPostgres = mod.default ?? mod
+  // ESM-only 包：CJS 里必须动态 import（若容器内主仓缺少 linux-arm64 二进制，自动复用同级 yudao lite 运行时）
+  const { pathToFileURL } = require("node:url")
+  let EmbeddedPostgres
+  try {
+    const mod = await import("embedded-postgres")
+    EmbeddedPostgres = mod.default ?? mod
+    // 验证当前平台二进制是否可解析
+    const binMod = await import(`@embedded-postgres/${process.platform}-${process.arch}`)
+    void binMod
+  } catch {
+    const fallbackDir = path.resolve(
+      __dirname,
+      "../../../yudao-quad-terminal/deploy/lite/runtime/node_modules/embedded-postgres",
+    )
+    if (fs.existsSync(fallbackDir)) {
+      const pkg = JSON.parse(fs.readFileSync(path.join(fallbackDir, "package.json"), "utf8"))
+      const entry = typeof pkg.exports === "string" ? pkg.exports : pkg.exports["."]
+      const mod = await import(pathToFileURL(path.join(fallbackDir, entry)).href)
+      EmbeddedPostgres = mod.default ?? mod
+    } else {
+      const mod = await import("embedded-postgres")
+      EmbeddedPostgres = mod.default ?? mod
+    }
+  }
 
   const instance = new EmbeddedPostgres({
     databaseDir: dataDir,
@@ -157,7 +186,8 @@ async function resolveDatabaseEndpoint(options = {}) {
     user: "postgres",
     password: "postgres",
     persistent: options.persistent ?? false,
-    initdbFlags: ["--encoding=UTF8"],
+    createPostgresUser: isRoot,
+    initdbFlags: ["--encoding=UTF8", "--locale=C"],
     onLog: (line) => logs.push(line),
     onError: (line) => logs.push(line),
   })

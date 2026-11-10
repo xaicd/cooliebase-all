@@ -67,6 +67,19 @@ for (const [key, spec] of Object.entries(contracts)) {
   }
 }
 
+const bp = manifest.blueprint || {}
+for (const [key, val] of Object.entries(bp)) {
+  if (typeof val === "string" && !fs.existsSync(abs(val))) {
+    fail(`blueprint.${key} missing on disk: ${val}`)
+  } else if (val && typeof val === "object") {
+    for (const [stage, rel] of Object.entries(val)) {
+      if (typeof rel === "string" && !fs.existsSync(abs(rel))) {
+        fail(`blueprint.${key}.${stage} missing on disk: ${rel}`)
+      }
+    }
+  }
+}
+
 const catalog = loadCatalog()
 const declaredDomains = contracts.domainCatalog?.domains
 if (declaredDomains !== catalog.domains.length) {

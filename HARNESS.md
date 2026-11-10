@@ -12,24 +12,47 @@
 | 定位 | 企业级轻全栈**可派生旗舰底座**：Next.js 16 App Router + React 19 + Prisma 7 + Kysely + Expo 原生移动端 |
 | 架构模式 | 单一应用代码库 (Single-Engine Monorepo)，15 企业级业务域自闭环，支持一体化运行与解耦部署 |
 | 模板版本 | `templateVersion 1.2.0`（见 `compat-manifest.json`） |
-| 数据持久化 | 支持嵌入式真 SQLite（零外部依赖秒起）与生产级 PostgreSQL / MySQL，绝不在生产模式降级内存 |
+| 数据持久化 | 支持零 Docker **嵌入式真 PostgreSQL 18.4 (`embedded-postgres`, `scripts/lib/ephemeral-pg.cjs`)** 与 SQLite/MySQL，绝不在生产模式降级内存 |
 | 唯一网关基线 | 动态 BasePath 规范（`/${slug}`），单一端口（默认 `:3300`），绝不硬编码绝对子路径 |
 
 ---
 
-## 2. 核心入口与契约矩阵
+## 2. 核心入口与跨底座统一 `.cjs` 契约矩阵
 
-| 优先级 | 文件 | 用途 |
-|---|---|---|
-| ★ | **`HARNESS.md`**（本文件） | 一图总览：交付物规范 + 统一生命周期环节 + 自证矩阵 |
-| ★★ | [`AGENTS.md`](AGENTS.md) | 宪法与红线法典（唯一真源） |
-| ★★ | [`compat-manifest.json`](compat-manifest.json) | 下游消费契约（机器可读，`pnpm compat:check` 强校验） |
-| ★★ | [`scripts/harness.cjs`](scripts/harness.cjs) | 统一全生命周期 Harness 执行引擎（`pnpm harness <action>`） |
-| ★★ | [`scripts/service.sh`](scripts/service.sh) | 物理服务运维控制器（与 `pnpm harness` 完全等价映射） |
+> **跨底座同名同参铁律**：无论底层是 `cooliebase-all`（Next.js/TS 插件架构）还是 `yudao-quad-terminal`（Java SpringBoot + Vue3 + UniApp + Expo 四端架构），向外部（Coolie 工坊 `coolie-cli` 与 AI Agent 数字员工）暴露的 **`.cjs` 脚本路径、CLI 参数、`pnpm run` 命令及 Embedded PostgreSQL 真库测试契约 100% 一致**：
+
+| 优先级 | 统一入口文件 / 脚本 | 统一 `pnpm run` 命令 | 用途与跨底座标准行为 |
+|---|---|---|---|
+| ★ | **`HARNESS.md`**（本文件） | — | 一图总览：交付物规范 + 统一生命周期环节 + 自证矩阵 |
+| ★★ | [`AGENTS.md`](AGENTS.md) | — | 宪法与红线法典（唯一真源） |
+| ★★ | [`compat-manifest.json`](compat-manifest.json) | `pnpm run compat:check` | 下游消费契约（机器可读，`scripts/compat-check.cjs` 强校验） |
+| ★★ | [`scripts/harness.cjs`](scripts/harness.cjs) | `pnpm run harness <action>` | 统一 9 阶段全生命周期 Harness 执行引擎 |
+| ★★ | [`scripts/project-init.cjs`](scripts/project-init.cjs) | `pnpm run project:init -- ...` | 统一零污染沙箱派生与白标重构引擎（兼容 `pnpm project:hatch`） |
+| ★★ | [`scripts/blueprint-engine.cjs`](scripts/blueprint-engine.cjs) | `pnpm run blueprint:deliver` | 统一 `<500 Tokens` 蓝图自愈 (`doctor`)、编译 (`compile-domain`) 与真库交付 (`deliver --verify-e2e`) |
+| ★★ | [`scripts/lib/ephemeral-pg.cjs`](scripts/lib/ephemeral-pg.cjs) | — | 统一零 Docker **嵌入式真 PostgreSQL 18.4 (`embedded-postgres`)** 端点解析器 |
+| ★★ | [`scripts/speckit.cjs`](scripts/speckit.cjs) | `pnpm run speckit:<cmd>` | 统一 Spec-Kit SDD 工程规格管理引擎 (`new \| build \| check \| tasks \| archive`) |
+| ★★ | [`scripts/codegen-module.cjs`](scripts/codegen-module.cjs) | `pnpm run gen:module` | 统一业务域全栈代码生成器 |
+| ★★ | [`scripts/gate-check.cjs`](scripts/gate-check.cjs) | `pnpm run check` / `pnpm run gate:fast` | 统一工程质量与架构边界门禁 |
+| ★★ | [`scripts/service.sh`](scripts/service.sh) | `pnpm run service:<cmd>` | 物理服务运维控制器（与 `pnpm harness` 完全等价映射） |
+
+### 2.1 CMMI 00~09 全生命周期 `.cjs` 标准脚本矩阵（两套底座 100% 同名同参）
+
+| CMMI 阶段与文档目录 | 统一 `.cjs` 脚本路径 | 统一 `pnpm` / `harness` 入口 | 阶段核心职责与标准子命令 |
+|---|---|---|---|
+| **00 规范与元契约** (`docs/00_meta_standards`) | [`scripts/cmmi-00-meta.cjs`](scripts/cmmi-00-meta.cjs) | `pnpm run cmmi:00` / `pnpm harness 00` | `check \| schema \| sync`：校验 `compat-manifest`、蓝图 Schema 与同步表面契约 |
+| **01 立项与沙箱孵化** (`docs/01_management`) | [`scripts/cmmi-01-management.cjs`](scripts/cmmi-01-management.cjs) | `pnpm run cmmi:01` / `pnpm harness 01` | `init \| render`：零污染沙箱孵化 (`/tmp/<slug>-sandbox`) + 渲染蓝图草案 |
+| **02 需求与规格工程** (`docs/02_requirements`) | [`scripts/cmmi-02-requirements.cjs`](scripts/cmmi-02-requirements.cjs) | `pnpm run cmmi:02` / `pnpm harness 02` | `route \| new \| build \| check`：需求分诊与 Spec-Kit EARS 规格立项展开 |
+| **03 架构设计与自愈** (`docs/03_architecture_and_design`) | [`scripts/cmmi-03-design.cjs`](scripts/cmmi-03-design.cjs) | `pnpm run cmmi:03` / `pnpm harness 03` | `doctor \| check \| compile-domain`：蓝图字段/状态机/权限码自愈诊断与契约编译 |
+| **04 全栈实现与生成** (`docs/04_implementation`) | [`scripts/cmmi-04-implementation.cjs`](scripts/cmmi-04-implementation.cjs) | `pnpm run cmmi:04` / `pnpm harness 04` | `deliver \| compile \| codegen`：`<500 Tokens` 蓝图全栈代码与 PostgreSQL DDL 生成 |
+| **05 测试与真 PG E2E** (`docs/05_verification_and_testing`) | [`scripts/cmmi-05-verification.cjs`](scripts/cmmi-05-verification.cjs) | `pnpm run cmmi:05` / `pnpm harness 05` | `e2e \| unit \| mutation`：基于 `ephemeral-pg.cjs` (PostgreSQL 18.4) 的 6 阶段 Spec E2E 与变异测试 |
+| **06 质量门禁与审计** (`docs/06_quality_and_audit`) | [`scripts/cmmi-06-quality.cjs`](scripts/cmmi-06-quality.cjs) | `pnpm run cmmi:06` / `pnpm harness 06` | `check \| tasks \| controls`：PPQA/FCA/PCA 质量门禁与 Git 原子任务追溯 |
+| **07 构建与不可变发布** (`docs/07_release_and_deployment`) | [`scripts/cmmi-07-release.cjs`](scripts/cmmi-07-release.cjs) | `pnpm run cmmi:07` / `pnpm harness 07` | `gateway \| build \| fingerprint \| runbook`：四端网关渲染、制品构建与 SHA-256 指纹校验 |
+| **08 SRE 运维与探活** (`docs/08_sre_and_resilience`) | [`scripts/cmmi-08-sre.cjs`](scripts/cmmi-08-sre.cjs) | `pnpm run cmmi:08` / `pnpm harness 08` | `start \| stop \| restart \| status \| health \| logs \| security \| load`：服务生命周期与安全/容量基线 |
+| **09 持续运营与归档** (`docs/09_operations`) | [`scripts/cmmi-09-operations.cjs`](scripts/cmmi-09-operations.cjs) | `pnpm run cmmi:09` / `pnpm harness 09` | `ops \| archive \| check`：无头造数体检与规格防污染归档 (`docs/specs/archive/`) |
 
 ---
 
-## 3. 交付物标准 Harness 9 大闭环生命周期环节
+## 3. 交付物标准 Harness 9 大闭环生命周期环节 & 蓝图三步交付流
 
 无论是母本自身研发，还是派生出的层B交付物，统一暴露且严格执行以下 9 大标准环节：
 
@@ -43,6 +66,22 @@ pnpm harness status      # [环节 6] 状态大盘：查看 PID、端口监听�
 pnpm harness stop        # [环节 7] 资源回收：干净回收进程组与端口，清理残留文件锁
 pnpm harness e2e         # [环节 8] 拟真人交互走查：agent-browser 驱动真机点击，输出不可伪造四态截图
 pnpm harness deliver     # [环节 9] 商业终验出厂：23道物理门禁全量压测，生成不可篡改《出厂交付结项单》
+```
+
+### 3.1 Coolie 工坊 & AI Agent 数字员工跨底座统一三步流水线
+
+在 `cooliebase-all` 与 `yudao-quad-terminal` 上，AI 员工无需区分底座类型，统一执行完全相同的 3 条标准指令：
+
+```bash
+# Step 1: 零污染沙箱派生 + 四端 BASE_PATH 同源渲染 (/<slug>/{2c,admin,api,api/docs})
+pnpm run project:init -- --name <slug> --title "<系统中文名>" --target /tmp/<slug>-sandbox
+
+# Step 2: 喂入 <500 Tokens 的 <domain>.blueprint.json，一键完成 doctor 自愈 + Spec-Kit 展开 + 全栈代码 + 6阶段真库 E2E
+cd /tmp/<slug>-sandbox
+pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e
+
+# Step 3: 统一工程门禁与兼容契约自检
+pnpm run check && pnpm run compat:check
 ```
 
 ---

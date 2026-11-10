@@ -53,6 +53,29 @@
     "checkCommand": "pnpm harness:check",
     "doctorCommand": "pnpm harness doctor"
   },
+  "blueprint": {
+    "manifest": "blueprint.template.json",
+    "engineScript": "scripts/blueprint-engine.cjs",
+    "initScript": "scripts/project-init.cjs",
+    "speckitScript": "scripts/speckit.cjs",
+    "codegenScript": "scripts/codegen-module.cjs",
+    "gateScript": "scripts/gate-check.cjs",
+    "compatScript": "scripts/compat-check.cjs",
+    "harnessScript": "scripts/harness.cjs",
+    "ephemeralPgScript": "scripts/lib/ephemeral-pg.cjs",
+    "cmmiScripts": {
+      "00_meta_standards": "scripts/cmmi-00-meta.cjs",
+      "01_management": "scripts/cmmi-01-management.cjs",
+      "02_requirements": "scripts/cmmi-02-requirements.cjs",
+      "03_architecture_and_design": "scripts/cmmi-03-design.cjs",
+      "04_implementation": "scripts/cmmi-04-implementation.cjs",
+      "05_verification_and_testing": "scripts/cmmi-05-verification.cjs",
+      "06_quality_and_audit": "scripts/cmmi-06-quality.cjs",
+      "07_release_and_deployment": "scripts/cmmi-07-release.cjs",
+      "08_sre_and_resilience": "scripts/cmmi-08-sre.cjs",
+      "09_operations": "scripts/cmmi-09-operations.cjs"
+    }
+  },
   "toolchain": {
     "engine": {
       "node": "^20.19.0 || ^22.12.0 || >=24.0.0"

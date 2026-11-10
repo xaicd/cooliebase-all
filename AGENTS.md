@@ -206,6 +206,21 @@
 
 > **入口唯一性（强制）**：所有流程与操作都必须能从 **`pnpm harness <主干>`** 进 ——
 > 主干表是**唯一**的入口声明（`scripts/harness.cjs` 的 `TRUNK` + `GROUPS`）。
+
+### 3.4.1 跨底座统一 CMMI 00~09 全生命周期 `.cjs` 标准脚本矩阵（与 `yudao-quad-terminal` 100% 同名同参）
+
+| CMMI 阶段与文档目录 | 统一 `.cjs` 脚本路径 | 统一 `pnpm` / `harness` 入口 | 标准动作与交付闭环 |
+|---|---|---|---|
+| **00 规范与元契约** (`docs/00_meta_standards`) | `scripts/cmmi-00-meta.cjs` | `pnpm run cmmi:00` / `pnpm harness 00` | `check \| schema \| sync`：校验 `compat-manifest`、蓝图 Schema 与 OpenWiki |
+| **01 立项与沙箱孵化** (`docs/01_management`) | `scripts/cmmi-01-management.cjs` | `pnpm run cmmi:01` / `pnpm harness 01` | `init --name <slug> --title "<项目名>" --target /tmp/<slug>-sandbox` |
+| **02 需求与规格工程** (`docs/02_requirements`) | `scripts/cmmi-02-requirements.cjs` | `pnpm run cmmi:02` / `pnpm harness 02` | `route \| new \| build \| check`：需求分诊与 Spec-Kit EARS 规格立项展开 |
+| **03 架构设计与自愈** (`docs/03_architecture_and_design`) | `scripts/cmmi-03-design.cjs` | `pnpm run cmmi:03` / `pnpm harness 03` | `doctor --file <bp.json> --write \| compile-domain`：蓝图自愈与契约编译 |
+| **04 全栈实现与生成** (`docs/04_implementation`) | `scripts/cmmi-04-implementation.cjs` | `pnpm run cmmi:04` / `pnpm harness 04` | `deliver --file <bp.json> \| codegen`：`<500 Tokens` 蓝图全栈代码生成 |
+| **05 测试与真 PG E2E** (`docs/05_verification_and_testing`) | `scripts/cmmi-05-verification.cjs` | `pnpm run cmmi:05` / `pnpm harness 05` | `e2e \| unit \| mutation`：基于 `ephemeral-pg.cjs` (PostgreSQL 18.4) 的 6 阶段 Spec E2E |
+| **06 质量门禁与审计** (`docs/06_quality_and_audit`) | `scripts/cmmi-06-quality.cjs` | `pnpm run cmmi:06` / `pnpm harness 06` | `check [--tier fast\|full] \| tasks \| controls`：PPQA/FCA/PCA 质量门禁 |
+| **07 构建与不可变发布** (`docs/07_release_and_deployment`) | `scripts/cmmi-07-release.cjs` | `pnpm run cmmi:07` / `pnpm harness 07` | `gateway \| build \| fingerprint \| runbook`：四端网关渲染与 SHA-256 指纹 |
+| **08 SRE 运维与探活** (`docs/08_sre_and_resilience`) | `scripts/cmmi-08-sre.cjs` | `pnpm run cmmi:08` / `pnpm harness 08` | `start \| stop \| restart \| status \| health \| logs \| security \| load` |
+| **09 持续运营与归档** (`docs/09_operations`) | `scripts/cmmi-09-operations.cjs` | `pnpm run cmmi:09` / `pnpm harness 09` | `ops \| archive --name <spec> \| check`：持续运营与规格防污染归档 |
 > 加一个新操作 = 在主干表/分组映射里加一行，**不是**再加一个平行 npm script。
 > 机检：`harness-integrity` 的「脚本可达性」（棘轮，冻结存量于
 > `docs/architecture/artifacts/harness-unreachable-scripts.json`）+
