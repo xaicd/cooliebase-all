@@ -653,7 +653,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
         priority: "P1",
         category: "层A 完结规格防污染归档",
         summary: `当前活跃目录中有 ${completedSpecs.length} 个规格已完成全部 WBS 任务，可归档至 docs/specs/archive/`,
-        cmd: "node scripts/speckit.cjs list",
+        cmd: "pnpm run speckit -- list",
       }
     );
   }
@@ -670,9 +670,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       scope: `${w.domain}/${w.name} (${w.done}/${w.total})`,
       title: `推进 ${nextTask.id}: ${nextTask.title.slice(0, 68)}${diskHint}`,
       whitelist: nextTask.whitelist,
-      cmd: isFoundry
-        ? `node scripts/speckit.cjs tasks --spec ${w.name}`
-        : `node scripts/cmmi-04-implementation.cjs tasks --spec ${w.name}`,
+      cmd: `node scripts/cmmi-04-implementation.cjs tasks --spec ${w.name}`,
     });
   }
 
@@ -684,9 +682,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       scope: `${p.domain}/${p.name} (0/${p.total})`,
       title: `启动首条任务 ${firstTask.id}: ${firstTask.title.slice(0, 65)}`,
       whitelist: firstTask.whitelist,
-      cmd: isFoundry
-        ? `node scripts/speckit.cjs tasks --spec ${p.name}`
-        : `node scripts/cmmi-04-implementation.cjs tasks --spec ${p.name}`,
+      cmd: `node scripts/cmmi-04-implementation.cjs tasks --spec ${p.name}`,
     });
   }
 
@@ -696,9 +692,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       scope: `${sk.domain}/${sk.name} (骨架待填)`,
       title: `补齐 ${sk.relDir}/brief.json 中的 <!-- 待填 --> 占位并展开规格`,
       whitelist: `${sk.relDir}/brief.json`,
-      cmd: isFoundry
-        ? `node scripts/speckit.cjs build --spec ${sk.name}`
-        : `node scripts/cmmi-02-requirements.cjs build --name ${sk.name}`,
+      cmd: `node scripts/cmmi-02-requirements.cjs build --name ${sk.name}`,
     });
   }
 
@@ -709,9 +703,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       scope: `已完结规格归档池 (${completedSpecs.length} 个)`,
       title: `对已完成全部任务的规格 (如 ${sample.domain}/${sample.name}) 核销门禁证据并归档`,
       whitelist: sample.relDir,
-      cmd: isFoundry
-        ? `node scripts/speckit.cjs archive --name ${sample.name}`
-        : `node scripts/cmmi-09-operations.cjs archive --name ${sample.name}`,
+      cmd: `node scripts/cmmi-09-operations.cjs archive --name ${sample.name}`,
     });
   }
 
@@ -837,8 +829,7 @@ function inspectFoundryEcosystem(foundryRoot) {
       const hasHarnessMd = fs.existsSync(path.join(abs, "HARNESS.md"));
       const hasHarnessScript =
         fs.existsSync(path.join(abs, "scripts/harness.cjs")) ||
-        fs.existsSync(path.join(abs, "scripts/harness.mjs")) ||
-        fs.existsSync(path.join(abs, "scripts/harness.sh"));
+        fs.existsSync(path.join(abs, "scripts/harness.mjs"));
       const hasServiceSh = fs.existsSync(path.join(abs, "scripts/service.sh"));
       clientWorkspaces.push({
         name: entry.name,
