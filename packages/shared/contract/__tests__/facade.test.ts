@@ -6,8 +6,8 @@ describe("readFacadeIdentity", () => {
   it("无 facade 段 → 整体回落中立默认", () => {
     const profile: ProjectProfile = { ...projectProfile, facade: undefined }
     expect(readFacadeIdentity(profile)).toEqual(NEUTRAL_FACADE)
-    // 读口默认参数（未传档案）同样走中立默认 —— 母本档案当前无 facade 段。
-    expect(readFacadeIdentity()).toEqual(NEUTRAL_FACADE)
+    // 读口默认参数（未传档案）走项目档案自身的 facade 段（孵化前后始终自洽）。
+    expect(readFacadeIdentity()).toEqual(readFacadeIdentity(projectProfile))
   })
 
   it("有 facade 段 → 逐字段取到值（会议室预订验收样本）", () => {

@@ -36,6 +36,7 @@ export type PluginRouteInvokeRequest = {
   body: unknown
   headers: Record<string, string>
   pluginKey: string
+  routeKey?: string
 }
 
 /** 路由处理器的返回。 */

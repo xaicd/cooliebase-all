@@ -49,7 +49,9 @@ function permittedPrefixes() {
   const manifests = walk(PLUGIN_ROOT, (n) => n === "plugin.manifest.json")
   for (const rel of manifests) {
     const m = readJson(rel)
-    const domain = (m.domain && m.domain.name) || (m.id || "").replace(/^cooliebase\./, "")
+    // manifest 的 `id` 形如 `<平台前缀>.<域>`（基座是 cooliebase.ai，孵化后可能是 <slug>.ai）。
+    // 按最后一段取域，避免白标改名后因平台前缀变化误判无 publicPrefixes。
+    const domain = (m.domain && m.domain.name) || (m.id || "").split(".").pop()
     const prefixes = (m.domain && m.domain.publicPrefixes) || []
     if (domain && prefixes.length) byDomain.set(domain, prefixes)
   }

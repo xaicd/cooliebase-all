@@ -22,6 +22,7 @@ type PluginRouteHandler = (input: {
   body: unknown
   headers: Record<string, string>
   pluginKey: string
+  routeKey?: string
 }) => Promise<{ status?: number; body?: unknown }> | { status?: number; body?: unknown }
 
 type MergedHandlers = {
