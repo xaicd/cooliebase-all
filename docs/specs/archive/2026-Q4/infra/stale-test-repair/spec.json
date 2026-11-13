@@ -1,0 +1,15 @@
+{
+  "name": "stale-test-repair",
+  "domain": "infra",
+  "title": "修复 6 条既存测试失败：退役脚本引用 + 过期断言",
+  "type": "bugfix",
+  "status": "DONE",
+  "stories": 4,
+  "acceptance": 4,
+  "invariants": 2,
+  "tasks": 3,
+  "updatedAt": "2026-11-13T06:55:13.673Z",
+  "archived": true,
+  "archivedAt": "2026-11-13T07:02:34.695Z",
+  "archiveQuarter": "2026-Q4"
+}

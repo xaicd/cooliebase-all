@@ -1,0 +1,15 @@
+{
+  "name": "test-shared-file-isolation",
+  "domain": "infra",
+  "title": "测试之间通过仓库共享文件互相可见，导致 test:clean 间歇随机变红",
+  "type": "bugfix",
+  "status": "DONE",
+  "stories": 3,
+  "acceptance": 6,
+  "invariants": 2,
+  "tasks": 4,
+  "updatedAt": "2026-11-13T06:55:13.673Z",
+  "archived": true,
+  "archivedAt": "2026-11-13T07:02:35.430Z",
+  "archiveQuarter": "2026-Q4"
+}

@@ -1,0 +1,15 @@
+{
+  "name": "archify-strix-integration",
+  "domain": "infra",
+  "title": "开源顶流技能吸收：Archify 架构可视化与 Strix 自主渗透防御",
+  "type": "enhancement",
+  "status": "DONE",
+  "stories": 3,
+  "acceptance": 3,
+  "invariants": 1,
+  "tasks": 3,
+  "updatedAt": "2026-11-13T06:55:13.673Z",
+  "archived": true,
+  "archivedAt": "2026-11-13T07:02:28.798Z",
+  "archiveQuarter": "2026-Q4"
+}

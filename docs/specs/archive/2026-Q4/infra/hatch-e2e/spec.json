@@ -1,0 +1,15 @@
+{
+  "name": "hatch-e2e",
+  "domain": "infra",
+  "title": "孵化端到端：产物自身门禁固化",
+  "type": "feature",
+  "status": "DONE",
+  "stories": 3,
+  "acceptance": 4,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-11-13T06:55:13.673Z",
+  "archived": true,
+  "archivedAt": "2026-11-13T07:02:32.848Z",
+  "archiveQuarter": "2026-Q4"
+}

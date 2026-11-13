@@ -1,0 +1,15 @@
+{
+  "name": "dsh-product-integration",
+  "domain": "infra",
+  "title": "产物并存两种界面：业务管理 UI + dsh 对话 UI（通过 MCP 打通）",
+  "type": "feature",
+  "status": "DONE",
+  "stories": 4,
+  "acceptance": 7,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-11-13T06:55:13.673Z",
+  "archived": true,
+  "archivedAt": "2026-11-13T07:02:31.383Z",
+  "archiveQuarter": "2026-Q4"
+}

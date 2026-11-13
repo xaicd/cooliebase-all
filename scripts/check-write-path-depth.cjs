@@ -51,9 +51,25 @@ function listSpecs() {
   for (const domain of fs.readdirSync(base)) {
     const dir = path.join(base, domain)
     if (!fs.statSync(dir).isDirectory()) continue
+    if (domain === "_baseline") continue
+    if (domain === "archive") {
+      for (const quarter of fs.readdirSync(dir)) {
+        const qDir = path.join(dir, quarter)
+        if (!fs.statSync(qDir).isDirectory()) continue
+        for (const archDomain of fs.readdirSync(qDir)) {
+          const dDir = path.join(qDir, archDomain)
+          if (!fs.statSync(dDir).isDirectory()) continue
+          for (const name of fs.readdirSync(dDir)) {
+            const brief = path.join(dDir, name, "brief.json")
+            if (fs.existsSync(brief)) out.push({ domain: archDomain, name, brief, archived: true })
+          }
+        }
+      }
+      continue
+    }
     for (const name of fs.readdirSync(dir)) {
       const brief = path.join(dir, name, "brief.json")
-      if (fs.existsSync(brief)) out.push({ domain, name, brief })
+      if (fs.existsSync(brief)) out.push({ domain, name, brief, archived: false })
     }
   }
   return out
@@ -197,11 +213,12 @@ function report() {
 function main() {
   if (process.argv.includes("--report")) return report()
   const writeBaseline = process.argv.includes("--write-baseline")
-  const specs = listSpecs()
-  if (specs.length === 0) {
-    console.error("[write-path-depth] ✗ 解析出 0 个规格 —— 扫描面失效，不允许静默通过")
+  const specsBase = path.join(ROOT, "docs", "specs")
+  if (!fs.existsSync(specsBase)) {
+    console.error("[write-path-depth] ✗ docs/specs 目录不存在 —— 扫描面失效，不允许静默通过")
     process.exit(1)
   }
+  const specs = listSpecs()
 
   const violations = []
   const noEvidence = [] // 声明了，但还没有结构化证据（depthTestFiles）

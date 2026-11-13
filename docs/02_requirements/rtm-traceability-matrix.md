@@ -59,7 +59,7 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 
 合计测试文件 **446**（15 个插件域合计 362；其余在 `shared` / `system` / `infra` / `test/`）。
 
-## 4. 活跃规格（26 份，`docs/specs/<域>/<名>/`）
+## 4. 活跃规格（0 份，`docs/specs/<域>/<名>/`；已完结规格归档于 `docs/specs/archive/2026-Q4/`）
 
 > 复算：`ls docs/specs/*/*/brief.json | wc -l`
 

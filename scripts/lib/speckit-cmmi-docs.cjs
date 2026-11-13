@@ -604,6 +604,20 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
         });
       }
     }
+    let typecheckKeys = 58;
+    let contractGovCount = 0;
+    try {
+      const tcPath = path.join(repoRoot, "docs/architecture/artifacts/typecheck-baseline.json");
+      if (fs.existsSync(tcPath)) {
+        typecheckKeys = JSON.parse(fs.readFileSync(tcPath, "utf8")).uniqueKeys ?? typecheckKeys;
+      }
+      const cgPath = path.join(repoRoot, "docs/architecture/artifacts/contract-governance-baseline.json");
+      if (fs.existsSync(cgPath)) {
+        contractGovCount = JSON.parse(fs.readFileSync(cgPath, "utf8")).count ?? contractGovCount;
+      }
+    } catch (baselineReadErr) {
+      void baselineReadErr; // Ignore optional baseline parse errors during PMO summary rendering
+    }
     techDebts.push(
       {
         priority: "P2",
@@ -614,7 +628,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       {
         priority: "P2",
         category: "插件层 TypeScript 类型与权限码基线消减",
-        summary: "packages/plugins 存量 190 项唯一类型键与 338 项权限码常量登记收敛",
+        summary: `全仓存量 ${typecheckKeys} 项唯一类型键与 ${contractGovCount} 项权限码常量欠债棘轮守护中`,
         cmd: "pnpm run typecheck:check && pnpm run contracts:governance:check",
       }
     );

@@ -335,7 +335,7 @@
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：活跃 **26 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`）；本轮新增 `swarm-and-4char-menu-alignment`（根级 `SWARM.md` + 8 动词 `service.sh` + `<=4` 字菜单门禁）、收口 `ui-design-tokens`（`design:tokens:check`）与 `permission-naming-unify`（338 条契约治理欠债清零、112 条 `PermissionCode` 类型错误清零）。
+- **规格库**：活跃 **0 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`，全部 26 份完结规格已按季度归档至 `docs/specs/archive/2026-Q4/`）；本轮新增 `swarm-and-4char-menu-alignment`（根级 `SWARM.md` + 8 动词 `service.sh` + `<=4` 字菜单门禁）、收口 `ui-design-tokens`（`design:tokens:check`）与 `permission-naming-unify`（338 条契约治理欠债清零、112 条 `PermissionCode` 类型错误清零）。
 - **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
   但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
