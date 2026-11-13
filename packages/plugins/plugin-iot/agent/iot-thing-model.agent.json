@@ -4,7 +4,7 @@
   "entity": "IotThingModel",
   "kebab": "iot-thing-model",
   "businessName": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",
-  "permissionPrefix": "iot:iot_thing_model",
+  "permissionPrefix": "iot:thing-model",
   "page": {
     "route": "/admin/iot/iot-thing-model",
     "title": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服管理",

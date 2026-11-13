@@ -4,7 +4,7 @@
   "entity": "MesWmTransaction",
   "kebab": "mes-wm-transaction",
   "businessName": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许",
-  "permissionPrefix": "mes:mes_wm_transaction",
+  "permissionPrefix": "mes:wm-transaction",
   "page": {
     "route": "/admin/mes/mes-wm-transaction",
     "title": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许管理",

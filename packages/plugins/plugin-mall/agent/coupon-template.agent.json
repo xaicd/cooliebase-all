@@ -4,7 +4,7 @@
   "entity": "CouponTemplate",
   "kebab": "coupon-template",
   "businessName": "优惠劵模板 DO当用户领取时，会生成 优惠劵",
-  "permissionPrefix": "mall:coupon_template",
+  "permissionPrefix": "mall:coupon-template",
   "page": {
     "route": "/admin/mall/coupon-template",
     "title": "优惠劵模板 DO当用户领取时，会生成 优惠劵管理",

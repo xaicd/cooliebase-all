@@ -4,7 +4,7 @@
   "entity": "SeckillProduct",
   "kebab": "seckill-product",
   "businessName": "秒杀参与商品",
-  "permissionPrefix": "mall:seckill_product",
+  "permissionPrefix": "mall:seckill-product",
   "page": {
     "route": "/admin/mall/seckill-product",
     "title": "秒杀参与商品管理",

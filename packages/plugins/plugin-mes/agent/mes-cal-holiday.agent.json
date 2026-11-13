@@ -4,7 +4,7 @@
   "entity": "MesCalHoliday",
   "kebab": "mes-cal-holiday",
   "businessName": "MES 假期设置",
-  "permissionPrefix": "mes:mes_cal_holiday",
+  "permissionPrefix": "mes:cal-holiday",
   "page": {
     "route": "/admin/mes/mes-cal-holiday",
     "title": "MES 假期设置管理",

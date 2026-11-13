@@ -4,7 +4,7 @@
   "entity": "WmsCheckOrderDetail",
   "kebab": "wms-check-order-detail",
   "businessName": "盘点明细",
-  "permissionPrefix": "wms:check",
+  "permissionPrefix": "wms:check-order-detail",
   "page": {
     "route": "/admin/wms/wms-check-order-detail",
     "title": "盘点明细管理",

@@ -4,7 +4,7 @@
   "entity": "ErpPurchaseOrderItem",
   "kebab": "erp-purchase-order-item",
   "businessName": "ERP 采购订单项",
-  "permissionPrefix": "erp:erp_purchase_order_item",
+  "permissionPrefix": "erp:purchase-order-item",
   "page": {
     "route": "/admin/erp/erp-purchase-order-item",
     "title": "ERP 采购订单项管理",

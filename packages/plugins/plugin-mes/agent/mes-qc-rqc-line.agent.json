@@ -4,7 +4,7 @@
   "entity": "MesQcRqcLine",
   "kebab": "mes-qc-rqc-line",
   "businessName": "MES 退货检验行",
-  "permissionPrefix": "mes:mes_qc_rqc_line",
+  "permissionPrefix": "mes:qc-rqc-line",
   "page": {
     "route": "/admin/mes/mes-qc-rqc-line",
     "title": "MES 退货检验行管理",

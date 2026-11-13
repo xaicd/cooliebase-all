@@ -4,7 +4,7 @@
   "entity": "CrmProductCategory",
   "kebab": "crm-product-category",
   "businessName": "产品分类",
-  "permissionPrefix": "crm:crm_product_category",
+  "permissionPrefix": "crm:product-category",
   "page": {
     "route": "/admin/crm/crm-product-category",
     "title": "产品分类管理",

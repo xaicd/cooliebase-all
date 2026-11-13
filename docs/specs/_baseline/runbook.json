@@ -1,0 +1,27 @@
+{
+  "feature": "baseline",
+  "domain": "infra",
+  "windowMinutes": 15,
+  "steps": [
+    {
+      "id": "preflight",
+      "title": "全量静态与契约门禁自检",
+      "run": "pnpm run check",
+      "expectExit": 0
+    },
+    {
+      "id": "health",
+      "title": "服务状态与健康检查",
+      "run": "bash scripts/service.sh status",
+      "expectExit": 0
+    }
+  ],
+  "rollback": [
+    {
+      "id": "stop-and-restore",
+      "title": "停止异常进程并回退至上一稳定提交",
+      "run": "bash scripts/service.sh stop",
+      "expectExit": 0
+    }
+  ]
+}

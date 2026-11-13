@@ -3,10 +3,10 @@
   "domain": "system",
   "title": "CMMI 全生命周期交付治理与 8 大工程技能体系",
   "type": "enhancement",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 3,
   "acceptance": 3,
   "invariants": 2,
   "tasks": 3,
-  "updatedAt": "2026-10-10T06:35:11.011Z"
+  "updatedAt": "2026-11-13T06:57:44.066Z"
 }

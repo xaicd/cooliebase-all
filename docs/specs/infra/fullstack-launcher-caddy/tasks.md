@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`fullstack-launcher-caddy`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`fullstack-launcher-caddy`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -46,17 +46,17 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 收编三个产物并修正端口回退（拉起器 ↔ 网关端口一致）
+- [x] **T1**: 收编三个产物并修正端口回退（拉起器 ↔ 网关端口一致）
   - 归属: `main`
   - 文件白名单: `scripts/run-all.cjs, scripts/deploy-caddy.sh, deploy/caddy/cooliebase-all.caddy`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 接线：package.json 的 all/check:all/deploy:caddy + WBS
+- [x] **T2**: 接线：package.json 的 all/check:all/deploy:caddy + WBS
   - 归属: `T1`
   - 文件白名单: `package.json, docs/01_management/project-plan.md`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 验证：check / run-all --check 端口 3200 / deploy-caddy 在本机只打印指引
+- [x] **T3**: 验证：check / run-all --check 端口 3200 / deploy-caddy 在本机只打印指引
   - 归属: `T1`
   - 文件白名单: `-`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
@@ -73,9 +73,9 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 收编三个产物并修正端口回退（拉起器 ↔ 网关端口一致） | scripts/run-all.cjs, scripts/deploy-caddy.sh, deploy/caddy/cooliebase-all.caddy | 未开始 |
-| T2 | T1 | 接线：package.json 的 all/check:all/deploy:caddy + WBS | package.json, docs/01_management/project-plan.md | 未开始 |
-| T3 | T1 | 验证：check / run-all --check 端口 3200 / deploy-caddy 在本机只打印指引 | - | 未开始 |
+| T1 | main | 收编三个产物并修正端口回退（拉起器 ↔ 网关端口一致） | scripts/run-all.cjs, scripts/deploy-caddy.sh, deploy/caddy/cooliebase-all.caddy | 已完成 |
+| T2 | T1 | 接线：package.json 的 all/check:all/deploy:caddy + WBS | package.json, docs/01_management/project-plan.md | 已完成 |
+| T3 | T1 | 验证：check / run-all --check 端口 3200 / deploy-caddy 在本机只打印指引 | - | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -84,5 +84,5 @@ T1 → T2 → T3
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

@@ -4,7 +4,7 @@
   "entity": "MesQcIpqc",
   "kebab": "mes-qc-ipqc",
   "businessName": "MES 过程检验单（IPQC, In-Process Quality Contr",
-  "permissionPrefix": "mes:mes_qc_ipqc",
+  "permissionPrefix": "mes:qc-ipqc",
   "page": {
     "route": "/admin/mes/mes-qc-ipqc",
     "title": "MES 过程检验单（IPQC, In-Process Quality Contr管理",

@@ -4,7 +4,7 @@
   "entity": "AiMusic",
   "kebab": "ai-music",
   "businessName": "AI 音乐",
-  "permissionPrefix": "ai:ai_music",
+  "permissionPrefix": "ai:music",
   "page": {
     "route": "/admin/ai/ai-music",
     "title": "AI 音乐管理",

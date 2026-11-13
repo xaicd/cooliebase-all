@@ -4,7 +4,7 @@
   "entity": "BpmProcessListener",
   "kebab": "bpm-process-listener",
   "businessName": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
-  "permissionPrefix": "bpm:bpm_process_listener",
+  "permissionPrefix": "bpm:process-listener",
   "page": {
     "route": "/admin/bpm/bpm-process-listener",
     "title": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计管理",

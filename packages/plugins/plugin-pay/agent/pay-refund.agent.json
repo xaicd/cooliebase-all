@@ -4,7 +4,7 @@
   "entity": "PayRefund",
   "kebab": "pay-refund",
   "businessName": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
-  "permissionPrefix": "pay:pay_refund",
+  "permissionPrefix": "pay:refund",
   "page": {
     "route": "/admin/pay/pay-refund",
     "title": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :管理",

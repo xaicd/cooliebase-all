@@ -4,7 +4,7 @@
   "entity": "MesMdAutoCodePart",
   "kebab": "mes-md-auto-code-part",
   "businessName": "MES 编码规则组成",
-  "permissionPrefix": "mes:mes_md_auto_code_part",
+  "permissionPrefix": "mes:md-auto-code-part",
   "page": {
     "route": "/admin/mes/mes-md-auto-code-part",
     "title": "MES 编码规则组成管理",

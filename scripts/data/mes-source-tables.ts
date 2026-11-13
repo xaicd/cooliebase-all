@@ -8,7 +8,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalHoliday",
     "businessName": "MES 假期设置",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_holiday",
+    "permissionPrefix": "mes:cal-holiday",
     "table": {
       "name": "mes_cal_holiday",
       "comment": "MES 假期设置",
@@ -104,7 +104,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalPlan",
     "businessName": "MES 排班计划",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_plan",
+    "permissionPrefix": "mes:cal-plan",
     "table": {
       "name": "mes_cal_plan",
       "comment": "MES 排班计划",
@@ -259,7 +259,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalPlanShift",
     "businessName": "MES 计划班次",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_plan_shift",
+    "permissionPrefix": "mes:cal-plan-shift",
     "table": {
       "name": "mes_cal_plan_shift",
       "comment": "MES 计划班次",
@@ -380,7 +380,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalPlanTeam",
     "businessName": "MES 计划班组关联",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_plan_team",
+    "permissionPrefix": "mes:cal-plan-team",
     "table": {
       "name": "mes_cal_plan_team",
       "comment": "MES 计划班组关联",
@@ -477,7 +477,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalTeam",
     "businessName": "MES 班组",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_team",
+    "permissionPrefix": "mes:cal-team",
     "table": {
       "name": "mes_cal_team",
       "comment": "MES 班组",
@@ -582,7 +582,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalTeamMember",
     "businessName": "MES 班组成员",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_team_member",
+    "permissionPrefix": "mes:cal-team-member",
     "table": {
       "name": "mes_cal_team_member",
       "comment": "MES 班组成员",
@@ -679,7 +679,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesCalTeamShift",
     "businessName": "MES 班组排班",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_cal_team_shift",
+    "permissionPrefix": "mes:cal-team-shift",
     "table": {
       "name": "mes_cal_team_shift",
       "comment": "MES 班组排班",
@@ -801,7 +801,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvCheckPlan",
     "businessName": "MES 点检保养方案",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_check_plan",
+    "permissionPrefix": "mes:dv-check-plan",
     "table": {
       "name": "mes_dv_check_plan",
       "comment": "MES 点检保养方案",
@@ -949,7 +949,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvCheckPlanMachinery",
     "businessName": "MES 点检保养方案设备",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_check_plan_machinery",
+    "permissionPrefix": "mes:dv-check-plan-machinery",
     "table": {
       "name": "mes_dv_check_plan_machinery",
       "comment": "MES 点检保养方案设备",
@@ -1046,7 +1046,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvCheckPlanSubject",
     "businessName": "MES 点检保养方案项目",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_check_plan_subject",
+    "permissionPrefix": "mes:dv-check-plan-subject",
     "table": {
       "name": "mes_dv_check_plan_subject",
       "comment": "MES 点检保养方案项目",
@@ -1143,7 +1143,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvCheckRecord",
     "businessName": "MES 设备点检记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_check_record",
+    "permissionPrefix": "mes:dv-check-record",
     "table": {
       "name": "mes_dv_check_record",
       "comment": "MES 设备点检记录",
@@ -1267,7 +1267,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvCheckRecordLine",
     "businessName": "MES 设备点检记录明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_check_record_line",
+    "permissionPrefix": "mes:dv-check-record-line",
     "table": {
       "name": "mes_dv_check_record_line",
       "comment": "MES 设备点检记录明细",
@@ -1380,7 +1380,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvMachinery",
     "businessName": "MES 设备台账",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_machinery",
+    "permissionPrefix": "mes:dv-machinery",
     "table": {
       "name": "mes_dv_machinery",
       "comment": "MES 设备台账",
@@ -1537,7 +1537,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvMachineryType",
     "businessName": "MES 设备类型",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_machinery_type",
+    "permissionPrefix": "mes:dv-machinery-type",
     "table": {
       "name": "mes_dv_machinery_type",
       "comment": "MES 设备类型",
@@ -1660,7 +1660,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvMaintenRecord",
     "businessName": "MES 设备保养记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_mainten_record",
+    "permissionPrefix": "mes:dv-mainten-record",
     "table": {
       "name": "mes_dv_mainten_record",
       "comment": "MES 设备保养记录",
@@ -1783,7 +1783,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvMaintenRecordLine",
     "businessName": "MES 设备保养记录明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_mainten_record_line",
+    "permissionPrefix": "mes:dv-mainten-record-line",
     "table": {
       "name": "mes_dv_mainten_record_line",
       "comment": "MES 设备保养记录明细",
@@ -1897,7 +1897,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvRepair",
     "businessName": "MES 维修工单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_repair",
+    "permissionPrefix": "mes:dv-repair",
     "table": {
       "name": "mes_dv_repair",
       "comment": "MES 维修工单",
@@ -2086,7 +2086,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvRepairLine",
     "businessName": "MES 维修工单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_repair_line",
+    "permissionPrefix": "mes:dv-repair-line",
     "table": {
       "name": "mes_dv_repair_line",
       "comment": "MES 维修工单行",
@@ -2207,7 +2207,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesDvSubject",
     "businessName": "MES 点检保养项目",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_dv_subject",
+    "permissionPrefix": "mes:dv-subject",
     "table": {
       "name": "mes_dv_subject",
       "comment": "MES 点检保养项目",
@@ -2338,7 +2338,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdAutoCodePart",
     "businessName": "MES 编码规则组成",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_auto_code_part",
+    "permissionPrefix": "mes:md-auto-code-part",
     "table": {
       "name": "mes_md_auto_code_part",
       "comment": "MES 编码规则组成",
@@ -2499,7 +2499,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdAutoCodeRecord",
     "businessName": "MES 编码生成记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_auto_code_record",
+    "permissionPrefix": "mes:md-auto-code-record",
     "table": {
       "name": "mes_md_auto_code_record",
       "comment": "MES 编码生成记录",
@@ -2603,7 +2603,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdAutoCodeRule",
     "businessName": "MES 编码规则",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_auto_code_rule",
+    "permissionPrefix": "mes:md-auto-code-rule",
     "table": {
       "name": "mes_md_auto_code_rule",
       "comment": "MES 编码规则",
@@ -2749,7 +2749,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdClient",
     "businessName": "MES 客户",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_client",
+    "permissionPrefix": "mes:md-client",
     "table": {
       "name": "mes_md_client",
       "comment": "MES 客户",
@@ -2985,7 +2985,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdItem",
     "businessName": "MES 物料产品",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_item",
+    "permissionPrefix": "mes:md-item",
     "table": {
       "name": "mes_md_item",
       "comment": "MES 物料产品",
@@ -3161,7 +3161,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdItemBatchConfig",
     "businessName": "MES 物料批次属性配置",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_item_batch_config",
+    "permissionPrefix": "mes:md-item-batch-config",
     "table": {
       "name": "mes_md_item_batch_config",
       "comment": "MES 物料批次属性配置",
@@ -3353,7 +3353,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdItemType",
     "businessName": "MES 物料产品分类",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_item_type",
+    "permissionPrefix": "mes:md-item-type",
     "table": {
       "name": "mes_md_item_type",
       "comment": "MES 物料产品分类",
@@ -3484,7 +3484,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdProductBom",
     "businessName": "MES 产品 BOM",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_product_bom",
+    "permissionPrefix": "mes:md-product-bom",
     "table": {
       "name": "mes_md_product_bom",
       "comment": "MES 产品 BOM",
@@ -3600,7 +3600,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdProductSip",
     "businessName": "MES 产品SIP",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_product_sip",
+    "permissionPrefix": "mes:md-product-sip",
     "table": {
       "name": "mes_md_product_sip",
       "comment": "MES 产品SIP",
@@ -3730,7 +3730,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdProductSop",
     "businessName": "MES 产品SOP",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_product_sop",
+    "permissionPrefix": "mes:md-product-sop",
     "table": {
       "name": "mes_md_product_sop",
       "comment": "MES 产品SOP",
@@ -3860,7 +3860,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdUnitMeasure",
     "businessName": "MES 计量单位",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_unit_measure",
+    "permissionPrefix": "mes:md-unit-measure",
     "table": {
       "name": "mes_md_unit_measure",
       "comment": "MES 计量单位",
@@ -3993,7 +3993,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdVendor",
     "businessName": "MES 供应商",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_vendor",
+    "permissionPrefix": "mes:md-vendor",
     "table": {
       "name": "mes_md_vendor",
       "comment": "MES 供应商",
@@ -4237,7 +4237,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdWorkshop",
     "businessName": "MES 车间",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_workshop",
+    "permissionPrefix": "mes:md-workshop",
     "table": {
       "name": "mes_md_workshop",
       "comment": "MES 车间",
@@ -4362,7 +4362,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdWorkstation",
     "businessName": "MES 工作站",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_workstation",
+    "permissionPrefix": "mes:md-workstation",
     "table": {
       "name": "mes_md_workstation",
       "comment": "MES 工作站",
@@ -4518,7 +4518,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdWorkstationMachine",
     "businessName": "MES 设备资源",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_workstation_machine",
+    "permissionPrefix": "mes:md-workstation-machine",
     "table": {
       "name": "mes_md_workstation_machine",
       "comment": "MES 设备资源",
@@ -4623,7 +4623,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdWorkstationTool",
     "businessName": "MES 工装夹具资源",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_workstation_tool",
+    "permissionPrefix": "mes:md-workstation-tool",
     "table": {
       "name": "mes_md_workstation_tool",
       "comment": "MES 工装夹具资源",
@@ -4728,7 +4728,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesMdWorkstationWorker",
     "businessName": "MES 人力资源",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_md_workstation_worker",
+    "permissionPrefix": "mes:md-workstation-worker",
     "table": {
       "name": "mes_md_workstation_worker",
       "comment": "MES 人力资源",
@@ -4833,7 +4833,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProAndonConfig",
     "businessName": "MES 安灯呼叫配置",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_andon_config",
+    "permissionPrefix": "mes:pro-andon-config",
     "table": {
       "name": "mes_pro_andon_config",
       "comment": "MES 安灯呼叫配置",
@@ -4947,7 +4947,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProAndonRecord",
     "businessName": "MES 安灯呼叫记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_andon_record",
+    "permissionPrefix": "mes:pro-andon-record",
     "table": {
       "name": "mes_pro_andon_record",
       "comment": "MES 安灯呼叫记录",
@@ -5111,7 +5111,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProCard",
     "businessName": "MES 生产流转卡",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_card",
+    "permissionPrefix": "mes:pro-card",
     "table": {
       "name": "mes_pro_card",
       "comment": "MES 生产流转卡",
@@ -5244,7 +5244,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProCardProcess",
     "businessName": "MES 流转卡工序记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_card_process",
+    "permissionPrefix": "mes:pro-card-process",
     "table": {
       "name": "mes_pro_card_process",
       "comment": "MES 流转卡工序记录",
@@ -5422,7 +5422,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProFeedback",
     "businessName": "MES 生产报工",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_feedback",
+    "permissionPrefix": "mes:pro-feedback",
     "table": {
       "name": "mes_pro_feedback",
       "comment": "MES 生产报工",
@@ -5707,7 +5707,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProProcess",
     "businessName": "MES 生产工序",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_process",
+    "permissionPrefix": "mes:pro-process",
     "table": {
       "name": "mes_pro_process",
       "comment": "MES 生产工序",
@@ -5821,7 +5821,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProProcessContent",
     "businessName": "MES 生产工序内容",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_process_content",
+    "permissionPrefix": "mes:pro-process-content",
     "table": {
       "name": "mes_pro_process_content",
       "comment": "MES 生产工序内容",
@@ -5949,7 +5949,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProRoute",
     "businessName": "MES 工艺路线",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_route",
+    "permissionPrefix": "mes:pro-route",
     "table": {
       "name": "mes_pro_route",
       "comment": "MES 工艺路线",
@@ -6063,7 +6063,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProRouteProcess",
     "businessName": "MES 工艺路线工序",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_route_process",
+    "permissionPrefix": "mes:pro-route-process",
     "table": {
       "name": "mes_pro_route_process",
       "comment": "MES 工艺路线工序",
@@ -6225,7 +6225,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProRouteProduct",
     "businessName": "MES 工艺路线产品",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_route_product",
+    "permissionPrefix": "mes:pro-route-product",
     "table": {
       "name": "mes_pro_route_product",
       "comment": "MES 工艺路线产品",
@@ -6348,7 +6348,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProRouteProductBom",
     "businessName": "MES 工艺路线产品 BOM",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_route_product_bom",
+    "permissionPrefix": "mes:pro-route-product-bom",
     "table": {
       "name": "mes_pro_route_product_bom",
       "comment": "MES 工艺路线产品 BOM",
@@ -6473,7 +6473,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProTask",
     "businessName": "MES 生产任务",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_task",
+    "permissionPrefix": "mes:pro-task",
     "table": {
       "name": "mes_pro_task",
       "comment": "MES 生产任务",
@@ -6728,7 +6728,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProTaskIssue",
     "businessName": "MES 生产任务投料",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_task_issue",
+    "permissionPrefix": "mes:pro-task-issue",
     "table": {
       "name": "mes_pro_task_issue",
       "comment": "MES 生产任务投料",
@@ -6922,7 +6922,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProWorkOrder",
     "businessName": "MES 生产工单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_work_order",
+    "permissionPrefix": "mes:pro-work-order",
     "table": {
       "name": "mes_pro_work_order",
       "comment": "MES 生产工单",
@@ -7159,7 +7159,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProWorkOrderBom",
     "businessName": "MES 生产工单 BOM",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_work_order_bom",
+    "permissionPrefix": "mes:pro-work-order-bom",
     "table": {
       "name": "mes_pro_work_order_bom",
       "comment": "MES 生产工单 BOM",
@@ -7266,7 +7266,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProWorkRecord",
     "businessName": "MES 用户工作站绑定关系（当前快照）",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_work_record",
+    "permissionPrefix": "mes:pro-work-record",
     "table": {
       "name": "mes_pro_work_record",
       "comment": "MES 用户工作站绑定关系（当前快照）",
@@ -7388,7 +7388,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesProWorkRecordLog",
     "businessName": "MES 上下工记录流水",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_pro_work_record_log",
+    "permissionPrefix": "mes:pro-work-record-log",
     "table": {
       "name": "mes_pro_work_record_log",
       "comment": "MES 上下工记录流水",
@@ -7494,7 +7494,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcDefect",
     "businessName": "MES 缺陷类型",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_defect",
+    "permissionPrefix": "mes:qc-defect",
     "table": {
       "name": "mes_qc_defect",
       "comment": "MES 缺陷类型",
@@ -7609,7 +7609,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcDefectRecord",
     "businessName": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_defect_record",
+    "permissionPrefix": "mes:qc-defect-record",
     "table": {
       "name": "mes_qc_defect_record",
       "comment": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、",
@@ -7740,7 +7740,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIndicator",
     "businessName": "MES 质检指标",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_indicator",
+    "permissionPrefix": "mes:qc-indicator",
     "table": {
       "name": "mes_qc_indicator",
       "comment": "MES 质检指标",
@@ -7870,7 +7870,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIndicatorResult",
     "businessName": "MES 检验结果记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_indicator_result",
+    "permissionPrefix": "mes:qc-indicator-result",
     "table": {
       "name": "mes_qc_indicator_result",
       "comment": "MES 检验结果记录",
@@ -7993,7 +7993,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIndicatorResultDetail",
     "businessName": "MES 检验结果明细记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_indicator_result_detail",
+    "permissionPrefix": "mes:qc-indicator-result-detail",
     "table": {
       "name": "mes_qc_indicator_result_detail",
       "comment": "MES 检验结果明细记录",
@@ -8098,7 +8098,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIpqc",
     "businessName": "MES 过程检验单（IPQC, In-Process Quality Contr",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_ipqc",
+    "permissionPrefix": "mes:qc-ipqc",
     "table": {
       "name": "mes_qc_ipqc",
       "comment": "MES 过程检验单（IPQC, In-Process Quality Contr",
@@ -8432,7 +8432,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIpqcLine",
     "businessName": "MES 过程检验单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_ipqc_line",
+    "permissionPrefix": "mes:qc-ipqc-line",
     "table": {
       "name": "mes_qc_ipqc_line",
       "comment": "MES 过程检验单行",
@@ -8608,7 +8608,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIqc",
     "businessName": "MES 来料检验单（IQC, Incoming Quality Control）",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_iqc",
+    "permissionPrefix": "mes:qc-iqc",
     "table": {
       "name": "mes_qc_iqc",
       "comment": "MES 来料检验单（IQC, Incoming Quality Control）",
@@ -8906,7 +8906,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcIqcLine",
     "businessName": "MES 来料检验单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_iqc_line",
+    "permissionPrefix": "mes:qc-iqc-line",
     "table": {
       "name": "mes_qc_iqc_line",
       "comment": "MES 来料检验单行",
@@ -9082,7 +9082,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcOqc",
     "businessName": "MES 出货检验单（OQC, Outgoing Quality Control）",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_oqc",
+    "permissionPrefix": "mes:qc-oqc",
     "table": {
       "name": "mes_qc_oqc",
       "comment": "MES 出货检验单（OQC, Outgoing Quality Control）",
@@ -9396,7 +9396,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcOqcLine",
     "businessName": "MES 出货检验单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_oqc_line",
+    "permissionPrefix": "mes:qc-oqc-line",
     "table": {
       "name": "mes_qc_oqc_line",
       "comment": "MES 出货检验单行",
@@ -9572,7 +9572,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcRqc",
     "businessName": "MES 退货检验单（RQC, Return Quality Control）",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_rqc",
+    "permissionPrefix": "mes:qc-rqc",
     "table": {
       "name": "mes_qc_rqc",
       "comment": "MES 退货检验单（RQC, Return Quality Control）",
@@ -9852,7 +9852,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcRqcLine",
     "businessName": "MES 退货检验行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_rqc_line",
+    "permissionPrefix": "mes:qc-rqc-line",
     "table": {
       "name": "mes_qc_rqc_line",
       "comment": "MES 退货检验行",
@@ -10028,7 +10028,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcTemplate",
     "businessName": "MES 质检方案",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_template",
+    "permissionPrefix": "mes:qc-template",
     "table": {
       "name": "mes_qc_template",
       "comment": "MES 质检方案",
@@ -10142,7 +10142,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcTemplateIndicator",
     "businessName": "MES 质检方案-检测指标项",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_template_indicator",
+    "permissionPrefix": "mes:qc-template-indicator",
     "table": {
       "name": "mes_qc_template_indicator",
       "comment": "MES 质检方案-检测指标项",
@@ -10294,7 +10294,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesQcTemplateItem",
     "businessName": "MES 质检方案-产品关联",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_qc_template_item",
+    "permissionPrefix": "mes:qc-template-item",
     "table": {
       "name": "mes_qc_template_item",
       "comment": "MES 质检方案-产品关联",
@@ -10437,7 +10437,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesTmTool",
     "businessName": "MES 工具台账",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_tm_tool",
+    "permissionPrefix": "mes:tm-tool",
     "table": {
       "name": "mes_tm_tool",
       "comment": "MES 工具台账",
@@ -10609,7 +10609,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesTmToolType",
     "businessName": "MES 工具类型",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_tm_tool_type",
+    "permissionPrefix": "mes:tm-tool-type",
     "table": {
       "name": "mes_tm_tool_type",
       "comment": "MES 工具类型",
@@ -10730,7 +10730,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmArrivalNotice",
     "businessName": "MES 到货通知单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_arrival_notice",
+    "permissionPrefix": "mes:wm-arrival-notice",
     "table": {
       "name": "mes_wm_arrival_notice",
       "comment": "MES 到货通知单",
@@ -10878,7 +10878,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmArrivalNoticeLine",
     "businessName": "MES 到货通知单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_arrival_notice_line",
+    "permissionPrefix": "mes:wm-arrival-notice-line",
     "table": {
       "name": "mes_wm_arrival_notice_line",
       "comment": "MES 到货通知单行",
@@ -11012,7 +11012,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmBarcode",
     "businessName": "MES 条码清单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_barcode",
+    "permissionPrefix": "mes:wm-barcode",
     "table": {
       "name": "mes_wm_barcode",
       "comment": "MES 条码清单",
@@ -11159,7 +11159,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmBarcodeConfig",
     "businessName": "MES 条码配置",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_barcode_config",
+    "permissionPrefix": "mes:wm-barcode-config",
     "table": {
       "name": "mes_wm_barcode_config",
       "comment": "MES 条码配置",
@@ -11296,7 +11296,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmBatch",
     "businessName": "批次管理",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_batch",
+    "permissionPrefix": "mes:wm-batch",
     "table": {
       "name": "mes_wm_batch",
       "comment": "批次管理",
@@ -11508,7 +11508,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemConsume",
     "businessName": "MES 物料消耗记录",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_consume",
+    "permissionPrefix": "mes:wm-item-consume",
     "table": {
       "name": "mes_wm_item_consume",
       "comment": "MES 物料消耗记录",
@@ -11649,7 +11649,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemConsumeDetail",
     "businessName": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_consume_detail",
+    "permissionPrefix": "mes:wm-item-consume-detail",
     "table": {
       "name": "mes_wm_item_consume_detail",
       "comment": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配",
@@ -11815,7 +11815,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemConsumeLine",
     "businessName": "MES 物料消耗记录行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_consume_line",
+    "permissionPrefix": "mes:wm-item-consume-line",
     "table": {
       "name": "mes_wm_item_consume_line",
       "comment": "MES 物料消耗记录行",
@@ -11939,7 +11939,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemReceipt",
     "businessName": "MES 采购入库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_receipt",
+    "permissionPrefix": "mes:wm-item-receipt",
     "table": {
       "name": "mes_wm_item_receipt",
       "comment": "MES 采购入库单",
@@ -12088,7 +12088,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemReceiptDetail",
     "businessName": "MES 采购入库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_receipt_detail",
+    "permissionPrefix": "mes:wm-item-receipt-detail",
     "table": {
       "name": "mes_wm_item_receipt_detail",
       "comment": "MES 采购入库明细",
@@ -12238,7 +12238,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmItemReceiptLine",
     "businessName": "MES 采购入库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_item_receipt_line",
+    "permissionPrefix": "mes:wm-item-receipt-line",
     "table": {
       "name": "mes_wm_item_receipt_line",
       "comment": "MES 采购入库单行",
@@ -12395,7 +12395,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMaterialStock",
     "businessName": "MES 库存台账（仓库现有量）",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_material_stock",
+    "permissionPrefix": "mes:wm-material-stock",
     "table": {
       "name": "mes_wm_material_stock",
       "comment": "MES 库存台账（仓库现有量）",
@@ -12561,7 +12561,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscIssue",
     "businessName": "MES 杂项出库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_issue",
+    "permissionPrefix": "mes:wm-misc-issue",
     "table": {
       "name": "mes_wm_misc_issue",
       "comment": "MES 杂项出库单",
@@ -12710,7 +12710,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscIssueDetail",
     "businessName": "MES 杂项出库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_issue_detail",
+    "permissionPrefix": "mes:wm-misc-issue-detail",
     "table": {
       "name": "mes_wm_misc_issue_detail",
       "comment": "MES 杂项出库明细",
@@ -12876,7 +12876,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscIssueLine",
     "businessName": "MES 杂项出库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_issue_line",
+    "permissionPrefix": "mes:wm-misc-issue-line",
     "table": {
       "name": "mes_wm_misc_issue_line",
       "comment": "MES 杂项出库单行",
@@ -13042,7 +13042,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscReceipt",
     "businessName": "MES 杂项入库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_receipt",
+    "permissionPrefix": "mes:wm-misc-receipt",
     "table": {
       "name": "mes_wm_misc_receipt",
       "comment": "MES 杂项入库单",
@@ -13191,7 +13191,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscReceiptDetail",
     "businessName": "MES 杂项入库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_receipt_detail",
+    "permissionPrefix": "mes:wm-misc-receipt-detail",
     "table": {
       "name": "mes_wm_misc_receipt_detail",
       "comment": "MES 杂项入库明细",
@@ -13341,7 +13341,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmMiscReceiptLine",
     "businessName": "MES 杂项入库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_misc_receipt_line",
+    "permissionPrefix": "mes:wm-misc-receipt-line",
     "table": {
       "name": "mes_wm_misc_receipt_line",
       "comment": "MES 杂项入库单行",
@@ -13483,7 +13483,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceIssue",
     "businessName": "MES 外协发料单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_issue",
+    "permissionPrefix": "mes:wm-outsource-issue",
     "table": {
       "name": "mes_wm_outsource_issue",
       "comment": "MES 外协发料单",
@@ -13616,7 +13616,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceIssueDetail",
     "businessName": "MES 外协发料单明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_issue_detail",
+    "permissionPrefix": "mes:wm-outsource-issue-detail",
     "table": {
       "name": "mes_wm_outsource_issue_detail",
       "comment": "MES 外协发料单明细",
@@ -13774,7 +13774,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceIssueLine",
     "businessName": "MES 外协发料单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_issue_line",
+    "permissionPrefix": "mes:wm-outsource-issue-line",
     "table": {
       "name": "mes_wm_outsource_issue_line",
       "comment": "MES 外协发料单行",
@@ -13899,7 +13899,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceReceipt",
     "businessName": "MES 外协入库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_receipt",
+    "permissionPrefix": "mes:wm-outsource-receipt",
     "table": {
       "name": "mes_wm_outsource_receipt",
       "comment": "MES 外协入库单",
@@ -14032,7 +14032,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceReceiptDetail",
     "businessName": "MES 外协入库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_receipt_detail",
+    "permissionPrefix": "mes:wm-outsource-receipt-detail",
     "table": {
       "name": "mes_wm_outsource_receipt_detail",
       "comment": "MES 外协入库明细",
@@ -14182,7 +14182,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmOutsourceReceiptLine",
     "businessName": "MES 外协入库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_outsource_receipt_line",
+    "permissionPrefix": "mes:wm-outsource-receipt-line",
     "table": {
       "name": "mes_wm_outsource_receipt_line",
       "comment": "MES 外协入库单行",
@@ -14355,7 +14355,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmPackage",
     "businessName": "MES 装箱单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_package",
+    "permissionPrefix": "mes:wm-package",
     "table": {
       "name": "mes_wm_package",
       "comment": "MES 装箱单",
@@ -14570,7 +14570,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmPackageLine",
     "businessName": "MES 装箱明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_package_line",
+    "permissionPrefix": "mes:wm-package-line",
     "table": {
       "name": "mes_wm_package_line",
       "comment": "MES 装箱明细",
@@ -14703,7 +14703,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductIssue",
     "businessName": "MES 领料出库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_issue",
+    "permissionPrefix": "mes:wm-product-issue",
     "table": {
       "name": "mes_wm_product_issue",
       "comment": "MES 领料出库单",
@@ -14852,7 +14852,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductIssueDetail",
     "businessName": "MES 领料出库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_issue_detail",
+    "permissionPrefix": "mes:wm-product-issue-detail",
     "table": {
       "name": "mes_wm_product_issue_detail",
       "comment": "MES 领料出库明细",
@@ -15018,7 +15018,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductIssueLine",
     "businessName": "MES 领料出库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_issue_line",
+    "permissionPrefix": "mes:wm-product-issue-line",
     "table": {
       "name": "mes_wm_product_issue_line",
       "comment": "MES 领料出库单行",
@@ -15134,7 +15134,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductProduce",
     "businessName": "MES 生产入库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_produce",
+    "permissionPrefix": "mes:wm-product-produce",
     "table": {
       "name": "mes_wm_product_produce",
       "comment": "MES 生产入库单",
@@ -15275,7 +15275,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductProduceDetail",
     "businessName": "MES 生产入库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_produce_detail",
+    "permissionPrefix": "mes:wm-product-produce-detail",
     "table": {
       "name": "mes_wm_product_produce_detail",
       "comment": "MES 生产入库明细",
@@ -15433,7 +15433,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductProduceLine",
     "businessName": "MES 生产入库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_produce_line",
+    "permissionPrefix": "mes:wm-product-produce-line",
     "table": {
       "name": "mes_wm_product_produce_line",
       "comment": "MES 生产入库单行",
@@ -15590,7 +15590,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductReceipt",
     "businessName": "MES 产品收货（入库）单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_receipt",
+    "permissionPrefix": "mes:wm-product-receipt",
     "table": {
       "name": "mes_wm_product_receipt",
       "comment": "MES 产品收货（入库）单",
@@ -15723,7 +15723,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductReceiptDetail",
     "businessName": "MES 产品收货（入库）单明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_receipt_detail",
+    "permissionPrefix": "mes:wm-product-receipt-detail",
     "table": {
       "name": "mes_wm_product_receipt_detail",
       "comment": "MES 产品收货（入库）单明细",
@@ -15873,7 +15873,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductReceiptLine",
     "businessName": "MES 产品收货（入库）单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_receipt_line",
+    "permissionPrefix": "mes:wm-product-receipt-line",
     "table": {
       "name": "mes_wm_product_receipt_line",
       "comment": "MES 产品收货（入库）单行",
@@ -16006,7 +16006,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductSales",
     "businessName": "MES 销售出库单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_sales",
+    "permissionPrefix": "mes:wm-product-sales",
     "table": {
       "name": "mes_wm_product_sales",
       "comment": "MES 销售出库单",
@@ -16187,7 +16187,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductSalesDetail",
     "businessName": "MES 销售出库明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_sales_detail",
+    "permissionPrefix": "mes:wm-product-sales-detail",
     "table": {
       "name": "mes_wm_product_sales_detail",
       "comment": "MES 销售出库明细",
@@ -16353,7 +16353,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmProductSalesLine",
     "businessName": "MES 销售出库单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_product_sales_line",
+    "permissionPrefix": "mes:wm-product-sales-line",
     "table": {
       "name": "mes_wm_product_sales_line",
       "comment": "MES 销售出库单行",
@@ -16519,7 +16519,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnIssue",
     "businessName": "MES 生产退料单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_issue",
+    "permissionPrefix": "mes:wm-return-issue",
     "table": {
       "name": "mes_wm_return_issue",
       "comment": "MES 生产退料单",
@@ -16660,7 +16660,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnIssueDetail",
     "businessName": "MES 生产退料明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_issue_detail",
+    "permissionPrefix": "mes:wm-return-issue-detail",
     "table": {
       "name": "mes_wm_return_issue_detail",
       "comment": "MES 生产退料明细",
@@ -16826,7 +16826,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnIssueLine",
     "businessName": "MES 生产退料单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_issue_line",
+    "permissionPrefix": "mes:wm-return-issue-line",
     "table": {
       "name": "mes_wm_return_issue_line",
       "comment": "MES 生产退料单行",
@@ -16984,7 +16984,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnSales",
     "businessName": "MES 销售退货单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_sales",
+    "permissionPrefix": "mes:wm-return-sales",
     "table": {
       "name": "mes_wm_return_sales",
       "comment": "MES 销售退货单",
@@ -17124,7 +17124,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnSalesDetail",
     "businessName": "MES 销售退货明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_sales_detail",
+    "permissionPrefix": "mes:wm-return-sales-detail",
     "table": {
       "name": "mes_wm_return_sales_detail",
       "comment": "MES 销售退货明细",
@@ -17282,7 +17282,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnSalesLine",
     "businessName": "MES 销售退货单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_sales_line",
+    "permissionPrefix": "mes:wm-return-sales-line",
     "table": {
       "name": "mes_wm_return_sales_line",
       "comment": "MES 销售退货单行",
@@ -17431,7 +17431,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnVendor",
     "businessName": "MES 供应商退货单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_vendor",
+    "permissionPrefix": "mes:wm-return-vendor",
     "table": {
       "name": "mes_wm_return_vendor",
       "comment": "MES 供应商退货单",
@@ -17587,7 +17587,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnVendorDetail",
     "businessName": "MES 供应商退货明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_vendor_detail",
+    "permissionPrefix": "mes:wm-return-vendor-detail",
     "table": {
       "name": "mes_wm_return_vendor_detail",
       "comment": "MES 供应商退货明细",
@@ -17753,7 +17753,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmReturnVendorLine",
     "businessName": "MES 供应商退货单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_return_vendor_line",
+    "permissionPrefix": "mes:wm-return-vendor-line",
     "table": {
       "name": "mes_wm_return_vendor_line",
       "comment": "MES 供应商退货单行",
@@ -17877,7 +17877,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmSalesNotice",
     "businessName": "MES 发货通知单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_sales_notice",
+    "permissionPrefix": "mes:wm-sales-notice",
     "table": {
       "name": "mes_wm_sales_notice",
       "comment": "MES 发货通知单",
@@ -18033,7 +18033,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmSalesNoticeLine",
     "businessName": "MES 发货通知单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_sales_notice_line",
+    "permissionPrefix": "mes:wm-sales-notice-line",
     "table": {
       "name": "mes_wm_sales_notice_line",
       "comment": "MES 发货通知单行",
@@ -18165,7 +18165,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmSn",
     "businessName": "MES SN 码",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_sn",
+    "permissionPrefix": "mes:wm-sn",
     "table": {
       "name": "mes_wm_sn",
       "comment": "MES SN 码",
@@ -18279,7 +18279,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmStockTakingPlan",
     "businessName": "MES 盘点方案",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_stock_taking_plan",
+    "permissionPrefix": "mes:wm-stock-taking-plan",
     "table": {
       "name": "mes_wm_stock_taking_plan",
       "comment": "MES 盘点方案",
@@ -18426,7 +18426,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmStockTakingPlanParam",
     "businessName": "MES 盘点方案参数",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_stock_taking_plan_param",
+    "permissionPrefix": "mes:wm-stock-taking-plan-param",
     "table": {
       "name": "mes_wm_stock_taking_plan_param",
       "comment": "MES 盘点方案参数",
@@ -18548,7 +18548,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmStockTakingTask",
     "businessName": "MES 盘点任务",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_stock_taking_task",
+    "permissionPrefix": "mes:wm-stock-taking-task",
     "table": {
       "name": "mes_wm_stock_taking_task",
       "comment": "MES 盘点任务",
@@ -18720,7 +18720,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmStockTakingTaskLine",
     "businessName": "MES 盘点任务行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_stock_taking_task_line",
+    "permissionPrefix": "mes:wm-stock-taking-task-line",
     "table": {
       "name": "mes_wm_stock_taking_task_line",
       "comment": "MES 盘点任务行",
@@ -18897,7 +18897,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmStockTakingTaskResult",
     "businessName": "MES 盘点结果",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_stock_taking_task_result",
+    "permissionPrefix": "mes:wm-stock-taking-task-result",
     "table": {
       "name": "mes_wm_stock_taking_task_result",
       "comment": "MES 盘点结果",
@@ -19073,7 +19073,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmTransaction",
     "businessName": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_transaction",
+    "permissionPrefix": "mes:wm-transaction",
     "table": {
       "name": "mes_wm_transaction",
       "comment": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许",
@@ -19287,7 +19287,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmTransfer",
     "businessName": "MES 转移单",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_transfer",
+    "permissionPrefix": "mes:wm-transfer",
     "table": {
       "name": "mes_wm_transfer",
       "comment": "MES 转移单",
@@ -19467,7 +19467,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmTransferDetail",
     "businessName": "MES 调拨明细",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_transfer_detail",
+    "permissionPrefix": "mes:wm-transfer-detail",
     "table": {
       "name": "mes_wm_transfer_detail",
       "comment": "MES 调拨明细",
@@ -19617,7 +19617,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmTransferLine",
     "businessName": "MES 转移单行",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_transfer_line",
+    "permissionPrefix": "mes:wm-transfer-line",
     "table": {
       "name": "mes_wm_transfer_line",
       "comment": "MES 转移单行",
@@ -19767,7 +19767,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmWarehouse",
     "businessName": "MES 仓库",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_warehouse",
+    "permissionPrefix": "mes:wm-warehouse",
     "table": {
       "name": "mes_wm_warehouse",
       "comment": "MES 仓库",
@@ -19899,7 +19899,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmWarehouseArea",
     "businessName": "MES 库位",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_warehouse_area",
+    "permissionPrefix": "mes:wm-warehouse-area",
     "table": {
       "name": "mes_wm_warehouse_area",
       "comment": "MES 库位",
@@ -20082,7 +20082,7 @@ export const MES_TABLES: CodegenConfig[] = [
     "className": "MesWmWarehouseLocation",
     "businessName": "MES 库区",
     "parentMenuId": "mes-dir",
-    "permissionPrefix": "mes:mes_wm_warehouse_location",
+    "permissionPrefix": "mes:wm-warehouse-location",
     "table": {
       "name": "mes_wm_warehouse_location",
       "comment": "MES 库区",

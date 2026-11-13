@@ -4,7 +4,7 @@
   "entity": "MesWmProductSales",
   "kebab": "mes-wm-product-sales",
   "businessName": "MES 销售出库单",
-  "permissionPrefix": "mes:mes_wm_product_sales",
+  "permissionPrefix": "mes:wm-product-sales",
   "page": {
     "route": "/admin/mes/mes-wm-product-sales",
     "title": "MES 销售出库单管理",

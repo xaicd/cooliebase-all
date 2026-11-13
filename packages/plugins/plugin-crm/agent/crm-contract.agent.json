@@ -4,7 +4,7 @@
   "entity": "CrmContract",
   "kebab": "crm-contract",
   "businessName": "CRM 合同",
-  "permissionPrefix": "crm:crm_contract",
+  "permissionPrefix": "crm:contract",
   "page": {
     "route": "/admin/crm/crm-contract",
     "title": "CRM 合同管理",

@@ -4,7 +4,7 @@
   "entity": "ProductBrowseHistory",
   "kebab": "product-browse-history",
   "businessName": "商品浏览记录",
-  "permissionPrefix": "mall:product_browse_history",
+  "permissionPrefix": "mall:product-browse-history",
   "page": {
     "route": "/admin/mall/product-browse-history",
     "title": "商品浏览记录管理",

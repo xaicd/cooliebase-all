@@ -41,17 +41,17 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 接入 Archify 技能规范并生成交互式架构拓扑产物
+- [x] **T1**: 接入 Archify 技能规范并生成交互式架构拓扑产物
   - 归属: `main`
   - 文件白名单: `.agents/skills/archify/, docs/03_design/diagrams/`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 接入 Strix 渗透测试技能规范并定义四大核心防御靶标规约
+- [x] **T2**: 接入 Strix 渗透测试技能规范并定义四大核心防御靶标规约
   - 归属: `main`
   - 文件白名单: `.agents/skills/strix-penetration-testing/`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 集成 K6 负载压测场景脚本并跑通 20 道门禁核验
+- [x] **T3**: 集成 K6 负载压测场景脚本并跑通 20 道门禁核验
   - 归属: `main`
   - 文件白名单: `test/load/k6-load-benchmark.js, wiki/`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
@@ -68,9 +68,9 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 接入 Archify 技能规范并生成交互式架构拓扑产物 | .agents/skills/archify/, docs/03_design/diagrams/ | 未开始 |
-| T2 | main | 接入 Strix 渗透测试技能规范并定义四大核心防御靶标规约 | .agents/skills/strix-penetration-testing/ | 未开始 |
-| T3 | main | 集成 K6 负载压测场景脚本并跑通 20 道门禁核验 | test/load/k6-load-benchmark.js, wiki/ | 未开始 |
+| T1 | main | 接入 Archify 技能规范并生成交互式架构拓扑产物 | .agents/skills/archify/, docs/03_design/diagrams/ | 已完成 |
+| T2 | main | 接入 Strix 渗透测试技能规范并定义四大核心防御靶标规约 | .agents/skills/strix-penetration-testing/ | 已完成 |
+| T3 | main | 集成 K6 负载压测场景脚本并跑通 20 道门禁核验 | test/load/k6-load-benchmark.js, wiki/ | 已完成 |
 
 ## 4. 依赖说明
 
@@ -79,5 +79,5 @@ T1 → T2 → T3
 ## 5. 阶段状态
 
 * 规划：`PLAN_APPROVED`（由 brief 展开）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

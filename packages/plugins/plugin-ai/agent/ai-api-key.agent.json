@@ -4,7 +4,7 @@
   "entity": "AiApiKey",
   "kebab": "ai-api-key",
   "businessName": "AI API 秘钥",
-  "permissionPrefix": "ai:ai_api_key",
+  "permissionPrefix": "ai:api-key",
   "page": {
     "route": "/admin/ai/ai-api-key",
     "title": "AI API 秘钥管理",

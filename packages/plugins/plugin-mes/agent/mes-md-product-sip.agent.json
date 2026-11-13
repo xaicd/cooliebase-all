@@ -4,7 +4,7 @@
   "entity": "MesMdProductSip",
   "kebab": "mes-md-product-sip",
   "businessName": "MES 产品SIP",
-  "permissionPrefix": "mes:mes_md_product_sip",
+  "permissionPrefix": "mes:md-product-sip",
   "page": {
     "route": "/admin/mes/mes-md-product-sip",
     "title": "MES 产品SIP管理",

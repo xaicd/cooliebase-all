@@ -4,7 +4,7 @@
   "entity": "MesProAndonConfig",
   "kebab": "mes-pro-andon-config",
   "businessName": "MES 安灯呼叫配置",
-  "permissionPrefix": "mes:mes_pro_andon_config",
+  "permissionPrefix": "mes:pro-andon-config",
   "page": {
     "route": "/admin/mes/mes-pro-andon-config",
     "title": "MES 安灯呼叫配置管理",

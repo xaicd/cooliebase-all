@@ -4,7 +4,7 @@
   "entity": "CrmCustomerPoolConfig",
   "kebab": "crm-customer-pool-config",
   "businessName": "客户公海配置",
-  "permissionPrefix": "crm:crm_customer_pool_config",
+  "permissionPrefix": "crm:customer-pool-config",
   "page": {
     "route": "/admin/crm/crm-customer-pool-config",
     "title": "客户公海配置管理",

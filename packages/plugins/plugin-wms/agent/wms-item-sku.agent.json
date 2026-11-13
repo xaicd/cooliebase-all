@@ -4,7 +4,7 @@
   "entity": "WmsItemSku",
   "kebab": "wms-item-sku",
   "businessName": "物料SKU",
-  "permissionPrefix": "wms:item",
+  "permissionPrefix": "wms:item-sku",
   "page": {
     "route": "/admin/wms/wms-item-sku",
     "title": "物料SKU管理",

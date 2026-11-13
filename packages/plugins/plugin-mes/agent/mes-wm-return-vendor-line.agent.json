@@ -4,7 +4,7 @@
   "entity": "MesWmReturnVendorLine",
   "kebab": "mes-wm-return-vendor-line",
   "businessName": "MES 供应商退货单行",
-  "permissionPrefix": "mes:mes_wm_return_vendor_line",
+  "permissionPrefix": "mes:wm-return-vendor-line",
   "page": {
     "route": "/admin/mes/mes-wm-return-vendor-line",
     "title": "MES 供应商退货单行管理",

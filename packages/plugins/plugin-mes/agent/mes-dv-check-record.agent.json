@@ -4,7 +4,7 @@
   "entity": "MesDvCheckRecord",
   "kebab": "mes-dv-check-record",
   "businessName": "MES 设备点检记录",
-  "permissionPrefix": "mes:mes_dv_check_record",
+  "permissionPrefix": "mes:dv-check-record",
   "page": {
     "route": "/admin/mes/mes-dv-check-record",
     "title": "MES 设备点检记录管理",

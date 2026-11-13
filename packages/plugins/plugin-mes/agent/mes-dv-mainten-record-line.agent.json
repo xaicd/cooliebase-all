@@ -4,7 +4,7 @@
   "entity": "MesDvMaintenRecordLine",
   "kebab": "mes-dv-mainten-record-line",
   "businessName": "MES 设备保养记录明细",
-  "permissionPrefix": "mes:mes_dv_mainten_record_line",
+  "permissionPrefix": "mes:dv-mainten-record-line",
   "page": {
     "route": "/admin/mes/mes-dv-mainten-record-line",
     "title": "MES 设备保养记录明细管理",

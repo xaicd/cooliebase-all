@@ -4,7 +4,7 @@
   "entity": "CrmContact",
   "kebab": "crm-contact",
   "businessName": "CRM 联系人",
-  "permissionPrefix": "crm:crm_contact",
+  "permissionPrefix": "crm:contact",
   "page": {
     "route": "/admin/crm/crm-contact",
     "title": "CRM 联系人管理",

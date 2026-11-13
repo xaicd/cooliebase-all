@@ -4,7 +4,7 @@
   "entity": "ProductSku",
   "kebab": "product-sku",
   "businessName": "商品 SKU",
-  "permissionPrefix": "mall:product_sku",
+  "permissionPrefix": "mall:product-sku",
   "page": {
     "route": "/admin/mall/product-sku",
     "title": "商品 SKU管理",

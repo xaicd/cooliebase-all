@@ -4,7 +4,7 @@
   "entity": "MesWmMiscIssueDetail",
   "kebab": "mes-wm-misc-issue-detail",
   "businessName": "MES 杂项出库明细",
-  "permissionPrefix": "mes:mes_wm_misc_issue_detail",
+  "permissionPrefix": "mes:wm-misc-issue-detail",
   "page": {
     "route": "/admin/mes/mes-wm-misc-issue-detail",
     "title": "MES 杂项出库明细管理",

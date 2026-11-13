@@ -4,7 +4,7 @@
   "entity": "CombinationRecord",
   "kebab": "combination-record",
   "businessName": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
-  "permissionPrefix": "mall:combination_record",
+  "permissionPrefix": "mall:combination-record",
   "page": {
     "route": "/admin/mall/combination-record",
     "title": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人管理",

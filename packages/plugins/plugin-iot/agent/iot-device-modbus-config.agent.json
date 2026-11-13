@@ -4,7 +4,7 @@
   "entity": "IotDeviceModbusConfig",
   "kebab": "iot-device-modbus-config",
   "businessName": "IoT 设备 Modbus 连接配置",
-  "permissionPrefix": "iot:iot_device_modbus_config",
+  "permissionPrefix": "iot:device-modbus-config",
   "page": {
     "route": "/admin/iot/iot-device-modbus-config",
     "title": "IoT 设备 Modbus 连接配置管理",

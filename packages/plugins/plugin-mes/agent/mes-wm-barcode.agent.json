@@ -4,7 +4,7 @@
   "entity": "MesWmBarcode",
   "kebab": "mes-wm-barcode",
   "businessName": "MES 条码清单",
-  "permissionPrefix": "mes:mes_wm_barcode",
+  "permissionPrefix": "mes:wm-barcode",
   "page": {
     "route": "/admin/mes/mes-wm-barcode",
     "title": "MES 条码清单管理",

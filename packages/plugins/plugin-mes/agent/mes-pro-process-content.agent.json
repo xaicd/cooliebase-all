@@ -4,7 +4,7 @@
   "entity": "MesProProcessContent",
   "kebab": "mes-pro-process-content",
   "businessName": "MES 生产工序内容",
-  "permissionPrefix": "mes:mes_pro_process_content",
+  "permissionPrefix": "mes:pro-process-content",
   "page": {
     "route": "/admin/mes/mes-pro-process-content",
     "title": "MES 生产工序内容管理",

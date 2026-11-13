@@ -4,7 +4,7 @@
   "entity": "AiChatConversation",
   "kebab": "ai-chat-conversation",
   "businessName": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
-  "permissionPrefix": "ai:ai_chat_conversation",
+  "permissionPrefix": "ai:chat-conversation",
   "page": {
     "route": "/admin/ai/ai-chat-conversation",
     "title": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它管理",

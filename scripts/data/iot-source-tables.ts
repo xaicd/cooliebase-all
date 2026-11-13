@@ -8,7 +8,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotAlertConfig",
     "businessName": "IoT 告警配置",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_alert_config",
+    "permissionPrefix": "iot:alert-config",
     "table": {
       "name": "iot_alert_config",
       "comment": "IoT 告警配置",
@@ -164,7 +164,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotAlertRecord",
     "businessName": "IoT 告警记录",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_alert_record",
+    "permissionPrefix": "iot:alert-record",
     "table": {
       "name": "iot_alert_record",
       "comment": "IoT 告警记录",
@@ -311,7 +311,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDataRule",
     "businessName": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_data_rule",
+    "permissionPrefix": "iot:data-rule",
     "table": {
       "name": "iot_data_rule",
       "comment": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的",
@@ -459,7 +459,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDataSink",
     "businessName": "IoT 数据流转目的",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_data_sink",
+    "permissionPrefix": "iot:data-sink",
     "table": {
       "name": "iot_data_sink",
       "comment": "IoT 数据流转目的",
@@ -573,7 +573,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDevice",
     "businessName": "IoT 设备",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_device",
+    "permissionPrefix": "iot:device",
     "table": {
       "name": "iot_device",
       "comment": "IoT 设备",
@@ -797,7 +797,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDeviceGroup",
     "businessName": "IoT 设备分组",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_device_group",
+    "permissionPrefix": "iot:device-group",
     "table": {
       "name": "iot_device_group",
       "comment": "IoT 设备分组",
@@ -894,7 +894,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDeviceModbusConfig",
     "businessName": "IoT 设备 Modbus 连接配置",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_device_modbus_config",
+    "permissionPrefix": "iot:device-modbus-config",
     "table": {
       "name": "iot_device_modbus_config",
       "comment": "IoT 设备 Modbus 连接配置",
@@ -1049,7 +1049,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotDeviceModbusPoint",
     "businessName": "IoT 设备 Modbus 点位配置",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_device_modbus_point",
+    "permissionPrefix": "iot:device-modbus-point",
     "table": {
       "name": "iot_device_modbus_point",
       "comment": "IoT 设备 Modbus 点位配置",
@@ -1222,7 +1222,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotOtaFirmware",
     "businessName": "IoT OTA 固件",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_ota_firmware",
+    "permissionPrefix": "iot:ota-firmware",
     "table": {
       "name": "iot_ota_firmware",
       "comment": "IoT OTA 固件",
@@ -1359,7 +1359,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotOtaTask",
     "businessName": "IoT OTA 升级任务",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_ota_task",
+    "permissionPrefix": "iot:ota-task",
     "table": {
       "name": "iot_ota_task",
       "comment": "IoT OTA 升级任务",
@@ -1489,7 +1489,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotOtaTaskRecord",
     "businessName": "IoT OTA 升级任务记录",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_ota_task_record",
+    "permissionPrefix": "iot:ota-task-record",
     "table": {
       "name": "iot_ota_task_record",
       "comment": "IoT OTA 升级任务记录",
@@ -1622,7 +1622,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotProduct",
     "businessName": "IoT 产品",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_product",
+    "permissionPrefix": "iot:product",
     "table": {
       "name": "iot_product",
       "comment": "IoT 产品",
@@ -1800,7 +1800,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotProductCategory",
     "businessName": "IoT 产品分类",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_product_category",
+    "permissionPrefix": "iot:product-category",
     "table": {
       "name": "iot_product_category",
       "comment": "IoT 产品分类",
@@ -1905,7 +1905,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotSceneRule",
     "businessName": "IoT 场景联动规则",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_scene_rule",
+    "permissionPrefix": "iot:scene-rule",
     "table": {
       "name": "iot_scene_rule",
       "comment": "IoT 场景联动规则",
@@ -2117,7 +2117,7 @@ export const IOT_TABLES: CodegenConfig[] = [
     "className": "IotThingModel",
     "businessName": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",
     "parentMenuId": "iot-dir",
-    "permissionPrefix": "iot:iot_thing_model",
+    "permissionPrefix": "iot:thing-model",
     "table": {
       "name": "iot_thing_model",
       "comment": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",

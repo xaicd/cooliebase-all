@@ -4,7 +4,7 @@
   "entity": "MpMenu",
   "kebab": "mp-menu",
   "businessName": "公众号菜单",
-  "permissionPrefix": "mp:mp_menu",
+  "permissionPrefix": "mp:menu",
   "page": {
     "route": "/admin/mp/mp-menu",
     "title": "公众号菜单管理",

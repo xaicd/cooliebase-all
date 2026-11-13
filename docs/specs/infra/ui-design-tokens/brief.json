@@ -57,7 +57,7 @@
   "tasks": [
     { "id": "T1", "parent": "main", "title": "design-tokens.ts（页面头/表格/按钮/卡片四组）", "files": ["packages/shared/frontend/lib/design-tokens.ts"] },
     { "id": "T2", "parent": "T1", "title": "codegen 模板改用 token", "files": ["packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts"] },
-    { "id": "T3", "parent": "T2", "title": "裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步", "files": ["scripts/check-design-tokens.cjs", "package.json", "docs/01_management/project-plan.md"] }
+    { "id": "T3", "parent": "T2", "title": "裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步", "files": ["scripts/check-design-tokens.cjs", "docs/architecture/artifacts/design-tokens-baseline.json", "test/unit/design-tokens-gate.test.ts", "package.json", "docs/01_management/project-plan.md"] }
   ],
   "dependencies": "T1 → T2 → T3",
   "windowMinutes": 15

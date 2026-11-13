@@ -4,7 +4,7 @@
   "entity": "MesWmItemConsumeLine",
   "kebab": "mes-wm-item-consume-line",
   "businessName": "MES 物料消耗记录行",
-  "permissionPrefix": "mes:mes_wm_item_consume_line",
+  "permissionPrefix": "mes:wm-item-consume-line",
   "page": {
     "route": "/admin/mes/mes-wm-item-consume-line",
     "title": "MES 物料消耗记录行管理",

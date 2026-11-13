@@ -4,7 +4,7 @@
   "entity": "BpmProcessExpression",
   "kebab": "bpm-process-expression",
   "businessName": "BPM 流程表达式",
-  "permissionPrefix": "bpm:bpm_process_expression",
+  "permissionPrefix": "bpm:process-expression",
   "page": {
     "route": "/admin/bpm/bpm-process-expression",
     "title": "BPM 流程表达式管理",

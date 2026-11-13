@@ -4,7 +4,7 @@
   "entity": "ImRtcParticipant",
   "kebab": "im-rtc-participant",
   "businessName": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
-  "permissionPrefix": "im:im_rtc_participant",
+  "permissionPrefix": "im:rtc-participant",
   "page": {
     "route": "/admin/im/im-rtc-participant",
     "title": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主管理",

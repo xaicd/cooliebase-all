@@ -4,7 +4,7 @@
   "entity": "ProductFavorite",
   "kebab": "product-favorite",
   "businessName": "商品收藏",
-  "permissionPrefix": "mall:product_favorite",
+  "permissionPrefix": "mall:product-favorite",
   "page": {
     "route": "/admin/mall/product-favorite",
     "title": "商品收藏管理",

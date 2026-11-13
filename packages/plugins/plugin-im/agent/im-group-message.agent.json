@@ -4,7 +4,7 @@
   "entity": "ImGroupMessage",
   "kebab": "im-group-message",
   "businessName": "IM 群聊消息",
-  "permissionPrefix": "im:im_group_message",
+  "permissionPrefix": "im:group-message",
   "page": {
     "route": "/admin/im/im-group-message",
     "title": "IM 群聊消息管理",

@@ -78,8 +78,10 @@ const EXCLUDE_FILES = new Set([
   "ts-errors-report.txt"
 ])
 
-// 目标目录中需保护的已有设计文档（严禁覆盖）
+// 目标目录中需保护的已有设计文档（严禁覆盖；新目录首次克隆时仍正常从母本复制）
 const PROTECTED_DOCS = new Set([
+  "GOAL.md",
+  "SWARM.md",
   "all_task.md",
   "zq-agentall.md",
   "应算通-业务流程与数据流转.md",
@@ -93,8 +95,11 @@ const PROTECTED_DOCS = new Set([
  * 严格执行“长词优先”替换原则，避免短词误伤，深度抹除开源底座与供应商硬编码
  */
 function transformFileContent(content, targetName, targetTitle, targetDbName, targetPort) {
+  const BLUEPRINT_SNAPSHOT_SENTINEL = "__COOLIE_BLUEPRINT_BASE_SNAPSHOT__"
   let res = content
+    .replace(/\/blueprints\/cooliebase-all/g, BLUEPRINT_SNAPSHOT_SENTINEL)
     .replace(/cooliebase-all/g, targetName)
+    .replace(new RegExp(BLUEPRINT_SNAPSHOT_SENTINEL, "g"), "/blueprints/cooliebase-all")
     .replace(/CoolieBase All/g, targetTitle)
     .replace(/cooliebase_next/g, targetDbName)
     .replace(/PORT=3100/g, `PORT=${targetPort}`)

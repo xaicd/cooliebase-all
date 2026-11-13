@@ -4,7 +4,7 @@
   "entity": "MesProWorkOrderBom",
   "kebab": "mes-pro-work-order-bom",
   "businessName": "MES 生产工单 BOM",
-  "permissionPrefix": "mes:mes_pro_work_order_bom",
+  "permissionPrefix": "mes:pro-work-order-bom",
   "page": {
     "route": "/admin/mes/mes-pro-work-order-bom",
     "title": "MES 生产工单 BOM管理",

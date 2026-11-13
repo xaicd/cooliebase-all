@@ -4,7 +4,7 @@
   "entity": "MesQcIndicatorResultDetail",
   "kebab": "mes-qc-indicator-result-detail",
   "businessName": "MES 检验结果明细记录",
-  "permissionPrefix": "mes:mes_qc_indicator_result_detail",
+  "permissionPrefix": "mes:qc-indicator-result-detail",
   "page": {
     "route": "/admin/mes/mes-qc-indicator-result-detail",
     "title": "MES 检验结果明细记录管理",

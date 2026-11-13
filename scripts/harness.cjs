@@ -85,7 +85,7 @@ const TRUNK = [
   ["admin", "pnpm harness admin <pages|nav|routes>", "Admin 页面、侧栏导航与路由清单生成"],
   ["sql", "pnpm harness sql <init|build>", "生成全量初始化 SQL"],
   ["serve", "pnpm harness serve", "运行生产构建（standalone）"],
-  ["service", "pnpm harness service <start|stop|restart|status|health|logs>", "全栈服务运维控制台"],
+  ["service", "pnpm harness service <install|build|start|stop|restart|status|health|logs>", "全栈服务运维控制台"],
   ["start", "pnpm harness start", "启动全栈后台服务（带 PID 守卫与环境自愈）"],
   ["stop", "pnpm harness stop", "停止全栈服务并释放端口"],
   ["restart", "pnpm harness restart", "平滑重启全栈服务"],
@@ -107,6 +107,8 @@ const TRUNK = [
 const GROUPS = {
   service: {
     "": "service:status",
+    install: "service:install",
+    build: "service:build",
     start: "service:start",
     stop: "service:stop",
     restart: "service:restart",

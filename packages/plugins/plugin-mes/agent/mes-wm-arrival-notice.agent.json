@@ -4,7 +4,7 @@
   "entity": "MesWmArrivalNotice",
   "kebab": "mes-wm-arrival-notice",
   "businessName": "MES 到货通知单",
-  "permissionPrefix": "mes:mes_wm_arrival_notice",
+  "permissionPrefix": "mes:wm-arrival-notice",
   "page": {
     "route": "/admin/mes/mes-wm-arrival-notice",
     "title": "MES 到货通知单管理",

@@ -4,7 +4,7 @@
   "entity": "IotAlertRecord",
   "kebab": "iot-alert-record",
   "businessName": "IoT 告警记录",
-  "permissionPrefix": "iot:iot_alert_record",
+  "permissionPrefix": "iot:alert-record",
   "page": {
     "route": "/admin/iot/iot-alert-record",
     "title": "IoT 告警记录管理",

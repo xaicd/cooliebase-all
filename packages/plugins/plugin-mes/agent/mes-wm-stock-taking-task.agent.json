@@ -4,7 +4,7 @@
   "entity": "MesWmStockTakingTask",
   "kebab": "mes-wm-stock-taking-task",
   "businessName": "MES 盘点任务",
-  "permissionPrefix": "mes:mes_wm_stock_taking_task",
+  "permissionPrefix": "mes:wm-stock-taking-task",
   "page": {
     "route": "/admin/mes/mes-wm-stock-taking-task",
     "title": "MES 盘点任务管理",

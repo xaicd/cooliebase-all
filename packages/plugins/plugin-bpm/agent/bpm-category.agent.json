@@ -4,7 +4,7 @@
   "entity": "BpmCategory",
   "kebab": "bpm-category",
   "businessName": "BPM 流程分类",
-  "permissionPrefix": "bpm:bpm_category",
+  "permissionPrefix": "bpm:category",
   "page": {
     "route": "/admin/bpm/bpm-category",
     "title": "BPM 流程分类管理",

@@ -4,7 +4,7 @@
   "entity": "ProductStatistics",
   "kebab": "product-statistics",
   "businessName": "商品统计",
-  "permissionPrefix": "mall:product_statistics",
+  "permissionPrefix": "mall:product-statistics",
   "page": {
     "route": "/admin/mall/product-statistics",
     "title": "商品统计管理",

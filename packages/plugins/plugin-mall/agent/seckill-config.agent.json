@@ -4,7 +4,7 @@
   "entity": "SeckillConfig",
   "kebab": "seckill-config",
   "businessName": "秒杀时段",
-  "permissionPrefix": "mall:seckill_config",
+  "permissionPrefix": "mall:seckill-config",
   "page": {
     "route": "/admin/mall/seckill-config",
     "title": "秒杀时段管理",

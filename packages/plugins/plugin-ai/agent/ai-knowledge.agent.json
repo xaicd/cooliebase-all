@@ -4,7 +4,7 @@
   "entity": "AiKnowledge",
   "kebab": "ai-knowledge",
   "businessName": "AI 知识库",
-  "permissionPrefix": "ai:ai_knowledge",
+  "permissionPrefix": "ai:knowledge",
   "page": {
     "route": "/admin/ai/ai-knowledge",
     "title": "AI 知识库管理",

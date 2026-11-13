@@ -4,7 +4,7 @@
   "entity": "AiChatRole",
   "kebab": "ai-chat-role",
   "businessName": "AI 聊天角色",
-  "permissionPrefix": "ai:ai_chat_role",
+  "permissionPrefix": "ai:chat-role",
   "page": {
     "route": "/admin/ai/ai-chat-role",
     "title": "AI 聊天角色管理",

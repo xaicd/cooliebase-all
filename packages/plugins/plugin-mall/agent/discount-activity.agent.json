@@ -4,7 +4,7 @@
   "entity": "DiscountActivity",
   "kebab": "discount-activity",
   "businessName": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
-  "permissionPrefix": "mall:discount_activity",
+  "permissionPrefix": "mall:discount-activity",
   "page": {
     "route": "/admin/mall/discount-activity",
     "title": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一管理",

@@ -4,7 +4,7 @@
   "entity": "MemberUser",
   "kebab": "member-user",
   "businessName": "会员用户 DOuk_mobile 索引：基于 字段",
-  "permissionPrefix": "member:member_user",
+  "permissionPrefix": "member:user",
   "page": {
     "route": "/admin/member/member-user",
     "title": "会员用户 DOuk_mobile 索引：基于 字段管理",

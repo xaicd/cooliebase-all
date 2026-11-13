@@ -4,7 +4,7 @@
   "entity": "CrmBusinessProduct",
   "kebab": "crm-business-product",
   "businessName": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
-  "permissionPrefix": "crm:crm_business_product",
+  "permissionPrefix": "crm:business-product",
   "page": {
     "route": "/admin/crm/crm-business-product",
     "title": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines管理",

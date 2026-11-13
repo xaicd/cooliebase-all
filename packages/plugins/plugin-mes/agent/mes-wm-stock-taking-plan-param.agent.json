@@ -4,7 +4,7 @@
   "entity": "MesWmStockTakingPlanParam",
   "kebab": "mes-wm-stock-taking-plan-param",
   "businessName": "MES 盘点方案参数",
-  "permissionPrefix": "mes:mes_wm_stock_taking_plan_param",
+  "permissionPrefix": "mes:wm-stock-taking-plan-param",
   "page": {
     "route": "/admin/mes/mes-wm-stock-taking-plan-param",
     "title": "MES 盘点方案参数管理",

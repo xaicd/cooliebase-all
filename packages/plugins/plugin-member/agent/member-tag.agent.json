@@ -4,7 +4,7 @@
   "entity": "MemberTag",
   "kebab": "member-tag",
   "businessName": "会员标签",
-  "permissionPrefix": "member:member_tag",
+  "permissionPrefix": "member:tag",
   "page": {
     "route": "/admin/member/member-tag",
     "title": "会员标签管理",

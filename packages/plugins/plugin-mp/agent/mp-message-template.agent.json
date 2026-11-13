@@ -4,7 +4,7 @@
   "entity": "MpMessageTemplate",
   "kebab": "mp-message-template",
   "businessName": "公众号模版消息",
-  "permissionPrefix": "mp:mp_message_template",
+  "permissionPrefix": "mp:message-template",
   "page": {
     "route": "/admin/mp/mp-message-template",
     "title": "公众号模版消息管理",

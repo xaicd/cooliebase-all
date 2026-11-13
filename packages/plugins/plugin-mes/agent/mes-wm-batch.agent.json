@@ -4,7 +4,7 @@
   "entity": "MesWmBatch",
   "kebab": "mes-wm-batch",
   "businessName": "批次管理",
-  "permissionPrefix": "mes:mes_wm_batch",
+  "permissionPrefix": "mes:wm-batch",
   "page": {
     "route": "/admin/mes/mes-wm-batch",
     "title": "批次管理管理",

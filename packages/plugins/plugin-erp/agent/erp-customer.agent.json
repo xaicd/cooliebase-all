@@ -4,7 +4,7 @@
   "entity": "ErpCustomer",
   "kebab": "erp-customer",
   "businessName": "ERP 客户",
-  "permissionPrefix": "erp:erp_customer",
+  "permissionPrefix": "erp:customer",
   "page": {
     "route": "/admin/erp/erp-customer",
     "title": "ERP 客户管理",

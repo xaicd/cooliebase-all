@@ -4,7 +4,7 @@
   "entity": "MesWmPackage",
   "kebab": "mes-wm-package",
   "businessName": "MES 装箱单",
-  "permissionPrefix": "mes:mes_wm_package",
+  "permissionPrefix": "mes:wm-package",
   "page": {
     "route": "/admin/mes/mes-wm-package",
     "title": "MES 装箱单管理",

@@ -4,7 +4,7 @@
   "entity": "MesMdClient",
   "kebab": "mes-md-client",
   "businessName": "MES 客户",
-  "permissionPrefix": "mes:mes_md_client",
+  "permissionPrefix": "mes:md-client",
   "page": {
     "route": "/admin/mes/mes-md-client",
     "title": "MES 客户管理",

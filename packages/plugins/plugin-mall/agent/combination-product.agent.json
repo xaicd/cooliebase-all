@@ -4,7 +4,7 @@
   "entity": "CombinationProduct",
   "kebab": "combination-product",
   "businessName": "拼团商品",
-  "permissionPrefix": "mall:combination_product",
+  "permissionPrefix": "mall:combination-product",
   "page": {
     "route": "/admin/mall/combination-product",
     "title": "拼团商品管理",

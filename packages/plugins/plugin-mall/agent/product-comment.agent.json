@@ -4,7 +4,7 @@
   "entity": "ProductComment",
   "kebab": "product-comment",
   "businessName": "商品评论",
-  "permissionPrefix": "mall:product_comment",
+  "permissionPrefix": "mall:product-comment",
   "page": {
     "route": "/admin/mall/product-comment",
     "title": "商品评论管理",

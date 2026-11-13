@@ -4,7 +4,7 @@
   "entity": "PayOrderExtension",
   "kebab": "pay-order-extension",
   "businessName": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录",
-  "permissionPrefix": "pay:pay_order_extension",
+  "permissionPrefix": "pay:order-extension",
   "page": {
     "route": "/admin/pay/pay-order-extension",
     "title": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录管理",

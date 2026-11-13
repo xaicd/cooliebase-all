@@ -4,7 +4,7 @@
   "entity": "AiImage",
   "kebab": "ai-image",
   "businessName": "AI 绘画",
-  "permissionPrefix": "ai:ai_image",
+  "permissionPrefix": "ai:image",
   "page": {
     "route": "/admin/ai/ai-image",
     "title": "AI 绘画管理",

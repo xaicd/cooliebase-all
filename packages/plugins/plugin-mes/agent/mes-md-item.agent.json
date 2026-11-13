@@ -4,7 +4,7 @@
   "entity": "MesMdItem",
   "kebab": "mes-md-item",
   "businessName": "MES 物料产品",
-  "permissionPrefix": "mes:mes_md_item",
+  "permissionPrefix": "mes:md-item",
   "page": {
     "route": "/admin/mes/mes-md-item",
     "title": "MES 物料产品管理",

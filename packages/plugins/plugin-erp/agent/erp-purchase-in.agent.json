@@ -4,7 +4,7 @@
   "entity": "ErpPurchaseIn",
   "kebab": "erp-purchase-in",
   "businessName": "ERP 采购入库",
-  "permissionPrefix": "erp:erp_purchase_in",
+  "permissionPrefix": "erp:purchase-in",
   "page": {
     "route": "/admin/erp/erp-purchase-in",
     "title": "ERP 采购入库管理",

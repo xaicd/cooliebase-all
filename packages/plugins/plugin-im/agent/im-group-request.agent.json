@@ -4,7 +4,7 @@
   "entity": "ImGroupRequest",
   "kebab": "im-group-request",
   "businessName": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
-  "permissionPrefix": "im:im_group_request",
+  "permissionPrefix": "im:group-request",
   "page": {
     "route": "/admin/im/im-group-request",
     "title": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply管理",

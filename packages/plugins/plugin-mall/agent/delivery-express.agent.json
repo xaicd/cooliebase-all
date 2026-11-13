@@ -4,7 +4,7 @@
   "entity": "DeliveryExpress",
   "kebab": "delivery-express",
   "businessName": "快递公司",
-  "permissionPrefix": "mall:delivery_express",
+  "permissionPrefix": "mall:delivery-express",
   "page": {
     "route": "/admin/mall/delivery-express",
     "title": "快递公司管理",

@@ -4,7 +4,7 @@
   "entity": "AiMindMap",
   "kebab": "ai-mind-map",
   "businessName": "AI 思维导图",
-  "permissionPrefix": "ai:ai_mind_map",
+  "permissionPrefix": "ai:mind-map",
   "page": {
     "route": "/admin/ai/ai-mind-map",
     "title": "AI 思维导图管理",

@@ -4,7 +4,7 @@
   "entity": "CrmReceivable",
   "kebab": "crm-receivable",
   "businessName": "回款",
-  "permissionPrefix": "crm:crm_receivable",
+  "permissionPrefix": "crm:receivable",
   "page": {
     "route": "/admin/crm/crm-receivable",
     "title": "回款管理",

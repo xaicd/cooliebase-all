@@ -4,7 +4,7 @@
   "entity": "ErpWarehouse",
   "kebab": "erp-warehouse",
   "businessName": "ERP 仓库",
-  "permissionPrefix": "erp:erp_warehouse",
+  "permissionPrefix": "erp:warehouse",
   "page": {
     "route": "/admin/erp/erp-warehouse",
     "title": "ERP 仓库管理",

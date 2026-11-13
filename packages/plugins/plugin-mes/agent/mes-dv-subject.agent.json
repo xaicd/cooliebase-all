@@ -4,7 +4,7 @@
   "entity": "MesDvSubject",
   "kebab": "mes-dv-subject",
   "businessName": "MES 点检保养项目",
-  "permissionPrefix": "mes:mes_dv_subject",
+  "permissionPrefix": "mes:dv-subject",
   "page": {
     "route": "/admin/mes/mes-dv-subject",
     "title": "MES 点检保养项目管理",

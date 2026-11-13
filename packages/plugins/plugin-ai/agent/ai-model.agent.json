@@ -4,7 +4,7 @@
   "entity": "AiModel",
   "kebab": "ai-model",
   "businessName": "AI 模型 DO默认模型： 为开启，并且 排序第一",
-  "permissionPrefix": "ai:ai_model",
+  "permissionPrefix": "ai:model",
   "page": {
     "route": "/admin/ai/ai-model",
     "title": "AI 模型 DO默认模型： 为开启，并且 排序第一管理",

@@ -4,7 +4,7 @@
   "entity": "BpmForm",
   "kebab": "bpm-form",
   "businessName": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景",
-  "permissionPrefix": "bpm:bpm_form",
+  "permissionPrefix": "bpm:form",
   "page": {
     "route": "/admin/bpm/bpm-form",
     "title": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景管理",

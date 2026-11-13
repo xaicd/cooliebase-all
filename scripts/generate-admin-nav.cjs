@@ -23,6 +23,7 @@
  */
 const fs = require("node:fs")
 const path = require("node:path")
+const { checkNavMenuLengths } = require("./lib/menu-title-guard.cjs")
 
 const ROOT = path.resolve(__dirname, "..")
 const DECLARATION = path.join(ROOT, "packages", "shared", "contract", "admin-pages.json")
@@ -169,7 +170,7 @@ function buildNav() {
     const contracts = readJson(CONTRACTS).contracts ?? []
     for (const item of contracts) {
       const route = item?.page?.route
-      const title = item?.page?.title
+      const title = item?.page?.menuTitle ?? item?.page?.title
       if (typeof route === "string" && typeof title === "string") titleByRoute.set(route, title)
     }
   }
@@ -231,9 +232,18 @@ ${body}
 function main() {
   const write = process.argv.includes("--write")
   const check = process.argv.includes("--check")
+  const writeBaseline = process.argv.includes("--write-baseline")
   const nav = buildNav()
   const next = render(nav)
   const current = fs.existsSync(OUT) ? fs.readFileSync(OUT, "utf8") : null
+
+  if (writeBaseline) {
+    const res = checkNavMenuLengths(nav, { rootDir: ROOT, writeBaseline: true })
+    console.log(
+      `[admin-nav] ✓ 已写入 <=4 字菜单棘轮基线 ${path.relative(ROOT, res.baselinePath)}（冻结历史超长项 ${res.frozenCount} 条）`,
+    )
+    return 0
+  }
 
   if (write) {
     fs.mkdirSync(path.dirname(OUT), { recursive: true })
@@ -242,12 +252,30 @@ function main() {
     return 0
   }
   if (check) {
-    if (current === next) {
-      console.log(`[admin-nav] PASS: 侧栏导航与页面注册表一致（${nav.length} 组 / ${nav.reduce((n, g) => n + g.items.length, 0)} 项）`)
-      return 0
+    if (current !== next) {
+      console.error("[admin-nav] ✗ 侧栏导航与真源不一致 —— 跑 `pnpm run admin:nav` 重新生成")
+      return 1
     }
-    console.error("[admin-nav] ✗ 侧栏导航与真源不一致 —— 跑 `pnpm run admin:nav` 重新生成")
-    return 1
+    const lenCheck = checkNavMenuLengths(nav, { rootDir: ROOT })
+    if (!lenCheck.ok) {
+      if (lenCheck.missingBaseline) {
+        console.error(`[admin-nav] ✗ 缺失 <=4 字菜单基线文件: ${path.relative(ROOT, lenCheck.baselinePath)}`)
+        console.error("  修法: 运行 `node scripts/generate-admin-nav.cjs --write-baseline` 初始化冻结基线")
+        return 1
+      }
+      console.error(
+        `[admin-nav] ✗ 新增 ${lenCheck.violations.length} 处超 4 字可见导航菜单（冻结基线 ${lenCheck.frozenCount} 条）：`,
+      )
+      for (const v of lenCheck.violations.slice(0, 20)) {
+        console.error(`  · ${v.key}（${v.length} 字 > 4 字，建议改为 "${v.suggested}"）`)
+      }
+      console.error("  修法: 在 admin-nav.labels.json / 蓝图 menuTitle 中精简至 <=4 字")
+      return 1
+    }
+    console.log(
+      `[admin-nav] PASS: 侧栏导航与页面注册表一致且 <=4 字菜单门禁通过（${nav.length} 组 / ${nav.reduce((n, g) => n + g.items.length, 0)} 项 · 新增违规 0）`,
+    )
+    return 0
   }
   console.log(JSON.stringify(nav, null, 2).slice(0, 2000))
   return 0

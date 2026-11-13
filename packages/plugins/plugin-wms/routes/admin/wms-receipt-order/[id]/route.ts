@@ -9,11 +9,10 @@ import {
 } from "@/modules/wms/backend/validators/wms-receipt-order.validator"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 
-const PERM_PREFIX = "WMS_RECEIPT"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-receipt-order:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-receipt-order:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-receipt-order:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-receipt-order:delete"
+const VIEW_PERM = PERMISSIONS.WMS_RECEIPT_ORDER_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_RECEIPT_ORDER_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_RECEIPT_ORDER_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_RECEIPT_ORDER_DELETE
 
 type RouteContext = { params: Promise<{ id: string }> }
 

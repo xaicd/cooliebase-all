@@ -4,7 +4,7 @@
   "entity": "MesMdAutoCodeRecord",
   "kebab": "mes-md-auto-code-record",
   "businessName": "MES 编码生成记录",
-  "permissionPrefix": "mes:mes_md_auto_code_record",
+  "permissionPrefix": "mes:md-auto-code-record",
   "page": {
     "route": "/admin/mes/mes-md-auto-code-record",
     "title": "MES 编码生成记录管理",

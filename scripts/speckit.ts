@@ -47,8 +47,9 @@ const {
   listAllSpecs,
 } = require("./lib/spec-path-resolver.cjs")
 
-// 参数解析助手
-const args = process.argv.slice(2)
+// 参数解析助手（兼容 pnpm v12 透传的首个 "--" 分隔符）
+const rawArgv = process.argv.slice(2)
+const args = rawArgv[0] === "--" ? rawArgv.slice(1) : rawArgv
 let command = args[0] && !args[0].startsWith("-") ? args[0] : ""
 
 // 兼容智能推断：如果未给子命令但给了参数
@@ -600,8 +601,8 @@ const specKitPointer = (target: string, title: string) =>
   // 10. 原型与交互规范 (Spec-Kit Native: prototype.md)
   const prototypeTpl = loadTemplate("prototype-template.md")
   const prototypeContent = prototypeTpl ? render(prototypeTpl, templateVars) : ""
-  // **按规格类型裁剪**：prototype.md 只在带界面的类型或显式声明了 screens 时产
-  if (brief.type === "feature" || brief.type === "enhancement" || (brief.screens ?? []).length > 0) files["prototype.md"] = prototypeContent
+  // **按规格类型裁剪**：prototype.md 只在带界面的类型（feature / enhancement）时产出
+  if (brief.type === "feature" || brief.type === "enhancement") files["prototype.md"] = prototypeContent
 
   // 10. 规格元数据 (Spec-Kit Native: spec.json + feature.json)
   const specJson = {

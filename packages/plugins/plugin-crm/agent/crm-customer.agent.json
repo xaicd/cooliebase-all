@@ -4,7 +4,7 @@
   "entity": "CrmCustomer",
   "kebab": "crm-customer",
   "businessName": "CRM 客户",
-  "permissionPrefix": "crm:crm_customer",
+  "permissionPrefix": "crm:customer",
   "page": {
     "route": "/admin/crm/crm-customer",
     "title": "CRM 客户管理",

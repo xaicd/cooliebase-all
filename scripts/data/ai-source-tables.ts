@@ -8,7 +8,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiApiKey",
     "businessName": "AI API 秘钥",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_api_key",
+    "permissionPrefix": "ai:api-key",
     "table": {
       "name": "ai_api_key",
       "comment": "AI API 秘钥",
@@ -121,7 +121,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiChatConversation",
     "businessName": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_chat_conversation",
+    "permissionPrefix": "ai:chat-conversation",
     "table": {
       "name": "ai_chat_conversation",
       "comment": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
@@ -294,7 +294,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiChatMessage",
     "businessName": "AI Chat 消息",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_chat_message",
+    "permissionPrefix": "ai:chat-message",
     "table": {
       "name": "ai_chat_message",
       "comment": "AI Chat 消息",
@@ -490,7 +490,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiChatRole",
     "businessName": "AI 聊天角色",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_chat_role",
+    "permissionPrefix": "ai:chat-role",
     "table": {
       "name": "ai_chat_role",
       "comment": "AI 聊天角色",
@@ -670,7 +670,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiImage",
     "businessName": "AI 绘画",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_image",
+    "permissionPrefix": "ai:image",
     "table": {
       "name": "ai_image",
       "comment": "AI 绘画",
@@ -866,7 +866,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiKnowledge",
     "businessName": "AI 知识库",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_knowledge",
+    "permissionPrefix": "ai:knowledge",
     "table": {
       "name": "ai_knowledge",
       "comment": "AI 知识库",
@@ -998,7 +998,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiKnowledgeDocument",
     "businessName": "AI 知识库-文档",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_knowledge_document",
+    "permissionPrefix": "ai:knowledge-document",
     "table": {
       "name": "ai_knowledge_document",
       "comment": "AI 知识库-文档",
@@ -1144,7 +1144,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiKnowledgeSegment",
     "businessName": "AI 知识库-文档分段",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_knowledge_segment",
+    "permissionPrefix": "ai:knowledge-segment",
     "table": {
       "name": "ai_knowledge_segment",
       "comment": "AI 知识库-文档分段",
@@ -1283,7 +1283,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiMindMap",
     "businessName": "AI 思维导图",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_mind_map",
+    "permissionPrefix": "ai:mind-map",
     "table": {
       "name": "ai_mind_map",
       "comment": "AI 思维导图",
@@ -1412,7 +1412,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiModel",
     "businessName": "AI 模型 DO默认模型： 为开启，并且 排序第一",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_model",
+    "permissionPrefix": "ai:model",
     "table": {
       "name": "ai_model",
       "comment": "AI 模型 DO默认模型： 为开启，并且 排序第一",
@@ -1610,7 +1610,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiMusic",
     "businessName": "AI 音乐",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_music",
+    "permissionPrefix": "ai:music",
     "table": {
       "name": "ai_music",
       "comment": "AI 音乐",
@@ -1816,7 +1816,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiTool",
     "businessName": "AI 工具",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_tool",
+    "permissionPrefix": "ai:tool",
     "table": {
       "name": "ai_tool",
       "comment": "AI 工具",
@@ -1914,7 +1914,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiWorkflow",
     "businessName": "AI 工作流",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_workflow",
+    "permissionPrefix": "ai:workflow",
     "table": {
       "name": "ai_workflow",
       "comment": "AI 工作流",
@@ -2028,7 +2028,7 @@ export const AI_TABLES: CodegenConfig[] = [
     "className": "AiWrite",
     "businessName": "AI 写作",
     "parentMenuId": "ai-dir",
-    "permissionPrefix": "ai:ai_write",
+    "permissionPrefix": "ai:write",
     "table": {
       "name": "ai_write",
       "comment": "AI 写作",

@@ -8,7 +8,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmCategory",
     "businessName": "BPM 流程分类",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_category",
+    "permissionPrefix": "bpm:category",
     "table": {
       "name": "bpm_category",
       "comment": "BPM 流程分类",
@@ -123,7 +123,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmForm",
     "businessName": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_form",
+    "permissionPrefix": "bpm:form",
     "table": {
       "name": "bpm_form",
       "comment": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景",
@@ -236,7 +236,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmOALeave",
     "businessName": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 ",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_oaleave",
+    "permissionPrefix": "bpm:oa-leave",
     "table": {
       "name": "bpm_oa_leave",
       "comment": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 ",
@@ -375,7 +375,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmProcessDefinitionInfo",
     "businessName": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_process_definition_info",
+    "permissionPrefix": "bpm:process-definition-info",
     "table": {
       "name": "bpm_process_definition_info",
       "comment": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表",
@@ -683,7 +683,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmProcessExpression",
     "businessName": "BPM 流程表达式",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_process_expression",
+    "permissionPrefix": "bpm:process-expression",
     "table": {
       "name": "bpm_process_expression",
       "comment": "BPM 流程表达式",
@@ -780,7 +780,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmProcessInstanceCopy",
     "businessName": "流程抄送",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_process_instance_copy",
+    "permissionPrefix": "bpm:process-instance-copy",
     "table": {
       "name": "bpm_process_instance_copy",
       "comment": "流程抄送",
@@ -936,7 +936,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmProcessListener",
     "businessName": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_process_listener",
+    "permissionPrefix": "bpm:process-listener",
     "table": {
       "name": "bpm_process_listener",
       "comment": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
@@ -1058,7 +1058,7 @@ export const BPM_TABLES: CodegenConfig[] = [
     "className": "BpmUserGroup",
     "businessName": "BPM 用户组",
     "parentMenuId": "bpm-dir",
-    "permissionPrefix": "bpm:bpm_user_group",
+    "permissionPrefix": "bpm:user-group",
     "table": {
       "name": "bpm_user_group",
       "comment": "BPM 用户组",

@@ -4,7 +4,7 @@
   "entity": "KeFuConversation",
   "kebab": "ke-fu-conversation",
   "businessName": "客服会话",
-  "permissionPrefix": "mall:ke_fu_conversation",
+  "permissionPrefix": "mall:ke-fu-conversation",
   "page": {
     "route": "/admin/mall/ke-fu-conversation",
     "title": "客服会话管理",

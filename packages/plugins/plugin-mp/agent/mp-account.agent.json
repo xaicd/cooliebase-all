@@ -4,7 +4,7 @@
   "entity": "MpAccount",
   "kebab": "mp-account",
   "businessName": "公众号账号",
-  "permissionPrefix": "mp:mp_account",
+  "permissionPrefix": "mp:account",
   "page": {
     "route": "/admin/mp/mp-account",
     "title": "公众号账号管理",

@@ -4,7 +4,7 @@
   "entity": "MesWmTransferDetail",
   "kebab": "mes-wm-transfer-detail",
   "businessName": "MES 调拨明细",
-  "permissionPrefix": "mes:mes_wm_transfer_detail",
+  "permissionPrefix": "mes:wm-transfer-detail",
   "page": {
     "route": "/admin/mes/mes-wm-transfer-detail",
     "title": "MES 调拨明细管理",

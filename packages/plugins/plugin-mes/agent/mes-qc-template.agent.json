@@ -4,7 +4,7 @@
   "entity": "MesQcTemplate",
   "kebab": "mes-qc-template",
   "businessName": "MES 质检方案",
-  "permissionPrefix": "mes:mes_qc_template",
+  "permissionPrefix": "mes:qc-template",
   "page": {
     "route": "/admin/mes/mes-qc-template",
     "title": "MES 质检方案管理",

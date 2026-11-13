@@ -63,7 +63,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsItemCategory",
     businessName: "物料分类",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:category",
+    permissionPrefix: "wms:item-category",
     template: "TREE",
     table: {
       name: "wms_item_category",
@@ -86,7 +86,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsItemBrand",
     businessName: "物料品牌",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:brand",
+    permissionPrefix: "wms:item-brand",
     table: {
       name: "wms_item_brand",
       comment: "物料品牌表",
@@ -129,7 +129,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsReceiptOrder",
     businessName: "入库单",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:receipt",
+    permissionPrefix: "wms:receipt-order",
     table: {
       name: "wms_receipt_order",
       comment: "入库单据表",
@@ -152,7 +152,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsShipmentOrder",
     businessName: "出库单",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:shipment",
+    permissionPrefix: "wms:shipment-order",
     table: {
       name: "wms_shipment_order",
       comment: "出库单据表",
@@ -175,7 +175,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsMovementOrder",
     businessName: "移库单",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:movement",
+    permissionPrefix: "wms:movement-order",
     table: {
       name: "wms_movement_order",
       comment: "移库单据表",
@@ -197,7 +197,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsCheckOrder",
     businessName: "盘点单",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:check",
+    permissionPrefix: "wms:check-order",
     table: {
       name: "wms_check_order",
       comment: "库存盘点单据表",
@@ -264,7 +264,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsReceiptOrderDetail",
     businessName: "入库明细",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:receipt",
+    permissionPrefix: "wms:receipt-order-detail",
     table: {
       name: "wms_receipt_order_detail",
       comment: "入库单明细表",
@@ -286,7 +286,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsShipmentOrderDetail",
     businessName: "出库明细",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:shipment",
+    permissionPrefix: "wms:shipment-order-detail",
     table: {
       name: "wms_shipment_order_detail",
       comment: "出库单明细表",
@@ -308,7 +308,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsMovementOrderDetail",
     businessName: "移库明细",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:movement",
+    permissionPrefix: "wms:movement-order-detail",
     table: {
       name: "wms_movement_order_detail",
       comment: "移库单明细表",
@@ -328,7 +328,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsCheckOrderDetail",
     businessName: "盘点明细",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:check",
+    permissionPrefix: "wms:check-order-detail",
     table: {
       name: "wms_check_order_detail",
       comment: "盘点单明细表",
@@ -350,7 +350,7 @@ export const WMS_TABLES: CodegenConfig[] = [
     className: "WmsItemSku",
     businessName: "物料SKU",
     parentMenuId: "wms-dir",
-    permissionPrefix: "wms:item",
+    permissionPrefix: "wms:item-sku",
     table: {
       name: "wms_item_sku",
       comment: "物料SKU规格表",

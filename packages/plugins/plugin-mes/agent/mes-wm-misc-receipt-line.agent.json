@@ -4,7 +4,7 @@
   "entity": "MesWmMiscReceiptLine",
   "kebab": "mes-wm-misc-receipt-line",
   "businessName": "MES 杂项入库单行",
-  "permissionPrefix": "mes:mes_wm_misc_receipt_line",
+  "permissionPrefix": "mes:wm-misc-receipt-line",
   "page": {
     "route": "/admin/mes/mes-wm-misc-receipt-line",
     "title": "MES 杂项入库单行管理",

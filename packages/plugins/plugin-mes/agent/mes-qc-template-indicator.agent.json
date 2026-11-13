@@ -4,7 +4,7 @@
   "entity": "MesQcTemplateIndicator",
   "kebab": "mes-qc-template-indicator",
   "businessName": "MES 质检方案-检测指标项",
-  "permissionPrefix": "mes:mes_qc_template_indicator",
+  "permissionPrefix": "mes:qc-template-indicator",
   "page": {
     "route": "/admin/mes/mes-qc-template-indicator",
     "title": "MES 质检方案-检测指标项管理",

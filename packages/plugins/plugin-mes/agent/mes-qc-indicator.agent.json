@@ -4,7 +4,7 @@
   "entity": "MesQcIndicator",
   "kebab": "mes-qc-indicator",
   "businessName": "MES 质检指标",
-  "permissionPrefix": "mes:mes_qc_indicator",
+  "permissionPrefix": "mes:qc-indicator",
   "page": {
     "route": "/admin/mes/mes-qc-indicator",
     "title": "MES 质检指标管理",

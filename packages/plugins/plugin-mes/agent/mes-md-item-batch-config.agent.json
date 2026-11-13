@@ -4,7 +4,7 @@
   "entity": "MesMdItemBatchConfig",
   "kebab": "mes-md-item-batch-config",
   "businessName": "MES 物料批次属性配置",
-  "permissionPrefix": "mes:mes_md_item_batch_config",
+  "permissionPrefix": "mes:md-item-batch-config",
   "page": {
     "route": "/admin/mes/mes-md-item-batch-config",
     "title": "MES 物料批次属性配置管理",

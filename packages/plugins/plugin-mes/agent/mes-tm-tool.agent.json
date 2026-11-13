@@ -4,7 +4,7 @@
   "entity": "MesTmTool",
   "kebab": "mes-tm-tool",
   "businessName": "MES 工具台账",
-  "permissionPrefix": "mes:mes_tm_tool",
+  "permissionPrefix": "mes:tm-tool",
   "page": {
     "route": "/admin/mes/mes-tm-tool",
     "title": "MES 工具台账管理",

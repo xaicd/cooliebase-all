@@ -4,7 +4,7 @@
   "entity": "ErpPurchaseReturn",
   "kebab": "erp-purchase-return",
   "businessName": "ERP 采购退货",
-  "permissionPrefix": "erp:erp_purchase_return",
+  "permissionPrefix": "erp:purchase-return",
   "page": {
     "route": "/admin/erp/erp-purchase-return",
     "title": "ERP 采购退货管理",

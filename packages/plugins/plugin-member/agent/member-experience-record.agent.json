@@ -4,7 +4,7 @@
   "entity": "MemberExperienceRecord",
   "kebab": "member-experience-record",
   "businessName": "会员经验记录",
-  "permissionPrefix": "member:member_experience_record",
+  "permissionPrefix": "member:experience-record",
   "page": {
     "route": "/admin/member/member-experience-record",
     "title": "会员经验记录管理",

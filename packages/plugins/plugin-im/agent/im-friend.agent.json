@@ -4,7 +4,7 @@
   "entity": "ImFriend",
   "kebab": "im-friend",
   "businessName": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
-  "permissionPrefix": "im:im_friend",
+  "permissionPrefix": "im:friend",
   "page": {
     "route": "/admin/im/im-friend",
     "title": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u管理",

@@ -4,7 +4,7 @@
   "entity": "WmsItemCategory",
   "kebab": "wms-item-category",
   "businessName": "物料分类",
-  "permissionPrefix": "wms:category",
+  "permissionPrefix": "wms:item-category",
   "page": {
     "route": "/admin/wms/wms-item-category",
     "title": "物料分类管理",

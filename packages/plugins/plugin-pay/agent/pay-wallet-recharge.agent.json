@@ -4,7 +4,7 @@
   "entity": "PayWalletRecharge",
   "kebab": "pay-wallet-recharge",
   "businessName": "会员钱包充值",
-  "permissionPrefix": "pay:pay_wallet_recharge",
+  "permissionPrefix": "pay:wallet-recharge",
   "page": {
     "route": "/admin/pay/pay-wallet-recharge",
     "title": "会员钱包充值管理",

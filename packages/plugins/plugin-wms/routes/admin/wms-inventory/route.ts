@@ -9,11 +9,10 @@ import {
 } from "@/modules/wms/backend/validators/wms-inventory.validator"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 
-const PERM_PREFIX = "WMS_INVENTORY"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-inventory:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-inventory:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-inventory:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-inventory:delete"
+const VIEW_PERM = PERMISSIONS.WMS_INVENTORY_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_INVENTORY_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_INVENTORY_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_INVENTORY_DELETE
 
 export const GET = withAdminRoute(async (request, auth) => {
   const { searchParams } = new URL(request.url)

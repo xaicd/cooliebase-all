@@ -4,7 +4,7 @@
   "entity": "IotDevice",
   "kebab": "iot-device",
   "businessName": "IoT 设备",
-  "permissionPrefix": "iot:iot_device",
+  "permissionPrefix": "iot:device",
   "page": {
     "route": "/admin/iot/iot-device",
     "title": "IoT 设备管理",

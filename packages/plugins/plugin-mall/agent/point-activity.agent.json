@@ -4,7 +4,7 @@
   "entity": "PointActivity",
   "kebab": "point-activity",
   "businessName": "积分商城活动",
-  "permissionPrefix": "mall:point_activity",
+  "permissionPrefix": "mall:point-activity",
   "page": {
     "route": "/admin/mall/point-activity",
     "title": "积分商城活动管理",

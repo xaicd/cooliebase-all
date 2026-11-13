@@ -4,7 +4,7 @@
   "entity": "PayWallet",
   "kebab": "pay-wallet",
   "businessName": "会员钱包",
-  "permissionPrefix": "pay:pay_wallet",
+  "permissionPrefix": "pay:wallet",
   "page": {
     "route": "/admin/pay/pay-wallet",
     "title": "会员钱包管理",

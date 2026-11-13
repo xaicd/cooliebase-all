@@ -4,7 +4,7 @@
   "entity": "IotAlertConfig",
   "kebab": "iot-alert-config",
   "businessName": "IoT 告警配置",
-  "permissionPrefix": "iot:iot_alert_config",
+  "permissionPrefix": "iot:alert-config",
   "page": {
     "route": "/admin/iot/iot-alert-config",
     "title": "IoT 告警配置管理",

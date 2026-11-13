@@ -11,11 +11,10 @@ import {
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 import { parseActionQuery } from "@/modules/shared/backend/http/parse-action-input"
 
-const PERM_PREFIX = "WMS_WAREHOUSE"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-warehouse:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-warehouse:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-warehouse:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-warehouse:delete"
+const VIEW_PERM = PERMISSIONS.WMS_WAREHOUSE_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_WAREHOUSE_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_WAREHOUSE_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_WAREHOUSE_DELETE
 
 type RouteContext = { params: Promise<{ id: string }> }
 

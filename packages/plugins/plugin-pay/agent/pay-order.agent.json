@@ -4,7 +4,7 @@
   "entity": "PayOrder",
   "kebab": "pay-order",
   "businessName": "支付订单",
-  "permissionPrefix": "pay:pay_order",
+  "permissionPrefix": "pay:order",
   "page": {
     "route": "/admin/pay/pay-order",
     "title": "支付订单管理",

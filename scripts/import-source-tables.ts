@@ -219,13 +219,15 @@ import type { CodegenConfig } from "../packages/domains/infra/backend/services/c
 
 export const ${domain.replace(/[^a-z0-9]/gi, "_").toUpperCase()}_TABLES: CodegenConfig[] = [
 ${entries
-  .map(
-    ({ table, columns }) => `  {
+  .map(({ table, columns }) => {
+    const kebab = toSnake(table.className).replace(/_/g, "-")
+    const entitySlug = kebab.startsWith(`${domain}-`) ? kebab.slice(domain.length + 1) : kebab
+    return `  {
     moduleName: ${JSON.stringify(domain)},
     className: ${JSON.stringify(table.className)},
     businessName: ${JSON.stringify(table.comment)},
     parentMenuId: ${JSON.stringify(`${domain}-dir`)},
-    permissionPrefix: ${JSON.stringify(`${domain}:${toSnake(table.className).replace(/-/g, "")}`)},
+    permissionPrefix: ${JSON.stringify(`${domain}:${entitySlug}`)},
     table: {
       name: ${JSON.stringify(table.table)},
       comment: ${JSON.stringify(table.comment)},
@@ -233,8 +235,8 @@ ${entries
 ${columns.map((column) => `        ${JSON.stringify(column)},`).join("\n")}
       ],
     },
-  },`,
-  )
+  },`
+  })
   .join("\n")}
 ]
 `

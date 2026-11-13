@@ -4,7 +4,7 @@
   "entity": "MesWmWarehouse",
   "kebab": "mes-wm-warehouse",
   "businessName": "MES 仓库",
-  "permissionPrefix": "mes:mes_wm_warehouse",
+  "permissionPrefix": "mes:wm-warehouse",
   "page": {
     "route": "/admin/mes/mes-wm-warehouse",
     "title": "MES 仓库管理",

@@ -4,7 +4,7 @@
   "entity": "IotOtaFirmware",
   "kebab": "iot-ota-firmware",
   "businessName": "IoT OTA 固件",
-  "permissionPrefix": "iot:iot_ota_firmware",
+  "permissionPrefix": "iot:ota-firmware",
   "page": {
     "route": "/admin/iot/iot-ota-firmware",
     "title": "IoT OTA 固件管理",

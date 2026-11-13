@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "交付链三件套用嵌入式真实 Postgres（embedded-postgres）本地验证",
   "type": "enhancement",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 3,
   "acceptance": 6,
   "invariants": 2,
   "tasks": 7,
-  "updatedAt": "2026-10-19T13:38:55.341Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

@@ -4,7 +4,7 @@
   "entity": "ErpSaleReturn",
   "kebab": "erp-sale-return",
   "businessName": "ERP 销售退货",
-  "permissionPrefix": "erp:erp_sale_return",
+  "permissionPrefix": "erp:sale-return",
   "page": {
     "route": "/admin/erp/erp-sale-return",
     "title": "ERP 销售退货管理",

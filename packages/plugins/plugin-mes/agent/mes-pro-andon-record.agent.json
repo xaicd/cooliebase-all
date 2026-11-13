@@ -4,7 +4,7 @@
   "entity": "MesProAndonRecord",
   "kebab": "mes-pro-andon-record",
   "businessName": "MES 安灯呼叫记录",
-  "permissionPrefix": "mes:mes_pro_andon_record",
+  "permissionPrefix": "mes:pro-andon-record",
   "page": {
     "route": "/admin/mes/mes-pro-andon-record",
     "title": "MES 安灯呼叫记录管理",

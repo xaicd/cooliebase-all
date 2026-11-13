@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`client-build-gate`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`client-build-gate`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -46,17 +46,17 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 实现客户端构建门禁脚本（临时目录导出 + 产物断言 + 裁剪跳过）
+- [x] **T1**: 实现客户端构建门禁脚本（临时目录导出 + 产物断言 + 裁剪跳过）
   - 归属: `main`
   - 文件白名单: `scripts/check-client-build.cjs`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 接线：npm script + check 链 + 轨迹 + compat 声明
+- [x] **T2**: 接线：npm script + check 链 + 轨迹 + compat 声明
   - 归属: `T1`
   - 文件白名单: `package.json, scripts/write-harness-trace.cjs, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: Expo SDK 升级路径评估写入依赖治理台账
+- [x] **T3**: Expo SDK 升级路径评估写入依赖治理台账
   - 归属: `T2`
   - 文件白名单: `docs/architecture/cooliebase-all-dependency-policy.md`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
@@ -73,9 +73,9 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 实现客户端构建门禁脚本（临时目录导出 + 产物断言 + 裁剪跳过） | scripts/check-client-build.cjs | 未开始 |
-| T2 | T1 | 接线：npm script + check 链 + 轨迹 + compat 声明 | package.json, scripts/write-harness-trace.cjs, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json | 未开始 |
-| T3 | T2 | Expo SDK 升级路径评估写入依赖治理台账 | docs/architecture/cooliebase-all-dependency-policy.md | 未开始 |
+| T1 | main | 实现客户端构建门禁脚本（临时目录导出 + 产物断言 + 裁剪跳过） | scripts/check-client-build.cjs | 已完成 |
+| T2 | T1 | 接线：npm script + check 链 + 轨迹 + compat 声明 | package.json, scripts/write-harness-trace.cjs, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json | 已完成 |
+| T3 | T2 | Expo SDK 升级路径评估写入依赖治理台账 | docs/architecture/cooliebase-all-dependency-policy.md | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -84,5 +84,5 @@ T1 → T2 → T3
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

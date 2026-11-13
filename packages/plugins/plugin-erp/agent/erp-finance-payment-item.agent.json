@@ -4,7 +4,7 @@
   "entity": "ErpFinancePaymentItem",
   "kebab": "erp-finance-payment-item",
   "businessName": "ERP 付款项",
-  "permissionPrefix": "erp:erp_finance_payment_item",
+  "permissionPrefix": "erp:finance-payment-item",
   "page": {
     "route": "/admin/erp/erp-finance-payment-item",
     "title": "ERP 付款项管理",

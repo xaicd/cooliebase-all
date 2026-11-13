@@ -4,7 +4,7 @@
   "entity": "ProductSpu",
   "kebab": "product-spu",
   "businessName": "商品 SPU",
-  "permissionPrefix": "mall:product_spu",
+  "permissionPrefix": "mall:product-spu",
   "page": {
     "route": "/admin/mall/product-spu",
     "title": "商品 SPU管理",

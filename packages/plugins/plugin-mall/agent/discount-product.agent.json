@@ -4,7 +4,7 @@
   "entity": "DiscountProduct",
   "kebab": "discount-product",
   "businessName": "限时折扣商品",
-  "permissionPrefix": "mall:discount_product",
+  "permissionPrefix": "mall:discount-product",
   "page": {
     "route": "/admin/mall/discount-product",
     "title": "限时折扣商品管理",

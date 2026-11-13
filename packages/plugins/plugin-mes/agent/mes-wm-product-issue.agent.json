@@ -4,7 +4,7 @@
   "entity": "MesWmProductIssue",
   "kebab": "mes-wm-product-issue",
   "businessName": "MES 领料出库单",
-  "permissionPrefix": "mes:mes_wm_product_issue",
+  "permissionPrefix": "mes:wm-product-issue",
   "page": {
     "route": "/admin/mes/mes-wm-product-issue",
     "title": "MES 领料出库单管理",

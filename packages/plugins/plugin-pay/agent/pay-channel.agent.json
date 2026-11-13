@@ -4,7 +4,7 @@
   "entity": "PayChannel",
   "kebab": "pay-channel",
   "businessName": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
-  "permissionPrefix": "pay:pay_channel",
+  "permissionPrefix": "pay:channel",
   "page": {
     "route": "/admin/pay/pay-channel",
     "title": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P管理",

@@ -4,7 +4,7 @@
   "entity": "BargainActivity",
   "kebab": "bargain-activity",
   "businessName": "砍价活动",
-  "permissionPrefix": "mall:bargain_activity",
+  "permissionPrefix": "mall:bargain-activity",
   "page": {
     "route": "/admin/mall/bargain-activity",
     "title": "砍价活动管理",

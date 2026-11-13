@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "生产环境必须禁止使用硬编码默认 AES 密钥",
   "type": "security",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 3,
   "acceptance": 6,
   "invariants": 2,
   "tasks": 4,
-  "updatedAt": "2026-11-09T02:17:57.100Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

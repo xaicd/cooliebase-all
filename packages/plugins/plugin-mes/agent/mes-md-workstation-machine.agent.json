@@ -4,7 +4,7 @@
   "entity": "MesMdWorkstationMachine",
   "kebab": "mes-md-workstation-machine",
   "businessName": "MES 设备资源",
-  "permissionPrefix": "mes:mes_md_workstation_machine",
+  "permissionPrefix": "mes:md-workstation-machine",
   "page": {
     "route": "/admin/mes/mes-md-workstation-machine",
     "title": "MES 设备资源管理",

@@ -4,7 +4,7 @@
   "entity": "PayDemoWithdraw",
   "kebab": "pay-demo-withdraw",
   "businessName": "示例提现订单演示业务系统的转账业务",
-  "permissionPrefix": "pay:pay_demo_withdraw",
+  "permissionPrefix": "pay:demo-withdraw",
   "page": {
     "route": "/admin/pay/pay-demo-withdraw",
     "title": "示例提现订单演示业务系统的转账业务管理",

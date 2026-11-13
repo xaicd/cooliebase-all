@@ -4,7 +4,7 @@
   "entity": "BpmProcessDefinitionInfo",
   "kebab": "bpm-process-definition-info",
   "businessName": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表",
-  "permissionPrefix": "bpm:bpm_process_definition_info",
+  "permissionPrefix": "bpm:process-definition-info",
   "page": {
     "route": "/admin/bpm/bpm-process-definition-info",
     "title": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表管理",

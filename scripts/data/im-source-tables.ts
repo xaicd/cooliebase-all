@@ -8,7 +8,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImChannel",
     "businessName": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_channel",
+    "permissionPrefix": "im:channel",
     "table": {
       "name": "im_channel",
       "comment": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
@@ -122,7 +122,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImChannelMaterial",
     "businessName": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N ",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_channel_material",
+    "permissionPrefix": "im:channel-material",
     "table": {
       "name": "im_channel_material",
       "comment": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N ",
@@ -252,7 +252,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImChannelMessage",
     "businessName": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_channel_message",
+    "permissionPrefix": "im:channel-message",
     "table": {
       "name": "im_channel_message",
       "comment": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于",
@@ -375,7 +375,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImConversationRead",
     "businessName": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_conversation_read",
+    "permissionPrefix": "im:conversation-read",
     "table": {
       "name": "im_conversation_read",
       "comment": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
@@ -489,7 +489,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImFacePack",
     "businessName": "IM 表情包 DO（运营配置的系统表情包元数据）",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_face_pack",
+    "permissionPrefix": "im:face-pack",
     "table": {
       "name": "im_face_pack",
       "comment": "IM 表情包 DO（运营配置的系统表情包元数据）",
@@ -594,7 +594,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImFacePackItem",
     "businessName": "IM 表情包项 DO（系统表情包内的单张表情图）",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_face_pack_item",
+    "permissionPrefix": "im:face-pack-item",
     "table": {
       "name": "im_face_pack_item",
       "comment": "IM 表情包项 DO（系统表情包内的单张表情图）",
@@ -724,7 +724,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImFaceUserItem",
     "businessName": "IM 用户私有表情 DO（个人表情包，对照微信「我的表情」）",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_face_user_item",
+    "permissionPrefix": "im:face-user-item",
     "table": {
       "name": "im_face_user_item",
       "comment": "IM 用户私有表情 DO（个人表情包，对照微信「我的表情」）",
@@ -845,7 +845,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImFriend",
     "businessName": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_friend",
+    "permissionPrefix": "im:friend",
     "table": {
       "name": "im_friend",
       "comment": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
@@ -1000,7 +1000,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImFriendRequest",
     "businessName": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_friend_request",
+    "permissionPrefix": "im:friend-request",
     "table": {
       "name": "im_friend_request",
       "comment": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
@@ -1137,7 +1137,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImGroup",
     "businessName": "IM 群信息",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_group",
+    "permissionPrefix": "im:group",
     "table": {
       "name": "im_group",
       "comment": "IM 群信息",
@@ -1309,7 +1309,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImGroupMember",
     "businessName": "IM 群成员",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_group_member",
+    "permissionPrefix": "im:group-member",
     "table": {
       "name": "im_group_member",
       "comment": "IM 群成员",
@@ -1480,7 +1480,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImGroupMessage",
     "businessName": "IM 群聊消息",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_group_message",
+    "permissionPrefix": "im:group-message",
     "table": {
       "name": "im_group_message",
       "comment": "IM 群聊消息",
@@ -1644,7 +1644,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImGroupRequest",
     "businessName": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_group_request",
+    "permissionPrefix": "im:group-request",
     "table": {
       "name": "im_group_request",
       "comment": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
@@ -1791,7 +1791,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImPrivateMessage",
     "businessName": "IM 私聊消息",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_private_message",
+    "permissionPrefix": "im:private-message",
     "table": {
       "name": "im_private_message",
       "comment": "IM 私聊消息",
@@ -1931,7 +1931,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImRtcCall",
     "businessName": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_rtc_call",
+    "permissionPrefix": "im:rtc-call",
     "table": {
       "name": "im_rtc_call",
       "comment": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
@@ -2086,7 +2086,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImRtcParticipant",
     "businessName": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_rtc_participant",
+    "permissionPrefix": "im:rtc-participant",
     "table": {
       "name": "im_rtc_participant",
       "comment": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
@@ -2225,7 +2225,7 @@ export const IM_TABLES: CodegenConfig[] = [
     "className": "ImSensitiveWord",
     "businessName": "IM 敏感词",
     "parentMenuId": "im-dir",
-    "permissionPrefix": "im:im_sensitive_word",
+    "permissionPrefix": "im:sensitive-word",
     "table": {
       "name": "im_sensitive_word",
       "comment": "IM 敏感词",

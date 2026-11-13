@@ -4,7 +4,7 @@
   "entity": "BpmProcessInstanceCopy",
   "kebab": "bpm-process-instance-copy",
   "businessName": "流程抄送",
-  "permissionPrefix": "bpm:bpm_process_instance_copy",
+  "permissionPrefix": "bpm:process-instance-copy",
   "page": {
     "route": "/admin/bpm/bpm-process-instance-copy",
     "title": "流程抄送管理",

@@ -4,7 +4,7 @@
   "entity": "IotSceneRule",
   "kebab": "iot-scene-rule",
   "businessName": "IoT 场景联动规则",
-  "permissionPrefix": "iot:iot_scene_rule",
+  "permissionPrefix": "iot:scene-rule",
   "page": {
     "route": "/admin/iot/iot-scene-rule",
     "title": "IoT 场景联动规则管理",

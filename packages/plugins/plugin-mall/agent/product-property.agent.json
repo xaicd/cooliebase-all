@@ -4,7 +4,7 @@
   "entity": "ProductProperty",
   "kebab": "product-property",
   "businessName": "商品属性项",
-  "permissionPrefix": "mall:product_property",
+  "permissionPrefix": "mall:product-property",
   "page": {
     "route": "/admin/mall/product-property",
     "title": "商品属性项管理",

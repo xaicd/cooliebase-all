@@ -8,7 +8,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductBrand",
     "businessName": "商品品牌",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_brand",
+    "permissionPrefix": "mall:product-brand",
     "table": {
       "name": "product_brand",
       "comment": "商品品牌",
@@ -121,7 +121,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductBrowseHistory",
     "businessName": "商品浏览记录",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_browse_history",
+    "permissionPrefix": "mall:product-browse-history",
     "table": {
       "name": "product_browse_history",
       "comment": "商品浏览记录",
@@ -218,7 +218,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductCategory",
     "businessName": "商品分类",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_category",
+    "permissionPrefix": "mall:product-category",
     "table": {
       "name": "product_category",
       "comment": "商品分类",
@@ -332,7 +332,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductComment",
     "businessName": "商品评论",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_comment",
+    "permissionPrefix": "mall:product-comment",
     "table": {
       "name": "product_comment",
       "comment": "商品评论",
@@ -576,7 +576,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductFavorite",
     "businessName": "商品收藏",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_favorite",
+    "permissionPrefix": "mall:product-favorite",
     "table": {
       "name": "product_favorite",
       "comment": "商品收藏",
@@ -665,7 +665,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductProperty",
     "businessName": "商品属性项",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_property",
+    "permissionPrefix": "mall:product-property",
     "table": {
       "name": "product_property",
       "comment": "商品属性项",
@@ -753,7 +753,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductPropertyValue",
     "businessName": "商品属性值",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_property_value",
+    "permissionPrefix": "mall:product-property-value",
     "table": {
       "name": "product_property_value",
       "comment": "商品属性值",
@@ -850,7 +850,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductSku",
     "businessName": "商品 SKU",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_sku",
+    "permissionPrefix": "mall:product-sku",
     "table": {
       "name": "product_sku",
       "comment": "商品 SKU",
@@ -1064,7 +1064,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductSpu",
     "businessName": "商品 SPU",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_spu",
+    "permissionPrefix": "mall:product-spu",
     "table": {
       "name": "product_spu",
       "comment": "商品 SPU",
@@ -1317,7 +1317,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ProductStatistics",
     "businessName": "商品统计",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:product_statistics",
+    "permissionPrefix": "mall:product-statistics",
     "table": {
       "name": "product_statistics",
       "comment": "商品统计",
@@ -1656,7 +1656,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "ArticleCategory",
     "businessName": "文章分类",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:article_category",
+    "permissionPrefix": "mall:article-category",
     "table": {
       "name": "promotion_article_category",
       "comment": "文章分类",
@@ -1898,7 +1898,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BargainActivity",
     "businessName": "砍价活动",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:bargain_activity",
+    "permissionPrefix": "mall:bargain-activity",
     "table": {
       "name": "promotion_bargain_activity",
       "comment": "砍价活动",
@@ -2093,7 +2093,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BargainHelp",
     "businessName": "砍价助力",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:bargain_help",
+    "permissionPrefix": "mall:bargain-help",
     "table": {
       "name": "promotion_bargain_help",
       "comment": "砍价助力",
@@ -2199,7 +2199,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BargainRecord",
     "businessName": "砍价记录 DO TO",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:bargain_record",
+    "permissionPrefix": "mall:bargain-record",
     "table": {
       "name": "promotion_bargain_record",
       "comment": "砍价记录 DO TO",
@@ -2348,7 +2348,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "CombinationActivity",
     "businessName": "拼团活动",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:combination_activity",
+    "permissionPrefix": "mall:combination-activity",
     "table": {
       "name": "promotion_combination_activity",
       "comment": "拼团活动",
@@ -2502,7 +2502,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "CombinationProduct",
     "businessName": "拼团商品",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:combination_product",
+    "permissionPrefix": "mall:combination-product",
     "table": {
       "name": "promotion_combination_product",
       "comment": "拼团商品",
@@ -2632,7 +2632,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "CombinationRecord",
     "businessName": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:combination_record",
+    "permissionPrefix": "mall:combination-record",
     "table": {
       "name": "promotion_combination_record",
       "comment": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
@@ -3066,7 +3066,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "CouponTemplate",
     "businessName": "优惠劵模板 DO当用户领取时，会生成 优惠劵",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:coupon_template",
+    "permissionPrefix": "mall:coupon-template",
     "table": {
       "name": "promotion_coupon_template",
       "comment": "优惠劵模板 DO当用户领取时，会生成 优惠劵",
@@ -3299,7 +3299,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DiscountActivity",
     "businessName": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:discount_activity",
+    "permissionPrefix": "mall:discount-activity",
     "table": {
       "name": "promotion_discount_activity",
       "comment": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
@@ -3412,7 +3412,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DiscountProduct",
     "businessName": "限时折扣商品",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:discount_product",
+    "permissionPrefix": "mall:discount-product",
     "table": {
       "name": "promotion_discount_product",
       "comment": "限时折扣商品",
@@ -3566,7 +3566,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DiyPage",
     "businessName": "装修页面",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:diy_page",
+    "permissionPrefix": "mall:diy-page",
     "table": {
       "name": "promotion_diy_page",
       "comment": "装修页面",
@@ -3679,7 +3679,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DiyTemplate",
     "businessName": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. ",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:diy_template",
+    "permissionPrefix": "mall:diy-template",
     "table": {
       "name": "promotion_diy_template",
       "comment": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. ",
@@ -3799,7 +3799,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "KeFuConversation",
     "businessName": "客服会话",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:ke_fu_conversation",
+    "permissionPrefix": "mall:ke-fu-conversation",
     "table": {
       "name": "promotion_kefu_conversation",
       "comment": "客服会话",
@@ -3935,7 +3935,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "KeFuMessage",
     "businessName": "客服消息",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:ke_fu_message",
+    "permissionPrefix": "mall:ke-fu-message",
     "table": {
       "name": "promotion_kefu_message",
       "comment": "客服消息",
@@ -4073,7 +4073,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "PointActivity",
     "businessName": "积分商城活动",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:point_activity",
+    "permissionPrefix": "mall:point-activity",
     "table": {
       "name": "promotion_point_activity",
       "comment": "积分商城活动",
@@ -4194,7 +4194,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "PointProduct",
     "businessName": "积分商城商品",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:point_product",
+    "permissionPrefix": "mall:point-product",
     "table": {
       "name": "promotion_point_product",
       "comment": "积分商城商品",
@@ -4332,7 +4332,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "RewardActivity",
     "businessName": "满减送活动",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:reward_activity",
+    "permissionPrefix": "mall:reward-activity",
     "table": {
       "name": "promotion_reward_activity",
       "comment": "满减送活动",
@@ -4517,7 +4517,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "SeckillActivity",
     "businessName": "秒杀活动",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:seckill_activity",
+    "permissionPrefix": "mall:seckill-activity",
     "table": {
       "name": "promotion_seckill_activity",
       "comment": "秒杀活动",
@@ -4688,7 +4688,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "SeckillConfig",
     "businessName": "秒杀时段",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:seckill_config",
+    "permissionPrefix": "mall:seckill-config",
     "table": {
       "name": "promotion_seckill_config",
       "comment": "秒杀时段",
@@ -4801,7 +4801,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "SeckillProduct",
     "businessName": "秒杀参与商品",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:seckill_product",
+    "permissionPrefix": "mall:seckill-product",
     "table": {
       "name": "promotion_seckill_product",
       "comment": "秒杀参与商品",
@@ -4948,7 +4948,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "AfterSale",
     "businessName": "售后订单，用于处理 交易订单的退款退货流程",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:after_sale",
+    "permissionPrefix": "mall:after-sale",
     "table": {
       "name": "trade_after_sale",
       "comment": "售后订单，用于处理 交易订单的退款退货流程",
@@ -5248,7 +5248,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "AfterSaleLog",
     "businessName": "交易售后日志",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:after_sale_log",
+    "permissionPrefix": "mall:after-sale-log",
     "table": {
       "name": "trade_after_sale_log",
       "comment": "交易售后日志",
@@ -5377,7 +5377,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BrokerageRecord",
     "businessName": "佣金记录",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:brokerage_record",
+    "permissionPrefix": "mall:brokerage-record",
     "table": {
       "name": "trade_brokerage_record",
       "comment": "佣金记录",
@@ -5550,7 +5550,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BrokerageUser",
     "businessName": "分销用户",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:brokerage_user",
+    "permissionPrefix": "mall:brokerage-user",
     "table": {
       "name": "trade_brokerage_user",
       "comment": "分销用户",
@@ -5670,7 +5670,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "BrokerageWithdraw",
     "businessName": "佣金提现",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:brokerage_withdraw",
+    "permissionPrefix": "mall:brokerage-withdraw",
     "table": {
       "name": "trade_brokerage_withdraw",
       "comment": "佣金提现",
@@ -6004,7 +6004,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "TradeConfig",
     "businessName": "交易中心配置",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:trade_config",
+    "permissionPrefix": "mall:trade-config",
     "table": {
       "name": "trade_config",
       "comment": "交易中心配置",
@@ -6195,7 +6195,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DeliveryExpress",
     "businessName": "快递公司",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:delivery_express",
+    "permissionPrefix": "mall:delivery-express",
     "table": {
       "name": "trade_delivery_express",
       "comment": "快递公司",
@@ -6309,7 +6309,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DeliveryExpressTemplate",
     "businessName": "快递运费模板",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:delivery_express_template",
+    "permissionPrefix": "mall:delivery-express-template",
     "table": {
       "name": "trade_delivery_express_template",
       "comment": "快递运费模板",
@@ -6405,7 +6405,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DeliveryExpressTemplateCharge",
     "businessName": "快递运费模板计费配置",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:delivery_express_template_charge",
+    "permissionPrefix": "mall:delivery-express-template-charge",
     "table": {
       "name": "trade_delivery_express_template_charge",
       "comment": "快递运费模板计费配置",
@@ -6538,7 +6538,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DeliveryExpressTemplateFree",
     "businessName": "快递运费模板包邮配置",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:delivery_express_template_free",
+    "permissionPrefix": "mall:delivery-express-template-free",
     "table": {
       "name": "trade_delivery_express_template_free",
       "comment": "快递运费模板包邮配置",
@@ -6643,7 +6643,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "DeliveryPickUpStore",
     "businessName": "自提门店",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:delivery_pick_up_store",
+    "permissionPrefix": "mall:delivery-pick-up-store",
     "table": {
       "name": "trade_delivery_pick_up_store",
       "comment": "自提门店",
@@ -6819,7 +6819,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "TradeOrder",
     "businessName": "交易订单",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:trade_order",
+    "permissionPrefix": "mall:trade-order",
     "table": {
       "name": "trade_order",
       "comment": "交易订单",
@@ -7311,7 +7311,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "TradeOrderItem",
     "businessName": "交易订单项",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:trade_order_item",
+    "permissionPrefix": "mall:trade-order-item",
     "table": {
       "name": "trade_order_item",
       "comment": "交易订单项",
@@ -7595,7 +7595,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "TradeOrderLog",
     "businessName": "订单日志",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:trade_order_log",
+    "permissionPrefix": "mall:trade-order-log",
     "table": {
       "name": "trade_order_log",
       "comment": "订单日志",
@@ -7724,7 +7724,7 @@ export const MALL_TABLES: CodegenConfig[] = [
     "className": "TradeStatistics",
     "businessName": "交易统计 DO以天为维度，统计全部的数据",
     "parentMenuId": "mall-dir",
-    "permissionPrefix": "mall:trade_statistics",
+    "permissionPrefix": "mall:trade-statistics",
     "table": {
       "name": "trade_statistics",
       "comment": "交易统计 DO以天为维度，统计全部的数据",

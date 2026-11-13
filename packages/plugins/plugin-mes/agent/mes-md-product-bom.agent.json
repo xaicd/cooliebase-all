@@ -4,7 +4,7 @@
   "entity": "MesMdProductBom",
   "kebab": "mes-md-product-bom",
   "businessName": "MES 产品 BOM",
-  "permissionPrefix": "mes:mes_md_product_bom",
+  "permissionPrefix": "mes:md-product-bom",
   "page": {
     "route": "/admin/mes/mes-md-product-bom",
     "title": "MES 产品 BOM管理",

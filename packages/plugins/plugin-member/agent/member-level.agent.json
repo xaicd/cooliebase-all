@@ -4,7 +4,7 @@
   "entity": "MemberLevel",
   "kebab": "member-level",
   "businessName": "会员等级 DO配置每个等级需要的积分",
-  "permissionPrefix": "member:member_level",
+  "permissionPrefix": "member:level",
   "page": {
     "route": "/admin/member/member-level",
     "title": "会员等级 DO配置每个等级需要的积分管理",

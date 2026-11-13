@@ -8,7 +8,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberAddress",
     "businessName": "用户收件地址",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_address",
+    "permissionPrefix": "member:address",
     "table": {
       "name": "member_address",
       "comment": "用户收件地址",
@@ -131,7 +131,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberConfig",
     "businessName": "会员配置",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_config",
+    "permissionPrefix": "member:config",
     "table": {
       "name": "member_config",
       "comment": "会员配置",
@@ -234,7 +234,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberExperienceRecord",
     "businessName": "会员经验记录",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_experience_record",
+    "permissionPrefix": "member:experience-record",
     "table": {
       "name": "member_experience_record",
       "comment": "会员经验记录",
@@ -365,7 +365,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberGroup",
     "businessName": "用户分组",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_group",
+    "permissionPrefix": "member:group",
     "table": {
       "name": "member_group",
       "comment": "用户分组",
@@ -463,7 +463,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberLevel",
     "businessName": "会员等级 DO配置每个等级需要的积分",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_level",
+    "permissionPrefix": "member:level",
     "table": {
       "name": "member_level",
       "comment": "会员等级 DO配置每个等级需要的积分",
@@ -593,7 +593,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberLevelRecord",
     "businessName": "会员等级记录 DO用户每次等级发生变更时，记录一条日志",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_level_record",
+    "permissionPrefix": "member:level-record",
     "table": {
       "name": "member_level_record",
       "comment": "会员等级记录 DO用户每次等级发生变更时，记录一条日志",
@@ -731,7 +731,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberPointRecord",
     "businessName": "用户积分记录",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_point_record",
+    "permissionPrefix": "member:point-record",
     "table": {
       "name": "member_point_record",
       "comment": "用户积分记录",
@@ -862,7 +862,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberSignInConfig",
     "businessName": "签到规则",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_sign_in_config",
+    "permissionPrefix": "member:sign-in-config",
     "table": {
       "name": "member_sign_in_config",
       "comment": "签到规则",
@@ -966,7 +966,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberSignInRecord",
     "businessName": "签到记录",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_sign_in_record",
+    "permissionPrefix": "member:sign-in-record",
     "table": {
       "name": "member_sign_in_record",
       "comment": "签到记录",
@@ -1070,7 +1070,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberTag",
     "businessName": "会员标签",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_tag",
+    "permissionPrefix": "member:tag",
     "table": {
       "name": "member_tag",
       "comment": "会员标签",
@@ -1150,7 +1150,7 @@ export const MEMBER_TABLES: CodegenConfig[] = [
     "className": "MemberUser",
     "businessName": "会员用户 DOuk_mobile 索引：基于 字段",
     "parentMenuId": "member-dir",
-    "permissionPrefix": "member:member_user",
+    "permissionPrefix": "member:user",
     "table": {
       "name": "member_user",
       "comment": "会员用户 DOuk_mobile 索引：基于 字段",

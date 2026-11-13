@@ -4,7 +4,7 @@
   "entity": "ErpSaleReturnItem",
   "kebab": "erp-sale-return-item",
   "businessName": "ERP 销售退货项",
-  "permissionPrefix": "erp:erp_sale_return_item",
+  "permissionPrefix": "erp:sale-return-item",
   "page": {
     "route": "/admin/erp/erp-sale-return-item",
     "title": "ERP 销售退货项管理",

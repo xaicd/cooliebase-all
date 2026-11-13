@@ -4,7 +4,7 @@
   "entity": "ErpProductUnit",
   "kebab": "erp-product-unit",
   "businessName": "ERP 产品单位",
-  "permissionPrefix": "erp:erp_product_unit",
+  "permissionPrefix": "erp:product-unit",
   "page": {
     "route": "/admin/erp/erp-product-unit",
     "title": "ERP 产品单位管理",

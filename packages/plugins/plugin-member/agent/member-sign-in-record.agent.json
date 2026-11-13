@@ -4,7 +4,7 @@
   "entity": "MemberSignInRecord",
   "kebab": "member-sign-in-record",
   "businessName": "签到记录",
-  "permissionPrefix": "member:member_sign_in_record",
+  "permissionPrefix": "member:sign-in-record",
   "page": {
     "route": "/admin/member/member-sign-in-record",
     "title": "签到记录管理",

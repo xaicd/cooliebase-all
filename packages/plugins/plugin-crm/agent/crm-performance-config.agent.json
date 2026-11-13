@@ -4,7 +4,7 @@
   "entity": "CrmPerformanceConfig",
   "kebab": "crm-performance-config",
   "businessName": "CRM 业绩目标",
-  "permissionPrefix": "crm:crm_performance_config",
+  "permissionPrefix": "crm:performance-config",
   "page": {
     "route": "/admin/crm/crm-performance-config",
     "title": "CRM 业绩目标管理",

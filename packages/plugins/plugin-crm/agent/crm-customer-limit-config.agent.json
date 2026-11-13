@@ -4,7 +4,7 @@
   "entity": "CrmCustomerLimitConfig",
   "kebab": "crm-customer-limit-config",
   "businessName": "客户限制配置",
-  "permissionPrefix": "crm:crm_customer_limit_config",
+  "permissionPrefix": "crm:customer-limit-config",
   "page": {
     "route": "/admin/crm/crm-customer-limit-config",
     "title": "客户限制配置管理",

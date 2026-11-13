@@ -4,7 +4,7 @@
   "entity": "CrmBusinessStatus",
   "kebab": "crm-business-status",
   "businessName": "CRM 商机状态 DO注意，它是个配置表",
-  "permissionPrefix": "crm:crm_business_status",
+  "permissionPrefix": "crm:business-status",
   "page": {
     "route": "/admin/crm/crm-business-status",
     "title": "CRM 商机状态 DO注意，它是个配置表管理",

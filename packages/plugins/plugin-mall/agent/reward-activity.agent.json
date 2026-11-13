@@ -4,7 +4,7 @@
   "entity": "RewardActivity",
   "kebab": "reward-activity",
   "businessName": "满减送活动",
-  "permissionPrefix": "mall:reward_activity",
+  "permissionPrefix": "mall:reward-activity",
   "page": {
     "route": "/admin/mall/reward-activity",
     "title": "满减送活动管理",

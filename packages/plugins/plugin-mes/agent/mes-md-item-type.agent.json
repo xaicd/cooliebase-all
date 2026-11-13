@@ -4,7 +4,7 @@
   "entity": "MesMdItemType",
   "kebab": "mes-md-item-type",
   "businessName": "MES 物料产品分类",
-  "permissionPrefix": "mes:mes_md_item_type",
+  "permissionPrefix": "mes:md-item-type",
   "page": {
     "route": "/admin/mes/mes-md-item-type",
     "title": "MES 物料产品分类管理",

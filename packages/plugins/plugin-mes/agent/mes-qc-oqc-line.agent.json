@@ -4,7 +4,7 @@
   "entity": "MesQcOqcLine",
   "kebab": "mes-qc-oqc-line",
   "businessName": "MES 出货检验单行",
-  "permissionPrefix": "mes:mes_qc_oqc_line",
+  "permissionPrefix": "mes:qc-oqc-line",
   "page": {
     "route": "/admin/mes/mes-qc-oqc-line",
     "title": "MES 出货检验单行管理",

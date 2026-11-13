@@ -4,7 +4,7 @@
   "entity": "MesQcOqc",
   "kebab": "mes-qc-oqc",
   "businessName": "MES 出货检验单（OQC, Outgoing Quality Control）",
-  "permissionPrefix": "mes:mes_qc_oqc",
+  "permissionPrefix": "mes:qc-oqc",
   "page": {
     "route": "/admin/mes/mes-qc-oqc",
     "title": "MES 出货检验单（OQC, Outgoing Quality Control）管理",

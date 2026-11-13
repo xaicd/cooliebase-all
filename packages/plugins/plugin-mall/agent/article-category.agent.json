@@ -4,7 +4,7 @@
   "entity": "ArticleCategory",
   "kebab": "article-category",
   "businessName": "文章分类",
-  "permissionPrefix": "mall:article_category",
+  "permissionPrefix": "mall:article-category",
   "page": {
     "route": "/admin/mall/article-category",
     "title": "文章分类管理",

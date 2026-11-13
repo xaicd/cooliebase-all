@@ -4,7 +4,7 @@
   "entity": "DeliveryExpressTemplate",
   "kebab": "delivery-express-template",
   "businessName": "快递运费模板",
-  "permissionPrefix": "mall:delivery_express_template",
+  "permissionPrefix": "mall:delivery-express-template",
   "page": {
     "route": "/admin/mall/delivery-express-template",
     "title": "快递运费模板管理",

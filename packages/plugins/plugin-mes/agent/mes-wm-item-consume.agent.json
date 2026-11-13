@@ -4,7 +4,7 @@
   "entity": "MesWmItemConsume",
   "kebab": "mes-wm-item-consume",
   "businessName": "MES 物料消耗记录",
-  "permissionPrefix": "mes:mes_wm_item_consume",
+  "permissionPrefix": "mes:wm-item-consume",
   "page": {
     "route": "/admin/mes/mes-wm-item-consume",
     "title": "MES 物料消耗记录管理",

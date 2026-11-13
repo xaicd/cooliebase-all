@@ -4,7 +4,7 @@
   "entity": "ErpSaleOut",
   "kebab": "erp-sale-out",
   "businessName": "ERP 销售出库",
-  "permissionPrefix": "erp:erp_sale_out",
+  "permissionPrefix": "erp:sale-out",
   "page": {
     "route": "/admin/erp/erp-sale-out",
     "title": "ERP 销售出库管理",

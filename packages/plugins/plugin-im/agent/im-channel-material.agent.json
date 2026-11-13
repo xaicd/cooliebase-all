@@ -4,7 +4,7 @@
   "entity": "ImChannelMaterial",
   "kebab": "im-channel-material",
   "businessName": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N",
-  "permissionPrefix": "im:im_channel_material",
+  "permissionPrefix": "im:channel-material",
   "page": {
     "route": "/admin/im/im-channel-material",
     "title": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 管理",

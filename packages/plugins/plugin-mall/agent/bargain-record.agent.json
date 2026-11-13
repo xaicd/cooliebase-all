@@ -4,7 +4,7 @@
   "entity": "BargainRecord",
   "kebab": "bargain-record",
   "businessName": "砍价记录 DO TO",
-  "permissionPrefix": "mall:bargain_record",
+  "permissionPrefix": "mall:bargain-record",
   "page": {
     "route": "/admin/mall/bargain-record",
     "title": "砍价记录 DO TO管理",

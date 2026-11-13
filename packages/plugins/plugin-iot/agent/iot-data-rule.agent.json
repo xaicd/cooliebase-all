@@ -4,7 +4,7 @@
   "entity": "IotDataRule",
   "kebab": "iot-data-rule",
   "businessName": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的",
-  "permissionPrefix": "iot:iot_data_rule",
+  "permissionPrefix": "iot:data-rule",
   "page": {
     "route": "/admin/iot/iot-data-rule",
     "title": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的管理",

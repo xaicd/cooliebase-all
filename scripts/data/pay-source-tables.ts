@@ -8,7 +8,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayApp",
     "businessName": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_app",
+    "permissionPrefix": "pay:app",
     "table": {
       "name": "pay_app",
       "comment": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
@@ -137,7 +137,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayChannel",
     "businessName": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_channel",
+    "permissionPrefix": "pay:channel",
     "table": {
       "name": "pay_channel",
       "comment": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
@@ -261,7 +261,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayDemoOrder",
     "businessName": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_demo_order",
+    "permissionPrefix": "pay:demo-order",
     "table": {
       "name": "pay_demo_order",
       "comment": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款",
@@ -424,7 +424,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayDemoWithdraw",
     "businessName": "示例提现订单演示业务系统的转账业务",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_demo_withdraw",
+    "permissionPrefix": "pay:demo-withdraw",
     "table": {
       "name": "pay_demo_withdraw",
       "comment": "示例提现订单演示业务系统的转账业务",
@@ -579,7 +579,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayNotifyLog",
     "businessName": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_notify_log",
+    "permissionPrefix": "pay:notify-log",
     "table": {
       "name": "pay_notify_log",
       "comment": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
@@ -684,7 +684,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayNotifyTask",
     "businessName": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_notify_task",
+    "permissionPrefix": "pay:notify-task",
     "table": {
       "name": "pay_notify_task",
       "comment": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直",
@@ -856,7 +856,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayOrder",
     "businessName": "支付订单",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_order",
+    "permissionPrefix": "pay:order",
     "table": {
       "name": "pay_order",
       "comment": "支付订单",
@@ -1102,7 +1102,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayOrderExtension",
     "businessName": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_order_extension",
+    "permissionPrefix": "pay:order-extension",
     "table": {
       "name": "pay_order_extension",
       "comment": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录",
@@ -1257,7 +1257,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayRefund",
     "businessName": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_refund",
+    "permissionPrefix": "pay:refund",
     "table": {
       "name": "pay_refund",
       "comment": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
@@ -1510,7 +1510,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayTransfer",
     "businessName": "转账单",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_transfer",
+    "permissionPrefix": "pay:transfer",
     "table": {
       "name": "pay_transfer",
       "comment": "转账单",
@@ -1754,7 +1754,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayWallet",
     "businessName": "会员钱包",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_wallet",
+    "permissionPrefix": "pay:wallet",
     "table": {
       "name": "pay_wallet",
       "comment": "会员钱包",
@@ -1874,7 +1874,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayWalletRecharge",
     "businessName": "会员钱包充值",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_wallet_recharge",
+    "permissionPrefix": "pay:wallet-recharge",
     "table": {
       "name": "pay_wallet_recharge",
       "comment": "会员钱包充值",
@@ -2069,7 +2069,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayWalletRechargePackage",
     "businessName": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_wallet_recharge_package",
+    "permissionPrefix": "pay:wallet-recharge-package",
     "table": {
       "name": "pay_wallet_recharge_package",
       "comment": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；",
@@ -2174,7 +2174,7 @@ export const PAY_TABLES: CodegenConfig[] = [
     "className": "PayWalletTransaction",
     "businessName": "会员钱包流水",
     "parentMenuId": "pay-dir",
-    "permissionPrefix": "pay:pay_wallet_transaction",
+    "permissionPrefix": "pay:wallet-transaction",
     "table": {
       "name": "pay_wallet_transaction",
       "comment": "会员钱包流水",

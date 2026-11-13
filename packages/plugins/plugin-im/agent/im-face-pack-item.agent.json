@@ -4,7 +4,7 @@
   "entity": "ImFacePackItem",
   "kebab": "im-face-pack-item",
   "businessName": "IM 表情包项 DO（系统表情包内的单张表情图）",
-  "permissionPrefix": "im:im_face_pack_item",
+  "permissionPrefix": "im:face-pack-item",
   "page": {
     "route": "/admin/im/im-face-pack-item",
     "title": "IM 表情包项 DO（系统表情包内的单张表情图）管理",

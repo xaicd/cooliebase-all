@@ -8,7 +8,7 @@ export const REPORT_TABLES: CodegenConfig[] = [
     "className": "GoViewProject",
     "businessName": "GoView 项目表每个大屏图标，对应一个项目",
     "parentMenuId": "report-dir",
-    "permissionPrefix": "report:go_view_project",
+    "permissionPrefix": "report:go-view-project",
     "table": {
       "name": "report_go_view_project",
       "comment": "GoView 项目表每个大屏图标，对应一个项目",

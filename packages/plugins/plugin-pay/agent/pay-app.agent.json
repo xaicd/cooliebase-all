@@ -4,7 +4,7 @@
   "entity": "PayApp",
   "kebab": "pay-app",
   "businessName": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
-  "permissionPrefix": "pay:pay_app",
+  "permissionPrefix": "pay:app",
   "page": {
     "route": "/admin/pay/pay-app",
     "title": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家管理",

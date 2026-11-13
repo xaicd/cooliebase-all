@@ -4,7 +4,7 @@
   "entity": "AiKnowledgeSegment",
   "kebab": "ai-knowledge-segment",
   "businessName": "AI 知识库-文档分段",
-  "permissionPrefix": "ai:ai_knowledge_segment",
+  "permissionPrefix": "ai:knowledge-segment",
   "page": {
     "route": "/admin/ai/ai-knowledge-segment",
     "title": "AI 知识库-文档分段管理",

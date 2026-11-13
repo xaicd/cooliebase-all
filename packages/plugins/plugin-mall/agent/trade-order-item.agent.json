@@ -4,7 +4,7 @@
   "entity": "TradeOrderItem",
   "kebab": "trade-order-item",
   "businessName": "交易订单项",
-  "permissionPrefix": "mall:trade_order_item",
+  "permissionPrefix": "mall:trade-order-item",
   "page": {
     "route": "/admin/mall/trade-order-item",
     "title": "交易订单项管理",

@@ -4,7 +4,7 @@
   "entity": "CrmOwnerRecord",
   "kebab": "crm-owner-record",
   "businessName": "CRM 负责人变更记录",
-  "permissionPrefix": "crm:crm_owner_record",
+  "permissionPrefix": "crm:owner-record",
   "page": {
     "route": "/admin/crm/crm-owner-record",
     "title": "CRM 负责人变更记录管理",

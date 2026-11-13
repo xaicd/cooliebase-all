@@ -4,7 +4,7 @@
   "entity": "MesQcRqc",
   "kebab": "mes-qc-rqc",
   "businessName": "MES 退货检验单（RQC, Return Quality Control）",
-  "permissionPrefix": "mes:mes_qc_rqc",
+  "permissionPrefix": "mes:qc-rqc",
   "page": {
     "route": "/admin/mes/mes-qc-rqc",
     "title": "MES 退货检验单（RQC, Return Quality Control）管理",

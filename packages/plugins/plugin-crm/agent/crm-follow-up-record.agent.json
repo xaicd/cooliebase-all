@@ -4,7 +4,7 @@
   "entity": "CrmFollowUpRecord",
   "kebab": "crm-follow-up-record",
   "businessName": "跟进记录 DO用于记录客户、联系人的每一次跟进",
-  "permissionPrefix": "crm:crm_follow_up_record",
+  "permissionPrefix": "crm:follow-up-record",
   "page": {
     "route": "/admin/crm/crm-follow-up-record",
     "title": "跟进记录 DO用于记录客户、联系人的每一次跟进管理",

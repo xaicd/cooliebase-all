@@ -4,7 +4,7 @@
   "entity": "CrmReceivablePlan",
   "kebab": "crm-receivable-plan",
   "businessName": "CRM 回款计划",
-  "permissionPrefix": "crm:crm_receivable_plan",
+  "permissionPrefix": "crm:receivable-plan",
   "page": {
     "route": "/admin/crm/crm-receivable-plan",
     "title": "CRM 回款计划管理",

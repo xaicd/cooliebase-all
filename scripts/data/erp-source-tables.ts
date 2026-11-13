@@ -8,7 +8,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpAccount",
     "businessName": "ERP 结算账户",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_account",
+    "permissionPrefix": "erp:account",
     "table": {
       "name": "erp_account",
       "comment": "ERP 结算账户",
@@ -130,7 +130,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpCustomer",
     "businessName": "ERP 客户",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_customer",
+    "permissionPrefix": "erp:customer",
     "table": {
       "name": "erp_customer",
       "comment": "ERP 客户",
@@ -319,7 +319,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpFinancePayment",
     "businessName": "ERP 付款单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_finance_payment",
+    "permissionPrefix": "erp:finance-payment",
     "table": {
       "name": "erp_finance_payment",
       "comment": "ERP 付款单",
@@ -481,7 +481,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpFinancePaymentItem",
     "businessName": "ERP 付款项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_finance_payment_item",
+    "permissionPrefix": "erp:finance-payment-item",
     "table": {
       "name": "erp_finance_payment_item",
       "comment": "ERP 付款项",
@@ -625,7 +625,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpFinanceReceipt",
     "businessName": "ERP 收款单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_finance_receipt",
+    "permissionPrefix": "erp:finance-receipt",
     "table": {
       "name": "erp_finance_receipt",
       "comment": "ERP 收款单",
@@ -787,7 +787,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpFinanceReceiptItem",
     "businessName": "ERP 收款项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_finance_receipt_item",
+    "permissionPrefix": "erp:finance-receipt-item",
     "table": {
       "name": "erp_finance_receipt_item",
       "comment": "ERP 收款项",
@@ -931,7 +931,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpProduct",
     "businessName": "ERP 产品",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_product",
+    "permissionPrefix": "erp:product",
     "table": {
       "name": "erp_product",
       "comment": "ERP 产品",
@@ -1110,7 +1110,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpProductCategory",
     "businessName": "ERP 产品分类",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_product_category",
+    "permissionPrefix": "erp:product-category",
     "table": {
       "name": "erp_product_category",
       "comment": "ERP 产品分类",
@@ -1225,7 +1225,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpProductUnit",
     "businessName": "ERP 产品单位",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_product_unit",
+    "permissionPrefix": "erp:product-unit",
     "table": {
       "name": "erp_product_unit",
       "comment": "ERP 产品单位",
@@ -1314,7 +1314,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseIn",
     "businessName": "ERP 采购入库",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_in",
+    "permissionPrefix": "erp:purchase-in",
     "table": {
       "name": "erp_purchase_in",
       "comment": "ERP 采购入库",
@@ -1542,7 +1542,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseInItem",
     "businessName": "ERP 采购入库项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_in_item",
+    "permissionPrefix": "erp:purchase-in-item",
     "table": {
       "name": "erp_purchase_in_items",
       "comment": "ERP 采购入库项",
@@ -1716,7 +1716,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseOrder",
     "businessName": "ERP 采购订单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_order",
+    "permissionPrefix": "erp:purchase-order",
     "table": {
       "name": "erp_purchase_order",
       "comment": "ERP 采购订单",
@@ -1937,7 +1937,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseOrderItem",
     "businessName": "ERP 采购订单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_order_item",
+    "permissionPrefix": "erp:purchase-order-item",
     "table": {
       "name": "erp_purchase_order_items",
       "comment": "ERP 采购订单项",
@@ -2113,7 +2113,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseReturn",
     "businessName": "ERP 采购退货",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_return",
+    "permissionPrefix": "erp:purchase-return",
     "table": {
       "name": "erp_purchase_return",
       "comment": "ERP 采购退货",
@@ -2341,7 +2341,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpPurchaseReturnItem",
     "businessName": "ERP 采购退货项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_purchase_return_item",
+    "permissionPrefix": "erp:purchase-return-item",
     "table": {
       "name": "erp_purchase_return_items",
       "comment": "ERP 采购退货项",
@@ -2515,7 +2515,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleOrder",
     "businessName": "ERP 销售订单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_order",
+    "permissionPrefix": "erp:sale-order",
     "table": {
       "name": "erp_sale_order",
       "comment": "ERP 销售订单",
@@ -2745,7 +2745,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleOrderItem",
     "businessName": "ERP 销售订单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_order_item",
+    "permissionPrefix": "erp:sale-order-item",
     "table": {
       "name": "erp_sale_order_items",
       "comment": "ERP 销售订单项",
@@ -2921,7 +2921,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleOut",
     "businessName": "ERP 销售出库",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_out",
+    "permissionPrefix": "erp:sale-out",
     "table": {
       "name": "erp_sale_out",
       "comment": "ERP 销售出库",
@@ -3157,7 +3157,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleOutItem",
     "businessName": "ERP 销售出库项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_out_item",
+    "permissionPrefix": "erp:sale-out-item",
     "table": {
       "name": "erp_sale_out_items",
       "comment": "ERP 销售出库项",
@@ -3331,7 +3331,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleReturn",
     "businessName": "ERP 销售退货",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_return",
+    "permissionPrefix": "erp:sale-return",
     "table": {
       "name": "erp_sale_return",
       "comment": "ERP 销售退货",
@@ -3567,7 +3567,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSaleReturnItem",
     "businessName": "ERP 销售退货项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_sale_return_item",
+    "permissionPrefix": "erp:sale-return-item",
     "table": {
       "name": "erp_sale_return_items",
       "comment": "ERP 销售退货项",
@@ -3741,7 +3741,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStock",
     "businessName": "ERP 产品库存",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock",
+    "permissionPrefix": "erp:stock",
     "table": {
       "name": "erp_stock",
       "comment": "ERP 产品库存",
@@ -3840,7 +3840,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockCheck",
     "businessName": "ERP 库存盘点单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_check",
+    "permissionPrefix": "erp:stock-check",
     "table": {
       "name": "erp_stock_check",
       "comment": "ERP 库存盘点单",
@@ -3973,7 +3973,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockCheckItem",
     "businessName": "ERP 库存盘点单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_check_item",
+    "permissionPrefix": "erp:stock-check-item",
     "table": {
       "name": "erp_stock_check_item",
       "comment": "ERP 库存盘点单项",
@@ -4138,7 +4138,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockIn",
     "businessName": "ERP 其它入库单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_in",
+    "permissionPrefix": "erp:stock-in",
     "table": {
       "name": "erp_stock_in",
       "comment": "ERP 其它入库单",
@@ -4280,7 +4280,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockInItem",
     "businessName": "ERP 其它入库单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_in_item",
+    "permissionPrefix": "erp:stock-in-item",
     "table": {
       "name": "erp_stock_in_item",
       "comment": "ERP 其它入库单项",
@@ -4425,7 +4425,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockMove",
     "businessName": "ERP 库存调拨单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_move",
+    "permissionPrefix": "erp:stock-move",
     "table": {
       "name": "erp_stock_move",
       "comment": "ERP 库存调拨单",
@@ -4558,7 +4558,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockMoveItem",
     "businessName": "ERP 库存调拨单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_move_item",
+    "permissionPrefix": "erp:stock-move-item",
     "table": {
       "name": "erp_stock_move_item",
       "comment": "ERP 库存调拨单项",
@@ -4712,7 +4712,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockOut",
     "businessName": "ERP 其它出库单",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_out",
+    "permissionPrefix": "erp:stock-out",
     "table": {
       "name": "erp_stock_out",
       "comment": "ERP 其它出库单",
@@ -4854,7 +4854,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockOutItem",
     "businessName": "ERP 其它出库单项",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_out_item",
+    "permissionPrefix": "erp:stock-out-item",
     "table": {
       "name": "erp_stock_out_item",
       "comment": "ERP 其它出库单项",
@@ -4999,7 +4999,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpStockRecord",
     "businessName": "ERP 产品库存明细",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_stock_record",
+    "permissionPrefix": "erp:stock-record",
     "table": {
       "name": "erp_stock_record",
       "comment": "ERP 产品库存明细",
@@ -5143,7 +5143,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpSupplier",
     "businessName": "ERP 供应商",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_supplier",
+    "permissionPrefix": "erp:supplier",
     "table": {
       "name": "erp_supplier",
       "comment": "ERP 供应商",
@@ -5332,7 +5332,7 @@ export const ERP_TABLES: CodegenConfig[] = [
     "className": "ErpWarehouse",
     "businessName": "ERP 仓库",
     "parentMenuId": "erp-dir",
-    "permissionPrefix": "erp:erp_warehouse",
+    "permissionPrefix": "erp:warehouse",
     "table": {
       "name": "erp_warehouse",
       "comment": "ERP 仓库",

@@ -4,7 +4,7 @@
   "entity": "AfterSaleLog",
   "kebab": "after-sale-log",
   "businessName": "交易售后日志",
-  "permissionPrefix": "mall:after_sale_log",
+  "permissionPrefix": "mall:after-sale-log",
   "page": {
     "route": "/admin/mall/after-sale-log",
     "title": "交易售后日志管理",

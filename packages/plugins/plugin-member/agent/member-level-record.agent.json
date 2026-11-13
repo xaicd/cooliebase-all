@@ -4,7 +4,7 @@
   "entity": "MemberLevelRecord",
   "kebab": "member-level-record",
   "businessName": "会员等级记录 DO用户每次等级发生变更时，记录一条日志",
-  "permissionPrefix": "member:member_level_record",
+  "permissionPrefix": "member:level-record",
   "page": {
     "route": "/admin/member/member-level-record",
     "title": "会员等级记录 DO用户每次等级发生变更时，记录一条日志管理",

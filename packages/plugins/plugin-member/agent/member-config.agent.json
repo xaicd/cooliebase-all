@@ -4,7 +4,7 @@
   "entity": "MemberConfig",
   "kebab": "member-config",
   "businessName": "会员配置",
-  "permissionPrefix": "member:member_config",
+  "permissionPrefix": "member:config",
   "page": {
     "route": "/admin/member/member-config",
     "title": "会员配置管理",

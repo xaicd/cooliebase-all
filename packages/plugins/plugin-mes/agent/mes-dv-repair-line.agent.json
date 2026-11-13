@@ -4,7 +4,7 @@
   "entity": "MesDvRepairLine",
   "kebab": "mes-dv-repair-line",
   "businessName": "MES 维修工单行",
-  "permissionPrefix": "mes:mes_dv_repair_line",
+  "permissionPrefix": "mes:dv-repair-line",
   "page": {
     "route": "/admin/mes/mes-dv-repair-line",
     "title": "MES 维修工单行管理",

@@ -4,7 +4,7 @@
   "entity": "MpMessage",
   "kebab": "mp-message",
   "businessName": "公众号消息",
-  "permissionPrefix": "mp:mp_message",
+  "permissionPrefix": "mp:message",
   "page": {
     "route": "/admin/mp/mp-message",
     "title": "公众号消息管理",

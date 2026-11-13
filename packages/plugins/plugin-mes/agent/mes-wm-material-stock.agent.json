@@ -4,7 +4,7 @@
   "entity": "MesWmMaterialStock",
   "kebab": "mes-wm-material-stock",
   "businessName": "MES 库存台账（仓库现有量）",
-  "permissionPrefix": "mes:mes_wm_material_stock",
+  "permissionPrefix": "mes:wm-material-stock",
   "page": {
     "route": "/admin/mes/mes-wm-material-stock",
     "title": "MES 库存台账（仓库现有量）管理",

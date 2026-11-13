@@ -4,7 +4,7 @@
   "entity": "PayTransfer",
   "kebab": "pay-transfer",
   "businessName": "转账单",
-  "permissionPrefix": "pay:pay_transfer",
+  "permissionPrefix": "pay:transfer",
   "page": {
     "route": "/admin/pay/pay-transfer",
     "title": "转账单管理",

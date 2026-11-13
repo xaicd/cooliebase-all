@@ -4,7 +4,7 @@
   "entity": "ImPrivateMessage",
   "kebab": "im-private-message",
   "businessName": "IM 私聊消息",
-  "permissionPrefix": "im:im_private_message",
+  "permissionPrefix": "im:private-message",
   "page": {
     "route": "/admin/im/im-private-message",
     "title": "IM 私聊消息管理",

@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`deps-vuln-remediation`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`deps-vuln-remediation`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -46,37 +46,37 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像
+- [x] **T1**: S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像
   - 归属: `main`
   - 文件白名单: `package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline）
+- [x] **T2**: 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline）
   - 归属: `T1`
   - 文件白名单: `scripts/check-deps-audit.cjs`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 由门禁脚本产出基线（此时残留即 dev 树欠债）
+- [x] **T3**: 由门禁脚本产出基线（此时残留即 dev 树欠债）
   - 归属: `T2`
   - 文件白名单: `docs/architecture/artifacts/deps-audit-baseline.json`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
-- [ ] **T4**: 门禁接线：npm script + check 链 + 轨迹证据
+- [x] **T4**: 门禁接线：npm script + check 链 + 轨迹证据
   - 归属: `T3`
   - 文件白名单: `package.json, scripts/write-harness-trace.cjs`
   - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
 
-- [ ] **T5**: 门禁正反向测试（证明会 fire）
+- [x] **T5**: 门禁正反向测试（证明会 fire）
   - 归属: `T4`
   - 文件白名单: `test/unit/deps-audit-gate.test.ts`
   - 验收要求: 必须携带提交标识 `[T5]` 并附带真实测试验证
 
-- [ ] **T6**: S3 dev/构建树升级（Expo/CLI/测试工具链）
+- [x] **T6**: S3 dev/构建树升级（Expo/CLI/测试工具链）
   - 归属: `T5`
   - 文件白名单: `package.json, pnpm-lock.yaml, clients/expo/package.json`
   - 验收要求: 必须携带提交标识 `[T6]` 并附带真实测试验证
 
-- [ ] **T7**: 无补丁三项已接受风险台账 + 规范登记
+- [x] **T7**: 无补丁三项已接受风险台账 + 规范登记
   - 归属: `T6`
   - 文件白名单: `docs/architecture/cooliebase-all-dependency-policy.md, AGENTS.md`
   - 验收要求: 必须携带提交标识 `[T7]` 并附带真实测试验证
@@ -93,13 +93,13 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像 | package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json | 未开始 |
-| T2 | T1 | 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline） | scripts/check-deps-audit.cjs | 未开始 |
-| T3 | T2 | 由门禁脚本产出基线（此时残留即 dev 树欠债） | docs/architecture/artifacts/deps-audit-baseline.json | 未开始 |
-| T4 | T3 | 门禁接线：npm script + check 链 + 轨迹证据 | package.json, scripts/write-harness-trace.cjs | 未开始 |
-| T5 | T4 | 门禁正反向测试（证明会 fire） | test/unit/deps-audit-gate.test.ts | 未开始 |
-| T6 | T5 | S3 dev/构建树升级（Expo/CLI/测试工具链） | package.json, pnpm-lock.yaml, clients/expo/package.json | 未开始 |
-| T7 | T6 | 无补丁三项已接受风险台账 + 规范登记 | docs/architecture/cooliebase-all-dependency-policy.md, AGENTS.md | 未开始 |
+| T1 | main | S1 生产树止血：next 升至 ^16.4.2、mysql2 升至 ^3.24.6，并同步 compat 契约及其生成镜像 | package.json, pnpm-lock.yaml, packages/plugins/plugin-pay/package.json, packages/shared/contract/compat-manifest.json, compat-manifest.json, public/compat-manifest.json | 已完成 |
+| T2 | T1 | 实现依赖 CVE 门禁脚本（全树 ratchet + 运行时层新增 enforce + --write-baseline） | scripts/check-deps-audit.cjs | 已完成 |
+| T3 | T2 | 由门禁脚本产出基线（此时残留即 dev 树欠债） | docs/architecture/artifacts/deps-audit-baseline.json | 已完成 |
+| T4 | T3 | 门禁接线：npm script + check 链 + 轨迹证据 | package.json, scripts/write-harness-trace.cjs | 已完成 |
+| T5 | T4 | 门禁正反向测试（证明会 fire） | test/unit/deps-audit-gate.test.ts | 已完成 |
+| T6 | T5 | S3 dev/构建树升级（Expo/CLI/测试工具链） | package.json, pnpm-lock.yaml, clients/expo/package.json | 已完成 |
+| T7 | T6 | 无补丁三项已接受风险台账 + 规范登记 | docs/architecture/cooliebase-all-dependency-policy.md, AGENTS.md | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -108,5 +108,5 @@ T1 → T2 → T3 → T4 → T5 → T6 → T7
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

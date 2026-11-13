@@ -4,7 +4,7 @@
   "entity": "MesCalPlan",
   "kebab": "mes-cal-plan",
   "businessName": "MES 排班计划",
-  "permissionPrefix": "mes:mes_cal_plan",
+  "permissionPrefix": "mes:cal-plan",
   "page": {
     "route": "/admin/mes/mes-cal-plan",
     "title": "MES 排班计划管理",

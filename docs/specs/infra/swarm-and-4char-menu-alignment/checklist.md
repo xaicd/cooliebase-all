@@ -1,0 +1,29 @@
+# Quality Checklist & Acceptance Gate: SWARM多智能体协同法典、8动词service.sh与4字菜单门禁对齐
+
+> **Spec-Kit 质量验收与门禁自检清单 (Verification Checklist)**
+> 所属领域：`infra` | 规格标识：`swarm-and-4char-menu-alignment` | 阶段：`PLAN_APPROVED`
+> 对应项目宪法：`.specify/memory/constitution.md` (Gate 1~6 物理门禁全覆盖)
+
+---
+
+## 1. 宪法与架构合规自检 (Constitutional & Architecture Compliance)
+- [ ] **Rule 0.1 零 Token 浪费**：业务模型采用 Schema/DSL 驱动展开，无冗余手写样板代码。
+- [ ] **Rule 0.2 模式极致复用**：已复用 `BaseMapper<T>`、`QueryWrapper<T>`，自动继承审计基础列。
+- [ ] **Rule 0.4 真实数据库驱动**：100% 跑通真实 PostgreSQL/SQLite 状态机测试，0 内存伪造 Mock。
+- [ ] **Rule 0.5 契约第一切入**：对外暴露版本化 API 契约，跨域调用 100% 走 Domain Facade。
+- [ ] **Rule 0.7 权限与隔离合规 (多租户按需可选)**：接口配置严格权限码；多租户隔离仅作为底座可选能力按需开启（非强制，单租户/企业私有化交付项目严禁硬塞无用租户字段与过滤样板）。
+- [ ] **Rule 0.8 交付 E2E 任务同等对齐律与零 DB Seed**：自动化运营配置与自动化测试 E2E 任务同等纳入 Spec 拆解与 1 Task = 1 Commit，严禁空洞 Mock，真实数据库初始化与全旅程拟人走查验收。
+
+## 2. CMMI 五大核心流程实证自检 (CMMI Lifecycle Concrete Verification)
+- [ ] **G1 需求立项 (RD/SRS)**：真实业务需求立项，明确业务对象、用户故事 (P0/P1/P2) 与多端建设范围（B端管理/C端门户/移动App/小程序），0 泛泛而谈。
+- [ ] **G2 概要设计 (TS/HLD)**：技术选型明确（底座/数据库/多端方案），数据模型与持久化契约清晰，多租户按需开启，API 契约无二义性。
+- [ ] **G3 详细实现 (SWE/LLD)**：1 Task = 1 Commit 增量提交，零编译报错，代码与契约严格映射。
+- [ ] **G4 全栈验收 (VER/VAL)**：Spec 四波次任务等权矩阵严格落地（Wave 1 地基 ➜ Wave 2 业务 ➜ Wave 3 自动化运营配置与拟人走查 ➜ Wave 4 自动化测试与真库持久化断言），零空洞 Mock，机器证据与实机截屏齐备。
+- [ ] **G5 投产割接 (CM/Release)**：制品指纹唯一，具备生产部署 SOP 与秒级回滚预案。
+
+## 3. 验收标准逐项核验 (Acceptance Criteria Status)
+- [ ] 根级 SWARM.md 存在且体积 < 25KB，0 处容器路径字面量、0 处裸 npm/npx，且 project:init / clone-project-base 保留 SWARM.md
+- [ ] scripts/service.sh 与 deploy/service.sh 均具备可执行权限 (+x)，支持 install|build|start|stop|restart|status|health|logs 与 --help
+- [ ] pnpm run admin:nav:check 校验可见菜单 <=4 字棘轮通过；向菜单或蓝图注入未登记的 >4 字新菜单标题时确定性拦截/自愈
+- [ ] pnpm exec vitest run test/unit/swarm-and-4char-menu-alignment.test.ts exit=0（含正向与反向对照单测）
+- [ ] pnpm run standards:check 与 pnpm run check exit=0

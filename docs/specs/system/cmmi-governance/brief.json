@@ -17,7 +17,7 @@
   "stories": [
     {
       "priority": "P0",
-      "text": "在 .agents/skills/ 沉淀 8 大 CMMI 原生技能，并通过 npm run skills:check 实行单一真源强制校验。"
+      "text": "在 .agents/skills/ 沉淀 8 大 CMMI 原生技能，并通过 pnpm run skills:check 实行单一真源强制校验。"
     },
     {
       "priority": "P0",
@@ -34,9 +34,9 @@
     "No Artifact, No Done：每个工单必须产出真实物理工程资产之一，并附带退出码为 0 的可核验凭证。"
   ],
   "acceptance": [
-    { "check": "`npm run check` exit=0，20 道门禁全部通过" },
-    { "check": "`npm run skills:check` 验证 36 项技能规范且无重复目录" },
-    { "check": "`npm run test:matrix` 真实数据库测试 100% 通过（55 passed / 6 skipped）" }
+    { "check": "`pnpm run check` exit=0，20 道门禁全部通过" },
+    { "check": "`pnpm run skills:check` 验证 36 项技能规范且无重复目录" },
+    { "check": "`pnpm run test:matrix` 真实数据库测试 100% 通过（55 passed / 6 skipped）" }
   ],
   "nonGoals": [
     "不在底座模板中硬编码虚构的业务生产故障事故或虚假的线上对账流水"
@@ -59,9 +59,9 @@
     "纯工程治理增强，无管理端与 C 端业务 UI 页面变更"
   ],
   "ops": [
-    "门禁链：npm run check 验证 20 道质量门禁与技能规范",
-    "测试：npm run test:matrix 真实数据库测试套件验证",
-    "知识库同步：npm run openwiki:sync 动态更新 CMMI 百科词条"
+    "门禁链：pnpm run check 验证 20 道质量门禁与技能规范",
+    "测试：pnpm run test:matrix 真实数据库测试套件验证",
+    "知识库同步：pnpm run openwiki:sync 动态更新 CMMI 百科词条"
   ],
   "risks": [
     {
@@ -113,7 +113,7 @@
       "id": "T3",
       "parent": "main",
       "title": "更新 CMMI 交付规约与 OpenWiki 百科词条，跑通 20 道质量门禁总检",
-      "files": ["docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md", "scripts/sync-openwiki.cjs", "wiki/cmmi/cmmi-lifecycle.md"]
+      "files": ["docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md", "scripts/check-generated-paths.cjs", "wiki/cmmi/cmmi-lifecycle.md"]
     }
   ],
   "dependencies": "T1 → T2 → T3",

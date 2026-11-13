@@ -4,7 +4,7 @@
   "entity": "MpUser",
   "kebab": "mp-user",
   "businessName": "微信公众号粉丝",
-  "permissionPrefix": "mp:mp_user",
+  "permissionPrefix": "mp:user",
   "page": {
     "route": "/admin/mp/mp-user",
     "title": "微信公众号粉丝管理",

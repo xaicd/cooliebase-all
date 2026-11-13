@@ -4,7 +4,7 @@
   "entity": "MesWmItemConsumeDetail",
   "kebab": "mes-wm-item-consume-detail",
   "businessName": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配",
-  "permissionPrefix": "mes:mes_wm_item_consume_detail",
+  "permissionPrefix": "mes:wm-item-consume-detail",
   "page": {
     "route": "/admin/mes/mes-wm-item-consume-detail",
     "title": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配管理",

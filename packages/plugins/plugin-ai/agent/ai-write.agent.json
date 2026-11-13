@@ -4,7 +4,7 @@
   "entity": "AiWrite",
   "kebab": "ai-write",
   "businessName": "AI 写作",
-  "permissionPrefix": "ai:ai_write",
+  "permissionPrefix": "ai:write",
   "page": {
     "route": "/admin/ai/ai-write",
     "title": "AI 写作管理",

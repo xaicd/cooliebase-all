@@ -4,7 +4,7 @@
   "entity": "WmsReceiptOrder",
   "kebab": "wms-receipt-order",
   "businessName": "入库单",
-  "permissionPrefix": "wms:receipt",
+  "permissionPrefix": "wms:receipt-order",
   "page": {
     "route": "/admin/wms/wms-receipt-order",
     "title": "入库单管理",

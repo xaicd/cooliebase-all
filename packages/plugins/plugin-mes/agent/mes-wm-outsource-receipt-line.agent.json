@@ -4,7 +4,7 @@
   "entity": "MesWmOutsourceReceiptLine",
   "kebab": "mes-wm-outsource-receipt-line",
   "businessName": "MES 外协入库单行",
-  "permissionPrefix": "mes:mes_wm_outsource_receipt_line",
+  "permissionPrefix": "mes:wm-outsource-receipt-line",
   "page": {
     "route": "/admin/mes/mes-wm-outsource-receipt-line",
     "title": "MES 外协入库单行管理",

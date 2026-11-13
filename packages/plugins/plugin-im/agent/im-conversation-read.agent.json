@@ -4,7 +4,7 @@
   "entity": "ImConversationRead",
   "kebab": "im-conversation-read",
   "businessName": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
-  "permissionPrefix": "im:im_conversation_read",
+  "permissionPrefix": "im:conversation-read",
   "page": {
     "route": "/admin/im/im-conversation-read",
     "title": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /管理",

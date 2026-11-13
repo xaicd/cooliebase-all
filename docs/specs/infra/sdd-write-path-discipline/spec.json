@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "吸收 SDD 四重铁律：写链路闭环 / 统一请求契约 / 红绿对抗 E2E / 无深度测试不发布",
   "type": "feature",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 4,
   "acceptance": 6,
   "invariants": 2,
   "tasks": 5,
-  "updatedAt": "2026-10-28T02:43:18.383Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

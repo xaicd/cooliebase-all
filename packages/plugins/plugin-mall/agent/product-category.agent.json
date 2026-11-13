@@ -4,7 +4,7 @@
   "entity": "ProductCategory",
   "kebab": "product-category",
   "businessName": "商品分类",
-  "permissionPrefix": "mall:product_category",
+  "permissionPrefix": "mall:product-category",
   "page": {
     "route": "/admin/mall/product-category",
     "title": "商品分类管理",

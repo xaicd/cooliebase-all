@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`deps-audit-tier-determinism`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`deps-audit-tier-determinism`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -46,17 +46,17 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 实现锁文件离线分层判据并重生成基线
+- [x] **T1**: 实现锁文件离线分层判据并重生成基线
   - 归属: `main`
   - 文件白名单: `scripts/check-deps-audit.cjs, docs/architecture/artifacts/deps-audit-baseline.json`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 补确定性与锚点回归测试（Red Test 转绿）
+- [x] **T2**: 补确定性与锚点回归测试（Red Test 转绿）
   - 归属: `T1`
   - 文件白名单: `test/unit/deps-audit-gate.test.ts`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 台账与规范同步（撤掉不可作精确值引用的标注）
+- [x] **T3**: 台账与规范同步（撤掉不可作精确值引用的标注）
   - 归属: `T2`
   - 文件白名单: `docs/architecture/cooliebase-all-dependency-policy.md`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
@@ -73,9 +73,9 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 实现锁文件离线分层判据并重生成基线 | scripts/check-deps-audit.cjs, docs/architecture/artifacts/deps-audit-baseline.json | 未开始 |
-| T2 | T1 | 补确定性与锚点回归测试（Red Test 转绿） | test/unit/deps-audit-gate.test.ts | 未开始 |
-| T3 | T2 | 台账与规范同步（撤掉不可作精确值引用的标注） | docs/architecture/cooliebase-all-dependency-policy.md | 未开始 |
+| T1 | main | 实现锁文件离线分层判据并重生成基线 | scripts/check-deps-audit.cjs, docs/architecture/artifacts/deps-audit-baseline.json | 已完成 |
+| T2 | T1 | 补确定性与锚点回归测试（Red Test 转绿） | test/unit/deps-audit-gate.test.ts | 已完成 |
+| T3 | T2 | 台账与规范同步（撤掉不可作精确值引用的标注） | docs/architecture/cooliebase-all-dependency-policy.md | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -84,5 +84,5 @@ T1 → T2 → T3
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

@@ -40,17 +40,17 @@
   ],
   "constraints": [
     "零落盘：新增工具一律 plan/preview 语义，禁止写盘；--write 仍由显式命令或后续独立批次承担。",
-    "不得绕过 npm run check：工具只返回『应跑哪条门禁』，绝不自判通过（维持 AGENTS.md §3 明确不引入第 5 条）。",
+    "不得绕过 pnpm run check：工具只返回『应跑哪条门禁』，绝不自判通过（维持 AGENTS.md §3 明确不引入第 5 条）。",
     "零破坏性变更：既有 14 个只读工具的名称、入参、返回结构不变；compat-manifest 的 frozen 项不动。",
     "复用优先：薄封装既有 scripts/lib 与脚本，禁止重写领域逻辑（延续 B1 一期做法）。",
     "工具白名单限定 catalog 已登记域，禁止对任意路径或未登记域生成计划（沿用 cooliebase_gate_run 的白名单先例）。"
   ],
   "acceptance": [
     {
-      "check": "`npm run check` exit=0"
+      "check": "`pnpm run check` exit=0"
     },
     {
-      "check": "`npm run compat:check` exit=0（工具清单与 MCP 服务交叉校验一致）"
+      "check": "`pnpm run compat:check` exit=0（工具清单与 MCP 服务交叉校验一致）"
     },
     {
       "check": "每条新工具正反向测试通过：正常调用返回完整 plannedWrites/followUpGates/manualSteps；对未登记域或越权路径调用被拒"
@@ -166,8 +166,7 @@
       "parent": "T2",
       "title": "正反向测试与不落盘断言",
       "files": [
-        "scripts/mcp/__tests__/cooliebase-mcp-server.test.ts",
-        "scripts/mcp/__tests__/ruoyi-mcp-server.test.ts"
+        "scripts/mcp/__tests__/cooliebase-mcp-server.test.ts"
       ]
     },
     {

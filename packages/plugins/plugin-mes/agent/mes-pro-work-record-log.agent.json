@@ -4,7 +4,7 @@
   "entity": "MesProWorkRecordLog",
   "kebab": "mes-pro-work-record-log",
   "businessName": "MES 上下工记录流水",
-  "permissionPrefix": "mes:mes_pro_work_record_log",
+  "permissionPrefix": "mes:pro-work-record-log",
   "page": {
     "route": "/admin/mes/mes-pro-work-record-log",
     "title": "MES 上下工记录流水管理",

@@ -1,0 +1,170 @@
+{
+  "name": "swarm-and-4char-menu-alignment",
+  "domain": "infra",
+  "title": "SWARM多智能体协同法典、8动词service.sh与4字菜单门禁对齐",
+  "type": "feature",
+  "goal": "为 CoolieBase-All 基座落地环境无关的 SWARM 多智能体协同法典、8 动词全生命周期服务入口（scripts/service.sh 与 deploy/service.sh）以及可见导航菜单 <=4 字硬门禁与冻结棘轮，满足 Coolie PMO 层 B 标准并与派生产物同源保留。",
+  "roles": [
+    {
+      "role": "Swarm 协调者与工匠 Agent",
+      "can": "基于 SWARM.md 按 Wave 0~4 单写者分片、Domain Facade 跨域边界与独立只读 Verifier 闭环交付，零路径冲突、零宿主机路径硬编码"
+    },
+    {
+      "role": "平台 SRE 与交付工程师",
+      "can": "通过统一的 8 动词 scripts/service.sh 或 deploy/service.sh（对接 .env.ports 与 pnpm harness）完成安装、构建、启停、探活与日志巡检，并用 <=4 字菜单门禁拦截新增超长菜单"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "作为多智能体工匠，进场读取根级 SWARM.md 即可获知 Next.js 16 + 15 插件域 + Domain Facade + Embedded PostgreSQL 18.4 (ephemeral-pg.cjs) + Wave 0~4 单写者分片与只读 Verifier [SEALED] 铁律，且 project:init / clone-project-base 派生新项目时自动保留 SWARM.md"
+    },
+    {
+      "priority": "P0",
+      "text": "作为 SRE 运维人员，执行 bash scripts/service.sh <install|build|start|stop|restart|status|health|logs|--help> 或 bash deploy/service.sh <verb> 即可按 .env.ports 完成全栈生命周期管控"
+    },
+    {
+      "priority": "P0",
+      "text": "作为交付负责人，运行 pnpm run admin:nav:check 与蓝图编译器（blueprint:doctor / blueprint:compile）时，新增超 4 字可见导航菜单被确定性拦截或自愈收敛，历史存量超长菜单冻结于棘轮基线且存量单测 100% 绿灯"
+    }
+  ],
+  "constraints": [
+    "命令字符串铁律：新增或修改文档、脚本、测试一律只写 pnpm run <script> 与 pnpm exec <tool>，严禁出现裸 npm/npx 或空 catch 块。",
+    "零容器路径硬编码：严禁出现任何容器挂载绝对路径字面量，统一使用工作区相对路径与 ${COOLIE_HOME:-/opt/coolie}/blueprints/cooliebase-all。",
+    "跨域边界：15 原生业务插件域与 system/infra 平台域跨包通信必须经由 Domain Facade，严禁跨包直接 import service。",
+    "棘轮兼容：历史存量 >4 字菜单进入 menu-title-length-baseline.json 冻结只减不增，新增菜单与蓝图实体 menuTitle 严格执行 <=4 字。"
+  ],
+  "acceptance": [
+    {
+      "check": "根级 SWARM.md 存在且体积 < 25KB，0 处容器路径字面量、0 处裸 npm/npx，且 project:init / clone-project-base 保留 SWARM.md"
+    },
+    {
+      "check": "scripts/service.sh 与 deploy/service.sh 均具备可执行权限 (+x)，支持 install|build|start|stop|restart|status|health|logs 与 --help"
+    },
+    {
+      "check": "pnpm run admin:nav:check 校验可见菜单 <=4 字棘轮通过；向菜单或蓝图注入未登记的 >4 字新菜单标题时确定性拦截/自愈"
+    },
+    {
+      "check": "pnpm exec vitest run test/unit/swarm-and-4char-menu-alignment.test.ts exit=0（含正向与反向对照单测）"
+    },
+    {
+      "check": "pnpm run standards:check 与 pnpm run check exit=0"
+    }
+  ],
+  "nonGoals": [
+    "不在本规格内一次性批量重命名历史存量 340 张导入表的既有菜单文案（由冻结棘轮基线收敛，避免破坏既有 E2E 选择器）",
+    "不改动业务插件域的对外 HTTP 路由协议与数据库表结构"
+  ],
+  "architecture": "1) 根级 SWARM.md 定义 CoolieBase-All 多智能体协同拓扑（Wave 0 契约底座 -> Wave 1 后端插件与 Domain Facade -> Wave 2 B/C/Expo 多端 UI -> Wave 3 真 PG 18.4 E2E -> Wave 4 独立只读 Verifier），并在 scripts/clone-project-base.cjs 的 PROTECTED_DOCS 中保护 SWARM.md 与 GOAL.md；2) scripts/service.sh 读取 .env.ports / .env.local / .env 端口契约，实现 8 标准动词并由 deploy/service.sh 同源委托、scripts/harness.cjs GROUPS.service 统一纳管；3) scripts/lib/menu-title-guard.cjs 提供可见菜单字数统计与冻结棘轮比对，同时接入 scripts/generate-admin-nav.cjs --check 与 scripts/blueprint-engine.cjs 自愈编译器。",
+  "entities": [
+    {
+      "table": "-",
+      "note": "纯工程治理、服务控制面与导航编译门禁资产，无新增数据库表"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "单写者与只读独立核验",
+      "how": "SWARM.md 明确规定同一波次文件白名单互斥、跨域只走 Domain Facade、Wave 4 Verifier 只读实测后签发 [SEALED]。"
+    },
+    {
+      "name": "层 B 三件套可执行闭环",
+      "how": "HARNESS.md + scripts/harness.cjs + scripts/service.sh (及 deploy/service.sh) 完整覆盖 8 动词，且支持 .env.ports 动态端口。"
+    },
+    {
+      "name": "新增可见菜单 <=4 字刚性防线",
+      "how": "menu-title-guard.cjs 对所有非基线冻结的新增菜单执行 <=4 字硬拦截，反向对照单测注入 5 字菜单必须返回违规。"
+    }
+  ],
+  "ui": [
+    "约束管理后台侧边栏新增可见菜单标题 <=4 个汉字、表格行级与工具栏标准操作按钮采用 2 字极简动词（新增/查询/重置/编辑/删除/导出）。"
+  ],
+  "ops": [
+    "通过 bash scripts/service.sh status|health|logs 或 pnpm harness service status|health|logs 执行日常运维探活，通过 pnpm run admin:nav:check 审计导航菜单字数棘轮。"
+  ],
+  "risks": [
+    {
+      "risk": "历史导入的 340 张源表菜单名称普遍超过 4 个汉字，直接一刀切会导致存量门禁与页面断言全红",
+      "mitigation": "采用 docs/architecture/artifacts/menu-title-length-baseline.json 冻结历史存量超长菜单，只对新增菜单与新蓝图实体强制 <=4 字；蓝图实体支持显式 menuTitle 或自动裁剪后缀收敛"
+    },
+    {
+      "risk": "新增 package.json 脚本若未挂入 scripts/harness.cjs 会触发 harness:integrity:check 不可达脚本门禁失败",
+      "mitigation": "将 service:install 与 service:build 同步登记至 scripts/harness.cjs 的 GROUPS.service，保持不可达脚本数为 0"
+    }
+  ],
+  "screens": [
+    {
+      "name": "管理后台左侧导航栏 (/admin/*)",
+      "wireframe": "[Logo] -> [一级目录 <=4字] -> [二级菜单 <=4字] -> [主工作区: 2字操作按钮 查询/重置/新增/编辑/删除]"
+    }
+  ],
+  "interactions": [
+    "CLI 交互：bash scripts/service.sh --help 输出 8 动词用法并 exit 0；pnpm run admin:nav:check 校验生成物一致性与 <=4 字棘轮。"
+  ],
+  "states": [
+    "service status Running：PID 存活且端口监听正常。",
+    "service status Stopped：无残留僵尸进程。",
+    "menu-title-guard Pass：0 新增超 4 字可见菜单。",
+    "menu-title-guard Fail：检测到未在冻结基线中的 >4 字菜单，输出修复指引并 exit 1。"
+  ],
+  "candidates": [
+    {
+      "name": "自研环境无关 SWARM.md + POSIX bash 8动词 service.sh + 棘轮式 menu-title-guard.cjs",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "零外部依赖、零许可证传染风险"
+    },
+    {
+      "name": "引入 PM2 或外部重型进程管理器替代 service.sh",
+      "type": "开源",
+      "license": "AGPL-3.0",
+      "risk": "PM2 具 AGPL 传染风险且增加全局宿主机依赖，不予采用"
+    }
+  ],
+  "benchmarks": [
+    "对标 Coolie server onboarding-assets/SWARM.md 与 PMO 维度 3 层 B 三件套规范（HARNESS.md + scripts/harness.cjs + scripts/service.sh），确保跨基座命令动词与多智能体分片契约一致。"
+  ],
+  "scan": [
+    "核查存量 scripts/service.sh 仅覆盖 6 动词（缺 install/build/--help 且未加载 .env.ports，缺少 deploy/service.sh 同源入口）；核查 admin-nav.generated.ts 共有 464 个唯一菜单标签，其中 370 个为历史导入超 4 字标签，适合采用棘轮冻结。"
+  ],
+  "licenseConclusion": "全部采用仓库内 MIT 自研脚本与 POSIX Shell 实现，无第三方传染性依赖，100% 可商用。",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "落地环境无关根级 SWARM.md 多智能体协同法典并对齐派生孵化器保留策略",
+      "files": [
+        "SWARM.md",
+        "scripts/clone-project-base.cjs",
+        "scripts/project-init.cjs",
+        "docs/specs/_baseline/runbook.json"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "升级标准 8 动词 scripts/service.sh 与 deploy/service.sh 并贯通 .env.ports 及 harness",
+      "files": [
+        "scripts/service.sh",
+        "deploy/service.sh",
+        "scripts/harness.cjs",
+        "scripts/speckit.ts",
+        "package.json"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "T2",
+      "title": "实现可见菜单 <=4 字门禁守卫、历史棘轮基线、蓝图编译自愈与正反向单测",
+      "files": [
+        "scripts/lib/menu-title-guard.cjs",
+        "scripts/generate-admin-nav.cjs",
+        "scripts/blueprint-engine.cjs",
+        "docs/architecture/artifacts/menu-title-length-baseline.json",
+        "test/unit/swarm-and-4char-menu-alignment.test.ts"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 20
+}

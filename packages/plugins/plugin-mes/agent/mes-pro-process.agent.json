@@ -4,7 +4,7 @@
   "entity": "MesProProcess",
   "kebab": "mes-pro-process",
   "businessName": "MES 生产工序",
-  "permissionPrefix": "mes:mes_pro_process",
+  "permissionPrefix": "mes:pro-process",
   "page": {
     "route": "/admin/mes/mes-pro-process",
     "title": "MES 生产工序管理",

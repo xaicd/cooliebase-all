@@ -4,7 +4,7 @@
   "entity": "MesProTaskIssue",
   "kebab": "mes-pro-task-issue",
   "businessName": "MES 生产任务投料",
-  "permissionPrefix": "mes:mes_pro_task_issue",
+  "permissionPrefix": "mes:pro-task-issue",
   "page": {
     "route": "/admin/mes/mes-pro-task-issue",
     "title": "MES 生产任务投料管理",

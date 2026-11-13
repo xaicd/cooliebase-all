@@ -4,7 +4,7 @@
   "entity": "PayWalletTransaction",
   "kebab": "pay-wallet-transaction",
   "businessName": "会员钱包流水",
-  "permissionPrefix": "pay:pay_wallet_transaction",
+  "permissionPrefix": "pay:wallet-transaction",
   "page": {
     "route": "/admin/pay/pay-wallet-transaction",
     "title": "会员钱包流水管理",

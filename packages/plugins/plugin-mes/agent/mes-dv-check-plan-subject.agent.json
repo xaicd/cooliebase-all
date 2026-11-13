@@ -4,7 +4,7 @@
   "entity": "MesDvCheckPlanSubject",
   "kebab": "mes-dv-check-plan-subject",
   "businessName": "MES 点检保养方案项目",
-  "permissionPrefix": "mes:mes_dv_check_plan_subject",
+  "permissionPrefix": "mes:dv-check-plan-subject",
   "page": {
     "route": "/admin/mes/mes-dv-check-plan-subject",
     "title": "MES 点检保养方案项目管理",

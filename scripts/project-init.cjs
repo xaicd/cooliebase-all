@@ -532,7 +532,7 @@ function sanitizeProjectFiles(targetDir, opts) {
 
   function walk(dir) {
     let entries
-    try { entries = fs.readdirSync(dir, { withFileTypes: true }) } catch { return }
+    try { entries = fs.readdirSync(dir, { withFileTypes: true }) } catch (_err) { /* 目录不可读时安全跳过 */ return }
     for (const entry of entries) {
       if (ignoreDirs.has(entry.name)) continue
       const fullPath = path.join(dir, entry.name)
@@ -553,7 +553,7 @@ function sanitizeProjectFiles(targetDir, opts) {
           if (modified) {
             fs.writeFileSync(fullPath, content, "utf8")
           }
-        } catch {}
+        } catch (_err) { /* 非 UTF-8 二进制文件跳过文本替换 */ }
       }
     }
   }
@@ -561,7 +561,38 @@ function sanitizeProjectFiles(targetDir, opts) {
   try {
     fs.rmSync(path.join(targetDir, "docs", "architecture", "archive"), { recursive: true, force: true })
     fs.rmSync(path.join(targetDir, "docs", "specs", "archive"), { recursive: true, force: true })
-  } catch {}
+  } catch (_err) { /* 归档目录不存在时忽略 */ }
+
+  // 派生项目清理历史归档规格后，确保保留 SWARM.md 与 §22 基线预案契约（避免 activeSpecs=0 时 contracts:governance:check 缺 runbook）
+  const swarmSrc = path.join(ROOT, "SWARM.md")
+  const swarmDst = path.join(targetDir, "SWARM.md")
+  if (fs.existsSync(swarmSrc) && !fs.existsSync(swarmDst)) {
+    fs.copyFileSync(swarmSrc, swarmDst)
+  }
+  const baselineRunbook = path.join(targetDir, "docs", "specs", "_baseline", "runbook.json")
+  if (!fs.existsSync(baselineRunbook)) {
+    fs.mkdirSync(path.dirname(baselineRunbook), { recursive: true })
+    fs.writeFileSync(
+      baselineRunbook,
+      JSON.stringify(
+        {
+          $schema: "cooliebase.runbook/v1",
+          name: `${opts.name}-baseline-runbook`,
+          domain: "infra",
+          steps: [
+            { id: "S1", action: "bash scripts/service.sh build", expect: "standalone 构建成功" },
+            { id: "S2", action: "bash scripts/service.sh restart && bash scripts/service.sh health", expect: "HTTP 200 就绪" }
+          ],
+          rollback: [
+            { id: "R1", action: "bash scripts/service.sh stop && git checkout HEAD~1 -- . && bash scripts/service.sh start", expect: "回滚至上一稳定提交并恢复健康探针" }
+          ]
+        },
+        null,
+        2
+      ) + "\n",
+      "utf8"
+    )
+  }
 
   walk(targetDir)
   console.log(`[project-init] ✓ 白标化脱敏清洗完毕`)

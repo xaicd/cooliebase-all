@@ -4,7 +4,7 @@
   "entity": "WmsMovementOrder",
   "kebab": "wms-movement-order",
   "businessName": "移库单",
-  "permissionPrefix": "wms:movement",
+  "permissionPrefix": "wms:movement-order",
   "page": {
     "route": "/admin/wms/wms-movement-order",
     "title": "移库单管理",

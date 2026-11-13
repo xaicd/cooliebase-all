@@ -4,7 +4,7 @@
   "entity": "MesProRouteProduct",
   "kebab": "mes-pro-route-product",
   "businessName": "MES 工艺路线产品",
-  "permissionPrefix": "mes:mes_pro_route_product",
+  "permissionPrefix": "mes:pro-route-product",
   "page": {
     "route": "/admin/mes/mes-pro-route-product",
     "title": "MES 工艺路线产品管理",

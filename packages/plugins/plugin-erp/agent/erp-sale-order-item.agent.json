@@ -4,7 +4,7 @@
   "entity": "ErpSaleOrderItem",
   "kebab": "erp-sale-order-item",
   "businessName": "ERP 销售订单项",
-  "permissionPrefix": "erp:erp_sale_order_item",
+  "permissionPrefix": "erp:sale-order-item",
   "page": {
     "route": "/admin/erp/erp-sale-order-item",
     "title": "ERP 销售订单项管理",

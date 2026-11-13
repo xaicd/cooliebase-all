@@ -4,7 +4,7 @@
   "entity": "PayDemoOrder",
   "kebab": "pay-demo-order",
   "businessName": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款",
-  "permissionPrefix": "pay:pay_demo_order",
+  "permissionPrefix": "pay:demo-order",
   "page": {
     "route": "/admin/pay/pay-demo-order",
     "title": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款管理",

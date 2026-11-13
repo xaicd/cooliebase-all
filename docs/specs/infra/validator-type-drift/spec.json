@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "校验器类型漂移：检测工具已能对齐，但它不是门禁、且有识别盲区",
   "type": "bugfix",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 3,
   "acceptance": 6,
   "invariants": 2,
   "tasks": 4,
-  "updatedAt": "2026-10-27T12:38:40.513Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

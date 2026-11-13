@@ -4,7 +4,7 @@
   "entity": "MesCalPlanShift",
   "kebab": "mes-cal-plan-shift",
   "businessName": "MES 计划班次",
-  "permissionPrefix": "mes:mes_cal_plan_shift",
+  "permissionPrefix": "mes:cal-plan-shift",
   "page": {
     "route": "/admin/mes/mes-cal-plan-shift",
     "title": "MES 计划班次管理",

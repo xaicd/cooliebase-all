@@ -4,7 +4,7 @@
   "entity": "MesTmToolType",
   "kebab": "mes-tm-tool-type",
   "businessName": "MES 工具类型",
-  "permissionPrefix": "mes:mes_tm_tool_type",
+  "permissionPrefix": "mes:tm-tool-type",
   "page": {
     "route": "/admin/mes/mes-tm-tool-type",
     "title": "MES 工具类型管理",

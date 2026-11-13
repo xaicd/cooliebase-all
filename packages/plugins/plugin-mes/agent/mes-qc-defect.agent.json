@@ -4,7 +4,7 @@
   "entity": "MesQcDefect",
   "kebab": "mes-qc-defect",
   "businessName": "MES 缺陷类型",
-  "permissionPrefix": "mes:mes_qc_defect",
+  "permissionPrefix": "mes:qc-defect",
   "page": {
     "route": "/admin/mes/mes-qc-defect",
     "title": "MES 缺陷类型管理",

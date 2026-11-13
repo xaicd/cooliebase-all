@@ -4,7 +4,7 @@
   "entity": "MemberGroup",
   "kebab": "member-group",
   "businessName": "用户分组",
-  "permissionPrefix": "member:member_group",
+  "permissionPrefix": "member:group",
   "page": {
     "route": "/admin/member/member-group",
     "title": "用户分组管理",

@@ -4,7 +4,7 @@
   "entity": "MesQcIqcLine",
   "kebab": "mes-qc-iqc-line",
   "businessName": "MES 来料检验单行",
-  "permissionPrefix": "mes:mes_qc_iqc_line",
+  "permissionPrefix": "mes:qc-iqc-line",
   "page": {
     "route": "/admin/mes/mes-qc-iqc-line",
     "title": "MES 来料检验单行管理",

@@ -4,7 +4,7 @@
   "entity": "MesWmTransferLine",
   "kebab": "mes-wm-transfer-line",
   "businessName": "MES 转移单行",
-  "permissionPrefix": "mes:mes_wm_transfer_line",
+  "permissionPrefix": "mes:wm-transfer-line",
   "page": {
     "route": "/admin/mes/mes-wm-transfer-line",
     "title": "MES 转移单行管理",

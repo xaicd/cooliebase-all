@@ -4,7 +4,7 @@
   "entity": "MesWmItemReceipt",
   "kebab": "mes-wm-item-receipt",
   "businessName": "MES 采购入库单",
-  "permissionPrefix": "mes:mes_wm_item_receipt",
+  "permissionPrefix": "mes:wm-item-receipt",
   "page": {
     "route": "/admin/mes/mes-wm-item-receipt",
     "title": "MES 采购入库单管理",

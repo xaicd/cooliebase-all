@@ -29,9 +29,42 @@ const { writeGeneratedFile } = require("./lib/generated-file.cjs") as {
 }
 
 import { CodegenEngineService } from "../packages/domains/infra/backend/services/codegen-engine.service"
-import type { CodegenConfig } from "../packages/domains/infra/backend/services/codegen-templates"
+import { toKebab, type CodegenConfig } from "../packages/domains/infra/backend/services/codegen-templates"
 
 const ROOT = path.resolve(__dirname, "..")
+
+function ensureDomainPermissionsRegistered(tables: CodegenConfig[]) {
+  const permFile = path.join(ROOT, "packages/shared/backend/constants/permissions.ts")
+  if (!fs.existsSync(permFile)) return
+  const original = fs.readFileSync(permFile, "utf8")
+  const existingKeys = new Set([...original.matchAll(/^\s*([A-Z0-9_]+):\s*"/gm)].map((m) => m[1]))
+  const additions: string[] = []
+  for (const config of tables) {
+    if (config.onlineRuntime?.storageKind === "MANAGED_TABLE") continue
+    const kebab = toKebab(config.className)
+    const entitySlug = kebab.startsWith(`${config.moduleName}-`) ? kebab.slice(config.moduleName.length + 1) : kebab
+    const prefix = config.permissionPrefix ?? `${config.moduleName}:${entitySlug}`
+    const constPrefix = prefix.replace(/[^A-Za-z0-9]+/g, "_").toUpperCase()
+    const pairs: Array<[string, string]> = [
+      [`${constPrefix}_CREATE`, `${prefix}:create`],
+      [`${constPrefix}_DELETE`, `${prefix}:delete`],
+      [`${constPrefix}_UPDATE`, `${prefix}:update`],
+      [`${constPrefix}_VIEW`, `${prefix}:query`],
+    ]
+    for (const [k, v] of pairs) {
+      if (!existingKeys.has(k)) {
+        existingKeys.add(k)
+        additions.push(`  ${k}: "${v}",`)
+      }
+    }
+  }
+  if (additions.length === 0) return
+  const closingIdx = original.lastIndexOf("} as const")
+  if (closingIdx === -1) return
+  const updated = `${original.slice(0, closingIdx)}${additions.join("\n")}\n\n${original.slice(closingIdx)}`
+  fs.writeFileSync(permFile, updated, "utf8")
+  console.log(`  ✓ 已幂等登记 ${additions.length} 条新域权限常量至 permissions.ts`)
+}
 const argv = process.argv.slice(2)
 const arg = (flag: string) => {
   const index = argv.indexOf(flag)
@@ -94,6 +127,7 @@ function main() {
   run("pnpm", ["exec", "tsx", "scripts/generate-table-migration.ts", "--tables", tablesFile, "--export", exportName, "--name", `add_${domain}_tables`, "--write"])
 
   step(3, "按表生成全栈代码")
+  ensureDomainPermissionsRegistered(tables)
   // 默认**不覆盖**已有文件（AGENTS §14.6: 生成器禁止覆盖已有 Service/Repository/Page）。
   // 本仓已有手写代码的域（wms 等）与已迁移的骨架域都靠这道保护。
   const force = argv.includes("--force")

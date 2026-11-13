@@ -4,7 +4,7 @@
   "entity": "MesCalTeam",
   "kebab": "mes-cal-team",
   "businessName": "MES 班组",
-  "permissionPrefix": "mes:mes_cal_team",
+  "permissionPrefix": "mes:cal-team",
   "page": {
     "route": "/admin/mes/mes-cal-team",
     "title": "MES 班组管理",

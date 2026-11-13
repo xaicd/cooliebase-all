@@ -14,6 +14,11 @@
 
 const fs = require("node:fs")
 const path = require("node:path")
+const {
+  compactMenuTitle,
+  validateMenuTitle,
+  validateBlueprintMenuTitles,
+} = require("./lib/menu-title-guard.cjs")
 
 const ROOT = path.resolve(__dirname, "..")
 const MANIFEST_PATH = path.join(ROOT, "blueprint.template.json")
@@ -397,6 +402,21 @@ function diagnoseAndHealBlueprint(domainSpec) {
       ent.table = rawTable
     }
 
+    const rawMenuCandidate = String(
+      ent.menuTitle !== undefined ? ent.menuTitle : ent.title || ent.className || ent.table
+    ).trim()
+    const menuCheck = validateMenuTitle(rawMenuCandidate)
+    if (!menuCheck.ok) {
+      diagnostics.push({
+        level: "healed",
+        entity: ent.table,
+        message: `侧边栏可见菜单名 "${rawMenuCandidate}" (${menuCheck.length} 字) 超过 <=4 字上限，已自动精简为 "${menuCheck.suggested}"`,
+      })
+      ent.menuTitle = menuCheck.suggested
+    } else {
+      ent.menuTitle = menuCheck.label
+    }
+
     ent.fields = Array.isArray(ent.fields) ? ent.fields : []
     for (const f of ent.fields) {
       const rawWidget = String(f.widget || "text").trim().toLowerCase()
@@ -505,6 +525,16 @@ function diagnoseAndHealBlueprint(domainSpec) {
 function compileBlueprintDomain(domainSpec) {
   if (!domainSpec || !domainSpec.domain || !Array.isArray(domainSpec.entities)) {
     throw new Error("[blueprint-engine] domainSpec 必须包含 domain 与 entities[] 数组")
+  }
+  for (const rawEnt of domainSpec.entities) {
+    if (rawEnt && rawEnt.menuTitle !== undefined) {
+      const explicitCheck = validateMenuTitle(rawEnt.menuTitle)
+      if (!explicitCheck.ok) {
+        throw new Error(
+          `[blueprint-engine] 实体 "${rawEnt.table || rawEnt.className || "unknown"}" 的显式菜单标题 menuTitle "${rawEnt.menuTitle}" 超过 <=4 字上限（实测 ${explicitCheck.length} 字；建议改为 "${explicitCheck.suggested}"）`
+        )
+      }
+    }
   }
   const { healedSpec, diagnostics } = diagnoseAndHealBlueprint(domainSpec)
   const domain = String(healedSpec.domain).trim().toLowerCase()
@@ -639,8 +669,9 @@ function compileBlueprintDomain(domainSpec) {
       moduleName: domain,
       className,
       businessName: title,
+      menuTitle: ent.menuTitle || compactMenuTitle(title),
       parentMenuId: `${domain}-dir`,
-      permissionPrefix: `${domain}:${permEntity}`,
+      permissionPrefix: `${domain}:${permEntity.replace(/_/g, "-")}`,
       ...(Object.keys(advanced).length > 0 ? { advanced } : {}),
       table: {
         name: tableName,
@@ -1560,4 +1591,7 @@ module.exports = {
   resolveBlueprintBasePath,
   diagnoseAndHealBlueprint,
   compileBlueprintDomain,
+  compactMenuTitle,
+  validateMenuTitle,
+  validateBlueprintMenuTitles,
 }

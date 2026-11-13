@@ -4,7 +4,7 @@
   "entity": "CrmClue",
   "kebab": "crm-clue",
   "businessName": "CRM 线索",
-  "permissionPrefix": "crm:crm_clue",
+  "permissionPrefix": "crm:clue",
   "page": {
     "route": "/admin/crm/crm-clue",
     "title": "CRM 线索管理",

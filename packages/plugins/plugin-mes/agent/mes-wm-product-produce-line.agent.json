@@ -4,7 +4,7 @@
   "entity": "MesWmProductProduceLine",
   "kebab": "mes-wm-product-produce-line",
   "businessName": "MES 生产入库单行",
-  "permissionPrefix": "mes:mes_wm_product_produce_line",
+  "permissionPrefix": "mes:wm-product-produce-line",
   "page": {
     "route": "/admin/mes/mes-wm-product-produce-line",
     "title": "MES 生产入库单行管理",

@@ -4,7 +4,7 @@
   "entity": "ErpStockCheckItem",
   "kebab": "erp-stock-check-item",
   "businessName": "ERP 库存盘点单项",
-  "permissionPrefix": "erp:erp_stock_check_item",
+  "permissionPrefix": "erp:stock-check-item",
   "page": {
     "route": "/admin/erp/erp-stock-check-item",
     "title": "ERP 库存盘点单项管理",

@@ -4,7 +4,7 @@
   "entity": "MesWmReturnIssue",
   "kebab": "mes-wm-return-issue",
   "businessName": "MES 生产退料单",
-  "permissionPrefix": "mes:mes_wm_return_issue",
+  "permissionPrefix": "mes:wm-return-issue",
   "page": {
     "route": "/admin/mes/mes-wm-return-issue",
     "title": "MES 生产退料单管理",

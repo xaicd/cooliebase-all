@@ -4,7 +4,7 @@
   "entity": "MesProCard",
   "kebab": "mes-pro-card",
   "businessName": "MES 生产流转卡",
-  "permissionPrefix": "mes:mes_pro_card",
+  "permissionPrefix": "mes:pro-card",
   "page": {
     "route": "/admin/mes/mes-pro-card",
     "title": "MES 生产流转卡管理",

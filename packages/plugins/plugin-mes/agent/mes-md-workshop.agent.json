@@ -4,7 +4,7 @@
   "entity": "MesMdWorkshop",
   "kebab": "mes-md-workshop",
   "businessName": "MES 车间",
-  "permissionPrefix": "mes:mes_md_workshop",
+  "permissionPrefix": "mes:md-workshop",
   "page": {
     "route": "/admin/mes/mes-md-workshop",
     "title": "MES 车间管理",

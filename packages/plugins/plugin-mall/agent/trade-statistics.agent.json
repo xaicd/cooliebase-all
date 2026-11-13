@@ -4,7 +4,7 @@
   "entity": "TradeStatistics",
   "kebab": "trade-statistics",
   "businessName": "交易统计 DO以天为维度，统计全部的数据",
-  "permissionPrefix": "mall:trade_statistics",
+  "permissionPrefix": "mall:trade-statistics",
   "page": {
     "route": "/admin/mall/trade-statistics",
     "title": "交易统计 DO以天为维度，统计全部的数据管理",

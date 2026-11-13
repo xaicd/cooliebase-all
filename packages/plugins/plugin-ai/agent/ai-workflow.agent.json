@@ -4,7 +4,7 @@
   "entity": "AiWorkflow",
   "kebab": "ai-workflow",
   "businessName": "AI 工作流",
-  "permissionPrefix": "ai:ai_workflow",
+  "permissionPrefix": "ai:workflow",
   "page": {
     "route": "/admin/ai/ai-workflow",
     "title": "AI 工作流管理",

@@ -4,7 +4,7 @@
   "entity": "MemberPointRecord",
   "kebab": "member-point-record",
   "businessName": "用户积分记录",
-  "permissionPrefix": "member:member_point_record",
+  "permissionPrefix": "member:point-record",
   "page": {
     "route": "/admin/member/member-point-record",
     "title": "用户积分记录管理",

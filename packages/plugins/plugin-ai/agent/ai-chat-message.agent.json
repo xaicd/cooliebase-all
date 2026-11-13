@@ -4,7 +4,7 @@
   "entity": "AiChatMessage",
   "kebab": "ai-chat-message",
   "businessName": "AI Chat 消息",
-  "permissionPrefix": "ai:ai_chat_message",
+  "permissionPrefix": "ai:chat-message",
   "page": {
     "route": "/admin/ai/ai-chat-message",
     "title": "AI Chat 消息管理",

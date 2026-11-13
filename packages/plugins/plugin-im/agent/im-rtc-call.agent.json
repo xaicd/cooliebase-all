@@ -4,7 +4,7 @@
   "entity": "ImRtcCall",
   "kebab": "im-rtc-call",
   "businessName": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
-  "permissionPrefix": "im:im_rtc_call",
+  "permissionPrefix": "im:rtc-call",
   "page": {
     "route": "/admin/im/im-rtc-call",
     "title": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →管理",

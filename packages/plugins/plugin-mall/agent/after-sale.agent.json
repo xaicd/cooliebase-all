@@ -4,7 +4,7 @@
   "entity": "AfterSale",
   "kebab": "after-sale",
   "businessName": "售后订单，用于处理 交易订单的退款退货流程",
-  "permissionPrefix": "mall:after_sale",
+  "permissionPrefix": "mall:after-sale",
   "page": {
     "route": "/admin/mall/after-sale",
     "title": "售后订单，用于处理 交易订单的退款退货流程管理",

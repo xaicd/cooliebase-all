@@ -4,7 +4,7 @@
   "entity": "ErpProductCategory",
   "kebab": "erp-product-category",
   "businessName": "ERP 产品分类",
-  "permissionPrefix": "erp:erp_product_category",
+  "permissionPrefix": "erp:product-category",
   "page": {
     "route": "/admin/erp/erp-product-category",
     "title": "ERP 产品分类管理",

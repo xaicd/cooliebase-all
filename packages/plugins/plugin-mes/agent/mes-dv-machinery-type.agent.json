@@ -4,7 +4,7 @@
   "entity": "MesDvMachineryType",
   "kebab": "mes-dv-machinery-type",
   "businessName": "MES 设备类型",
-  "permissionPrefix": "mes:mes_dv_machinery_type",
+  "permissionPrefix": "mes:dv-machinery-type",
   "page": {
     "route": "/admin/mes/mes-dv-machinery-type",
     "title": "MES 设备类型管理",

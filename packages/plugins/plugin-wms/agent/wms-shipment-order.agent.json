@@ -4,7 +4,7 @@
   "entity": "WmsShipmentOrder",
   "kebab": "wms-shipment-order",
   "businessName": "出库单",
-  "permissionPrefix": "wms:shipment",
+  "permissionPrefix": "wms:shipment-order",
   "page": {
     "route": "/admin/wms/wms-shipment-order",
     "title": "出库单管理",

@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`system` | 规格标识：`in-app-ontology-copilot`
+> 状态：`DONE` | 所属领域：`system` | 规格标识：`in-app-ontology-copilot`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---

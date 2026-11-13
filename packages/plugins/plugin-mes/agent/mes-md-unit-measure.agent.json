@@ -4,7 +4,7 @@
   "entity": "MesMdUnitMeasure",
   "kebab": "mes-md-unit-measure",
   "businessName": "MES 计量单位",
-  "permissionPrefix": "mes:mes_md_unit_measure",
+  "permissionPrefix": "mes:md-unit-measure",
   "page": {
     "route": "/admin/mes/mes-md-unit-measure",
     "title": "MES 计量单位管理",

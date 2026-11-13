@@ -4,7 +4,7 @@
   "entity": "CrmPermission",
   "kebab": "crm-permission",
   "businessName": "CRM 数据权限",
-  "permissionPrefix": "crm:crm_permission",
+  "permissionPrefix": "crm:permission",
   "page": {
     "route": "/admin/crm/crm-permission",
     "title": "CRM 数据权限管理",

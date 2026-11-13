@@ -4,7 +4,7 @@
   "entity": "BargainHelp",
   "kebab": "bargain-help",
   "businessName": "砍价助力",
-  "permissionPrefix": "mall:bargain_help",
+  "permissionPrefix": "mall:bargain-help",
   "page": {
     "route": "/admin/mall/bargain-help",
     "title": "砍价助力管理",

@@ -4,7 +4,7 @@
   "entity": "IotOtaTask",
   "kebab": "iot-ota-task",
   "businessName": "IoT OTA 升级任务",
-  "permissionPrefix": "iot:iot_ota_task",
+  "permissionPrefix": "iot:ota-task",
   "page": {
     "route": "/admin/iot/iot-ota-task",
     "title": "IoT OTA 升级任务管理",

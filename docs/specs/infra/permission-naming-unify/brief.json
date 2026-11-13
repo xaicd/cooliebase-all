@@ -65,10 +65,10 @@
   ],
   "licenseConclusion": "全部自研，无第三方依赖引入。",
   "tasks": [
-    { "id": "T1", "parent": "main", "title": "契约 permissionPrefix 改 kebab + 重生成 340 份契约", "files": ["scripts/import-source-tables.ts", "packages/plugins/"] },
+    { "id": "T1", "parent": "main", "title": "契约 permissionPrefix 改 kebab + 重生成 340 份契约", "files": ["scripts/import-source-tables.ts", "scripts/data/", "packages/domains/infra/backend/services/codegen-templates/agent-contract.template.ts", "packages/plugins/", "docs/agent/contracts.json"] },
     { "id": "T2", "parent": "T1", "title": "权限表按新键重写（生成段）", "files": ["packages/shared/backend/constants/permissions.ts"] },
-    { "id": "T3", "parent": "T2", "title": "路由模板改静态取键 + 重生成路由", "files": ["packages/domains/infra/backend/services/codegen-templates/route.template.ts", "packages/plugins/"] },
-    { "id": "T4", "parent": "T3", "title": "反向对照（删键必须编译失败）+ 收紧 governance 基线 + 计划同步", "files": ["test/unit/permission-static-key.test.ts", "docs/architecture/artifacts/contract-governance-baseline.json", "docs/01_management/project-plan.md"] }
+    { "id": "T3", "parent": "T2", "title": "路由模板改静态取键 + 重生成路由", "files": ["packages/domains/infra/backend/services/codegen-templates/route.template.ts", "scripts/create-business-domain.ts", "packages/plugins/"] },
+    { "id": "T4", "parent": "T3", "title": "反向对照（删键必须编译失败）+ 收紧 governance 基线 + 计划同步", "files": ["test/unit/permission-static-key.test.ts", "docs/architecture/artifacts/contract-governance-baseline.json", "docs/architecture/artifacts/typecheck-baseline.json", "docs/01_management/project-plan.md"] }
   ],
   "dependencies": "T1 → T2 → T3 → T4（每步都必须可构建）",
   "windowMinutes": 20

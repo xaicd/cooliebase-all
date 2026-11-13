@@ -4,7 +4,7 @@
   "entity": "MesWmProductReceiptLine",
   "kebab": "mes-wm-product-receipt-line",
   "businessName": "MES 产品收货（入库）单行",
-  "permissionPrefix": "mes:mes_wm_product_receipt_line",
+  "permissionPrefix": "mes:wm-product-receipt-line",
   "page": {
     "route": "/admin/mes/mes-wm-product-receipt-line",
     "title": "MES 产品收货（入库）单行管理",

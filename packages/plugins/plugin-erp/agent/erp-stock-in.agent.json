@@ -4,7 +4,7 @@
   "entity": "ErpStockIn",
   "kebab": "erp-stock-in",
   "businessName": "ERP 其它入库单",
-  "permissionPrefix": "erp:erp_stock_in",
+  "permissionPrefix": "erp:stock-in",
   "page": {
     "route": "/admin/erp/erp-stock-in",
     "title": "ERP 其它入库单管理",

@@ -4,7 +4,7 @@
   "entity": "BrokerageUser",
   "kebab": "brokerage-user",
   "businessName": "分销用户",
-  "permissionPrefix": "mall:brokerage_user",
+  "permissionPrefix": "mall:brokerage-user",
   "page": {
     "route": "/admin/mall/brokerage-user",
     "title": "分销用户管理",

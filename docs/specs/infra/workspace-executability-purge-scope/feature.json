@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "派生后可执行性门禁口径对齐平台 cleanWorkspaceLeaks 全量清洗面（补 package.json 维度）",
   "type": "feature",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 4,
   "acceptance": 5,
   "invariants": 4,
   "tasks": 4,
-  "updatedAt": "2026-11-04T08:15:52.510Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

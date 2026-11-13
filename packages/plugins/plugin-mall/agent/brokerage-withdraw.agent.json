@@ -4,7 +4,7 @@
   "entity": "BrokerageWithdraw",
   "kebab": "brokerage-withdraw",
   "businessName": "佣金提现",
-  "permissionPrefix": "mall:brokerage_withdraw",
+  "permissionPrefix": "mall:brokerage-withdraw",
   "page": {
     "route": "/admin/mall/brokerage-withdraw",
     "title": "佣金提现管理",

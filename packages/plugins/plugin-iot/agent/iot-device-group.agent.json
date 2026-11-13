@@ -4,7 +4,7 @@
   "entity": "IotDeviceGroup",
   "kebab": "iot-device-group",
   "businessName": "IoT 设备分组",
-  "permissionPrefix": "iot:iot_device_group",
+  "permissionPrefix": "iot:device-group",
   "page": {
     "route": "/admin/iot/iot-device-group",
     "title": "IoT 设备分组管理",

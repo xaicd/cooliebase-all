@@ -4,7 +4,7 @@
   "entity": "ErpStockRecord",
   "kebab": "erp-stock-record",
   "businessName": "ERP 产品库存明细",
-  "permissionPrefix": "erp:erp_stock_record",
+  "permissionPrefix": "erp:stock-record",
   "page": {
     "route": "/admin/erp/erp-stock-record",
     "title": "ERP 产品库存明细管理",

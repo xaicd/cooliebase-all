@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`ui-design-tokens`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`ui-design-tokens`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -32,12 +32,22 @@
     },
     {
       "id": "wave-3",
-      "title": "端到端测试与集成验证",
+      "title": "E2E 页面拟人操作运营配置（严禁直接 Seed 数据库）",
       "tasks": [
         "T3"
       ],
       "dependsOn": [
         "wave-2"
+      ]
+    },
+    {
+      "id": "wave-4",
+      "title": "端到端自动化测试与集成验证",
+      "tasks": [
+        "T4"
+      ],
+      "dependsOn": [
+        "wave-3"
       ]
     }
   ]
@@ -46,19 +56,19 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: design-tokens.ts（页面头/表格/按钮/卡片四组）
+- [x] **T1**: design-tokens.ts（页面头/表格/按钮/卡片四组）
   - 归属: `main`
   - 文件白名单: `packages/shared/frontend/lib/design-tokens.ts`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: codegen 模板改用 token
+- [x] **T2**: codegen 模板改用 token
   - 归属: `T1`
   - 文件白名单: `packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步
+- [x] **T3**: 裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步
   - 归属: `T2`
-  - 文件白名单: `scripts/check-design-tokens.cjs, package.json, docs/01_management/project-plan.md`
+  - 文件白名单: `scripts/check-design-tokens.cjs, docs/architecture/artifacts/design-tokens-baseline.json, test/unit/design-tokens-gate.test.ts, package.json, docs/01_management/project-plan.md`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
 
@@ -73,9 +83,9 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | design-tokens.ts（页面头/表格/按钮/卡片四组） | packages/shared/frontend/lib/design-tokens.ts | 未开始 |
-| T2 | T1 | codegen 模板改用 token | packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts | 未开始 |
-| T3 | T2 | 裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步 | scripts/check-design-tokens.cjs, package.json, docs/01_management/project-plan.md | 未开始 |
+| T1 | main | design-tokens.ts（页面头/表格/按钮/卡片四组） | packages/shared/frontend/lib/design-tokens.ts | 已完成 |
+| T2 | T1 | codegen 模板改用 token | packages/domains/infra/backend/services/codegen-templates/frontend-list.template.ts | 已完成 |
+| T3 | T2 | 裸 px/py 门禁（棘轮）+ 反向对照 + 计划同步 | scripts/check-design-tokens.cjs, docs/architecture/artifacts/design-tokens-baseline.json, test/unit/design-tokens-gate.test.ts, package.json, docs/01_management/project-plan.md | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -84,5 +94,5 @@ T1 → T2 → T3
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

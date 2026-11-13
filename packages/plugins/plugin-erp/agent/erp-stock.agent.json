@@ -4,7 +4,7 @@
   "entity": "ErpStock",
   "kebab": "erp-stock",
   "businessName": "ERP 产品库存",
-  "permissionPrefix": "erp:erp_stock",
+  "permissionPrefix": "erp:stock",
   "page": {
     "route": "/admin/erp/erp-stock",
     "title": "ERP 产品库存管理",

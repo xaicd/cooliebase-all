@@ -4,7 +4,7 @@
   "entity": "MesProTask",
   "kebab": "mes-pro-task",
   "businessName": "MES 生产任务",
-  "permissionPrefix": "mes:mes_pro_task",
+  "permissionPrefix": "mes:pro-task",
   "page": {
     "route": "/admin/mes/mes-pro-task",
     "title": "MES 生产任务管理",

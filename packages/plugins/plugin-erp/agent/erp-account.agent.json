@@ -4,7 +4,7 @@
   "entity": "ErpAccount",
   "kebab": "erp-account",
   "businessName": "ERP 结算账户",
-  "permissionPrefix": "erp:erp_account",
+  "permissionPrefix": "erp:account",
   "page": {
     "route": "/admin/erp/erp-account",
     "title": "ERP 结算账户管理",

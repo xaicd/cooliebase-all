@@ -4,7 +4,7 @@
   "entity": "MpMaterial",
   "kebab": "mp-material",
   "businessName": "公众号素材 DO1. a href=https://developers.wei",
-  "permissionPrefix": "mp:mp_material",
+  "permissionPrefix": "mp:material",
   "page": {
     "route": "/admin/mp/mp-material",
     "title": "公众号素材 DO1. a href=https://developers.wei管理",

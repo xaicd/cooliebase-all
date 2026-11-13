@@ -9,11 +9,10 @@ import {
 } from "@/modules/wms/backend/validators/wms-item-sku.validator"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 
-const PERM_PREFIX = "WMS_ITEM"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-item-sku:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-item-sku:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-item-sku:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-item-sku:delete"
+const VIEW_PERM = PERMISSIONS.WMS_ITEM_SKU_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_ITEM_SKU_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_ITEM_SKU_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_ITEM_SKU_DELETE
 
 type RouteContext = { params: Promise<{ id: string }> }
 

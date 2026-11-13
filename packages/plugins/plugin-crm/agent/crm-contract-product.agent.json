@@ -4,7 +4,7 @@
   "entity": "CrmContractProduct",
   "kebab": "crm-contract-product",
   "businessName": "CRM 合同产品关联表",
-  "permissionPrefix": "crm:crm_contract_product",
+  "permissionPrefix": "crm:contract-product",
   "page": {
     "route": "/admin/crm/crm-contract-product",
     "title": "CRM 合同产品关联表管理",

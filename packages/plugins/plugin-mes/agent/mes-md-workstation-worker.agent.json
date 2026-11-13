@@ -4,7 +4,7 @@
   "entity": "MesMdWorkstationWorker",
   "kebab": "mes-md-workstation-worker",
   "businessName": "MES 人力资源",
-  "permissionPrefix": "mes:mes_md_workstation_worker",
+  "permissionPrefix": "mes:md-workstation-worker",
   "page": {
     "route": "/admin/mes/mes-md-workstation-worker",
     "title": "MES 人力资源管理",

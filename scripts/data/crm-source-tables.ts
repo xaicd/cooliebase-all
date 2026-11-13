@@ -8,7 +8,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmBusiness",
     "businessName": "CRM 商机",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_business",
+    "permissionPrefix": "crm:business",
     "table": {
       "name": "crm_business",
       "comment": "CRM 商机",
@@ -210,7 +210,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmBusinessProduct",
     "businessName": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_business_product",
+    "permissionPrefix": "crm:business-product",
     "table": {
       "name": "crm_business_product",
       "comment": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
@@ -339,7 +339,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmBusinessStatus",
     "businessName": "CRM 商机状态 DO注意，它是个配置表",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_business_status",
+    "permissionPrefix": "crm:business-status",
     "table": {
       "name": "crm_business_status",
       "comment": "CRM 商机状态 DO注意，它是个配置表",
@@ -444,7 +444,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmBusinessStatusType",
     "businessName": "CRM 商机状态组 DO注意，它是个配置表",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_business_status_type",
+    "permissionPrefix": "crm:business-status-type",
     "table": {
       "name": "crm_business_status_type",
       "comment": "CRM 商机状态组 DO注意，它是个配置表",
@@ -533,7 +533,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmClue",
     "businessName": "CRM 线索",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_clue",
+    "permissionPrefix": "crm:clue",
     "table": {
       "name": "crm_clue",
       "comment": "CRM 线索",
@@ -761,7 +761,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmContact",
     "businessName": "CRM 联系人",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_contact",
+    "permissionPrefix": "crm:contact",
     "table": {
       "name": "crm_contact",
       "comment": "CRM 联系人",
@@ -981,7 +981,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmContactBusiness",
     "businessName": "CRM 联系人与商机的关联",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_contact_business",
+    "permissionPrefix": "crm:contact-business",
     "table": {
       "name": "crm_contact_business",
       "comment": "CRM 联系人与商机的关联",
@@ -1070,7 +1070,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmContract",
     "businessName": "CRM 合同",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_contract",
+    "permissionPrefix": "crm:contract",
     "table": {
       "name": "crm_contract",
       "comment": "CRM 合同",
@@ -1288,7 +1288,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmContractConfig",
     "businessName": "编号",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_contract_config",
+    "permissionPrefix": "crm:contract-config",
     "table": {
       "name": "crm_contract_config",
       "comment": "编号",
@@ -1375,7 +1375,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmContractProduct",
     "businessName": "CRM 合同产品关联表",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_contract_product",
+    "permissionPrefix": "crm:contract-product",
     "table": {
       "name": "crm_contract_product",
       "comment": "CRM 合同产品关联表",
@@ -1504,7 +1504,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmCustomer",
     "businessName": "CRM 客户",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_customer",
+    "permissionPrefix": "crm:customer",
     "table": {
       "name": "crm_customer",
       "comment": "CRM 客户",
@@ -1740,7 +1740,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmCustomerLimitConfig",
     "businessName": "客户限制配置",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_customer_limit_config",
+    "permissionPrefix": "crm:customer-limit-config",
     "table": {
       "name": "crm_customer_limit_config",
       "comment": "客户限制配置",
@@ -1854,7 +1854,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmCustomerPoolConfig",
     "businessName": "客户公海配置",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_customer_pool_config",
+    "permissionPrefix": "crm:customer-pool-config",
     "table": {
       "name": "crm_customer_pool_config",
       "comment": "客户公海配置",
@@ -1965,7 +1965,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmFollowUpRecord",
     "businessName": "跟进记录 DO用于记录客户、联系人的每一次跟进",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_follow_up_record",
+    "permissionPrefix": "crm:follow-up-record",
     "table": {
       "name": "crm_follow_up_record",
       "comment": "跟进记录 DO用于记录客户、联系人的每一次跟进",
@@ -2113,7 +2113,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmOwnerRecord",
     "businessName": "CRM 负责人变更记录",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_owner_record",
+    "permissionPrefix": "crm:owner-record",
     "table": {
       "name": "crm_owner_record",
       "comment": "CRM 负责人变更记录",
@@ -2220,7 +2220,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmPerformanceConfig",
     "businessName": "CRM 业绩目标",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_performance_config",
+    "permissionPrefix": "crm:performance-config",
     "table": {
       "name": "crm_performance_config",
       "comment": "CRM 业绩目标",
@@ -2455,7 +2455,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmPermission",
     "businessName": "CRM 数据权限",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_permission",
+    "permissionPrefix": "crm:permission",
     "table": {
       "name": "crm_permission",
       "comment": "CRM 数据权限",
@@ -2562,7 +2562,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmProduct",
     "businessName": "CRM 产品",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_product",
+    "permissionPrefix": "crm:product",
     "table": {
       "name": "crm_product",
       "comment": "CRM 产品",
@@ -2704,7 +2704,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmProductCategory",
     "businessName": "产品分类",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_product_category",
+    "permissionPrefix": "crm:product-category",
     "table": {
       "name": "crm_product_category",
       "comment": "产品分类",
@@ -2793,7 +2793,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmReceivable",
     "businessName": "回款",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_receivable",
+    "permissionPrefix": "crm:receivable",
     "table": {
       "name": "crm_receivable",
       "comment": "回款",
@@ -2959,7 +2959,7 @@ export const CRM_TABLES: CodegenConfig[] = [
     "className": "CrmReceivablePlan",
     "businessName": "CRM 回款计划",
     "parentMenuId": "crm-dir",
-    "permissionPrefix": "crm:crm_receivable_plan",
+    "permissionPrefix": "crm:receivable-plan",
     "table": {
       "name": "crm_receivable_plan",
       "comment": "CRM 回款计划",

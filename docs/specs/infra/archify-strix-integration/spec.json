@@ -3,10 +3,10 @@
   "domain": "infra",
   "title": "开源顶流技能吸收：Archify 架构可视化与 Strix 自主渗透防御",
   "type": "enhancement",
-  "status": "PLAN_APPROVED",
+  "status": "DONE",
   "stories": 3,
   "acceptance": 3,
   "invariants": 1,
   "tasks": 3,
-  "updatedAt": "2026-10-10T06:35:10.741Z"
+  "updatedAt": "2026-11-13T06:55:13.673Z"
 }

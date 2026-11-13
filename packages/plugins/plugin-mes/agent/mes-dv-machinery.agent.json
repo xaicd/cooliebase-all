@@ -4,7 +4,7 @@
   "entity": "MesDvMachinery",
   "kebab": "mes-dv-machinery",
   "businessName": "MES 设备台账",
-  "permissionPrefix": "mes:mes_dv_machinery",
+  "permissionPrefix": "mes:dv-machinery",
   "page": {
     "route": "/admin/mes/mes-dv-machinery",
     "title": "MES 设备台账管理",

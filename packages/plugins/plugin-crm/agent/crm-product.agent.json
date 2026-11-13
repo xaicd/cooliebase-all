@@ -4,7 +4,7 @@
   "entity": "CrmProduct",
   "kebab": "crm-product",
   "businessName": "CRM 产品",
-  "permissionPrefix": "crm:crm_product",
+  "permissionPrefix": "crm:product",
   "page": {
     "route": "/admin/crm/crm-product",
     "title": "CRM 产品管理",

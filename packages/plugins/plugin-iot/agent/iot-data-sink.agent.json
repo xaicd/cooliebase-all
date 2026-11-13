@@ -4,7 +4,7 @@
   "entity": "IotDataSink",
   "kebab": "iot-data-sink",
   "businessName": "IoT 数据流转目的",
-  "permissionPrefix": "iot:iot_data_sink",
+  "permissionPrefix": "iot:data-sink",
   "page": {
     "route": "/admin/iot/iot-data-sink",
     "title": "IoT 数据流转目的管理",

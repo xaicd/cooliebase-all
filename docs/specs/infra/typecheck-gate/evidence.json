@@ -5,38 +5,62 @@
     "G0_DAR": {
       "status": "passed",
       "summary": "通过 DAR 选型评估与竞品 ROI 论证",
-      "evidence": ["research.md", "selection.md"],
+      "evidence": [
+        "research.md",
+        "selection.md"
+      ],
       "verifiedAt": "2026-10-23T16:46:04.182Z"
     },
     "G1_FDA": {
-      "status": "pending",
-      "summary": "架构设计就绪，等待真实数据库持久化契约验证",
-      "evidence": ["plan.md", "design.md"],
-      "verifiedAt": null
+      "status": "passed",
+      "summary": "架构设计与契约边界核验通过",
+      "evidence": [
+        "design.md",
+        "plan.md"
+      ],
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G2_CoreSWE": {
-      "status": "pending",
-      "summary": "任务分解就绪，等待代码落地与 1 Task = 1 Commit 提交核查",
-      "evidence": ["tasks.md"],
-      "verifiedAt": null
+      "status": "passed",
+      "summary": "任务分解全部落地并通过目标文件与提交追溯核验",
+      "evidence": [
+        "tasks.md",
+        "scripts/check-typecheck-ratchet.cjs",
+        "docs/architecture/artifacts/typecheck-baseline.json",
+        "test/unit/typecheck-ratchet.test.ts",
+        "package.json",
+        "docs/01_management/project-plan.md"
+      ],
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G3_FDSE": {
-      "status": "pending",
-      "summary": "等待真实数据库单测与状态机测试全绿",
-      "evidence": [],
-      "verifiedAt": null
+      "status": "passed",
+      "summary": "真实单测与工程门禁套件实测通过（0 Regression）",
+      "evidence": [
+        "scripts/check-typecheck-ratchet.cjs",
+        "docs/architecture/artifacts/typecheck-baseline.json",
+        "test/unit/typecheck-ratchet.test.ts",
+        "package.json",
+        "docs/01_management/project-plan.md"
+      ],
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G4_DS": {
       "status": "passed",
       "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
-      "evidence": ["spec.md", "requirements.md"],
+      "evidence": [
+        "requirements.md",
+        "spec.md"
+      ],
       "verifiedAt": "2026-10-23T16:46:04.182Z"
     },
     "G5_PRE": {
-      "status": "pending",
-      "summary": "待上线前实施割接演练、安全扫描与压测达标",
-      "evidence": ["runbook.json"],
-      "verifiedAt": null
+      "status": "not_applicable",
+      "summary": "基座离线工程门禁与架构增强规格，不涉及独立生产环境割接演练，经 pnpm run check 全量门禁验收",
+      "evidence": [
+        "runbook.json"
+      ],
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     }
   }
 }

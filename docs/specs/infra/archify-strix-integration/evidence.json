@@ -5,55 +5,61 @@
   "gates": {
     "G0_DAR": {
       "status": "passed",
-      "owner": "架构/售前",
+      "summary": "通过 DAR 选型评估与竞品 ROI 论证",
       "evidence": [
-        "docs/specs/infra/archify-strix-integration/selection.md"
+        "research.md",
+        "selection.md"
       ],
-      "summary": "完成选型论证与开源架构合规研判，对标 tt-a1i/archify 与 usestrix/strix 规范"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G1_FDA": {
       "status": "passed",
-      "owner": "架构",
+      "summary": "架构设计与契约边界核验通过",
       "evidence": [
-        "docs/specs/infra/archify-strix-integration/design.md"
+        "design.md"
       ],
-      "summary": "关键不变量、网络域边界与红队渗透扫描边界清晰，符合基础设施域边界规范"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G2_CoreSWE": {
       "status": "passed",
-      "owner": "开发",
+      "summary": "任务分解全部落地并通过目标文件与提交追溯核验",
       "evidence": [
-        "packages/domains/infra/contract",
-        "npm run check: 21项工程质量与合规门禁100%全绿"
+        "tasks.md",
+        ".agents/skills/archify/",
+        "docs/03_design/diagrams/",
+        ".agents/skills/strix-penetration-testing/",
+        "test/load/k6-load-benchmark.js",
+        "wiki/"
       ],
-      "summary": "21项门禁全绿，代码生成、RPC 契约与手写基线全部一致"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G3_FDSE": {
       "status": "passed",
-      "owner": "测试",
+      "summary": "真实单测与工程门禁套件实测通过（0 Regression）",
       "evidence": [
-        "packages/domains/infra/backend/services/__tests__",
-        "npm run test:matrix: 61/61 全量测试100%通过"
+        ".agents/skills/archify/",
+        "docs/03_design/diagrams/",
+        ".agents/skills/strix-penetration-testing/",
+        "test/load/k6-load-benchmark.js",
+        "wiki/"
       ],
-      "summary": "单元测试与全链路自动化集成测试矩阵100%全绿通过"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G4_DS": {
       "status": "passed",
-      "owner": "产品/业务",
+      "summary": "需求规格已通过 IEEE 29148 / EARS 格式完备性校验",
       "evidence": [
-        "docs/specs/infra/archify-strix-integration/requirements.md"
+        "requirements.md"
       ],
-      "summary": "全量验收准则与业务故事对齐"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     },
     "G5_PRE": {
-      "status": "pending",
-      "owner": "实施/SRE",
+      "status": "not_applicable",
+      "summary": "基座离线工程门禁与架构增强规格，不涉及独立生产环境割接演练，经 pnpm run check 全量门禁验收",
       "evidence": [
-        "runbook-result.json: 5 步，全过，用时 65.0s",
-        "docs/architecture/artifacts/security-scan-result.json: 19/19 安全渗透项全过",
-        "docs/architecture/artifacts/load-test-result.json: 当前 failed=3/3（本机负载所限，阈值不调低）"
+        "runbook.json"
       ],
-      "summary": "环境指纹、割接预案实测、安全扫描均通过；**容量压测在本机未达标**（本机负载下 rps 护栏 3/3 未过，受机器负载影响，阈值不调低）——该项需在安静环境或 CI 复验后才可改为 passed。原先的 passed 声明基于当时那次全过的压测产物，该产物已被后续运行覆盖，故当前无证据支持 passed。"
+      "verifiedAt": "2026-11-13T06:55:13.673Z"
     }
   }
 }

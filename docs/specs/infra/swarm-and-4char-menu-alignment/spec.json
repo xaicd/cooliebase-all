@@ -1,0 +1,12 @@
+{
+  "name": "swarm-and-4char-menu-alignment",
+  "domain": "infra",
+  "title": "SWARM多智能体协同法典、8动词service.sh与4字菜单门禁对齐",
+  "type": "feature",
+  "status": "DONE",
+  "stories": 3,
+  "acceptance": 5,
+  "invariants": 3,
+  "tasks": 3,
+  "updatedAt": "2026-11-13T06:55:13.673Z"
+}

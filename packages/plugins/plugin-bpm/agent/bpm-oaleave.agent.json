@@ -4,7 +4,7 @@
   "entity": "BpmOALeave",
   "kebab": "bpm-oaleave",
   "businessName": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是",
-  "permissionPrefix": "bpm:bpm_oaleave",
+  "permissionPrefix": "bpm:oaleave",
   "page": {
     "route": "/admin/bpm/bpm-oaleave",
     "title": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 管理",

@@ -4,7 +4,7 @@
   "entity": "ImChannel",
   "kebab": "im-channel",
   "businessName": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
-  "permissionPrefix": "im:im_channel",
+  "permissionPrefix": "im:channel",
   "page": {
     "route": "/admin/im/im-channel",
     "title": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消管理",

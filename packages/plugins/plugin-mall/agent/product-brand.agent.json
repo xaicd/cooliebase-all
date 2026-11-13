@@ -4,7 +4,7 @@
   "entity": "ProductBrand",
   "kebab": "product-brand",
   "businessName": "商品品牌",
-  "permissionPrefix": "mall:product_brand",
+  "permissionPrefix": "mall:product-brand",
   "page": {
     "route": "/admin/mall/product-brand",
     "title": "商品品牌管理",

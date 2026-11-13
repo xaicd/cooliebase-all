@@ -22,11 +22,22 @@
 
 | 术语 / 概念 | 英文标识 | 领域定义与所属模块 |
 |---|---|---|
-| 低代码 MCP 写类工具（B1 二期）：scaffold.plan / codegen.preview | mcp-write-tools | 本规格所交付的业务与技术上下文，严格收敛于 `infra` 领域边界 |
-| 行级租户隔离 | Multi-Tenant AST | 基于 Kysely AST 自动在 SQL 注入 `tenant_id` 过滤条件，严禁跨租户越权 |
-| 审计底座字段 | Audit Base Columns | 实体必须自动继承 8 大审计字段，严禁业务层手工更新审计元数据 |
+| 低代码 MCP 写类工具（B1 二期）：scaffold.plan / codegen.preview | mcp-write-tools | 本规格所交付的真实业务与技术上下文，严格收敛于 `infra` 领域边界 |
+| 领域门面契约 | Domain Facade | 业务模块对外暴露的标准契约接口，跨域通信单向调用，内部实现自闭环 |
+| 数据隔离策略 | Data Isolation Policy | 依据客户交付形态按需选择（单租户物理独立库 / 多租户行级租户隔离可选特性） |
 
-## 3. 用户故事与角色矩阵 (User Stories & Personas)
+## 3. 业务需求立项与多端建设交付范围 (Business Intake & Multi-Terminal Scope)
+
+### 3.1 真实业务立项背景
+- **交付目标**: 面向客户真实业务场景，消灭手工低效流程与断点。
+- **服务对象**: 涵盖 B 端业务操作员、管理员及终端客户角色，杜绝无主需求。
+
+### 3.2 多端建设覆盖边界
+- **B端管理中台**: 负责业务运营配置、流程审核、数据对账与大盘监控。
+- **C端用户门户/移动端**: 负责业务直接录入、消费结算与进度查询（按需）。
+- **多端协议对齐**: 多端统一遵循 OpenAPI/REST 契约规范，共享领域状态机。
+
+## 4. 用户故事与角色矩阵 (User Stories & Personas)
 
 1. **P0** [作为外部 Agent（驱动者）] 只做 plan/preview：新增工具一律不落盘，落盘仍由 npm scripts 显式执行
 
@@ -38,23 +49,23 @@
 
 5. **P1** [作为外部 Agent（驱动者）] 在 AGENTS.md §3.4 交付链与 harness 演进规范中登记本批次，避免工具落地后无人知晓
 
-## 4. 关键业务不变量 (Key Business Invariants)
+## 5. 关键业务不变量 (Key Business Invariants)
 
 1. **不落盘不变量** —— 所有新增工具走 dry-run 分支；测试断言调用后 git status 无变化，且工具签名不接受 write 类入参
 2. **白名单域不变量** —— 域名一律经 scripts/lib/domain-catalog.cjs 解析并校验 catalog 登记状态，未登记域直接拒绝而非兜底生成
 
-## 5. 验收标准清单 (Acceptance Criteria)
+## 6. 验收标准清单 (Acceptance Criteria)
 
-1. **THE system SHALL** 验证：`npm run check` exit=0
-2. **THE system SHALL** 验证：`npm run compat:check` exit=0（工具清单与 MCP 服务交叉校验一致）
+1. **THE system SHALL** 验证：`pnpm run check` exit=0
+2. **THE system SHALL** 验证：`pnpm run compat:check` exit=0（工具清单与 MCP 服务交叉校验一致）
 3. **THE system SHALL** 验证：每条新工具正反向测试通过：正常调用返回完整 plannedWrites/followUpGates/manualSteps；对未登记域或越权路径调用被拒
 4. **THE system SHALL** 验证：不落盘断言通过：调用全部新工具后 `git status --porcelain` 输出为空
 
-## 6. 约束条件与技术边界 (Constraints & Non-Goals)
+## 7. 约束条件与技术边界 (Constraints & Non-Goals)
 
 ### 系统必须满足的架构约束 (The System SHALL Comply With)
 * **THE system SHALL COMPLY WITH**: 零落盘：新增工具一律 plan/preview 语义，禁止写盘；--write 仍由显式命令或后续独立批次承担。
-* **THE system SHALL COMPLY WITH**: 不得绕过 npm run check：工具只返回『应跑哪条门禁』，绝不自判通过（维持 AGENTS.md §3 明确不引入第 5 条）。
+* **THE system SHALL COMPLY WITH**: 不得绕过 pnpm run check：工具只返回『应跑哪条门禁』，绝不自判通过（维持 AGENTS.md §3 明确不引入第 5 条）。
 * **THE system SHALL COMPLY WITH**: 零破坏性变更：既有 14 个只读工具的名称、入参、返回结构不变；compat-manifest 的 frozen 项不动。
 * **THE system SHALL COMPLY WITH**: 复用优先：薄封装既有 scripts/lib 与脚本，禁止重写领域逻辑（延续 B1 一期做法）。
 * **THE system SHALL COMPLY WITH**: 工具白名单限定 catalog 已登记域，禁止对任意路径或未登记域生成计划（沿用 cooliebase_gate_run 的白名单先例）。

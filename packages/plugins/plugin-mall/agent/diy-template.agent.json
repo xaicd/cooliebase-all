@@ -4,7 +4,7 @@
   "entity": "DiyTemplate",
   "kebab": "diy-template",
   "businessName": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2.",
-  "permissionPrefix": "mall:diy_template",
+  "permissionPrefix": "mall:diy-template",
   "page": {
     "route": "/admin/mall/diy-template",
     "title": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 管理",

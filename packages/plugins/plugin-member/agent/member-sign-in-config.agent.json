@@ -4,7 +4,7 @@
   "entity": "MemberSignInConfig",
   "kebab": "member-sign-in-config",
   "businessName": "签到规则",
-  "permissionPrefix": "member:member_sign_in_config",
+  "permissionPrefix": "member:sign-in-config",
   "page": {
     "route": "/admin/member/member-sign-in-config",
     "title": "签到规则管理",

@@ -4,7 +4,7 @@
   "entity": "CrmContractConfig",
   "kebab": "crm-contract-config",
   "businessName": "编号",
-  "permissionPrefix": "crm:crm_contract_config",
+  "permissionPrefix": "crm:contract-config",
   "page": {
     "route": "/admin/crm/crm-contract-config",
     "title": "编号管理",

@@ -4,7 +4,7 @@
   "entity": "PointProduct",
   "kebab": "point-product",
   "businessName": "积分商城商品",
-  "permissionPrefix": "mall:point_product",
+  "permissionPrefix": "mall:point-product",
   "page": {
     "route": "/admin/mall/point-product",
     "title": "积分商城商品管理",

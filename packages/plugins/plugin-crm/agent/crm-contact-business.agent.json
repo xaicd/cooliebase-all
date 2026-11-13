@@ -4,7 +4,7 @@
   "entity": "CrmContactBusiness",
   "kebab": "crm-contact-business",
   "businessName": "CRM 联系人与商机的关联",
-  "permissionPrefix": "crm:crm_contact_business",
+  "permissionPrefix": "crm:contact-business",
   "page": {
     "route": "/admin/crm/crm-contact-business",
     "title": "CRM 联系人与商机的关联管理",

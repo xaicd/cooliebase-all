@@ -4,7 +4,7 @@
   "entity": "PayWalletRechargePackage",
   "kebab": "pay-wallet-recharge-package",
   "businessName": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；",
-  "permissionPrefix": "pay:pay_wallet_recharge_package",
+  "permissionPrefix": "pay:wallet-recharge-package",
   "page": {
     "route": "/admin/pay/pay-wallet-recharge-package",
     "title": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；管理",

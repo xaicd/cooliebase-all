@@ -4,7 +4,7 @@
   "entity": "MpAutoReply",
   "kebab": "mp-auto-reply",
   "businessName": "公众号消息自动回复",
-  "permissionPrefix": "mp:mp_auto_reply",
+  "permissionPrefix": "mp:auto-reply",
   "page": {
     "route": "/admin/mp/mp-auto-reply",
     "title": "公众号消息自动回复管理",

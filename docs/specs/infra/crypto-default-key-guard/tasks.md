@@ -2,7 +2,7 @@
 
 > **Spec-Kit 任务拆解与工单跟踪矩阵 (WBS & Task Dependency Plan)**
 > 上游真源：`plan.md`。必须严格贯彻 **1 Task = 1 Commit** 铁律，Commit 消息必须包含 `[T<ID>]`。
-> 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`crypto-default-key-guard`
+> 状态：`DONE` | 所属领域：`infra` | 规格标识：`crypto-default-key-guard`
 > 对应项目宪法：`.specify/memory/constitution.md` (Gate 3 任务原子性 / Gate 4 真实入库测试)
 
 ---
@@ -56,22 +56,22 @@
 
 ## 2. 交互式任务清单 (Interactive Execution Tasks)
 
-- [ ] **T1**: 红灯：证明当前生产环境缺密钥仍能加密（静默降级），且构建不受影响
+- [x] **T1**: 红灯：证明当前生产环境缺密钥仍能加密（静默降级），且构建不受影响
   - 归属: `main`
   - 文件白名单: `test/unit/crypto-key-guard.test.ts`
   - 验收要求: 必须携带提交标识 `[T1]` 并附带真实测试验证
 
-- [ ] **T2**: 实现：两模块改为调用时解析密钥，生产缺密钥抛错（点名变量），非生产保持默认
+- [x] **T2**: 实现：两模块改为调用时解析密钥，生产缺密钥抛错（点名变量），非生产保持默认
   - 归属: `T1`
   - 文件白名单: `packages/shared/backend/lib/crypto-engine.ts, packages/shared/backend/lib/crypto-vault.ts`
   - 验收要求: 必须携带提交标识 `[T2]` 并附带真实测试验证
 
-- [ ] **T3**: 门禁：行为级检查脚本（子进程三态验证），接入 check 链与 compat gates
+- [x] **T3**: 门禁：行为级检查脚本（子进程三态验证），接入 check 链与 compat gates
   - 归属: `T2`
   - 文件白名单: `scripts/check-crypto-key-guard.cjs, package.json, packages/shared/contract/compat-manifest.json`
   - 验收要求: 必须携带提交标识 `[T3]` 并附带真实测试验证
 
-- [ ] **T4**: 文档与验收：.env.example 补变量、门禁计数同步、注入必红/摘线必绿
+- [x] **T4**: 文档与验收：.env.example 补变量、门禁计数同步、注入必红/摘线必绿
   - 归属: `T3`
   - 文件白名单: `.env.example, llms.txt, project-status.md, docs/01_management/project-plan.md, docs/02_requirements/rtm-traceability-matrix.md, docs/specs/infra/crypto-default-key-guard/, docs/features/sprint-prod/, compat-manifest.json, public/compat-manifest.json, public/llms.txt, .well-known/llms.txt`
   - 验收要求: 必须携带提交标识 `[T4]` 并附带真实测试验证
@@ -88,10 +88,10 @@
 
 | ID | 归属 | 任务 | 文件白名单 | 状态 |
 |---|---|---|---|---|
-| T1 | main | 红灯：证明当前生产环境缺密钥仍能加密（静默降级），且构建不受影响 | test/unit/crypto-key-guard.test.ts | 未开始 |
-| T2 | T1 | 实现：两模块改为调用时解析密钥，生产缺密钥抛错（点名变量），非生产保持默认 | packages/shared/backend/lib/crypto-engine.ts, packages/shared/backend/lib/crypto-vault.ts | 未开始 |
-| T3 | T2 | 门禁：行为级检查脚本（子进程三态验证），接入 check 链与 compat gates | scripts/check-crypto-key-guard.cjs, package.json, packages/shared/contract/compat-manifest.json | 未开始 |
-| T4 | T3 | 文档与验收：.env.example 补变量、门禁计数同步、注入必红/摘线必绿 | .env.example, llms.txt, project-status.md, docs/01_management/project-plan.md, docs/02_requirements/rtm-traceability-matrix.md, docs/specs/infra/crypto-default-key-guard/, docs/features/sprint-prod/, compat-manifest.json, public/compat-manifest.json, public/llms.txt, .well-known/llms.txt | 未开始 |
+| T1 | main | 红灯：证明当前生产环境缺密钥仍能加密（静默降级），且构建不受影响 | test/unit/crypto-key-guard.test.ts | 已完成 |
+| T2 | T1 | 实现：两模块改为调用时解析密钥，生产缺密钥抛错（点名变量），非生产保持默认 | packages/shared/backend/lib/crypto-engine.ts, packages/shared/backend/lib/crypto-vault.ts | 已完成 |
+| T3 | T2 | 门禁：行为级检查脚本（子进程三态验证），接入 check 链与 compat gates | scripts/check-crypto-key-guard.cjs, package.json, packages/shared/contract/compat-manifest.json | 已完成 |
+| T4 | T3 | 文档与验收：.env.example 补变量、门禁计数同步、注入必红/摘线必绿 | .env.example, llms.txt, project-status.md, docs/01_management/project-plan.md, docs/02_requirements/rtm-traceability-matrix.md, docs/specs/infra/crypto-default-key-guard/, docs/features/sprint-prod/, compat-manifest.json, public/compat-manifest.json, public/llms.txt, .well-known/llms.txt | 已完成 |
 
 ## 4. 依赖说明与波次流转 (Dependencies & Progression)
 
@@ -100,5 +100,5 @@ T1 → T2 → T3 → T4。
 ## 5. 阶段状态基线 (Phase Baseline)
 
 * 规划：`PLAN_APPROVED`（由 Spec-Kit 生成）
-* 开发：待开始
-* 独立测试：待开始
+* 开发：已完成
+* 独立测试：已通过

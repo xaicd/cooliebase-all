@@ -4,7 +4,7 @@
   "entity": "TradeConfig",
   "kebab": "trade-config",
   "businessName": "交易中心配置",
-  "permissionPrefix": "mall:trade_config",
+  "permissionPrefix": "mall:trade-config",
   "page": {
     "route": "/admin/mall/trade-config",
     "title": "交易中心配置管理",

@@ -4,7 +4,7 @@
   "entity": "MesWmSalesNoticeLine",
   "kebab": "mes-wm-sales-notice-line",
   "businessName": "MES 发货通知单行",
-  "permissionPrefix": "mes:mes_wm_sales_notice_line",
+  "permissionPrefix": "mes:wm-sales-notice-line",
   "page": {
     "route": "/admin/mes/mes-wm-sales-notice-line",
     "title": "MES 发货通知单行管理",

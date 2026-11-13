@@ -4,7 +4,7 @@
   "entity": "MesMdWorkstationTool",
   "kebab": "mes-md-workstation-tool",
   "businessName": "MES 工装夹具资源",
-  "permissionPrefix": "mes:mes_md_workstation_tool",
+  "permissionPrefix": "mes:md-workstation-tool",
   "page": {
     "route": "/admin/mes/mes-md-workstation-tool",
     "title": "MES 工装夹具资源管理",

@@ -4,7 +4,7 @@
   "entity": "ImGroupMember",
   "kebab": "im-group-member",
   "businessName": "IM 群成员",
-  "permissionPrefix": "im:im_group_member",
+  "permissionPrefix": "im:group-member",
   "page": {
     "route": "/admin/im/im-group-member",
     "title": "IM 群成员管理",

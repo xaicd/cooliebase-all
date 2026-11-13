@@ -4,7 +4,7 @@
   "entity": "DeliveryPickUpStore",
   "kebab": "delivery-pick-up-store",
   "businessName": "自提门店",
-  "permissionPrefix": "mall:delivery_pick_up_store",
+  "permissionPrefix": "mall:delivery-pick-up-store",
   "page": {
     "route": "/admin/mall/delivery-pick-up-store",
     "title": "自提门店管理",

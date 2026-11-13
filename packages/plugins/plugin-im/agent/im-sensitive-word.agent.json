@@ -4,7 +4,7 @@
   "entity": "ImSensitiveWord",
   "kebab": "im-sensitive-word",
   "businessName": "IM 敏感词",
-  "permissionPrefix": "im:im_sensitive_word",
+  "permissionPrefix": "im:sensitive-word",
   "page": {
     "route": "/admin/im/im-sensitive-word",
     "title": "IM 敏感词管理",

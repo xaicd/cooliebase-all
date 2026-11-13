@@ -4,7 +4,7 @@
   "entity": "MesWmOutsourceIssueDetail",
   "kebab": "mes-wm-outsource-issue-detail",
   "businessName": "MES 外协发料单明细",
-  "permissionPrefix": "mes:mes_wm_outsource_issue_detail",
+  "permissionPrefix": "mes:wm-outsource-issue-detail",
   "page": {
     "route": "/admin/mes/mes-wm-outsource-issue-detail",
     "title": "MES 外协发料单明细管理",

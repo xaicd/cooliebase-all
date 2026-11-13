@@ -4,7 +4,7 @@
   "entity": "PayNotifyLog",
   "kebab": "pay-notify-log",
   "businessName": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
-  "permissionPrefix": "pay:pay_notify_log",
+  "permissionPrefix": "pay:notify-log",
   "page": {
     "route": "/admin/pay/pay-notify-log",
     "title": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排管理",

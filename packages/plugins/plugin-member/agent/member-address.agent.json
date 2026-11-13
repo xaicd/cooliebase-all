@@ -4,7 +4,7 @@
   "entity": "MemberAddress",
   "kebab": "member-address",
   "businessName": "用户收件地址",
-  "permissionPrefix": "member:member_address",
+  "permissionPrefix": "member:address",
   "page": {
     "route": "/admin/member/member-address",
     "title": "用户收件地址管理",

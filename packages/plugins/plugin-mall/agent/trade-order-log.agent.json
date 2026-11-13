@@ -4,7 +4,7 @@
   "entity": "TradeOrderLog",
   "kebab": "trade-order-log",
   "businessName": "订单日志",
-  "permissionPrefix": "mall:trade_order_log",
+  "permissionPrefix": "mall:trade-order-log",
   "page": {
     "route": "/admin/mall/trade-order-log",
     "title": "订单日志管理",

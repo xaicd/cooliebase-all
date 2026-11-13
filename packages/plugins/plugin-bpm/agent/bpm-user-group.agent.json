@@ -4,7 +4,7 @@
   "entity": "BpmUserGroup",
   "kebab": "bpm-user-group",
   "businessName": "BPM 用户组",
-  "permissionPrefix": "bpm:bpm_user_group",
+  "permissionPrefix": "bpm:user-group",
   "page": {
     "route": "/admin/bpm/bpm-user-group",
     "title": "BPM 用户组管理",

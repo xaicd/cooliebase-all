@@ -4,7 +4,7 @@
   "entity": "WmsItemBrand",
   "kebab": "wms-item-brand",
   "businessName": "物料品牌",
-  "permissionPrefix": "wms:brand",
+  "permissionPrefix": "wms:item-brand",
   "page": {
     "route": "/admin/wms/wms-item-brand",
     "title": "物料品牌管理",

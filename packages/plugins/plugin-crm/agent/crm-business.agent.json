@@ -4,7 +4,7 @@
   "entity": "CrmBusiness",
   "kebab": "crm-business",
   "businessName": "CRM 商机",
-  "permissionPrefix": "crm:crm_business",
+  "permissionPrefix": "crm:business",
   "page": {
     "route": "/admin/crm/crm-business",
     "title": "CRM 商机管理",

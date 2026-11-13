@@ -71,7 +71,7 @@
       "entity": "AiApiKey",
       "kebab": "ai-api-key",
       "businessName": "AI API 秘钥",
-      "permissionPrefix": "ai:ai_api_key",
+      "permissionPrefix": "ai:api-key",
       "page": {
         "route": "/admin/ai/ai-api-key",
         "title": "AI API 秘钥管理",
@@ -309,7 +309,7 @@
       "entity": "AiChatConversation",
       "kebab": "ai-chat-conversation",
       "businessName": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它",
-      "permissionPrefix": "ai:ai_chat_conversation",
+      "permissionPrefix": "ai:chat-conversation",
       "page": {
         "route": "/admin/ai/ai-chat-conversation",
         "title": "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它管理",
@@ -624,7 +624,7 @@
       "entity": "AiChatMessage",
       "kebab": "ai-chat-message",
       "businessName": "AI Chat 消息",
-      "permissionPrefix": "ai:ai_chat_message",
+      "permissionPrefix": "ai:chat-message",
       "page": {
         "route": "/admin/ai/ai-chat-message",
         "title": "AI Chat 消息管理",
@@ -973,7 +973,7 @@
       "entity": "AiChatRole",
       "kebab": "ai-chat-role",
       "businessName": "AI 聊天角色",
-      "permissionPrefix": "ai:ai_chat_role",
+      "permissionPrefix": "ai:chat-role",
       "page": {
         "route": "/admin/ai/ai-chat-role",
         "title": "AI 聊天角色管理",
@@ -1304,7 +1304,7 @@
       "entity": "AiImage",
       "kebab": "ai-image",
       "businessName": "AI 绘画",
-      "permissionPrefix": "ai:ai_image",
+      "permissionPrefix": "ai:image",
       "page": {
         "route": "/admin/ai/ai-image",
         "title": "AI 绘画管理",
@@ -1662,7 +1662,7 @@
       "entity": "AiKnowledge",
       "kebab": "ai-knowledge",
       "businessName": "AI 知识库",
-      "permissionPrefix": "ai:ai_knowledge",
+      "permissionPrefix": "ai:knowledge",
       "page": {
         "route": "/admin/ai/ai-knowledge",
         "title": "AI 知识库管理",
@@ -1925,7 +1925,7 @@
       "entity": "AiKnowledgeDocument",
       "kebab": "ai-knowledge-document",
       "businessName": "AI 知识库-文档",
-      "permissionPrefix": "ai:ai_knowledge_document",
+      "permissionPrefix": "ai:knowledge-document",
       "page": {
         "route": "/admin/ai/ai-knowledge-document",
         "title": "AI 知识库-文档管理",
@@ -2206,7 +2206,7 @@
       "entity": "AiKnowledgeSegment",
       "kebab": "ai-knowledge-segment",
       "businessName": "AI 知识库-文档分段",
-      "permissionPrefix": "ai:ai_knowledge_segment",
+      "permissionPrefix": "ai:knowledge-segment",
       "page": {
         "route": "/admin/ai/ai-knowledge-segment",
         "title": "AI 知识库-文档分段管理",
@@ -2485,7 +2485,7 @@
       "entity": "AiMindMap",
       "kebab": "ai-mind-map",
       "businessName": "AI 思维导图",
-      "permissionPrefix": "ai:ai_mind_map",
+      "permissionPrefix": "ai:mind-map",
       "page": {
         "route": "/admin/ai/ai-mind-map",
         "title": "AI 思维导图管理",
@@ -2741,7 +2741,7 @@
       "entity": "AiModel",
       "kebab": "ai-model",
       "businessName": "AI 模型 DO默认模型： 为开启，并且 排序第一",
-      "permissionPrefix": "ai:ai_model",
+      "permissionPrefix": "ai:model",
       "page": {
         "route": "/admin/ai/ai-model",
         "title": "AI 模型 DO默认模型： 为开启，并且 排序第一管理",
@@ -3083,7 +3083,7 @@
       "entity": "AiMusic",
       "kebab": "ai-music",
       "businessName": "AI 音乐",
-      "permissionPrefix": "ai:ai_music",
+      "permissionPrefix": "ai:music",
       "page": {
         "route": "/admin/ai/ai-music",
         "title": "AI 音乐管理",
@@ -3450,7 +3450,7 @@
       "entity": "AiTool",
       "kebab": "ai-tool",
       "businessName": "AI 工具",
-      "permissionPrefix": "ai:ai_tool",
+      "permissionPrefix": "ai:tool",
       "page": {
         "route": "/admin/ai/ai-tool",
         "title": "AI 工具管理",
@@ -3688,7 +3688,7 @@
       "entity": "AiWorkflow",
       "kebab": "ai-workflow",
       "businessName": "AI 工作流",
-      "permissionPrefix": "ai:ai_workflow",
+      "permissionPrefix": "ai:workflow",
       "page": {
         "route": "/admin/ai/ai-workflow",
         "title": "AI 工作流管理",
@@ -3933,7 +3933,7 @@
       "entity": "AiWrite",
       "kebab": "ai-write",
       "businessName": "AI 写作",
-      "permissionPrefix": "ai:ai_write",
+      "permissionPrefix": "ai:write",
       "page": {
         "route": "/admin/ai/ai-write",
         "title": "AI 写作管理",
@@ -4250,7 +4250,7 @@
       "entity": "BpmCategory",
       "kebab": "bpm-category",
       "businessName": "BPM 流程分类",
-      "permissionPrefix": "bpm:bpm_category",
+      "permissionPrefix": "bpm:category",
       "page": {
         "route": "/admin/bpm/bpm-category",
         "title": "BPM 流程分类管理",
@@ -4495,7 +4495,7 @@
       "entity": "BpmForm",
       "kebab": "bpm-form",
       "businessName": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景",
-      "permissionPrefix": "bpm:bpm_form",
+      "permissionPrefix": "bpm:form",
       "page": {
         "route": "/admin/bpm/bpm-form",
         "title": "BPM 工作流的表单定义用于工作流的申请表单，需要动态配置的场景管理",
@@ -4733,7 +4733,7 @@
       "entity": "BpmOALeave",
       "kebab": "bpm-oaleave",
       "businessName": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是",
-      "permissionPrefix": "bpm:bpm_oaleave",
+      "permissionPrefix": "bpm:oaleave",
       "page": {
         "route": "/admin/bpm/bpm-oaleave",
         "title": "OA 请假申请 DO 请假天数，目前先简单做。一般是分成请假上午和下午，可以是 管理",
@@ -5012,7 +5012,7 @@
       "entity": "BpmProcessDefinitionInfo",
       "kebab": "bpm-process-definition-info",
       "businessName": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表",
-      "permissionPrefix": "bpm:bpm_process_definition_info",
+      "permissionPrefix": "bpm:process-definition-info",
       "page": {
         "route": "/admin/bpm/bpm-process-definition-info",
         "title": "BPM 流程定义的拓信息主要解决 Flowable 不支持拓展字段，所以新建该表管理",
@@ -5487,7 +5487,7 @@
       "entity": "BpmProcessExpression",
       "kebab": "bpm-process-expression",
       "businessName": "BPM 流程表达式",
-      "permissionPrefix": "bpm:bpm_process_expression",
+      "permissionPrefix": "bpm:process-expression",
       "page": {
         "route": "/admin/bpm/bpm-process-expression",
         "title": "BPM 流程表达式管理",
@@ -5707,7 +5707,7 @@
       "entity": "BpmProcessInstanceCopy",
       "kebab": "bpm-process-instance-copy",
       "businessName": "流程抄送",
-      "permissionPrefix": "bpm:bpm_process_instance_copy",
+      "permissionPrefix": "bpm:process-instance-copy",
       "page": {
         "route": "/admin/bpm/bpm-process-instance-copy",
         "title": "流程抄送管理",
@@ -6011,7 +6011,7 @@
       "entity": "BpmProcessListener",
       "kebab": "bpm-process-listener",
       "businessName": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计",
-      "permissionPrefix": "bpm:bpm_process_listener",
+      "permissionPrefix": "bpm:process-listener",
       "page": {
         "route": "/admin/bpm/bpm-process-listener",
         "title": "BPM 流程监听器 DO目的：本质上它是流程监听器的模版，用于 BPMN 在设计管理",
@@ -6265,7 +6265,7 @@
       "entity": "BpmUserGroup",
       "kebab": "bpm-user-group",
       "businessName": "BPM 用户组",
-      "permissionPrefix": "bpm:bpm_user_group",
+      "permissionPrefix": "bpm:user-group",
       "page": {
         "route": "/admin/bpm/bpm-user-group",
         "title": "BPM 用户组管理",
@@ -6501,7 +6501,7 @@
       "entity": "CrmBusiness",
       "kebab": "crm-business",
       "businessName": "CRM 商机",
-      "permissionPrefix": "crm:crm_business",
+      "permissionPrefix": "crm:business",
       "page": {
         "route": "/admin/crm/crm-business",
         "title": "CRM 商机管理",
@@ -6850,7 +6850,7 @@
       "entity": "CrmBusinessProduct",
       "kebab": "crm-business-product",
       "businessName": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines",
-      "permissionPrefix": "crm:crm_business_product",
+      "permissionPrefix": "crm:business-product",
       "page": {
         "route": "/admin/crm/crm-business-product",
         "title": "CRM 商机产品关联表 DOCrmBusinessDO : CrmBusines管理",
@@ -7097,7 +7097,7 @@
       "entity": "CrmBusinessStatus",
       "kebab": "crm-business-status",
       "businessName": "CRM 商机状态 DO注意，它是个配置表",
-      "permissionPrefix": "crm:crm_business_status",
+      "permissionPrefix": "crm:business-status",
       "page": {
         "route": "/admin/crm/crm-business-status",
         "title": "CRM 商机状态 DO注意，它是个配置表管理",
@@ -7326,7 +7326,7 @@
       "entity": "CrmBusinessStatusType",
       "kebab": "crm-business-status-type",
       "businessName": "CRM 商机状态组 DO注意，它是个配置表",
-      "permissionPrefix": "crm:crm_business_status_type",
+      "permissionPrefix": "crm:business-status-type",
       "page": {
         "route": "/admin/crm/crm-business-status-type",
         "title": "CRM 商机状态组 DO注意，它是个配置表管理",
@@ -7537,7 +7537,7 @@
       "entity": "CrmClue",
       "kebab": "crm-clue",
       "businessName": "CRM 线索",
-      "permissionPrefix": "crm:crm_clue",
+      "permissionPrefix": "crm:clue",
       "page": {
         "route": "/admin/crm/crm-clue",
         "title": "CRM 线索管理",
@@ -7922,7 +7922,7 @@
       "entity": "CrmContact",
       "kebab": "crm-contact",
       "businessName": "CRM 联系人",
-      "permissionPrefix": "crm:crm_contact",
+      "permissionPrefix": "crm:contact",
       "page": {
         "route": "/admin/crm/crm-contact",
         "title": "CRM 联系人管理",
@@ -8298,7 +8298,7 @@
       "entity": "CrmContactBusiness",
       "kebab": "crm-contact-business",
       "businessName": "CRM 联系人与商机的关联",
-      "permissionPrefix": "crm:crm_contact_business",
+      "permissionPrefix": "crm:contact-business",
       "page": {
         "route": "/admin/crm/crm-contact-business",
         "title": "CRM 联系人与商机的关联管理",
@@ -8509,7 +8509,7 @@
       "entity": "CrmContract",
       "kebab": "crm-contract",
       "businessName": "CRM 合同",
-      "permissionPrefix": "crm:crm_contract",
+      "permissionPrefix": "crm:contract",
       "page": {
         "route": "/admin/crm/crm-contract",
         "title": "CRM 合同管理",
@@ -8876,7 +8876,7 @@
       "entity": "CrmContractConfig",
       "kebab": "crm-contract-config",
       "businessName": "编号",
-      "permissionPrefix": "crm:crm_contract_config",
+      "permissionPrefix": "crm:contract-config",
       "page": {
         "route": "/admin/crm/crm-contract-config",
         "title": "编号管理",
@@ -9072,7 +9072,7 @@
       "entity": "CrmContractProduct",
       "kebab": "crm-contract-product",
       "businessName": "CRM 合同产品关联表",
-      "permissionPrefix": "crm:crm_contract_product",
+      "permissionPrefix": "crm:contract-product",
       "page": {
         "route": "/admin/crm/crm-contract-product",
         "title": "CRM 合同产品关联表管理",
@@ -9319,7 +9319,7 @@
       "entity": "CrmCustomer",
       "kebab": "crm-customer",
       "businessName": "CRM 客户",
-      "permissionPrefix": "crm:crm_customer",
+      "permissionPrefix": "crm:customer",
       "page": {
         "route": "/admin/crm/crm-customer",
         "title": "CRM 客户管理",
@@ -9713,7 +9713,7 @@
       "entity": "CrmCustomerLimitConfig",
       "kebab": "crm-customer-limit-config",
       "businessName": "客户限制配置",
-      "permissionPrefix": "crm:crm_customer_limit_config",
+      "permissionPrefix": "crm:customer-limit-config",
       "page": {
         "route": "/admin/crm/crm-customer-limit-config",
         "title": "客户限制配置管理",
@@ -9958,7 +9958,7 @@
       "entity": "CrmCustomerPoolConfig",
       "kebab": "crm-customer-pool-config",
       "businessName": "客户公海配置",
-      "permissionPrefix": "crm:crm_customer_pool_config",
+      "permissionPrefix": "crm:customer-pool-config",
       "page": {
         "route": "/admin/crm/crm-customer-pool-config",
         "title": "客户公海配置管理",
@@ -10181,7 +10181,7 @@
       "entity": "CrmFollowUpRecord",
       "kebab": "crm-follow-up-record",
       "businessName": "跟进记录 DO用于记录客户、联系人的每一次跟进",
-      "permissionPrefix": "crm:crm_follow_up_record",
+      "permissionPrefix": "crm:follow-up-record",
       "page": {
         "route": "/admin/crm/crm-follow-up-record",
         "title": "跟进记录 DO用于记录客户、联系人的每一次跟进管理",
@@ -10476,7 +10476,7 @@
       "entity": "CrmOwnerRecord",
       "kebab": "crm-owner-record",
       "businessName": "CRM 负责人变更记录",
-      "permissionPrefix": "crm:crm_owner_record",
+      "permissionPrefix": "crm:owner-record",
       "page": {
         "route": "/admin/crm/crm-owner-record",
         "title": "CRM 负责人变更记录管理",
@@ -10719,7 +10719,7 @@
       "entity": "CrmPerformanceConfig",
       "kebab": "crm-performance-config",
       "businessName": "CRM 业绩目标",
-      "permissionPrefix": "crm:crm_performance_config",
+      "permissionPrefix": "crm:performance-config",
       "page": {
         "route": "/admin/crm/crm-performance-config",
         "title": "CRM 业绩目标管理",
@@ -11065,7 +11065,7 @@
       "entity": "CrmPermission",
       "kebab": "crm-permission",
       "businessName": "CRM 数据权限",
-      "permissionPrefix": "crm:crm_permission",
+      "permissionPrefix": "crm:permission",
       "page": {
         "route": "/admin/crm/crm-permission",
         "title": "CRM 数据权限管理",
@@ -11308,7 +11308,7 @@
       "entity": "CrmProduct",
       "kebab": "crm-product",
       "businessName": "CRM 产品",
-      "permissionPrefix": "crm:crm_product",
+      "permissionPrefix": "crm:product",
       "page": {
         "route": "/admin/crm/crm-product",
         "title": "CRM 产品管理",
@@ -11594,7 +11594,7 @@
       "entity": "CrmProductCategory",
       "kebab": "crm-product-category",
       "businessName": "产品分类",
-      "permissionPrefix": "crm:crm_product_category",
+      "permissionPrefix": "crm:product-category",
       "page": {
         "route": "/admin/crm/crm-product-category",
         "title": "产品分类管理",
@@ -11805,7 +11805,7 @@
       "entity": "CrmReceivable",
       "kebab": "crm-receivable",
       "businessName": "回款",
-      "permissionPrefix": "crm:crm_receivable",
+      "permissionPrefix": "crm:receivable",
       "page": {
         "route": "/admin/crm/crm-receivable",
         "title": "回款管理",
@@ -12118,7 +12118,7 @@
       "entity": "CrmReceivablePlan",
       "kebab": "crm-receivable-plan",
       "businessName": "CRM 回款计划",
-      "permissionPrefix": "crm:crm_receivable_plan",
+      "permissionPrefix": "crm:receivable-plan",
       "page": {
         "route": "/admin/crm/crm-receivable-plan",
         "title": "CRM 回款计划管理",
@@ -12424,7 +12424,7 @@
       "entity": "ErpAccount",
       "kebab": "erp-account",
       "businessName": "ERP 结算账户",
-      "permissionPrefix": "erp:erp_account",
+      "permissionPrefix": "erp:account",
       "page": {
         "route": "/admin/erp/erp-account",
         "title": "ERP 结算账户管理",
@@ -12678,7 +12678,7 @@
       "entity": "ErpCustomer",
       "kebab": "erp-customer",
       "businessName": "ERP 客户",
-      "permissionPrefix": "erp:erp_customer",
+      "permissionPrefix": "erp:customer",
       "page": {
         "route": "/admin/erp/erp-customer",
         "title": "ERP 客户管理",
@@ -13011,7 +13011,7 @@
       "entity": "ErpFinancePayment",
       "kebab": "erp-finance-payment",
       "businessName": "ERP 付款单",
-      "permissionPrefix": "erp:erp_finance_payment",
+      "permissionPrefix": "erp:finance-payment",
       "page": {
         "route": "/admin/erp/erp-finance-payment",
         "title": "ERP 付款单管理",
@@ -13315,7 +13315,7 @@
       "entity": "ErpFinancePaymentItem",
       "kebab": "erp-finance-payment-item",
       "businessName": "ERP 付款项",
-      "permissionPrefix": "erp:erp_finance_payment_item",
+      "permissionPrefix": "erp:finance-payment-item",
       "page": {
         "route": "/admin/erp/erp-finance-payment-item",
         "title": "ERP 付款项管理",
@@ -13587,7 +13587,7 @@
       "entity": "ErpFinanceReceipt",
       "kebab": "erp-finance-receipt",
       "businessName": "ERP 收款单",
-      "permissionPrefix": "erp:erp_finance_receipt",
+      "permissionPrefix": "erp:finance-receipt",
       "page": {
         "route": "/admin/erp/erp-finance-receipt",
         "title": "ERP 收款单管理",
@@ -13891,7 +13891,7 @@
       "entity": "ErpFinanceReceiptItem",
       "kebab": "erp-finance-receipt-item",
       "businessName": "ERP 收款项",
-      "permissionPrefix": "erp:erp_finance_receipt_item",
+      "permissionPrefix": "erp:finance-receipt-item",
       "page": {
         "route": "/admin/erp/erp-finance-receipt-item",
         "title": "ERP 收款项管理",
@@ -14163,7 +14163,7 @@
       "entity": "ErpProduct",
       "kebab": "erp-product",
       "businessName": "ERP 产品",
-      "permissionPrefix": "erp:erp_product",
+      "permissionPrefix": "erp:product",
       "page": {
         "route": "/admin/erp/erp-product",
         "title": "ERP 产品管理",
@@ -14478,7 +14478,7 @@
       "entity": "ErpProductCategory",
       "kebab": "erp-product-category",
       "businessName": "ERP 产品分类",
-      "permissionPrefix": "erp:erp_product_category",
+      "permissionPrefix": "erp:product-category",
       "page": {
         "route": "/admin/erp/erp-product-category",
         "title": "ERP 产品分类管理",
@@ -14730,7 +14730,7 @@
       "entity": "ErpProductUnit",
       "kebab": "erp-product-unit",
       "businessName": "ERP 产品单位",
-      "permissionPrefix": "erp:erp_product_unit",
+      "permissionPrefix": "erp:product-unit",
       "page": {
         "route": "/admin/erp/erp-product-unit",
         "title": "ERP 产品单位管理",
@@ -14941,7 +14941,7 @@
       "entity": "ErpPurchaseIn",
       "kebab": "erp-purchase-in",
       "businessName": "ERP 采购入库",
-      "permissionPrefix": "erp:erp_purchase_in",
+      "permissionPrefix": "erp:purchase-in",
       "page": {
         "route": "/admin/erp/erp-purchase-in",
         "title": "ERP 采购入库管理",
@@ -15308,7 +15308,7 @@
       "entity": "ErpPurchaseInItem",
       "kebab": "erp-purchase-in-item",
       "businessName": "ERP 采购入库项",
-      "permissionPrefix": "erp:erp_purchase_in_item",
+      "permissionPrefix": "erp:purchase-in-item",
       "page": {
         "route": "/admin/erp/erp-purchase-in-item",
         "title": "ERP 采购入库项管理",
@@ -15621,7 +15621,7 @@
       "entity": "ErpPurchaseOrder",
       "kebab": "erp-purchase-order",
       "businessName": "ERP 采购订单",
-      "permissionPrefix": "erp:erp_purchase_order",
+      "permissionPrefix": "erp:purchase-order",
       "page": {
         "route": "/admin/erp/erp-purchase-order",
         "title": "ERP 采购订单管理",
@@ -15972,7 +15972,7 @@
       "entity": "ErpPurchaseOrderItem",
       "kebab": "erp-purchase-order-item",
       "businessName": "ERP 采购订单项",
-      "permissionPrefix": "erp:erp_purchase_order_item",
+      "permissionPrefix": "erp:purchase-order-item",
       "page": {
         "route": "/admin/erp/erp-purchase-order-item",
         "title": "ERP 采购订单项管理",
@@ -16271,7 +16271,7 @@
       "entity": "ErpPurchaseReturn",
       "kebab": "erp-purchase-return",
       "businessName": "ERP 采购退货",
-      "permissionPrefix": "erp:erp_purchase_return",
+      "permissionPrefix": "erp:purchase-return",
       "page": {
         "route": "/admin/erp/erp-purchase-return",
         "title": "ERP 采购退货管理",
@@ -16638,7 +16638,7 @@
       "entity": "ErpPurchaseReturnItem",
       "kebab": "erp-purchase-return-item",
       "businessName": "ERP 采购退货项",
-      "permissionPrefix": "erp:erp_purchase_return_item",
+      "permissionPrefix": "erp:purchase-return-item",
       "page": {
         "route": "/admin/erp/erp-purchase-return-item",
         "title": "ERP 采购退货项管理",
@@ -16951,7 +16951,7 @@
       "entity": "ErpSaleOrder",
       "kebab": "erp-sale-order",
       "businessName": "ERP 销售订单",
-      "permissionPrefix": "erp:erp_sale_order",
+      "permissionPrefix": "erp:sale-order",
       "page": {
         "route": "/admin/erp/erp-sale-order",
         "title": "ERP 销售订单管理",
@@ -17318,7 +17318,7 @@
       "entity": "ErpSaleOrderItem",
       "kebab": "erp-sale-order-item",
       "businessName": "ERP 销售订单项",
-      "permissionPrefix": "erp:erp_sale_order_item",
+      "permissionPrefix": "erp:sale-order-item",
       "page": {
         "route": "/admin/erp/erp-sale-order-item",
         "title": "ERP 销售订单项管理",
@@ -17617,7 +17617,7 @@
       "entity": "ErpSaleOut",
       "kebab": "erp-sale-out",
       "businessName": "ERP 销售出库",
-      "permissionPrefix": "erp:erp_sale_out",
+      "permissionPrefix": "erp:sale-out",
       "page": {
         "route": "/admin/erp/erp-sale-out",
         "title": "ERP 销售出库管理",
@@ -17993,7 +17993,7 @@
       "entity": "ErpSaleOutItem",
       "kebab": "erp-sale-out-item",
       "businessName": "ERP 销售出库项",
-      "permissionPrefix": "erp:erp_sale_out_item",
+      "permissionPrefix": "erp:sale-out-item",
       "page": {
         "route": "/admin/erp/erp-sale-out-item",
         "title": "ERP 销售出库项管理",
@@ -18306,7 +18306,7 @@
       "entity": "ErpSaleReturn",
       "kebab": "erp-sale-return",
       "businessName": "ERP 销售退货",
-      "permissionPrefix": "erp:erp_sale_return",
+      "permissionPrefix": "erp:sale-return",
       "page": {
         "route": "/admin/erp/erp-sale-return",
         "title": "ERP 销售退货管理",
@@ -18682,7 +18682,7 @@
       "entity": "ErpSaleReturnItem",
       "kebab": "erp-sale-return-item",
       "businessName": "ERP 销售退货项",
-      "permissionPrefix": "erp:erp_sale_return_item",
+      "permissionPrefix": "erp:sale-return-item",
       "page": {
         "route": "/admin/erp/erp-sale-return-item",
         "title": "ERP 销售退货项管理",
@@ -18995,7 +18995,7 @@
       "entity": "ErpStock",
       "kebab": "erp-stock",
       "businessName": "ERP 产品库存",
-      "permissionPrefix": "erp:erp_stock",
+      "permissionPrefix": "erp:stock",
       "page": {
         "route": "/admin/erp/erp-stock",
         "title": "ERP 产品库存管理",
@@ -19215,7 +19215,7 @@
       "entity": "ErpStockCheck",
       "kebab": "erp-stock-check",
       "businessName": "ERP 库存盘点单",
-      "permissionPrefix": "erp:erp_stock_check",
+      "permissionPrefix": "erp:stock-check",
       "page": {
         "route": "/admin/erp/erp-stock-check",
         "title": "ERP 库存盘点单管理",
@@ -19471,7 +19471,7 @@
       "entity": "ErpStockCheckItem",
       "kebab": "erp-stock-check-item",
       "businessName": "ERP 库存盘点单项",
-      "permissionPrefix": "erp:erp_stock_check_item",
+      "permissionPrefix": "erp:stock-check-item",
       "page": {
         "route": "/admin/erp/erp-stock-check-item",
         "title": "ERP 库存盘点单项管理",
@@ -19768,7 +19768,7 @@
       "entity": "ErpStockIn",
       "kebab": "erp-stock-in",
       "businessName": "ERP 其它入库单",
-      "permissionPrefix": "erp:erp_stock_in",
+      "permissionPrefix": "erp:stock-in",
       "page": {
         "route": "/admin/erp/erp-stock-in",
         "title": "ERP 其它入库单管理",
@@ -20040,7 +20040,7 @@
       "entity": "ErpStockInItem",
       "kebab": "erp-stock-in-item",
       "businessName": "ERP 其它入库单项",
-      "permissionPrefix": "erp:erp_stock_in_item",
+      "permissionPrefix": "erp:stock-in-item",
       "page": {
         "route": "/admin/erp/erp-stock-in-item",
         "title": "ERP 其它入库单项管理",
@@ -20319,7 +20319,7 @@
       "entity": "ErpStockMove",
       "kebab": "erp-stock-move",
       "businessName": "ERP 库存调拨单",
-      "permissionPrefix": "erp:erp_stock_move",
+      "permissionPrefix": "erp:stock-move",
       "page": {
         "route": "/admin/erp/erp-stock-move",
         "title": "ERP 库存调拨单管理",
@@ -20575,7 +20575,7 @@
       "entity": "ErpStockMoveItem",
       "kebab": "erp-stock-move-item",
       "businessName": "ERP 库存调拨单项",
-      "permissionPrefix": "erp:erp_stock_move_item",
+      "permissionPrefix": "erp:stock-move-item",
       "page": {
         "route": "/admin/erp/erp-stock-move-item",
         "title": "ERP 库存调拨单项管理",
@@ -20870,7 +20870,7 @@
       "entity": "ErpStockOut",
       "kebab": "erp-stock-out",
       "businessName": "ERP 其它出库单",
-      "permissionPrefix": "erp:erp_stock_out",
+      "permissionPrefix": "erp:stock-out",
       "page": {
         "route": "/admin/erp/erp-stock-out",
         "title": "ERP 其它出库单管理",
@@ -21142,7 +21142,7 @@
       "entity": "ErpStockOutItem",
       "kebab": "erp-stock-out-item",
       "businessName": "ERP 其它出库单项",
-      "permissionPrefix": "erp:erp_stock_out_item",
+      "permissionPrefix": "erp:stock-out-item",
       "page": {
         "route": "/admin/erp/erp-stock-out-item",
         "title": "ERP 其它出库单项管理",
@@ -21421,7 +21421,7 @@
       "entity": "ErpStockRecord",
       "kebab": "erp-stock-record",
       "businessName": "ERP 产品库存明细",
-      "permissionPrefix": "erp:erp_stock_record",
+      "permissionPrefix": "erp:stock-record",
       "page": {
         "route": "/admin/erp/erp-stock-record",
         "title": "ERP 产品库存明细管理",
@@ -21707,7 +21707,7 @@
       "entity": "ErpSupplier",
       "kebab": "erp-supplier",
       "businessName": "ERP 供应商",
-      "permissionPrefix": "erp:erp_supplier",
+      "permissionPrefix": "erp:supplier",
       "page": {
         "route": "/admin/erp/erp-supplier",
         "title": "ERP 供应商管理",
@@ -22040,7 +22040,7 @@
       "entity": "ErpWarehouse",
       "kebab": "erp-warehouse",
       "businessName": "ERP 仓库",
-      "permissionPrefix": "erp:erp_warehouse",
+      "permissionPrefix": "erp:warehouse",
       "page": {
         "route": "/admin/erp/erp-warehouse",
         "title": "ERP 仓库管理",
@@ -22314,7 +22314,7 @@
       "entity": "ImChannel",
       "kebab": "im-channel",
       "businessName": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消",
-      "permissionPrefix": "im:im_channel",
+      "permissionPrefix": "im:channel",
       "page": {
         "route": "/admin/im/im-channel",
         "title": "IM 频道 DO业务语义：- 频道是运营单向推送的主体；C 端用户不能向频道发消管理",
@@ -22559,7 +22559,7 @@
       "entity": "ImChannelMaterial",
       "kebab": "im-channel-material",
       "businessName": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N",
-      "permissionPrefix": "im:im_channel_material",
+      "permissionPrefix": "im:channel-material",
       "page": {
         "route": "/admin/im/im-channel-material",
         "title": "IM 频道素材 DO业务语义：- 运营素材库，可被反复推送- 一条素材 1:N 管理",
@@ -22822,7 +22822,7 @@
       "entity": "ImChannelMessage",
       "kebab": "im-channel-message",
       "businessName": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于",
-      "permissionPrefix": "im:im_channel_message",
+      "permissionPrefix": "im:channel-message",
       "page": {
         "route": "/admin/im/im-channel-message",
         "title": "IM 频道消息 DO业务语义：- 一次推送 1 行； 为空表示全员- 冗余 便于管理",
@@ -23083,7 +23083,7 @@
       "entity": "ImConversationRead",
       "kebab": "im-conversation-read",
       "businessName": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /",
-      "permissionPrefix": "im:im_conversation_read",
+      "permissionPrefix": "im:conversation-read",
       "page": {
         "route": "/admin/im/im-conversation-read",
         "title": "IM 会话读位置 DO只表达「用户在某个会话的最大已读位置」，私聊 / 群聊 /管理",
@@ -23328,7 +23328,7 @@
       "entity": "ImFacePack",
       "kebab": "im-face-pack",
       "businessName": "IM 表情包 DO（运营配置的系统表情包元数据）",
-      "permissionPrefix": "im:im_face_pack",
+      "permissionPrefix": "im:face-pack",
       "page": {
         "route": "/admin/im/im-face-pack",
         "title": "IM 表情包 DO（运营配置的系统表情包元数据）管理",
@@ -23557,7 +23557,7 @@
       "entity": "ImFacePackItem",
       "kebab": "im-face-pack-item",
       "businessName": "IM 表情包项 DO（系统表情包内的单张表情图）",
-      "permissionPrefix": "im:im_face_pack_item",
+      "permissionPrefix": "im:face-pack-item",
       "page": {
         "route": "/admin/im/im-face-pack-item",
         "title": "IM 表情包项 DO（系统表情包内的单张表情图）管理",
@@ -23820,7 +23820,7 @@
       "entity": "ImFaceUserItem",
       "kebab": "im-face-user-item",
       "businessName": "IM 用户私有表情 DO（个人表情包，对照微信「我的表情」）",
-      "permissionPrefix": "im:im_face_user_item",
+      "permissionPrefix": "im:face-user-item",
       "page": {
         "route": "/admin/im/im-face-user-item",
         "title": "IM 用户私有表情 DO（个人表情包，对照微信「我的表情」）管理",
@@ -24067,7 +24067,7 @@
       "entity": "ImFriend",
       "kebab": "im-friend",
       "businessName": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u",
-      "permissionPrefix": "im:im_friend",
+      "permissionPrefix": "im:friend",
       "page": {
         "route": "/admin/im/im-friend",
         "title": "IM 好友关系 DO业务语义：- 双向关系：A-B 互为好友会存 2 条记录（u管理",
@@ -24371,7 +24371,7 @@
       "entity": "ImFriendRequest",
       "kebab": "im-friend-request",
       "businessName": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
-      "permissionPrefix": "im:im_friend_request",
+      "permissionPrefix": "im:friend-request",
       "page": {
         "route": "/admin/im/im-friend-request",
         "title": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接管理",
@@ -24636,7 +24636,7 @@
       "entity": "ImGroup",
       "kebab": "im-group",
       "businessName": "IM 群信息",
-      "permissionPrefix": "im:im_group",
+      "permissionPrefix": "im:group",
       "page": {
         "route": "/admin/im/im-group",
         "title": "IM 群信息管理",
@@ -24965,7 +24965,7 @@
       "entity": "ImGroupMember",
       "kebab": "im-group-member",
       "businessName": "IM 群成员",
-      "permissionPrefix": "im:im_group_member",
+      "permissionPrefix": "im:group-member",
       "page": {
         "route": "/admin/im/im-group-member",
         "title": "IM 群成员管理",
@@ -25280,7 +25280,7 @@
       "entity": "ImGroupMessage",
       "kebab": "im-group-message",
       "businessName": "IM 群聊消息",
-      "permissionPrefix": "im:im_group_message",
+      "permissionPrefix": "im:group-message",
       "page": {
         "route": "/admin/im/im-group-message",
         "title": "IM 群聊消息管理",
@@ -25593,7 +25593,7 @@
       "entity": "ImGroupRequest",
       "kebab": "im-group-request",
       "businessName": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply",
-      "permissionPrefix": "im:im_group_request",
+      "permissionPrefix": "im:group-request",
       "page": {
         "route": "/admin/im/im-group-request",
         "title": "IM 加群申请记录 DO配合「申请 - 审批」流程：用户主动申请：调 apply管理",
@@ -25881,7 +25881,7 @@
       "entity": "ImPrivateMessage",
       "kebab": "im-private-message",
       "businessName": "IM 私聊消息",
-      "permissionPrefix": "im:im_private_message",
+      "permissionPrefix": "im:private-message",
       "page": {
         "route": "/admin/im/im-private-message",
         "title": "IM 私聊消息管理",
@@ -26167,7 +26167,7 @@
       "entity": "ImRtcCall",
       "kebab": "im-rtc-call",
       "businessName": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →",
-      "permissionPrefix": "im:im_rtc_call",
+      "permissionPrefix": "im:rtc-call",
       "page": {
         "route": "/admin/im/im-rtc-call",
         "title": "IM 通话记录 DO（房间级 / 主表）一通通话一行；状态机 CREATED →管理",
@@ -26473,7 +26473,7 @@
       "entity": "ImRtcParticipant",
       "kebab": "im-rtc-participant",
       "businessName": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主",
-      "permissionPrefix": "im:im_rtc_participant",
+      "permissionPrefix": "im:rtc-participant",
       "page": {
         "route": "/admin/im/im-rtc-participant",
         "title": "IM 通话参与者 DO（用户级 / 明细表）一通通话每个参与者一行；通过 关联主管理",
@@ -26765,7 +26765,7 @@
       "entity": "ImSensitiveWord",
       "kebab": "im-sensitive-word",
       "businessName": "IM 敏感词",
-      "permissionPrefix": "im:im_sensitive_word",
+      "permissionPrefix": "im:sensitive-word",
       "page": {
         "route": "/admin/im/im-sensitive-word",
         "title": "IM 敏感词管理",
@@ -27157,7 +27157,7 @@
       "entity": "IotAlertConfig",
       "kebab": "iot-alert-config",
       "businessName": "IoT 告警配置",
-      "permissionPrefix": "iot:iot_alert_config",
+      "permissionPrefix": "iot:alert-config",
       "page": {
         "route": "/admin/iot/iot-alert-config",
         "title": "IoT 告警配置管理",
@@ -27461,7 +27461,7 @@
       "entity": "IotAlertRecord",
       "kebab": "iot-alert-record",
       "businessName": "IoT 告警记录",
-      "permissionPrefix": "iot:iot_alert_record",
+      "permissionPrefix": "iot:alert-record",
       "page": {
         "route": "/admin/iot/iot-alert-record",
         "title": "IoT 告警记录管理",
@@ -27749,7 +27749,7 @@
       "entity": "IotDataRule",
       "kebab": "iot-data-rule",
       "businessName": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的",
-      "permissionPrefix": "iot:iot_data_rule",
+      "permissionPrefix": "iot:data-rule",
       "page": {
         "route": "/admin/iot/iot-data-rule",
         "title": "IoT 数据流转规则 DO监听 数据源，转发到 数据目的管理",
@@ -28044,7 +28044,7 @@
       "entity": "IotDataSink",
       "kebab": "iot-data-sink",
       "businessName": "IoT 数据流转目的",
-      "permissionPrefix": "iot:iot_data_sink",
+      "permissionPrefix": "iot:data-sink",
       "page": {
         "route": "/admin/iot/iot-data-sink",
         "title": "IoT 数据流转目的管理",
@@ -28289,7 +28289,7 @@
       "entity": "IotDevice",
       "kebab": "iot-device",
       "businessName": "IoT 设备",
-      "permissionPrefix": "iot:iot_device",
+      "permissionPrefix": "iot:device",
       "page": {
         "route": "/admin/iot/iot-device",
         "title": "IoT 设备管理",
@@ -28665,7 +28665,7 @@
       "entity": "IotDeviceGroup",
       "kebab": "iot-device-group",
       "businessName": "IoT 设备分组",
-      "permissionPrefix": "iot:iot_device_group",
+      "permissionPrefix": "iot:device-group",
       "page": {
         "route": "/admin/iot/iot-device-group",
         "title": "IoT 设备分组管理",
@@ -28885,7 +28885,7 @@
       "entity": "IotDeviceModbusConfig",
       "kebab": "iot-device-modbus-config",
       "businessName": "IoT 设备 Modbus 连接配置",
-      "permissionPrefix": "iot:iot_device_modbus_config",
+      "permissionPrefix": "iot:device-modbus-config",
       "page": {
         "route": "/admin/iot/iot-device-modbus-config",
         "title": "IoT 设备 Modbus 连接配置管理",
@@ -29182,7 +29182,7 @@
       "entity": "IotDeviceModbusPoint",
       "kebab": "iot-device-modbus-point",
       "businessName": "IoT 设备 Modbus 点位配置",
-      "permissionPrefix": "iot:iot_device_modbus_point",
+      "permissionPrefix": "iot:device-modbus-point",
       "page": {
         "route": "/admin/iot/iot-device-modbus-point",
         "title": "IoT 设备 Modbus 点位配置管理",
@@ -29497,7 +29497,7 @@
       "entity": "IotOtaFirmware",
       "kebab": "iot-ota-firmware",
       "businessName": "IoT OTA 固件",
-      "permissionPrefix": "iot:iot_ota_firmware",
+      "permissionPrefix": "iot:ota-firmware",
       "page": {
         "route": "/admin/iot/iot-ota-firmware",
         "title": "IoT OTA 固件管理",
@@ -29762,7 +29762,7 @@
       "entity": "IotOtaTask",
       "kebab": "iot-ota-task",
       "businessName": "IoT OTA 升级任务",
-      "permissionPrefix": "iot:iot_ota_task",
+      "permissionPrefix": "iot:ota-task",
       "page": {
         "route": "/admin/iot/iot-ota-task",
         "title": "IoT OTA 升级任务管理",
@@ -30025,7 +30025,7 @@
       "entity": "IotOtaTaskRecord",
       "kebab": "iot-ota-task-record",
       "businessName": "IoT OTA 升级任务记录",
-      "permissionPrefix": "iot:iot_ota_task_record",
+      "permissionPrefix": "iot:ota-task-record",
       "page": {
         "route": "/admin/iot/iot-ota-task-record",
         "title": "IoT OTA 升级任务记录管理",
@@ -30326,7 +30326,7 @@
       "entity": "IotProduct",
       "kebab": "iot-product",
       "businessName": "IoT 产品",
-      "permissionPrefix": "iot:iot_product",
+      "permissionPrefix": "iot:product",
       "page": {
         "route": "/admin/iot/iot-product",
         "title": "IoT 产品管理",
@@ -30643,7 +30643,7 @@
       "entity": "IotProductCategory",
       "kebab": "iot-product-category",
       "businessName": "IoT 产品分类",
-      "permissionPrefix": "iot:iot_product_category",
+      "permissionPrefix": "iot:product-category",
       "page": {
         "route": "/admin/iot/iot-product-category",
         "title": "IoT 产品分类管理",
@@ -30872,7 +30872,7 @@
       "entity": "IotSceneRule",
       "kebab": "iot-scene-rule",
       "businessName": "IoT 场景联动规则",
-      "permissionPrefix": "iot:iot_scene_rule",
+      "permissionPrefix": "iot:scene-rule",
       "page": {
         "route": "/admin/iot/iot-scene-rule",
         "title": "IoT 场景联动规则管理",
@@ -31239,7 +31239,7 @@
       "entity": "IotThingModel",
       "kebab": "iot-thing-model",
       "businessName": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服",
-      "permissionPrefix": "iot:iot_thing_model",
+      "permissionPrefix": "iot:thing-model",
       "page": {
         "route": "/admin/iot/iot-thing-model",
         "title": "IoT 产品物模型功能 DO每个 和 是“一对多”的关系，它的每个属性、事件、服管理",
@@ -31520,7 +31520,7 @@
       "entity": "AfterSale",
       "kebab": "after-sale",
       "businessName": "售后订单，用于处理 交易订单的退款退货流程",
-      "permissionPrefix": "mall:after_sale",
+      "permissionPrefix": "mall:after-sale",
       "page": {
         "route": "/admin/mall/after-sale",
         "title": "售后订单，用于处理 交易订单的退款退货流程管理",
@@ -31986,7 +31986,7 @@
       "entity": "AfterSaleLog",
       "kebab": "after-sale-log",
       "businessName": "交易售后日志",
-      "permissionPrefix": "mall:after_sale_log",
+      "permissionPrefix": "mall:after-sale-log",
       "page": {
         "route": "/admin/mall/after-sale-log",
         "title": "交易售后日志管理",
@@ -32557,7 +32557,7 @@
       "entity": "ArticleCategory",
       "kebab": "article-category",
       "businessName": "文章分类",
-      "permissionPrefix": "mall:article_category",
+      "permissionPrefix": "mall:article-category",
       "page": {
         "route": "/admin/mall/article-category",
         "title": "文章分类管理",
@@ -33051,7 +33051,7 @@
       "entity": "BargainActivity",
       "kebab": "bargain-activity",
       "businessName": "砍价活动",
-      "permissionPrefix": "mall:bargain_activity",
+      "permissionPrefix": "mall:bargain-activity",
       "page": {
         "route": "/admin/mall/bargain-activity",
         "title": "砍价活动管理",
@@ -33393,7 +33393,7 @@
       "entity": "BargainHelp",
       "kebab": "bargain-help",
       "businessName": "砍价助力",
-      "permissionPrefix": "mall:bargain_help",
+      "permissionPrefix": "mall:bargain-help",
       "page": {
         "route": "/admin/mall/bargain-help",
         "title": "砍价助力管理",
@@ -33629,7 +33629,7 @@
       "entity": "BargainRecord",
       "kebab": "bargain-record",
       "businessName": "砍价记录 DO TO",
-      "permissionPrefix": "mall:bargain_record",
+      "permissionPrefix": "mall:bargain-record",
       "page": {
         "route": "/admin/mall/bargain-record",
         "title": "砍价记录 DO TO管理",
@@ -33940,7 +33940,7 @@
       "entity": "BrokerageRecord",
       "kebab": "brokerage-record",
       "businessName": "佣金记录",
-      "permissionPrefix": "mall:brokerage_record",
+      "permissionPrefix": "mall:brokerage-record",
       "page": {
         "route": "/admin/mall/brokerage-record",
         "title": "佣金记录管理",
@@ -34278,7 +34278,7 @@
       "entity": "BrokerageUser",
       "kebab": "brokerage-user",
       "businessName": "分销用户",
-      "permissionPrefix": "mall:brokerage_user",
+      "permissionPrefix": "mall:brokerage-user",
       "page": {
         "route": "/admin/mall/brokerage-user",
         "title": "分销用户管理",
@@ -34518,7 +34518,7 @@
       "entity": "BrokerageWithdraw",
       "kebab": "brokerage-withdraw",
       "businessName": "佣金提现",
-      "permissionPrefix": "mall:brokerage_withdraw",
+      "permissionPrefix": "mall:brokerage-withdraw",
       "page": {
         "route": "/admin/mall/brokerage-withdraw",
         "title": "佣金提现管理",
@@ -35152,7 +35152,7 @@
       "entity": "CombinationActivity",
       "kebab": "combination-activity",
       "businessName": "拼团活动",
-      "permissionPrefix": "mall:combination_activity",
+      "permissionPrefix": "mall:combination-activity",
       "page": {
         "route": "/admin/mall/combination-activity",
         "title": "拼团活动管理",
@@ -35442,7 +35442,7 @@
       "entity": "CombinationProduct",
       "kebab": "combination-product",
       "businessName": "拼团商品",
-      "permissionPrefix": "mall:combination_product",
+      "permissionPrefix": "mall:combination-product",
       "page": {
         "route": "/admin/mall/combination-product",
         "title": "拼团商品管理",
@@ -35705,7 +35705,7 @@
       "entity": "CombinationRecord",
       "kebab": "combination-record",
       "businessName": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人",
-      "permissionPrefix": "mall:combination_record",
+      "permissionPrefix": "mall:combination-record",
       "page": {
         "route": "/admin/mall/combination-record",
         "title": "拼团记录 DO1. 用户参与拼团时，会创建一条记录2. 团长的拼团记录，和参团人管理",
@@ -36480,7 +36480,7 @@
       "entity": "CouponTemplate",
       "kebab": "coupon-template",
       "businessName": "优惠劵模板 DO当用户领取时，会生成 优惠劵",
-      "permissionPrefix": "mall:coupon_template",
+      "permissionPrefix": "mall:coupon-template",
       "page": {
         "route": "/admin/mall/coupon-template",
         "title": "优惠劵模板 DO当用户领取时，会生成 优惠劵管理",
@@ -36853,7 +36853,7 @@
       "entity": "DeliveryExpress",
       "kebab": "delivery-express",
       "businessName": "快递公司",
-      "permissionPrefix": "mall:delivery_express",
+      "permissionPrefix": "mall:delivery-express",
       "page": {
         "route": "/admin/mall/delivery-express",
         "title": "快递公司管理",
@@ -37098,7 +37098,7 @@
       "entity": "DeliveryExpressTemplate",
       "kebab": "delivery-express-template",
       "businessName": "快递运费模板",
-      "permissionPrefix": "mall:delivery_express_template",
+      "permissionPrefix": "mall:delivery-express-template",
       "page": {
         "route": "/admin/mall/delivery-express-template",
         "title": "快递运费模板管理",
@@ -37311,7 +37311,7 @@
       "entity": "DeliveryExpressTemplateCharge",
       "kebab": "delivery-express-template-charge",
       "businessName": "快递运费模板计费配置",
-      "permissionPrefix": "mall:delivery_express_template_charge",
+      "permissionPrefix": "mall:delivery-express-template-charge",
       "page": {
         "route": "/admin/mall/delivery-express-template-charge",
         "title": "快递运费模板计费配置管理",
@@ -37567,7 +37567,7 @@
       "entity": "DeliveryExpressTemplateFree",
       "kebab": "delivery-express-template-free",
       "businessName": "快递运费模板包邮配置",
-      "permissionPrefix": "mall:delivery_express_template_free",
+      "permissionPrefix": "mall:delivery-express-template-free",
       "page": {
         "route": "/admin/mall/delivery-express-template-free",
         "title": "快递运费模板包邮配置管理",
@@ -37796,7 +37796,7 @@
       "entity": "DeliveryPickUpStore",
       "kebab": "delivery-pick-up-store",
       "businessName": "自提门店",
-      "permissionPrefix": "mall:delivery_pick_up_store",
+      "permissionPrefix": "mall:delivery-pick-up-store",
       "page": {
         "route": "/admin/mall/delivery-pick-up-store",
         "title": "自提门店管理",
@@ -38118,7 +38118,7 @@
       "entity": "DiscountActivity",
       "kebab": "discount-activity",
       "businessName": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一",
-      "permissionPrefix": "mall:discount_activity",
+      "permissionPrefix": "mall:discount-activity",
       "page": {
         "route": "/admin/mall/discount-activity",
         "title": "限时折扣活动 DO一个活动下，可以有 商品；一个商品，在指定时间段内，只能属于一管理",
@@ -38356,7 +38356,7 @@
       "entity": "DiscountProduct",
       "kebab": "discount-product",
       "businessName": "限时折扣商品",
-      "permissionPrefix": "mall:discount_product",
+      "permissionPrefix": "mall:discount-product",
       "page": {
         "route": "/admin/mall/discount-product",
         "title": "限时折扣商品管理",
@@ -38646,7 +38646,7 @@
       "entity": "DiyPage",
       "kebab": "diy-page",
       "businessName": "装修页面",
-      "permissionPrefix": "mall:diy_page",
+      "permissionPrefix": "mall:diy-page",
       "page": {
         "route": "/admin/mall/diy-page",
         "title": "装修页面管理",
@@ -38884,7 +38884,7 @@
       "entity": "DiyTemplate",
       "kebab": "diy-template",
       "businessName": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2.",
-      "permissionPrefix": "mall:diy_template",
+      "permissionPrefix": "mall:diy-template",
       "page": {
         "route": "/admin/mall/diy-template",
         "title": "装修模板 DO1. 新建一个模版，下面可以包含多个 页面，例如说首页、我的2. 管理",
@@ -39124,7 +39124,7 @@
       "entity": "KeFuConversation",
       "kebab": "ke-fu-conversation",
       "businessName": "客服会话",
-      "permissionPrefix": "mall:ke_fu_conversation",
+      "permissionPrefix": "mall:ke-fu-conversation",
       "page": {
         "route": "/admin/mall/ke-fu-conversation",
         "title": "客服会话管理",
@@ -39382,7 +39382,7 @@
       "entity": "KeFuMessage",
       "kebab": "ke-fu-message",
       "businessName": "客服消息",
-      "permissionPrefix": "mall:ke_fu_message",
+      "permissionPrefix": "mall:ke-fu-message",
       "page": {
         "route": "/admin/mall/ke-fu-message",
         "title": "客服消息管理",
@@ -39654,7 +39654,7 @@
       "entity": "PointActivity",
       "kebab": "point-activity",
       "businessName": "积分商城活动",
-      "permissionPrefix": "mall:point_activity",
+      "permissionPrefix": "mall:point-activity",
       "page": {
         "route": "/admin/mall/point-activity",
         "title": "积分商城活动管理",
@@ -39901,7 +39901,7 @@
       "entity": "PointProduct",
       "kebab": "point-product",
       "businessName": "积分商城商品",
-      "permissionPrefix": "mall:point_product",
+      "permissionPrefix": "mall:point-product",
       "page": {
         "route": "/admin/mall/point-product",
         "title": "积分商城商品管理",
@@ -40173,7 +40173,7 @@
       "entity": "ProductBrand",
       "kebab": "product-brand",
       "businessName": "商品品牌",
-      "permissionPrefix": "mall:product_brand",
+      "permissionPrefix": "mall:product-brand",
       "page": {
         "route": "/admin/mall/product-brand",
         "title": "商品品牌管理",
@@ -40411,7 +40411,7 @@
       "entity": "ProductBrowseHistory",
       "kebab": "product-browse-history",
       "businessName": "商品浏览记录",
-      "permissionPrefix": "mall:product_browse_history",
+      "permissionPrefix": "mall:product-browse-history",
       "page": {
         "route": "/admin/mall/product-browse-history",
         "title": "商品浏览记录管理",
@@ -40631,7 +40631,7 @@
       "entity": "ProductCategory",
       "kebab": "product-category",
       "businessName": "商品分类",
-      "permissionPrefix": "mall:product_category",
+      "permissionPrefix": "mall:product-category",
       "page": {
         "route": "/admin/mall/product-category",
         "title": "商品分类管理",
@@ -40876,7 +40876,7 @@
       "entity": "ProductComment",
       "kebab": "product-comment",
       "businessName": "商品评论",
-      "permissionPrefix": "mall:product_comment",
+      "permissionPrefix": "mall:product-comment",
       "page": {
         "route": "/admin/mall/product-comment",
         "title": "商品评论管理",
@@ -41279,7 +41279,7 @@
       "entity": "ProductFavorite",
       "kebab": "product-favorite",
       "businessName": "商品收藏",
-      "permissionPrefix": "mall:product_favorite",
+      "permissionPrefix": "mall:product-favorite",
       "page": {
         "route": "/admin/mall/product-favorite",
         "title": "商品收藏管理",
@@ -41490,7 +41490,7 @@
       "entity": "ProductProperty",
       "kebab": "product-property",
       "businessName": "商品属性项",
-      "permissionPrefix": "mall:product_property",
+      "permissionPrefix": "mall:product-property",
       "page": {
         "route": "/admin/mall/product-property",
         "title": "商品属性项管理",
@@ -41694,7 +41694,7 @@
       "entity": "ProductPropertyValue",
       "kebab": "product-property-value",
       "businessName": "商品属性值",
-      "permissionPrefix": "mall:product_property_value",
+      "permissionPrefix": "mall:product-property-value",
       "page": {
         "route": "/admin/mall/product-property-value",
         "title": "商品属性值管理",
@@ -41914,7 +41914,7 @@
       "entity": "ProductSku",
       "kebab": "product-sku",
       "businessName": "商品 SKU",
-      "permissionPrefix": "mall:product_sku",
+      "permissionPrefix": "mall:product-sku",
       "page": {
         "route": "/admin/mall/product-sku",
         "title": "商品 SKU管理",
@@ -42267,7 +42267,7 @@
       "entity": "ProductSpu",
       "kebab": "product-spu",
       "businessName": "商品 SPU",
-      "permissionPrefix": "mall:product_spu",
+      "permissionPrefix": "mall:product-spu",
       "page": {
         "route": "/admin/mall/product-spu",
         "title": "商品 SPU管理",
@@ -42695,7 +42695,7 @@
       "entity": "ProductStatistics",
       "kebab": "product-statistics",
       "businessName": "商品统计",
-      "permissionPrefix": "mall:product_statistics",
+      "permissionPrefix": "mall:product-statistics",
       "page": {
         "route": "/admin/mall/product-statistics",
         "title": "商品统计管理",
@@ -42989,7 +42989,7 @@
       "entity": "RewardActivity",
       "kebab": "reward-activity",
       "businessName": "满减送活动",
-      "permissionPrefix": "mall:reward_activity",
+      "permissionPrefix": "mall:reward-activity",
       "page": {
         "route": "/admin/mall/reward-activity",
         "title": "满减送活动管理",
@@ -43308,7 +43308,7 @@
       "entity": "SeckillActivity",
       "kebab": "seckill-activity",
       "businessName": "秒杀活动",
-      "permissionPrefix": "mall:seckill_activity",
+      "permissionPrefix": "mall:seckill-activity",
       "page": {
         "route": "/admin/mall/seckill-activity",
         "title": "秒杀活动管理",
@@ -43623,7 +43623,7 @@
       "entity": "SeckillConfig",
       "kebab": "seckill-config",
       "businessName": "秒杀时段",
-      "permissionPrefix": "mall:seckill_config",
+      "permissionPrefix": "mall:seckill-config",
       "page": {
         "route": "/admin/mall/seckill-config",
         "title": "秒杀时段管理",
@@ -43861,7 +43861,7 @@
       "entity": "SeckillProduct",
       "kebab": "seckill-product",
       "businessName": "秒杀参与商品",
-      "permissionPrefix": "mall:seckill_product",
+      "permissionPrefix": "mall:seckill-product",
       "page": {
         "route": "/admin/mall/seckill-product",
         "title": "秒杀参与商品管理",
@@ -44149,7 +44149,7 @@
       "entity": "TradeConfig",
       "kebab": "trade-config",
       "businessName": "交易中心配置",
-      "permissionPrefix": "mall:trade_config",
+      "permissionPrefix": "mall:trade-config",
       "page": {
         "route": "/admin/mall/trade-config",
         "title": "交易中心配置管理",
@@ -44462,7 +44462,7 @@
       "entity": "TradeOrder",
       "kebab": "trade-order",
       "businessName": "交易订单",
-      "permissionPrefix": "mall:trade_order",
+      "permissionPrefix": "mall:trade-order",
       "page": {
         "route": "/admin/mall/trade-order",
         "title": "交易订单管理",
@@ -45144,7 +45144,7 @@
       "entity": "TradeOrderItem",
       "kebab": "trade-order-item",
       "businessName": "交易订单项",
-      "permissionPrefix": "mall:trade_order_item",
+      "permissionPrefix": "mall:trade-order-item",
       "page": {
         "route": "/admin/mall/trade-order-item",
         "title": "交易订单项管理",
@@ -45592,7 +45592,7 @@
       "entity": "TradeOrderLog",
       "kebab": "trade-order-log",
       "businessName": "订单日志",
-      "permissionPrefix": "mall:trade_order_log",
+      "permissionPrefix": "mall:trade-order-log",
       "page": {
         "route": "/admin/mall/trade-order-log",
         "title": "订单日志管理",
@@ -45848,7 +45848,7 @@
       "entity": "TradeStatistics",
       "kebab": "trade-statistics",
       "businessName": "交易统计 DO以天为维度，统计全部的数据",
-      "permissionPrefix": "mall:trade_statistics",
+      "permissionPrefix": "mall:trade-statistics",
       "page": {
         "route": "/admin/mall/trade-statistics",
         "title": "交易统计 DO以天为维度，统计全部的数据管理",
@@ -46134,7 +46134,7 @@
       "entity": "MemberAddress",
       "kebab": "member-address",
       "businessName": "用户收件地址",
-      "permissionPrefix": "member:member_address",
+      "permissionPrefix": "member:address",
       "page": {
         "route": "/admin/member/member-address",
         "title": "用户收件地址管理",
@@ -46395,7 +46395,7 @@
       "entity": "MemberConfig",
       "kebab": "member-config",
       "businessName": "会员配置",
-      "permissionPrefix": "member:member_config",
+      "permissionPrefix": "member:config",
       "page": {
         "route": "/admin/member/member-config",
         "title": "会员配置管理",
@@ -46609,7 +46609,7 @@
       "entity": "MemberExperienceRecord",
       "kebab": "member-experience-record",
       "businessName": "会员经验记录",
-      "permissionPrefix": "member:member_experience_record",
+      "permissionPrefix": "member:experience-record",
       "page": {
         "route": "/admin/member/member-experience-record",
         "title": "会员经验记录管理",
@@ -46879,7 +46879,7 @@
       "entity": "MemberGroup",
       "kebab": "member-group",
       "businessName": "用户分组",
-      "permissionPrefix": "member:member_group",
+      "permissionPrefix": "member:group",
       "page": {
         "route": "/admin/member/member-group",
         "title": "用户分组管理",
@@ -47113,7 +47113,7 @@
       "entity": "MemberLevel",
       "kebab": "member-level",
       "businessName": "会员等级 DO配置每个等级需要的积分",
-      "permissionPrefix": "member:member_level",
+      "permissionPrefix": "member:level",
       "page": {
         "route": "/admin/member/member-level",
         "title": "会员等级 DO配置每个等级需要的积分管理",
@@ -47376,7 +47376,7 @@
       "entity": "MemberLevelRecord",
       "kebab": "member-level-record",
       "businessName": "会员等级记录 DO用户每次等级发生变更时，记录一条日志",
-      "permissionPrefix": "member:member_level_record",
+      "permissionPrefix": "member:level-record",
       "page": {
         "route": "/admin/member/member-level-record",
         "title": "会员等级记录 DO用户每次等级发生变更时，记录一条日志管理",
@@ -47648,7 +47648,7 @@
       "entity": "MemberPointRecord",
       "kebab": "member-point-record",
       "businessName": "用户积分记录",
-      "permissionPrefix": "member:member_point_record",
+      "permissionPrefix": "member:point-record",
       "page": {
         "route": "/admin/member/member-point-record",
         "title": "用户积分记录管理",
@@ -47918,7 +47918,7 @@
       "entity": "MemberSignInConfig",
       "kebab": "member-sign-in-config",
       "businessName": "签到规则",
-      "permissionPrefix": "member:member_sign_in_config",
+      "permissionPrefix": "member:sign-in-config",
       "page": {
         "route": "/admin/member/member-sign-in-config",
         "title": "签到规则管理",
@@ -48140,7 +48140,7 @@
       "entity": "MemberSignInRecord",
       "kebab": "member-sign-in-record",
       "businessName": "签到记录",
-      "permissionPrefix": "member:member_sign_in_record",
+      "permissionPrefix": "member:sign-in-record",
       "page": {
         "route": "/admin/member/member-sign-in-record",
         "title": "签到记录管理",
@@ -48362,7 +48362,7 @@
       "entity": "MemberTag",
       "kebab": "member-tag",
       "businessName": "会员标签",
-      "permissionPrefix": "member:member_tag",
+      "permissionPrefix": "member:tag",
       "page": {
         "route": "/admin/member/member-tag",
         "title": "会员标签管理",
@@ -48557,7 +48557,7 @@
       "entity": "MemberUser",
       "kebab": "member-user",
       "businessName": "会员用户 DOuk_mobile 索引：基于 字段",
-      "permissionPrefix": "member:member_user",
+      "permissionPrefix": "member:user",
       "page": {
         "route": "/admin/member/member-user",
         "title": "会员用户 DOuk_mobile 索引：基于 字段管理",
@@ -49037,7 +49037,7 @@
       "entity": "MesCalHoliday",
       "kebab": "mes-cal-holiday",
       "businessName": "MES 假期设置",
-      "permissionPrefix": "mes:mes_cal_holiday",
+      "permissionPrefix": "mes:cal-holiday",
       "page": {
         "route": "/admin/mes/mes-cal-holiday",
         "title": "MES 假期设置管理",
@@ -49250,7 +49250,7 @@
       "entity": "MesCalPlan",
       "kebab": "mes-cal-plan",
       "businessName": "MES 排班计划",
-      "permissionPrefix": "mes:mes_cal_plan",
+      "permissionPrefix": "mes:cal-plan",
       "page": {
         "route": "/admin/mes/mes-cal-plan",
         "title": "MES 排班计划管理",
@@ -49554,7 +49554,7 @@
       "entity": "MesCalPlanShift",
       "kebab": "mes-cal-plan-shift",
       "businessName": "MES 计划班次",
-      "permissionPrefix": "mes:mes_cal_plan_shift",
+      "permissionPrefix": "mes:cal-plan-shift",
       "page": {
         "route": "/admin/mes/mes-cal-plan-shift",
         "title": "MES 计划班次管理",
@@ -49801,7 +49801,7 @@
       "entity": "MesCalPlanTeam",
       "kebab": "mes-cal-plan-team",
       "businessName": "MES 计划班组关联",
-      "permissionPrefix": "mes:mes_cal_plan_team",
+      "permissionPrefix": "mes:cal-plan-team",
       "page": {
         "route": "/admin/mes/mes-cal-plan-team",
         "title": "MES 计划班组关联管理",
@@ -50021,7 +50021,7 @@
       "entity": "MesCalTeam",
       "kebab": "mes-cal-team",
       "businessName": "MES 班组",
-      "permissionPrefix": "mes:mes_cal_team",
+      "permissionPrefix": "mes:cal-team",
       "page": {
         "route": "/admin/mes/mes-cal-team",
         "title": "MES 班组管理",
@@ -50250,7 +50250,7 @@
       "entity": "MesCalTeamMember",
       "kebab": "mes-cal-team-member",
       "businessName": "MES 班组成员",
-      "permissionPrefix": "mes:mes_cal_team_member",
+      "permissionPrefix": "mes:cal-team-member",
       "page": {
         "route": "/admin/mes/mes-cal-team-member",
         "title": "MES 班组成员管理",
@@ -50470,7 +50470,7 @@
       "entity": "MesCalTeamShift",
       "kebab": "mes-cal-team-shift",
       "businessName": "MES 班组排班",
-      "permissionPrefix": "mes:mes_cal_team_shift",
+      "permissionPrefix": "mes:cal-team-shift",
       "page": {
         "route": "/admin/mes/mes-cal-team-shift",
         "title": "MES 班组排班管理",
@@ -50724,7 +50724,7 @@
       "entity": "MesDvCheckPlan",
       "kebab": "mes-dv-check-plan",
       "businessName": "MES 点检保养方案",
-      "permissionPrefix": "mes:mes_dv_check_plan",
+      "permissionPrefix": "mes:dv-check-plan",
       "page": {
         "route": "/admin/mes/mes-dv-check-plan",
         "title": "MES 点检保养方案管理",
@@ -51026,7 +51026,7 @@
       "entity": "MesDvCheckPlanMachinery",
       "kebab": "mes-dv-check-plan-machinery",
       "businessName": "MES 点检保养方案设备",
-      "permissionPrefix": "mes:mes_dv_check_plan_machinery",
+      "permissionPrefix": "mes:dv-check-plan-machinery",
       "page": {
         "route": "/admin/mes/mes-dv-check-plan-machinery",
         "title": "MES 点检保养方案设备管理",
@@ -51246,7 +51246,7 @@
       "entity": "MesDvCheckPlanSubject",
       "kebab": "mes-dv-check-plan-subject",
       "businessName": "MES 点检保养方案项目",
-      "permissionPrefix": "mes:mes_dv_check_plan_subject",
+      "permissionPrefix": "mes:dv-check-plan-subject",
       "page": {
         "route": "/admin/mes/mes-dv-check-plan-subject",
         "title": "MES 点检保养方案项目管理",
@@ -51466,7 +51466,7 @@
       "entity": "MesDvCheckRecord",
       "kebab": "mes-dv-check-record",
       "businessName": "MES 设备点检记录",
-      "permissionPrefix": "mes:mes_dv_check_record",
+      "permissionPrefix": "mes:dv-check-record",
       "page": {
         "route": "/admin/mes/mes-dv-check-record",
         "title": "MES 设备点检记录管理",
@@ -51741,7 +51741,7 @@
       "entity": "MesDvCheckRecordLine",
       "kebab": "mes-dv-check-record-line",
       "businessName": "MES 设备点检记录明细",
-      "permissionPrefix": "mes:mes_dv_check_record_line",
+      "permissionPrefix": "mes:dv-check-record-line",
       "page": {
         "route": "/admin/mes/mes-dv-check-record-line",
         "title": "MES 设备点检记录明细管理",
@@ -51979,7 +51979,7 @@
       "entity": "MesDvMachinery",
       "kebab": "mes-dv-machinery",
       "businessName": "MES 设备台账",
-      "permissionPrefix": "mes:mes_dv_machinery",
+      "permissionPrefix": "mes:dv-machinery",
       "page": {
         "route": "/admin/mes/mes-dv-machinery",
         "title": "MES 设备台账管理",
@@ -52299,7 +52299,7 @@
       "entity": "MesDvMachineryType",
       "kebab": "mes-dv-machinery-type",
       "businessName": "MES 设备类型",
-      "permissionPrefix": "mes:mes_dv_machinery_type",
+      "permissionPrefix": "mes:dv-machinery-type",
       "page": {
         "route": "/admin/mes/mes-dv-machinery-type",
         "title": "MES 设备类型管理",
@@ -52560,7 +52560,7 @@
       "entity": "MesDvMaintenRecord",
       "kebab": "mes-dv-mainten-record",
       "businessName": "MES 设备保养记录",
-      "permissionPrefix": "mes:mes_dv_mainten_record",
+      "permissionPrefix": "mes:dv-mainten-record",
       "page": {
         "route": "/admin/mes/mes-dv-mainten-record",
         "title": "MES 设备保养记录管理",
@@ -52821,7 +52821,7 @@
       "entity": "MesDvMaintenRecordLine",
       "kebab": "mes-dv-mainten-record-line",
       "businessName": "MES 设备保养记录明细",
-      "permissionPrefix": "mes:mes_dv_mainten_record_line",
+      "permissionPrefix": "mes:dv-mainten-record-line",
       "page": {
         "route": "/admin/mes/mes-dv-mainten-record-line",
         "title": "MES 设备保养记录明细管理",
@@ -53066,7 +53066,7 @@
       "entity": "MesDvRepair",
       "kebab": "mes-dv-repair",
       "businessName": "MES 维修工单",
-      "permissionPrefix": "mes:mes_dv_repair",
+      "permissionPrefix": "mes:dv-repair",
       "page": {
         "route": "/admin/mes/mes-dv-repair",
         "title": "MES 维修工单管理",
@@ -53424,7 +53424,7 @@
       "entity": "MesDvRepairLine",
       "kebab": "mes-dv-repair-line",
       "businessName": "MES 维修工单行",
-      "permissionPrefix": "mes:mes_dv_repair_line",
+      "permissionPrefix": "mes:dv-repair-line",
       "page": {
         "route": "/admin/mes/mes-dv-repair-line",
         "title": "MES 维修工单行管理",
@@ -53671,7 +53671,7 @@
       "entity": "MesDvSubject",
       "kebab": "mes-dv-subject",
       "businessName": "MES 点检保养项目",
-      "permissionPrefix": "mes:mes_dv_subject",
+      "permissionPrefix": "mes:dv-subject",
       "page": {
         "route": "/admin/mes/mes-dv-subject",
         "title": "MES 点检保养项目管理",
@@ -53941,7 +53941,7 @@
       "entity": "MesMdAutoCodePart",
       "kebab": "mes-md-auto-code-part",
       "businessName": "MES 编码规则组成",
-      "permissionPrefix": "mes:mes_md_auto_code_part",
+      "permissionPrefix": "mes:md-auto-code-part",
       "page": {
         "route": "/admin/mes/mes-md-auto-code-part",
         "title": "MES 编码规则组成管理",
@@ -54233,7 +54233,7 @@
       "entity": "MesMdAutoCodeRecord",
       "kebab": "mes-md-auto-code-record",
       "businessName": "MES 编码生成记录",
-      "permissionPrefix": "mes:mes_md_auto_code_record",
+      "permissionPrefix": "mes:md-auto-code-record",
       "page": {
         "route": "/admin/mes/mes-md-auto-code-record",
         "title": "MES 编码生成记录管理",
@@ -54455,7 +54455,7 @@
       "entity": "MesMdAutoCodeRule",
       "kebab": "mes-md-auto-code-rule",
       "businessName": "MES 编码规则",
-      "permissionPrefix": "mes:mes_md_auto_code_rule",
+      "permissionPrefix": "mes:md-auto-code-rule",
       "page": {
         "route": "/admin/mes/mes-md-auto-code-rule",
         "title": "MES 编码规则管理",
@@ -54736,7 +54736,7 @@
       "entity": "MesMdClient",
       "kebab": "mes-md-client",
       "businessName": "MES 客户",
-      "permissionPrefix": "mes:mes_md_client",
+      "permissionPrefix": "mes:md-client",
       "page": {
         "route": "/admin/mes/mes-md-client",
         "title": "MES 客户管理",
@@ -55130,7 +55130,7 @@
       "entity": "MesMdItem",
       "kebab": "mes-md-item",
       "businessName": "MES 物料产品",
-      "permissionPrefix": "mes:mes_md_item",
+      "permissionPrefix": "mes:md-item",
       "page": {
         "route": "/admin/mes/mes-md-item",
         "title": "MES 物料产品管理",
@@ -55452,7 +55452,7 @@
       "entity": "MesMdItemBatchConfig",
       "kebab": "mes-md-item-batch-config",
       "businessName": "MES 物料批次属性配置",
-      "permissionPrefix": "mes:mes_md_item_batch_config",
+      "permissionPrefix": "mes:md-item-batch-config",
       "page": {
         "route": "/admin/mes/mes-md-item-batch-config",
         "title": "MES 物料批次属性配置管理",
@@ -55773,7 +55773,7 @@
       "entity": "MesMdItemType",
       "kebab": "mes-md-item-type",
       "businessName": "MES 物料产品分类",
-      "permissionPrefix": "mes:mes_md_item_type",
+      "permissionPrefix": "mes:md-item-type",
       "page": {
         "route": "/admin/mes/mes-md-item-type",
         "title": "MES 物料产品分类管理",
@@ -56043,7 +56043,7 @@
       "entity": "MesMdProductBom",
       "kebab": "mes-md-product-bom",
       "businessName": "MES 产品 BOM",
-      "permissionPrefix": "mes:mes_md_product_bom",
+      "permissionPrefix": "mes:md-product-bom",
       "page": {
         "route": "/admin/mes/mes-md-product-bom",
         "title": "MES 产品 BOM管理",
@@ -56288,7 +56288,7 @@
       "entity": "MesMdProductSip",
       "kebab": "mes-md-product-sip",
       "businessName": "MES 产品SIP",
-      "permissionPrefix": "mes:mes_md_product_sip",
+      "permissionPrefix": "mes:md-product-sip",
       "page": {
         "route": "/admin/mes/mes-md-product-sip",
         "title": "MES 产品SIP管理",
@@ -56551,7 +56551,7 @@
       "entity": "MesMdProductSop",
       "kebab": "mes-md-product-sop",
       "businessName": "MES 产品SOP",
-      "permissionPrefix": "mes:mes_md_product_sop",
+      "permissionPrefix": "mes:md-product-sop",
       "page": {
         "route": "/admin/mes/mes-md-product-sop",
         "title": "MES 产品SOP管理",
@@ -56814,7 +56814,7 @@
       "entity": "MesMdUnitMeasure",
       "kebab": "mes-md-unit-measure",
       "businessName": "MES 计量单位",
-      "permissionPrefix": "mes:mes_md_unit_measure",
+      "permissionPrefix": "mes:md-unit-measure",
       "page": {
         "route": "/admin/mes/mes-md-unit-measure",
         "title": "MES 计量单位管理",
@@ -57084,7 +57084,7 @@
       "entity": "MesMdVendor",
       "kebab": "mes-md-vendor",
       "businessName": "MES 供应商",
-      "permissionPrefix": "mes:mes_md_vendor",
+      "permissionPrefix": "mes:md-vendor",
       "page": {
         "route": "/admin/mes/mes-md-vendor",
         "title": "MES 供应商管理",
@@ -57487,7 +57487,7 @@
       "entity": "MesMdWorkshop",
       "kebab": "mes-md-workshop",
       "businessName": "MES 车间",
-      "permissionPrefix": "mes:mes_md_workshop",
+      "permissionPrefix": "mes:md-workshop",
       "page": {
         "route": "/admin/mes/mes-md-workshop",
         "title": "MES 车间管理",
@@ -57748,7 +57748,7 @@
       "entity": "MesMdWorkstation",
       "kebab": "mes-md-workstation",
       "businessName": "MES 工作站",
-      "permissionPrefix": "mes:mes_md_workstation",
+      "permissionPrefix": "mes:md-workstation",
       "page": {
         "route": "/admin/mes/mes-md-workstation",
         "title": "MES 工作站管理",
@@ -58052,7 +58052,7 @@
       "entity": "MesMdWorkstationMachine",
       "kebab": "mes-md-workstation-machine",
       "businessName": "MES 设备资源",
-      "permissionPrefix": "mes:mes_md_workstation_machine",
+      "permissionPrefix": "mes:md-workstation-machine",
       "page": {
         "route": "/admin/mes/mes-md-workstation-machine",
         "title": "MES 设备资源管理",
@@ -58281,7 +58281,7 @@
       "entity": "MesMdWorkstationTool",
       "kebab": "mes-md-workstation-tool",
       "businessName": "MES 工装夹具资源",
-      "permissionPrefix": "mes:mes_md_workstation_tool",
+      "permissionPrefix": "mes:md-workstation-tool",
       "page": {
         "route": "/admin/mes/mes-md-workstation-tool",
         "title": "MES 工装夹具资源管理",
@@ -58510,7 +58510,7 @@
       "entity": "MesMdWorkstationWorker",
       "kebab": "mes-md-workstation-worker",
       "businessName": "MES 人力资源",
-      "permissionPrefix": "mes:mes_md_workstation_worker",
+      "permissionPrefix": "mes:md-workstation-worker",
       "page": {
         "route": "/admin/mes/mes-md-workstation-worker",
         "title": "MES 人力资源管理",
@@ -58739,7 +58739,7 @@
       "entity": "MesProAndonConfig",
       "kebab": "mes-pro-andon-config",
       "businessName": "MES 安灯呼叫配置",
-      "permissionPrefix": "mes:mes_pro_andon_config",
+      "permissionPrefix": "mes:pro-andon-config",
       "page": {
         "route": "/admin/mes/mes-pro-andon-config",
         "title": "MES 安灯呼叫配置管理",
@@ -58984,7 +58984,7 @@
       "entity": "MesProAndonRecord",
       "kebab": "mes-pro-andon-record",
       "businessName": "MES 安灯呼叫记录",
-      "permissionPrefix": "mes:mes_pro_andon_record",
+      "permissionPrefix": "mes:pro-andon-record",
       "page": {
         "route": "/admin/mes/mes-pro-andon-record",
         "title": "MES 安灯呼叫记录管理",
@@ -59297,7 +59297,7 @@
       "entity": "MesProCard",
       "kebab": "mes-pro-card",
       "businessName": "MES 生产流转卡",
-      "permissionPrefix": "mes:mes_pro_card",
+      "permissionPrefix": "mes:pro-card",
       "page": {
         "route": "/admin/mes/mes-pro-card",
         "title": "MES 生产流转卡管理",
@@ -59567,7 +59567,7 @@
       "entity": "MesProCardProcess",
       "kebab": "mes-pro-card-process",
       "businessName": "MES 流转卡工序记录",
-      "permissionPrefix": "mes:mes_pro_card_process",
+      "permissionPrefix": "mes:pro-card-process",
       "page": {
         "route": "/admin/mes/mes-pro-card-process",
         "title": "MES 流转卡工序记录管理",
@@ -59889,7 +59889,7 @@
       "entity": "MesProFeedback",
       "kebab": "mes-pro-feedback",
       "businessName": "MES 生产报工",
-      "permissionPrefix": "mes:mes_pro_feedback",
+      "permissionPrefix": "mes:pro-feedback",
       "page": {
         "route": "/admin/mes/mes-pro-feedback",
         "title": "MES 生产报工管理",
@@ -60337,7 +60337,7 @@
       "entity": "MesProProcess",
       "kebab": "mes-pro-process",
       "businessName": "MES 生产工序",
-      "permissionPrefix": "mes:mes_pro_process",
+      "permissionPrefix": "mes:pro-process",
       "page": {
         "route": "/admin/mes/mes-pro-process",
         "title": "MES 生产工序管理",
@@ -60582,7 +60582,7 @@
       "entity": "MesProProcessContent",
       "kebab": "mes-pro-process-content",
       "businessName": "MES 生产工序内容",
-      "permissionPrefix": "mes:mes_pro_process_content",
+      "permissionPrefix": "mes:pro-process-content",
       "page": {
         "route": "/admin/mes/mes-pro-process-content",
         "title": "MES 生产工序内容管理",
@@ -60831,7 +60831,7 @@
       "entity": "MesProRoute",
       "kebab": "mes-pro-route",
       "businessName": "MES 工艺路线",
-      "permissionPrefix": "mes:mes_pro_route",
+      "permissionPrefix": "mes:pro-route",
       "page": {
         "route": "/admin/mes/mes-pro-route",
         "title": "MES 工艺路线管理",
@@ -61076,7 +61076,7 @@
       "entity": "MesProRouteProcess",
       "kebab": "mes-pro-route-process",
       "businessName": "MES 工艺路线工序",
-      "permissionPrefix": "mes:mes_pro_route_process",
+      "permissionPrefix": "mes:pro-route-process",
       "page": {
         "route": "/admin/mes/mes-pro-route-process",
         "title": "MES 工艺路线工序管理",
@@ -61375,7 +61375,7 @@
       "entity": "MesProRouteProduct",
       "kebab": "mes-pro-route-product",
       "businessName": "MES 工艺路线产品",
-      "permissionPrefix": "mes:mes_pro_route_product",
+      "permissionPrefix": "mes:pro-route-product",
       "page": {
         "route": "/admin/mes/mes-pro-route-product",
         "title": "MES 工艺路线产品管理",
@@ -61622,7 +61622,7 @@
       "entity": "MesProRouteProductBom",
       "kebab": "mes-pro-route-product-bom",
       "businessName": "MES 工艺路线产品 BOM",
-      "permissionPrefix": "mes:mes_pro_route_product_bom",
+      "permissionPrefix": "mes:pro-route-product-bom",
       "page": {
         "route": "/admin/mes/mes-pro-route-product-bom",
         "title": "MES 工艺路线产品 BOM管理",
@@ -61883,7 +61883,7 @@
       "entity": "MesProTask",
       "kebab": "mes-pro-task",
       "businessName": "MES 生产任务",
-      "permissionPrefix": "mes:mes_pro_task",
+      "permissionPrefix": "mes:pro-task",
       "page": {
         "route": "/admin/mes/mes-pro-task",
         "title": "MES 生产任务管理",
@@ -62302,7 +62302,7 @@
       "entity": "MesProTaskIssue",
       "kebab": "mes-pro-task-issue",
       "businessName": "MES 生产任务投料",
-      "permissionPrefix": "mes:mes_pro_task_issue",
+      "permissionPrefix": "mes:pro-task-issue",
       "page": {
         "route": "/admin/mes/mes-pro-task-issue",
         "title": "MES 生产任务投料管理",
@@ -62642,7 +62642,7 @@
       "entity": "MesProWorkOrder",
       "kebab": "mes-pro-work-order",
       "businessName": "MES 生产工单",
-      "permissionPrefix": "mes:mes_pro_work_order",
+      "permissionPrefix": "mes:pro-work-order",
       "page": {
         "route": "/admin/mes/mes-pro-work-order",
         "title": "MES 生产工单管理",
@@ -63045,7 +63045,7 @@
       "entity": "MesProWorkOrderBom",
       "kebab": "mes-pro-work-order-bom",
       "businessName": "MES 生产工单 BOM",
-      "permissionPrefix": "mes:mes_pro_work_order_bom",
+      "permissionPrefix": "mes:pro-work-order-bom",
       "page": {
         "route": "/admin/mes/mes-pro-work-order-bom",
         "title": "MES 生产工单 BOM管理",
@@ -63274,7 +63274,7 @@
       "entity": "MesProWorkRecord",
       "kebab": "mes-pro-work-record",
       "businessName": "MES 用户工作站绑定关系（当前快照）",
-      "permissionPrefix": "mes:mes_pro_work_record",
+      "permissionPrefix": "mes:pro-work-record",
       "page": {
         "route": "/admin/mes/mes-pro-work-record",
         "title": "MES 用户工作站绑定关系（当前快照）管理",
@@ -63528,7 +63528,7 @@
       "entity": "MesProWorkRecordLog",
       "kebab": "mes-pro-work-record-log",
       "businessName": "MES 上下工记录流水",
-      "permissionPrefix": "mes:mes_pro_work_record_log",
+      "permissionPrefix": "mes:pro-work-record-log",
       "page": {
         "route": "/admin/mes/mes-pro-work-record-log",
         "title": "MES 上下工记录流水管理",
@@ -63764,7 +63764,7 @@
       "entity": "MesQcDefect",
       "kebab": "mes-qc-defect",
       "businessName": "MES 缺陷类型",
-      "permissionPrefix": "mes:mes_qc_defect",
+      "permissionPrefix": "mes:qc-defect",
       "page": {
         "route": "/admin/mes/mes-qc-defect",
         "title": "MES 缺陷类型管理",
@@ -64016,7 +64016,7 @@
       "entity": "MesQcDefectRecord",
       "kebab": "mes-qc-defect-record",
       "businessName": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、",
-      "permissionPrefix": "mes:mes_qc_defect_record",
+      "permissionPrefix": "mes:qc-defect-record",
       "page": {
         "route": "/admin/mes/mes-qc-defect-record",
         "title": "MES 质检缺陷记录 DO通用缺陷记录表，通过 区分检验类型（IQC、IPQC、管理",
@@ -64286,7 +64286,7 @@
       "entity": "MesQcIndicator",
       "kebab": "mes-qc-indicator",
       "businessName": "MES 质检指标",
-      "permissionPrefix": "mes:mes_qc_indicator",
+      "permissionPrefix": "mes:qc-indicator",
       "page": {
         "route": "/admin/mes/mes-qc-indicator",
         "title": "MES 质检指标管理",
@@ -64549,7 +64549,7 @@
       "entity": "MesQcIndicatorResult",
       "kebab": "mes-qc-indicator-result",
       "businessName": "MES 检验结果记录",
-      "permissionPrefix": "mes:mes_qc_indicator_result",
+      "permissionPrefix": "mes:qc-indicator-result",
       "page": {
         "route": "/admin/mes/mes-qc-indicator-result",
         "title": "MES 检验结果记录管理",
@@ -64810,7 +64810,7 @@
       "entity": "MesQcIndicatorResultDetail",
       "kebab": "mes-qc-indicator-result-detail",
       "businessName": "MES 检验结果明细记录",
-      "permissionPrefix": "mes:mes_qc_indicator_result_detail",
+      "permissionPrefix": "mes:qc-indicator-result-detail",
       "page": {
         "route": "/admin/mes/mes-qc-indicator-result-detail",
         "title": "MES 检验结果明细记录管理",
@@ -65039,7 +65039,7 @@
       "entity": "MesQcIpqc",
       "kebab": "mes-qc-ipqc",
       "businessName": "MES 过程检验单（IPQC, In-Process Quality Contr",
-      "permissionPrefix": "mes:mes_qc_ipqc",
+      "permissionPrefix": "mes:qc-ipqc",
       "page": {
         "route": "/admin/mes/mes-qc-ipqc",
         "title": "MES 过程检验单（IPQC, In-Process Quality Contr管理",
@@ -65523,7 +65523,7 @@
       "entity": "MesQcIpqcLine",
       "kebab": "mes-qc-ipqc-line",
       "businessName": "MES 过程检验单行",
-      "permissionPrefix": "mes:mes_qc_ipqc_line",
+      "permissionPrefix": "mes:qc-ipqc-line",
       "page": {
         "route": "/admin/mes/mes-qc-ipqc-line",
         "title": "MES 过程检验单行管理",
@@ -65831,7 +65831,7 @@
       "entity": "MesQcIqc",
       "kebab": "mes-qc-iqc",
       "businessName": "MES 来料检验单（IQC, Incoming Quality Control）",
-      "permissionPrefix": "mes:mes_qc_iqc",
+      "permissionPrefix": "mes:qc-iqc",
       "page": {
         "route": "/admin/mes/mes-qc-iqc",
         "title": "MES 来料检验单（IQC, Incoming Quality Control）管理",
@@ -66279,7 +66279,7 @@
       "entity": "MesQcIqcLine",
       "kebab": "mes-qc-iqc-line",
       "businessName": "MES 来料检验单行",
-      "permissionPrefix": "mes:mes_qc_iqc_line",
+      "permissionPrefix": "mes:qc-iqc-line",
       "page": {
         "route": "/admin/mes/mes-qc-iqc-line",
         "title": "MES 来料检验单行管理",
@@ -66587,7 +66587,7 @@
       "entity": "MesQcOqc",
       "kebab": "mes-qc-oqc",
       "businessName": "MES 出货检验单（OQC, Outgoing Quality Control）",
-      "permissionPrefix": "mes:mes_qc_oqc",
+      "permissionPrefix": "mes:qc-oqc",
       "page": {
         "route": "/admin/mes/mes-qc-oqc",
         "title": "MES 出货检验单（OQC, Outgoing Quality Control）管理",
@@ -67053,7 +67053,7 @@
       "entity": "MesQcOqcLine",
       "kebab": "mes-qc-oqc-line",
       "businessName": "MES 出货检验单行",
-      "permissionPrefix": "mes:mes_qc_oqc_line",
+      "permissionPrefix": "mes:qc-oqc-line",
       "page": {
         "route": "/admin/mes/mes-qc-oqc-line",
         "title": "MES 出货检验单行管理",
@@ -67361,7 +67361,7 @@
       "entity": "MesQcRqc",
       "kebab": "mes-qc-rqc",
       "businessName": "MES 退货检验单（RQC, Return Quality Control）",
-      "permissionPrefix": "mes:mes_qc_rqc",
+      "permissionPrefix": "mes:qc-rqc",
       "page": {
         "route": "/admin/mes/mes-qc-rqc",
         "title": "MES 退货检验单（RQC, Return Quality Control）管理",
@@ -67791,7 +67791,7 @@
       "entity": "MesQcRqcLine",
       "kebab": "mes-qc-rqc-line",
       "businessName": "MES 退货检验行",
-      "permissionPrefix": "mes:mes_qc_rqc_line",
+      "permissionPrefix": "mes:qc-rqc-line",
       "page": {
         "route": "/admin/mes/mes-qc-rqc-line",
         "title": "MES 退货检验行管理",
@@ -68099,7 +68099,7 @@
       "entity": "MesQcTemplate",
       "kebab": "mes-qc-template",
       "businessName": "MES 质检方案",
-      "permissionPrefix": "mes:mes_qc_template",
+      "permissionPrefix": "mes:qc-template",
       "page": {
         "route": "/admin/mes/mes-qc-template",
         "title": "MES 质检方案管理",
@@ -68344,7 +68344,7 @@
       "entity": "MesQcTemplateIndicator",
       "kebab": "mes-qc-template-indicator",
       "businessName": "MES 质检方案-检测指标项",
-      "permissionPrefix": "mes:mes_qc_template_indicator",
+      "permissionPrefix": "mes:qc-template-indicator",
       "page": {
         "route": "/admin/mes/mes-qc-template-indicator",
         "title": "MES 质检方案-检测指标项管理",
@@ -68625,7 +68625,7 @@
       "entity": "MesQcTemplateItem",
       "kebab": "mes-qc-template-item",
       "businessName": "MES 质检方案-产品关联",
-      "permissionPrefix": "mes:mes_qc_template_item",
+      "permissionPrefix": "mes:qc-template-item",
       "page": {
         "route": "/admin/mes/mes-qc-template-item",
         "title": "MES 质检方案-产品关联管理",
@@ -68890,7 +68890,7 @@
       "entity": "MesTmTool",
       "kebab": "mes-tm-tool",
       "businessName": "MES 工具台账",
-      "permissionPrefix": "mes:mes_tm_tool",
+      "permissionPrefix": "mes:tm-tool",
       "page": {
         "route": "/admin/mes/mes-tm-tool",
         "title": "MES 工具台账管理",
@@ -69223,7 +69223,7 @@
       "entity": "MesTmToolType",
       "kebab": "mes-tm-tool-type",
       "businessName": "MES 工具类型",
-      "permissionPrefix": "mes:mes_tm_tool_type",
+      "permissionPrefix": "mes:tm-tool-type",
       "page": {
         "route": "/admin/mes/mes-tm-tool-type",
         "title": "MES 工具类型管理",
@@ -69470,7 +69470,7 @@
       "entity": "MesWmArrivalNotice",
       "kebab": "mes-wm-arrival-notice",
       "businessName": "MES 到货通知单",
-      "permissionPrefix": "mes:mes_wm_arrival_notice",
+      "permissionPrefix": "mes:wm-arrival-notice",
       "page": {
         "route": "/admin/mes/mes-wm-arrival-notice",
         "title": "MES 到货通知单管理",
@@ -69776,7 +69776,7 @@
       "entity": "MesWmArrivalNoticeLine",
       "kebab": "mes-wm-arrival-notice-line",
       "businessName": "MES 到货通知单行",
-      "permissionPrefix": "mes:mes_wm_arrival_notice_line",
+      "permissionPrefix": "mes:wm-arrival-notice-line",
       "page": {
         "route": "/admin/mes/mes-wm-arrival-notice-line",
         "title": "MES 到货通知单行管理",
@@ -70039,7 +70039,7 @@
       "entity": "MesWmBarcode",
       "kebab": "mes-wm-barcode",
       "businessName": "MES 条码清单",
-      "permissionPrefix": "mes:mes_wm_barcode",
+      "permissionPrefix": "mes:wm-barcode",
       "page": {
         "route": "/admin/mes/mes-wm-barcode",
         "title": "MES 条码清单管理",
@@ -70327,7 +70327,7 @@
       "entity": "MesWmBarcodeConfig",
       "kebab": "mes-wm-barcode-config",
       "businessName": "MES 条码配置",
-      "permissionPrefix": "mes:mes_wm_barcode_config",
+      "permissionPrefix": "mes:wm-barcode-config",
       "page": {
         "route": "/admin/mes/mes-wm-barcode-config",
         "title": "MES 条码配置管理",
@@ -70592,7 +70592,7 @@
       "entity": "MesWmBatch",
       "kebab": "mes-wm-batch",
       "businessName": "批次管理",
-      "permissionPrefix": "mes:mes_wm_batch",
+      "permissionPrefix": "mes:wm-batch",
       "page": {
         "route": "/admin/mes/mes-wm-batch",
         "title": "批次管理管理",
@@ -70959,7 +70959,7 @@
       "entity": "MesWmItemConsume",
       "kebab": "mes-wm-item-consume",
       "businessName": "MES 物料消耗记录",
-      "permissionPrefix": "mes:mes_wm_item_consume",
+      "permissionPrefix": "mes:wm-item-consume",
       "page": {
         "route": "/admin/mes/mes-wm-item-consume",
         "title": "MES 物料消耗记录管理",
@@ -71259,7 +71259,7 @@
       "entity": "MesWmItemConsumeDetail",
       "kebab": "mes-wm-item-consume-detail",
       "businessName": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配",
-      "permissionPrefix": "mes:mes_wm_item_consume_detail",
+      "permissionPrefix": "mes:wm-item-consume-detail",
       "page": {
         "route": "/admin/mes/mes-wm-item-consume-detail",
         "title": "MES 物料消耗记录明细 DO记录 line 级别的消耗按线边库 FIFO 分配管理",
@@ -71572,7 +71572,7 @@
       "entity": "MesWmItemConsumeLine",
       "kebab": "mes-wm-item-consume-line",
       "businessName": "MES 物料消耗记录行",
-      "permissionPrefix": "mes:mes_wm_item_consume_line",
+      "permissionPrefix": "mes:wm-item-consume-line",
       "page": {
         "route": "/admin/mes/mes-wm-item-consume-line",
         "title": "MES 物料消耗记录行管理",
@@ -71826,7 +71826,7 @@
       "entity": "MesWmItemReceipt",
       "kebab": "mes-wm-item-receipt",
       "businessName": "MES 采购入库单",
-      "permissionPrefix": "mes:mes_wm_item_receipt",
+      "permissionPrefix": "mes:wm-item-receipt",
       "page": {
         "route": "/admin/mes/mes-wm-item-receipt",
         "title": "MES 采购入库单管理",
@@ -72141,7 +72141,7 @@
       "entity": "MesWmItemReceiptDetail",
       "kebab": "mes-wm-item-receipt-detail",
       "businessName": "MES 采购入库明细",
-      "permissionPrefix": "mes:mes_wm_item_receipt_detail",
+      "permissionPrefix": "mes:wm-item-receipt-detail",
       "page": {
         "route": "/admin/mes/mes-wm-item-receipt-detail",
         "title": "MES 采购入库明细管理",
@@ -72436,7 +72436,7 @@
       "entity": "MesWmItemReceiptLine",
       "kebab": "mes-wm-item-receipt-line",
       "businessName": "MES 采购入库单行",
-      "permissionPrefix": "mes:mes_wm_item_receipt_line",
+      "permissionPrefix": "mes:wm-item-receipt-line",
       "page": {
         "route": "/admin/mes/mes-wm-item-receipt-line",
         "title": "MES 采购入库单行管理",
@@ -72733,7 +72733,7 @@
       "entity": "MesWmMaterialStock",
       "kebab": "mes-wm-material-stock",
       "businessName": "MES 库存台账（仓库现有量）",
-      "permissionPrefix": "mes:mes_wm_material_stock",
+      "permissionPrefix": "mes:wm-material-stock",
       "page": {
         "route": "/admin/mes/mes-wm-material-stock",
         "title": "MES 库存台账（仓库现有量）管理",
@@ -73046,7 +73046,7 @@
       "entity": "MesWmMiscIssue",
       "kebab": "mes-wm-misc-issue",
       "businessName": "MES 杂项出库单",
-      "permissionPrefix": "mes:mes_wm_misc_issue",
+      "permissionPrefix": "mes:wm-misc-issue",
       "page": {
         "route": "/admin/mes/mes-wm-misc-issue",
         "title": "MES 杂项出库单管理",
@@ -73359,7 +73359,7 @@
       "entity": "MesWmMiscIssueDetail",
       "kebab": "mes-wm-misc-issue-detail",
       "businessName": "MES 杂项出库明细",
-      "permissionPrefix": "mes:mes_wm_misc_issue_detail",
+      "permissionPrefix": "mes:wm-misc-issue-detail",
       "page": {
         "route": "/admin/mes/mes-wm-misc-issue-detail",
         "title": "MES 杂项出库明细管理",
@@ -73672,7 +73672,7 @@
       "entity": "MesWmMiscIssueLine",
       "kebab": "mes-wm-misc-issue-line",
       "businessName": "MES 杂项出库单行",
-      "permissionPrefix": "mes:mes_wm_misc_issue_line",
+      "permissionPrefix": "mes:wm-misc-issue-line",
       "page": {
         "route": "/admin/mes/mes-wm-misc-issue-line",
         "title": "MES 杂项出库单行管理",
@@ -73985,7 +73985,7 @@
       "entity": "MesWmMiscReceipt",
       "kebab": "mes-wm-misc-receipt",
       "businessName": "MES 杂项入库单",
-      "permissionPrefix": "mes:mes_wm_misc_receipt",
+      "permissionPrefix": "mes:wm-misc-receipt",
       "page": {
         "route": "/admin/mes/mes-wm-misc-receipt",
         "title": "MES 杂项入库单管理",
@@ -74298,7 +74298,7 @@
       "entity": "MesWmMiscReceiptDetail",
       "kebab": "mes-wm-misc-receipt-detail",
       "businessName": "MES 杂项入库明细",
-      "permissionPrefix": "mes:mes_wm_misc_receipt_detail",
+      "permissionPrefix": "mes:wm-misc-receipt-detail",
       "page": {
         "route": "/admin/mes/mes-wm-misc-receipt-detail",
         "title": "MES 杂项入库明细管理",
@@ -74593,7 +74593,7 @@
       "entity": "MesWmMiscReceiptLine",
       "kebab": "mes-wm-misc-receipt-line",
       "businessName": "MES 杂项入库单行",
-      "permissionPrefix": "mes:mes_wm_misc_receipt_line",
+      "permissionPrefix": "mes:wm-misc-receipt-line",
       "page": {
         "route": "/admin/mes/mes-wm-misc-receipt-line",
         "title": "MES 杂项入库单行管理",
@@ -74879,7 +74879,7 @@
       "entity": "MesWmOutsourceIssue",
       "kebab": "mes-wm-outsource-issue",
       "businessName": "MES 外协发料单",
-      "permissionPrefix": "mes:mes_wm_outsource_issue",
+      "permissionPrefix": "mes:wm-outsource-issue",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-issue",
         "title": "MES 外协发料单管理",
@@ -75176,7 +75176,7 @@
       "entity": "MesWmOutsourceIssueDetail",
       "kebab": "mes-wm-outsource-issue-detail",
       "businessName": "MES 外协发料单明细",
-      "permissionPrefix": "mes:mes_wm_outsource_issue_detail",
+      "permissionPrefix": "mes:wm-outsource-issue-detail",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-issue-detail",
         "title": "MES 外协发料单明细管理",
@@ -75480,7 +75480,7 @@
       "entity": "MesWmOutsourceIssueLine",
       "kebab": "mes-wm-outsource-issue-line",
       "businessName": "MES 外协发料单行",
-      "permissionPrefix": "mes:mes_wm_outsource_issue_line",
+      "permissionPrefix": "mes:wm-outsource-issue-line",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-issue-line",
         "title": "MES 外协发料单行管理",
@@ -75741,7 +75741,7 @@
       "entity": "MesWmOutsourceReceipt",
       "kebab": "mes-wm-outsource-receipt",
       "businessName": "MES 外协入库单",
-      "permissionPrefix": "mes:mes_wm_outsource_receipt",
+      "permissionPrefix": "mes:wm-outsource-receipt",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-receipt",
         "title": "MES 外协入库单管理",
@@ -76040,7 +76040,7 @@
       "entity": "MesWmOutsourceReceiptDetail",
       "kebab": "mes-wm-outsource-receipt-detail",
       "businessName": "MES 外协入库明细",
-      "permissionPrefix": "mes:mes_wm_outsource_receipt_detail",
+      "permissionPrefix": "mes:wm-outsource-receipt-detail",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-receipt-detail",
         "title": "MES 外协入库明细管理",
@@ -76335,7 +76335,7 @@
       "entity": "MesWmOutsourceReceiptLine",
       "kebab": "mes-wm-outsource-receipt-line",
       "businessName": "MES 外协入库单行",
-      "permissionPrefix": "mes:mes_wm_outsource_receipt_line",
+      "permissionPrefix": "mes:wm-outsource-receipt-line",
       "page": {
         "route": "/admin/mes/mes-wm-outsource-receipt-line",
         "title": "MES 外协入库单行管理",
@@ -76650,7 +76650,7 @@
       "entity": "MesWmPackage",
       "kebab": "mes-wm-package",
       "businessName": "MES 装箱单",
-      "permissionPrefix": "mes:mes_wm_package",
+      "permissionPrefix": "mes:wm-package",
       "page": {
         "route": "/admin/mes/mes-wm-package",
         "title": "MES 装箱单管理",
@@ -77022,7 +77022,7 @@
       "entity": "MesWmPackageLine",
       "kebab": "mes-wm-package-line",
       "businessName": "MES 装箱明细",
-      "permissionPrefix": "mes:mes_wm_package_line",
+      "permissionPrefix": "mes:wm-package-line",
       "page": {
         "route": "/admin/mes/mes-wm-package-line",
         "title": "MES 装箱明细管理",
@@ -77292,7 +77292,7 @@
       "entity": "MesWmProductIssue",
       "kebab": "mes-wm-product-issue",
       "businessName": "MES 领料出库单",
-      "permissionPrefix": "mes:mes_wm_product_issue",
+      "permissionPrefix": "mes:wm-product-issue",
       "page": {
         "route": "/admin/mes/mes-wm-product-issue",
         "title": "MES 领料出库单管理",
@@ -77607,7 +77607,7 @@
       "entity": "MesWmProductIssueDetail",
       "kebab": "mes-wm-product-issue-detail",
       "businessName": "MES 领料出库明细",
-      "permissionPrefix": "mes:mes_wm_product_issue_detail",
+      "permissionPrefix": "mes:wm-product-issue-detail",
       "page": {
         "route": "/admin/mes/mes-wm-product-issue-detail",
         "title": "MES 领料出库明细管理",
@@ -77920,7 +77920,7 @@
       "entity": "MesWmProductIssueLine",
       "kebab": "mes-wm-product-issue-line",
       "businessName": "MES 领料出库单行",
-      "permissionPrefix": "mes:mes_wm_product_issue_line",
+      "permissionPrefix": "mes:wm-product-issue-line",
       "page": {
         "route": "/admin/mes/mes-wm-product-issue-line",
         "title": "MES 领料出库单行管理",
@@ -78165,7 +78165,7 @@
       "entity": "MesWmProductProduce",
       "kebab": "mes-wm-product-produce",
       "businessName": "MES 生产入库单",
-      "permissionPrefix": "mes:mes_wm_product_produce",
+      "permissionPrefix": "mes:wm-product-produce",
       "page": {
         "route": "/admin/mes/mes-wm-product-produce",
         "title": "MES 生产入库单管理",
@@ -78467,7 +78467,7 @@
       "entity": "MesWmProductProduceDetail",
       "kebab": "mes-wm-product-produce-detail",
       "businessName": "MES 生产入库明细",
-      "permissionPrefix": "mes:mes_wm_product_produce_detail",
+      "permissionPrefix": "mes:wm-product-produce-detail",
       "page": {
         "route": "/admin/mes/mes-wm-product-produce-detail",
         "title": "MES 生产入库明细管理",
@@ -78771,7 +78771,7 @@
       "entity": "MesWmProductProduceLine",
       "kebab": "mes-wm-product-produce-line",
       "businessName": "MES 生产入库单行",
-      "permissionPrefix": "mes:mes_wm_product_produce_line",
+      "permissionPrefix": "mes:wm-product-produce-line",
       "page": {
         "route": "/admin/mes/mes-wm-product-produce-line",
         "title": "MES 生产入库单行管理",
@@ -79068,7 +79068,7 @@
       "entity": "MesWmProductReceipt",
       "kebab": "mes-wm-product-receipt",
       "businessName": "MES 产品收货（入库）单",
-      "permissionPrefix": "mes:mes_wm_product_receipt",
+      "permissionPrefix": "mes:wm-product-receipt",
       "page": {
         "route": "/admin/mes/mes-wm-product-receipt",
         "title": "MES 产品收货（入库）单管理",
@@ -79365,7 +79365,7 @@
       "entity": "MesWmProductReceiptDetail",
       "kebab": "mes-wm-product-receipt-detail",
       "businessName": "MES 产品收货（入库）单明细",
-      "permissionPrefix": "mes:mes_wm_product_receipt_detail",
+      "permissionPrefix": "mes:wm-product-receipt-detail",
       "page": {
         "route": "/admin/mes/mes-wm-product-receipt-detail",
         "title": "MES 产品收货（入库）单明细管理",
@@ -79660,7 +79660,7 @@
       "entity": "MesWmProductReceiptLine",
       "kebab": "mes-wm-product-receipt-line",
       "businessName": "MES 产品收货（入库）单行",
-      "permissionPrefix": "mes:mes_wm_product_receipt_line",
+      "permissionPrefix": "mes:wm-product-receipt-line",
       "page": {
         "route": "/admin/mes/mes-wm-product-receipt-line",
         "title": "MES 产品收货（入库）单行管理",
@@ -79930,7 +79930,7 @@
       "entity": "MesWmProductSales",
       "kebab": "mes-wm-product-sales",
       "businessName": "MES 销售出库单",
-      "permissionPrefix": "mes:mes_wm_product_sales",
+      "permissionPrefix": "mes:wm-product-sales",
       "page": {
         "route": "/admin/mes/mes-wm-product-sales",
         "title": "MES 销售出库单管理",
@@ -80283,7 +80283,7 @@
       "entity": "MesWmProductSalesDetail",
       "kebab": "mes-wm-product-sales-detail",
       "businessName": "MES 销售出库明细",
-      "permissionPrefix": "mes:mes_wm_product_sales_detail",
+      "permissionPrefix": "mes:wm-product-sales-detail",
       "page": {
         "route": "/admin/mes/mes-wm-product-sales-detail",
         "title": "MES 销售出库明细管理",
@@ -80596,7 +80596,7 @@
       "entity": "MesWmProductSalesLine",
       "kebab": "mes-wm-product-sales-line",
       "businessName": "MES 销售出库单行",
-      "permissionPrefix": "mes:mes_wm_product_sales_line",
+      "permissionPrefix": "mes:wm-product-sales-line",
       "page": {
         "route": "/admin/mes/mes-wm-product-sales-line",
         "title": "MES 销售出库单行管理",
@@ -80909,7 +80909,7 @@
       "entity": "MesWmReturnIssue",
       "kebab": "mes-wm-return-issue",
       "businessName": "MES 生产退料单",
-      "permissionPrefix": "mes:mes_wm_return_issue",
+      "permissionPrefix": "mes:wm-return-issue",
       "page": {
         "route": "/admin/mes/mes-wm-return-issue",
         "title": "MES 生产退料单管理",
@@ -81217,7 +81217,7 @@
       "entity": "MesWmReturnIssueDetail",
       "kebab": "mes-wm-return-issue-detail",
       "businessName": "MES 生产退料明细",
-      "permissionPrefix": "mes:mes_wm_return_issue_detail",
+      "permissionPrefix": "mes:wm-return-issue-detail",
       "page": {
         "route": "/admin/mes/mes-wm-return-issue-detail",
         "title": "MES 生产退料明细管理",
@@ -81530,7 +81530,7 @@
       "entity": "MesWmReturnIssueLine",
       "kebab": "mes-wm-return-issue-line",
       "businessName": "MES 生产退料单行",
-      "permissionPrefix": "mes:mes_wm_return_issue_line",
+      "permissionPrefix": "mes:wm-return-issue-line",
       "page": {
         "route": "/admin/mes/mes-wm-return-issue-line",
         "title": "MES 生产退料单行管理",
@@ -81834,7 +81834,7 @@
       "entity": "MesWmReturnSales",
       "kebab": "mes-wm-return-sales",
       "businessName": "MES 销售退货单",
-      "permissionPrefix": "mes:mes_wm_return_sales",
+      "permissionPrefix": "mes:wm-return-sales",
       "page": {
         "route": "/admin/mes/mes-wm-return-sales",
         "title": "MES 销售退货单管理",
@@ -82135,7 +82135,7 @@
       "entity": "MesWmReturnSalesDetail",
       "kebab": "mes-wm-return-sales-detail",
       "businessName": "MES 销售退货明细",
-      "permissionPrefix": "mes:mes_wm_return_sales_detail",
+      "permissionPrefix": "mes:wm-return-sales-detail",
       "page": {
         "route": "/admin/mes/mes-wm-return-sales-detail",
         "title": "MES 销售退货明细管理",
@@ -82439,7 +82439,7 @@
       "entity": "MesWmReturnSalesLine",
       "kebab": "mes-wm-return-sales-line",
       "businessName": "MES 销售退货单行",
-      "permissionPrefix": "mes:mes_wm_return_sales_line",
+      "permissionPrefix": "mes:wm-return-sales-line",
       "page": {
         "route": "/admin/mes/mes-wm-return-sales-line",
         "title": "MES 销售退货单行管理",
@@ -82727,7 +82727,7 @@
       "entity": "MesWmReturnVendor",
       "kebab": "mes-wm-return-vendor",
       "businessName": "MES 供应商退货单",
-      "permissionPrefix": "mes:mes_wm_return_vendor",
+      "permissionPrefix": "mes:wm-return-vendor",
       "page": {
         "route": "/admin/mes/mes-wm-return-vendor",
         "title": "MES 供应商退货单管理",
@@ -83044,7 +83044,7 @@
       "entity": "MesWmReturnVendorDetail",
       "kebab": "mes-wm-return-vendor-detail",
       "businessName": "MES 供应商退货明细",
-      "permissionPrefix": "mes:mes_wm_return_vendor_detail",
+      "permissionPrefix": "mes:wm-return-vendor-detail",
       "page": {
         "route": "/admin/mes/mes-wm-return-vendor-detail",
         "title": "MES 供应商退货明细管理",
@@ -83357,7 +83357,7 @@
       "entity": "MesWmReturnVendorLine",
       "kebab": "mes-wm-return-vendor-line",
       "businessName": "MES 供应商退货单行",
-      "permissionPrefix": "mes:mes_wm_return_vendor_line",
+      "permissionPrefix": "mes:wm-return-vendor-line",
       "page": {
         "route": "/admin/mes/mes-wm-return-vendor-line",
         "title": "MES 供应商退货单行管理",
@@ -83611,7 +83611,7 @@
       "entity": "MesWmSalesNotice",
       "kebab": "mes-wm-sales-notice",
       "businessName": "MES 发货通知单",
-      "permissionPrefix": "mes:mes_wm_sales_notice",
+      "permissionPrefix": "mes:wm-sales-notice",
       "page": {
         "route": "/admin/mes/mes-wm-sales-notice",
         "title": "MES 发货通知单管理",
@@ -83924,7 +83924,7 @@
       "entity": "MesWmSalesNoticeLine",
       "kebab": "mes-wm-sales-notice-line",
       "businessName": "MES 发货通知单行",
-      "permissionPrefix": "mes:mes_wm_sales_notice_line",
+      "permissionPrefix": "mes:wm-sales-notice-line",
       "page": {
         "route": "/admin/mes/mes-wm-sales-notice-line",
         "title": "MES 发货通知单行管理",
@@ -84187,7 +84187,7 @@
       "entity": "MesWmSn",
       "kebab": "mes-wm-sn",
       "businessName": "MES SN 码",
-      "permissionPrefix": "mes:mes_wm_sn",
+      "permissionPrefix": "mes:wm-sn",
       "page": {
         "route": "/admin/mes/mes-wm-sn",
         "title": "MES SN 码管理",
@@ -84432,7 +84432,7 @@
       "entity": "MesWmStockTakingPlan",
       "kebab": "mes-wm-stock-taking-plan",
       "businessName": "MES 盘点方案",
-      "permissionPrefix": "mes:mes_wm_stock_taking_plan",
+      "permissionPrefix": "mes:wm-stock-taking-plan",
       "page": {
         "route": "/admin/mes/mes-wm-stock-taking-plan",
         "title": "MES 盘点方案管理",
@@ -84720,7 +84720,7 @@
       "entity": "MesWmStockTakingPlanParam",
       "kebab": "mes-wm-stock-taking-plan-param",
       "businessName": "MES 盘点方案参数",
-      "permissionPrefix": "mes:mes_wm_stock_taking_plan_param",
+      "permissionPrefix": "mes:wm-stock-taking-plan-param",
       "page": {
         "route": "/admin/mes/mes-wm-stock-taking-plan-param",
         "title": "MES 盘点方案参数管理",
@@ -84974,7 +84974,7 @@
       "entity": "MesWmStockTakingTask",
       "kebab": "mes-wm-stock-taking-task",
       "businessName": "MES 盘点任务",
-      "permissionPrefix": "mes:mes_wm_stock_taking_task",
+      "permissionPrefix": "mes:wm-stock-taking-task",
       "page": {
         "route": "/admin/mes/mes-wm-stock-taking-task",
         "title": "MES 盘点任务管理",
@@ -85296,7 +85296,7 @@
       "entity": "MesWmStockTakingTaskLine",
       "kebab": "mes-wm-stock-taking-task-line",
       "businessName": "MES 盘点任务行",
-      "permissionPrefix": "mes:mes_wm_stock_taking_task_line",
+      "permissionPrefix": "mes:wm-stock-taking-task-line",
       "page": {
         "route": "/admin/mes/mes-wm-stock-taking-task-line",
         "title": "MES 盘点任务行管理",
@@ -85634,7 +85634,7 @@
       "entity": "MesWmStockTakingTaskResult",
       "kebab": "mes-wm-stock-taking-task-result",
       "businessName": "MES 盘点结果",
-      "permissionPrefix": "mes:mes_wm_stock_taking_task_result",
+      "permissionPrefix": "mes:wm-stock-taking-task-result",
       "page": {
         "route": "/admin/mes/mes-wm-stock-taking-task-result",
         "title": "MES 盘点结果管理",
@@ -85956,7 +85956,7 @@
       "entity": "MesWmTransaction",
       "kebab": "mes-wm-transaction",
       "businessName": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许",
-      "permissionPrefix": "mes:mes_wm_transaction",
+      "permissionPrefix": "mes:wm-transaction",
       "page": {
         "route": "/admin/mes/mes-wm-transaction",
         "title": "MES 库存事务流水 DO记录每一笔库存增减事件，系统自动生成，只读查询，不允许管理",
@@ -86323,7 +86323,7 @@
       "entity": "MesWmTransfer",
       "kebab": "mes-wm-transfer",
       "businessName": "MES 转移单",
-      "permissionPrefix": "mes:mes_wm_transfer",
+      "permissionPrefix": "mes:wm-transfer",
       "page": {
         "route": "/admin/mes/mes-wm-transfer",
         "title": "MES 转移单管理",
@@ -86669,7 +86669,7 @@
       "entity": "MesWmTransferDetail",
       "kebab": "mes-wm-transfer-detail",
       "businessName": "MES 调拨明细",
-      "permissionPrefix": "mes:mes_wm_transfer_detail",
+      "permissionPrefix": "mes:wm-transfer-detail",
       "page": {
         "route": "/admin/mes/mes-wm-transfer-detail",
         "title": "MES 调拨明细管理",
@@ -86964,7 +86964,7 @@
       "entity": "MesWmTransferLine",
       "kebab": "mes-wm-transfer-line",
       "businessName": "MES 转移单行",
-      "permissionPrefix": "mes:mes_wm_transfer_line",
+      "permissionPrefix": "mes:wm-transfer-line",
       "page": {
         "route": "/admin/mes/mes-wm-transfer-line",
         "title": "MES 转移单行管理",
@@ -87259,7 +87259,7 @@
       "entity": "MesWmWarehouse",
       "kebab": "mes-wm-warehouse",
       "businessName": "MES 仓库",
-      "permissionPrefix": "mes:mes_wm_warehouse",
+      "permissionPrefix": "mes:wm-warehouse",
       "page": {
         "route": "/admin/mes/mes-wm-warehouse",
         "title": "MES 仓库管理",
@@ -87522,7 +87522,7 @@
       "entity": "MesWmWarehouseArea",
       "kebab": "mes-wm-warehouse-area",
       "businessName": "MES 库位",
-      "permissionPrefix": "mes:mes_wm_warehouse_area",
+      "permissionPrefix": "mes:wm-warehouse-area",
       "page": {
         "route": "/admin/mes/mes-wm-warehouse-area",
         "title": "MES 库位管理",
@@ -87846,7 +87846,7 @@
       "entity": "MesWmWarehouseLocation",
       "kebab": "mes-wm-warehouse-location",
       "businessName": "MES 库区",
-      "permissionPrefix": "mes:mes_wm_warehouse_location",
+      "permissionPrefix": "mes:wm-warehouse-location",
       "page": {
         "route": "/admin/mes/mes-wm-warehouse-location",
         "title": "MES 库区管理",
@@ -88100,7 +88100,7 @@
       "entity": "MpAccount",
       "kebab": "mp-account",
       "businessName": "公众号账号",
-      "permissionPrefix": "mp:mp_account",
+      "permissionPrefix": "mp:account",
       "page": {
         "route": "/admin/mp/mp-account",
         "title": "公众号账号管理",
@@ -88365,7 +88365,7 @@
       "entity": "MpAutoReply",
       "kebab": "mp-auto-reply",
       "businessName": "公众号消息自动回复",
-      "permissionPrefix": "mp:mp_auto_reply",
+      "permissionPrefix": "mp:auto-reply",
       "page": {
         "route": "/admin/mp/mp-auto-reply",
         "title": "公众号消息自动回复管理",
@@ -88732,7 +88732,7 @@
       "entity": "MpMaterial",
       "kebab": "mp-material",
       "businessName": "公众号素材 DO1. a href=https://developers.wei",
-      "permissionPrefix": "mp:mp_material",
+      "permissionPrefix": "mp:material",
       "page": {
         "route": "/admin/mp/mp-material",
         "title": "公众号素材 DO1. a href=https://developers.wei管理",
@@ -89036,7 +89036,7 @@
       "entity": "MpMenu",
       "kebab": "mp-menu",
       "businessName": "公众号菜单",
-      "permissionPrefix": "mp:mp_menu",
+      "permissionPrefix": "mp:menu",
       "page": {
         "route": "/admin/mp/mp-menu",
         "title": "公众号菜单管理",
@@ -89439,7 +89439,7 @@
       "entity": "MpMessage",
       "kebab": "mp-message",
       "businessName": "公众号消息",
-      "permissionPrefix": "mp:mp_message",
+      "permissionPrefix": "mp:message",
       "page": {
         "route": "/admin/mp/mp-message",
         "title": "公众号消息管理",
@@ -89896,7 +89896,7 @@
       "entity": "MpMessageTemplate",
       "kebab": "mp-message-template",
       "businessName": "公众号模版消息",
-      "permissionPrefix": "mp:mp_message_template",
+      "permissionPrefix": "mp:message-template",
       "page": {
         "route": "/admin/mp/mp-message-template",
         "title": "公众号模版消息管理",
@@ -90175,7 +90175,7 @@
       "entity": "MpTag",
       "kebab": "mp-tag",
       "businessName": "公众号标签",
-      "permissionPrefix": "mp:mp_tag",
+      "permissionPrefix": "mp:tag",
       "page": {
         "route": "/admin/mp/mp-tag",
         "title": "公众号标签管理",
@@ -90427,7 +90427,7 @@
       "entity": "MpUser",
       "kebab": "mp-user",
       "businessName": "微信公众号粉丝",
-      "permissionPrefix": "mp:mp_user",
+      "permissionPrefix": "mp:user",
       "page": {
         "route": "/admin/mp/mp-user",
         "title": "微信公众号粉丝管理",
@@ -90769,7 +90769,7 @@
       "entity": "PayApp",
       "kebab": "pay-app",
       "businessName": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家",
-      "permissionPrefix": "pay:pay_app",
+      "permissionPrefix": "pay:app",
       "page": {
         "route": "/admin/pay/pay-app",
         "title": "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家管理",
@@ -91025,7 +91025,7 @@
       "entity": "PayChannel",
       "kebab": "pay-channel",
       "businessName": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P",
-      "permissionPrefix": "pay:pay_channel",
+      "permissionPrefix": "pay:channel",
       "page": {
         "route": "/admin/pay/pay-channel",
         "title": "支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P管理",
@@ -91279,7 +91279,7 @@
       "entity": "PayDemoOrder",
       "kebab": "pay-demo-order",
       "businessName": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款",
-      "permissionPrefix": "pay:pay_demo_order",
+      "permissionPrefix": "pay:demo-order",
       "page": {
         "route": "/admin/pay/pay-demo-order",
         "title": "示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款管理",
@@ -91585,7 +91585,7 @@
       "entity": "PayDemoWithdraw",
       "kebab": "pay-demo-withdraw",
       "businessName": "示例提现订单演示业务系统的转账业务",
-      "permissionPrefix": "pay:pay_demo_withdraw",
+      "permissionPrefix": "pay:demo-withdraw",
       "page": {
         "route": "/admin/pay/pay-demo-withdraw",
         "title": "示例提现订单演示业务系统的转账业务管理",
@@ -91882,7 +91882,7 @@
       "entity": "PayNotifyLog",
       "kebab": "pay-notify-log",
       "businessName": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排",
-      "permissionPrefix": "pay:pay_notify_log",
+      "permissionPrefix": "pay:notify-log",
       "page": {
         "route": "/admin/pay/pay-notify-log",
         "title": "商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排管理",
@@ -92111,7 +92111,7 @@
       "entity": "PayNotifyTask",
       "kebab": "pay-notify-task",
       "businessName": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直",
-      "permissionPrefix": "pay:pay_notify_task",
+      "permissionPrefix": "pay:notify-task",
       "page": {
         "route": "/admin/pay/pay-notify-task",
         "title": "支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直管理",
@@ -92433,7 +92433,7 @@
       "entity": "PayOrder",
       "kebab": "pay-order",
       "businessName": "支付订单",
-      "permissionPrefix": "pay:pay_order",
+      "permissionPrefix": "pay:order",
       "page": {
         "route": "/admin/pay/pay-order",
         "title": "支付订单管理",
@@ -92836,7 +92836,7 @@
       "entity": "PayOrderExtension",
       "kebab": "pay-order-extension",
       "businessName": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录",
-      "permissionPrefix": "pay:pay_order_extension",
+      "permissionPrefix": "pay:order-extension",
       "page": {
         "route": "/admin/pay/pay-order-extension",
         "title": "支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录管理",
@@ -93133,7 +93133,7 @@
       "entity": "PayRefund",
       "kebab": "pay-refund",
       "businessName": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :",
-      "permissionPrefix": "pay:pay_refund",
+      "permissionPrefix": "pay:refund",
       "page": {
         "route": "/admin/pay/pay-refund",
         "title": "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :管理",
@@ -93561,7 +93561,7 @@
       "entity": "PayTransfer",
       "kebab": "pay-transfer",
       "businessName": "转账单",
-      "permissionPrefix": "pay:pay_transfer",
+      "permissionPrefix": "pay:transfer",
       "page": {
         "route": "/admin/pay/pay-transfer",
         "title": "转账单管理",
@@ -93964,7 +93964,7 @@
       "entity": "PayWallet",
       "kebab": "pay-wallet",
       "businessName": "会员钱包",
-      "permissionPrefix": "pay:pay_wallet",
+      "permissionPrefix": "pay:wallet",
       "page": {
         "route": "/admin/pay/pay-wallet",
         "title": "会员钱包管理",
@@ -94204,7 +94204,7 @@
       "entity": "PayWalletRecharge",
       "kebab": "pay-wallet-recharge",
       "businessName": "会员钱包充值",
-      "permissionPrefix": "pay:pay_wallet_recharge",
+      "permissionPrefix": "pay:wallet-recharge",
       "page": {
         "route": "/admin/pay/pay-wallet-recharge",
         "title": "会员钱包充值管理",
@@ -94546,7 +94546,7 @@
       "entity": "PayWalletRechargePackage",
       "kebab": "pay-wallet-recharge-package",
       "businessName": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；",
-      "permissionPrefix": "pay:pay_wallet_recharge_package",
+      "permissionPrefix": "pay:wallet-recharge-package",
       "page": {
         "route": "/admin/pay/pay-wallet-recharge-package",
         "title": "会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额；管理",
@@ -94775,7 +94775,7 @@
       "entity": "PayWalletTransaction",
       "kebab": "pay-wallet-transaction",
       "businessName": "会员钱包流水",
-      "permissionPrefix": "pay:pay_wallet_transaction",
+      "permissionPrefix": "pay:wallet-transaction",
       "page": {
         "route": "/admin/pay/pay-wallet-transaction",
         "title": "会员钱包流水管理",
@@ -95052,7 +95052,7 @@
       "entity": "GoViewProject",
       "kebab": "go-view-project",
       "businessName": "GoView 项目表每个大屏图标，对应一个项目",
-      "permissionPrefix": "report:go_view_project",
+      "permissionPrefix": "report:go-view-project",
       "page": {
         "route": "/admin/report/go-view-project",
         "title": "GoView 项目表每个大屏图标，对应一个项目管理",
@@ -95480,7 +95480,7 @@
       "entity": "WmsCheckOrder",
       "kebab": "wms-check-order",
       "businessName": "盘点单",
-      "permissionPrefix": "wms:check",
+      "permissionPrefix": "wms:check-order",
       "page": {
         "route": "/admin/wms/wms-check-order",
         "title": "盘点单管理",
@@ -95702,7 +95702,7 @@
       "entity": "WmsCheckOrderDetail",
       "kebab": "wms-check-order-detail",
       "businessName": "盘点明细",
-      "permissionPrefix": "wms:check",
+      "permissionPrefix": "wms:check-order-detail",
       "page": {
         "route": "/admin/wms/wms-check-order-detail",
         "title": "盘点明细管理",
@@ -96683,7 +96683,7 @@
       "entity": "WmsItemBrand",
       "kebab": "wms-item-brand",
       "businessName": "物料品牌",
-      "permissionPrefix": "wms:brand",
+      "permissionPrefix": "wms:item-brand",
       "page": {
         "route": "/admin/wms/wms-item-brand",
         "title": "物料品牌管理",
@@ -96912,7 +96912,7 @@
       "entity": "WmsItemCategory",
       "kebab": "wms-item-category",
       "businessName": "物料分类",
-      "permissionPrefix": "wms:category",
+      "permissionPrefix": "wms:item-category",
       "page": {
         "route": "/admin/wms/wms-item-category",
         "title": "物料分类管理",
@@ -97150,7 +97150,7 @@
       "entity": "WmsItemSku",
       "kebab": "wms-item-sku",
       "businessName": "物料SKU",
-      "permissionPrefix": "wms:item",
+      "permissionPrefix": "wms:item-sku",
       "page": {
         "route": "/admin/wms/wms-item-sku",
         "title": "物料SKU管理",
@@ -97633,7 +97633,7 @@
       "entity": "WmsMovementOrder",
       "kebab": "wms-movement-order",
       "businessName": "移库单",
-      "permissionPrefix": "wms:movement",
+      "permissionPrefix": "wms:movement-order",
       "page": {
         "route": "/admin/wms/wms-movement-order",
         "title": "移库单管理",
@@ -97864,7 +97864,7 @@
       "entity": "WmsMovementOrderDetail",
       "kebab": "wms-movement-order-detail",
       "businessName": "移库明细",
-      "permissionPrefix": "wms:movement",
+      "permissionPrefix": "wms:movement-order-detail",
       "page": {
         "route": "/admin/wms/wms-movement-order-detail",
         "title": "移库明细管理",
@@ -98084,7 +98084,7 @@
       "entity": "WmsReceiptOrder",
       "kebab": "wms-receipt-order",
       "businessName": "入库单",
-      "permissionPrefix": "wms:receipt",
+      "permissionPrefix": "wms:receipt-order",
       "page": {
         "route": "/admin/wms/wms-receipt-order",
         "title": "入库单管理",
@@ -98324,7 +98324,7 @@
       "entity": "WmsReceiptOrderDetail",
       "kebab": "wms-receipt-order-detail",
       "businessName": "入库明细",
-      "permissionPrefix": "wms:receipt",
+      "permissionPrefix": "wms:receipt-order-detail",
       "page": {
         "route": "/admin/wms/wms-receipt-order-detail",
         "title": "入库明细管理",
@@ -98562,7 +98562,7 @@
       "entity": "WmsShipmentOrder",
       "kebab": "wms-shipment-order",
       "businessName": "出库单",
-      "permissionPrefix": "wms:shipment",
+      "permissionPrefix": "wms:shipment-order",
       "page": {
         "route": "/admin/wms/wms-shipment-order",
         "title": "出库单管理",
@@ -98802,7 +98802,7 @@
       "entity": "WmsShipmentOrderDetail",
       "kebab": "wms-shipment-order-detail",
       "businessName": "出库明细",
-      "permissionPrefix": "wms:shipment",
+      "permissionPrefix": "wms:shipment-order-detail",
       "page": {
         "route": "/admin/wms/wms-shipment-order-detail",
         "title": "出库明细管理",

@@ -4,7 +4,7 @@
   "entity": "MesProWorkRecord",
   "kebab": "mes-pro-work-record",
   "businessName": "MES 用户工作站绑定关系（当前快照）",
-  "permissionPrefix": "mes:mes_pro_work_record",
+  "permissionPrefix": "mes:pro-work-record",
   "page": {
     "route": "/admin/mes/mes-pro-work-record",
     "title": "MES 用户工作站绑定关系（当前快照）管理",

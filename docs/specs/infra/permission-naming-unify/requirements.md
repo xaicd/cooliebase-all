@@ -25,11 +25,22 @@
 
 | 术语 / 概念 | 英文标识 | 领域定义与所属模块 |
 |---|---|---|
-| 统一权限码命名：契约 kebab 化 + 路由静态取键 + 全量重生成 | permission-naming-unify | 本规格所交付的业务与技术上下文，严格收敛于 `infra` 领域边界 |
-| 行级租户隔离 | Multi-Tenant AST | 基于 Kysely AST 自动在 SQL 注入 `tenant_id` 过滤条件，严禁跨租户越权 |
-| 审计底座字段 | Audit Base Columns | 实体必须自动继承 8 大审计字段，严禁业务层手工更新审计元数据 |
+| 统一权限码命名：契约 kebab 化 + 路由静态取键 + 全量重生成 | permission-naming-unify | 本规格所交付的真实业务与技术上下文，严格收敛于 `infra` 领域边界 |
+| 领域门面契约 | Domain Facade | 业务模块对外暴露的标准契约接口，跨域通信单向调用，内部实现自闭环 |
+| 数据隔离策略 | Data Isolation Policy | 依据客户交付形态按需选择（单租户物理独立库 / 多租户行级租户隔离可选特性） |
 
-## 3. 用户故事与角色矩阵 (User Stories & Personas)
+## 3. 业务需求立项与多端建设交付范围 (Business Intake & Multi-Terminal Scope)
+
+### 3.1 真实业务立项背景
+- **交付目标**: 面向客户真实业务场景，消灭手工低效流程与断点。
+- **服务对象**: 涵盖 B 端业务操作员、管理员及终端客户角色，杜绝无主需求。
+
+### 3.2 多端建设覆盖边界
+- **B端管理中台**: 负责业务运营配置、流程审核、数据对账与大盘监控。
+- **C端用户门户/移动端**: 负责业务直接录入、消费结算与进度查询（按需）。
+- **多端协议对齐**: 多端统一遵循 OpenAPI/REST 契约规范，共享领域状态机。
+
+## 4. 用户故事与角色矩阵 (User Stories & Personas)
 
 1. **P0** [作为后端/网关开发者] 作为开发者，路由里的权限是静态取键（PERMISSIONS.WMS_WAREHOUSE_QUERY），没登记就编译不过
 
@@ -37,13 +48,13 @@
 
 3. **P1** [作为后端/网关开发者] 作为交付负责人，contracts:governance 的 338 条欠债被清空而不是继续冻结
 
-## 4. 关键业务不变量 (Key Business Invariants)
+## 5. 关键业务不变量 (Key Business Invariants)
 
 1. **未登记即编译失败** —— 路由静态取键 PERMISSIONS.X；X 不存在 → TS2339。反向对照：删一个键必须让构建红。
 2. **三种命名收敛为一** —— 契约 permissionPrefix、路由键、菜单种子三者的映射关系写在 brief 与测试里，且 contracts:governance 覆盖检查能发现不一致。
 3. **对外契约不变** —— API path、DTO、错误码不动；用 agent:routes:check + build + 契约测试守。
 
-## 5. 验收标准清单 (Acceptance Criteria)
+## 6. 验收标准清单 (Acceptance Criteria)
 
 1. **THE system SHALL** 验证：pnpm run typecheck:check exit=0，且那 112 条 PermissionCode 错误归零
 2. **THE system SHALL** 验证：pnpm run contracts:governance:check exit=0，且棘轮基线从 338 收紧到 0
@@ -51,7 +62,7 @@
 4. **THE system SHALL** 验证：pnpm run check exit=0
 5. **THE system SHALL** 验证：反向对照：删掉一个已登记的权限码 → 对应路由编译失败（证明静态取键真的在起作用）
 
-## 6. 约束条件与技术边界 (Constraints & Non-Goals)
+## 7. 约束条件与技术边界 (Constraints & Non-Goals)
 
 ### 系统必须满足的架构约束 (The System SHALL Comply With)
 * **THE system SHALL COMPLY WITH**: 这是重构不是新增：对外 API 路径、DTO、错误契约一律不变（§6.1 兼容性）。

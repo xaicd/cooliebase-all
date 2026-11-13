@@ -9,11 +9,10 @@ import {
 } from "@/modules/wms/backend/validators/wms-movement-order.validator"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 
-const PERM_PREFIX = "WMS_MOVEMENT"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-movement-order:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-movement-order:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-movement-order:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-movement-order:delete"
+const VIEW_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_DELETE
 
 export const GET = withAdminRoute(async (request, auth) => {
   const { searchParams } = new URL(request.url)

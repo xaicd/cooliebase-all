@@ -38,6 +38,9 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
 
   const tx = (name: string) => `[data-testid="${kebab}-${name}"]`
 
+  const entitySlug = kebab.startsWith(`${moduleName}-`) ? kebab.slice(moduleName.length + 1) : kebab
+  const canonicalPermPrefix = `${moduleName}:${entitySlug}`
+
   const contract = {
     $schema: "cooliebase.agent.contract/v1",
 
@@ -46,7 +49,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
     entity: className,
     kebab,
     businessName: jsxText(businessName),
-    permissionPrefix: permissionPrefix ?? `${moduleName}:${toKebab(className).replace(/-/g, "")}`,
+    permissionPrefix: permissionPrefix ?? canonicalPermPrefix,
 
     // ---- 页面（agent-browser: goto -> 操作 -> 断言）----
     page: {

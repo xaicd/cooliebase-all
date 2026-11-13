@@ -4,7 +4,7 @@
   "entity": "MesWmReturnSalesDetail",
   "kebab": "mes-wm-return-sales-detail",
   "businessName": "MES 销售退货明细",
-  "permissionPrefix": "mes:mes_wm_return_sales_detail",
+  "permissionPrefix": "mes:wm-return-sales-detail",
   "page": {
     "route": "/admin/mes/mes-wm-return-sales-detail",
     "title": "MES 销售退货明细管理",

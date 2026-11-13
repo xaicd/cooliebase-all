@@ -4,7 +4,7 @@
   "entity": "CombinationActivity",
   "kebab": "combination-activity",
   "businessName": "拼团活动",
-  "permissionPrefix": "mall:combination_activity",
+  "permissionPrefix": "mall:combination-activity",
   "page": {
     "route": "/admin/mall/combination-activity",
     "title": "拼团活动管理",

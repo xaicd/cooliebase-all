@@ -4,7 +4,7 @@
   "entity": "GoViewProject",
   "kebab": "go-view-project",
   "businessName": "GoView 项目表每个大屏图标，对应一个项目",
-  "permissionPrefix": "report:go_view_project",
+  "permissionPrefix": "report:go-view-project",
   "page": {
     "route": "/admin/report/go-view-project",
     "title": "GoView 项目表每个大屏图标，对应一个项目管理",

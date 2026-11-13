@@ -4,7 +4,7 @@
   "entity": "MesQcIqc",
   "kebab": "mes-qc-iqc",
   "businessName": "MES 来料检验单（IQC, Incoming Quality Control）",
-  "permissionPrefix": "mes:mes_qc_iqc",
+  "permissionPrefix": "mes:qc-iqc",
   "page": {
     "route": "/admin/mes/mes-qc-iqc",
     "title": "MES 来料检验单（IQC, Incoming Quality Control）管理",

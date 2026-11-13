@@ -4,7 +4,7 @@
   "entity": "BrokerageRecord",
   "kebab": "brokerage-record",
   "businessName": "佣金记录",
-  "permissionPrefix": "mall:brokerage_record",
+  "permissionPrefix": "mall:brokerage-record",
   "page": {
     "route": "/admin/mall/brokerage-record",
     "title": "佣金记录管理",

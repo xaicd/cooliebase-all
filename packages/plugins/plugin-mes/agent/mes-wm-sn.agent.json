@@ -4,7 +4,7 @@
   "entity": "MesWmSn",
   "kebab": "mes-wm-sn",
   "businessName": "MES SN 码",
-  "permissionPrefix": "mes:mes_wm_sn",
+  "permissionPrefix": "mes:wm-sn",
   "page": {
     "route": "/admin/mes/mes-wm-sn",
     "title": "MES SN 码管理",

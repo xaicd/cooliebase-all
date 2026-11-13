@@ -9,11 +9,10 @@ import {
 } from "@/modules/wms/backend/validators/wms-movement-order-detail.validator"
 import { PERMISSIONS } from "@/modules/shared/backend/constants/permissions"
 
-const PERM_PREFIX = "WMS_MOVEMENT"
-const VIEW_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_VIEW`] ?? "wms:wms-movement-order-detail:view"
-const CREATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_CREATE`] ?? "wms:wms-movement-order-detail:create"
-const UPDATE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_UPDATE`] ?? "wms:wms-movement-order-detail:update"
-const DELETE_PERM = (PERMISSIONS as Record<string, string>)[`${PERM_PREFIX}_DELETE`] ?? "wms:wms-movement-order-detail:delete"
+const VIEW_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_DETAIL_VIEW
+const CREATE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_DETAIL_CREATE
+const UPDATE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_DETAIL_UPDATE
+const DELETE_PERM = PERMISSIONS.WMS_MOVEMENT_ORDER_DETAIL_DELETE
 
 type RouteContext = { params: Promise<{ id: string }> }
 

@@ -4,7 +4,7 @@
   "entity": "DiyPage",
   "kebab": "diy-page",
   "businessName": "装修页面",
-  "permissionPrefix": "mall:diy_page",
+  "permissionPrefix": "mall:diy-page",
   "page": {
     "route": "/admin/mall/diy-page",
     "title": "装修页面管理",

@@ -4,7 +4,7 @@
   "entity": "MesProCardProcess",
   "kebab": "mes-pro-card-process",
   "businessName": "MES 流转卡工序记录",
-  "permissionPrefix": "mes:mes_pro_card_process",
+  "permissionPrefix": "mes:pro-card-process",
   "page": {
     "route": "/admin/mes/mes-pro-card-process",
     "title": "MES 流转卡工序记录管理",

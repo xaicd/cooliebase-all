@@ -4,7 +4,7 @@
   "entity": "IotProductCategory",
   "kebab": "iot-product-category",
   "businessName": "IoT 产品分类",
-  "permissionPrefix": "iot:iot_product_category",
+  "permissionPrefix": "iot:product-category",
   "page": {
     "route": "/admin/iot/iot-product-category",
     "title": "IoT 产品分类管理",

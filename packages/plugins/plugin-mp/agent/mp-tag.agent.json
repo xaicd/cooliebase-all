@@ -4,7 +4,7 @@
   "entity": "MpTag",
   "kebab": "mp-tag",
   "businessName": "公众号标签",
-  "permissionPrefix": "mp:mp_tag",
+  "permissionPrefix": "mp:tag",
   "page": {
     "route": "/admin/mp/mp-tag",
     "title": "公众号标签管理",

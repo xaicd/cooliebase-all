@@ -4,7 +4,7 @@
   "entity": "DeliveryExpressTemplateFree",
   "kebab": "delivery-express-template-free",
   "businessName": "快递运费模板包邮配置",
-  "permissionPrefix": "mall:delivery_express_template_free",
+  "permissionPrefix": "mall:delivery-express-template-free",
   "page": {
     "route": "/admin/mall/delivery-express-template-free",
     "title": "快递运费模板包邮配置管理",

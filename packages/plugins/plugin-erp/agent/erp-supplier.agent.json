@@ -4,7 +4,7 @@
   "entity": "ErpSupplier",
   "kebab": "erp-supplier",
   "businessName": "ERP 供应商",
-  "permissionPrefix": "erp:erp_supplier",
+  "permissionPrefix": "erp:supplier",
   "page": {
     "route": "/admin/erp/erp-supplier",
     "title": "ERP 供应商管理",

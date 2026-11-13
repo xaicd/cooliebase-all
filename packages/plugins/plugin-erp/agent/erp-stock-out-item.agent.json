@@ -4,7 +4,7 @@
   "entity": "ErpStockOutItem",
   "kebab": "erp-stock-out-item",
   "businessName": "ERP 其它出库单项",
-  "permissionPrefix": "erp:erp_stock_out_item",
+  "permissionPrefix": "erp:stock-out-item",
   "page": {
     "route": "/admin/erp/erp-stock-out-item",
     "title": "ERP 其它出库单项管理",

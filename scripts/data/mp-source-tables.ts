@@ -8,7 +8,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpAccount",
     "businessName": "公众号账号",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_account",
+    "permissionPrefix": "mp:account",
     "table": {
       "name": "mp_account",
       "comment": "公众号账号",
@@ -145,7 +145,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpAutoReply",
     "businessName": "公众号消息自动回复",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_auto_reply",
+    "permissionPrefix": "mp:auto-reply",
     "table": {
       "name": "mp_auto_reply",
       "comment": "公众号消息自动回复",
@@ -357,7 +357,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpMaterial",
     "businessName": "公众号素材 DO1. a href=https://developers.wei",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_material",
+    "permissionPrefix": "mp:material",
     "table": {
       "name": "mp_material",
       "comment": "公众号素材 DO1. a href=https://developers.wei",
@@ -513,7 +513,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpMenu",
     "businessName": "公众号菜单",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_menu",
+    "permissionPrefix": "mp:menu",
     "table": {
       "name": "mp_menu",
       "comment": "公众号菜单",
@@ -757,7 +757,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpMessage",
     "businessName": "公众号消息",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_message",
+    "permissionPrefix": "mp:message",
     "table": {
       "name": "mp_message",
       "comment": "公众号消息",
@@ -1055,7 +1055,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpMessageTemplate",
     "businessName": "公众号模版消息",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_message_template",
+    "permissionPrefix": "mp:message-template",
     "table": {
       "name": "mp_message_template",
       "comment": "公众号模版消息",
@@ -1194,7 +1194,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpTag",
     "businessName": "公众号标签",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_tag",
+    "permissionPrefix": "mp:tag",
     "table": {
       "name": "mp_tag",
       "comment": "公众号标签",
@@ -1309,7 +1309,7 @@ export const MP_TABLES: CodegenConfig[] = [
     "className": "MpUser",
     "businessName": "微信公众号粉丝",
     "parentMenuId": "mp-dir",
-    "permissionPrefix": "mp:mp_user",
+    "permissionPrefix": "mp:user",
     "table": {
       "name": "mp_user",
       "comment": "微信公众号粉丝",

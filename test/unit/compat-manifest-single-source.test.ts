@@ -110,7 +110,7 @@ describe("compat-manifest 单一真源（COO-55-1-1）", () => {
     const pkg = readJson("package.json")
     const broken = {
       ...manifest,
-      harness: { ...manifest.harness, doctorCommand: "pnpm harness:doctor" },
+      harness: { ...manifest.harness, doctorCommand: "pnpm harness:__missing_doctor_script__" },
     }
     expect(() => validateRequiredSections(broken, pkg)).toThrow(/harness\.doctorCommand/)
   })

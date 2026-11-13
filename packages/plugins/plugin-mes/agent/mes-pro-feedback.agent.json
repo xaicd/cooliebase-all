@@ -4,7 +4,7 @@
   "entity": "MesProFeedback",
   "kebab": "mes-pro-feedback",
   "businessName": "MES 生产报工",
-  "permissionPrefix": "mes:mes_pro_feedback",
+  "permissionPrefix": "mes:pro-feedback",
   "page": {
     "route": "/admin/mes/mes-pro-feedback",
     "title": "MES 生产报工管理",

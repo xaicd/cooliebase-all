@@ -4,7 +4,7 @@
   "entity": "ImFriendRequest",
   "kebab": "im-friend-request",
   "businessName": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接",
-  "permissionPrefix": "im:im_friend_request",
+  "permissionPrefix": "im:friend-request",
   "page": {
     "route": "/admin/im/im-friend-request",
     "title": "IM 好友申请记录 DO配合「申请 - 审批」流程：- 发起方调 apply 接管理",
