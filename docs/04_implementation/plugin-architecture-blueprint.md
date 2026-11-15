@@ -58,7 +58,7 @@ packages/plugins/plugin-<domain>/
 2. **删 Next 转发文件必须用固定路径段**（`src/app/api/v1/<surface>/<domain>/`），
    禁止用"路径里含域名"的子串模式 —— `admin/mes/work-orders/report` 这种会被误删。
 3. **拆分部署不受影响**：proxy 的 `matchRemoteDomainUpstream` 位于鉴权与路由**之前**，
-   按 `publicPrefixes` 转发；因此删掉 Next 转发文件后，`npm run domain:up -- <domain>`
+   按 `publicPrefixes` 转发；因此删掉 Next 转发文件后，`pnpm run domain:up -- <domain>`
    的独立部署照样工作（已实测）。
 
 ## 6. 迁移一个域（工具优先，不要手抄）
@@ -77,4 +77,4 @@ catalog 登记、静态入口登记与门禁验证。
 - 同进程打包时 Facade 走 SDK 内存调用（不序列化）；跨服务时同一 Facade 切到 RPC。
 - 异步必须走 `broker.emit|broadcast`；可靠事件必须走 `broker.publishReliable()` /
   `runUnitOfWork()` + consumer inbox。
-- 机器检查：`npm run domain:check`、`npm run microservice:check`、`npm run foundation:ontology:check`。
+- 机器检查：`pnpm run domain:check`、`pnpm run microservice:check`、`pnpm run foundation:ontology:check`。

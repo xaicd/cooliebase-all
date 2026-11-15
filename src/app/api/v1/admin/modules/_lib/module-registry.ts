@@ -1,7 +1,7 @@
 /**
  * 模块注册表（Platform Module 声明的运行时索引）。
  *
- * 数据来自同目录的生成物 `module-registry.generated.ts`（由 `npm run domain:manifests`
+ * 数据来自同目录的生成物 `module-registry.generated.ts`（由 `pnpm run domain:manifests`
  * 产出）。本文件**不维护任何清单** —— 清单只在生成物里，避免出现第二份真源。
  *
  * 为什么住在 src/app（组合根）而不是 modules/shared：

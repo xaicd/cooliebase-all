@@ -181,8 +181,8 @@ async function main() {
   if (!autoInstall) {
     console.log("  pnpm install               # 安装项目依赖")
   }
-  console.log("  npm run db:bootstrap:sqlite# 初始化零配置本地数据库")
-  console.log("  npm run dev                # 启动开发服务")
+  console.log("  pnpm run db:bootstrap:sqlite# 初始化零配置本地数据库")
+  console.log("  pnpm run dev                # 启动开发服务")
   console.log("--------------------------------------------------")
   console.log(`🔗 浏览器访问: http://localhost:${port}`)
   console.log("🚀 祝您业务研发愉快！\n")

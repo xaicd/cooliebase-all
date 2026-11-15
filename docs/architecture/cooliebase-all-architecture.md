@@ -117,7 +117,7 @@ cooliebase-all/
 
 ### 阶段 B：可拆分单体（第一方插件独立打包部署）
 - 每个插件域具备独立的 `plugin.manifest.json` 与 `contract/route.manifest.yaml`；
-- 通过 `npm run domain:pack <domain>` 产出 API-only 独立子服务容器；
+- 通过 `pnpm run domain:pack <domain>` 产出 API-only 独立子服务容器；
 - BFF 反向代理通过 `COOLIEBASE_DOMAIN_<DOMAIN>_UPSTREAM` 自动反代至独立进程；
 - 对前端暴露的 API 契约与 DTO 100% 保持一致，调用方无感。
 
@@ -154,7 +154,7 @@ await eventBus.publish({
 | **后端子模块与服务** | 388+ | 全量具备 Service、Validator 与 Facade 契约 |
 | **API 端点** | 2095+ | 遵循 RESTful /v1/ 规范与 Zod 强校验 |
 | **前端页面与组件** | 1400+ | 基于 React 19 + Tailwind CSS，支持双轨视图 |
-| **治理与门禁规则** | 10 项工程门禁 | `npm run check` 零容忍静态与动态守护 |
+| **治理与门禁规则** | 10 项工程门禁 | `pnpm run check` 零容忍静态与动态守护 |
 
 ## 7. 安全铁律与多租户底座
 

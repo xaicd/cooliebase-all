@@ -41,7 +41,7 @@ KIND="${REST#*$'\t'}"
 
 # ── 心跳（金丝雀）：证明"这家 CLI **真的执行了**我们的 hook" ──────────────────
 # 只验证"配置文件合法"是不够的 —— CLI 可能因为 schema 变更、allowlist、cwd 不同而根本没加载它。
-# 这里每次被调用都追加一行（gitignored），`npm run harness:health` 据此报告各家是否真的生效。
+# 这里每次被调用都追加一行（gitignored），`pnpm run harness:health` 据此报告各家是否真的生效。
 DECISION="allow"
 HEARTBEAT="${AGENT_ROUTE_HEARTBEAT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/docs/architecture/artifacts/harness-heartbeat.jsonl}"
 beat() {
@@ -79,7 +79,7 @@ MSG="[spec-gate] 拦截：上一条需求被判为「需要规格」(SPEC_REQUIR
 
   要写的文件：${FILE_PATH}
   先执行：
-      npm run speckit:new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\"
+      pnpm run speckit:new -- --name <名字> --domain <域> --type <类型> --title \"<标题>\"
   （分诊输出里已给出建议的 --type 与 --name）
 
   规则真源：scripts/lib/spec-necessity-rules.cjs（可审阅、可修改）

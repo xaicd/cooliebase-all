@@ -137,7 +137,7 @@ Review for:
 #### 3.2 Build and Test
 
 **TypeScript:**
-- Run `npm run build` to verify compilation
+- Run `pnpm run build` to verify compilation
 - Test with MCP Inspector: `pnpm dlx @modelcontextprotocol/inspector`
 
 **Python:**

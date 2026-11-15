@@ -1,7 +1,7 @@
 {
   "version": 1,
   "kind": "compat-manifest",
-  "description": "Machine-readable compatibility contract for this Workspace Bundle. Downstream projects hatched via `npm run project:create` and external agents (Claude Code / Cursor / Command Code / DSH / hermes) bind to what is declared here. Verified by scripts/check-compat-manifest.cjs in `npm run check`.",
+  "description": "Machine-readable compatibility contract for this Workspace Bundle. Downstream projects hatched via `pnpm run project:create` and external agents (Claude Code / Cursor / Command Code / DSH / hermes) bind to what is declared here. Verified by scripts/check-compat-manifest.cjs in `pnpm run check`.",
   "framework": {
     "name": "cooliebase-all",
     "role": "workspace-bundle",
@@ -122,7 +122,7 @@
     "hatch": {
       "oneLine": "curl -fsSL https://raw.githubusercontent.com/xaicd/cooliebase-all/main/scripts/hatch.sh | bash -s -- <my-app> --profile base",
       "degit": "pnpm dlx degit xaicd/cooliebase-all#main <my-app>",
-      "inRepo": "npm run project:create -- <target-dir> --profile base"
+      "inRepo": "pnpm run project:create -- <target-dir> --profile base"
     },
     "skills": {
       "sourceDir": ".agents/skills",
@@ -160,8 +160,8 @@
     "evolution": {
       "traceArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
       "backlogArtifact": "docs/architecture/artifacts/evolution-backlog.json",
-      "builder": "npm run evolution:backlog",
-      "note": "Gates produce evidence on every `npm run check`; the backlog aggregates that evidence into prioritised work for an external agent. No agent loop runs in this repository."
+      "builder": "pnpm run evolution:backlog",
+      "note": "Gates produce evidence on every `pnpm run check`; the backlog aggregates that evidence into prioritised work for an external agent. No agent loop runs in this repository."
     },
     "gates": [
       "domain:check",
@@ -218,7 +218,7 @@
       "new actions and new permission codes",
       "new skills under .agents/skills",
       "new MCP tools that are read-only or plan/preview only (never writing to the repository)",
-      "new gates wired into npm run check"
+      "new gates wired into pnpm run check"
     ],
     "breaking": [
       "removing or renaming a domain",
@@ -230,8 +230,8 @@
     "breakingProcedure": [
       "bump contracts.*.version and/or messagingProtocol",
       "bump framework.templateVersion (major)",
-      "regenerate contracts: npm run domain:contracts && npm run domain:manifests && npm run domain:seams",
-      "record the change in docs/features/sprint-prod/ and re-run npm run check"
+      "regenerate contracts: pnpm run domain:contracts && pnpm run domain:manifests && pnpm run domain:seams",
+      "record the change in docs/features/sprint-prod/ and re-run pnpm run check"
     ]
   }
 }

@@ -36,7 +36,7 @@
 
 权威清单：`packages/shared/backend/constants/microservice-governance.json`  
 分层与协议：`docs/architecture/cooliebase-all-plugin-rpc.md`  
-门禁：`npm run microservice:check`
+门禁：`pnpm run microservice:check`
 
 ## 3. 调用约定
 

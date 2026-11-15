@@ -36,7 +36,7 @@
 1. **最佳工程 ROI 与低认知负荷**：
    方案 B（15 个独立微服务代码库）对于中小规模交付及初期孵化团队来说是“灾难级维护成本”（需要 15 套 CI/CD、15 组部署流水线与跨库调试地狱）；而方案 A 在单一 Monorepo（pnpm workspaces）内享受单体开发的高效与强类型共享，同时具备微服务级的物理物理隔离。
 2. **双模运行能力 (Merged vs Isolated)**：
-   在资源受限环境（如 1 核 2G 边缘节点），15 个插件与基座同进程直调，零序列化内存通信；在客户大规模并发场景，只需执行 `npm run domain:pack <domain>` 即可将单一插件打包为独立微服务或 Worker 进程，对外 API 契约和前端毫无感知。
+   在资源受限环境（如 1 核 2G 边缘节点），15 个插件与基座同进程直调，零序列化内存通信；在客户大规模并发场景，只需执行 `pnpm run domain:pack <domain>` 即可将单一插件打包为独立微服务或 Worker 进程，对外 API 契约和前端毫无感知。
 3. **平台地基与业务域的清晰分工**：
    `system` 和 `infra` 作为平台地基永不插件化，专注于为所有插件提供租户鉴权、字典服务、代码生成与审计底层支持。
 
@@ -46,7 +46,7 @@
 
 ### 积极影响 (Positive)
 - **极速增量构建与裁剪**：商业客户不需要的业务域（如制造类客户不需要 `mp` 微信公众号插件），只需在 `pnpm-workspace.yaml` 或 manifest 中移除对应插件声明，构建体积即可立减 70%；
-- **物理边界保障**：门禁 `npm run domain:check` 严格防御跨插件非法直接依赖，保证插件独立生命周期；
+- **物理边界保障**：门禁 `pnpm run domain:check` 严格防御跨插件非法直接依赖，保证插件独立生命周期；
 - **清爽的 Next.js BFF**：Next.js 路由层无需手写冗余转发代码，通过统一挂载点 `/api/v1/plugins/<pluginId>/api/**` 统一调度。
 
 ### 妥协与治理 (Trade-offs & Governance)
@@ -57,6 +57,6 @@
 
 ## 5. 合规与校验手段 (Compliance & Verification)
 
-- **Manifest 验证**：`npm run domain:manifests:check` 校验所有插件元数据合规；
-- **加载器审查**：`npm run domain:loaders:check` 确保静态入口完整注册；
-- **独立打包演练**：`npm run domain:pack <domain>` 验证插件具备独立打包成独立产物的能力。
+- **Manifest 验证**：`pnpm run domain:manifests:check` 校验所有插件元数据合规；
+- **加载器审查**：`pnpm run domain:loaders:check` 确保静态入口完整注册；
+- **独立打包演练**：`pnpm run domain:pack <domain>` 验证插件具备独立打包成独立产物的能力。

@@ -27,14 +27,14 @@ function trackedTestFileCount(): number {
  * 而真实是「449 / 865 / 845」—— 差了约 **30 倍**。它还是 CMMI 05_verification 的验证制品，
  * 数字离谱却带着逐套件清单，特别容易被当成可信来源。
  *
- * 改为由 `npm run test:summary` 生成后，这里只守**最容易漂移又最便宜核对的那一个数字**：
+ * 改为由 `pnpm run test:summary` 生成后，这里只守**最容易漂移又最便宜核对的那一个数字**：
  * 文件总数（用例数需要跑一遍套件，成本高，交给生成流程保证）。
  */
 describe("测试总结报告（生成物）漂移守卫", () => {
   it("正向：报告声明为生成物，且文件总数与仓库真实一致", () => {
     const text = fs.readFileSync(REPORT, "utf8")
     expect(text).toMatch(/本文件由脚本生成，禁止手写/)
-    expect(text).toMatch(/npm run test:summary/)
+    expect(text).toMatch(/pnpm run test:summary/)
 
     const declared = headlineFileCount(text)
     expect(declared, "报告里找不到「测试文件总数」").not.toBeNull()
@@ -48,7 +48,7 @@ describe("测试总结报告（生成物）漂移守卫", () => {
     expect(
       declared! >= Math.floor(actual * 0.8),
       `报告声称 ${declared} 个测试文件，仓库实际 ${actual} —— 陈旧度超过 20%。`
-        + `请运行 \`npm run test:summary\` 重新生成（该报告是生成物，禁止手写）。`,
+        + `请运行 \`pnpm run test:summary\` 重新生成（该报告是生成物，禁止手写）。`,
     ).toBe(true)
     expect(
       declared! <= actual,

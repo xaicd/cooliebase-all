@@ -4,9 +4,9 @@
 
 ## 生成与部署
 
-1. 上游 SQL 更新后执行 `npm run catalog:sync:cooliebase`，生成 `prisma/data/menus.seed-data.ts` 与 `prisma/data/tenant-packages.seed-data.ts`。
-2. 部署数据库结构：`npm run db:migrate`。
-3. 写入可重复的目录与关联数据：`npm run db:seed`。
+1. 上游 SQL 更新后执行 `pnpm run catalog:sync:cooliebase`，生成 `prisma/data/menus.seed-data.ts` 与 `prisma/data/tenant-packages.seed-data.ts`。
+2. 部署数据库结构：`pnpm run db:migrate`。
+3. 写入可重复的目录与关联数据：`pnpm run db:seed`。
 
 `db:seed` 会将套餐菜单完整写入 `system_tenant_package_menu`，并将旧的本地草稿套餐（1/2/3）软删除；不会删除历史记录。Docker 数据库初始化不直接挂载该业务 SQL，因为 Prisma 表结构必须先完成迁移。
 

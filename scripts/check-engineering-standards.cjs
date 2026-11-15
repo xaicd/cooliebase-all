@@ -583,7 +583,15 @@ const RULES = [
             continue
           }
           if (!/\.(md|sh|ts|tsx|cjs|mjs|js|json|txt|bat|yml|yaml)$/.test(entry.name)) continue
-          if (rel === "scripts/check-engineering-standards.cjs") continue // 规则自身必须提到该模式
+          // 规则自身及专门校验/桥接旧脚本入口的门禁与反向单测必须提及该模式，显式排除
+          if (
+            rel === "scripts/check-engineering-standards.cjs" ||
+            rel === "scripts/check-docs-commands.cjs" ||
+            rel === "scripts/run-root-npm.sh" ||
+            rel === "test/unit/docs-commands-gate.test.ts"
+          ) {
+            continue
+          }
           const lines = fs.readFileSync(path.join(ROOT, rel), "utf8").split("\n")
           for (let i = 0; i < lines.length; i += 1) {
             if (pattern.test(lines[i])) violations.push({ file: rel, detail: `line ${i + 1}` })

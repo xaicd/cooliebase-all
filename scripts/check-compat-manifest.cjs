@@ -149,7 +149,7 @@ for (const version of mcp.protocolVersions || []) {
 }
 
 const evolution = surface.evolution || {}
-const evolutionBuilder = String(evolution.builder || "").replace(/^npm run\s+/, "")
+const evolutionBuilder = String(evolution.builder || "").replace(/^p?npm\s+run\s+/, "")
 if (!evolutionBuilder || !pkg.scripts?.[evolutionBuilder]) {
   fail(`consumptionSurface.evolution.builder must name an existing npm script, got "${evolution.builder}"`)
 }

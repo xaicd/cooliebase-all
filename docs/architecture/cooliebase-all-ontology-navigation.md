@@ -33,7 +33,7 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 
 ## 2. 本体域：域目录与能力三角（机器真源 + 本页人读索引）
 
-**机器可读真源**（勿手改域名，改后跑 `npm run domain:seams` 重新生成）：
+**机器可读真源**（勿手改域名，改后跑 `pnpm run domain:seams` 重新生成）：
 - `packages/shared/backend/constants/domain-catalog.json` —— 域目录真源（分层、RPC、消息、每域端口/前缀/依赖/鉴权/弹性）。
 - `packages/shared/contract/seam-graph.json` —— 每域**能力三角**（契约定义 `definition` / 提供方 `provider` / 消费方 `consumer`），由 catalog 生成。
 
@@ -71,7 +71,7 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 >
 > **state 是本体核心信号**：`load-bearing`=已被真实消费、改动破坏性大；`provisioned`=已就绪但消费方尚未接入，是新域应主动采用的接缝。fanIn=真实 import 计数(排测试/自引)，客观反映破坏半径。
 
-> 下表 fanIn/state 由 `npm run foundation:ontology` **扫描真实 import 自动生成**（勿手改）；改代码后刷新、`npm run foundation:ontology:check` 门禁对账漂移。
+> 下表 fanIn/state 由 `pnpm run foundation:ontology` **扫描真实 import 自动生成**（勿手改）；改代码后刷新、`pnpm run foundation:ontology:check` 门禁对账漂移。
 
 | 能力 | tier | fanIn | state | 可切换(env) | changeRisk |
 |---|---|---:|---|---|---|
@@ -140,11 +140,11 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 
 ```bash
 # 1) SQLite 建库（零外部依赖）
-DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run db:bootstrap:sqlite
+DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite pnpm run db:bootstrap:sqlite
 # 建 system_user/role/dept/menu/... + C 端 member_user(含 extra_fields)，全表带 8 大审计字段
 # 种子：admin/admin123、C 端 demo/demo123、核心菜单
 # 2) 起前后端
-DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev -p 3200
+DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite pnpm run dev   # next dev -p 3200
 ```
 - 完全不配 DB env 时，`datasource-manager` 退化 `memory` 模式、服务走内存存储，仍可跑。
 - Expo web-export 预览：`clients/expo/`（Schema 驱动 RN），按其 README 导出 web 预览与 portal Web 同一份 PageSchema 驱动的表单。
@@ -177,7 +177,7 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev
 基于本模板孵化的每个新线上应用**默认就是本体域的成员**，派生时：
 
 1. **继承基线**：直接获得 `shared` SDK（4 层可切换中间件 + broker/事件总线/审计底座 + 8 大审计字段）、低码引擎(online)、RBAC(system)、外观(infra)、C 端(member)、多端脚手架(clients)。
-2. **增量建域**：新业务只在 `packages/domains/<新域>/` 落地（`contract/`+`backend/`+`frontend/` 三件套），跑 `npm run scaffold` 生成骨架；在 `domain-catalog.json` 注册新域（层/端口/前缀/依赖/鉴权），跑 `npm run domain:seams` 重生成 `seam-graph.json`。
+2. **增量建域**：新业务只在 `packages/domains/<新域>/` 落地（`contract/`+`backend/`+`frontend/` 三件套），跑 `pnpm run scaffold` 生成骨架；在 `domain-catalog.json` 注册新域（层/端口/前缀/依赖/鉴权），跑 `pnpm run domain:seams` 重生成 `seam-graph.json`。
 3. **复用而非重写**：数据访问走 `BaseMapper`/`getKyselyDb`+`dynamic-table`；跨域走 `broker.call`/`eventBus`（禁反向依赖、禁裸 SQL、禁绕过 facade）；字段扩展优先 `extra_fields`/PageSchema，需真列才走 `schema-ddl`。
 4. **换库/换中间件零改码**：新应用部署到独立环境时，仅改 env(`DB_DRIVER`/`CACHE_DRIVER`/`STORAGE_DRIVER`/`MQ_DRIVER` + 连接串) 即切生产中间件（含国产数据库）。
 5. **门禁一致**：tsc 零增量、vitest 4 层金字塔、`cooliebase:*:check` 治理门禁、真实数据库驱动零假 Mock。
@@ -194,19 +194,19 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev
 
 | 进化类型 | 真源（写这里） | 回写动作 | 一致性门禁 |
 |---|---|---|---|
-| **新增/调整业务域** | `packages/shared/backend/constants/domain-catalog.json` | 注册域（层/端口/前缀/依赖/鉴权/弹性） | `npm run domain:seams` 重生成 `seam-graph.json`；`npm run *:scan/check` 校验 |
+| **新增/调整业务域** | `packages/shared/backend/constants/domain-catalog.json` | 注册域（层/端口/前缀/依赖/鉴权/弹性） | `pnpm run domain:seams` 重生成 `seam-graph.json`；`pnpm run *:scan/check` 校验 |
 | **新增跨切面能力** | `packages/shared/backend/lib/<能力>/`（含 `index.ts` barrel） | 加驱动/管理器（按 §5 可切换范式），并在本页 §3/§5 登记一行 | tsc 零增量；`__tests__` 覆盖 |
 | **沉淀高频研发经验** | `.agents/skills/<name>/SKILL.md` | 用 `skill-authoring` 结晶新 SKILL；在 §7 索引补一行 | `.agents/context/ASSEMBLY.md` 注册 order（若需自动加载） |
 | **能力/架构画像变更** | `packages/shared/contract/{agent-profile,project-profile}.json` | 更新画像；本页对应节同步 | 与 `AGENTS.md`/catalog 冲突时以后者为准 |
-| **流程 / 防呆变更**（2026-10-20 新增） | 判定规则 `scripts/lib/spec-necessity-rules.cjs` · 守卫 `.agents/hooks/` · 门禁 `scripts/check-*.cjs` | 改规则表 / 守卫 / 门禁后，在 `compat-manifest.consumptionSurface` 的 `gates` 或 **`commands`** 登记（`agent:route` / `harness:health` 就属后者） | `pnpm run check`（**14 条**规范规则）· `npm run compat:check` · `npm run harness:health`（金丝雀：证明 CLI 真的执行了 hook） |
+| **流程 / 防呆变更**（2026-10-20 新增） | 判定规则 `scripts/lib/spec-necessity-rules.cjs` · 守卫 `.agents/hooks/` · 门禁 `scripts/check-*.cjs` | 改规则表 / 守卫 / 门禁后，在 `compat-manifest.consumptionSurface` 的 `gates` 或 **`commands`** 登记（`agent:route` / `harness:health` 就属后者） | `pnpm run check`（**14 条**规范规则）· `pnpm run compat:check` · `pnpm run harness:health`（金丝雀：证明 CLI 真的执行了 hook） |
 
 ### 10.2 进化闭环（每轮进化必走）
 
 1. **探测**：改动前先读本页定位影响半径 + 读对应真源（catalog / seam-graph / lib barrel）。
 2. **增量**：按开闭原则扩展（新域/新驱动/新 skill），**严禁改既有运行时契约迁就提示词**。
 3. **回写**：把新域/新能力写进 §10.1 对应真源，并**同步更新本页对应小节**（本页与真源必须始终一致）。
-4. **重生成**：catalog 变更后跑 `npm run domain:seams`；能力变更跑 tsc + vitest；skill 变更在 ASSEMBLY.md 注册。
-5. **门禁**：`npm run cooliebase:*:check` 等治理门禁全绿 → 走 PR 合并。
+4. **重生成**：catalog 变更后跑 `pnpm run domain:seams`；能力变更跑 tsc + vitest；skill 变更在 ASSEMBLY.md 注册。
+5. **门禁**：`pnpm run cooliebase:*:check` 等治理门禁全绿 → 走 PR 合并。
 
 ### 10.3 铁律
 
@@ -219,11 +219,11 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite npm run dev   # next dev
 基础设施域高扇入、被所有域依赖，破坏面远大于业务域，进化须**更谨慎**，按节点层级分规则：
 
 - **新增 L0-driver 能力**：必走六件套 —— `<x>-driver.ts` 接口 → `memory/local` 默认零配置驱动 → 生产驱动(懒加载可选依赖) → `<x>-manager.ts`(`get<X>/reset<X>/get<X>DriverName`) → `ENV` 开关 → 本地兜底；`__tests__` 覆盖「默认路径 + 切换选驱动」；在 `foundation.capabilities[]` 注册（`tier=L0-driver`, `state=provisioned`, 填 `swappable` 五元组）。
-- **改 L1-fabric 契约**：动的是所有域的"通信神经"。`messaging-protocol` 等契约变更**必须 `contractVersion` 递增 + 向下兼容**，改前 grep 全量 `dependents` 评估爆炸半径；跑 `npm run domain:seams` 重生成能力三角。
+- **改 L1-fabric 契约**：动的是所有域的"通信神经"。`messaging-protocol` 等契约变更**必须 `contractVersion` 递增 + 向下兼容**，改前 grep 全量 `dependents` 评估爆炸半径；跑 `pnpm run domain:seams` 重生成能力三角。
 - **加/改 L2-aspect 切面**：隐式全局（不出现在业务签名里）。必须声明 `scope`（作用路径）与"是否默认开启"，**严禁悄改全局调用语义**（如 traceId 透传、审计、租户隔离）；`domain-log`(fanIn 420)/`biz-tenant`(fanIn 34) 这类高扇入切面变更等同破坏性变更，须退回规划阶段。
 - **state 跃迁自动检测 + 回写**：`provisioned` 能力一旦被首个消费方接入，`fanIn>0` → `state` 自动跃迁 `load-bearing`。**由扫描脚本闭环，不靠手记**：
-  - `npm run foundation:ontology` —— 扫描真实 import(含 `@/` 别名与 lib 内部相对 import)，把最新 `fanIn/state/dependents` 回写 catalog；
-  - `npm run foundation:ontology:check` —— 只对账不写，catalog 与真实代码漂移则退出码 2（可接入 `check:gates` 门禁），并提示该跃迁的能力；
+  - `pnpm run foundation:ontology` —— 扫描真实 import(含 `@/` 别名与 lib 内部相对 import)，把最新 `fanIn/state/dependents` 回写 catalog；
+  - `pnpm run foundation:ontology:check` —— 只对账不写，catalog 与真实代码漂移则退出码 2（可接入 `check:gates` 门禁），并提示该跃迁的能力；
   - 回写后同步本页 §3 能力表（人读投影须等于机器真源）。新增能力节点在 `capabilities[]` 注册后，`fanIn/state/dependents` 交给脚本维护，人工只填 `contract/swappable/stability/changeRisk`。
 - **只增不破**：既有 `swappable` 的 ENV 语义与默认值向下兼容；删除/重命名 barrel 导出属破坏性变更，须评估全部 `dependents`。
 

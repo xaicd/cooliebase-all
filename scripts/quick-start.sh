@@ -115,4 +115,4 @@ log_info "  数据模式: 内存（重启后数据重置）"
 log_info "═══════════════════════════════════════"
 echo ""
 
-npm run dev
+pnpm run dev

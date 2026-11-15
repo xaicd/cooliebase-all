@@ -11,14 +11,14 @@
       "type": "step",
       "id": "scaffold",
       "agent": "wf-planner",
-      "prompt": "Scaffold security specification: `npm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type security`."
+      "prompt": "Scaffold security specification: `pnpm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type security`."
     },
     {
       "type": "step",
       "id": "threat-model",
       "agent": "wf-security",
       "dependsOn": ["scaffold"],
-      "prompt": "Document vulnerability vector, CVSS score, attack surface, and zero-trust invariants in brief.json. Run `npm run speckit:build -- --name {{inputs.name}}`."
+      "prompt": "Document vulnerability vector, CVSS score, attack surface, and zero-trust invariants in brief.json. Run `pnpm run speckit:build -- --name {{inputs.name}}`."
     },
     {
       "type": "step",
@@ -39,7 +39,7 @@
       "id": "strix-audit",
       "agent": "wf-security",
       "dependsOn": ["hardening"],
-      "prompt": "Wave 3: Run `npm run security:scan` and Strix autonomous penetration test. Verify 12 security red lines pass with 0 vulnerabilities."
+      "prompt": "Wave 3: Run `pnpm run security:scan` and Strix autonomous penetration test. Verify 12 security red lines pass with 0 vulnerabilities."
     }
   ]
 }

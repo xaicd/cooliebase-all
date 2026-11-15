@@ -136,4 +136,4 @@ export function UserToolbar() {
 > [!IMPORTANT]
 > 1. **严禁旧路径污染**：导入 i18n 相关能力时，必须严格使用 `@/shared/frontend/lib/i18n`，**绝对严禁**编写 `@/modules/shared/...`；
 > 2. **第一方业务插件隔离**：业务插件前端（`packages/plugins/plugin-<name>/frontend/`）只允许依赖 `@/shared/*` 或本插件内部能力，禁止跨插件直接 import 其他插件的组件或状态；
-> 3. **无缝自动化测试**：所有 i18n 变更必须维护配套单测（`test/unit/i18n.test.ts`），确保 4 种语言字典与 fallback 机制通过 `npm run test:unit` 100% 验证。
+> 3. **无缝自动化测试**：所有 i18n 变更必须维护配套单测（`test/unit/i18n.test.ts`），确保 4 种语言字典与 fallback 机制通过 `pnpm run test:unit` 100% 验证。

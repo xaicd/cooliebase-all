@@ -62,9 +62,9 @@ echo Please select startup mode:
 echo   [1] Fast Local Dev Mode - Next.js at http://localhost:%APP_PORT% [Recommended]
 echo   [2] Full Docker Mode - PostgreSQL:5433 + Redis:6380 + Next.js
 echo   [3] Infrastructure Only - Start DB + Redis containers
-echo   [4] Architecture Governance Check - npm run check
+echo   [4] Architecture Governance Check - pnpm run check
 echo   [5] Stop Project Docker Containers
-echo   [6] Database Backup - npm run db:backup
+echo   [6] Database Backup - pnpm run db:backup
 echo.
 set "CHOICE=1"
 set /p "CHOICE=Enter number [default 1]: "
@@ -84,7 +84,7 @@ echo [INFO] Starting Next.js development server...
 echo [INFO] Access Homepage: http://localhost:%APP_PORT%
 echo [INFO] Access Admin:    http://localhost:%APP_PORT%/login
 echo.
-call npm run dev
+call pnpm run dev
 if %errorlevel% neq 0 (
     echo.
     echo [TIP] If dependencies are missing, run: pnpm install
@@ -119,10 +119,10 @@ if %errorlevel% neq 0 (
 )
 
 echo [STEP] Applying database migrations and seed data...
-call npm run db:generate
-call npm run db:migrate
-call npm run db:seed
-call npm run db:backup
+call pnpm run db:generate
+call pnpm run db:migrate
+call pnpm run db:seed
+call pnpm run db:backup
 
 echo [OK] Infrastructure is ready.
 goto :app
@@ -130,10 +130,10 @@ goto :app
 :infra
 echo [INFO] Starting PostgreSQL and Redis containers...
 docker compose -f deploy/docker-compose.dev.yml up -d --wait postgres redis
-call npm run db:generate
-call npm run db:migrate
-call npm run db:seed
-call npm run db:backup
+call pnpm run db:generate
+call pnpm run db:migrate
+call pnpm run db:seed
+call pnpm run db:backup
 echo [OK] Infrastructure containers are running.
 goto :end
 
@@ -148,18 +148,18 @@ echo [INFO] Starting in pure in-memory mode...
 set "DB_DRIVER=memory"
 set "DATABASE_URL=memory://cooliebase-all"
 set "REDIS_URL="
-call npm run dev
+call pnpm run dev
 goto :end
 
 :check
 echo [STEP] Running governance and lint checks...
-call npm run check
+call pnpm run check
 echo.
 goto :end
 
 :backup
 echo [STEP] Backing up PostgreSQL database...
-call npm run db:backup
+call pnpm run db:backup
 echo.
 goto :end
 

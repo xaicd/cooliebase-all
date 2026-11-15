@@ -111,7 +111,7 @@ describe("跨 CLI 规格守卫（exit 2 协议）", () => {
       runHook({ tool_input: { command: `git diff -- ${ROOT}/packages/x > /tmp/out.txt` } }),
     ).toBe(0)
     expect(runHook({ tool_input: { command: `grep -rn "packages/foo" ${ROOT}/docs` } })).toBe(0)
-    expect(runHook({ tool_input: { command: "npm run check" } })).toBe(0)
+    expect(runHook({ tool_input: { command: "pnpm run check" } })).toBe(0)
   })
 
   it("★ 非写工具（如读文件）→ 放行，但仍要留心跳（证明 hook 真的被这家 CLI 调用）", () => {

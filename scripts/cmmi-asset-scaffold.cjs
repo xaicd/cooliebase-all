@@ -802,7 +802,7 @@ function handleNew(opts) {
   if (typeDef.generator) {
     // 生成物不接受手写：直接指向真正的生成命令，并以非 0 退出（不能"看似成功但什么都没做"）。
     console.error(`[cmmi-asset] Phase ${phase} 的 "${type}" 是**生成物**，不能手写。`)
-    console.error(`  请运行: npm run ${typeDef.generator}`)
+    console.error(`  请运行: pnpm run ${typeDef.generator}`)
     console.error("  原因: 其内容必须由真源（锁文件 + 已安装依赖的 license 字段）派生，手写版无法保真。")
     process.exit(1)
   }

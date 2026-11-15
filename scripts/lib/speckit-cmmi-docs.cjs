@@ -634,13 +634,30 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
       }
     );
   } else if (isQuadTerminal) {
+    const driftScript = path.join(repoRoot, "scripts/check-contracts-drift.mjs");
+    if (fs.existsSync(driftScript)) {
+      try {
+        const driftRes = spawnSync(process.execPath, [driftScript, "--json"], {
+          cwd: repoRoot,
+          encoding: "utf8",
+          maxBuffer: 16 * 1024 * 1024,
+        });
+        const driftJson = JSON.parse((driftRes.stdout || "").trim() || "{}");
+        const unexpectedOrphans = driftJson?.counts?.orphanInFrontend ?? 0;
+        const verbMismatches = driftJson?.counts?.methodMismatches ?? 0;
+        if (driftJson.hasDrift || unexpectedOrphans > 0 || verbMismatches > 0) {
+          techDebts.push({
+            priority: "P0",
+            category: "前后端契约漂移阻断修复",
+            summary: `packages/api-client 与 apps/backend Controller 存在 ${unexpectedOrphans} 个未对齐孤儿端点、${verbMismatches} 个动词不匹配`,
+            cmd: "pnpm run check:drift",
+          });
+        }
+      } catch (driftErr) {
+        void driftErr; // Ignore optional contract drift parse errors during PMO summary rendering
+      }
+    }
     techDebts.push(
-      {
-        priority: "P0",
-        category: "前后端契约孤儿端点收敛 (Advisory -> 0)",
-        summary: "packages/api-client 与 apps/backend Controller 存在 92 个未对齐孤儿端点，收敛后 16/16 门禁全绿无告警",
-        cmd: "pnpm run check:drift",
-      },
       {
         priority: "P1",
         category: "四端原生 App (apps/app) 业务页深化",

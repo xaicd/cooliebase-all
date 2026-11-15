@@ -16,10 +16,10 @@ pnpm dlx degit xaicd/cooliebase-all#main my-app
 cd my-app && pnpm install
 
 # 3. 执行一键自动化重构引擎 (ProjectReactor CLI)
-npm run project:init -- --name "my-app" --title "我的新业务数字化中台"
+pnpm run project:init -- --name "my-app" --title "我的新业务数字化中台"
 
 # 4. 启动本地开发服务 (http://localhost:3200)
-npm run dev
+pnpm run dev
 ```
 
 自动化脚本会自动完成：
@@ -39,9 +39,9 @@ npm run dev
 |---|---|---|
 | **平台全称、简称、登录文案、版权** | `packages/shared/contract/project-profile.json` | 立即生效（页面刷新） |
 | **Logo 与 Favicon 图标** | `public/branding/logo.svg`、`public/branding/favicon.svg` | 立即生效（页面刷新） |
-| **默认租户名称、编码、联系人** | 同上 JSON 的 `tenants` 数组 | `npm run db:seed` 时入库 |
-| **租户套餐显示名称** | 同上 JSON 的 `packages`（id 固定保持 `111` / `113`） | `npm run db:seed` 时入库 |
-| **管理员显示昵称** | 同上 JSON 的 `bootstrapAdmin.nickname` | `npm run db:seed` 时入库 |
+| **默认租户名称、编码、联系人** | 同上 JSON 的 `tenants` 数组 | `pnpm run db:seed` 时入库 |
+| **租户套餐显示名称** | 同上 JSON 的 `packages`（id 固定保持 `111` / `113`） | `pnpm run db:seed` 时入库 |
+| **管理员显示昵称** | 同上 JSON 的 `bootstrapAdmin.nickname` | `pnpm run db:seed` 时入库 |
 | **平台超级管理员账号与密码** | `.env.local` 中的 `ADMIN_BOOTSTRAP_USERNAME` / `ADMIN_BOOTSTRAP_PASSWORD` | 系统引导初始化时入库 |
 
 > [!IMPORTANT]

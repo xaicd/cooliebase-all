@@ -120,7 +120,7 @@ export function createKyselyOutboxStore(): OutboxStore {
       // 生产数据不得被抹掉 —— 但**测试模式**下必须真的清理。
       //
       // 这里原先无条件空实现，注释理由是"tests use the memory store"。那个假设**已经过时**:
-      // 本仓现在会针对真实库跑测试（`npm run verify:real-db`，内存模式全绿 ≠ 真实库正确）。
+      // 本仓现在会针对真实库跑测试（`pnpm run verify:real-db`，内存模式全绿 ≠ 真实库正确）。
       // 于是测试的清理**静默失效**：outbox 行越积越多，"断言空表"的用例必然失败
       // （实测积累到 40 行），而且看起来像代码改坏了。
       //

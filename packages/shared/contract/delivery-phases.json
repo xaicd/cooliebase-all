@@ -11,7 +11,7 @@
         "docs/features/**/selection.md"
       ],
       "skill": "product-requirements",
-      "gateCommand": "npm run standards:check",
+      "gateCommand": "pnpm run standards:check",
       "note": "立项**前**的门禁: 竞品对标、开源生态扫描、License 合规、加权打分。缺这一道就会「需求未明先定框架」"
     },
     {
@@ -128,7 +128,7 @@
         "docs/features/**/runbook.json"
       ],
       "skill": "devops",
-      "gateCommand": "npm run build",
+      "gateCommand": "pnpm run build",
       "note": "双轨的另一轨: 端口策略矩阵、网络域、割接会签、**可执行 runbook**（计时 + 失败自动回滚）。运营商项目 40% 风险在这里"
     },
     {

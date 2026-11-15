@@ -11,14 +11,14 @@
       "type": "step",
       "id": "scaffold",
       "agent": "wf-planner",
-      "prompt": "Scaffold refactor specification: `npm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type refactor`."
+      "prompt": "Scaffold refactor specification: `pnpm run speckit:new -- --name {{inputs.name}} --domain {{inputs.domain}} --title \"{{inputs.title}}\" --type refactor`."
     },
     {
       "type": "step",
       "id": "debt-analysis",
       "agent": "wf-architect",
       "dependsOn": ["scaffold"],
-      "prompt": "Identify code smell, coupling, or boundary violations. Define Strangler Fig migration pattern and business parity invariants in brief.json, then run `npm run speckit:build -- --name {{inputs.name}}`."
+      "prompt": "Identify code smell, coupling, or boundary violations. Define Strangler Fig migration pattern and business parity invariants in brief.json, then run `pnpm run speckit:build -- --name {{inputs.name}}`."
     },
     {
       "type": "step",
@@ -39,7 +39,7 @@
       "id": "regression-audit",
       "agent": "wf-reviewer",
       "dependsOn": ["refactor-execution"],
-      "prompt": "Wave 3: Verify parity tests 100% pass. Run `npm run check && npm run test:matrix` and check architecture boundary compliance."
+      "prompt": "Wave 3: Verify parity tests 100% pass. Run `pnpm run check && pnpm run test:matrix` and check architecture boundary compliance."
     }
   ]
 }

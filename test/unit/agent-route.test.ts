@@ -13,7 +13,7 @@ const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "agent-route-test-"))
 afterAll(() => fs.rmSync(TMP, { recursive: true, force: true }))
 
 /**
- * 需求分诊器（`npm run agent:route`）。
+ * 需求分诊器（`pnpm run agent:route`）。
  *
  * 守的是什么：此前"这条需求要不要立规格"**没有任何判定**（入口文件写的是"所有 feature/bugfix/
  * enhancement/refactor 都归规格管"，等于全都需要、也等于没判断）。现在判定权收归仓内一条命令。

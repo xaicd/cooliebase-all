@@ -10,9 +10,9 @@
 
 | 指标 | 目标 | 实测 | 度量方式 |
 |---|---|---|---|
-| 静态门禁 `npm run check` | ≤ 60s | **17s** | 本地计时 |
+| 静态门禁 `pnpm run check` | ≤ 60s | **17s** | 本地计时 |
 | 全量测试 `pnpm exec vitest run` | ≤ 300s | **194s**（vitest 自报 193.28s） | vitest Duration |
-| 生产构建 `npm run build` | ≤ 120s | **26s** | 本地计时 |
+| 生产构建 `pnpm run build` | ≤ 120s | **26s** | 本地计时 |
 | 孵化工程依赖安装 `pnpm install --frozen-lockfile` | ≤ 60s | **8.1s** | 克隆产物内实测 |
 
 > 门槛定为"实测的 3 倍以上"是刻意的：这些是**回归护栏**，用来拦住"耗时被打成十倍"，
@@ -22,7 +22,7 @@
 
 | 指标 | 值 | 来源与可复现性 |
 |---|---|---|
-| 单机独立进程吞吐护栏 | ≥ 5,000 rps | `npm run load:test` 对**生产产物**施压 |
+| 单机独立进程吞吐护栏 | ≥ 5,000 rps | `pnpm run load:test` 对**生产产物**施压 |
 | 历史实测吞吐 | ~26,877 rps | **历史实测，本机不可复现**（Docker 为 colima，宿主机端口未转发） |
 | API P95 延迟 | ≤ 20ms（Tier-1） | `docs/08_sre/01_slo_sli_metrics/SLO-SLI-ERROR-BUDGET-MATRIX.md` |
 | API P99 延迟 | ≤ 50ms（Tier-1） | 同上 |
@@ -45,11 +45,11 @@
 |---|---|---|
 | 租户隔离 | 禁止越权串租户；Repository 一律从全局上下文取租户 | `standards:check` 规则 `business-repository-tenant-scope`（**report，不拦截**）、`test/integration/sqlite-rbac.integration.test.ts` |
 | 生产兜底 | `TENANT_MODE=required` 时缺租户上下文直接抛错 | 同上 |
-| 依赖准入 | 运行时新增漏洞必须为 0 | `npm run deps:audit`（基线冻结既有欠债） |
-| 物料清单 | SBOM 必须与锁文件一致 | `npm run sbom:check` |
+| 依赖准入 | 运行时新增漏洞必须为 0 | `pnpm run deps:audit`（基线冻结既有欠债） |
+| 物料清单 | SBOM 必须与锁文件一致 | `pnpm run sbom:check` |
 | 许可证 | LGPL/MPL 等弱著佐权须知情；分发时随附许可证文本 | `docs/04_implementation/software-bill-of-materials.md` §0 |
 | 敏感数据 | 密码哈希存储；手机/身份证展示脱敏；日志禁止输出密钥与完整隐私数据 | 人工审查项（见代码审查清单） |
-| 渗透 | 未认证 / 伪造 token / 伪造 tenant / 插件挂载 / 不泄露栈 / 安全响应头 / 错误口令 | `npm run security:scan`（20 项，含两个**阴性对照**） |
+| 渗透 | 未认证 / 伪造 token / 伪造 tenant / 插件挂载 / 不泄露栈 / 安全响应头 / 错误口令 | `pnpm run security:scan`（20 项，含两个**阴性对照**） |
 
 ## 5. 可维护性与治理
 

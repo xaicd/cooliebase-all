@@ -57,11 +57,11 @@
 
 | 能力面 | 验证入口 |
 |---|---|
-| 契约与治理门禁 | `npm run check` |
-| 消费面一致性（工具/技能/门禁） | `npm run compat:check` |
-| 依赖漏洞棘轮 | `npm run deps:audit` |
-| 客户端构建 | `npm run clients:build:check` |
+| 契约与治理门禁 | `pnpm run check` |
+| 消费面一致性（工具/技能/门禁） | `pnpm run compat:check` |
+| 依赖漏洞棘轮 | `pnpm run deps:audit` |
+| 客户端构建 | `pnpm run clients:build:check` |
 | 全量测试 | `pnpm run test:clean`（自动剔除 `DATABASE_URL` / `DB_DRIVER` / **`NODE_ENV`**；手写 `env -u` 漏一个就会误红） |
-| 生产构建 | `npm run build` |
+| 生产构建 | `pnpm run build` |
 | 登录冒烟 / 安全扫描 / 压测 | `smoke:login` / `security:scan` / `load:test`（**本机零容器可跑**：自起嵌入式 Postgres；压测 rps 受机器负载影响，不代表容量） |
-| 环境指纹 | `npm run fingerprint` → `fingerprint:verify` |
+| 环境指纹 | `pnpm run fingerprint` → `fingerprint:verify` |

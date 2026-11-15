@@ -63,8 +63,8 @@ pnpm install --frozen-lockfile --prod=false
 ### Step 2: 质量门禁与指纹验证
 ```bash
 # 验证代码基线完整度与数字指纹
-npm run check
-npm run fingerprint:verify
+pnpm run check
+pnpm run fingerprint:verify
 ```
 
 ### Step 3: 生产产物编译
@@ -105,6 +105,6 @@ curl -f http://localhost:3200/readyz || exit 1
 ## 4. 异常回滚触发条件
 
 若出现以下任一情况，立即停止割接并执行 `docs/07_release/rollback-runbook.json`：
-1. `npm run check` 门禁退出码非 0；
+1. `pnpm run check` 门禁退出码非 0；
 2. 健康检查接口持续 3 次探针失败（HTTP 500 / 超时）；
 3. 数据库迁移抛出不可恢复的语法异常。

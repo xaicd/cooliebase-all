@@ -86,9 +86,9 @@
 
 ## 6. 验收门禁 (Verification Gates)
 - [ ] 编译通过：pnpm build 退出码为 0
-- [ ] 契约通过：npm run check 10 项标准全绿
+- [ ] 契约通过：pnpm run check 10 项标准全绿
 - [ ] 真实数据库单测：对应 domain 测试用例断言真实入库且通过
-- [ ] 平台冒烟：npm run smoke:login 正常退出
+- [ ] 平台冒烟：pnpm run smoke:login 正常退出
 
 ## 7. 单写者与并发纪律 (Single-Writer Concurrency)
 - 严格遵循单文件互斥锁，严禁两个 Agent 同时并发修改同一文件；
@@ -158,5 +158,5 @@
    * 检查多租户上下文 `getCurrentTenantId()` 是否存在断链越权风险。
 4. **Step 4. 固化防退化用例与不可变证据**：
    * 修复完成后，必须编写反向防御测试用例（覆盖非法前置状态与异常参数）；
-   * 执行 `npm run check` 确保未引入破坏性变更；
+   * 执行 `pnpm run check` 确保未引入破坏性变更；
    * 提交带任务代号的 Git Commit（如 `[T123] fix(pay): 修复退款状态机逆向回滚失效`）。

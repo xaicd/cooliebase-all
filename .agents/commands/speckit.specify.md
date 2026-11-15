@@ -8,5 +8,5 @@ description: 规格立项与需求初始化 (Spec-Kit Specify) - 自动创建按
    - 业务标题 (`--title`)
    - 规格类型 (`--type`): `feature` (默认) | `bugfix` | `enhancement` | `refactor` | `security`
 2. 执行底层命令：
-   `npm run speckit:new -- --name <name> --domain <domain> --title "<title>" --type <type>`
+   `pnpm run speckit:new -- --name <name> --domain <domain> --title "<title>" --type <type>`
 3. 按照 IEEE 29148 / EARS 句式与业务双核 (Object + Action) 引导用户完善 `docs/specs/<domain>/<name>/brief.json`。

@@ -60,7 +60,7 @@ async function runExport() {
 
 async function runSync(url) {
   if (!url) {
-    console.error('❌ 请提供远程 Git 仓库 URL！使用方式: npm run kiro:sync <git_url>');
+    console.error('❌ 请提供远程 Git 仓库 URL！使用方式: pnpm run kiro:sync <git_url>');
     process.exit(1);
   }
 

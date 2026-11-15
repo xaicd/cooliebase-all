@@ -81,7 +81,7 @@ echo     数据模式: 内存
 echo   ===================================
 echo.
 
-call npm run dev
+call pnpm run dev
 
 :end
 endlocal

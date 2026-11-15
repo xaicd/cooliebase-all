@@ -51,10 +51,10 @@ if [[ ! -d "$APP_ROOT/node_modules" ]]; then
 fi
 
 echo "[health-check] 1/4 构建检查"
-npm run build
+pnpm run build
 
 echo "[health-check] 2/4 启动生产服务 (port $PORT)"
-PORT="$PORT" npm run start >"$SERVER_LOG" 2>&1 &
+PORT="$PORT" pnpm run start >"$SERVER_LOG" 2>&1 &
 START_PID="$!"
 
 echo "[health-check] 3/4 等待服务就绪"

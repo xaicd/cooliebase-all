@@ -16,7 +16,7 @@ afterAll(() => {
 })
 
 /**
- * WBS 时效性门禁（`npm run plan:freshness`，pre-commit 内执行）。
+ * WBS 时效性门禁（`pnpm run plan:freshness`，pre-commit 内执行）。
  *
  * 它解决的是一段真实的脱节：一轮做了 32 个提交，而 `project-plan.md` 只在被追问时才更新一次。
  * 判据刻意分两档，因为「每次改代码都要改计划」这种规则会被直接绕过：

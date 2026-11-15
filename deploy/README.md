@@ -16,14 +16,14 @@
 
 ```bash
 # 查看可打包域
-npm run domain:list
+pnpm run domain:list
 
 # 本地拆出 pay：BFF 3100 + pay 3214
-npm run domain:dev -- pay
-COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
+pnpm run domain:dev -- pay
+COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 pnpm run dev
 
 # Compose 拆出 pay
-npm run domain:up -- pay
+pnpm run domain:up -- pay
 ```
 
 详细约定见 `docs/architecture/cooliebase-all-domain-pack.md`。
@@ -45,12 +45,12 @@ docker compose -f deploy/docker-compose.local.yml up --build
 
 ```bash
 # 仅启动默认 PostgreSQL：
-npm run db:up
+pnpm run db:up
 # 或启动完整开发联调环境：
 docker compose -f deploy/docker-compose.dev.yml up -d
 # 在宿主机执行版本化迁移：
-npm run db:generate
-npm run db:migrate
+pnpm run db:generate
+pnpm run db:migrate
 ```
 
 ### Test（MySQL）
@@ -71,8 +71,8 @@ cp deploy/.env.prod.example deploy/.env.prod
 docker compose -f deploy/docker-compose.prod.yml --env-file deploy/.env.prod up -d
 
 # 4. 在宿主机执行一次版本化迁移（容器运行镜像不携带 Prisma CLI）
-npm run db:generate
-npm run db:migrate
+pnpm run db:generate
+pnpm run db:migrate
 ```
 
 ## 常用运维命令

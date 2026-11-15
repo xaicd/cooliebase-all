@@ -4,8 +4,8 @@
 （`open/meta/appearance`、`open/meta/page-schema/:entity`、`app/member/*`），各端各自渲染。
 
 ## 既要 Expo，又要能预览
-- **移动真机预览**：`npm run start` → Expo Go 扫码。
-- **浏览器/预览抽屉预览（无需模拟器）**：`npm run export:web` → 产出静态站点 `dist/`（`dist/index.html`），
+- **移动真机预览**：`pnpm run start` → Expo Go 扫码。
+- **浏览器/预览抽屉预览（无需模拟器）**：`pnpm run export:web` → 产出静态站点 `dist/`（`dist/index.html`），
   用任意静态服务器或平台预览抽屉直接打开。这是「既要 Expo 又要能预览」的关键——
   同一套 Expo 代码经 `react-native-web` 编译成网页。
 
@@ -19,7 +19,7 @@ pnpm run start      # 移动：Expo Go 扫码真机预览
 ```
 后端地址：默认 `app.json > extra.apiBase`，可用 `EXPO_PUBLIC_API_BASE` 覆盖：
 ```bash
-EXPO_PUBLIC_API_BASE=http://<host>:3000 npm run export:web
+EXPO_PUBLIC_API_BASE=http://<host>:3000 pnpm run export:web
 ```
 
 ## Schema 驱动

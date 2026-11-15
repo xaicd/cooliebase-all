@@ -13,11 +13,11 @@ const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "harness-health-"))
 afterAll(() => fs.rmSync(TMP, { recursive: true, force: true }))
 
 /**
- * 金丝雀自检（`npm run harness:health`）。
+ * 金丝雀自检（`pnpm run harness:health`）。
  *
  * 它守的是一个**很容易被忽略的事实**：配置合法 ≠ 生效。
  * CLI 可能 schema 变更、首次未 allowlist、cwd 不同找不到脚本、matcher 拼错、
- * 或者干脆没装 —— 这些情况下 `npm run check` 全绿，但守卫形同虚设。
+ * 或者干脆没装 —— 这些情况下 `pnpm run check` 全绿，但守卫形同虚设。
  *
  * 机制：守卫每次被调用写一行心跳；本脚本把心跳与配置交叉核对。
  */

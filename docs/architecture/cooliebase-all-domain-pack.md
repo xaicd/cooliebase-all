@@ -15,7 +15,7 @@
 
 已支持：
 
-1. 一体：`npm run dev` / `npm run build` / `npm run runtime:all`
+1. 一体：`pnpm run dev` / `pnpm run build` / `pnpm run runtime:all`
 2. 按域生成 API-only 打包目录 `dist/domain-packs/<domain>`
 3. 按域独立 `next dev` / `next build` / Docker 镜像
 4. BFF 通过 `COOLIEBASE_DOMAIN_<DOMAIN>_UPSTREAM` 把该域 API 反代到独立进程
@@ -32,18 +32,18 @@
 
 ```bash
 # 一体：一个进程
-npm run dev
-npm run build && npm run start
-npm run runtime:all
-npm run domain:pack -- --all
+pnpm run dev
+pnpm run build && pnpm run start
+pnpm run runtime:all
+pnpm run domain:pack -- --all
 
 # 拆分：BFF + pay（HTTP 反代 + Facade RPC）
-npm run domain:list
-npm run domain:pack -- pay --materialize
-npm run domain:dev -- pay
-COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 npm run dev
-npm run runtime:split
-npm run domain:up -- pay
+pnpm run domain:list
+pnpm run domain:pack -- pay --materialize
+pnpm run domain:dev -- pay
+COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 pnpm run dev
+pnpm run runtime:split
+pnpm run domain:up -- pay
 ```
 
 ## 4. 切流约定
@@ -53,7 +53,7 @@ npm run domain:up -- pay
 3. 域进程必须设置 `COOLIEBASE_PACK_DOMAIN=<domain>`，只本地执行本域 action。
 4. 域进程回呼其它仍在 BFF 的域时，设置 `COOLIEBASE_RPC_GATEWAY=http://<bff>`。
 5. 生产跨进程 RPC 必须设置 `COOLIEBASE_RPC_TOKEN`；浏览器契约不变。
-6. RPC 契约仍由 `npm run domain:contracts` 生成，禁止手改。
+6. RPC 契约仍由 `pnpm run domain:contracts` 生成，禁止手改。
 
 ## 5. 镜像
 

@@ -4,7 +4,7 @@ description: 6 阶苏格拉底哲学反问与激进减法 (Spec-Ops Socratic Inv
 请对当前任务、方案或产品目标发起 6 阶苏格拉底哲学反问：
 1. 提取目标（`--goal`）与领域（`--domain`）；
 2. 执行反思引擎：
-   `npm run socratic:inquire -- --goal "<目标>" --domain <域> --write`
+   `pnpm run socratic:inquire -- --goal "<目标>" --domain <域> --write`
 3. 严格审查 6 大跃迁维度：
    - Level 1 终极价值：如果彻底抹掉这个功能，业务会死吗？
    - Level 2 极简母体：能否压缩为 1 个 Object + Action，由通用引擎展开？

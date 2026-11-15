@@ -382,7 +382,7 @@ echo "     1. cd $TARGET_DIR"
 echo "     2. pnpm install"
 echo "     3. pnpm run db:up                # 启动本地嵌入式 PostgreSQL (端口 55432，零 Docker)
      4. pnpm run db:migrate           # 执行全量数据库迁移"
-echo "     4. npm run dev                   # 启动开发服务器 (http://localhost:$PORT)"
+echo "     4. pnpm run dev                   # 启动开发服务器 (http://localhost:$PORT)"
 echo ""
 echo "  👉 平台超级管理员账号: supervip (随机安全密码详见 .env.local 或终端初始化日志)"
 echo "================================================================"

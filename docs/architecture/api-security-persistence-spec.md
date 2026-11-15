@@ -316,7 +316,7 @@ pnpm exec tsc --noEmit
 pnpm exec prisma validate
 pnpm exec prisma generate
 pnpm exec vitest run packages/shared/backend
-npm run build
+pnpm run build
 ```
 
 真实数据库集成测试使用专门测试数据库与明确的 `DATABASE_URL`，不得对生产库执行 migration 或 destructive reset。

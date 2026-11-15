@@ -9,5 +9,5 @@ description: Spec-Kit 质量验收与门禁自检清单 (Checklist & Acceptance 
    - 契约治理：跨域调用是否全部收敛于 Domain Facade？
    - Git 追踪：提交历史是否全部匹配 `[T<ID>]` 并符合白名单？
 3. 执行自动化验证：
-   `npm run spec:check -- --spec <name>`
+   `pnpm run spec:check -- --spec <name>`
 4. 汇总验收状态（PASS / DEFECTS）并输出结构化自检报告。

@@ -2,7 +2,7 @@
 description: 全仓 CMMI 质量与架构安全总门禁 (Spec-Ops Gate Check) - 21 道自动化守卫
 ---
 请运行系统全量工程门禁扫描：
-1. 执行命令：`npm run check`；
+1. 执行命令：`pnpm run check`；
 2. 逐项核验：
    - Seam Graph 与 RPC Actions 契约一致性
    - 38 大 Skills 单一真源与无重复目录

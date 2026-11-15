@@ -111,7 +111,7 @@ describe("G5 证据规则", () => {
 
   it("G5=passed 但没有运行记录 → 拦下（声称 ≠ 实测）", () => {
     fs.mkdirSync(DIR, { recursive: true })
-    fs.writeFileSync(EVIDENCE, JSON.stringify(gate("passed", ["npm run fingerprint --verify -> PASS"])))
+    fs.writeFileSync(EVIDENCE, JSON.stringify(gate("passed", ["pnpm run fingerprint --verify -> PASS"])))
     fs.rmSync(RESULT, { force: true })
     const out = JSON.parse(inspectDelivery().output)
     expect(out.evidence.problems.some((p: string) => p.includes("没有 runbook-result.json"))).toBe(true)

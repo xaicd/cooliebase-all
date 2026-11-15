@@ -112,11 +112,11 @@ broker.start({ COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })
 5. 自研 gRPC unary：`packages/shared/backend/lib/grpc-fabric.ts`
 6. 契约 action schema：`packages/domains/<domain>/contract/actions.ts`（由 `rpc-actions.json` 生成）
 7. 域 Facade：`packages/domains/<domain>/contract/<domain>.facade.ts`
-8. Go proto：`packages/domains/<domain>/contract/<domain>.proto`（`npm run domain:contracts`）
+8. Go proto：`packages/domains/<domain>/contract/<domain>.proto`（`pnpm run domain:contracts`）
 9. Go 客户端桩：`gen/go/<domain>/v1/service.go`（无 grpc-go 运行时，注入 `Invoker`）
 10. Broker 分发：`packages/shared/backend/lib/service-broker.ts`；`rpc-actions.json` 的 `service`/`module`/`target` 指定落到哪个 Service 文件
 11. 跨进程 RPC：`packages/shared/backend/lib/rpc-http.ts`，入口 `POST /api/internal/rpc`
-12. 门禁：`npm run microservice:check` 与 `npm run domain:check`
+12. 门禁：`pnpm run microservice:check` 与 `pnpm run domain:check`
 13. 低代码：Online 预览/下载走 `infraPlatformFacade.previewCodegen` / `generateCodegen`；字典走 `systemPublicFacade.getDictDataByType`；模板引擎 Facade 预置与 codegen ZIP / module-pack 输出 `createDomainFacade` 与 `*.rpc.ts`
 
 ## 7. 低代码模板与生成器

@@ -14,10 +14,10 @@
 
 | 层 | 谁执行 | 能否被模型绕过 | 覆盖范围 |
 |---|---|---|---|
-| L0 仓内判定命令 | `npm run agent:route` | 可以（模型可以选择不跑） | 全部 |
+| L0 仓内判定命令 | `pnpm run agent:route` | 可以（模型可以选择不跑） | 全部 |
 | L1 各 CLI 的 hooks | **CLI 引擎** | **不能** | 单家 CLI |
 | L2 git 钩子 | **git** | **不能** | **所有** CLI 与人 |
-| L3 入口机检 | `npm run check`（CI） | 不能 | 全部（合并前） |
+| L3 入口机检 | `pnpm run check`（CI） | 不能 | 全部（合并前） |
 
 L1 各家配置格式不同；**L2 是唯一真正跨 CLI 的一层**，所以必须有。
 
@@ -42,15 +42,15 @@ L1 各家配置格式不同；**L2 是唯一真正跨 CLI 的一层**，所以�
 ### 3.1 L0：需求分诊（跨 CLI 通用）
 
 ```bash
-npm run agent:route -- "<用户的原始需求原文>"
+pnpm run agent:route -- "<用户的原始需求原文>"
 ```
 
 三值判定：
 
 | 结论 | 含义 | 下一步 |
 |---|---|---|
-| `SPEC_REQUIRED` | 需要规格 | `npm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"` |
-| `DIRECT_OK` | 可直接改 | 直接改，改完 `npm run check` 必须全绿 |
+| `SPEC_REQUIRED` | 需要规格 | `pnpm run speckit:new -- --name <名> --domain <域> --type <类型> --title "<标题>"` |
+| `DIRECT_OK` | 可直接改 | 直接改，改完 `pnpm run check` 必须全绿 |
 | `NOT_A_REQUIREMENT` | **不是需求**（确认 / 授权 / 上下文陈述 / 调研提问 / 续作指令） | 什么都不做 |
 
 - 规则真源：`scripts/lib/spec-necessity-rules.cjs`（**每条带理由，可审阅可改**）
@@ -91,7 +91,7 @@ npm run agent:route -- "<用户的原始需求原文>"
 - **Claude Code**：`.claude/settings.json`（**项目级**）
   - `PreToolUse` matcher = `Write|Edit|MultiEdit|NotebookEdit`，命令 `"$CLAUDE_PROJECT_DIR"/.agents/hooks/spec-gate.sh`
 - **git（所有 CLI）**：`.githooks/pre-commit` + `git config core.hooksPath .githooks`
-- **入口机检**：`npm run specs:health` 里「入口必须出现 `agent:route`」是 **error** 级
+- **入口机检**：`pnpm run specs:health` 里「入口必须出现 `agent:route`」是 **error** 级
 
 ---
 
@@ -102,8 +102,8 @@ Hermes 的 hooks **只能**配置在用户级 `~/.hermes/config.yaml`（源码 `
 而是提供一个**幂等安装脚本**（默认 dry-run、写入前备份、已有 `hooks:` 段则拒绝）：
 
 ```bash
-npm run harness:hermes-hook            # dry-run：只打印将追加的内容，不动你的配置
-npm run harness:hermes-hook -- --write # 备份后追加
+pnpm run harness:hermes-hook            # dry-run：只打印将追加的内容，不动你的配置
+pnpm run harness:hermes-hook -- --write # 备份后追加
 ```
 
 它会追加一个带标记的块（删掉标记之间的内容即可回滚）。手工等价片段如下：
@@ -163,7 +163,7 @@ hooks:
 ### Hermes 安装的三步（换机时照做）
 
 ```bash
-npm run harness:hermes-hook -- --write   # ① 写入 config（幂等、先备份、已有 hooks 段则拒绝）
+pnpm run harness:hermes-hook -- --write   # ① 写入 config（幂等、先备份、已有 hooks 段则拒绝）
 # ② 放行 allowlist：`hermes --accept-hooks` 一次，或精确写 ~/.hermes/shell-hooks-allowlist.json
 # ③ 验证
 hermes hooks list      # 应显示 allowlisted
@@ -185,15 +185,15 @@ hermes hooks test pre_tool_call --for-tool write_file --payload-file <带受保�
 ### 7.0 金丝雀：证明「配置合法」之外的东西
 
 **配置合法 ≠ 生效。** CLI 可能 schema 变更、首次未 allowlist、cwd 不同找不到脚本、
-matcher 拼错、或干脆没装 —— 这些情况下 `npm run check` 全绿，而守卫形同虚设。
+matcher 拼错、或干脆没装 —— 这些情况下 `pnpm run check` 全绿，而守卫形同虚设。
 
 机制：守卫**每次被调用**都往 `docs/architecture/artifacts/harness-heartbeat.jsonl`（gitignored）追加一行
 （`kind` / `decision` / `protocol` / `file`）。据此交叉核对：
 
 ```bash
-npm run harness:health                     # 报告：✅ 真的生效 / ⚠️ 配了但从未触发 / — 无配置
-npm run harness:health -- --require cmd,agy  # 指定家必须近期有心跳，否则 exit 1
-npm run harness:health -- --window 60        # 只看最近 60 分钟
+pnpm run harness:health                     # 报告：✅ 真的生效 / ⚠️ 配了但从未触发 / — 无配置
+pnpm run harness:health -- --require cmd,agy  # 指定家必须近期有心跳，否则 exit 1
+pnpm run harness:health -- --window 60        # 只看最近 60 分钟
 ```
 
 | 状态 | 含义 |
@@ -202,7 +202,7 @@ npm run harness:health -- --window 60        # 只看最近 60 分钟
 | ⚠️ | **配了但从未触发** → 多半没加载 / 没 allowlist / matcher 拼错 |
 | — | 无配置文件（靠文本层 + git 兜底） |
 
-**使用建议**：在每家 CLI 里各做一次写操作，然后跑 `npm run harness:health`，
+**使用建议**：在每家 CLI 里各做一次写操作，然后跑 `pnpm run harness:health`，
 确认那一家变成 ✅。这是唯一能证明"该 CLI 真的执行了我们的 hook"的手段。
 
 
@@ -215,7 +215,7 @@ pnpm exec vitest run test/unit/agent-route.test.ts
 pnpm exec vitest run test/unit/spec-gate-hook.test.ts
 
 # ③ 入口一致性（6 个入口文件都必须出现 agent:route）
-npm run specs:health
+pnpm run specs:health
 
 # ④ 真实拦截（会写一个探针并还原）
 mkdir -p packages/__probe__ && echo x > packages/__probe__/p.ts

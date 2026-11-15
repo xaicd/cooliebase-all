@@ -130,7 +130,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
    pnpm 12 已用 `allowBuilds`（pkg→true 映射）取代 `onlyBuiltDependencies`；漏登记会让
    better-sqlite3 没有二进制、prisma 没有引擎、esbuild 没有可执行文件，构建与测试随之失败。
 5. CI/镜像构建一律用 `pnpm install --frozen-lockfile`（Dockerfile 已切）。
-6. **脚本调用统一写 `pnpm run <script>`**。`npm run <script>` 在 pnpm 布局下虽能跑通，
+6. **脚本调用统一写 `pnpm run <script>`**。`pnpm run <script>` 在 pnpm 布局下虽能跑通，
    但它是**历史遗留写法**，不再作为规范形态：
    · 本仓的命令真实性检查器 `check-docs-commands.cjs:93` 用 `(?<![pP])npm run` 匹配，
      **显式把 `pnpm run` 排除在外** —— 即规范形态就是 pnpm；

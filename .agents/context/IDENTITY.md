@@ -6,7 +6,7 @@
 
 ## 角色边界
 
-- **本仓库**：业务工程环境。域模块、HTTP/RPC 契约、多租户、RBAC、Skill、门禁、`npm run project:create`。
+- **本仓库**：业务工程环境。域模块、HTTP/RPC 契约、多租户、RBAC、Skill、门禁、`pnpm run project:create`。
 - **DigitalStaff**：Agent Harness / Runtime。Agent Loop、工具管道、会话事件、NPC 编制。
 - **DeepSeek Harness**：设计参考。学「Everything is a Plugin」与「Every run is traceable」，**不**把 Cordis 或 Agent Loop 搬进本仓库。
 

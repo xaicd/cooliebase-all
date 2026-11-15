@@ -52,7 +52,7 @@ describe("delivery 检查器的骨架判定", () => {
         "# 缺陷", "",
         "| ID | 现象 | 复现命令 | 验证命令 | 状态 |",
         "|---|---|---|---|---|",
-        "| B1 | 下单超卖 | npm run repro:b1 | npm run verify:b1 | 未修 |",
+        "| B1 | 下单超卖 | pnpm run repro:b1 | pnpm run verify:b1 | 未修 |",
         "| B2 | 弹窗遮罩点不中 | | | 未修 |",
         "| B3 | 已修的历史问题 | cmd | cmd | 已修 |",
         "",
