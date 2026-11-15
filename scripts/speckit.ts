@@ -297,7 +297,7 @@ function handleNew() {
       windowMinutes: 10,
     }
   } else {
-    // 默认 feature（对齐 wenlv-next WLVN-SPEC-KIT-DELIVERY-CLOSURE-V1 & WLVN-ZERO-SEED-REAL-OPS-V1）
+    // 默认 feature（遵循 SPEC-KIT-DELIVERY-CLOSURE-V1 & ZERO-SEED-REAL-OPS-V1）
     brief = {
       name,
       domain,
@@ -310,24 +310,24 @@ function handleNew() {
       },
       goal: "<!-- 待填: 一句话说清『做完之后谁能做成什么事』。范围要收得住。 -->",
       roles: [
-        { role: "<!-- 待填: C 端用户角色（如 预约/消费者，经 /<slug>/2c 免管端登录浏览真实数据与下单） -->", can: "<!-- 待填 -->" },
-        { role: "<!-- 待填: 履约/核销角色（如 店员/核销员，校验凭证与状态跃迁） -->", can: "<!-- 待填 -->" },
-        { role: "<!-- 待填: B 端运营管理角色（经 /<slug>/admin 侧栏菜单配置上架资源、定价与巡检订单） -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: C 端终端用户角色（经 /<slug>/2c 免管端登录浏览真实业务数据与发起交易） -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: 一线履约操作角色（校验凭证与执行状态跃迁） -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: B 端运营管理角色（经 /<slug>/admin 侧栏菜单配置发布业务资源、定价与巡检单据） -->", can: "<!-- 待填 -->" },
       ],
       stories: [
         { priority: "P0", text: "<!-- 待填: B 端运营管理后台资源配置与侧栏菜单入口可达（EARS WHEN...THE SYSTEM SHALL...） -->" },
-        { priority: "P0", text: "<!-- 待填: C 端门户免管端登录浏览已上架真实资源与核心交易/核销闭环 -->" },
-        { priority: "P1", text: "<!-- 待填: 数字员工自动化运营上架与超时/异常定时巡检自愈闭环 -->" },
+        { priority: "P0", text: "<!-- 待填: C 端门户免管端登录浏览已发布真实业务资源与核心交易/履约闭环 -->" },
+        { priority: "P1", text: "<!-- 待填: 数字员工自动化运营发布与超时/异常定时巡检自愈闭环 -->" },
       ],
       constraints: [
         "多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。",
         "双端鉴权边界隔离：C 端公开浏览/消费接口与 B 端 operator 管端接口必须显式隔离，严禁 C 端页面误调管端接口返回 401 导致首屏 0 数据。",
-        "触达闭环铁律（Gate 5 入口可发现）：凡交付 B 端后台页面，必须同步登记 `admin-pages.json` 与 `admin-nav.generated.ts` 侧栏导航入口。",
-        "零业务 Seed 真运营铁律（WLVN-ZERO-SEED-REAL-OPS-V1）：DB Seed 仅允许系统账号与静态字典；严禁通过 SQL/Prisma 脚本直接灌入业务房间/商品/订单，必须由数字员工内生运营脚本（`scripts/digital-employee/operate-<domain>.ts`）真实登录 B 端运营台创建上架并联动 C 端验证。",
+        "触达闭环铁律（S5 入口可发现）：凡交付 B 端后台页面，必须同步登记 `admin-pages.json` 与 `admin-nav.generated.ts` 侧栏导航入口。",
+        "零业务 Seed 真运营铁律（ZERO-SEED-REAL-OPS-V1）：DB Seed 仅允许系统账号与静态字典；严禁通过 SQL/Prisma 脚本直接灌入业务核心实体或交易单据，必须由数字员工内生运营脚本（`scripts/digital-employee/operate-<domain>.ts`）真实登录 B 端运营台配置发布并联动 C 端验证。",
       ],
       acceptance: [
-        { check: "`pnpm run check` exit=0 且 `pnpm harness spec check --spec " + name + "` Gate 1~6 全绿" },
-        { check: "`pnpm exec tsx scripts/digital-employee/operate-" + domain + ".ts` exit=0（真实经 B 端后台配置上架业务资源，C 端立即可见，零业务 DB Seed）" },
+        { check: "`pnpm run check` exit=0 且 `pnpm harness spec check --spec " + name + "` S1~S6 全绿" },
+        { check: "`pnpm exec tsx scripts/digital-employee/operate-" + domain + ".ts` exit=0（真实经 B 端后台配置发布业务资源，C 端立即可见，零业务 DB Seed）" },
         { check: "`pnpm run test:matrix` 与红绿对抗 Playwright E2E（Happy Path + 4xx 冲突中文自愈提示不白屏）100% PASS" },
         { check: "目标环境部署验证：部署后实时浏览器/API 走查验证 C 端门户 (/<slug>/2c 匿名首屏真实数据 > 0) 与 B 端运营后台 (/<slug>/admin 侧栏菜单可达) 均返回 200" },
       ],
@@ -337,7 +337,7 @@ function handleNew() {
       invariants: [{ name: "<!-- 待填: 不变量名（如 时段不重叠 / 不超卖） -->", how: "<!-- 待填: 怎么保证，且要与验收标准对应 -->" }],
       ui: ["<!-- 待填: B 端 /admin/<domain>/* 与 C 端 /2c 各有什么页面及侧栏入口 -->"],
       ops: [
-        `内生运营闭环（\`scripts/digital-employee/operate-${domain}.ts\`）：严禁静态业务 DB Seed，以真实运营员身份登录 B 端后台完成资源上架配置、C 端核验与异常订单自愈巡检`,
+        `内生运营闭环（\`scripts/digital-employee/operate-${domain}.ts\`）：严禁静态业务 DB Seed，以真实运营员身份登录 B 端后台完成资源发布配置、C 端核验与异常单据自愈巡检`,
         "定时巡检挂载（`schedules/default-cron.json`）：持续执行超时释放、状态巡检与运营指标对账",
       ],
       risks: [{ risk: "<!-- 待填 -->", mitigation: "<!-- 待填 -->" }],
@@ -345,13 +345,13 @@ function handleNew() {
       interactions: ["<!-- 待填: 搜索回车、二次确认、冲突错误中文内联提示自愈（§5.2.1） -->"],
       states: ["加载中：表格区一行，不整页遮罩。", "空数据：保留搜索栏（可改条件重试）。", "出错：中文提示 + 可重试，不静默吞掉或白屏。", "无权限：按钮不渲染（权限码驱动）。"],
       candidates: [{ name: "cooliebase-all 第一方插件架构", type: "自研底座", license: "MIT", risk: "无" }],
-      benchmarks: ["对标 townwenlv/wenlv-next WLVN-SPEC-KIT-DELIVERY-CLOSURE-V1 四维交付闭环标准"],
+      benchmarks: ["遵循 SPEC-KIT-DELIVERY-CLOSURE-V1 四维交付闭环标准"],
       scan: ["检索底座内置 CodegenEngine、Plugin SDK 与 Admin Nav 自动派生产物链"],
       licenseConclusion: "MIT 可商用，无传染性许可风险",
       tasks: [
         { id: "T1", parent: "main", title: "领域数据模型、状态机守卫与 C端公开/B端管端鉴权边界隔离", files: [`scripts/data/${domain}-tables.ts`, `packages/plugins/plugin-${domain}`] },
-        { id: "T2", parent: "T1", title: "B端运营配置管理后台 + C端用户门户落地与侧栏菜单入口可达登记 (Gate 5)", files: [`packages/plugins/plugin-${domain}`, "packages/shared/contract/admin-pages.json", "packages/shared/contract/admin-nav.generated.ts", "src/app"] },
-        { id: "T3", parent: "T2", title: `自动化内生运营脚本落地（零业务Seed，经 B 端 API/UI 真实配置上架资源并校验 C 端可见）`, files: [`scripts/digital-employee/operate-${domain}.ts`] },
+        { id: "T2", parent: "T1", title: "B端运营配置管理后台 + C端用户门户落地与侧栏菜单入口可达登记 (S5)", files: [`packages/plugins/plugin-${domain}`, "packages/shared/contract/admin-pages.json", "packages/shared/contract/admin-nav.generated.ts", "src/app"] },
+        { id: "T3", parent: "T2", title: `自动化内生运营脚本落地（零业务Seed，经 B 端 API/UI 真实配置发布业务资源并校验 C 端可见）`, files: [`scripts/digital-employee/operate-${domain}.ts`] },
         { id: "T4", parent: "T3", title: "日常自动化巡检与超时自愈定时挂载 (schedules/default-cron.json)", files: ["schedules/default-cron.json"] },
         { id: "T5", parent: "T4", title: "红绿对抗真机 Playwright E2E 验证与高清中文证据归档（Happy Path + 4xx 冲突自愈）", files: [`test/e2e/${domain}-e2e.spec.ts`, `docs/specs/${domain}/${name}/evidence.json`] },
         { id: "T6", parent: "T5", title: "目标环境部署后实时浏览器/API 走查与全量门禁核销 (Gate 6)", files: ["-"] },
@@ -1002,14 +1002,14 @@ function handleArchive() {
 }
 
 // ============================================================================
-// 5. 命令：speckit check (交付状态与 Gate 1~6 闭环审计 — 对齐 wenlv-next)
+// 5. 命令：speckit check (交付状态与工作区规格自检 S1~S6 闭环审计)
 // ============================================================================
 function handleCheck() {
   const specName = getArg("--spec") || getArg("--name") || getArg("--feature")
   const phase = getArg("--phase")
   const asJson = hasFlag("--json")
 
-  // 若指定了单款规格且未走旧式 --phase/--json，先执行 wenlv-next 同构 Gate 1~6 规格闭环审查
+  // 若指定了单款规格且未走旧式 --phase/--json，先执行 S1~S6 规格闭环审查
   if (specName && !phase && !asJson) {
     const specDir = resolveSpecDir(specName)
     if (!specDir || !fs.existsSync(specDir)) {

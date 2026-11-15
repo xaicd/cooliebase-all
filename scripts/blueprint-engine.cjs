@@ -891,7 +891,7 @@ function buildBlueprintSpecBrief({
       `多端 basePath 统一收敛为 "${basePath || "/"}"，前端与移动端统一经 toRuntimeApiPath 归一化至 ${runtimeEndpoints.pluginApiPrefix}。`,
       "双端鉴权边界隔离：C 端门户浏览公开资源接口与 B 端 operator 管端写接口显式分层，严禁 C 端匿名首屏因误调管端接口返回 401 而显示 0 数据。",
       "触达闭环铁律（Gate 5 入口可发现）：新域管理端页面必须同步写入 admin-pages.json 与 admin-nav.generated.ts 侧栏导航。",
-      "零业务 Seed 真运营铁律（WLVN-ZERO-SEED-REAL-OPS-V1）：严禁通过静态 SQL/Prisma 脚本硬塞业务房间/商品数据，统一由数字员工运营脚本登录 B 端后台真实上架并联动 C 端校验。",
+      "零业务 Seed 真运营铁律（ZERO-SEED-REAL-OPS-V1）：严禁通过静态 SQL/Prisma 脚本硬塞业务核心资源或交易数据，统一由数字员工运营脚本登录 B 端后台真实配置发布并联动 C 端校验。",
     ],
     acceptance,
     nonGoals: ["不侵入底座平台地基域（system/infra）核心代码"],

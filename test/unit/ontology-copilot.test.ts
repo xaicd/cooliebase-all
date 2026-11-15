@@ -49,6 +49,24 @@ describe("底座内嵌活体本体与 AI Copilot 只读沙箱", () => {
     expect(Array.isArray(json.data.columns)).toBe(true);
   });
 
+  it("POST /api/copilot/query 对未注册的未知表名显式报错 (严禁回落伪造演示行)", async () => {
+    const req = new Request("http://localhost:3000/api/copilot/query", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        sql: "SELECT id, name FROM nonexistent_ghost_table WHERE tenant_id = 1",
+        tenantId: 1,
+      }),
+    });
+
+    const res = await postCopilotQuery(req);
+    expect(res.status).toBe(400);
+
+    const json = await res.json();
+    expect(json.error).toContain("UNKNOWN_TABLE");
+    expect(json.unknownTables).toContain("nonexistent_ghost_table");
+  });
+
   it("POST /api/copilot/query 允许基于自然语言 prompt 安全生成只读查询", async () => {
     const req = new Request("http://localhost:3000/api/copilot/query", {
       method: "POST",
