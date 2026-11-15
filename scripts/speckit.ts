@@ -297,56 +297,67 @@ function handleNew() {
       windowMinutes: 10,
     }
   } else {
-    // 默认 feature
+    // 默认 feature（对齐 wenlv-next WLVN-SPEC-KIT-DELIVERY-CLOSURE-V1 & WLVN-ZERO-SEED-REAL-OPS-V1）
     brief = {
       name,
       domain,
       title,
       type: "feature",
+      profile: getArg("--profile") === "lite" ? "lite" : "full",
+      baseSelection: {
+        base: "cooliebase-all",
+        reason: "双端同源插件化与零业务Seed内生运营架构",
+      },
       goal: "<!-- 待填: 一句话说清『做完之后谁能做成什么事』。范围要收得住。 -->",
       roles: [
-        { role: "<!-- 待填: 运营端角色 -->", can: "<!-- 待填 -->" },
-        { role: "<!-- 待填: 使用端角色 -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: C 端用户角色（如 预约/消费者，经 /<slug>/2c 免管端登录浏览真实数据与下单） -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: 履约/核销角色（如 店员/核销员，校验凭证与状态跃迁） -->", can: "<!-- 待填 -->" },
+        { role: "<!-- 待填: B 端运营管理角色（经 /<slug>/admin 侧栏菜单配置上架资源、定价与巡检订单） -->", can: "<!-- 待填 -->" },
       ],
       stories: [
-        { priority: "P0", text: "<!-- 待填: 最小闭环必须有的 -->" },
-        { priority: "P0", text: "<!-- 待填 -->" },
-        { priority: "P1", text: "<!-- 待填 -->" },
+        { priority: "P0", text: "<!-- 待填: B 端运营管理后台资源配置与侧栏菜单入口可达（EARS WHEN...THE SYSTEM SHALL...） -->" },
+        { priority: "P0", text: "<!-- 待填: C 端门户免管端登录浏览已上架真实资源与核心交易/核销闭环 -->" },
+        { priority: "P1", text: "<!-- 待填: 数字员工自动化运营上架与超时/异常定时巡检自愈闭环 -->" },
       ],
       constraints: [
         "多租户：业务表带 tenant_id，从全局上下文取，禁止调用方透传（§4.8）。",
-        "跨域：只走 Domain Facade，不 import 别的域 Service（§3.3）。",
-        "定制业务不回写基座（§17.3）；全动词 API（§5.1）；UI 带 Agent-Native 属性（§5.2.1）。",
-        "反 Seed 铁律（Rule 0.8）：严禁通过数据库脚本或后台静默函数直接灌入业务运营配置数据，必须 100% 通过 E2E 页面拟人操作（Playwright 登录 B 端后台 -> 打开页面 -> 点击新建 -> 填写表单 -> 提交落库）完成运营配置与 C 端联动验证。",
+        "双端鉴权边界隔离：C 端公开浏览/消费接口与 B 端 operator 管端接口必须显式隔离，严禁 C 端页面误调管端接口返回 401 导致首屏 0 数据。",
+        "触达闭环铁律（Gate 5 入口可发现）：凡交付 B 端后台页面，必须同步登记 `admin-pages.json` 与 `admin-nav.generated.ts` 侧栏导航入口。",
+        "零业务 Seed 真运营铁律（WLVN-ZERO-SEED-REAL-OPS-V1）：DB Seed 仅允许系统账号与静态字典；严禁通过 SQL/Prisma 脚本直接灌入业务房间/商品/订单，必须由数字员工内生运营脚本（`scripts/digital-employee/operate-<domain>.ts`）真实登录 B 端运营台创建上架并联动 C 端验证。",
       ],
       acceptance: [
-        { check: "`pnpm run check` exit=0" },
-        { check: "`pnpm run e2e:ops:check` exit=0（E2E 页面拟人运营配置契约与反 Seed 门禁通过）" },
-        { check: "`pnpm run test:matrix` exit=0（全链路自动化测试矩阵通过）" },
-        { check: "<!-- 待填: 每条都要可执行验证，不要写『体验良好』 -->" },
+        { check: "`pnpm run check` exit=0 且 `pnpm harness spec check --spec " + name + "` Gate 1~6 全绿" },
+        { check: "`pnpm exec tsx scripts/digital-employee/operate-" + domain + ".ts` exit=0（真实经 B 端后台配置上架业务资源，C 端立即可见，零业务 DB Seed）" },
+        { check: "`pnpm run test:matrix` 与红绿对抗 Playwright E2E（Happy Path + 4xx 冲突中文自愈提示不白屏）100% PASS" },
+        { check: "目标环境部署验证：部署后实时浏览器/API 走查验证 C 端门户 (/<slug>/2c 匿名首屏真实数据 > 0) 与 B 端运营后台 (/<slug>/admin 侧栏菜单可达) 均返回 200" },
       ],
       nonGoals: ["<!-- 待填: 显式划出边界，这一节能挡掉一半范围蔓延 -->"],
       architecture: "<!-- 待填: 数据流与依赖方向；跨域写明用哪个域的哪个方法 -->",
       entities: [{ table: "<!-- 待填: 表名 -->", note: "<!-- 待填 -->" }],
-      invariants: [{ name: "<!-- 待填: 不变量名（如 不超卖） -->", how: "<!-- 待填: 怎么保证，且要与验收标准对应 -->" }],
-      ui: ["<!-- 待填: admin 与 C 端各有什么页面、复用哪个模板 -->"],
-      ops: ["E2E 页面拟人运营配置（`pnpm run e2e:ops`）：严禁直接 Seed 数据库，通过 B 端页面拟人点击填表完成业务运营配置；配合 `pnpm run test:matrix` 与 `pnpm run agent:ops` 完成自动化验证与巡检"],
+      invariants: [{ name: "<!-- 待填: 不变量名（如 时段不重叠 / 不超卖） -->", how: "<!-- 待填: 怎么保证，且要与验收标准对应 -->" }],
+      ui: ["<!-- 待填: B 端 /admin/<domain>/* 与 C 端 /2c 各有什么页面及侧栏入口 -->"],
+      ops: [
+        `内生运营闭环（\`scripts/digital-employee/operate-${domain}.ts\`）：严禁静态业务 DB Seed，以真实运营员身份登录 B 端后台完成资源上架配置、C 端核验与异常订单自愈巡检`,
+        "定时巡检挂载（`schedules/default-cron.json`）：持续执行超时释放、状态巡检与运营指标对账",
+      ],
       risks: [{ risk: "<!-- 待填 -->", mitigation: "<!-- 待填 -->" }],
       screens: [{ name: "<!-- 待填: 页面名与路径 -->", wireframe: "<!-- 待填: 文本线框 -->" }],
-      interactions: ["<!-- 待填: 搜索回车、二次确认、弹窗时底层 inert（§5.2.1） -->"],
-      states: ["加载中：表格区一行，不整页遮罩。", "空数据：保留搜索栏（可改条件重试）。", "出错：提示 + 可重试，不静默吞掉。", "无权限：按钮不渲染（权限码驱动）。"],
-      candidates: [{ name: "<!-- 待填: 候选方案 -->", type: "<!-- 自研/开源/商业 -->", license: "<!-- SPX -->", risk: "<!-- 许可风险 -->" }],
-      benchmarks: ["<!-- 待填: 同行业/同场景别人怎么做，各自代价 -->"],
-      scan: ["<!-- 待填: 检索了哪些库/框架，为什么选它/不选别的 -->"],
-      licenseConclusion: "<!-- 待填: 必须有明确结论。可商用/需开源/需购买/不可用 + 传染性风险 -->",
+      interactions: ["<!-- 待填: 搜索回车、二次确认、冲突错误中文内联提示自愈（§5.2.1） -->"],
+      states: ["加载中：表格区一行，不整页遮罩。", "空数据：保留搜索栏（可改条件重试）。", "出错：中文提示 + 可重试，不静默吞掉或白屏。", "无权限：按钮不渲染（权限码驱动）。"],
+      candidates: [{ name: "cooliebase-all 第一方插件架构", type: "自研底座", license: "MIT", risk: "无" }],
+      benchmarks: ["对标 townwenlv/wenlv-next WLVN-SPEC-KIT-DELIVERY-CLOSURE-V1 四维交付闭环标准"],
+      scan: ["检索底座内置 CodegenEngine、Plugin SDK 与 Admin Nav 自动派生产物链"],
+      licenseConclusion: "MIT 可商用，无传染性许可风险",
       tasks: [
-        { id: "T1", parent: "main", title: "地基契约与数据模型准备", files: ["<!-- 待填: 文件白名单，逗号分隔；纯验证任务写 - -->"] },
-        { id: "T2", parent: "T1", title: "核心服务与 Agent-Native 页面落地", files: ["-"] },
-        { id: "T3", parent: "T2", title: "E2E 页面拟人操作运营配置（严禁 DB Seed，通过 B 端页面拟人点击新建填表完成运营配置）", files: ["test/agent/e2e-human-ops.spec.ts"] },
-        { id: "T4", parent: "T3", title: "全链路自动化测试与门禁核销（B端拟人配置 -> C端消费 -> B端履约闭环验证）", files: ["-"] },
+        { id: "T1", parent: "main", title: "领域数据模型、状态机守卫与 C端公开/B端管端鉴权边界隔离", files: [`scripts/data/${domain}-tables.ts`, `packages/plugins/plugin-${domain}`] },
+        { id: "T2", parent: "T1", title: "B端运营配置管理后台 + C端用户门户落地与侧栏菜单入口可达登记 (Gate 5)", files: [`packages/plugins/plugin-${domain}`, "packages/shared/contract/admin-pages.json", "packages/shared/contract/admin-nav.generated.ts", "src/app"] },
+        { id: "T3", parent: "T2", title: `自动化内生运营脚本落地（零业务Seed，经 B 端 API/UI 真实配置上架资源并校验 C 端可见）`, files: [`scripts/digital-employee/operate-${domain}.ts`] },
+        { id: "T4", parent: "T3", title: "日常自动化巡检与超时自愈定时挂载 (schedules/default-cron.json)", files: ["schedules/default-cron.json"] },
+        { id: "T5", parent: "T4", title: "红绿对抗真机 Playwright E2E 验证与高清中文证据归档（Happy Path + 4xx 冲突自愈）", files: [`test/e2e/${domain}-e2e.spec.ts`, `docs/specs/${domain}/${name}/evidence.json`] },
+        { id: "T6", parent: "T5", title: "目标环境部署后实时浏览器/API 走查与全量门禁核销 (Gate 6)", files: ["-"] },
       ],
-      dependencies: "T1 → T2 → T3 → T4",
-      windowMinutes: 10,
+      dependencies: "T1 → T2 → T3 → T4 → T5 → T6",
+      windowMinutes: 15,
     }
   }
 
@@ -632,6 +643,33 @@ const specKitPointer = (target: string, title: string) =>
     count++
   }
 
+  // 单一真源确定性投影：在派生的层B客户项目（或显式传入 --sync-cmmi）中，
+  // 由 brief.json 编译产物自动同步生成 CMMI 宏观视图文档，彻底消灭大模型双轨手写与漂移
+  let isDerivedProject = hasFlag("--sync-cmmi")
+  if (!isDerivedProject) {
+    try {
+      const rootPkg = JSON.parse(fs.readFileSync(path.join(ROOT, "package.json"), "utf8"))
+      isDerivedProject = Boolean(rootPkg?.name && rootPkg.name !== "cooliebase" + "-all")
+    } catch {
+      isDerivedProject = false
+    }
+  }
+  if (isDerivedProject && brief.type !== "bugfix") {
+    const cmmiMirrors: Array<[string, string]> = [
+      ["docs/02_requirements/software-requirements.md", files["requirements.md"] || ""],
+      ["docs/02_requirements/rtm-traceability-matrix.md", `# 需求双向追踪矩阵 (RTM): ${brief.title}\n\n> 单一真源由 \`${path.relative(ROOT, path.join(dir, "brief.json"))}\` 确定性编译生成。\n\n| 任务ID | 父节点 | 任务标题 | 文件白名单 | 状态 |\n|---|---|---|---|---|\n${tasksRtmText}\n`],
+      ["docs/03_design/architecture-design-hld.md", files["design.md"] || ""],
+      ["docs/07_release/system-deployment-sop.md", files["deployment.md"] || ""],
+    ]
+    for (const [relTarget, mirrorBody] of cmmiMirrors) {
+      if (!mirrorBody.trim()) continue
+      const absTarget = path.join(ROOT, relTarget)
+      fs.mkdirSync(path.dirname(absTarget), { recursive: true })
+      fs.writeFileSync(absTarget, mirrorBody, "utf8")
+    }
+    console.log(`   🔗 已由 brief.json 单一真源自动同步 CMMI 视图 (docs/02_requirements, docs/03_design, docs/07_release)`)
+  }
+
   console.log(`\n✅ [speckit] 规格展开编译成功: 共生成 ${count} 份工程文档 -> ${path.relative(ROOT, dir)}/`)
   console.log(`   📋 包含: ${Object.keys(files).join(", ")}`)
   console.log(`   🔍 进度检查: pnpm harness spec check --spec ${name}`)
@@ -842,7 +880,11 @@ function handleTasks() {
   const mentionsSpec = (c: { subject: string }) =>
     c.subject.includes(name) || c.subject.includes(path.basename(dir))
 
+  const strictOwnership = hasFlag("--strict-ownership")
   let touched = 0
+  let docOnlyCount = 0
+  const isDocPath = (f: string) => f.startsWith("docs/") || f.endsWith(".md")
+
   for (const t of tasks) {
     // 无歧义信号：[<规格名>/T<ID>]（本仓新约定）。旧的 [T<ID>] 仍接受，但只是**弱**信号。
     const byId = commits.filter(
@@ -852,8 +894,12 @@ function handleTasks() {
     let suspicious = 0
     let unverified = 0
     let unverifiedSpecs: string[] = []
+    let isDocOnly = false
+
     if (t.whitelist !== "-") {
-      const patterns = t.whitelist.split(",").map((i) => i.trim()).filter(Boolean).map(globToRegExp)
+      const rawPatterns = t.whitelist.split(",").map((i) => i.trim()).filter(Boolean)
+      const declaresNonDocCode = rawPatterns.some((p) => !isDocPath(p))
+      const patterns = rawPatterns.map(globToRegExp)
       const inWhitelist = (c: { files: string[] }) => c.files.some((f) => patterns.some((re) => re.test(f)))
       // 归属证据：① 命中本规格**独有**文件，或 ② 提到规格名，或 ③ 碰了本规格目录
       const attributing = (c: { subject: string; files: string[] }) =>
@@ -863,6 +909,13 @@ function handleTasks() {
       hits = byId.filter(attributing)
       suspicious = byId.length - hits.length
       unverified = byId.filter((c) => inWhitelist(c) && !attributing(c)).length
+      if (hits.length > 0 && declaresNonDocCode) {
+        const touchedAnyNonDoc = hits.some((c) => c.files.some((f) => !isDocPath(f)))
+        if (!touchedAnyNonDoc) {
+          isDocOnly = true
+          docOnlyCount += 1
+        }
+      }
       if (unverified > 0) {
         // 把「和谁撞了」说清楚 —— 只报数字，读的人没法行动
         const others = new Set<string>()
@@ -883,12 +936,15 @@ function handleTasks() {
       suspicious = byId.length - hits.length
       unverified = byId.filter((c: { subject: string; files: string[] }) => !mentionsSpec(c) && !touchesSpecDir(c)).length
     }
-    const isDone = hits.length > 0
+
+    const isDone = hits.length > 0 && !(strictOwnership && isDocOnly)
     if (isDone) touched++
 
-    const statusBadge = isDone ? "✅ 已完成 (Git)" : "⏳ 待执行"
-    const evidence = isDone
-      ? `${hits.length} 个提交 (${hits[0].sha.slice(0, 7)})`
+    const statusBadge = isDone
+      ? (isDocOnly ? "⚠️ 仅改文档" : "✅ 已完成 (Git)")
+      : (isDocOnly ? "❌ 仅改文档(拒认)" : "⏳ 待执行")
+    const evidence = hits.length > 0
+      ? `${hits.length} 个提交 (${hits[0].sha.slice(0, 7)})${isDocOnly ? " [白名单声明了代码文件但仅改动 docs/**]" : ""}`
       : (unverified > 0
         ? `⚠ 无法归属（${unverified} 个 [${t.id}] 提交碰的文件与 ${unverifiedSpecs.slice(0, 2).join(" / ") || "其它规格"} 共用，且提交信息未提及本规格；`
           + `改用 [${name}/${t.id}] 即可消歧）`
@@ -898,8 +954,15 @@ function handleTasks() {
 
   const percent = ((touched / tasks.length) * 100).toFixed(1)
   console.log(`\n📊 真实完成度进度: ${touched}/${tasks.length} (${percent}%)`)
-  console.log(`💡 铁律原则: 1 Task = 1 Commit，提交信息必须包含 [T<ID>]，改动文件严禁超出白名单`)
-  console.log(`🚀 单项核验: pnpm harness spec tasks --spec ${name} --task T1\n`)
+  if (docOnlyCount > 0) {
+    console.log(`⚠️ 发现 ${docOnlyCount} 个任务白名单含代码文件却仅提交了文档变更（--strict-ownership 硬门禁下不计完成且退出非零）`)
+  }
+  console.log(`💡 铁律原则: 1 Task = 1 Commit，提交信息必须包含 [${name}/T<ID>]，改动文件严禁超出白名单`)
+  console.log(`🚀 硬门禁核验: pnpm harness spec tasks --spec ${name} --strict-ownership\n`)
+
+  if (strictOwnership && (touched < tasks.length || docOnlyCount > 0)) {
+    process.exit(1)
+  }
 }
 
 // ============================================================================
@@ -939,12 +1002,123 @@ function handleArchive() {
 }
 
 // ============================================================================
-// 5. 命令：speckit check (交付状态检查)
+// 5. 命令：speckit check (交付状态与 Gate 1~6 闭环审计 — 对齐 wenlv-next)
 // ============================================================================
 function handleCheck() {
   const specName = getArg("--spec") || getArg("--name") || getArg("--feature")
   const phase = getArg("--phase")
   const asJson = hasFlag("--json")
+
+  // 若指定了单款规格且未走旧式 --phase/--json，先执行 wenlv-next 同构 Gate 1~6 规格闭环审查
+  if (specName && !phase && !asJson) {
+    const specDir = resolveSpecDir(specName)
+    if (!specDir || !fs.existsSync(specDir)) {
+      console.error(`❌ [speckit check] 找不到规格目录: ${specName}`)
+      process.exit(2)
+    }
+
+    console.log(`\n🔍 规格质量门禁审查 (Spec-Kit Gate 1~6 Audit): ${path.relative(ROOT, specDir)}`)
+    let briefForGate: any = {}
+    try {
+      briefForGate = JSON.parse(fs.readFileSync(path.join(specDir, "brief.json"), "utf8"))
+    } catch {
+      /* handled below */
+    }
+    const gateProfile = briefForGate.profile === "lite" ? "lite" : "full"
+    const specType = briefForGate.type || "feature"
+    const requiredFiles =
+      gateProfile === "lite"
+        ? [
+            { file: "brief.json", label: "Gate 1: 声明真源 (Brief)", critical: true },
+            { file: "tasks.md", label: "Gate 3: 原子任务与白名单 (Tasks)", critical: true },
+          ]
+        : [
+            { file: "brief.json", label: "Gate 1: 概念与需求声明 (Brief/EARS)", critical: true },
+            { file: "requirements.md", label: "Gate 1: 需求详细契约 (Requirements)", critical: true },
+            { file: "design.md", label: "Gate 2: 系统与边界设计 (Design)", critical: true },
+            { file: "tasks.md", label: "Gate 3: 原子任务与波次编排 (Tasks/Waves)", critical: true },
+            { file: "checklist.md", label: "Gate 4: 质量与验收清单 (Checklist)", critical: true },
+          ]
+
+    let gateFailed = false
+    for (const item of requiredFiles) {
+      const abs = path.join(specDir, item.file)
+      if (!fs.existsSync(abs)) {
+        if (item.critical) {
+          gateFailed = true
+          console.log(`  ❌ [FAIL] ${item.label} -> 缺失 ${item.file}（请先运行 pnpm harness spec build --name ${specName}）`)
+        }
+        continue
+      }
+      const text = fs.readFileSync(abs, "utf8")
+      const placeholders = (text.match(/<!--\s*待填/g) || []).length
+      if (placeholders > 0) {
+        gateFailed = true
+        console.log(`  ❌ [FAIL] ${item.label} -> ${item.file} 仍有 ${placeholders} 处 <!-- 待填 --> 占位符`)
+      } else {
+        console.log(`  ✅ [PASS] ${item.label} -> ${item.file}`)
+      }
+    }
+
+    // Gate 3 补强: feature 全量规格必须声明内生运营脚本或拟人运营任务（零业务 Seed 铁律）
+    if (specType === "feature" && gateProfile === "full") {
+      const tasksPath = path.join(specDir, "tasks.md")
+      const tasksText = fs.existsSync(tasksPath) ? fs.readFileSync(tasksPath, "utf8") : ""
+      const hasOpsTask = /operate-[a-z0-9_-]+\.ts|e2e-human-ops|blueprint\.spec\.ts|内生运营/i.test(tasksText)
+      if (hasOpsTask) {
+        console.log(`  ✅ [PASS] Gate 3+: 零业务Seed内生运营任务在册`)
+      } else {
+        gateFailed = true
+        console.log(`  ❌ [FAIL] Gate 3+: feature 规格缺少内生运营脚本任务（scripts/digital-employee/operate-<domain>.ts）`)
+      }
+    }
+
+    // Gate 5: 入口可发现（页面已交付 ⇒ 必须登记进 admin-pages.json 与 admin-nav.generated.ts）
+    console.log(`\n  ── Gate 5: 入口可发现 (管理端页面 ⇒ 侧栏导航可达) ──`)
+    const auditorPath = path.join(ROOT, "scripts", "harness", "lib", "entry-reachability.mjs")
+    if (fs.existsSync(auditorPath)) {
+      const auditRun = spawnSync("node", [auditorPath, "--spec", specName, "--json"], {
+        cwd: ROOT,
+        encoding: "utf8",
+      })
+      try {
+        const parsed = JSON.parse((auditRun.stdout || "").trim() || "{}")
+        for (const f of parsed.findings || []) {
+          if (f.blocking) {
+            gateFailed = true
+            console.log(`  ❌ [FAIL] Gate 5: [${f.class}] ${f.message}`)
+          } else {
+            console.log(`  ⚠️ [WARN] Gate 5: [${f.class}] ${f.message}`)
+          }
+        }
+        if (parsed.ok && (parsed.checkedPageCount ?? 0) === 0) {
+          console.log(`  ✅ [PASS] Gate 5: 入口可发现 -> 暂无已落盘新域管理端页面（或属地基豁免域）`)
+        } else if (parsed.ok) {
+          console.log(`  ✅ [PASS] Gate 5: 入口可发现 -> 已落盘的 ${parsed.checkedPageCount} 个管理端页面全部在侧栏导航可达`)
+        }
+      } catch {
+        gateFailed = true
+        console.log(`  ❌ [FAIL] Gate 5: 入口可发现审计器异常 (exit=${auditRun.status})`)
+      }
+    }
+
+    // Gate 6: 部署后实时浏览器/API 走查验证条目
+    const acceptanceTexts = (briefForGate.acceptance ?? []).map((a: any) => String(a?.check ?? a ?? ""))
+    const hasLiveDeployCheck = acceptanceTexts.some((t: string) =>
+      /部署验证|部署后|实时浏览器|路由可达|basePath\s*路由可达|走查/i.test(t),
+    )
+    if (hasLiveDeployCheck) {
+      console.log(`  ✅ [PASS] Gate 6: 部署验证 -> acceptance 已含目标环境部署后实时走查验证\n`)
+    } else {
+      gateFailed = true
+      console.log(`  ❌ [FAIL] Gate 6: 部署验证 -> brief.json.acceptance 缺少「部署后浏览器/API 走查」验收条目\n`)
+    }
+
+    if (gateFailed) {
+      process.exit(1)
+    }
+    process.exit(0)
+  }
 
   const checkArgs = [path.join(ROOT, "scripts", "check-delivery.cjs")]
   if (specName) checkArgs.push("--spec", specName)

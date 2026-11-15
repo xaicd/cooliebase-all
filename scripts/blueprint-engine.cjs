@@ -866,26 +866,36 @@ function buildBlueprintSpecBrief({
     domain,
     title: `${domainTitle}全栈蓝图交付与四端 Spec E2E 验证规格`,
     type: "feature",
-    goal: `基于声明式业务蓝图一键生成 ${domainTitle} (${domain}) 的数据库 DDL、Kysely 仓储、状态机与跨单据下推 Service、插件 API、B端/C端/移动端自适应页面、14 份 SDD 规格资产与端到端 Playwright E2E 验证套件。`,
+    profile: "full",
+    baseSelection: {
+      base: "cooliebase-all",
+      reason: "双端同源第一方插件与零业务Seed内生运营架构",
+    },
+    goal: `基于声明式业务蓝图一键生成 ${domainTitle} (${domain}) 的数据库 DDL、Kysely 仓储、状态机与跨单据下推 Service、插件 API、B端运营配置后台与 C端门户页面、SDD 规格资产、数字员工内生运营脚本与 Playwright E2E 验证套件。`,
     roles: [
       {
         role: "C 端门户与移动端用户",
-        can: `通过 ${runtimeEndpoints.portalEntry} 与 Expo 移动端浏览 ${domainTitle} 门户及业务资源`,
+        can: `免管端登录访问 ${runtimeEndpoints.portalEntry} 浏览已上架 ${domainTitle} 真实业务资源并完成核心交易与凭证核销闭环`,
       },
       {
-        role: "B 端业务管理员",
-        can: `通过 ${runtimeEndpoints.adminEntry} 管理 ${codegenTables.map((t) => t.businessName || t.table?.comment || t.table?.name).join("、")}，执行状态流转与跨单据下推`,
+        role: "一线业务核销与履约员",
+        can: `校验业务凭证码并驱动状态机合法流转与异常拦截`,
+      },
+      {
+        role: "B 端业务运营管理员",
+        can: `通过 ${runtimeEndpoints.adminEntry} 侧栏导航管理 ${codegenTables.map((t) => t.businessName || t.table?.comment || t.table?.name).join("、")}，完成资源配置上架、状态流转与运营巡检`,
       },
     ],
     stories,
     constraints: [
       `多端 basePath 统一收敛为 "${basePath || "/"}"，前端与移动端统一经 toRuntimeApiPath 归一化至 ${runtimeEndpoints.pluginApiPrefix}。`,
-      "100% 真实数据库驱动（SQLite / PostgreSQL），严禁任何硬编码假 Mock。",
-      "所有状态跃迁必须经过后端状态机白名单守卫，非法跃迁必须返回 400/422 阻断并记录不可变审计日志。",
+      "双端鉴权边界隔离：C 端门户浏览公开资源接口与 B 端 operator 管端写接口显式分层，严禁 C 端匿名首屏因误调管端接口返回 401 而显示 0 数据。",
+      "触达闭环铁律（Gate 5 入口可发现）：新域管理端页面必须同步写入 admin-pages.json 与 admin-nav.generated.ts 侧栏导航。",
+      "零业务 Seed 真运营铁律（WLVN-ZERO-SEED-REAL-OPS-V1）：严禁通过静态 SQL/Prisma 脚本硬塞业务房间/商品数据，统一由数字员工运营脚本登录 B 端后台真实上架并联动 C 端校验。",
     ],
     acceptance,
     nonGoals: ["不侵入底座平台地基域（system/infra）核心代码"],
-    architecture: `蓝图 DSL -> ${tablesFileRel} -> CodegenEngine 生成 packages/plugins/plugin-${domain} -> 挂载 ${runtimeEndpoints.pluginApiPrefix} -> ${e2eTestRel} 四端与状态机全链路 E2E 验证。`,
+    architecture: `蓝图 DSL -> ${tablesFileRel} -> CodegenEngine 生成 packages/plugins/plugin-${domain} -> 侧栏导航 admin-nav.generated.ts -> 数字员工内生运营 scripts/digital-employee/operate-${domain}.ts -> ${e2eTestRel} 四端与状态机全链路 E2E 验证。`,
     entities: codegenTables.map((t) => ({
       table: t.table?.name || "entity",
       note: `${t.businessName || t.table?.comment || ""}\uff08含 tenant_id 多租户隔离、软删除与状态机守卫\uff09`,
@@ -896,43 +906,51 @@ function buildBlueprintSpecBrief({
         how: `C端(${runtimeEndpoints.portalEntry})、B端(${runtimeEndpoints.adminEntry})、API(${runtimeEndpoints.pluginApiPrefix}) 与 Expo 客户端共享同一套 basePath 与路由归一化契约。`,
       },
       {
-        name: "4态状态机合法跃迁与跨单据下推原子性",
+        name: "状态机合法跃迁与跨单据下推原子性",
         how: `状态机 (${Object.keys(stateMachines).join(", ") || "默认状态流"}) 仅允许白名单跃迁；跨单据下推 (${Object.keys(convertActionsMap).join(", ") || "无"}) 自动映射字段并写入真实数据库。`,
       },
     ],
     ui: codegenTables.map((t) => {
       const tableName = t.table?.name || "entity"
       const resourceName = toResourceSegment(domain, tableName)
-      return `${runtimeEndpoints.adminEntry}/${domain}/${resourceName}：《${t.businessName || t.table?.comment || tableName}》管理页（布局模式：${t.advanced?.layoutMode || "table"}）`
+      return `${runtimeEndpoints.adminEntry}/${domain}/${resourceName}：《${t.businessName || t.table?.comment || tableName}》管理页（布局模式：${t.advanced?.layoutMode || "table"}，侧栏菜单入口可达）`
     }),
     ops: [
-      `运行 \`pnpm run speckit:check -- --spec ${specName}\` 检查 14 份 SDD 规格资产完整性`,
-      `运行 \`pnpm exec playwright test ${e2eTestRel}\` 执行四端 basePath + 真实 CRUD + 状态机 + 跨单据下推完整 E2E 验证`,
+      `运行 \`pnpm harness spec check --spec ${specName}\` 检查 Gate 1~6（含 Gate 5 侧栏入口可达与 Gate 6 部署验证）`,
+      `运行 \`pnpm exec tsx scripts/digital-employee/operate-${domain}.ts\` 执行零业务Seed真实 B端上架配置 -> C端核验 -> 超时/异常自愈巡检`,
+      `运行 \`pnpm exec playwright test ${e2eTestRel}\` 执行四端 basePath + 红绿对抗真机 E2E 验证`,
     ],
     tasks: [
       {
         id: "T1",
         parent: "main",
-        title: `编译 ${domainTitle} (${domain}) 表结构元数据与 SDD 14 份工程规格资产`,
+        title: `编译 ${domainTitle} (${domain}) 表结构元数据与 SDD 工程规格资产`,
         files: [tablesFileRel, specBriefRel],
-        dod: `pnpm run speckit:check -- --spec ${specName} 通过`,
+        dod: `pnpm harness spec check --spec ${specName} Gate 1~4 通过`,
       },
       {
         id: "T2",
         parent: "T1",
-        title: `生成 ${domainTitle} (${domain}) 全栈第一方插件代码（DDL/Repository/Service/状态机/跨单据下推/B端C端页面）`,
-        files: [`packages/plugins/plugin-${domain}`],
-        dod: `插件路由挂载至 ${runtimeEndpoints.pluginApiPrefix} 且通过静态门禁`,
+        title: `生成 ${domainTitle} (${domain}) 第一方插件代码、双端鉴权隔离与 B端侧栏菜单入口登记 (Gate 5)`,
+        files: [`packages/plugins/plugin-${domain}`, "packages/shared/contract/admin-pages.json", "packages/shared/contract/admin-nav.generated.ts"],
+        dod: `插件路由挂载至 ${runtimeEndpoints.pluginApiPrefix} 且 Gate 5 entry-reachability 0 断头路`,
       },
       {
         id: "T3",
         parent: "T2",
-        title: `执行 ${domainTitle} (${domain}) 四端 basePath 与 6 阶段全功能 Playwright E2E 闭环验证`,
-        files: [e2eTestRel],
-        dod: `运行 ${e2eTestRel} 6 大阶段（四端路由、鉴权、CRUD+主子表、状态机正反向、跨单据下推、软删除）全部通过`,
+        title: `落地 ${domainTitle} 数字员工自动化内生运营脚本与定时巡检挂载（零业务 DB Seed）`,
+        files: [`scripts/digital-employee/operate-${domain}.ts`, "schedules/default-cron.json"],
+        dod: `经真实 B 端后台接口/页面上架业务资源并校验 C 端匿名首屏真实数据 > 0 及巡检自愈闭环`,
+      },
+      {
+        id: "T4",
+        parent: "T3",
+        title: `执行 ${domainTitle} (${domain}) 四端 basePath 与红绿对抗 Playwright 真机 E2E 闭环验证 (Gate 6)`,
+        files: [e2eTestRel, `docs/specs/${domain}/${specName}/evidence.json`],
+        dod: `Happy Path + 4xx 冲突中文自愈提示 + 部署后双端实时走查全部通过`,
       },
     ],
-    dependencies: "T1 → T2 → T3",
+    dependencies: "T1 → T2 → T3 → T4",
     windowMinutes: 15,
   }
 }
