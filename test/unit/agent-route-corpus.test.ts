@@ -12,26 +12,30 @@ const TMP = fs.mkdtempSync(path.join(os.tmpdir(), "agent-route-corpus-"))
 afterAll(() => fs.rmSync(TMP, { recursive: true, force: true }))
 
 /**
- * 规则表在**真实历史语料**上的覆盖率。
+ * 规则表在**真实历史语料**上的覆盖率回归门禁。
  *
- * 为什么需要：规则表最初是照着"典型需求"写的，7 条规则看起来合理 ——
- * 但拿本仓历史上真实记录的用户原话一跑，**65% 的输入一条规则都没命中**，
- * 全靠 fail-safe 兜底。也就是说它**在大多数真实输入上并没有在分类**，只是默认"需要规格"。
- * （这正是"全都需要规格 = 没人会遵守 = 机制自己死掉"的老问题换个面貌重现。）
- *
- * 本用例把这个数字**钉成回归指标**：补规则后 65% → 51% → 32%，
- * 要求不得回退到 40% 以上。语料直接取自 `docs/features/sprint-prod/*.md` 里的
- * `**用户原始输入**：` 记录（§15 的产物），不是编的。
+ * 历史语料已脱敏沉淀为 `test/fixtures/agent-route-corpus.json`（避免母本归档需求日志随派生泄露）；
+ * 若工作区存在按需追加的 `docs/features/sprint-prod/*.md`，一并纳入统计。
  */
 function corpus(): string[] {
-  const dir = path.join(ROOT, "docs", "features", "sprint-prod")
   const samples: string[] = []
-  for (const file of fs.readdirSync(dir)) {
-    if (!file.endsWith(".md")) continue
-    const text = fs.readFileSync(path.join(dir, file), "utf8")
-    for (const match of text.matchAll(/\*\*用户原始输入\*\*：`([^`]+)`/g)) {
-      const value = match[1].trim().replace(/\s+/g, " ")
-      if (value) samples.push(value)
+  const fixturePath = path.join(ROOT, "test", "fixtures", "agent-route-corpus.json")
+  if (fs.existsSync(fixturePath)) {
+    const parsed = JSON.parse(fs.readFileSync(fixturePath, "utf8")) as { samples?: string[] }
+    for (const item of parsed.samples ?? []) {
+      const val = String(item || "").trim()
+      if (val) samples.push(val)
+    }
+  }
+  const dir = path.join(ROOT, "docs", "features", "sprint-prod")
+  if (fs.existsSync(dir)) {
+    for (const file of fs.readdirSync(dir)) {
+      if (!file.endsWith(".md")) continue
+      const text = fs.readFileSync(path.join(dir, file), "utf8")
+      for (const match of text.matchAll(/\*\*用户原始输入\*\*：`([^`]+)`/g)) {
+        const value = match[1].trim().replace(/\s+/g, " ")
+        if (value) samples.push(value)
+      }
     }
   }
   return samples
@@ -53,7 +57,7 @@ function classify(requirement: string): { verdict: string; matched: string[]; ex
 describe("规则表在真实历史语料上的覆盖率", () => {
   const samples = corpus()
 
-  it("语料足够（来自 §15 的真实记录，不是编的）", () => {
+  it("语料足够（来自脱敏固化语料集，>= 30 条）", () => {
     expect(samples.length).toBeGreaterThanOrEqual(30)
   })
 

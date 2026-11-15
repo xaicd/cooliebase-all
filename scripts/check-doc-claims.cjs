@@ -90,7 +90,7 @@ function truthSources() {
 
   const sprintLogs = (() => {
     const abs = path.join(ROOT, "docs/features/sprint-prod")
-    if (!fs.existsSync(abs)) throw new Error("真源缺失: docs/features/sprint-prod/")
+    if (!fs.existsSync(abs)) return 0
     return fs.readdirSync(abs).filter((f) => f.endsWith(".md")).length
   })()
 

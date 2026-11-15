@@ -943,7 +943,7 @@ function handleCheck() {
       // `<工程名>-architecture.md`（实测），写死就会在产物里误报"资产缺失"。
       hld: ["docs/architecture/*-architecture.md"],
     },
-    "06": { audit: ["docs/06_quality_assurance/audit/*"] },
+    "06": { audit: ["docs/06_quality_assurance/configuration-audit.md", "docs/06_quality_assurance/audit/*.md"] },
     "08": { postmortem: ["docs/08_sre/06_incidents_postmortem/*"], reconciliation: ["docs/08_sre/02_reconciliation/*"] },
     "09": { reconciliation: ["docs/09_operations/01_financial_reconciliation/*"] },
   }
@@ -951,10 +951,9 @@ function handleCheck() {
   // 「决策性缺失」—— 必须有**理由**才允许为空，且理由要指向依据。
   // 这不是豁免清单，是**把决策写进机检**：新增缺口不在表里 → 直接失败。
   const ACCEPTED_ABSENCES = {
-    // **理由里不写死数字**：这里曾经写着「brief.json（12 份）+ sprint-prod（5 份）」——
-    // 真源早已是 20 / 9，而这个文件是脚本，`docs:claims:check` 不扫它，于是静默漂移。
-    // 数字会变、路径不会，所以只指出依据在哪、怎么复算。
-    "02/srs": "本基座**刻意不产出**单体 SRS：需求真源是分散的 docs/specs/*/*/brief.json（按域隔离的活跃规格，复算 `ls docs/specs/*/*/brief.json | wc -l`）与 docs/features/sprint-prod/*.md（需求日志）；再落一份即第二真源（§25）。决策见 docs/01_management/project-plan.md H1 与 docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md",
+    "01/dar": "基座与新派生工程未发生特定架构选型分歧时按「三存三不存」留空占位（见 AGENTS.md §25 与 docs/01_management/project-charter.md）",
+    // **理由里不写死数字**：数字会变、路径不会，所以只指出依据在哪、怎么复算。
+    "02/srs": "本基座**刻意不产出**单体 SRS：需求真源是分散的 docs/specs/*/*/brief.json（按域隔离的活跃规格，复算 `ls docs/specs/*/*/brief.json | wc -l`）；再落一份即第二真源（§25）。决策见 docs/01_management/project-plan.md H1 与 docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md",
     "08/postmortem": "需**真实事故**；未发生时按「三存三不存」留空（零假 Demo 铁律，AGENTS.md §25）",
     "08/reconciliation": "需**真实资金凭证**；未发生时留空（AGENTS.md §25）",
     "09/reconciliation": "同上：需真实运营发生后的对账单（AGENTS.md §25）",

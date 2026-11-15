@@ -116,4 +116,48 @@ describe("hatch-profile", () => {
   it("rejects unknown bundle domains", () => {
     expect(() => resolveHatchPlan(catalog, { profile: "vertical", bundle: ["foo"] })).toThrow(/未知域/)
   })
+
+  it("★ Layer-B 派生文档纯净度：剥离母本归档规格、施工日志、客户泄漏与非基线运行产物", () => {
+    const plan = resolveHatchPlan(catalog, { profile: "standard" })
+
+    for (const polluted of [
+      "docs/specs/archive/2026-Q4/shop/ecommerce/brief.json",
+      "docs/specs/system/harness-mutual-audit/spec.md",
+      "docs/features/sprint-prod/1019.md",
+      "docs/architecture/archive/upstream-2026-Q3/README.md",
+      "docs/architecture/yingsuantong-architecture-workflows.md",
+      "docs/architecture/GEO-BENCHMARK-AND-COMPETITIVE-ANALYSIS.md",
+      "docs/architecture/dsh-research-2026-10.md",
+      "docs/architecture/cooliebase-full-migration-board.md",
+      "docs/architecture/cooliebase-module-first-migration.md",
+      "docs/architecture/cooliebase-all-sync-taskboard.md",
+      "docs/architecture/cooliebase-all-module-to-plugin-migration.md",
+      "docs/architecture/artifacts/harness-heartbeat.jsonl",
+      "docs/architecture/artifacts/agent-route-last.json",
+      "docs/architecture/artifacts/upstream-radar-report.json",
+      "docs/guides/dsh-integration.md",
+      "docs/guides/dbx-mcp-integration.md",
+      "docs/01_management/dar-decision-records/pay-order-status-column-type.md",
+      "docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md",
+      "docs/07_release/RELEASE_NOTES_v1.1.0.md",
+    ]) {
+      expect(shouldSkipRelPath(polluted, plan), `${polluted} 必须被孵化器剥离`).toBe(true)
+    }
+
+    for (const cleanKeep of [
+      "docs/ontology/ontology.yaml",
+      "docs/ontology/domain.yaml",
+      "docs/ontology/copilot.yaml",
+      "docs/specs/_baseline/runbook.json",
+      "docs/01_management/project-charter.md",
+      "docs/01_management/dar-decision-records/.gitkeep",
+      "docs/06_quality_assurance/configuration-audit.md",
+      "docs/06_quality_assurance/audit/.gitkeep",
+      "docs/07_release/release-notes.md",
+      "docs/architecture/cooliebase-all-architecture.md",
+      "docs/architecture/cooliebase-all-ontology-navigation.md",
+    ]) {
+      expect(shouldSkipRelPath(cleanKeep, plan), `${cleanKeep} 应保留给派生工程`).toBe(false)
+    }
+  })
 })

@@ -344,7 +344,6 @@ function execGitSafe(repoRoot, args) {
  * 扫描任意仓库 (coolie / cooliebase-all / yudao-quad-terminal / 客户项目) 的 PMO 态势
  */
 function analyzeRepoPmo(repoRoot, opts = {}) {
-  const repoName = path.basename(repoRoot);
   let pkg = {};
   try {
     pkg = JSON.parse(fs.readFileSync(path.join(repoRoot, "package.json"), "utf8"));
@@ -352,9 +351,11 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
     // package.json 不存在或非标准 JSON 时回退空对象: String(err)
     void err;
   }
+  const dirName = path.basename(repoRoot);
+  const repoName = pkg.name && pkg.name !== "paperclip" ? pkg.name : dirName;
 
   const isFoundry = repoName === "coolie" || pkg.name === "paperclip";
-  const isYudao = repoName === "yudao-quad-terminal" || pkg.name === "yudao-quad-terminal";
+  const isQuadTerminal = repoName === "yudao-quad-terminal" || pkg.name === "yudao-quad-terminal";
   const isCoolieBase = repoName === "cooliebase-all" || pkg.name === "cooliebase-all";
 
   // 1. Git 基线信息
@@ -632,7 +633,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
         cmd: "pnpm run typecheck:check && pnpm run contracts:governance:check",
       }
     );
-  } else if (isYudao) {
+  } else if (isQuadTerminal) {
     techDebts.push(
       {
         priority: "P0",
@@ -736,7 +737,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
     repoName,
     pkgName: pkg.name || repoName,
     version: pkg.version || "1.0.0",
-    roleType: isFoundry ? "FOUNDRY_MASTER_PMO" : isYudao ? "YUDAO_BASE_PMO" : isCoolieBase ? "COOLIEBASE_PMO" : "PROJECT_PMO",
+    roleType: isFoundry ? "FOUNDRY_MASTER_PMO" : isQuadTerminal ? "YUDAO_BASE_PMO" : isCoolieBase ? "COOLIEBASE_PMO" : "PROJECT_PMO",
     branch,
     headCommit,
     dirtyCount: dirtyLines.length,

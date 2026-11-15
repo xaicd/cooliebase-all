@@ -234,3 +234,5 @@ test-results/
 # 本地嵌入式 Postgres 的数据目录（pnpm db:embedded）
 .embedded-pg/
 logs/
+
+docs/architecture/artifacts/agent-autopilot-heartbeat.json

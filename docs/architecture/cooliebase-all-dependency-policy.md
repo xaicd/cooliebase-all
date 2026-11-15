@@ -8,20 +8,20 @@
 
 本仓曾同时存在 4 critical / 31 high 的依赖漏洞，而**没有任何门禁看得见它们**：
 `scripts/security-scan.cjs` 的 20 项全是运行时检查（能不能被打），不含 CVE（带的组件有没有已知洞）。
-两者职责不同，都要有 —— 现在后者由 `npm run deps:audit` 承担。
+两者职责不同，都要有 —— 现在后者由 `pnpm run deps:audit` 承担。
 
 另一个教训：**以 GitHub Dependabot 的告警数为准会严重低估**。它当时报 4 条（2 high / 2 moderate），
 而 `pnpm audit` 实测 53 条；抽查三条 GHSA 确认全部是 GitHub 已审阅且带 CVE 编号的真实通告，
 即**Dependabot 没扫全这个 pnpm workspace**。所以本仓的门禁直接读 `pnpm audit`，不依赖平台告警面。
 
-## 2. 门禁：`npm run deps:audit`（棘轮语义）
+## 2. 门禁：`pnpm run deps:audit`（棘轮语义）
 
-实现：`scripts/check-deps-audit.cjs`。已接入 `npm run check`（见 AGENTS.md §6）。
+实现：`scripts/check-deps-audit.cjs`。已接入 `pnpm run check`（见 AGENTS.md §6）。
 
 | 行为 | 说明 |
 |---|---|
-| `npm run deps:audit` | 与基线逐条比对，**只拦新增**；有新增则 exit 1 |
-| `npm run deps:audit:baseline` | 重新冻结基线（**等于接受当前所有洞**，必须逐条复核增量后再提交） |
+| `pnpm run deps:audit` | 与基线逐条比对，**只拦新增**；有新增则 exit 1 |
+| `pnpm run deps:audit:baseline` | 重新冻结基线（**等于接受当前所有洞**，必须逐条复核增量后再提交） |
 | `node scripts/check-deps-audit.cjs --audit` | 打印全量分层结果，**永不失败** |
 | `--json` | 机器可读（供 MCP / CI 消费） |
 
@@ -53,7 +53,7 @@
 > 且把 `postcss` 误标为 client-toolchain（`pnpm why -r` 实测它有 **6 条 host 根链**：
 > next / autoprefixer / postcss-import / tailwindcss 均在 `cooliebase-all` 之下）。
 > 现改为从 `pnpm-lock.yaml` 离线推导（真源即依赖图本身），结果确定可复现 ——
-> 连续 3 次运行的全量 (key, tier) 指纹完全一致。依据：`docs/specs/infra/deps-audit-tier-determinism/`。
+> 连续 3 次运行的全量 (key, tier) 指纹完全一致。实现：`scripts/check-deps-audit.cjs`。
 
 失败方向的两个坑（实现里已显式处理）：
 1. `pnpm audit` **有漏洞时自身返回非 0** —— 那不是工具失败，不能据此判定；
@@ -95,8 +95,8 @@
 
 #### 3.2.1 逐级升级执行结果（2026-10-19，已落地）
 
-前置门禁先落地（`npm run clients:build:check`，见 `docs/specs/infra/client-build-gate/`），
-随后按 `docs/specs/infra/expo-sdk-upgrade/` 逐级执行：**每级一次原子提交**，每级都跑
+前置门禁先落地（`pnpm run clients:build:check`，见 `scripts/check-client-build.cjs`），
+随后按主版本阶梯逐级执行：**每级一次原子提交**，每级都跑
 构建门禁 + 全量 `check` + 全量测试（**数量不写死**，以 `pnpm exec vitest run` 输出为准）。
 
 | 级别 | 漏洞总数 | runtime / client | 本级主要变更 |
@@ -132,11 +132,11 @@ runtime 层合计 6 条。）
 为一条**未使用的代码路径**新增 override 惯例去改 Prisma 的依赖解析，收益不抵风险。
 正解是等 Prisma 上游升级其 mysql2 依赖，或本仓不再需要 MySQL 支持时移除。
 
-## 3.1 物料清单与许可证事实（`npm run sbom:check`）
+## 3.1 物料清单与许可证事实（`pnpm run sbom:check`）
 
-SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安装依赖的真实
+SBOM 由 `pnpm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安装依赖的真实
 `license` 字段派生，产物为 `docs/04_implementation/sbom.json` 与同名 `.md`，**禁止手写**。
-漂移由 `npm run sbom:check` 判定（已接入 `npm run check`）。
+漂移由 `pnpm run sbom:check` 判定（已接入 `pnpm run check`）。
 
 实测快照（607 包：host 391 / client 216）：
 
@@ -156,7 +156,7 @@ SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安�
 
 ## 4. 禁止项
 
-1. **禁止手改基线**：基线是生成物，只能由 `npm run deps:audit:baseline` 产出；手改即制造漂移，
+1. **禁止手改基线**：基线是生成物，只能由 `pnpm run deps:audit:baseline` 产出；手改即制造漂移，
    且 T5 的一致性用例（基线 == 当前扫描）会正确地拦下。
 2. **禁止把"冻结"说成"无漏洞"**：门禁输出措辞固定为 `frozen in baseline` + `no NEW advisory`。
 3. **禁止伪装修复**：无补丁项只能如实登记（§3.1），不得标为已修。
@@ -167,15 +167,14 @@ SBOM 由 `npm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安�
 
 | 门禁 | 测什么 | 依赖环境 |
 |---|---|---|
-| `npm run security:scan` | **能不能被打**（未认证、伪造 token/tenant、越权、栈泄露、安全响应头…20 项） | 需起应用；**本机零容器可跑**（嵌入式 Postgres），CI 仍为独立 job |
-| `npm run deps:audit` | **带的组件有没有已知洞**（CVE 棘轮） | 只需联网查通告库，故放进 `check` 快链 |
+| `pnpm run security:scan` | **能不能被打**（未认证、伪造 token/tenant、越权、栈泄露、安全响应头…20 项） | 需起应用；**本机零容器可跑**（嵌入式 Postgres），CI 仍为独立 job |
+| `pnpm run deps:audit` | **带的组件有没有已知洞**（CVE 棘轮） | 只需联网查通告库，故放进 `check` 快链 |
 
 ## 6. 相关文件
 
 - 门禁实现：`scripts/check-deps-audit.cjs`
 - 基线（生成物）：`docs/architecture/artifacts/deps-audit-baseline.json`
 - 回归测试：`test/unit/deps-audit-gate.test.ts`
-- 立项规格：`docs/specs/infra/deps-vuln-remediation/`
 
 ---
 

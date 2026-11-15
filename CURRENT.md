@@ -40,7 +40,7 @@
 | **发布/渠道版本** | git tag（可带语义后缀，如 `v1.4.0-brand-shorthand`） | 一次对外发布或一次品牌里程碑的身份 |
 | **模板版本** | `package.json.version` 与 `compat.framework.templateVersion` | hatch 出的下游工程继承的模板基线；**两者必须同步** |
 
-**依据**：`docs/07_release/RELEASE_NOTES_v1.4.0-brand-shorthand.md` 的 R3 / R11 ——
+**依据**：`docs/07_release/release-notes.md` 的版本与渠道标签策略台账 ——
 `v1.4.0-brand-shorthand` 是**显式命名的渠道 tag**；当时**刻意不 bump** `package.json.version`
 （保持 `1.2.0`），`templateVersion` 同理（它跟踪"模板"，而非"发布"）。
 

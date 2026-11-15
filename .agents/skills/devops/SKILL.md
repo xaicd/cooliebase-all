@@ -64,7 +64,7 @@ CMD ["node", "server.js"]
 **场景**：排障时要查表结构、查流水、跑只读诊断 SQL。不要让 agent 靠人截图或贴结果 ——
 那既慢又不可审计。
 
-**接法与本仓约束**：见 `docs/guides/dbx-mcp-integration.md`。要点：
+**接法与本仓约束**：配置位于 `deploy/dsh/mcp-dbx.patch.yml`，门禁见 `scripts/check-dbx-readonly-policy.cjs`。要点：
 
 | 项 | 值 |
 |---|---|

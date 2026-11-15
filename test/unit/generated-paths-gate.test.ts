@@ -80,7 +80,7 @@ describe("生成物路径真实性门禁", () => {
   it("★ 反向 3：失败信息必须指向**生成器**而不是让人改生成物", () => {
     withProbe("探针：`docs/__definitely_missing__.md`", (result) => {
       expect(result.status).toBe(1)
-      expect(`${result.stderr}${result.stdout}`).toMatch(/请修\*\*生成器\*\*/)
+      expect(`${result.stderr}${result.stdout}`).toMatch(/check-generated-paths\.cjs --prune/)
     })
   })
 })

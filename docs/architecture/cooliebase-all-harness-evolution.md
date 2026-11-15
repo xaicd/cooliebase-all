@@ -20,7 +20,7 @@ NPC 员工开发独立项目时：
 
 ```
 NPC = Model + DigitalStaff Native Harness + cooliebase-all Workspace Bundle
-孵化入口：npm run project:create -- <目标路径>
+孵化入口：pnpm run project:create -- <目标路径>
 ```
 
 ## 2. 从 dsh 吸收的 7 条决策（学思想，不搬框架）
@@ -44,7 +44,7 @@ dsh 口号是 **Everything is a Plugin / Every run is traceable**。对应到本
 2. **把 Agent Loop 写进本仓库** — Loop 属于 DigitalStaff Native；本仓库只提供环境与契约。
 3. **运行时自挂载 / self-modification** — 企业模板不允许 Agent 热改自己的内核。
 4. **用 SQLite 会话日志替代业务库** — 业务数据仍走 PostgreSQL + 多租户；会话事件归 Harness。
-5. **绕过 `npm run check` 的“智能进化”** — 插件可组合不等于门禁可跳过。
+5. **绕过 `pnpm run check` 的“智能进化”** — 插件可组合不等于门禁可跳过。
 
 ## 4. Profile / Bundle 叠层（对标 dsh boot）
 
@@ -58,11 +58,11 @@ client bundle     →  clients/<channel>
 cordis.patch.yml  →  project-profile.json（品牌/租户身份，不改契约）
 ```
 
-当前 `npm run project:create` 支持 Profile / Bundle 叠层：
+当前 `pnpm run project:create` 支持 Profile / Bundle 叠层：
 
 ```bash
-npm run project:create -- <路径> --profile minimal
-npm run project:create -- <路径> --profile vertical --bundle mall,crm
+pnpm run project:create -- <路径> --profile minimal
+pnpm run project:create -- <路径> --profile vertical --bundle mall,crm
 ```
 
 | Profile | 包含 | 适用 |
@@ -88,7 +88,7 @@ dsh：一个能力必须同时有 Service Definition、Provider、Consumer。本
 
 新增能力时 NPC / Agent 必须补齐三角色，禁止只加 Service 或只加页面。跨域消费者禁止 import 其他域 Service。
 
-机器可读入口：`agent-profile.json` 的 `seams[]`（缝类型）与生成文件 `seam-graph.json`（每域三角色）。运行时真源仍是 `domain-catalog.json`，profile 不得另造一套域名。`npm run domain:seams` 生成图，`npm run domain:check` 校验不得漂移。
+机器可读入口：`agent-profile.json` 的 `seams[]`（缝类型）与生成文件 `seam-graph.json`（每域三角色）。运行时真源仍是 `domain-catalog.json`，profile 不得另造一套域名。`pnpm run domain:seams` 生成图，`pnpm run domain:check` 校验不得漂移。
 
 ## 6. Prompt 分段组装（给 DigitalStaff Native）
 
@@ -108,10 +108,10 @@ dsh：一个能力必须同时有 Service Definition、Provider、Consumer。本
 ## 7. NPC 员工标准作业路径
 
 1. **发现**：读取 `agent-profile.json`，确认本仓库是 Workspace Bundle。
-2. **孵化**：`npm run project:create -- <目标路径> [--profile ...] [--bundle ...]`，保留目标目录已有规格文档。
-3. **身份**：只改 `project-profile.json` 与 branding，然后 `npm run db:seed`。
+2. **孵化**：`pnpm run project:create -- <目标路径> [--profile ...] [--bundle ...]`，保留目标目录已有规格文档。
+3. **身份**：只改 `project-profile.json` 与 branding，然后 `pnpm run db:seed`。
 4. **开发**：只在 Business Zone 增域/增表；跨域走 Facade；启用对应 Skill 管道。
-5. **门禁**：`npm run check`；发布前 strict。
+5. **门禁**：`pnpm run check`；发布前 strict。
 6. **反哺**：通用能力按五要素清单迁回本基座（AGENTS.md §17.2）。
 
 NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本仓 `npc.layers`，DigitalStaff 只读取）：
@@ -137,8 +137,8 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 |---|---|---|
 | **P0** | 契约 + 分段 + Skill + 文档 | 已落地 |
 | **P1** | `project:create --profile/--bundle` | 已落地：可孵出 minimal（保留 online/ai/aigw 伴生域） |
-| **P2** | 由 catalog + contract 生成 seam 图 | 已落地：`npm run domain:seams`，`domain:check` 禁止漂移 |
-| **P3** | Agent 动作轨迹与 sprint-prod / check 产物对齐 | 已落地（本仓）：`npm run check` 写 `harness-trace-latest.json`；会话事件仍归 DigitalStaff |
+| **P2** | 由 catalog + contract 生成 seam 图 | 已落地：`pnpm run domain:seams`，`domain:check` 禁止漂移 |
+| **P3** | Agent 动作轨迹与 sprint-prod / check 产物对齐 | 已落地（本仓）：`pnpm run check` 写 `harness-trace-latest.json`；会话事件仍归 DigitalStaff |
 | **P4** | DigitalStaff Native 读取本仓库 `agent-profile.json` 作为 workspace plugin | A1–A4 已在 DigitalStaff 落地；A5 技能映射真源在 `npc.layers` |
 
 ## 9. 检查清单
@@ -148,7 +148,7 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 3. [ ] 新域仍登记 `domain-catalog.json`，并出现在 seam 发现面。
 4. [ ] 新 Skill 已注册（`.agents/skills/README.md` + AGENTS.md §6.1）。
 5. [ ] 业务项目身份只改 `project-profile.json`，不改契约真源。
-6. [ ] 孵化/反哺后执行 `npm run check`。
+6. [ ] 孵化/反哺后执行 `pnpm run check`。
 
 ## 10. 权威文件
 
@@ -157,13 +157,12 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 - Skill：`.agents/skills/agent-harness/SKILL.md`
 - 孵化：AGENTS.md §16、`scripts/clone-project-base.cjs`
 - 域真源：`packages/shared/backend/constants/domain-catalog.json`
-- 参考实现（Harness 侧，勿复制进本仓）：DigitalStaff `docs/design/deepseek_harness_analysis.md`
 
 ## 11. Agent 消费面（MCP）：只读 + plan/preview，永不落盘
 
 本仓对外的机器可读工具面是 `scripts/mcp/cooliebase-mcp-server.cjs`（stdio，零依赖），
 声明登记在 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.mcp`，
-由 `npm run compat:check` 与服务**实际注册的工具清单**交叉校验（防第二真源）。
+由 `pnpm run compat:check` 与服务**实际注册的工具清单**交叉校验（防第二真源）。
 
 工具只有两种形态，**都不写盘**：
 
@@ -172,7 +171,7 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 | 只读查询 | 返回既有契约/目录事实 | `cooliebase_domain_list`、`cooliebase_codegen_targets` |
 | plan / preview | 返回"真跑**会**做什么"，把写盘留给显式命令 | `cooliebase_scaffold_plan`、`cooliebase_codegen_preview`、`cooliebase_table_migration_plan` |
 
-铁律（B1 二期确立，见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`）：
+铁律（单一真源见 `scripts/mcp/cooliebase-mcp-server.cjs`）：
 
 1. **零落盘**：plan/preview 工具的 `inputSchema` 不含 `write` 类入参，实现内部**永不**透传
    `--write`。不给入口，而不是靠调用方自觉。
@@ -186,16 +185,3 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 delta 断言"调用全部工具后无变化"。该用例**必须保持为本 describe 的第一个 it**，且快照需带
 `--ignored=matching` —— 否则断言会假通过（实测：注入写文件探针后依然全绿）。
 
-> 去品牌改名（2026-10-19 已完成）：本仓 active 文件曾大面积沿用上游文件名前缀，而
-> `AGENTS.md §13` 按去品牌名书写，故引用是**断的**。修法统一为**改文件名去迁就文档**，
-> 不是反过来把文档改回上游名。已处理：`ruoyi-all-next-*`（12 份 → `cooliebase-all-*`）、
-> `ruoyi-full-migration-board.md`、`ruoyi-module-first-migration.md`、
-> `docs/03_design/diagrams/ruoyi-architecture.arch.*`、`sql/init/ruoyi_all_next_*.sql`、
-> `scripts/mcp/__tests__/ruoyi-mcp-server.test.ts`。
-> 归档目录 `docs/architecture/archive/upstream-2026-Q3/` 与历史 release notes 属上游研究存档，
-> **保留原名不改**（两者被引用时按归档路径引用并标注「已归档」）。
->
-> 顺带修好一个**静默失效**：`sql/init/` 那份 SQL 长期叫上游名，而生成器
-> （`build-v1-init-sql.ts`）与门禁规则（`standards:check` 的 `init-sql-seed-columns`）都已按去品牌名
-> 读写 —— 规则里 `if (!fs.existsSync(sqlFile)) return []` 于是一直**空转**，门禁却是绿的。
-> 改名后该规则恢复生效（已用注入坏 INSERT 的反向对照验证会真的失败）。

@@ -82,12 +82,6 @@ const EXCLUDE_FILES = new Set([
 const PROTECTED_DOCS = new Set([
   "GOAL.md",
   "SWARM.md",
-  "all_task.md",
-  "zq-agentall.md",
-  "应算通-业务流程与数据流转.md",
-  "应算通-平台菜单与网关设计.md",
-  "应算通-总结.md",
-  "应算通-运营管理功能设计.md"
 ])
 
 /**
@@ -128,8 +122,14 @@ function transformFileContent(content, targetName, targetTitle, targetDbName, ta
     .replace(/cn\.iocoder\.boot/g, `com.${targetName}`)
     .replace(/cn\.iocoder\.yudao/g, `com.${targetName}.server`)
     .replace(/yudao/gi, (match) => {
-      if (match === "Yudao") return targetName.charAt(0).toUpperCase() + targetName.slice(1)
-      if (match === "YUDAO") return targetName.toUpperCase()
+      if (match === "Yudao") {
+        return targetName
+          .split(/[^a-zA-Z0-9]+/)
+          .filter(Boolean)
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join("")
+      }
+      if (match === "YUDAO") return targetName.toUpperCase().replace(/[^A-Z0-9]+/g, "_")
       return targetName.toLowerCase()
     })
 

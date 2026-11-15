@@ -11,9 +11,9 @@
 ## 1. 如何回验本表
 
 ```bash
-npm run check                      # 13 道静态门禁（退出码 0 才算通过）
+pnpm run check                      # 13 道静态门禁（退出码 0 才算通过）
 pnpm exec vitest run                     # 全量测试（446 文件，0 failed）
-npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 git 历史推导）
+pnpm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 git 历史推导）
 ```
 
 ## 2. 跨切面需求（治理 / 安全 / 交付链）
@@ -25,14 +25,14 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 | REQ-G03 | 插件挂载与声明一致 | `ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md` | `packages/shared/backend/plugins/route-mount.ts` | `test/integration/plugin-lifecycle.integration.test.ts`、各域 `*.plugin.service.test.ts` | ✅ |
 | REQ-G04 | 跨域调用只走 Facade / RPC | `ADR-0002` | `packages/shared/backend/lib/`（rpc-actions / messaging） | `packages/shared/backend/lib/__tests__/rpc-actions.test.ts` | ✅ |
 | REQ-G05 | 库存等关键状态迁移原子性 | `database-design-erd.md` | `plugin-wms` 库存服务（CAS/条件更新） | `test/integration/inventory-atomic.integration.test.ts` | ✅ |
-| REQ-G06 | 依赖漏洞准入（棘轮） | `cooliebase-all-dependency-policy.md` §2 | `scripts/check-deps-audit.cjs` | `npm run deps:audit`（基线冻结既有 9 条） | ✅ |
+| REQ-G06 | 依赖漏洞准入（棘轮） | `cooliebase-all-dependency-policy.md` §2 | `scripts/check-deps-audit.cjs` | `pnpm run deps:audit`（基线冻结既有 9 条） | ✅ |
 | REQ-G07 | 物料清单与锁文件一致 | `cooliebase-all-dependency-policy.md` §3.1 | `scripts/generate-sbom.cjs` | `test/unit/sbom-gate.test.ts`（含 3 条反向对照） | ✅ |
 | REQ-G08 | 文档事实与真源一致 | 本表 §1 | `scripts/check-llms-sync.cjs` | `test/unit/llms-sync-gate.test.ts`（含 4 条反向对照） | ✅ |
-| REQ-G09 | 断言必须具备杀伤力 | `HIGH-ORDER-INVERSE-THINKING.md` | `scripts/mutation-gate.cjs` | `npm run mutation:gate`（3/3 killed + `--self-check`） | ✅ |
+| REQ-G09 | 断言必须具备杀伤力 | `HIGH-ORDER-INVERSE-THINKING.md` | `scripts/mutation-gate.cjs` | `pnpm run mutation:gate`（3/3 killed + `--self-check`） | ✅ |
 | REQ-G10 | 禁止字面恒真断言 | 同上 | `standards:check` 规则 `no-vacuous-test-assertions` | `test/unit/vacuous-assertion-rule.test.ts` | ✅ |
-| REQ-G11 | 版本一致性与发布说明 | `RELEASE_NOTES_v1.4.0-brand-shorthand.md` R3/R11 | `scripts/check-version-consistency.cjs` | `test/unit/version-consistency.test.ts`（含 2 条反向对照） | ✅ |
+| REQ-G11 | 版本一致性与发布说明 | `docs/07_release/release-notes.md` | `scripts/check-version-consistency.cjs` | `test/unit/version-consistency.test.ts`（含 2 条反向对照） | ✅ |
 | REQ-G12 | 规格驱动交付闭环 | `.agents/skills/spec-driven-development` | `scripts/speckit.ts` | `test/unit/spec-driven-agent-workflow.test.ts` | ✅ |
-| REQ-G13 | 客户端可构建 | `cooliebase-all-client-channels.md` | `scripts/check-client-build.cjs` | `npm run clients:build:check`（Expo web 导出） | ✅ |
+| REQ-G13 | 客户端可构建 | `cooliebase-all-client-channels.md` | `scripts/check-client-build.cjs` | `pnpm run clients:build:check`（Expo web 导出） | ✅ |
 
 ## 3. 域级需求（17 原生域 → 实现 → 测试）
 
@@ -59,37 +59,21 @@ npm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 g
 
 合计测试文件 **446**（15 个插件域合计 362；其余在 `shared` / `system` / `infra` / `test/`）。
 
-## 4. 活跃规格（0 份，`docs/specs/<域>/<名>/`；已完结规格归档于 `docs/specs/archive/2026-Q4/`）
+## 4. 活跃规格（0 份，`docs/specs/<域>/<名>/`）
 
 > 复算：`ls docs/specs/*/*/brief.json | wc -l`
 
-| 域 | 规格 | 完成度判据 |
-|---|---|---|
-| infra | `multi-end-template-engine` | 见其 `tasks.md` |
-| system | `in-app-ontology-copilot` | `pnpm run speckit:tasks -- --spec in-app-ontology-copilot` → 3/3 |
-| infra | `compat-manifest-single-source` | 见其 `tasks.md` |
-|---|---|---|
-| infra | `mcp-write-tools` | `npm run speckit:tasks -- --spec mcp-write-tools` → 5/5 |
-| infra | `deps-vuln-remediation` | 7/7 |
-| infra | `deps-audit-tier-determinism` | 3/3 |
-| infra | `client-build-gate` | 3/3 |
-| infra | `stale-test-repair` | 3/3 |
-| infra | `expo-sdk-upgrade` | 6/6 |
-| infra | `archify-strix-integration` | 见其 `tasks.md` |
-| system | `cmmi-governance` | 见其 `tasks.md` |
-| infra | `workspace-executability-purge-scope` | 见其 `tasks.md` |
-
-投产后按 `npm run speckit:archive -- --name <名>` 归档至 `docs/specs/archive/<YYYY-Qx>/`。
+当前底座处于洁净出厂状态（活跃规格 **0** 份）。新需求经 `pnpm run agent:route` 判定需立项后，通过 `pnpm run speckit:new` 创建并在投产后按 `pnpm run speckit:archive -- --name <名>` 归档。
 
 ## 5. 已知缺口（诚实登记，不要当成已完成）
 
 1. **`online` 域仅 1 个测试文件** —— 作为低代码核心域，测试厚度与其重要性不匹配。
 2. **`aigw`（2）与 `report`（3）** 同样偏薄。
-3. **L3 契约层无独立 npm 入口** —— 契约测试存在但随全量套件跑（见项目计划 E1）。
+3. **L3 契约层无独立脚本入口** —— 契约测试存在但随全量套件跑（见项目计划 E1）。
 4. **REQ-G06 的运行时漏洞为"冻结"而非"清零"** —— 9 条已接受风险仍在，
    台账见依赖策略文档；"冻结"≠"无漏洞"。
 5. **`02_requirements` 的 SRS / URS 是「刻意不产出」（决策，非待填）** —— 需求真源是分散的
-   `docs/specs/<域>/<名>/brief.json`（13 份）与 `docs/features/sprint-prod/*.md`（5 份）；
+   `docs/specs/<域>/<名>/brief.json`；
    再落一份单体 SRS 就是**第二真源**（§25），只给空骨架又违反「骨架不算完成」。
    决策与理由见 `docs/01_management/project-plan.md` H1 与本仓 `cmmi:asset` 的 `srs`/`urs` 模板。
 6. **跨切面需求的"反向对照"密度不均** —— G07/G08/G11 有反向对照测试，

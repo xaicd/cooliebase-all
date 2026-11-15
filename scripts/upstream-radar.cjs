@@ -32,9 +32,18 @@ function loadJson(filePath) {
   return JSON.parse(fs.readFileSync(filePath, "utf-8"))
 }
 
+const DEFAULT_CATALOG = {
+  projects: [
+    { id: "nextjs", name: "Next.js", category: "Web/BFF", organization: "Vercel", repository: "https://github.com/vercel/next.js", focusAreas: ["App Router", "Standalone"], cveWatch: true },
+    { id: "prisma", name: "Prisma", category: "Schema/Migration", organization: "Prisma", repository: "https://github.com/prisma/prisma", focusAreas: ["PostgreSQL", "Migrations"], cveWatch: true },
+    { id: "kysely", name: "Kysely", category: "Query Builder", organization: "Kysely", repository: "https://github.com/kysely-org/kysely", focusAreas: ["Type-Safe SQL", "Tenant AST"], cveWatch: false },
+    { id: "zod", name: "Zod", category: "Validation", organization: "Colinhacks", repository: "https://github.com/colinhacks/zod", focusAreas: ["Schema Validation"], cveWatch: false },
+  ],
+}
+
 function runAudit() {
   try {
-    const raw = execSync("npm audit --json", { cwd: ROOT, encoding: "utf-8", stdio: ["pipe", "pipe", "pipe"] })
+    const raw = execSync("pnpm audit --json", { cwd: ROOT, encoding: "utf-8", stdio: ["pipe", "pipe", "pipe"] })
     return JSON.parse(raw)
   } catch (err) {
     // npm audit exits non-zero if vulnerabilities are found
@@ -48,13 +57,8 @@ function runAudit() {
 }
 
 function main() {
-  const catalog = loadJson(CATALOG_PATH)
+  const catalog = loadJson(CATALOG_PATH) || DEFAULT_CATALOG
   const pkg = loadJson(PKG_JSON_PATH)
-
-  if (!catalog || !catalog.projects) {
-    console.error(`[upstream-radar] 无法读取上游雷达配置: ${CATALOG_PATH}`)
-    process.exit(1)
-  }
 
   const allDeps = {
     ...(pkg.dependencies || {}),

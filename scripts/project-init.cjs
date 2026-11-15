@@ -8,13 +8,13 @@
  *
  * 用法:
  *   # 原地重构当前底座仓库 (In-place Refactor)
- *   node scripts/project-init.cjs --in-place --name my-mall --title "九夏智居数字化商城" --git git@github.com:org/my-mall.git
+ *   node scripts/project-init.cjs --in-place --name my-mall --title "智汇云商数字化商城" --git git@github.com:org/my-mall.git
  *
  *   # 交互式引导重构 (如果未传参数)
  *   pnpm run project:init
  *
  *   # 克隆派生到新目录 (Clone & Hatch)
- *   node scripts/project-init.cjs --target ../my-mall --name my-mall --title "九夏智居数字化商城"
+ *   node scripts/project-init.cjs --target ../my-mall --name my-mall --title "智汇云商数字化商城"
  */
 
 const fs = require("node:fs")
@@ -22,6 +22,7 @@ const path = require("node:path")
 const readline = require("node:readline")
 const { execFileSync, execSync, spawnSync } = require("node:child_process")
 
+const { shouldSkipRelPath } = require("./lib/hatch-profile.cjs")
 const ROOT = path.resolve(__dirname, "..")
 const PROJECT_PROFILE_PATH = path.join(ROOT, "packages", "shared", "contract", "project-profile.json")
 const PACKAGE_JSON_PATH = path.join(ROOT, "package.json")
@@ -376,8 +377,38 @@ function updateGitRemote(targetDir, gitUrl) {
  * **必须 `git add -A` 而不只是 `git init`**：空仓库的 `git ls-files` 返回空列表，
  * 检查器会「扫 0 个文件 → 通过」—— 那是假绿，比报错更糟。
  */
-function ensureGitRepo(dir) {
-  if (fs.existsSync(path.join(dir, ".git"))) return
+function refreshPmoDashboard(targetDir) {
+  const script = path.join(targetDir, "scripts", "cmmi-01-management.cjs")
+  if (!fs.existsSync(script)) return
+  try {
+    execFileSync(process.execPath, [script, "pmo", "--write"], { cwd: targetDir, stdio: "pipe" })
+    console.log("[project-init] ✓ 已按派生工程刷新 PMO 待办大盘: docs/01_management/pmo-dashboard.md")
+  } catch (err) {
+    console.warn("[project-init] 提示: PMO 大盘刷新提示:", err.message)
+  }
+}
+
+function ensureGitRepo(dir, refreshInitialCommit = false) {
+  if (fs.existsSync(path.join(dir, ".git"))) {
+    if (refreshInitialCommit) {
+      try {
+        execFileSync("git", ["add", "-A"], { cwd: dir })
+        execFileSync(
+          "git",
+          ["-c", "user.email=bot@local", "-c", "user.name=ProjectInit", "commit", "--amend", "-q", "--no-edit"],
+          { cwd: dir, env: { ...process.env, AGENT_ROUTE_SKIP: "1" } },
+        )
+        refreshPmoDashboard(dir)
+        execFileSync("git", ["add", "docs/01_management/pmo-dashboard.md"], { cwd: dir })
+        execFileSync(
+          "git",
+          ["-c", "user.email=bot@local", "-c", "user.name=ProjectInit", "commit", "--amend", "-q", "--no-edit"],
+          { cwd: dir, env: { ...process.env, AGENT_ROUTE_SKIP: "1" } },
+        )
+      } catch (_err) { /* 忽略修订失败，不影响工程使用 */ }
+    }
+    return
+  }
   try {
     execFileSync("git", ["init", "-q"], { cwd: dir })
     const hasEmail = spawnSync("git", ["config", "user.email"], { cwd: dir }).status === 0
@@ -524,8 +555,14 @@ function sanitizeProjectFiles(targetDir, opts) {
     [/cn\.iocoder\.boot/g, `com.${opts.name}`],
     [/cn\.iocoder\.yudao/g, `com.${opts.name}.server`],
     [/yudao/gi, (match) => {
-      if (match === "Yudao") return opts.name.charAt(0).toUpperCase() + opts.name.slice(1)
-      if (match === "YUDAO") return opts.name.toUpperCase()
+      if (match === "Yudao") {
+        return opts.name
+          .split(/[^a-zA-Z0-9]+/)
+          .filter(Boolean)
+          .map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+          .join("")
+      }
+      if (match === "YUDAO") return opts.name.toUpperCase().replace(/[^A-Z0-9]+/g, "_")
       return opts.name.toLowerCase()
     }],
   ]
@@ -558,10 +595,41 @@ function sanitizeProjectFiles(targetDir, opts) {
     }
   }
 
+  // Layer-B 派生文档净化：统一复用 hatch-profile 的 shouldSkipRelPath 规则剥离母本历史/客户/扫描残留
+  const purgePollutedDocs = (subDir) => {
+    const absDir = path.join(targetDir, subDir)
+    if (!fs.existsSync(absDir)) return
+    for (const entry of fs.readdirSync(absDir, { withFileTypes: true })) {
+      const rel = path.posix.join(subDir, entry.name)
+      const full = path.join(absDir, entry.name)
+      if (shouldSkipRelPath(rel, { includeClients: true, excludedDomains: [] })) {
+        fs.rmSync(full, { recursive: true, force: true })
+        continue
+      }
+      if (entry.isDirectory()) purgePollutedDocs(rel)
+    }
+  }
   try {
-    fs.rmSync(path.join(targetDir, "docs", "architecture", "archive"), { recursive: true, force: true })
-    fs.rmSync(path.join(targetDir, "docs", "specs", "archive"), { recursive: true, force: true })
-  } catch (_err) { /* 归档目录不存在时忽略 */ }
+    purgePollutedDocs("docs")
+    purgePollutedDocs(".kiro")
+    // 同时清理已被重命名为 <targetName>-* 的母本内部迁移看板（防御二次重构残留）
+    const archDir = path.join(targetDir, "docs", "architecture")
+    if (fs.existsSync(archDir)) {
+      for (const f of fs.readdirSync(archDir)) {
+        if (/-(full-migration-board|module-first-migration|sync-taskboard|module-to-plugin-migration)\.md$/.test(f)) {
+          fs.rmSync(path.join(archDir, f), { force: true })
+        }
+      }
+    }
+    for (const keepRel of [
+      "docs/01_management/dar-decision-records/.gitkeep",
+      "docs/06_quality_assurance/audit/.gitkeep",
+    ]) {
+      const keepAbs = path.join(targetDir, keepRel)
+      fs.mkdirSync(path.dirname(keepAbs), { recursive: true })
+      if (!fs.existsSync(keepAbs)) fs.writeFileSync(keepAbs, "", "utf8")
+    }
+  } catch (_err) { /* 忽略清理异常 */ }
 
   // 派生项目清理历史归档规格后，确保保留 SWARM.md 与 §22 基线预案契约（避免 activeSpecs=0 时 contracts:governance:check 缺 runbook）
   const swarmSrc = path.join(ROOT, "SWARM.md")
@@ -595,6 +663,76 @@ function sanitizeProjectFiles(targetDir, opts) {
   }
 
   walk(targetDir)
+
+  // 非母本基座时，为新孵化的 Layer-B 业务项目重置洁净的发布说明初始模板（抹除母本历史 Tag 与里程碑）
+  const isMotherRepo = opts.name === "cooliebase" + "-all"
+  if (!isMotherRepo) {
+    const today = new Date().toISOString().slice(0, 10)
+    const releaseNotesPath = path.join(targetDir, "docs", "07_release", "release-notes.md")
+    if (fs.existsSync(path.dirname(releaseNotesPath))) {
+      fs.writeFileSync(
+        releaseNotesPath,
+        [
+          `# 版本发布说明书 (Release Notes: ${opts.title})`,
+          "",
+          `- **项目标识**: \`${opts.name}\``,
+          `- **模板基线 (templateVersion)**: 对齐 \`package.json#version\` 与 \`packages/shared/contract/compat-manifest.json\``,
+          `- **初始化日期**: ${today}`,
+          "- **归属规范**: CMMI 07_release (TRANS)",
+          "",
+          "---",
+          "",
+          "## 1. 初始基线说明",
+          "",
+          `本工程（${opts.title}）基于企业级全栈底座洁净孵化生成，包含平台基础治理域与所选业务插件，零母本历史需求与外部客户资产残留。`,
+          "",
+          "## 2. 发布前核验清单",
+          "",
+          "```bash",
+          "pnpm run check",
+          "pnpm run build",
+          "pnpm run fingerprint",
+          "```",
+          "",
+        ].join("\n"),
+        "utf8",
+      )
+    }
+
+    const planPath = path.join(targetDir, "docs", "01_management", "project-plan.md")
+    if (fs.existsSync(path.dirname(planPath))) {
+      fs.writeFileSync(
+        planPath,
+        [
+          `# 全生命周期项目计划 (Project Plan: ${opts.title})`,
+          "",
+          `- **项目标识**: \`${opts.name}\``,
+          `- **初始化日期**: ${today}`,
+          "- **归属规范**: CMMI 01_management (PP / PMC)",
+          "- **实时待办大盘**: 见 `docs/01_management/pmo-dashboard.md`（执行 `pnpm run pmo` 刷新）",
+          "",
+          "---",
+          "",
+          "## 1. 阶段里程碑与出口条件",
+          "",
+          "| 阶段 | 主题 | 出口条件 | 状态 |",
+          "|---|---|---|---|",
+          "| **M0** | 工程基线就绪 | 洁净孵化完成、基础契约与门禁自检通过（`pnpm run check`） | ✅ 已达成 |",
+          "| **M1** | 领域规格立项 | 业务需求通过 `pnpm run agent:route` 分诊并建立 `docs/specs/<domain>/<spec>/` | 待推进 |",
+          "| **M2** | 全链路真库验证 | 业务逻辑实现并通过真实数据库测试（`pnpm run verify:real-db`） | 待推进 |",
+          "| **M3** | 投产与持续运营 | 构建指纹校验（`pnpm run fingerprint`）与回滚 SOP 演练完成 | 待推进 |",
+          "",
+          "## 2. 过程资产治理约定（WS-H）",
+          "",
+          "- **H1（CMMI 01~09 决策性留空）**：`02_requirements` **刻意不产出**单体 SRS/URS（需求真源为按域隔离的 `docs/specs/*/*/brief.json`，避免第二真源）；`01/dar`、`08/postmortem`、`08/reconciliation`、`09/reconciliation` 在未发生真实选型分歧、线上事故或资金结算前按「三存三不存」留空占位，严禁伪造假 Demo（由 `pnpm run cmmi:asset:check` 机检）。",
+          "- **计划新鲜度守卫**：新增 `package.json#scripts`、门禁或业务域时，必须在同一次提交中同步更新本计划（由 `scripts/check-plan-freshness.cjs` 守卫）。",
+          "",
+        ].join("\n"),
+        "utf8",
+      )
+    }
+  }
+
   console.log(`[project-init] ✓ 白标化脱敏清洗完毕`)
 }
 
@@ -611,8 +749,8 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
   --in-place             原地重构当前仓库
   --target <path>        克隆派生至新目录
   --name <name>          英文项目名/标识 (例如: my-mall-app)
-  --title <title>        中文业务系统全称 (例如: 九夏智居数字化中台)
-  --short-name <short>   中文简称 (例如: 九夏智居)
+  --title <title>        中文业务系统全称 (例如: 智汇云商数字化中台)
+  --short-name <short>   中文简称 (例如: 智汇云商)
   --git <url>            新业务 Git 远程仓库地址
   --db <dbname>          自定义数据库名称 (默认按英文名转换)
   --port <port>          启动端口 (默认: 3200)
@@ -658,7 +796,8 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     assertProductScriptsParse(targetDir)
     restampSizeClaims(targetDir)
     refreshStandardsBaseline(targetDir)
-    ensureGitRepo(targetDir)
+    refreshPmoDashboard(targetDir)
+    ensureGitRepo(targetDir, true)
     console.log(`\n🎉 [SUCCESS] 业务项目已成功初始化在: ${targetDir}`)
   } else {
     console.log(`\n[project-init] 正在对当前底座进行【原地业务重构】...`)
@@ -672,7 +811,8 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     assertProductScriptsParse(targetDir)
     restampSizeClaims(targetDir)
     refreshStandardsBaseline(targetDir)
-    ensureGitRepo(targetDir)
+    refreshPmoDashboard(targetDir)
+    ensureGitRepo(targetDir, false)
     console.log(`\n🎉 [SUCCESS] 当前底座已成功重构为专属业务工程: [${opts.title} (${opts.name})]`)
   }
 

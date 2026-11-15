@@ -83,7 +83,7 @@ flowchart LR
 ## 排障时的数据库工具（DBX MCP，只读）
 
 SRE 做容量/故障分析时常要看真实数据（表结构、流水、慢查询结果）。本仓的标准接法是
-**DBX MCP，且配置层强制只读**：见 `docs/guides/dbx-mcp-integration.md`。
+**DBX MCP，且配置层强制只读**：配置位于 `deploy/dsh/mcp-dbx.patch.yml`（由 `scripts/check-dbx-readonly-policy.cjs` 门禁守护）。
 
 两条必须记住：
 

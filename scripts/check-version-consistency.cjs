@@ -1,7 +1,7 @@
 /**
  * 版本一致性门禁。
  *
- * 本仓**刻意区分**两个版本概念（依据 `docs/07_release/RELEASE_NOTES_v1.4.0-brand-shorthand.md` 的 R3 / R11）：
+ * 本仓**刻意区分**两个版本概念（依据 `docs/07_release/release-notes.md` 版本与渠道标签策略台账）：
  *
  *   渠道/发布版本  = git tag，**可带语义后缀**（如 `v1.4.0-brand-shorthand`）
  *   模板版本       = `package.json.version` 与 `compat.framework.templateVersion`
@@ -57,7 +57,7 @@ function latestTag() {
   return { tag, reason: null }
 }
 
-/** 为该 tag 找发布说明：先精确匹配 tag 名，再退回按语义核心模糊匹配。 */
+/** 为该 tag 找发布说明：先匹配独立 RELEASE_NOTES_<tag>.md，再回退检查统一台账 release-notes.md。 */
 function findReleaseNotes(tag) {
   const dir = abs(RELEASE_DIR)
   if (!fs.existsSync(dir)) return null
@@ -65,9 +65,19 @@ function findReleaseNotes(tag) {
   const exact = files.find((name) => name === `RELEASE_NOTES_${tag}.md`)
   if (exact) return { file: `${RELEASE_DIR}/${exact}`, match: "exact" }
   const core = semverCore(tag)
-  if (!core) return null
-  const byCore = files.find((name) => name.includes(`v${core}`))
-  return byCore ? { file: `${RELEASE_DIR}/${byCore}`, match: "semver-core" } : null
+  if (core) {
+    const byCore = files.find((name) => name.includes(`v${core}`))
+    if (byCore) return { file: `${RELEASE_DIR}/${byCore}`, match: "semver-core" }
+  }
+  const unifiedRel = `${RELEASE_DIR}/release-notes.md`
+  const unifiedAbs = abs(unifiedRel)
+  if (fs.existsSync(unifiedAbs)) {
+    const body = fs.readFileSync(unifiedAbs, "utf8")
+    if (body.includes(tag) || (core && body.includes(`v${core}`))) {
+      return { file: unifiedRel, match: "unified-ledger" }
+    }
+  }
+  return null
 }
 
 function main() {

@@ -45,7 +45,7 @@ import { defineStateMachine } from "@/shared/backend/lib/state-machine"
 **测什么**: 单测 mock 的是 **Facade 端口**（测决策逻辑）；Facade 背后的真实条件更新
 由**那个域自己的库级测试**覆盖 —— 不要在这里再 mock 一遍数据库。
 
-参考实现: `docs/specs/archive/2026-Q4/shop/ecommerce/tasks.md` 的 T10（`shop-order-ops.ts` + 3 条测试）。
+参考实现: `packages/plugins/plugin-mall/` 下跨域 Facade 编排与契约单测。
 
 ## 1. 何时启用
 

@@ -251,30 +251,73 @@ function matchesDomainPrefix(rel, domain) {
   return false
 }
 
+/**
+ * `docs/architecture/artifacts/` 仅允许携带门禁链运行必需的静态基线 JSON。
+ * 母本运行期心跳、分诊痕迹、压测/扫描结果及历史盘点草稿一律拦截，绝不污染 Layer-B 派生工程。
+ */
+const GATE_REQUIRED_ARTIFACTS = new Set([
+  "docs/architecture/artifacts/admin-route-policy-baseline.json",
+  "docs/architecture/artifacts/agent-contract-coverage-baseline.json",
+  "docs/architecture/artifacts/agent-native-baseline.json",
+  "docs/architecture/artifacts/agent-route-coverage-baseline.json",
+  "docs/architecture/artifacts/clause-mechanism-map.json",
+  "docs/architecture/artifacts/contract-governance-baseline.json",
+  "docs/architecture/artifacts/deps-audit-baseline.json",
+  "docs/architecture/artifacts/design-tokens-baseline.json",
+  "docs/architecture/artifacts/engineering-standards-baseline.json",
+  "docs/architecture/artifacts/frontend-raw-fetch-baseline.json",
+  "docs/architecture/artifacts/handwritten-files-baseline.json",
+  "docs/architecture/artifacts/harness-unreachable-scripts.json",
+  "docs/architecture/artifacts/menu-title-length-baseline.json",
+  "docs/architecture/artifacts/route-validation-baseline.json",
+  "docs/architecture/artifacts/socratic-inquiry-latest.json",
+  "docs/architecture/artifacts/typecheck-baseline.json",
+  "docs/architecture/artifacts/write-path-depth-baseline.json",
+  "docs/architecture/artifacts/write-path-depth-evidence-baseline.json",
+])
+
 const RETIRED_DIR_PREFIXES = Object.freeze([
   "docs/architecture/archive",
   "docs/specs/archive",
-  // 注意：**不能整目录裁 `docs/architecture/artifacts`** —— 其中有 3 个门禁必需的已提交基线：
-  //   socratic-inquiry-latest.json（harness:check）、deps-audit-baseline.json（deps:audit）、
-  //   engineering-standards-baseline.json（standards:check）。
-  // 整目录裁掉会让新孵化工程的 `pnpm run check` 必红（实测：socratic:check 报缺文件）。
+  "docs/specs/system",
+  "docs/features",
+  ".kiro/specs",
   "docs/architecture/OPEN-SOURCE-TRACKING-MANUAL.md",
   "docs/architecture/CURRENT-PROGRESS.md",
+  "docs/architecture/EVOLUTION-ROADMAP-2026.md",
+  "docs/architecture/BENCHMARK-GAP-ANALYSIS-AND-CONTINUOUS-IMPROVEMENT.md",
+  "docs/architecture/upstream-radar-catalog.json",
+  "docs/architecture/ai-gateway-new-api.md",
+  "docs/architecture/online-jeecg-functional-benchmark.md",
+  "docs/architecture/coolie-hook-and-gate-handoff.md",
+  "docs/architecture/cooliebase-all-module-to-plugin-migration.md",
+  "docs/architecture/cooliebase-full-migration-board.md",
+  "docs/architecture/cooliebase-module-first-migration.md",
+  "docs/architecture/cooliebase-all-sync-taskboard.md",
+  "docs/architecture/nextjs-app-router-stateless-scaling-audit.md",
+  "docs/architecture/system-core-implementation-checklist.md",
+  "docs/architecture/system-domain-split-spec.md",
+  "docs/guides/dsh-integration.md",
+  "docs/guides/dbx-mcp-integration.md",
+  "docs/05_verification/workspace-executability-purge-scope-evidence.md",
   ".claude",
   ".commandcode",
 ])
 
 /**
- * **文件名前缀**裁剪（与目录前缀分开）：目录前缀按 `rel === p || rel.startsWith(p + "/")` 匹配，
- * 而这里的前缀是文件名片段（如 `...coverage-`），必须按 `rel.startsWith(p)` 匹配，
- * 否则永远不会命中（实测：写成目录前缀后 8 个历史报告一个都没被裁掉）。
+ * **文件名前缀**裁剪（与目录前缀分开）：按 `rel.startsWith(p)` 匹配母本客户/外部调研/历史发布说明前缀。
  */
 const RETIRED_FILE_PREFIXES = Object.freeze([
   "docs/architecture/artifacts/all-next-starter-coverage-",
   "docs/architecture/artifacts/cooliebase-full-scan-",
+  "docs/architecture/artifacts/upstream-radar-report",
+  "docs/architecture/yingsuantong-",
+  "docs/architecture/GEO-",
+  "docs/architecture/dsh-research-",
+  "docs/07_release/RELEASE_NOTES_",
 ])
 
-function shouldSkipRelPath(relPath, plan) {
+function shouldSkipRelPath(relPath, plan = {}) {
   const rel = String(relPath || "").replace(/\\/g, "/")
   if (!rel) return false
   for (const prefix of RETIRED_DIR_PREFIXES) {
@@ -283,8 +326,17 @@ function shouldSkipRelPath(relPath, plan) {
   for (const prefix of RETIRED_FILE_PREFIXES) {
     if (rel.startsWith(prefix)) return true
   }
+  if (rel.startsWith("docs/architecture/artifacts/") && !GATE_REQUIRED_ARTIFACTS.has(rel)) {
+    return true
+  }
+  if (rel.startsWith("docs/01_management/dar-decision-records/") && rel.endsWith(".md")) {
+    return true
+  }
+  if (rel.startsWith("docs/06_quality_assurance/audit/") && rel.endsWith(".md")) {
+    return true
+  }
   // 当不包含客户端时，仅排除重型客户端子项目 (如 clients/expo)，保留 clients/ 目录及 README 标识
-  if (!plan.includeClients && (rel === "clients/expo" || rel.startsWith("clients/expo/"))) return true
+  if (plan.includeClients === false && (rel === "clients/expo" || rel.startsWith("clients/expo/"))) return true
   for (const domain of plan.excludedDomains || []) {
     if (matchesDomainPrefix(rel, domain)) return true
   }
@@ -338,6 +390,7 @@ module.exports = {
   parseArgv,
   helpText,
   resolveHatchPlan,
+  GATE_REQUIRED_ARTIFACTS,
   shouldSkipRelPath,
   pruneCatalog,
   pruneRpcActions,

@@ -91,9 +91,7 @@ for (const [name, spec] of Object.entries({ ...pkg.dependencies, ...pkg.devDepen
   }
 }
 
-if (!fs.existsSync(path.join(ROOT, "docs/features/sprint-prod"))) {
-  fail("missing docs/features/sprint-prod append-only trace directory")
-}
+// docs/features/sprint-prod 由 scripts/agent-route.cjs 在首次分诊时按需创建（蓝图母本与洁净派生工程不预置历史日志）
 
 const hatchPath = path.join(ROOT, "scripts/lib/hatch-profile.cjs")
 if (!fs.existsSync(hatchPath)) fail("missing scripts/lib/hatch-profile.cjs")

@@ -24,7 +24,7 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 | `scripts/` | 103 个构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)、`check-*.cjs`(门禁)。 |
 | `docs/` | `01_management`~`09_operations`(**CMMI 全生命周期过程资产**) · `architecture/`(架构文档 + 本页) · `features/`(需求与施工日志) · `guides/` · `specs/<域>/<名>/`(规格真源) · `agent/`。**`docs/skills/` 被禁止**（技能唯一真源是 `.agents/skills/<name>/SKILL.md`，§25）。 |
 | `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `rules/` + `workflows/` + `commands/` + `skills/`(**38 个可执行 SKILL.md**，唯一真源)。 |
-| `.kiro/` | `steering/`(`plugin-domain-structure.md` 权威模块布局、`feature-scaffold.md` 指针、`ui-ux-pro-max/` 技能) + `specs/`(本仓历史规划规格)。 **注**：曾混入另一业务项目（乡村振兴平台）的 `coding-standards.md` / `ui-development-standards.md`，因描述 `src/backend`、`src/frontend` 老结构（违反 §3.2）且属定制业务（违反 §17.3）已移除。 |
+| `.kiro/` | `steering/`（`plugin-domain-structure.md` 权威模块布局、`feature-scaffold.md` 指针、`ui-ux-pro-max/` 视觉检索技能）+ `workflows/`（桥接 `.agents/workflows/`）。 |
 | `prisma/` | `schema.prisma`(含 `member_user.extra_fields Json?`) + migrations。 |
 | `sql/` `deploy/` `test/` `public/` | init SQL · docker-compose(local/dev) · 测试根(`test/{unit,integration,e2e,agent}`) · 静态资源。 |
 | 根文件 | `AGENTS.md` · `README.md` · `CURRENT.md` · `project-status.md` · `.env.example` · `next.config.mjs` · `vitest.config.ts` · `playwright.config.ts`。 |

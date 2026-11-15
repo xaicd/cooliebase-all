@@ -24,7 +24,7 @@
 ## ⚠️ 已知缺口
 
 1. **版本策略已定但未机检**：`package.json.version` 与 `compat.templateVersion` 必须同步；
-   git tag（可带语义后缀）是**渠道版本**，与模板版本刻意解耦（依据：`RELEASE_NOTES_v1.4.0-brand-shorthand.md` 的 R3/R11）。
+   git tag（可带语义后缀）是**渠道版本**，与模板版本刻意解耦（依据：`docs/07_release/release-notes.md` 的版本策略台账）。
    目前只有文档约定、没有门禁 → 登记为 RSK-006。
 2. **CMMI 过程资产覆盖不均**：`docs/04_implementation/` 仅 1 个文件、`docs/01_management/` 原仅 3 个文件。
    已补 `project-plan.md`；其余阶段仍需补齐（见 `project-plan.md` §4 WS-H）。

@@ -8,11 +8,6 @@
   - `project-status.md` = **当前阶段状态**（现在到哪一步）
   - `CURRENT.md` = **已发布能力**（只登记通过发布门禁的能力）
   - `docs/specs/<domain>/<name>/` = **单个特性的规格与任务树**（真源，本文件不复制任务细节）
-  - `docs/architecture/EVOLUTION-ROADMAP-2026.md` = **能力向演化路线**（四环同心：治理→旗舰域→端→微服务）
-
-> **两条账的关系（此前互不引用，已接）**：本文件回答「**要交付什么、怎么算做完**」；
-> 演化路线图回答「**能力长到第几环了**」。二者**正交**：一条 WBS 可以同时推进多个环，
-> 一个环的达成也可能不新增任何交付项。**判定完成状态时两条都要看**，改任一条都要顺手核对另一条。
 
 ---
 
@@ -189,7 +184,7 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：20 份 `docs/specs/*/*/brief.json` + 9 份 `docs/features/sprint-prod/*.md` 需求日志；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节。**这两条决策现在有机检**（`cmmi:asset:check` 的「决策性留空」登记）：理由里**不许写死计数**（数字会漂、路径不会 —— 该登记曾把需求真源写成「12 份 / 5 份」，实际已是 20 / 9，而它是脚本、`docs:claims:check` 扫不到，静默漂移了很久），且**必须指向真实存在的仓内路径**；反向对照见 `test/unit/cmmi-absence-reason.test.ts`（写死计数 / 指向空气 → exit 1） |
+| H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：按域分散的 `docs/specs/*/*/brief.json`；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节。**这两条决策现在有机检**（`cmmi:asset:check` 的「决策性留空」登记）：理由里**不许写死计数**（数字会漂、路径不会 —— 该登记曾把需求真源写成「12 份 / 5 份」，实际已是 20 / 9，而它是脚本、`docs:claims:check` 扫不到，静默漂移了很久），且**必须指向真实存在的仓内路径**；反向对照见 `test/unit/cmmi-absence-reason.test.ts`（写死计数 / 指向空气 → exit 1） |
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `pnpm run speckit:check -- --spec <名>` |
 | H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `pnpm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状；**另**：路径引用准确性——全仓实测 62 处不存在中约 26 处属**合法**（反例语境/外部项目/示例），故只对**生成物**建门禁 `gen:paths:check`（`wiki/**`，95 处引用零误报），并修掉 18 处真实陈旧引用（含生成器把已修掉的测试假数字**写回** wiki 这一回流风险） |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
@@ -217,7 +212,7 @@
 | I11 | **测试入口不被环境污染** | 剔除 `DATABASE_URL` / `DB_DRIVER` / **`NODE_ENV`** 后再跑 | ✅ | `pnpm run test:clean`（跨平台；`env -u` 是 POSIX-only 且漏了 NODE_ENV） |
 | I12 | **外部 onboarding 进 CI** | 模拟 degit（无 `.git`）→ 安装 → `project:init` → 全量门禁 | ✅ | CI `onboarding` job（非 PR 触发；两处只在「从零开始」路径暴露的回归都在这里守） |
 | I13 | **证据门禁能失败** | 自报 `passed` 必须凭**当前**证据（全规格扫描）+ 三条时效；`delivery:check --strict` 在 `check` 链内 | ✅ | 实测揪出 2 个规格自报 `G5_PRE passed` 而压测产物为 `failed=3/3`；反向对照 2 条（无证据 / 30 天前割接记录）均 exit 1 |
-| I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 此前 `EVOLUTION-ROADMAP-2026.md` **全仓零引用**（它自己也不引用任何文档）；现互引并登记 AGENTS §13 |
+| I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 架构演进与工程交付计划统一收敛至本文件与 `wiki/architecture/benchmark-and-evolution.md` |
 | I15 | **压测判定分三态** | 记录运行时负载，区分 `passed`/`inconclusive`/`failed` | ✅ | 此前不达标只报「失败」，无法区分「真回归」与「机器被压住」。现产物自证环境（`environment.loadavg1`/`busyRatio`）；**inconclusive 同样非零退出**；单测 5 条含反向对照 |
 | I16 | **孵化不再依赖 Docker** | `project:create` 的 PG 地址可覆盖；连不上即**中止**不产坏工程 | ✅ | 此前写死 `localhost:5433` 且**忽略环境**；实测：嵌入式 PG 下 `exit=0`、目标库真实建出；不可达时 `exit=1` 且不写 postgres 配置 |
 | I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
@@ -230,7 +225,7 @@
 | I24 | **写链路必须声明深度测试** | 规格触及写路由/表单页时，必须在 acceptance 声明「正向写库 + 对抗 4xx」或显式豁免理由 | ✅ | 新增 `write:path:depth:check`（棘轮）。**边界如实标注**：只校验**声明**、不证明测试真写了；且现役 20 个规格**0 个触发**（任务白名单多写 `-`）—— 故反向对照必须存在，否则就是永远绿的门禁 |
 | I25 | **红绿对抗 E2E 有标准、有模板、有度量** | 写链路 E2E 必须有正向（真实查库）与对抗（4xx+自愈+库不脏）两层；覆盖度只**度量**不冒充 | ✅ | 新增 `test/e2e/README.md`（标准）+ `write-path.sample.spec.ts`（默认 skip 的模板）+ `write:path:depth:report`（report-only）。**首版度量把 skip 用例算成覆盖（1105:2），已修为 1105:0 并单列「条件 skip」** —— 这条自查记录写进提交，不用它去凑数 |
 | I26 | **E2E 一条命令自给自足** | 起库→迁移→种子→起应用→跑测试→清场，不留进程与端口 | ✅ | `pnpm run e2e:run` **跑绿**：真 PostgreSQL + `pnpm build` 的 standalone 产物，`EXIT=0 / 2 passed`（会员注册 ① 正向 ② 对抗）—— 写链路覆盖 **2**（原 0）。调试连修 **7 层**，每层都有确切报错：① **调用方 shell 里的 14 字节 `JWT_SECRET` 被盲目继承**（原假设「产物 `.env` 盖掉运行时值」**是错的**）；② `DB_DRIVER=postgres` 不合法（应 `postgresql`）；③ 漏跑 `plugins:register`；④ `app/` 是作用域层级不进 URL；⑤ 公开会员接口被声明成 `auth: company`（**真 bug**）；⑥ 全新启动的应用从不启动插件（**真 bug**，`reconcile()` 无启动期调用方）；⑦ 业务冲突返回 500 而非 409（**真 bug**）。全程实录见 `test/e2e/README.md` §9。
-| I27 | **SRE/运营 NPC 有标准数据库工具（只读）** | DBX MCP 接入 dsh，且**配置层强制只读** | ✅ | 新增 `deploy/dsh/mcp-dbx.patch.yml`（`DBX_MCP_ALLOW_WRITES=0`，覆盖 DBX 界面里的写权限）+ `dbx:readonly:check` 门禁（**先剥注释再判** —— 第一版被注释喂饱，反向对照当场抓到）+ `docs/guides/dbx-mcp-integration.md`。**未验证**：dsh 里 `mcp__dbx__*` 是否出现（本机 DBX 无连接） |
+| I27 | **SRE/运营 NPC 有标准数据库工具（只读）** | DBX MCP 接入 dsh，且**配置层强制只读** | ✅ | 新增 `deploy/dsh/mcp-dbx.patch.yml`（`DBX_MCP_ALLOW_WRITES=0`，覆盖 DBX 界面里的写权限）+ `dbx:readonly:check` 门禁（**先剥注释再判** —— 第一版被注释喂饱，反向对照当场抓到）。**未验证**：dsh 里 `mcp__dbx__*` 是否出现（本机 DBX 无连接） |
 
 ### WS-J 文档真实性 · 测试覆盖 · 门禁可失败（2026-10-21 新增）
 
@@ -331,11 +326,11 @@
 - **消费面**：17 domains / 38 skills / 18 MCP tools / **28 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
-- **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（清单 `non-standard-endpoints.md`）。
+- **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（由 `docs/architecture/artifacts/route-validation-baseline.json` 棘轮冻结）。
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
-- **规格库**：活跃 **0 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`，全部 26 份完结规格已按季度归档至 `docs/specs/archive/2026-Q4/`）；本轮新增 `swarm-and-4char-menu-alignment`（根级 `SWARM.md` + 8 动词 `service.sh` + `<=4` 字菜单门禁）、收口 `ui-design-tokens`（`design:tokens:check`）与 `permission-naming-unify`（338 条契约治理欠债清零、112 条 `PermissionCode` 类型错误清零）。
+- **规格库**：活跃 **0 条**（复算：`ls docs/specs/*/*/brief.json | wc -l`，历史母本完结规格已清剿出库，保持底座零历史包袱）；本轮新增 `swarm-and-4char-menu-alignment`（根级 `SWARM.md` + 8 动词 `service.sh` + `<=4` 字菜单门禁）、收口 `ui-design-tokens`（`design:tokens:check`）与 `permission-naming-unify`（338 条契约治理欠债清零、112 条 `PermissionCode` 类型错误清零）。
 - **git 钩子自动启用（补了一处时序缺口）**：`postinstall` 会启用 `core.hooksPath=.githooks` ✓，
   但它要求「`git init` **早于** `pnpm install`」—— 而**孵化路径上这个时序不成立**（实测）。
   已在两处 `git init` 之后**直接**调用 `setup-git-hooks.cjs`（幂等）：`scripts/hatch.sh` 与
@@ -575,4 +570,5 @@ windows      success  416s      mutation     success   31s
 - **对标芋道 DataScope 5 级数据权限 AST 插件与 `/api/docs` OpenAPI 3.1 交互式调试沙箱**：落地 `packages/shared/backend/lib/database/data-scope-plugin.ts` 与 `src/app/api/docs/route.ts`。
 - **通用蓝图底座 4 大业务原语全栈展开（T10）**：升级 `scripts/blueprint-engine.cjs` 与 `codegen-templates/`（`common.ts`、`service.template.ts`、`route.template.ts`、`frontend-api.template.ts`、`frontend-list.template.ts`），支持任意领域系统的 `stateMachine` 全栈状态跃迁、`convertActions` 跨单据一键转化、`layoutMode` 看板/表格视图切换及 27B 模型同义词防呆自愈器 `diagnoseAndHealBlueprint`。
 - **通用蓝图底座终极收口与对标演进闭环（T11）**：升级 `frontend-form.template.ts`（支持 `visibleOn`/`requiredOn`/`disabledOn` 反应式联动与 `sub_table` 主子表内联增删行）、升级 `frontend-list.template.ts`（真实分栏状态看板泳道 `kanban-board`）、新增 `pnpm run blueprint:deliver` 单命令交付，并落地对标大典 A3（`/api/metrics` Prometheus 指标端点）、B1（`saga-runner.ts` TS 原生可逆 Saga 补偿工作流引擎）与 B3（`/api/v1/realtime/sse` SSE 实时通知流）。
+- **蓝图母本历史/外部污染文档清剿与 Layer-B 孵化净化加固（2026-11-15）**：清理母本历史归档规格、历史施工日记、外部客户与调研泄漏文档及一次性扫描草稿；升级 `scripts/lib/hatch-profile.cjs`、`scripts/clone-project-base.cjs` 与 `scripts/project-init.cjs`，对 `docs/architecture/artifacts/` 实施门禁基线白名单放行并在孵化时自动重置 Layer-B 洁净 CMMI `01..09` 模板与 PMO 大盘。
 - **AI Agent 项目 PMO 进场秒级待办大盘与三仓统一对齐（2026-11-10）**：新增 `pnpm run pmo`（`node scripts/cmmi-01-management.cjs pmo [--write|--json|--federated]` / `pnpm run speckit -- cmmi 01 pmo` / `pnpm harness pmo`），自动扫描活跃规格 WBS 漏斗、三层 Git 任务归因、演化待办池与优先级 `P0/P1/P2` 行动队列，并持久化生成 [`docs/01_management/pmo-dashboard.md`](pmo-dashboard.md)，让任意打开项目的 AI Agent 即刻具备项目 PMO 全局视角。

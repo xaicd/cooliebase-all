@@ -9,7 +9,7 @@
    - 风险登记册与缓解预案：`docs/01_management/risk-register.md`
    - 决策记录目录：`docs/01_management/dar-decision-records/` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
-   - 已归档的真实规格包：\`docs/specs/archive/2026-Q4/shop/ecommerce/\` (商城最小闭环)
+   - 按域隔离的规格包与基线预案：`docs/specs/<domain>/<name>/brief.json` 与 `docs/specs/_baseline/runbook.json`
    - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（342 份 Agent 契约）
    - 规范目录 `docs/02_requirements/` 保持留空，不伪造假需求
 3. **03_design (系统与架构设计)**：
@@ -25,10 +25,10 @@
    - 真实测试执行总结：`docs/05_verification/test-summary-report.md`（**由 `pnpm run test:summary` 生成；数字以该文件为准，此处不写死**）
    - 变异测试目录：`docs/05_verification/mutation/` (保持留空待实际 Stryker 工具集成)
 6. **06_quality_assurance (质量与配置审计)**：
-   - 功能与物理配置审计：`docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md` (compliance-auditor 技能)
+   - 功能与物理配置审计：`docs/06_quality_assurance/configuration-audit.md` (compliance-auditor 技能)
    - 全量静态门禁数字凭证：`docs/06_quality_assurance/gate-evidence-trace.json` (Exit Code 0)
 7. **07_release (发布与网关)**：
-   - 版本发布说明书：`docs/07_release/RELEASE_NOTES_v1.1.0.md`
+   - 版本发布说明书：`docs/07_release/release-notes.md`
    - 生产安装部署 SOP：`docs/07_release/system-deployment-sop.md`
    - 故障秒级回滚预案：`docs/07_release/rollback-runbook.json`
 8. **08_sre (站点可靠性与安全)**：

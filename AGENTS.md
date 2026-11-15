@@ -463,7 +463,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 
 ## 6. 能力同步与治理门禁
 
-1. 能力状态必须对照 docs/architecture/archive/upstream-2026-Q3/ruoyi-all-next-capability-matrix.md（**已归档**：上游调研产物，不再反映当前真源）。
+1. 能力状态必须对照 `packages/shared/backend/constants/domain-catalog.json` 与 `docs/architecture/cooliebase-all-domain-governance.md` 核验。
 2. 域声明必须同步 docs/architecture/cooliebase-all-domain-governance.md。
 3. 未登记能力不得标记 DONE。
 4. PARTIAL 与 DONE 域必须带 TestRefs。
@@ -817,26 +817,22 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 
 1. README.md
 2. packages/domains/README.md
-3. docs/architecture/archive/upstream-2026-Q3/ruoyi-native-capabilities-catalog.md（已归档）
-4. docs/architecture/cooliebase-full-migration-board.md
-5. docs/architecture/system-core-implementation-checklist.md
-6. docs/architecture/archive/upstream-2026-Q3/ruoyi-all-next-capability-matrix.md（已归档）
-7. docs/architecture/cooliebase-all-domain-governance.md
-8. docs/guides/api-route-conventions.md
-9. docs/guides/tenant-catalog-bootstrap.md
-10. docs/guides/service-design-patterns.md
-11. scripts/quick-start.sh
-12. scripts/scaffold-feature.ts
-13. docs/architecture/cooliebase-all-domain-pack.md
-14. docs/architecture/cooliebase-all-messaging-constraints.md
-15. docs/architecture/cooliebase-all-microservice-governance.md
-16. docs/architecture/cooliebase-all-plugin-rpc.md
-17. deploy/README.md
-18. docs/architecture/cooliebase-all-client-channels.md
-19. docs/guides/project-profile-bootstrap.md
-20. docs/architecture/cooliebase-all-harness-evolution.md
-21. docs/01_management/project-plan.md（全周期计划：目标/路线图/里程碑/WBS）
-22. docs/architecture/EVOLUTION-ROADMAP-2026.md（能力向演化路线，四环同心）
+3. docs/architecture/cooliebase-all-architecture.md
+4. docs/architecture/cooliebase-all-domain-governance.md
+5. docs/guides/api-route-conventions.md
+6. docs/guides/tenant-catalog-bootstrap.md
+7. docs/guides/service-design-patterns.md
+8. scripts/quick-start.sh
+9. scripts/scaffold-feature.ts
+10. docs/architecture/cooliebase-all-domain-pack.md
+11. docs/architecture/cooliebase-all-messaging-constraints.md
+12. docs/architecture/cooliebase-all-microservice-governance.md
+13. docs/architecture/cooliebase-all-plugin-rpc.md
+14. deploy/README.md
+15. docs/architecture/cooliebase-all-client-channels.md
+16. docs/guides/project-profile-bootstrap.md
+17. docs/architecture/cooliebase-all-harness-evolution.md
+18. docs/01_management/project-plan.md（全周期计划：目标/路线图/里程碑/WBS）
 
 ## 14. 代码生成器架构规范
 
@@ -1000,7 +996,7 @@ pnpm run check
 5. **后期进化**：P1 `--profile/--bundle`、P2 seam 图、P3 门禁轨迹已落地；P4 由 DigitalStaff 读取本仓 `agent-profile.json`。细则见 `docs/architecture/cooliebase-all-harness-evolution.md`。
 6. **Agent 消费面（MCP）**：`scripts/mcp/cooliebase-mcp-server.cjs` 是本仓对外的机器可读工具面，声明登记在 `compat-manifest.json` 的 `consumptionSurface.mcp`（由 `compat:check` 与服务实际工具清单交叉校验，防第二真源）。
    **该面永不写盘**：工具只有两种形态——只读查询，或 plan/preview（返回"真跑会做什么"并把写盘留给显式命令）。plan/preview 工具不得暴露 write 类入参，也不得内部透传 `--write`；落盘命令只出现在返回的 `manualSteps` 里，由人执行。
-   同时**不得代跑门禁或自判通过**（守 §3 明确不引入第 5 条）。契约与实测边界见 `docs/specs/infra/mcp-write-tools/write-tool-contract.md`。
+   同时**不得代跑门禁或自判通过**（守 §3 明确不引入第 5 条）。契约声明见 `packages/shared/contract/compat-manifest.json`。
 
 
 ### 18.1 DSH 作为**开发规范**（不是运行时）
@@ -1008,7 +1004,6 @@ pnpm run check
 > **定位**：`dsh` 是本仓引用的**开发规范来源**（`agent-profile.json` 的
 > `referencePhilosophy: "Everything is a Plugin. Every run is traceable."`），
 > **不是产物的运行时**。运行时是 DigitalStaff / 客户自己的 Next 应用。
-> 逐条对照见 `docs/architecture/dsh-research-2026-10.md`。
 
 **已吸收（有落地 + 门禁）**：插件化域 · Capability Seam · Profile/Bundle/Patch ·
 Prompt 分段组装 · Every run traceable。
