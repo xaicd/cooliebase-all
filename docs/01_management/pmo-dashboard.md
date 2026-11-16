@@ -1,7 +1,7 @@
 # 🧭 cooliebase-all 项目 PMO 待办与全息状态大盘 (Project PMO Dashboard)
 
 > **实时刷新命令**: `pnpm run pmo`（或 `node scripts/cmmi-01-management.cjs pmo [--write|--json]`）
-> **项目坐标**: `cooliebase-all@1.5.0` | **分支**: `main` | **HEAD**: `1c8ca3fa fix(release,docs): consolidate docs/ hierarchy, remediate 5-dimension doc accuracy, and align v1.5.0 tests (0 seconds ago)` | **工作区净度**: ✅ Clean (0 dirty)
+> **项目坐标**: `cooliebase-all@1.5.0` | **分支**: `main` | **HEAD**: `11fc017d fix(docs,baselines): fix wiki domain relative links, prune dead aigw baselines, and clean npm test tokens (0 seconds ago)` | **工作区净度**: ✅ Clean (0 dirty)
 
 ## 一、Spec-Kit 规格漏斗与 WBS 原子任务进度
 
@@ -13,7 +13,7 @@
 | :--- | :--- | :--- | :--- |
 | **P2** | Evolution Backlog | no-silent-catch: 16 file(s) carry frozen debt | `pnpm run standards:check` |
 | **P2** | Agent-Native 语义选择器基线消减 | 存量 470 个管理端页面/组件待补齐 data-agent-id (基线棘轮守护中，新增 0) | `pnpm run agent:native:check` |
-| **P2** | 插件层 TypeScript 类型与权限码基线消减 | 全仓存量 58 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
+| **P2** | 插件层 TypeScript 类型与权限码基线消减 | 全仓存量 53 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
 
 ## 三、🎯 本项目 PMO 接下来的待办工作队列 (Prioritized Next Actions)
 
@@ -21,4 +21,4 @@
 | :--- | :--- | :--- | :--- | :--- |
 | 1 | **P2** | `Evolution Backlog` | no-silent-catch: 16 file(s) carry frozen debt | `pnpm run standards:check` |
 | 2 | **P2** | `Agent-Native 语义选择器基线消减` | 存量 470 个管理端页面/组件待补齐 data-agent-id (基线棘轮守护中，新增 0) | `pnpm run agent:native:check` |
-| 3 | **P2** | `插件层 TypeScript 类型与权限码基线消减` | 全仓存量 58 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
+| 3 | **P2** | `插件层 TypeScript 类型与权限码基线消减` | 全仓存量 53 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
