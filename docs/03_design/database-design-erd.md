@@ -1,7 +1,7 @@
 # 数据库底座设计与 8 大审计字段规范 (Database Design & ERD)
 
-- **基线版本**: v1.1.0 Enterprise Baseline
-- **生效日期**: 2026-10-09
+- **基线版本**: `v1.5.0` Enterprise Baseline
+- **更新日期**: 2026-11-16
 - **归属规范**: CMMI 03_design (TS) / `.agents/skills/database-design`
 
 ---

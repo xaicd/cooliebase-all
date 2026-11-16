@@ -1,8 +1,9 @@
 # Cooliebase All AI Copilot 侧边栏与安全沙箱规范 (Copilot Specification)
-version: "1.0.0"
+version: "1.5.0"
+lastUpdated: "2026-11-16"
 component:
   name: "OntologyCopilotDrawer"
-  type: "React 19 / React Native (Expo)"
+  type: "React 19 (Admin / 2C Portal) / React Native (Expo) / Vue 3 (Uni-App MiniApp)"
   mountStrategy: "layout-floating-dock"
   ariaLabel: "AI 业务与数据探查 Copilot"
   zeroDeadButtons: true

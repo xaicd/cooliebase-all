@@ -57,7 +57,7 @@ jobs:
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
-          body_path: releases/${{ github.ref_name }}.md
+          body_path: docs/07_release/releases/${{ github.ref_name }}.md
           files: |
             dist/release-assets/*
           generate_release_notes: true

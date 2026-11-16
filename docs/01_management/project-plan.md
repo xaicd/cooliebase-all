@@ -186,9 +186,9 @@
 |---|---|---|---|---|
 | H1 | CMMI 01~09 目录 | 九阶段目录齐备且非占位 | ✅ | 01/02/03/04/05/06/07/08 均有实质资产（05 的测试总结报告本轮改为**生成物**）；**02 的 SRS/URS 刻意不产出**（真源：按域分散的 `docs/specs/*/*/brief.json`；单体 SRS 会成第二真源），**09_operations 按「三存三不存」留空**（资金对账/复盘须带真实凭证）—— 两者都是**决策**，已写进模板与本节。**这两条决策现在有机检**（`cmmi:asset:check` 的「决策性留空」登记）：理由里**不许写死计数**（数字会漂、路径不会 —— 该登记曾把需求真源写成「12 份 / 5 份」，实际已是 20 / 9，而它是脚本、`docs:claims:check` 扫不到，静默漂移了很久），且**必须指向真实存在的仓内路径**；反向对照见 `test/unit/cmmi-absence-reason.test.ts`（写死计数 / 指向空气 → exit 1） |
 | H2 | 规格库 | 活跃规格 11 阶段全过 | ✅ | `pnpm run speckit:check -- --spec <名>` |
-| H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `pnpm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状；**另**：路径引用准确性——全仓实测 62 处不存在中约 26 处属**合法**（反例语境/外部项目/示例），故只对**生成物**建门禁 `gen:paths:check`（`wiki/**`，95 处引用零误报），并修掉 18 处真实陈旧引用（含生成器把已修掉的测试假数字**写回** wiki 这一回流风险） |
+| H3 | 文档准确性 | 文档声称的命令/数字可复现 | ✅ | 已修：CMMI 模板 6 处错误事实 · 契约数 324→326 · 「20 道门禁」全线写死 · `docs:sync-context` 等死引用 · `docs/05_verification/test-summary-report.md`（**曾少报约 30 倍**，已改为 `pnpm run test:summary` 生成）· 审计文档与当前版本发布说明里的写死数字。机检：`docs:commands:check`（734 处引用全部真实）+ `llms:check`（事实与真源一致）。**刻意不改写**：历史发布说明（v1.1.0）与施工日志 —— 它们是记录，不是现状；**另**：路径引用准确性——全仓实测 62 处不存在中约 26 处属**合法**（反例语境/外部项目/示例），故只对**生成物**建门禁 `gen:paths:check`（`docs/wiki/**`，95 处引用零误报），并修掉 18 处真实陈旧引用（含生成器把已修掉的测试假数字**写回** wiki 这一回流风险） |
 | H4 | 全周期计划 | 目标/路线图/里程碑/WBS 落地 | ✅ | 本文件 |
-| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | 退役 `sync-openwiki.cjs` 静态覆盖生成器，将 43 篇 `wiki/` 词条收敛为直接维护的静态 Markdown，由 `gen:paths:check` 校验路径真实性及陈旧词条清理；`llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致 |
+| H5 | 知识面 | OpenWiki / llms.txt 与代码同步 | ✅ | 退役 `sync-openwiki.cjs` 静态覆盖生成器，将 `docs/wiki/` 词条收敛为直接维护的静态 Markdown，由 `gen:paths:check` 校验路径真实性及陈旧词条清理；`llms:check` 机检 llms.txt/llms-full.txt/AGENTS.md/README.md 的事实声明与真源一致 |
 
 ---
 
@@ -212,7 +212,7 @@
 | I11 | **测试入口不被环境污染** | 剔除 `DATABASE_URL` / `DB_DRIVER` / **`NODE_ENV`** 后再跑 | ✅ | `pnpm run test:clean`（跨平台；`env -u` 是 POSIX-only 且漏了 NODE_ENV） |
 | I12 | **外部 onboarding 进 CI** | 模拟 degit（无 `.git`）→ 安装 → `project:init` → 全量门禁 | ✅ | CI `onboarding` job（非 PR 触发；两处只在「从零开始」路径暴露的回归都在这里守） |
 | I13 | **证据门禁能失败** | 自报 `passed` 必须凭**当前**证据（全规格扫描）+ 三条时效；`delivery:check --strict` 在 `check` 链内 | ✅ | 实测揪出 2 个规格自报 `G5_PRE passed` 而压测产物为 `failed=3/3`；反向对照 2 条（无证据 / 30 天前割接记录）均 exit 1 |
-| I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 架构演进与工程交付计划统一收敛至本文件与 `wiki/architecture/benchmark-and-evolution.md` |
+| I14 | **两份规划互引** | 交付计划 ↔ 能力演化路线图 双向链接 + 分工说明 | ✅ | 架构演进与工程交付计划统一收敛至本文件与 `docs/wiki/architecture/benchmark-and-evolution.md` |
 | I15 | **压测判定分三态** | 记录运行时负载，区分 `passed`/`inconclusive`/`failed` | ✅ | 此前不达标只报「失败」，无法区分「真回归」与「机器被压住」。现产物自证环境（`environment.loadavg1`/`busyRatio`）；**inconclusive 同样非零退出**；单测 5 条含反向对照 |
 | I16 | **孵化不再依赖 Docker** | `project:create` 的 PG 地址可覆盖；连不上即**中止**不产坏工程 | ✅ | 此前写死 `localhost:5433` 且**忽略环境**；实测：嵌入式 PG 下 `exit=0`、目标库真实建出；不可达时 `exit=1` 且不写 postgres 配置 |
 | I17 | **裁剪不留悬空声明** | 裁剪后重生成 wiki + 重写规模声明，产物自身 `check` 全绿 | ✅ | 实测产物的 `check` 原为 **exit=1**（374 处悬空引用：wiki 词条只写不删、llms/README 仍写「17 域/342 契约」）；现两条入口 `check=0`；wiki 生成器补陈旧清理（check 报红 / write 删除），llms 加 `--restamp` 由**同一脚本**判真值并改写 |
@@ -439,7 +439,7 @@
 | # | 不准确 | 位置 | 处理 |
 |---|---|---|---|
 | 1 | 状态文件实际是**另一个项目（DigitalStaff）**的发布/阶段真源 | `CURRENT.md`、`project-status.md` | ✅ 本轮改写为本仓真源 |
-| 2 | 声称的脚本不存在：`pnpm run api:guard`、`pnpm run git:sync` | `CURRENT.md` | ✅ 随改写移除 |
+| 2 | 历史声称的异构仓脚本不存在（`api:guard`、`git:sync`） | `CURRENT.md` | ✅ 随改写移除 |
 | 3 | 版本代号 `v1.1.0` 与实际 `1.2.0` 不符 | `project-charter.md` | ✅ 改为指向契约，不再写死 |
 | 4 | "20 道门禁"与实际不符（`check` 链 26 个步骤、契约声明 10 条 gate） | `project-charter.md`、`risk-register.md` | ✅ 改为指向真源，不写死数字 |
 | 5 | "100% 由真实数据库支撑"与 §9.4 矛盾（默认内存模式，真实库是独立入口） | `project-charter.md` | ✅ 改为如实表述 |

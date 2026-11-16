@@ -5,9 +5,11 @@ import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 const ROOT = path.resolve(__dirname, "../..")
 const FIXTURE_SPECS = path.join(ROOT, "docs", "specs", "fixture", "__skeleton_fixture__")
+const FIXTURE_FILLED = path.join(ROOT, "docs", "specs", "fixture", "__filled_fixture__")
 const FIXTURE_FEATURES = path.join(ROOT, "docs", "features", "__skeleton_fixture__")
 const cleanFixtures = () => {
   fs.rmSync(FIXTURE_SPECS, { recursive: true, force: true })
+  fs.rmSync(FIXTURE_FILLED, { recursive: true, force: true })
   fs.rmSync(FIXTURE_FEATURES, { recursive: true, force: true })
   const fixtureParent = path.dirname(FIXTURE_SPECS)
   if (fs.existsSync(fixtureParent) && fs.readdirSync(fixtureParent).length === 0) {
@@ -85,9 +87,19 @@ describe("delivery 检查器的骨架判定", () => {
   })
 
   it("已经填好的特性不被误伤", () => {
-    const out = execFileSync("node", ["scripts/check-delivery.cjs", "--feature", "ecommerce", "--json"], { cwd: ROOT, encoding: "utf8" })
-    const data = JSON.parse(out)
-    const docs = data.phases.filter((phase: { skeleton?: string }) => phase.skeleton)
-    expect(docs).toHaveLength(0)
+    fs.mkdirSync(FIXTURE_FILLED, { recursive: true })
+    fs.writeFileSync(path.join(FIXTURE_FILLED, "spec.json"), JSON.stringify({ name: "__filled_fixture__", domain: "mall", type: "feature" }, null, 2))
+    fs.writeFileSync(path.join(FIXTURE_FILLED, "requirements.md"), "# 需求说明\n\n1. **P0** 用户可完成商品下单闭环\n")
+    fs.writeFileSync(path.join(FIXTURE_FILLED, "prototype.md"), "# 原型设计\n\n已定稿页面交互线框。\n")
+    fs.writeFileSync(path.join(FIXTURE_FILLED, "design.md"), "# 架构设计\n\n## 1. 关键不变量\n\n订单金额守恒。\n")
+    fs.writeFileSync(path.join(FIXTURE_FILLED, "tasks.md"), "# 任务列表\n\n| ID | 父任务 | 说明 | 文件白名单 |\n|---|---|---|---|\n| T1 | main | 实现下单 | packages/plugins/plugin-mall/ |\n\n- [x] T1 完成\n")
+    try {
+      const out = execFileSync("node", ["scripts/check-delivery.cjs", "--feature", "__filled_fixture__", "--json"], { cwd: ROOT, encoding: "utf8" })
+      const data = JSON.parse(out)
+      const docs = data.phases.filter((phase: { skeleton?: string }) => phase.skeleton)
+      expect(docs).toHaveLength(0)
+    } finally {
+      fs.rmSync(FIXTURE_FILLED, { recursive: true, force: true })
+    }
   })
 })

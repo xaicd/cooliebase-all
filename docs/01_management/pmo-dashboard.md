@@ -1,7 +1,7 @@
 # 🧭 cooliebase-all 项目 PMO 待办与全息状态大盘 (Project PMO Dashboard)
 
 > **实时刷新命令**: `pnpm run pmo`（或 `node scripts/cmmi-01-management.cjs pmo [--write|--json]`）
-> **项目坐标**: `cooliebase-all@1.5.0` | **分支**: `main` | **HEAD**: `61b29d23 fix(standards,harness): stamp gate trace before evolution backlog and zero no-new-npm-run debt (20 hours ago)` | **工作区净度**: ⚠️ 388 处未提交变更
+> **项目坐标**: `cooliebase-all@1.5.0` | **分支**: `main` | **HEAD**: `1c8ca3fa fix(release,docs): consolidate docs/ hierarchy, remediate 5-dimension doc accuracy, and align v1.5.0 tests (0 seconds ago)` | **工作区净度**: ✅ Clean (0 dirty)
 
 ## 一、Spec-Kit 规格漏斗与 WBS 原子任务进度
 

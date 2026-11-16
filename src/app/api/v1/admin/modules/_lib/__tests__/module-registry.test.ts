@@ -13,8 +13,8 @@ import {
 describe("module-registry", () => {
   it("注册表由生成物驱动，覆盖全部可打包域", () => {
     const modules = listModules()
-    // domain-catalog 共 17 域，其中 online 为 handwritten，故不在模块注册表内
-    expect(modules.length).toBe(16)
+    // domain-catalog 共 20 域，其中 online 为 handwritten，故不在模块注册表内
+    expect(modules.length).toBe(19)
     expect(modules.every((manifest) => typeof manifest.domain === "string")).toBe(true)
     expect(modules.map((manifest) => manifest.domain)).toContain("pay")
   })

@@ -16,7 +16,7 @@ description: 生成可交互、可机器验证的架构与流程图（对标 tt-
 - **业务流程与审批流 (BPM)**：绘制泳道流程图（Lanes / Phases / Nodes）、动态加签与退回路径。
 - **数据流与对账拓扑 (Data Flow)**：绘制三方财务对账数据流、ETL 同步阶段流水。
 - **状态机生命周期 (Lifecycle)**：绘制订单状态、工单状态、插件生命周期状态流转图。
-- **OpenWiki (LLM-Wiki) 百科全景增强**：为 `wiki/domains/<domain>.md` 生成带动态交互的架构卡片。
+- **OpenWiki (LLM-Wiki) 百科全景增强**：为 `docs/wiki/domains/<domain>.md` 生成带动态交互的架构卡片。
 
 ---
 
@@ -86,7 +86,7 @@ flowchart TD
 1. **过程资产归档路径**：
    - 架构与设计图统一存放于 `docs/03_design/diagrams/<name>.arch.json`，并编译输出对应的 `<name>.arch.html`。
    - 业务特性规格图存放于 `docs/specs/<domain>/<feature>/assets/diagrams/`。
-   - OpenWiki 词条可在对应 `wiki/domains/<domain>.md` 中直接超链接挂载该交互式 HTML。
+   - OpenWiki 词条可在对应 `docs/wiki/domains/<domain>.md` 中直接超链接挂载该交互式 HTML。
 2. **防幻觉校验准则 (Anti-Hallucination Guard)**：
    - 所有 `connections` 中的 `from` 与 `to` 必须存在于 `components` 清单中，严禁未声明节点直接连线。
    - 跨域调用必须显式标注调用协议（`protocol: "rpc"` 或 `protocol: "facade"`），严禁直接连接其他域内部 Service。

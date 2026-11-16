@@ -10,14 +10,14 @@
    - 决策记录目录：`docs/01_management/dar-decision-records/` (保持留空待定制决策)
 2. **02_requirements (需求工程)**：
    - 按域隔离的规格包与基线预案：`docs/specs/<domain>/<name>/brief.json` 与 `docs/specs/_baseline/runbook.json`
-   - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（342 份 Agent 契约）
-   - 规范目录 `docs/02_requirements/` 保持留空，不伪造假需求
+   - 全域跨端契约：`packages/plugins/plugin-*/contract/` 与 `packages/domains/*/contract/`（354 份 Agent 契约）
+   - 规范目录 `docs/02_requirements/` 维护跨切面双向追溯矩阵 `rtm-traceability-matrix.md` 与 `non-functional-reqs.md`
 3. **03_design (系统与架构设计)**：
    - 架构决策记录：`docs/03_design/adr/ADR-0001-MULTI-TENANT-KYSELY-AST.md`、`ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md`
    - 交互式架构图谱：`docs/03_design/diagrams/cooliebase-architecture.arch.json` / `.arch.html` (archify 技能)
    - 数据库底座与8大审计字段：`docs/03_design/database-design-erd.md`
 4. **04_implementation (构造与编码)**：
-   - 第一方业务插件隔离：`packages/plugins/plugin-*/` (15 个业务域)
+   - 第一方业务插件隔离：`packages/plugins/plugin-*/` (18 个第一方插件域)
    - 泛型 BaseMapper/QueryWrapper 引擎：`packages/shared/backend/lib/database/`
    - 极简 Brief 声明驱动：`docs/specs/<domain>/<name>/brief.json` 与 1 Task = 1 Commit
    - 低代码系统开发使用说明书（面向 Coolie工坊与 27B 模型）：`docs/04_implementation/lowcode-system-dev-manual.md` 与 `blueprint.template.json`

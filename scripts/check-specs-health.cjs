@@ -86,6 +86,21 @@ function checkHealth() {
     errors.push(`发现重复/镜像 skills 目录: docs/skills/ —— 铁律要求唯一真源为 .agents/skills/，严禁多份目录造成认知与维护污染`)
   }
 
+  // 6. 检查根目录下是否存在平行的非标准文档目录或软链（所有文档、规格、Wiki、发布说明与审计报告一律收敛于 docs/）
+  for (const forbiddenTop of ["doc", "wiki", "openwiki", "specs", "releases"]) {
+    const p = path.join(ROOT, forbiddenTop)
+    let existsOrLink = false
+    try {
+      fs.lstatSync(p)
+      existsOrLink = true
+    } catch (_missingErr) {
+      /* 不存在即为合规 */
+    }
+    if (existsOrLink) {
+      errors.push(`根目录发现禁止的平行文档目录或软链: ${forbiddenTop} —— 规范要求文档全量收敛至 docs/（如 docs/wiki/、docs/specs/、docs/07_release/releases/、docs/audit/）`)
+    }
+  }
+
   return { errors, warnings, specCount: allSpecs.length }
 }
 

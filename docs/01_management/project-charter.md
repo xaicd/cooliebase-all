@@ -1,8 +1,8 @@
 # 项目立项与范围说明书 (Project Charter)
 
-- **项目全称**: CoolieBase-All-Next 企业级应用基座与演进底座
-- **版本代号**: 与 `packages/shared/contract/compat-manifest.json` 的 `framework.templateVersion` 对齐（**不在此处另写版本号**）
-- **生效日期**: 2026-10-09
+- **项目全称**: CoolieBase-All 企业级四位一体全栈应用基座与演进底座
+- **版本代号**: 与 `packages/shared/contract/compat-manifest.json` 的 `framework.templateVersion` 对齐（当前 `1.5.0`）
+- **更新日期**: 2026-11-16
 - **归属规范**: CMMI 01_management (PLAN / MC)
 - **配套计划**: 目标 / 路线图 / 阶段里程碑 / WBS 见 `docs/01_management/project-plan.md`
 
@@ -13,10 +13,10 @@
 传统企业级后台框架在面对现代高并发、云原生容器化、多端协同以及 AI Agent 自主研发时，存在架构过于笨重、依赖重型中间件、代码样板冗余、测试缺乏真实数据库支撑等痛点。
 
 本项目旨在打造面向未来的下一代全栈企业基座：
-1. **模块化单体与第一方插件架构**：实现 15 个业务领域（Mall, CRM, ERP, WMS, MES, BPM, Pay 等）物理与逻辑解耦，随时按需以微服务形态独立拆分；
+1. **模块化单体与第一方插件架构**：实现 20 个原生领域（2 个平台地基 `system/infra` + 18 个第一方插件 `mall, crm, erp, wms, mes, oa, hrm, fms, pms, bpm, pay, ai, iot, im, mp, member, report, online`）物理与逻辑解耦，随时按需以微服务形态独立拆分；
 2. **Schema/DSL 极简驱动与 0 样板代码**：大模型输出压缩至 <500 Tokens，由泛型 `BaseMapper<T>` 与通用引擎动态展开；
 3. **真实数据库全链路测试**：杜绝伪造假 Mock；**默认以内存模式跑全量测试**，真实数据库由独立入口 `pnpm run verify:real-db`（起库→迁移→种子→全量测试→清场）单独验证 —— 两者语义必须一致，不得用内存绿代替真实库绿；
-4. **CMMI 过程资产全生命周期可追溯**：01_management 至 09_operations 全流程 Docs-as-Code，践行 "No Artifact, No Done"。
+4. **CMMI 过程资产全生命周期可追溯**：01_management 至 09_operations 全流程 Docs-as-Code（全量文档统一收敛于 `docs/`），践行 "No Artifact, No Done"。
 
 ---
 
@@ -24,9 +24,9 @@
 
 ### 2.1 包含范围 (In-Scope)
 - **平台地基 (2 个)**：`system` (用户/角色/租户/部门/权限), `infra` (字典/配置/代码生成/审计日志)；
-- **第一方业务插件 (15 个)**：`bpm`, `pay`, `report`, `mp`, `mall`, `member`, `crm`, `erp`, `wms`, `mes`, `ai`, `iot`, `im` 等；
+- **第一方业务插件 (18 个)**：`bpm`, `pay`, `report`, `mp`, `mall`, `member`, `crm`, `erp`, `wms`, `mes`, `oa`, `hrm`, `fms`, `pms`, `ai`, `iot`, `im`, `online`；
 - **核心公共 SDK (`@cooliebase/shared`)**：多租户 AST 过滤器、8 大底座审计字段、BaseMapper/QueryWrapper、统一 Domain Facade、自研 NATS 消息语义总线；
-- **全端协同**：Expo 移动跨端客户端 (`clients/expo`)；
+- **四位一体全端协同**：Admin 运营后台 (`src/app/(admin-pages)`) + 2C 消费者门户 (`src/app/(portal-pages)`) + Expo 原生/Web 移动客户端 (`clients/expo`) + Uni-App 微信小程序与 H5 客户端 (`clients/miniapp`)；
 - **自动化质量门禁**：覆盖分层架构、契约同步、RPC 验证、本体全息、代码防手写重复、依赖 CVE、客户端构建等（**门禁清单与数量以 `compat-manifest.json` 的 `consumptionSurface.gates` 与实际 `pnpm run check` 输出为准，本文不写死数字**）；
 - **全生命周期 CMMI 过程资产**：01 立项、02 需求 (EARS)、03 架构 (MADR/Archify)、05 变异测试打假、06 质量配置审计、07 发布回滚 SOP、08 SRE 稳定性 (SLO/Blameless Postmortem/Strix 渗透)、09 持续运营 (复式记账全链路对账)。
 

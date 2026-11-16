@@ -22,7 +22,7 @@
 本基座严格区分**模板基线版本 (`templateVersion`)** 与**发布渠道标签 (Git Tag)**：
 
 - **模板版本 (`package.json.version` === `compat-manifest.json#framework.templateVersion` = `1.5.0`)**：代表下游派生工程继承的模板契约基线，两处必须始终同步。
-- **渠道里程碑标签 (Git Tags)**：包含 `v1.0.0`、`v1.1.0`、`v1.2.0`、`v1.3.0-brand-neutralized`、`v1.4.0-brand-shorthand`、`v1.5.0`（详见 `releases/v1.5.0.md`：四位一体终端 `Admin + 2C Portal + Expo App + MiniApp`、19 大企业原生业务域 `oa/hrm/fms/pms` 补齐与 `plugin-aigw` 剥离、跨底座 CLI 脚本门禁 100% 同参对齐）。渠道标签与 `templateVersion` 策略由 `pnpm run version:check` 门禁机检守护。
+- **渠道里程碑标签 (Git Tags)**：包含 `v1.0.0`、`v1.1.0`、`v1.2.0`、`v1.3.0-brand-neutralized`、`v1.4.0-brand-shorthand`、`v1.5.0`（详见 `docs/07_release/releases/v1.5.0.md`：四位一体终端 `Admin + 2C Portal + Expo App + MiniApp`、19 大企业原生业务域 `oa/hrm/fms/pms` 补齐与 `plugin-aigw` 剥离、跨底座 CLI 脚本门禁 100% 同参对齐）。渠道标签与 `templateVersion` 策略由 `pnpm run version:check` 门禁机检守护。
 
 ---
 

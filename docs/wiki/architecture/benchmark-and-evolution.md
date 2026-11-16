@@ -23,4 +23,4 @@
 - **Phase B (中期突破)**: TS 原生可逆 Saga/Workflow 引擎、可视化 Low-Code Schema 设计器、SSE 实时流、TanStack 虚拟滚动；
 - **Phase C (长期生态)**: 内置多租户 RAG 向量知识库 (sqlite-vec/pgvector)、动态第三方插件 WASM/Worker 沙箱、Expo 离线优先同步。
 
-完整技术方案请参阅：[ai-driven-full-lifecycle-governance-and-reinforcement.md](../../docs/architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md)
+完整技术方案请参阅：[ai-driven-full-lifecycle-governance-and-reinforcement.md](../../architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md)

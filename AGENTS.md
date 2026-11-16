@@ -1,6 +1,6 @@
 # cooliebase-all 开发工作手册
 
-更新时间：2026-09-02
+更新时间：2026-11-16
 
 本文件是 cooliebase-all 的独立开发规范，覆盖架构边界、研发流程、测试门禁、运行部署与交付标准。当前仓库根目录即本项目，命令均在仓库根执行。
 
@@ -9,10 +9,10 @@
 ## 🚨 Top-Priority Universal Directives (最高优先级核心工程铁律 — 所有 IDE / Agent 必读必遵)
 
 > **MANDATORY RULE 0: ZERO TOKEN WASTE, ZERO DUPLICATE CODE & TOOL-FIRST LOW-CODE ARCHITECTURE**
-> 任何 AI Agent / IDE 接入本模板与工程时，**第一优先级必须执行以下 8 项不可动摇的底线法则**：
+> 任何 AI Agent / IDE 接入本模板与工程时，**第一优先级必须执行以下 13 项不可动摇的底线法则**：
 > 1. **严禁 Token 与算力浪费 (Zero Token Waste)**：严禁大模型人肉逐行生成几百行千篇一律的重复 CRUD、样板代码、冗余 DDL 或静态 HTML 骨架；业务开发与需求实现必须采用 **Schema / DSL 极简声明式驱动**（大模型输出压缩至 <500 Tokens），由底层通用引擎自动展开！
 > 2. **架构模式极致复用 (Architectural Pattern Mastery)**：必须复用泛型 `BaseMapper<T>`、`QueryWrapper<T>`、`BaseService<T>` 与 `createBaseSchema`，自动继承多租户隔离、逻辑删除与 8 大基础审计底座字段，严禁手写重复 SQL/CRUD！
-> 3. **存量低代码工具优先 (Prioritize Existing Low-Code Tooling)**：在编写任何代码前，必须优先检索并复用模板内已有域能力、脚手架工具（`scripts/scaffold-feature`）、CRUD 生成器与内置 Skills！
+> 3. **存量低代码工具优先 (Prioritize Existing Low-Code Tooling)**：在编写任何代码前，必须优先检索并复用模板内已有域能力、脚手架工具（`scripts/scaffold-feature.ts` / `scripts/codegen-module.cjs`）、CRUD 生成器与内置 Skills！
 > 4. **缺少工具就造工具 (Build Tools When Missing)**：遇到可抽象的高频研发需求，必须优先沉淀为通用工具与生成脚本，让工具自动化执行，**绝不能重复手写无效无意义代码**！
 > 5. **开源成熟方案优先与竞品性价比选型 (Open-Source First & Best ROI Selection)**：若自研工具周期过长、复杂度高或 Token 消耗大，**严禁盲目从零造轮子**；必须优先检索开源成熟工业级方案，进行多维竞品横评并遴选出**最高性价比（ROI）与改造成本最小**的方案进行集成！
 > 6. **SpaceX 级全链路测试验证与真实数据库驱动 (SpaceX-Grade Testing & Zero Fake Mock)**：代码变更必须跑通 4 层金字塔测试矩阵（L1单测、L2集成、L3契约、L4 E2E）；100% 由真实数据库/嵌入式 SQLite 支撑，严禁前端伪造 Mock！
@@ -21,7 +21,7 @@
 > 9. **全局高阶反向思维与 AI-Driven Harness 全程监督 (High-Order Inverse Thinking & DeepSeek Harness Invariants, 详见 §23 & .agents/rules/HIGH-ORDER-INVERSE-THINKING.md)**：严禁以初级外包码农视角就事论事贴补丁；敲代码必须业务对象溯源且由通用引擎展开；写单测必须 4 态状态机真实入库覆盖与反假 Mock；修改接口必须契约先验、零破坏性变更与挂载不可变操作审计！
 > 10. **0-1 软件工程交付资产与 No Artifact, No Done 铁律 (Spec-First Artifacts, 详见 §24 & .agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md)**：严禁将上线运行期业务数据（订单数据、图纸、运营指标）当成交付资产；严禁口头声明完工；每个工单必须基于 8 要素 Brief 派发，且必须产出 7 类物理工程资产之一（SRS/RTM、OpenAPI 契约、0 报错源码、真实 DB 状态机单测报告、生产回滚 SOP、SRE 稳定性基线、持续运营对账单）！
 > 11. **单一真源与全生命周期过程资产防污染铁律 (Single Source of Truth & Anti-Pollution, 详见 §25 & docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)**：技能唯一真源为 `.agents/skills/<name>/SKILL.md`，严禁在 `docs/skills` 等建立任何重复副本；业务规格按域隔离于 `docs/specs/<domain>/<name>/`（支持 feature/bugfix/enhancement/refactor 四态）并支持自动归档；过程资产收敛于 `docs/01_management` ~ `09_operations`（含 08_sre 全栈保障与 09_operations 持续运营），执行三存三不存法则，杜绝 Git 仓库被二进制撑爆与认知污染！
-> 12. **OpenWiki (LLM-Wiki) 动态百科首屏导航 (OpenWiki First, 详见 wiki/index.md)**：任何外部 AI 助手进场时，优先阅读 `wiki/index.md` 与目标域百科 `wiki/domains/<domain>.md`，基于机器可读契约与架构词条开展工作，严禁全盘盲扫代码浪费 Token 与引起漂移！
+> 12. **OpenWiki (LLM-Wiki) 动态百科首屏导航 (OpenWiki First, 详见 docs/wiki/index.md)**：任何外部 AI 助手进场时，优先阅读 `docs/wiki/index.md` 与目标域百科 `docs/wiki/domains/<domain>.md`，基于机器可读契约与架构词条开展工作，严禁全盘盲扫代码浪费 Token 与引起漂移！
 > 13. **全能力 AI Agent 驱动公理 (All Capabilities Must Be AI Agent Driven)**：系统内的一切能力（需求立项、代码实现、API 契约、页面交互、接口运营、自动化测试、容器发版、故障自愈）必须具备 **100% 机器可读与 AI Agent 闭环驱动能力**；严禁设计仅供人类手点、无法被 AI Agent 编排或无头探针访问的孤岛能力；前端必须挂载机器可读 Page Schema，后端必须挂载 354 份 Agent 契约并支持 `pnpm run agent:ops` 无头运营，测试必须支持 Strix 多智能体自主红队渗透演练！
 
 ---
@@ -35,7 +35,7 @@
 >
 > **进场首屏双支柱定位**（详见 [`HARNESS.md`](HARNESS.md)）：
 > - **支柱一 `harness`（[`HARNESS.md`](HARNESS.md) + `scripts/harness.cjs`）= 工作流程与运行生命周期总规范**：统一管控 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver|pmo>`。
-> - **支柱二 `speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**：每个 CMMI 环节均属于 `speckit` 的文档扩展（`pnpm run speckit -- cmmi <00..09> [docs|check|asset|pmo|...]`），同时承载宏观工程文档（`docs/00_meta_standards/`~`docs/09_operations/`）与规格包阶段文档（`docs/specs/<domain>/<name>/`）。
+> - **支柱二 `speckit`（`pnpm run speckit`）+ CMMI 00~09 扩展（`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`）= 全环节工程文档与过程资产引擎**：每个 CMMI 环节均属于 `speckit` 的文档扩展（`pnpm run speckit -- cmmi <00..09> [docs|check|asset|pmo|...]`），同时承载宏观工程文档（`.specify/memory/` + `docs/01_management/`~`docs/09_operations/`）与规格包阶段文档（`docs/specs/<domain>/<name>/`）。
 
 ### 四大高频开发场景：AI Agent 打开项目后直接按场景执行
 
@@ -212,14 +212,14 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 4. 禁止在 src 下新建 backend/、frontend/、components/、lib/ 等平铺目录。
 
 > **一等公民路径别名与包规范（强制，彻底清除 modules 遗留心智污染）**：
-> - **第一方业务插件（15 个业务域）**：`@/plugins/plugin-<domain>/*`（物理位于 `packages/plugins/plugin-*`）
+> - **第一方业务插件（18 个插件域）**：`@/plugins/plugin-<domain>/*`（物理位于 `packages/plugins/plugin-*`）
 > - **平台地基（2 个平台域）**：`@/domains/<domain>/*`（`system`、`infra` 位于 `packages/domains/*`）
 > - **核心公共 SDK**：`@/shared/*`（位于 `packages/shared/*`）
 > - **历史兼容**：`tsconfig.json` 仅保留 `@/modules/*` 作为向后兼容过渡别名，**全局文档、AI 规范与新写代码严禁继续散播 `@/modules/*` 历史旧习惯**！
 5. 通用模板统一放 `packages/shared/frontend/templates`。
 6. **前端双轨页面规范（强制）**：
-   - `packages/domains/<domain>/frontend/pages/` 专用于 **Admin 运营管理端页面**；
-7. C 端与桌面壳必须落在仓库根 `clients/<channel>/`，一渠道一包；当前只保留 `expo`（其余渠道 h5/uniapp/flutter/desktop-pc 已按决策删除）。
+   - `packages/domains/<domain>/frontend/pages/` 与 `packages/plugins/plugin-<domain>/frontend/pages/` 专用于 **Admin 运营管理端页面**；
+7. C 端与移动/小程序壳必须落在仓库根 `clients/<channel>/`，一渠道一包；当前保留 `expo`（原生/Web App）与 `miniapp`（Uni-App 微信小程序与 H5），与 `src/app` 下的 Admin 后台及 `(portal-pages)` 2C 门户共同构成四位一体终端（旧实验渠道 flutter/desktop-pc 已按决策删除）。
 8. 独立客户端包内固定 `app/`、`shared/`、`modules/<domain>/`；域名与 `domain-catalog.json` 一致，禁止把新域堆进 `app`、`shared` 或根 `pages`。细则见 docs/architecture/cooliebase-all-client-channels.md。
 
 ### 3.3 可替换后端与微服务边界（强制）
@@ -261,10 +261,10 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 | 18. **变异测试**（断言杀伤力） | `pnpm run mutation:gate` | 对关键模块施加**语义突变**，必须被现有测试杀死；存活即失败（说明断言是空的）。独立 CI job：会临时改写源码并在 `finally` 还原 |
 | 19. **文档命令真实性** | `pnpm run docs:commands:check` | 文档里声称的 npm 脚本与 `scripts/` 文件必须真实存在（跳过历史/施工区）。**指向不存在的东西**与编造出处同族 |
 | 20.5. **文档声明真实性** | `pnpm run docs:claims:check` | **文档里写死的数字**（活跃规格数 / 需求日志数 / 门禁数 / MCP 工具数 / 插件数 / Skills 数 / 规范规则数）与真源逐项对照。**扫 `docs/01_management/**` + `docs/02_requirements/**` + `docs/architecture/**`**（范围窄是零误报的前提；架构文档是**写死数字最多、也最没人核对**的地方，2026-10-28 扩进去当天即抓到一处真漂移：架构文档里的 agent 契约数写着 326、实际已是 342），只认精确模式，**名词必须写全**（「契约」有两个真源：§21=340 / agent=342，只写「N 份契约」一律不检查），对标不到真源的一律不检查；**跳过历史叙述行**（含 `→` / `已修` / `不写死` 等标记）。真源缺失即报错，**不允许「找不到真源就静默通过」**。实测动机：本仓连续多轮栽在写死数字上（「活跃规格 8 份」实际 12、「门禁 13」实际 21、compat 自己的 `mcp.count` 写 17 而 tools 已 18）。反向对照：把数字改错 → exit 1 |
-| 20. **生成物路径真实性** | `pnpm run gen:paths:check` | **生成物**（`wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
+| 20. **生成物路径真实性** | `pnpm run gen:paths:check` | **生成物**（`docs/wiki/**`）引用的仓内路径必须真实存在。只查生成物：全仓文档含大量**合法**的不存在路径（反例语境/外部项目/示例），判全仓会逼出无意义豁免 |
 | 21. **契约选择器一致性** | `pnpm run agent:selectors:check` | 每份 `*.agent.json` 声明的 `page.route` 与 `page.titleSelector`，在真实页面里必须成立（无头探针靠它定位）。路由经**页面注册表**解析，不做文件名猜测 |
 | 22. **契约路由覆盖** | `pnpm run agent:routes:check` | 契约声明的每个 `methods[].path` 必须有真实路由文件且导出对应 HTTP 方法（**enforce**）；整块资源缺路由为**棘轮欠债**（基线 `agent-route-coverage-baseline.json`，实测冻结 48 个） |
-| 23. **契约域级覆盖** | `pnpm run agent:coverage:check` | `domain-catalog` 里**每个域至少 1 份 agent 契约**（棘轮冻结 `online`/`wms`/`aigw` 三个已知零覆盖域）。契约须由 codegen 产出，**手写即编造** |
+| 23. **契约域级覆盖** | `pnpm run agent:coverage:check` | `domain-catalog` 里**每个业务域至少 1 份 agent 契约**（仅豁免低代码伴生域 `online`；其余 19 域全部具备契约覆盖）。契约须由 codegen 产出，**手写即编造** |
 | 24. **生成物列覆盖** | `pnpm run repo:columns:check` | 生成仓储的列集合必须覆盖元数据、且可写列真的能落库 —— 两类**内存回退下完全不可见**的缺陷：元数据加了列生成物没跟上（真实库 NOT NULL 违约）、`WRITABLE_COLUMNS` 里的列不在 `TABLE_COLUMNS`（`dbValues()` 入库前**静默丢弃**）。 |
 | 25. **主干一致性** | `pnpm run harness:trunk:check` | `pnpm harness` 的主干表与 switch 分派一致（假广告 / 隐藏能力都拦）。实测动机：三次给新能力配平行入口而主干没同步 |
 | 25. **路由校验覆盖** | `pnpm run routes:validation:check` | AGENTS §4.1「禁止绕过 Validator 直连 Service」：**写路由且读 body 就必须接 Zod 校验**。棘轮冻结既有 794 条欠债，**只拦新增**。**顺序铁律**（RSK-013）：① `pnpm exec tsx scripts/align-validator-types.ts --domain <域> --write`（对齐**三类产物**：校验器 / DTO `types/*.ts` / 前端表单，并补齐 create schema 的可写列）→ ② `node scripts/wire-route-validators.cjs --domain <域> --write`（接线路由）→ ③ `pnpm run verify:real-db -- <插件路径>` → ④ `--write-baseline` 收紧棘轮。**①未完不要动②**：否则接线会把「今天能跑的数字输入」变成 400。 |
@@ -278,7 +278,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 
 | CMMI 阶段与宏观文档目录 (Layer A) | 特性规格阶段文档 (Layer B: `docs/specs/<域>/<名>/`) | `speckit` 扩展入口 / 统一 `.cjs` 脚本 | 标准动作与交付闭环 (`docs \| check \| asset` + 阶段动作) |
 |---|---|---|---|
-| **00 规范与元契约** (`docs/00_meta_standards`) | `spec.json` | `pnpm run speckit -- cmmi 00`<br>`scripts/cmmi-00-meta.cjs` | `docs \| check \| constitution \| schema \| sync`：校验元规范、`compat-manifest` 与蓝图 Schema |
+| **00 规范与元契约** (`.specify/memory`) | `spec.json` | `pnpm run speckit -- cmmi 00`<br>`scripts/cmmi-00-meta.cjs` | `docs \| check \| constitution \| schema \| sync`：校验元规范、`compat-manifest` 与蓝图 Schema |
 | **01 立项与沙箱孵化** (`docs/01_management`) | `selection.md`, `research.md` | `pnpm run speckit -- cmmi 01`<br>`scripts/cmmi-01-management.cjs` | `docs \| check \| asset \| init \| render`：立项/DAR 文档管理 + 零污染沙箱孵化 (`/tmp/<slug>-sandbox`) |
 | **02 需求与规格工程** (`docs/02_requirements`) | `brief.json`, `requirements.md`, `spec.md` | `pnpm run speckit -- cmmi 02`<br>`scripts/cmmi-02-requirements.cjs` | `docs \| check \| asset \| route \| new \| build`：需求分诊与 Spec-Kit EARS 规格立项展开 |
 | **03 架构设计与自愈** (`docs/03_design`) | `design.md`, `prototype.md` | `pnpm run speckit -- cmmi 03`<br>`scripts/cmmi-03-design.cjs` | `docs \| check \| asset \| doctor \| compile-domain`：ADR/ERD 文档管理 + 蓝图自愈与契约编译 |
@@ -385,16 +385,16 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 
 1. 所有 Repository 与 Service 文件，必须同时导出 **PascalCase（类名/对象）** 与 **camelCase（单例别名）**，杜绝消费端因大小写风格差异引发 Turbopack / Next.js 构建错误：
    ```ts
-   // 规范示例：aigw-usage.repository.ts
-   export const AigwUsageRepository = { ... }
-   export const aigwUsageRepository = AigwUsageRepository
+   // 规范示例：wms-warehouse.repository.ts
+   export const WmsWarehouseRepository = { ... }
+   export const wmsWarehouseRepository = WmsWarehouseRepository
    ```
 2. 模块级 `repositories/index.ts` 与 `services/index.ts` 集中重导出时，必须同时保留 PascalCase 和 camelCase 导出；
 3. 代码生成器（Codegen Engine）模板强制默认输出 camelCase 单例别名。
 
 ### 4.8 多租户隔离规范（强制）
 
-**租户来源唯一权威 = 全局上下文 `getCurrentTenantId()`**（`packages/shared/backend/lib/biz-tenant.ts`，由 `withAdminRoute` 对每个 admin 请求自动注入 `runWithTenantContext`）。禁止用"显式 tenantId 参数透传"作为长期姿势——透传断链即数据泄露，已在 aigw usages 域实证。
+**租户来源唯一权威 = 全局上下文 `getCurrentTenantId()`**（`packages/shared/backend/lib/biz-tenant.ts`，由 `withAdminRoute` 对每个 admin 请求自动注入 `runWithTenantContext`）。禁止用"显式 tenantId 参数透传"作为长期姿势——透传断链即数据泄露。
 
 1. **Repository 取租户（强制）**：所有业务表 Repository 在查询（select/update/delete）与写入（insert）时，一律从全局上下文取租户，禁止依赖调用方显式传 `tenantId` 参数。对齐 system 域先例（`user/role/post/dept.repository.ts` 的 `currentTenantId()` helper）：
    ```ts
@@ -885,7 +885,7 @@ src/app/
 
 | 模板 | 职责 | 对标 Vue3 |
 |---|---|---|
-| `api/{kebab}.api.ts` | request 封装，暴露 page/get/create/update/delete | `src/api/system/user.ts` |
+| `api/{kebab}.api.ts` | request 封装，暴露 page/get/create/update/delete | 上游 Vue3 对标概念（`api/<domain>/<entity>.ts`） |
 | `components/{ClassName}Form.tsx` | 弹窗表单（新增/编辑复用） | `views/system/user/UserForm.vue` |
 | `pages/{kebab}-list.page.tsx` | 列表页（搜索+表格+分页） | `views/system/user/index.vue` |
 
@@ -962,22 +962,18 @@ node scripts/inject-codegen-output.cjs tmp/codegen-{ClassName}
 
 | 位置 | 规模 | 性质 | 状态 |
 |---|---|---|---|
-| `plugins/plugin-aigw/` | 102 文件 / 60 条路由 / 20 个页面 | AI 网关渠道业务（企业入驻、配额、坐席、资费、分账、结算） | **已剥离**，只留核心 AI 网关（模型/渠道/令牌/用量/转发），路由 60→17 |
+| 历史越界定制插件（原 AI 网关渠道业务） | 102 文件 / 60 条路由 / 20 个页面 | 企业入驻、配额、坐席、资费、分账、结算 | **已彻底物理移除**（`v1.5.0`）：核心 OpenAI 兼容开放接口收敛至原生 `plugin-ai`，`KNOWN_CUSTOM` 历史豁免清零 |
 | `domains/system/` 的 `partner` 功能 | repository + service + route + 页面 + 种子 | 渠道合作伙伴 | **已剥离** |
 | `shared/lib/biz-data-permission.ts` | 51 行 | 业务概念（`PartnerDataScope`）混进平台数据权限模型 | **已剥离**（剥离 partner 后已无消费方） |
 | `system_tenant_package_ai_*` 三张表 | 迁移 + `schema.ts` 类型 | 租户套餐里的 AI 配额/坐席/资费 | **已剥离**：只在 `schema.ts` 声明、无任何代码查询（概念声明了但从未实现），实测空表后 DROP |
-| `aigw_carrier_agent` / `aigw_isv_app` / `aigw_mcp_asset` / `aigw_member_allocation` / `aigw_tenant_quota_ledger` | 迁移（含种子）+ 已删的仓储 | 渠道/ISV/MCP 资产/席位分配 | **已剥离**（DROP；其中 3 张的 5 行种子随表删除，未改写历史迁移） |
+| 历史渠道/ISV/MCP 资产/席位分配 5 张表 | 迁移（含种子）+ 已删的仓储 | 渠道/ISV/MCP 资产/席位分配 | **已剥离**（DROP；其中 3 张的 5 行种子随表删除，未改写历史迁移） |
 
 判定依据不是"看着像业务"，而是业务词汇在**原生域**中的分布（渠道/代理/佣金/推广码/
-算力/坐席/资费/入驻企业）——`plugin-aigw` 命中 16 个文件，`system` 命中 4 个，
-而原生域（user/role/menu/dept/post/dict/config/notice/log）一个都不该有。
+算力/坐席/资费/入驻企业）——原生域（user/role/menu/dept/post/dict/config/notice/log）一个都不该有。
 
 **剥离它们不是重命名，是一次产品级搬迁**：表、路由、页面、菜单、权限码要一起挪到
 业务工程，并保持 API 契约不变（§17.2 的五要素清单就是为此设计的）。
-在搬迁完成前，`aigw` 在规则里显式列为已知越界；**新增越界会直接失败**。
-
-> 注意区分：`§2` 的原生域清单里的 `ai` 是原生域；`aigw`（AI 网关 + 渠道/分账）不是。
-> 二者名字相近，不要因为"看起来像同一类"就放行。
+目前历史定制越界已 100% 清零（`KNOWN_CUSTOM` 为空集合）；**任何新增非原生定制域会由 `base-native-domain-boundary` 直接判红拦截**。
 
 #### 17.4 移植合规门禁三步法
 ```bash
@@ -1044,7 +1040,7 @@ Cordis · Agent Loop · Session Log · 事件瀑布 · `ctx.*` 注册/scope/effe
   - **测试层**：必须复用 `TestingKit` 与 4 层金字塔自动化脚手架，严禁复制粘贴重复的 Mock 环境初始化逻辑；
   - **微服务与跨域**：跨域调用统一走 `Domain Facade` 与自研服务总线，严禁破坏模块隔离；
 - **存量低代码工具优先 (Prioritize Existing Low-Code Tooling)**：
-  - 在编写任何新业务代码前，必须先检索并优先使用模板内已有域能力、脚手架工具（`scripts/scaffold-feature`）、CRUD 生成器与内置 Skills；
+  - 在编写任何新业务代码前，必须先检索并优先使用模板内已有域能力、脚手架工具（`scripts/scaffold-feature.ts` / `scripts/codegen-module.cjs`）、CRUD 生成器与内置 Skills；
 - **缺少工具就造工具 (Build Tools When Missing)**：
   - 遇到可抽象的高频业务或研发需求，必须优先沉淀为通用工具与生成脚本，让工具自动化执行，**绝不能重复手写无效、低效、无意义代码**；
   - 沉淀的高价值工具必须结晶沉淀为标准资产，实现“一次造工具，后续业务开发永久受益”；

@@ -1,15 +1,15 @@
 # cooliebase-all
 
-[![Version](https://img.shields.io/badge/version-1.1.0-blue.svg)](https://github.com/xaicd/cooliebase-all/releases/tag/v1.1.0)
+[![Version](https://img.shields.io/badge/version-1.5.0-blue.svg)](https://github.com/xaicd/cooliebase-all/releases/tag/v1.5.0)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 [![CMMI 01-09](https://img.shields.io/badge/CMMI-01~09%20Full--Lifecycle-green.svg)](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
-[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-36%20Native%20Skills-purple.svg)](.agents/skills/README.md)
+[![Agent Skills](https://img.shields.io/badge/Agent%20Skills-38%20Native%20Skills-purple.svg)](.agents/skills/README.md)
 [![Testing: SpaceX-Grade](https://img.shields.io/badge/Testing-SpaceX--Grade%20Real%20DB-orange.svg)](test/integration/)
-[![OpenWiki](https://img.shields.io/badge/LLM--Wiki-RFC%208615-success.svg)](wiki/index.md)
+[![OpenWiki](https://img.shields.io/badge/LLM--Wiki-RFC%208615-success.svg)](docs/wiki/index.md)
 
 > 🤖 **AI-Agent-First 架构宣言与机器契约 (For Autonomous AI Agents & DigitalStaff NPCs)**:  
-> 本工程是专为自主 AI Coding Agent（Cursor、Windsurf、Claude Code、Devin、Coolie、DigitalStaff NPC 等）构建的 **AI 原生商业软件工程工作区底座 (Enterprise AI-Native Workspace Bundle)**。  
-> **核心铁律 0 (Zero Token Waste)**：业务开发强制采用 **Schema / DSL 极简声明式驱动**（上下文压缩至 <500 Tokens），由通用底层引擎自动展开。以 CMMI 01~09 全生命周期工程规范、36 大工业级原生技能、354 份机器可读契约与真实数据库驱动验证为基石，彻底终结传统大模型“临场手写低质 CRUD、伪造假 Mock、文档口径漂移”的痛点！
+> 本工程是专为自主 AI Coding Agent（Cursor、Windsurf、Claude Code、Devin、Coolie、DigitalStaff NPC 等）构建的 **AI 原生商业软件工程工作区底座 (Enterprise AI-Native Quad-Terminal Workspace Bundle)**。  
+> **核心铁律 0 (Zero Token Waste)**：业务开发强制采用 **Schema / DSL 极简声明式驱动**（上下文压缩至 <500 Tokens），由通用底层引擎自动展开。以 CMMI 01~09 全生命周期工程规范、38 大工业级原生技能、四位一体终端（Admin + 2C 门户 + Expo App + Uni-App 微信小程序/H5）、354 份机器可读契约与真实数据库驱动验证为基石，彻底终结传统大模型“临场手写低质 CRUD、伪造假 Mock、文档口径漂移”的痛点！
 
 ---
 
@@ -17,7 +17,7 @@
 
 ```mermaid
 flowchart TD
-    subgraph P1 ["1. CMMI 01~09 技能矩阵 (36 Native Skills)"]
+    subgraph P1 ["1. CMMI 01~09 技能矩阵 (38 Native Skills)"]
         S1["DAR 决策分析 / EARS 规格"]
         S2["Archify (47k★) / MADR 架构"]
         S3["Stryker 变异打假 / Google SRE"]
@@ -30,12 +30,12 @@ flowchart TD
     end
     subgraph P3 ["3. OpenWiki 全息本体知识库 (RFC 8615)"]
         W1["354 份机器可读强类型契约"]
-        W2["17 领域全息 Seam 图谱动态编译"]
+        W2["20 领域全息 Seam 图谱动态编译"]
         W3["上下文 Token 消耗直降 80%"]
     end
-    subgraph P4 ["4. 插件化单体与微服务平滑演进"]
-        M1["17 原生域第一方插件隔离"]
-        M2["单体内存 SDK / 远程 RPC 双模切换"]
+    subgraph P4 ["4. 四位一体终端与插件化微服务演进"]
+        M1["20 原生域 (2 平台地基 + 18 第一方插件)"]
+        M2["Admin + 2C + Expo + MiniApp 四端协同"]
         M3["版本化 /api/v{n}/ 契约零破坏"]
     end
     P1 --> Foundation["cooliebase-all: 工业级 AI 原生商业软件底座"]
@@ -44,7 +44,7 @@ flowchart TD
     P4 --> Foundation
 ```
 
-### 1. CMMI 01~09 全生命周期 36 大工业级 Agent 技能矩阵
+### 1. CMMI 01~09 全生命周期 38 大工业级 Agent 技能矩阵
 全仓技能收敛于 [`.agents/skills/`](.agents/skills/) 单一真源，实现全工序确定性工具驱动：
 - **01_management (立项与决策)**: `dar-decision-matrix` (CMMI DAR 加权权衡打分与敏感度分析)、`project-init`、`agent-harness`；
 - **02_requirements (需求工程)**: `ears-spec-writer` (IEEE 29148 / EARS 5 态无歧义需求规格)、`product-requirements`；
@@ -62,11 +62,12 @@ flowchart TD
 - **Kysely AST 租户行级物理穿透防线**：在 SQL AST 编译层自动挂载租户上下文，杜绝跨租户数据泄露。
 
 ### 3. OpenWiki 动态全息本体知识库与机器契约 (RFC 8615 & LLM-Wiki)
-- 自动提取 17 领域元数据、跨域 Seam 图谱与 354 份机器可读契约，编译生成 30 篇高内聚动态维基百科（[`wiki/`](wiki/index.md)）；
+- 自动提取 20 领域元数据、跨域 Seam 图谱与 354 份机器可读契约，编译生成高内聚动态维基百科（[`docs/wiki/`](docs/wiki/index.md)）；
 - 挂载 `gen:paths:check` 与 `llms:check` 进入全仓自动化门禁，消除文档口径打架，AI 进场 Token 消耗直降 80%。
 
 ### 4. 高可拔插第一方插件架构与微服务平滑演进 (Dual-Mode Evolution)
-- 平台地基（`system`、`infra`）与 15 个业务域（`mall`、`pay`、`crm`、`erp`、`bpm`、`wms`、`mes` 等）采用第一方插件化彻底物理隔离；
+- 平台地基（`system`、`infra`）与 18 个第一方插件域（`mall`、`pay`、`crm`、`erp`、`bpm`、`wms`、`mes`、`oa`、`hrm`、`fms`、`pms`、`ai`、`iot`、`im`、`mp`、`member`、`report`、`online`）物理隔离；
+- **四位一体终端**：Admin 运营后台 (`src/app/(admin-pages)`) + 2C 消费者门户 (`src/app/(portal-pages)`) + Expo 原生/Web App (`clients/expo`) + Uni-App 微信小程序/H5 (`clients/miniapp`)；
 - **单体/微服务双模无缝切换**：同进程打包时走内存 SDK 直接调用，微服务独立部署时平滑切换为自研 NATS/gRPC RPC，对外 HTTP API 保持完全一致。
 
 ---
@@ -151,8 +152,8 @@ Cursor、Windsurf、Claude Code、Cline 等 MCP 兼容客户端，可在其配�
 | 契约端点 (Machine-Readable Endpoints) | 规范标准 | 核心价值 / Agent 消费场景 |
 |---|---|---|
 | [`llms.txt`](llms.txt) | LLMs.txt RFC | 专为大模型量身定制的高密度架构全景与执行导航（<15KB） |
-| [`wiki/index.md`](wiki/index.md) | OpenWiki 标准 | 专供 AI Agent 消费的高内聚动态全息架构与 17 领域维基百科 |
-| [`compat-manifest.json`](compat-manifest.json) | 机器特征契约 | 17 域能力画像、38 个技能、全量 API 路由与 RPC action 元数据 |
+| [`docs/wiki/index.md`](docs/wiki/index.md) | OpenWiki 标准 | 专供 AI Agent 消费的高内聚动态全息架构与 20 领域维基百科 |
+| [`compat-manifest.json`](compat-manifest.json) | 机器特征契约 | 20 域能力画像、38 个技能、全量 API 路由与 RPC action 元数据 |
 | [`agent-profile.json`](agent-profile.json) | DigitalStaff 规范 | AI 智能体画像、NPC L0~L8 角色映射、18 大内置 MCP 工具定义 |
 | [`.well-known/agent.json`](.well-known/agent.json) | RFC 8615 行业标准 | 开放标准化 Agent 发现协议，第三方智能体（如 Coolie）可自动化握手 |
 
@@ -179,7 +180,7 @@ cooliebase-all/
 │   │   ├── system/                   # RBAC、用户、角色、租户、权限、数据字典
 │   │   └── infra/                    # 配置、定时调度、文件存储、低代码生成引擎
 │   │
-│   └── plugins/                      # 15 个第一方可插拔业务域 (独立生命周期、可独立打包)
+│   └── plugins/                      # 18 个第一方可插拔业务域 (独立生命周期、可独立打包)
 │       ├── plugin-bpm/               # 工作流中心
 │       ├── plugin-pay/               # 支付与退款网关
 │       ├── plugin-mall/              # 数字化商城
@@ -187,11 +188,16 @@ cooliebase-all/
 │       ├── plugin-erp/               # 进销存与经营中台
 │       ├── plugin-wms/               # 智能仓储
 │       ├── plugin-mes/               # 制造执行系统
-│       ├── plugin-ai/                # 大模型中台与网关
-│       └── ...                       # report, mp, member, iot, im 等
+│       ├── plugin-oa/                # 协同办公 (通知公告/考勤打卡/请假用印)
+│       ├── plugin-hrm/               # 人力资源 (员工档案/岗位编制/薪资核算)
+│       ├── plugin-fms/               # 财务资金 (资金账户/收支凭证/对账结算)
+│       ├── plugin-pms/               # 项目管理 (项目台账/里程碑节点/任务工时)
+│       ├── plugin-ai/                # 大模型中台与开放网关
+│       └── ...                       # report, mp, member, iot, im, online
 │
-├── src/app/                          # BFF 薄接入层 (API Routes / Proxy / Admin 运营后台页面)
-└── clients/expo/                     # 跨端移动与 C 端应用壳
+├── src/app/                          # BFF 薄接入层 (API Routes / Admin 运营后台 / (portal-pages) 2C 门户)
+├── clients/expo/                     # Expo 跨端原生 App 与 Web 预览客户端
+└── clients/miniapp/                  # Uni-App Vue 3 微信小程序与 H5 客户端
 ```
 
 ### 🚨 跨域调用三原则（门禁强校验）：
@@ -237,7 +243,7 @@ cooliebase-all/
 |---|---|---|
 | **工程初始化** | `pnpm run project:init` | 交互式/参数化重构品牌、初始化真实本地 SQLite 数据库 |
 | **契约同步** | `pnpm run contracts:sync` | 自动同步 `compat-manifest.json`、`agent-profile.json` 等端点 |
-| **OpenWiki 路径守卫** | `pnpm run gen:paths:check` | 校验 `wiki/` 架构与业务维基词条路径真实性及陈旧词条清理 |
+| **OpenWiki 路径守卫** | `pnpm run gen:paths:check` | 校验 `docs/wiki/` 架构与业务维基词条路径真实性及陈旧词条清理 |
 | **全量门禁总检** | `pnpm run check` | 严格检验 20 道工程标准（包含跨域隔离、路由规范、微服务边界） |
 | **真实数据库测试**| `pnpm run test:matrix` | 运行真实数据库驱动的所有单元与集成测试（零假 Mock、CAS 验证） |
 | **平台登录冒烟** | `pnpm run smoke:login` | 全流程真实数据库建库、迁移、种子、启动并校验超级管理员登录。**本机零容器可跑**（嵌入式 Postgres） |
@@ -264,7 +270,7 @@ cooliebase-all/
 
 ## 📚 延伸架构文档导航
 
-- [OpenWiki (LLM-Wiki) 动态百科全景](wiki/index.md)
+- [OpenWiki (LLM-Wiki) 动态百科全景](docs/wiki/index.md)
 - [CMMI 过程资产与交付标准手册](docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)
 - [CMMI 01~09 全生命周期顶级技能分配矩阵](.agents/skills/README.md)
 - [AI 全链路交付工厂与工单规范](docs/architecture/ai-agent-driven-delivery-workflow.md)

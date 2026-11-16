@@ -1,9 +1,9 @@
 # cooliebase-all: Complete Engineering Specification & Operational Manual
 # (For Long-Context LLMs & Autonomous Coding Agents)
 
-> Version: 2026.10-V1  
-> Architecture: Next.js 16 + React 19 + TypeScript 5 + SQLite (Kysely) / PostgreSQL (Prisma 7)  
-> Workspace Mode: AI-Native Workspace Bundle & Modular Monolith with Progressive Microservice Evolution  
+> Version: 1.5.0  
+> Architecture: Next.js 16 + React 19 + TypeScript 5 + Expo + Uni-App Vue 3 + SQLite (Kysely) / PostgreSQL (Prisma 7)  
+> Workspace Mode: AI-Native Quad-Terminal Workspace Bundle & Modular Monolith with Progressive Microservice Evolution  
 
 ---
 
@@ -16,7 +16,7 @@
    - 业务数据访问强制继承 `BaseMapper<T>`、`QueryWrapper<T>`、`BaseService<T>` 与 `createBaseSchema`。
    - 自动继承多租户隔离、逻辑删除、8 大基础审计底座字段（`creator`, `create_time`, `updater`, `update_time`, `deleted`, `tenant_id`, etc.），严禁手写重复 SQL。
 3. **Prioritize Existing Low-Code Tooling (存量工具优先)**:
-   - 优先复用本底座脚手架 (`scripts/scaffold-feature`、`scripts/project-init.cjs`、`scripts/hatch.sh`)。
+   - 优先复用本底座脚手架 (`scripts/scaffold-feature.ts`、`scripts/codegen-module.cjs`、`scripts/project-init.cjs`、`scripts/hatch.sh`)。
 4. **SpaceX-Grade Testing & Zero Fake Mock (真实数据库驱动)**:
    - 代码变更必须跑通 4 层金字塔测试矩阵（L1 单测、L2 集成、L3 契约、L4 E2E）。
    - 100% 由真实本地 SQLite / PostgreSQL 数据库支撑，严禁编写仅在前端伪造假 Mock 的假测试。
@@ -48,7 +48,7 @@
 │   │   ├── system/                   # RBAC、用户、角色、租户、部门、字典、认证鉴权
 │   │   └── infra/                    # 系统配置、定时任务、文件存储、低代码生成引擎
 │   │
-│   └── plugins/                      # 15 个第一方可插拔业务域（插件化生命周期，支持独立打包）
+│   └── plugins/                      # 18 个第一方可插拔业务域（插件化生命周期，支持独立打包）
 │       ├── plugin-bpm/               # 流程审批中心
 │       ├── plugin-pay/               # 支付通道与退款
 │       ├── plugin-mall/              # 数字化商城系统
@@ -56,20 +56,27 @@
 │       ├── plugin-erp/               # 经营中台与进销存
 │       ├── plugin-wms/               # 仓储管理中心
 │       ├── plugin-mes/               # 制造执行系统
-│       ├── plugin-ai/                # 大模型中台与网关
+│       ├── plugin-oa/                # 协同办公中心（公告/考勤/请假用印）
+│       ├── plugin-hrm/               # 人力资源中心（员工/岗位/薪资核算）
+│       ├── plugin-fms/               # 财务资金中心（账户/收支凭证/对账结算）
+│       ├── plugin-pms/               # 项目管理中心（项目/里程碑/任务工时）
+│       ├── plugin-ai/                # 大模型中台与开放网关
 │       ├── plugin-report/            # 商业智能报表
 │       ├── plugin-mp/                # 微信公众号中台
 │       ├── plugin-member/            # 会员中心
 │       ├── plugin-iot/               # 物联网中心
-│       └── plugin-im/                # 即时通讯中心
+│       ├── plugin-im/                # 即时通讯中心
+│       └── plugin-online/            # 低代码在线开发中心
 │
-├── src/app/                          # Next.js BFF 路由薄壳与 Admin 页面入口
+├── src/app/                          # Next.js BFF 路由薄壳、Admin 运营后台与 2C 门户入口
 │   ├── api/v1/admin/                 # 管理后台 REST API
 │   ├── (admin-pages)/admin/          # 管理后台前端页面
+│   ├── (portal-pages)/               # 2C 消费者门户前端页面
 │   ├── login/                        # 动态管理员登录页面
 │   └── proxy.ts                      # 反向代理与微服务上游调度网关
 │
-├── clients/expo/                     # 跨端移动应用渠道
+├── clients/expo/                     # Expo 跨端原生移动应用与 Web 预览渠道
+├── clients/miniapp/                  # Uni-App Vue 3 微信小程序与 H5 渠道
 ├── docs/                             # 规范与过程资产（01_management~09_operations, specs/<domain>/<name>）
 ├── scripts/                          # 脚手架与门禁（scaffold, project-init, check, hatch, mcp）
 └── data/                             # 真实本地数据库存储（data/cooliebase.db）
@@ -96,13 +103,16 @@
 | `erp` | plugin | Purchase, Sale, Stock, Finance | `erpFacade` | 是 |
 | `wms` | plugin | Warehouse, Area, Inbound, Outbound | `wmsFacade` | 是 |
 | `mes` | plugin | WorkOrder, Route, Plan, QC | `mesFacade` | 是 |
-| `ai` | plugin | Chat, Model, Prompt, Knowledge | `aiFacade` | 是 |
+| `oa` | plugin | OaNotice, OaAttendance, OaLeaveApply | `oaFacade` | 是 |
+| `hrm` | plugin | HrmEmployee, HrmPosition, HrmPayroll | `hrmFacade` | 是 |
+| `fms` | plugin | FmsAccount, FmsVoucher, FmsReconcile | `fmsFacade` | 是 |
+| `pms` | plugin | PmsProject, PmsMilestone, PmsTimesheet | `pmsFacade` | 是 |
+| `ai` | plugin | Chat, Model, Prompt, Knowledge, ApiKey | `aiFacade` | 是 |
 | `iot` | plugin | Device, Product, Alert, Rule | `iotFacade` | 是 |
 | `im` | plugin | Message, Conversation, Friend, Group | `imFacade` | 是 |
 | `mp` | plugin | Account, Tag, User, Message, Menu | `mpFacade` | 是 |
 | `report` | plugin | GovReport, Analytics, Screen | `reportFacade` | 是 |
-| `online` | platform/domain | Form, Table, DynamicEntity | `onlineFacade` | 否 |
-| `aigw` | platform/domain | Token, Relay, Usage | `aigwFacade` | 否 |
+| `online` | plugin | Form, Table, DynamicEntity | `onlineFacade` | 否（平台低代码伴生） |
 
 ---
 
@@ -125,7 +135,7 @@
 ## 5. 10 大 SpaceX 级质量门禁 (`pnpm run check`)
 
 每次代码交付前，必须保证 `pnpm run check` 退出码为 0：
-1. **Engineering Standards Check**: 规范分层、禁止 `src/modules` 遗留目录、检查导出大小写别名（PascalCase + camelCase）。
+1. **Engineering Standards Check**: 规范分层、禁止历史遗留平铺模块目录、检查导出大小写别名（PascalCase + camelCase）。
 2. **Microservice Boundaries**: 拦截跨域直接 import，校验 Domain Facade 与 Broker Subject 契约。
 3. **Harness Invariants**: 检查 AI-Driven 流程完整性，确保任务白名单与提交痕迹对齐。
 4. **Route Handlers**: 校验所有 Next.js API Routes 具备 Validator，统一错误响应语义。

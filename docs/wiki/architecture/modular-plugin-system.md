@@ -15,7 +15,7 @@ packages/
 ├── domains/                  # 平台地基 (永不插件化: system, infra)
 │   ├── system/
 │   └── infra/
-└── plugins/                  # 15 个第一方业务插件
+└── plugins/                  # 18 个第一方插件域 (含 oa/hrm/fms/pms/online)
     ├── plugin-wms/
     ├── plugin-mall/
     └── ...

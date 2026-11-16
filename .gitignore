@@ -236,3 +236,10 @@ test-results/
 logs/
 
 docs/architecture/artifacts/agent-autopilot-heartbeat.json
+
+# 严禁在根目录生成非 docs/ 平行文档目录（统一收敛至 docs/wiki、docs/specs、docs/07_release/releases、docs/audit）
+/doc/
+/wiki/
+/openwiki
+/specs
+/releases/

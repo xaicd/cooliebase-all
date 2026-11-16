@@ -1,8 +1,8 @@
-# ADR-0002: 采用第一方业务插件架构解耦 15 个业务领域
+# ADR-0002: 采用第一方业务插件架构解耦全部可插拔业务领域
 
-- **状态**: ACCEPTED <!-- PROPOSED | ACCEPTED | REJECTED | SUPERSEDED | DEPRECATED -->
+- **状态**: ACCEPTED（2026-11-16 `v1.5.0` 演进更新：已扩展至 **18 个第一方插件**，新增 `oa/hrm/fms/pms` 并剥离非原生垂直定制插件）
 - **决策人**: @architect-team
-- **决策日期**: 2026-09-02
+- **决策日期**: 2026-09-02（最后复核：2026-11-16）
 - **关联需求/DAR**: DAR-20260828-PLUGIN-ARCHITECTURE, REQ-SYS-PLUGIN-001
 - **归属规范**: CMMI 03_design (TS) / `.agents/skills/adr-architect`
 

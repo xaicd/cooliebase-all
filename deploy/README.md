@@ -12,13 +12,13 @@
 
 ### 域独立部署
 
-页面仍走 BFF（`:3100`）。某个域设置 `COOLIEBASE_DOMAIN_<NAME>_UPSTREAM` 后，对应 `/api/v1/**/<domain>` 由该域独立镜像承接。
+页面仍走 BFF（宿主机 `pnpm run dev` 默认 `:3200`，Docker Compose 默认映射 `:3100`）。某个域设置 `COOLIEBASE_DOMAIN_<NAME>_UPSTREAM` 后，对应 `/api/v1/**/<domain>` 由该域独立进程/镜像承接。
 
 ```bash
 # 查看可打包域
 pnpm run domain:list
 
-# 本地拆出 pay：BFF 3100 + pay 3214
+# 本地拆出 pay：BFF 3200 + pay 3214
 pnpm run domain:dev -- pay
 COOLIEBASE_DOMAIN_PAY_UPSTREAM=http://127.0.0.1:3214 pnpm run dev
 

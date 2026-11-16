@@ -45,7 +45,7 @@ describe("docs:claims 对 docs/architecture 的管辖", () => {
       fs.writeFileSync(PROBE, ["# 探针文档", "", "本基座自动读取 999 份 agent 契约。", ""].join("\n"))
       const r = runGate()
       expect(r.code, "架构文档里的假数字必须被拦下，否则扩扫描面只是摆设").toBe(1)
-      expect(r.out, "报错里应当说明真值是多少").toContain("342")
+      expect(r.out, "报错里应当说明真值是多少").toContain("354")
     } finally {
       fs.rmSync(PROBE, { force: true })
     }

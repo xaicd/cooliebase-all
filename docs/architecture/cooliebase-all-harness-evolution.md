@@ -67,12 +67,12 @@ pnpm run project:create -- <路径> --profile vertical --bundle mall,crm
 
 | Profile | 包含 | 适用 |
 |---|---|---|
-| `minimal` | shared + system + infra + 伴生域 `online/ai/aigw` | 空业务、只改身份 |
-| `standard` | catalog 全部原生业务域 + 客户端 | 全能力演示 / 数字工厂默认模板 |
+| `minimal` | shared + system + infra + 伴生域 `online/ai` | 空业务、只改身份 |
+| `standard` | catalog 全部 20 个原生域 + 四端客户端 | 全能力演示 / 数字工厂默认模板 |
 | `vertical` | minimal + `--bundle` 白名单 | NPC 按本体域孵化 |
 | `creator` | 等同 standard | 低代码与代码生成并存 |
 
-`online/ai/aigw` 是 **平台伴生域**：system 菜单目录与 infra codegen 通过 Facade 依赖它们，P1 不能从 minimal 裁掉。Prisma 迁移仍部署全量基座表；裁剪的是代码目录与 catalog 发现面。产物：`packages/shared/contract/hatch-manifest.json`。
+`online/ai` 是 **平台伴生域**：system 菜单目录与 infra codegen 通过 Facade 依赖它们，P1 不能从 minimal 裁掉（原垂直定制伴生项已在 `v1.5.0` 彻底剥离清零）。Prisma 迁移仍部署全量基座表；裁剪的是代码目录与 catalog 发现面。产物：`packages/shared/contract/hatch-manifest.json`。
 
 身份补丁只允许改 `project-profile.json` 与 `public/branding/`，禁止改权限语义、RPC subject、租户隔离规则。
 
@@ -136,7 +136,7 @@ NPC 角色与 Skill 映射（DigitalStaff L0–L8 对基座 Skill；真源在本
 | 批次 | 目标 | 验收 |
 |---|---|---|
 | **P0** | 契约 + 分段 + Skill + 文档 | 已落地 |
-| **P1** | `project:create --profile/--bundle` | 已落地：可孵出 minimal（保留 online/ai/aigw 伴生域） |
+| **P1** | `project:create --profile/--bundle` | 已落地：可孵出 minimal（保留 `online/ai` 伴生域） |
 | **P2** | 由 catalog + contract 生成 seam 图 | 已落地：`pnpm run domain:seams`，`domain:check` 禁止漂移 |
 | **P3** | Agent 动作轨迹与 sprint-prod / check 产物对齐 | 已落地（本仓）：`pnpm run check` 写 `harness-trace-latest.json`；会话事件仍归 DigitalStaff |
 | **P4** | DigitalStaff Native 读取本仓库 `agent-profile.json` 作为 workspace plugin | A1–A4 已在 DigitalStaff 落地；A5 技能映射真源在 `npc.layers` |

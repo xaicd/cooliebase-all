@@ -81,7 +81,7 @@ function main() {
   if (fs.existsSync(compatManifest)) {
     fs.copyFileSync(compatManifest, path.join(DIST_ASSETS, "compat-manifest.json"))
   }
-  const releaseMd = path.join(ROOT, "releases", `${tag}.md`)
+  const releaseMd = path.join(ROOT, "docs", "07_release", "releases", `${tag}.md`)
   if (fs.existsSync(releaseMd)) {
     fs.copyFileSync(releaseMd, path.join(DIST_ASSETS, `RELEASE-${tag}.md`))
   }

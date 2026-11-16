@@ -8,7 +8,7 @@ import { describe, expect, it } from "vitest"
 const ROOT = fileURLToPath(new URL("../..", import.meta.url))
 const GATE = "scripts/check-generated-paths.cjs"
 // 探针必须落在**生成物**范围内（wiki/**），且必须是已跟踪文件 —— 门禁只扫这些。
-const HOST = path.join(ROOT, "wiki", "cmmi", "cmmi-lifecycle.md")
+const HOST = path.join(ROOT, "docs", "wiki", "cmmi", "cmmi-lifecycle.md")
 
 function runGate(): { status: number; stdout: string; stderr: string } {
   try {

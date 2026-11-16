@@ -18,11 +18,11 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 |---|---|
 | `src/app/` | Next App Router。路由组：`(admin-pages)/`(B 端后台)、`(portal-pages)/`(C 端门户)；`api/v1/...`(路由处理器，`admin/*` 写、`open/*` 公开读)；`login/`、`healthz/`、`readyz/`。**`src/` 下只允许 `app/` 与 `proxy.ts`**（§3.2）。 |
 | `packages/domains/` | 平台地基 `system` / `infra`（2 个，**永不插件化**）。 |
-| `packages/plugins/` | ⭐ **15 个第一方业务插件**（`plugin-<域>`）；业务域代码一律在这里，**不要写 `packages/domains/<域>`**（见 §2）。 |
+| `packages/plugins/` | ⭐ **18 个第一方插件**（`plugin-<域>`，含 `oa`/`hrm`/`fms`/`pms` 与 `online`）；业务域代码一律在这里，**不要写 `packages/domains/<域>`**（见 §2）。 |
 | `packages/shared/` | 核心基础 SDK（**不是域**）：鉴权、总线、Kysely 引擎、契约基座。 |
-| `clients/` | 多端脚手架子工程：**当前只保留 `expo/`**（RN，Schema 驱动，可 web-export 预览）。h5/uniapp/flutter/desktop-pc 已按决策删除。 |
-| `scripts/` | 103 个构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)、`check-*.cjs`(门禁)。 |
-| `docs/` | `01_management`~`09_operations`(**CMMI 全生命周期过程资产**) · `architecture/`(架构文档 + 本页) · `features/`(需求与施工日志) · `guides/` · `specs/<域>/<名>/`(规格真源) · `agent/`。**`docs/skills/` 被禁止**（技能唯一真源是 `.agents/skills/<name>/SKILL.md`，§25）。 |
+| `clients/` | 独立客户端子工程：**`expo/`**（React Native / Web 导出预览）与 **`miniapp/`**（Uni-App Vue 3 微信小程序与 H5），与 `src/app` 下的 Admin 及 2C 门户构成四位一体终端。 |
+| `scripts/` | 构建/脚手架/治理脚本。关键：`bootstrap-sqlite.ts`(零配置建库)、`scaffold-feature.ts` / `codegen-module.cjs`(域脚手架)、`pack-domain.cjs`/`domain-up.cjs`(域打包/拆分运行)、`check-*.cjs`(门禁)。 |
+| `docs/` | **全仓唯一文档根**：`01_management`~`09_operations`(**CMMI 全生命周期过程资产**，含 `07_release/releases/`) · `wiki/`(**OpenWiki 知识大脑**) · `audit/`(专项审计报告) · `architecture/`(架构文档 + 本页) · `guides/` · `ontology/` · `specs/<域>/<名>/`(规格真源) · `agent/`。**`docs/skills/` 与根级平行文档目录被严格禁止**（技能唯一真源是 `.agents/skills/<name>/SKILL.md`，§25）。 |
 | `.agents/` | `context/`(`IDENTITY.md`/`SOUL.md`/`ASSEMBLY.md` 分段装配顺序) + `rules/` + `workflows/` + `commands/` + `skills/`(**38 个可执行 SKILL.md**，唯一真源)。 |
 | `.kiro/` | `steering/`（`plugin-domain-structure.md` 权威模块布局、`feature-scaffold.md` 指针、`ui-ux-pro-max/` 视觉检索技能）+ `workflows/`（桥接 `.agents/workflows/`）。 |
 | `prisma/` | `schema.prisma`(含 `member_user.extra_fields Json?`) + migrations。 |
@@ -40,22 +40,23 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 **分层（来自 domain-catalog.json）**：
 - `foundation`：`shared`（打进每个进程的运行时 SDK，**永不做微服务、永不 RPC**，`facadeRequired`）。
 - `platform`：`system`、`infra`（可部署，默认与 BFF 同置）。
-- `business`：`online` `bpm` `pay` `report` `mp` `mall` `member` `crm` `erp` `wms` `mes` `ai` `aigw` `iot` `im`。
+- `plugin`（18 个第一方插件域）：`online` `bpm` `pay` `report` `mp` `mall` `member` `crm` `erp` `wms` `mes` `oa` `hrm` `fms` `pms` `ai` `iot` `im`。
 
-**18 模块人读索引**（每域布局遵循三件套 `contract/` · `backend/` · `frontend/`；成熟域再加 `repositories/`、`lib/`、`adapters/{persistence,transport}`、`ports/`、`application/`）：
+**21 模块（20 域 + shared SDK）人读索引**（每域布局遵循三件套 `contract/` · `backend/` · `frontend/`；成熟域再加 `repositories/`、`lib/`、`adapters/{persistence,transport}`、`ports/`、`application/`）：
 
 | 模块 | 层 | 职责 | 备注 |
 |---|---|---|---|
 | **shared** | foundation | ⭐ 跨切面基础设施（见 §3） | 非业务域 |
-| **online** | business | ⭐ 低码引擎（见 §4） | page-schema / schema-ddl / puck 设计器 |
+| **online** | plugin | ⭐ 低码引擎（见 §4） | page-schema / schema-ddl / puck 设计器 |
 | **system** | platform | RBAC 核心：用户/角色/菜单/部门/字典/配置 | 公开 RPC：`getDictDataByType`、`getPermissionInfoByUser` |
 | **infra** | platform | 基础设施控制台：外观配置、代码生成、模板预设、字典 | 外观配置见 §4 |
-| **member** | business | C 端会员（注册/登录、资料、Schema 动态字段） | 含 `SchemaFieldRenderer.tsx` |
-| **crm / erp / mall / pay / bpm** | business | CRM / ERP / 商城 / 支付 / 流程 | |
-| **im / iot / mp / mes** | business | 即时通讯 / 物联网 / 公众号 / 制造执行 | |
-| **wms** | business | 仓储管理（较全，含 `types/`、`api/`） | |
-| **report** | business | 报表 / BI | |
-| **ai / aigw** | business | AI 能力 / AI 网关（new-api 式） | |
+| **member** | plugin | C 端会员（注册/登录、资料、Schema 动态字段） | 含 `SchemaFieldRenderer.tsx` |
+| **crm / erp / mall / pay / bpm** | plugin | CRM / ERP / 商城 / 支付 / 流程 | |
+| **oa / hrm / fms / pms** | plugin | 协同办公 / 人力资源 / 财务资金 / 项目管理 | 政企四大核心经营套件 |
+| **im / iot / mp / mes** | plugin | 即时通讯 / 物联网 / 公众号 / 制造执行 | |
+| **wms** | plugin | 仓储管理（含 `types/`、`api/`） | |
+| **report** | plugin | 报表 / BI | |
+| **ai** | plugin | AI 智能工作台 / 知识库 / OpenAI 兼容开放接口 | |
 
 > 布局与命名的**权威**定义见 `.kiro/steering/plugin-domain-structure.md`（六边形分层 Ports/Adapters/Application、`page.tsx` 纯桥接）与 `packages/domains/README.md`（module-first：新业务只落 `packages/domains/<domain>/`，旧路径仅 re-export）。
 
@@ -142,13 +143,13 @@ Next.js 16 (App Router) + React 19 + TypeScript + **Kysely**（运行时数据�
 # 1) SQLite 建库（零外部依赖）
 DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite pnpm run db:bootstrap:sqlite
 # 建 system_user/role/dept/menu/... + C 端 member_user(含 extra_fields)，全表带 8 大审计字段
-# 种子：admin/admin123、C 端 demo/demo123、核心菜单
+# 引导管理员凭据由 CSPRNG 动态高熵生成并写入本地环境变量（严禁静态默认弱口令）
 # 2) 起前后端
 DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite pnpm run dev   # next dev -p 3200
 ```
 - 完全不配 DB env 时，`datasource-manager` 退化 `memory` 模式、服务走内存存储，仍可跑。
-- Expo web-export 预览：`clients/expo/`（Schema 驱动 RN），按其 README 导出 web 预览与 portal Web 同一份 PageSchema 驱动的表单。
-- 常用脚本：`dev` · `build` · `start`(standalone) · `test`(vitest) · `test:{unit,integration}` · `test:{e2e,agent}`(playwright) · `db:{migrate,seed}` · `scaffold` · `domain:*`/`runtime:*` · `cooliebase:*:scan/check`(治理门禁)。
+- 四位一体客户端预览：`clients/expo/`（Expo 原生与 Web 导出）与 `clients/miniapp/`（Uni-App 微信小程序与 H5）共享 `/api/v1/app` 契约。
+- 常用脚本：`dev` · `build` · `start`(standalone) · `test`(vitest) · `test:{unit,integration}` · `test:{e2e,agent}`(playwright) · `db:{migrate,seed}` · `scaffold` · `domain:*`/`runtime:*` · `check`/`standards:check`(治理门禁)。
 
 ---
 
@@ -206,7 +207,7 @@ DATABASE_URL=file:./data/cooliebase.db DB_DRIVER=sqlite pnpm run dev   # next de
 2. **增量**：按开闭原则扩展（新域/新驱动/新 skill），**严禁改既有运行时契约迁就提示词**。
 3. **回写**：把新域/新能力写进 §10.1 对应真源，并**同步更新本页对应小节**（本页与真源必须始终一致）。
 4. **重生成**：catalog 变更后跑 `pnpm run domain:seams`；能力变更跑 tsc + vitest；skill 变更在 ASSEMBLY.md 注册。
-5. **门禁**：`pnpm run cooliebase:*:check` 等治理门禁全绿 → 走 PR 合并。
+5. **门禁`:check` 全绿**：`pnpm run check`、`pnpm run standards:check`、`pnpm run compat:check` 等治理门禁全绿 → 走 PR 合并。
 
 ### 10.3 铁律
 

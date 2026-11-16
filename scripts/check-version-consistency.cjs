@@ -57,10 +57,12 @@ function latestTag() {
   return { tag, reason: null }
 }
 
-/** 为该 tag 找发布说明：先匹配独立 RELEASE_NOTES_<tag>.md，再回退检查统一台账 release-notes.md。 */
+/** 为该 tag 找发布说明：先匹配 docs/07_release/releases/<tag>.md 与独立 RELEASE_NOTES_<tag>.md，再回退检查统一台账 release-notes.md。 */
 function findReleaseNotes(tag) {
   const dir = abs(RELEASE_DIR)
   if (!fs.existsSync(dir)) return null
+  const releasesTagRel = `${RELEASE_DIR}/releases/${tag}.md`
+  if (fs.existsSync(abs(releasesTagRel))) return { file: releasesTagRel, match: "releases-dir" }
   const files = fs.readdirSync(dir).filter((name) => /^RELEASE_NOTES_.*\.md$/.test(name))
   const exact = files.find((name) => name === `RELEASE_NOTES_${tag}.md`)
   if (exact) return { file: `${RELEASE_DIR}/${exact}`, match: "exact" }

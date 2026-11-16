@@ -1,15 +1,15 @@
 # 第一方业务插件架构与领域实现蓝图 (Plugin Architecture Blueprint)
 
 - **归属规范**: CMMI 04_implementation (TS) / `.agents/skills/plugin-authoring`
-- **版本基线**: v1.2.0（15 个第一方插件，见 §1 实测清单）
+- **版本基线**: `v1.5.0`（18 个第一方插件，见 §1 实测清单）
 - **权威真源**: `packages/shared/backend/constants/domain-catalog.json`（域清单）
   与各插件 `plugin.manifest.json`。本文件是**说明**，不是真源。
 
 ---
 
-## 1. 实测清单（15 个第一方插件）
+## 1. 实测清单（18 个第一方插件）
 
-`ai` `aigw` `bpm` `crm` `erp` `im` `iot` `mall` `member` `mes` `mp` `online` `pay` `report` `wms`
+`ai` `bpm` `crm` `erp` `fms` `hrm` `im` `iot` `mall` `member` `mes` `mp` `oa` `online` `pay` `pms` `report` `wms`
 
 平台地基 `system` / `infra` 位于 `packages/domains/`，**永不插件化**（见 §5）。
 
@@ -53,7 +53,7 @@ packages/plugins/plugin-<domain>/
 ## 5. 三条容易踩的硬约束
 
 1. **仓内第一方插件是 TS，不能用运行期 `import()` 加载**：必须在
-   `packages/shared/backend/plugins/first-party-entries.ts` 登记静态入口（当前 15 条）。
+   `packages/shared/backend/plugins/first-party-entries.ts` 登记静态入口（当前 18 条）。
    第三方插件产出编译后的 JS，才走运行期 import。
 2. **删 Next 转发文件必须用固定路径段**（`src/app/api/v1/<surface>/<domain>/`），
    禁止用"路径里含域名"的子串模式 —— `admin/mes/work-orders/report` 这种会被误删。

@@ -48,7 +48,7 @@
 ## 2. 口径说明
 
 - **host**: 根 `.` 与 `packages/**` 依赖图可达 —— 即服务端运行时与构建链实际用到的包。
-- **client**: 其余（主要是 `clients/expo` 客户端工具链）。客户端漏洞与运行时风险**分开评估**，
+- **client**: 其余（主要是 `clients/expo` 与 `clients/miniapp` 客户端工具链）。客户端漏洞与运行时风险**分开评估**，
   见 `docs/architecture/cooliebase-all-dependency-policy.md`。
 - 版本为**锁定版本**（锁文件解析结果），非 semver 区间。
 

@@ -1,18 +1,16 @@
 # 需求双向跟踪矩阵 (Requirements Traceability Matrix - RTM)
 
 - **归属规范**: CMMI 02_requirements (RDM) / `.agents/skills/spec-driven-development`
-- **基线版本**: v1.2.0
-- **编写原则**: 表中**每一条引用都必须是真实存在的路径**。此前脚手架模板里出现过
-  `tests/specs/tenant-isolation.spec.ts` 这种**不存在的出处**（`tests/` 目录都不存在）——
-  编造的出处比留空更糟：它会让追溯看起来成立，实际无法回验。
+- **基线版本**: `v1.5.0`（2026-11-16）
+- **编写原则**: 表中**每一条引用都必须是真实存在的路径**。严禁编造不存在的测试路径或悬空目录。
 
 ---
 
 ## 1. 如何回验本表
 
 ```bash
-pnpm run check                      # 13 道静态门禁（退出码 0 才算通过）
-pnpm exec vitest run                     # 全量测试（446 文件，0 failed）
+pnpm run check                      # 全量静态与契约治理门禁（退出码 0 才算通过）
+pnpm run test:clean                 # 清洁环境全量测试（511 文件，0 failed）
 pnpm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 git 历史推导）
 ```
 
@@ -25,56 +23,51 @@ pnpm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 
 | REQ-G03 | 插件挂载与声明一致 | `ADR-0002-FIRST-PARTY-PLUGIN-ISOLATION.md` | `packages/shared/backend/plugins/route-mount.ts` | `test/integration/plugin-lifecycle.integration.test.ts`、各域 `*.plugin.service.test.ts` | ✅ |
 | REQ-G04 | 跨域调用只走 Facade / RPC | `ADR-0002` | `packages/shared/backend/lib/`（rpc-actions / messaging） | `packages/shared/backend/lib/__tests__/rpc-actions.test.ts` | ✅ |
 | REQ-G05 | 库存等关键状态迁移原子性 | `database-design-erd.md` | `plugin-wms` 库存服务（CAS/条件更新） | `test/integration/inventory-atomic.integration.test.ts` | ✅ |
-| REQ-G06 | 依赖漏洞准入（棘轮） | `cooliebase-all-dependency-policy.md` §2 | `scripts/check-deps-audit.cjs` | `pnpm run deps:audit`（基线冻结既有 9 条） | ✅ |
+| REQ-G06 | 依赖漏洞准入（棘轮） | `cooliebase-all-dependency-policy.md` §2 | `scripts/check-deps-audit.cjs` | `pnpm run deps:audit` + `test/unit/deps-audit-gate.test.ts`（基线冻结既有 11 条，新增 0） | ✅ |
 | REQ-G07 | 物料清单与锁文件一致 | `cooliebase-all-dependency-policy.md` §3.1 | `scripts/generate-sbom.cjs` | `test/unit/sbom-gate.test.ts`（含 3 条反向对照） | ✅ |
-| REQ-G08 | 文档事实与真源一致 | 本表 §1 | `scripts/check-llms-sync.cjs` | `test/unit/llms-sync-gate.test.ts`（含 4 条反向对照） | ✅ |
+| REQ-G08 | 文档事实与真源一致 | 本表 §1 | `scripts/check-llms-sync.cjs` & `scripts/check-doc-claims.cjs` | `test/unit/llms-sync-gate.test.ts`、`test/unit/doc-claims-agent-contracts.test.ts` | ✅ |
 | REQ-G09 | 断言必须具备杀伤力 | `HIGH-ORDER-INVERSE-THINKING.md` | `scripts/mutation-gate.cjs` | `pnpm run mutation:gate`（3/3 killed + `--self-check`） | ✅ |
 | REQ-G10 | 禁止字面恒真断言 | 同上 | `standards:check` 规则 `no-vacuous-test-assertions` | `test/unit/vacuous-assertion-rule.test.ts` | ✅ |
-| REQ-G11 | 版本一致性与发布说明 | `docs/07_release/release-notes.md` | `scripts/check-version-consistency.cjs` | `test/unit/version-consistency.test.ts`（含 2 条反向对照） | ✅ |
-| REQ-G12 | 规格驱动交付闭环 | `.agents/skills/spec-driven-development` | `scripts/speckit.ts` | `test/unit/spec-driven-agent-workflow.test.ts` | ✅ |
-| REQ-G13 | 客户端可构建 | `cooliebase-all-client-channels.md` | `scripts/check-client-build.cjs` | `pnpm run clients:build:check`（Expo web 导出） | ✅ |
+| REQ-G11 | 版本一致性与发布说明 | `docs/07_release/release-notes.md` | `scripts/check-version-consistency.cjs` | `test/unit/version-consistency.test.ts`（含 3 条反向对照） | ✅ |
+| REQ-G12 | 规格驱动交付与 `docs/` 单目录收敛 | `.agents/skills/spec-driven-development` | `scripts/speckit.ts` & `scripts/check-specs-health.cjs` | `test/unit/spec-driven-agent-workflow.test.ts`、`pnpm run specs:health` | ✅ |
+| REQ-G13 | 四位一体客户端可构建 | `cooliebase-all-client-channels.md` | `scripts/check-client-build.cjs` | `pnpm run clients:build:check`（Expo Web 导出 + MiniApp H5 构建） | ✅ |
 
-## 3. 域级需求（17 原生域 → 实现 → 测试）
+## 3. 域级需求（20 原生域 → 实现 → 测试）
 
-| 域 | 形态 | 测试文件数（实测） | 代表性测试（真实存在） |
-|---|---|---|---|
-| `system` | 平台地基 `packages/domains/system` | 8 | `backend/services/__tests__/tenant.service.test.ts` |
-| `infra` | 平台地基 `packages/domains/infra` | 7 | `backend/services/__tests__/codegen-engine.rpc.test.ts` |
-| `shared` | 核心 SDK（非域） | 36 | `packages/shared/backend/lib/__tests__/rpc-actions.test.ts` |
-| `ai` | 插件 | 15 | `plugin-ai/backend/services/__tests__/ai-api-key.service.test.ts` |
-| `aigw` | 插件 | 2 | `plugin-aigw/backend/services/__tests__/aigw-usage.service.test.ts` |
-| `bpm` | 插件 | 9 | `plugin-bpm/backend/services/__tests__/bpm-process-definition-info.service.test.ts` |
-| `crm` | 插件 | 22 | `plugin-crm/backend/services/__tests__/crm-customer.service.test.ts` |
-| `erp` | 插件 | 35 | `plugin-erp/backend/services/__tests__/erp-purchase-order.service.test.ts` |
-| `im` | 插件 | 18 | `plugin-im/backend/services/__tests__/im-private-message.service.test.ts` |
-| `iot` | 插件 | 16 | `plugin-iot/backend/services/__tests__/iot-scene-rule.service.test.ts` |
-| `mall` | 插件 | 50 | `plugin-mall/backend/services/__tests__/coupon-template.service.test.ts` |
-| `member` | 插件 | 12 | `plugin-member/backend/services/__tests__/member-auth.service.test.ts` |
-| `mes` | 插件 | 135 | `plugin-mes/backend/services/__tests__/mes-qc-template-item.service.test.ts` |
-| `mp` | 插件 | 9 | `plugin-mp/backend/services/__tests__/mp-tag.service.test.ts` |
-| `online` | 插件 | 1 | `plugin-online/backend/services/__tests__/page-schema.service.test.ts` |
-| `pay` | 插件 | 16 | `plugin-pay/backend/services/__tests__/pay-order.service.test.ts` |
-| `report` | 插件 | 3 | `plugin-report/backend/services/__tests__/go-view-project.service.test.ts` |
-| `wms` | 插件 | 19 | `plugin-wms/backend/services/__tests__/wms-item-sku.service.test.ts` |
+| 域 | 形态 | 代表性测试（真实存在） |
+|---|---|---|
+| `system` | 平台地基 `packages/domains/system` | `packages/domains/system/backend/services/__tests__/tenant.service.test.ts` |
+| `infra` | 平台地基 `packages/domains/infra` | `packages/domains/infra/backend/services/__tests__/codegen-engine.rpc.test.ts` |
+| `shared` | 核心 SDK（非域） | `packages/shared/backend/lib/__tests__/rpc-actions.test.ts` |
+| `ai` | 第一方插件 `packages/plugins/plugin-ai` | `packages/plugins/plugin-ai/backend/services/__tests__/ai-api-key.service.test.ts` |
+| `bpm` | 第一方插件 `packages/plugins/plugin-bpm` | `packages/plugins/plugin-bpm/backend/services/__tests__/bpm-process-definition-info.service.test.ts` |
+| `crm` | 第一方插件 `packages/plugins/plugin-crm` | `packages/plugins/plugin-crm/backend/services/__tests__/crm-customer.service.test.ts` |
+| `erp` | 第一方插件 `packages/plugins/plugin-erp` | `packages/plugins/plugin-erp/backend/services/__tests__/erp-purchase-order.service.test.ts` |
+| `fms` | 第一方插件 `packages/plugins/plugin-fms` | `packages/plugins/plugin-fms/backend/services/__tests__/fms-account.service.test.ts` |
+| `hrm` | 第一方插件 `packages/plugins/plugin-hrm` | `packages/plugins/plugin-hrm/backend/services/__tests__/hrm-employee.service.test.ts` |
+| `im` | 第一方插件 `packages/plugins/plugin-im` | `packages/plugins/plugin-im/backend/services/__tests__/im-private-message.service.test.ts` |
+| `iot` | 第一方插件 `packages/plugins/plugin-iot` | `packages/plugins/plugin-iot/backend/services/__tests__/iot-scene-rule.service.test.ts` |
+| `mall` | 第一方插件 `packages/plugins/plugin-mall` | `packages/plugins/plugin-mall/backend/services/__tests__/coupon-template.service.test.ts` |
+| `member` | 第一方插件 `packages/plugins/plugin-member` | `packages/plugins/plugin-member/backend/services/__tests__/member-auth.service.test.ts` |
+| `mes` | 第一方插件 `packages/plugins/plugin-mes` | `packages/plugins/plugin-mes/backend/services/__tests__/mes-qc-template-item.service.test.ts` |
+| `mp` | 第一方插件 `packages/plugins/plugin-mp` | `packages/plugins/plugin-mp/backend/services/__tests__/mp-tag.service.test.ts` |
+| `oa` | 第一方插件 `packages/plugins/plugin-oa` | `packages/plugins/plugin-oa/backend/services/__tests__/oa-notice.service.test.ts` |
+| `online` | 第一方插件 `packages/plugins/plugin-online` | `packages/plugins/plugin-online/backend/services/__tests__/page-schema.service.test.ts` |
+| `pay` | 第一方插件 `packages/plugins/plugin-pay` | `packages/plugins/plugin-pay/backend/services/__tests__/pay-order.service.test.ts` |
+| `pms` | 第一方插件 `packages/plugins/plugin-pms` | `packages/plugins/plugin-pms/backend/services/__tests__/pms-project.service.test.ts` |
+| `report` | 第一方插件 `packages/plugins/plugin-report` | `packages/plugins/plugin-report/backend/services/__tests__/go-view-project.service.test.ts` |
+| `wms` | 第一方插件 `packages/plugins/plugin-wms` | `packages/plugins/plugin-wms/backend/services/__tests__/wms-item-sku.service.test.ts` |
 
-合计测试文件 **446**（15 个插件域合计 362；其余在 `shared` / `system` / `infra` / `test/`）。
+全量测试文件合计请看生成物 [`docs/05_verification/test-summary-report.md`](../05_verification/test-summary-report.md)（由 `pnpm run test:summary` 自动生成，本表不重复硬编码文件计数）。
 
 ## 4. 活跃规格（0 份，`docs/specs/<域>/<名>/`）
 
-> 复算：`ls docs/specs/*/*/brief.json | wc -l`
+> 复算：`ls docs/specs/*/*/brief.json 2>/dev/null | wc -l`
 
 当前底座处于洁净出厂状态（活跃规格 **0** 份）。新需求经 `pnpm run agent:route` 判定需立项后，通过 `pnpm run speckit:new` 创建并在投产后按 `pnpm run speckit:archive -- --name <名>` 归档。
 
-## 5. 已知缺口（诚实登记，不要当成已完成）
+## 5. 已知边界与诚实登记
 
-1. **`online` 域仅 1 个测试文件** —— 作为低代码核心域，测试厚度与其重要性不匹配。
-2. **`aigw`（2）与 `report`（3）** 同样偏薄。
-3. **L3 契约层无独立脚本入口** —— 契约测试存在但随全量套件跑（见项目计划 E1）。
-4. **REQ-G06 的运行时漏洞为"冻结"而非"清零"** —— 9 条已接受风险仍在，
-   台账见依赖策略文档；"冻结"≠"无漏洞"。
-5. **`02_requirements` 的 SRS / URS 是「刻意不产出」（决策，非待填）** —— 需求真源是分散的
-   `docs/specs/<域>/<名>/brief.json`；
-   再落一份单体 SRS 就是**第二真源**（§25），只给空骨架又违反「骨架不算完成」。
-   决策与理由见 `docs/01_management/project-plan.md` H1 与本仓 `cmmi:asset` 的 `srs`/`urs` 模板。
-6. **跨切面需求的"反向对照"密度不均** —— G07/G08/G11 有反向对照测试，
-   G06/G09 靠门禁自证（`--self-check`），其余依赖常规断言。
+1. **`online` 域侧重动态运行时 Schema 引擎** —— 实体由运行时动态定义，静态单测较少，建议随低代码特性迭代继续加厚。
+2. **REQ-G06 的既有供应链通告为"冻结"而非"清零"** —— 11 条历史依赖通告在 `docs/architecture/artifacts/deps-audit-baseline.json` 棘轮守护中（新增 0）。
+3. **`02_requirements` 的单体 SRS / URS 为「刻意不产出」（架构决策，非遗漏）** —— 需求真源是分散的 `docs/specs/<域>/<名>/brief.json`，避免第二真源漂移（见 `docs/01_management/project-plan.md` H1）。

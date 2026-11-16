@@ -1,8 +1,8 @@
 # cooliebase-all — 已发布能力真源 (Release Source of Truth)
 
 > **规范指引**：遵循 `AGENTS.md` §6.1 —— 仅通过发布门禁（`RELEASE_APPROVED`）的能力方可登记于此。
-> **阶段状态**请看 `project-status.md`；**计划与路线图**请看 `docs/01_management/project-plan.md`。
-> **最后更新**：2026-10-19
+> **实时进度与待办大盘**请看 `docs/01_management/pmo-dashboard.md`；**计划与路线图**请看 `docs/01_management/project-plan.md`。
+> **最后更新**：2026-11-16
 
 ---
 
@@ -12,7 +12,7 @@
 - **DigitalStaff（Agent Runtime / Harness）的发布真源不在本仓** —— 其位置由
   `packages/shared/contract/agent-profile.json` 的 `harnessPartners.runtimePath` 指向。
   本仓只提供 Harness 所需的工作区契约与环境，不复制其发布记录。
-- 未通过发布门禁的能力一律不在此登记，只在 `project-status.md` 中标注阶段。
+- 未通过发布门禁的能力一律不在此登记，只在 `docs/01_management/pmo-dashboard.md` 中标注阶段。
 
 ---
 
@@ -42,12 +42,9 @@
 | **模板版本** | `package.json.version` 与 `compat.framework.templateVersion` | hatch 出的下游工程继承的模板基线；**两者必须同步** |
 
 **依据**：`docs/07_release/release-notes.md` 的版本与渠道标签策略台账 ——
-`v1.4.0-brand-shorthand` 是**显式命名的渠道 tag**；当时**刻意不 bump** `package.json.version`
-（保持 `1.2.0`），`templateVersion` 同理（它跟踪"模板"，而非"发布"）。
+渠道后缀标签（如历史 `v1.4.0-brand-shorthand`）可与模板版本解耦；而正式模板里程碑 `v1.5.0` 已将 `package.json.version` 与 `compat.framework.templateVersion` 统一升级并对齐至 **`1.5.0`**。
 
-**当前门禁缺口**：上述策略只写在发布说明里，**没有机检**。若
-`package.json.version` 与 `compat.templateVersion` 不同步，或打了一个没有发布说明的 tag，
-目前无人拦截。→ 已在 `risk-register.md` 登记为 RSK-006。
+**机检保障（RSK-006 已闭环）**：`scripts/check-version-consistency.cjs`（`pnpm run version:check`，已挂入 `pnpm run check`）持续校验：① `package.json.version === compat.framework.templateVersion`；② 最新 Git Tag 具备对应发布说明；③ 若渠道 Tag 与模板版本不同，发布说明必须显式声明 `templateVersion` 策略。
 
 ---
 

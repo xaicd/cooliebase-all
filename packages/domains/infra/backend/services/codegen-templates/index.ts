@@ -93,9 +93,8 @@ export function generateAllCodegenOutputs(config: CodegenConfig, options?: Gener
     },
   )
 
-  // 客户端渠道模板（h5 / uniapp / flutter）已随这些渠道一并移除：
-  // 本仓只保留 clients/expo 一个客户端。includeClients 选项保留以兼容调用方，
-  // 但当前没有可生成的客户端目标（若将来新增渠道，在此恢复对应模板）。
+  // 独立客户端渠道（clients/expo 与 clients/miniapp）按共享 Schema 与 /api/v1/app 契约消费，
+  // includeClients 选项保留以兼容调用方按需扩展端侧专属模板。
 
   return outputs
 }

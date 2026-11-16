@@ -31,7 +31,7 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
 const GATE = "scripts/align-validator-types.ts"
 /** 元数据是 varchar、生成物是 z.string() 的一列 —— 拿它做注入靶子。 */
 const VICTIM = "packages/plugins/plugin-ai/backend/validators/ai-api-key.validator.ts"
-const CLEAN_DECL = "name: z.string().trim().optional()"
+const CLEAN_DECL = "platform: z.string().trim().optional()"
 
 let root: IsolatedRoot
 
@@ -78,19 +78,19 @@ describe("校验器类型对齐：必须是门禁，且不能有盲区（跑在�
 
   it("★ 反向对照①：注入漂移（工具认识的写法）→ --check 必须失败并点名表.字段", () => {
     // 这是**当前缺陷的核心**：工具会报 "需改: 1 处"，但退出码仍是 0。
-    withInjected("name: z.coerce.number().optional()", () => {
+    withInjected("platform: z.coerce.number().optional()", () => {
       const r = runTool(["--all", "--check"])
       expect(r.code, "有漂移时 --check 必须非零退出").not.toBe(0)
-      expect(r.out).toMatch(/ai-api-key\.name/)
+      expect(r.out).toMatch(/ai-api-key\.platform/)
     })
   }, 120_000)
 
   it("★ 反向对照②：手写 z.number() 也不许漏（识别盲区）", () => {
     // 正则只认 z.coerce.number()，所以这种写法当前报 0 处 —— 盲区。
-    withInjected("name: z.number().optional()", () => {
+    withInjected("platform: z.number().optional()", () => {
       const r = runTool(["--all", "--check"])
       expect(r.code, "手写 z.number() 也是漂移，必须非零退出").not.toBe(0)
-      expect(r.out).toMatch(/ai-api-key\.name/)
+      expect(r.out).toMatch(/ai-api-key\.platform/)
     })
   }, 120_000)
 
@@ -101,7 +101,7 @@ describe("校验器类型对齐：必须是门禁，且不能有盲区（跑在�
 
   it("--check 不写盘：跑完隔离根里的文件逐字节不变", () => {
     const before = root.read(VICTIM)
-    withInjected("name: z.coerce.number().optional()", () => {
+    withInjected("platform: z.coerce.number().optional()", () => {
       runTool(["--all", "--check"])
       // 注入仍在（因为我们自己写的），但工具不得把它改回去
       expect(root.read(VICTIM)).toContain("z.coerce.number()")

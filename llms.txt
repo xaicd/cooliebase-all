@@ -1,13 +1,18 @@
 # cooliebase-all
 
-> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 20 个原生业务域、38 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
+> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化四位一体全栈工程底座与业务中台模板（`v1.5.0`）。支持模块化单体与微服务演进，内置 20 个原生业务域（2 平台地基 + 18 第一方插件）、四位一体终端（Admin 后台 + 2C 门户 + Expo App + Uni-App 微信小程序/H5）、38 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
 
 ## 核心架构与能力一览 (Pre-Download Capabilities)
 
 - **定位**: 真实企业业务系统开发底座、DigitalStaff NPC 工作区模板、零样板代码低代码研发基座、AI Agent 友好型工程底座。
+- **四位一体终端 (Quad-Terminal)**:
+  - Admin 运营管理后台: `src/app/(admin-pages)/admin`
+  - 2C 消费者门户: `src/app/(portal-pages)`
+  - Expo 跨端原生/Web App: `clients/expo`
+  - Uni-App 微信小程序与 H5: `clients/miniapp`
 - **20 原生业务域**: 
   - 平台地基: `system` (RBAC权限/多租户/部门岗位/数据字典), `infra` (动态参数/定时任务/代码生成器)
-  - 业务域插件: `ai` (AI智能工作台/知识库), `aigw` (多模型聚合网关/Token计费), `bpm` (工作流/BPMN2.0), `pay` (聚合支付/微信支付宝/退款), `report` (大屏可视化/多维报表), `mp` (微信公众号管理), `mall` (电商/商品SPU-SKU/订单), `member` (C端会员/成长值), `crm` (客户关系/商机/公海池), `erp` (进销存/采购销售), `wms` (仓储物流/批次条码), `mes` (制造执行/排产报工), `iot` (物联网/物模型/告警), `im` (实时通信/长连接群聊), `online` (低代码在线开发)。
+  - 第一方插件域 (18): `ai` (AI智能工作台/知识库/OpenAI兼容开放接口), `bpm` (工作流/BPMN2.0), `pay` (聚合支付/微信支付宝/退款), `report` (大屏可视化/多维报表), `mp` (微信公众号管理), `mall` (电商/商品SPU-SKU/订单), `member` (C端会员/成长值), `crm` (客户关系/商机/公海池), `erp` (进销存/采购销售), `wms` (仓储物流/批次条码), `mes` (制造执行/排产报工), `oa` (协同办公/通知公告/考勤打卡/请假用印), `hrm` (人力资源/员工档案/岗位编制/薪资核算), `fms` (财务资金/资金账户/收支凭证/对账结算), `pms` (项目管理/项目台账/里程碑节点/任务工时), `iot` (物联网/物模型/告警), `im` (实时通信/长连接群聊), `online` (低代码在线开发)。
 - **38 个 Agent 专属技能 (Skills - 单一真源 .agents/skills)**:
   - `project-init`: 一键业务项目重构引擎
   - `coding`, `api-design`, `devops`, `database-design`, `automated-testing`, `service-governance`, `security`, `ui-design`, `architecture-design`, `agent-harness` 等。
@@ -19,7 +24,7 @@
   - 按域垂直隔离于 `docs/specs/<domain>/<name>/`（支持 `feature`, `bugfix`, `enhancement`, `refactor` 四态）
   - 机器输入只需 <500 Token `brief.json`，自动展开 7 类规范文档与 G0~G7 质量门禁。
 - **OpenWiki (LLM-Wiki 知识大脑)**:
-  - 内置 `wiki/` 互联百科（`pnpm run gen:paths:check`），与底层元数据及 354 份 Agent 契约对齐，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
+  - 内置 `docs/wiki/` 互联百科（`pnpm run gen:paths:check`），与底层元数据及 354 份 Agent 契约对齐，覆盖 20 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
 - **真实数据库驱动 (Zero Fake Mock)**:
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。
@@ -33,14 +38,14 @@
 
 外部 AI Agent 或开发者在下载/克隆全量代码库之前，可通过 GitHub Raw 或运行中服务的标准路径（如 `http://<host>:<port>/compat-manifest.json`）直接获取以下机器可读契约：
 
-- **OpenWiki 全景知识大脑**: [wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/wiki/index.md)
+- **OpenWiki 全景知识大脑**: [docs/wiki/index.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/docs/wiki/index.md)
 - **标准 Agent 发现描述符 (RFC 8615)**: [.well-known/agent.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.well-known/agent.json)
 - **兼容性与能力全景清单 (根目录标准契约)**: [compat-manifest.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/compat-manifest.json)
-  - 声明版本、17 域清单、38 技能目录、18 项 MCP 工具、28 层交付 Gate 与 Hatch 派生配置。
+  - 声明版本 (`1.5.0`)、20 域清单、四端渠道、38 技能目录、18 项 MCP 工具、28 层交付 Gate 与 Hatch 派生配置。
 - **AI 智能体画像与环境契约 (根目录标准契约)**: [agent-profile.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/agent-profile.json)
   - 声明 Harness 伙伴、Seam 边界（Domain Facade / HTTP API / Tenant Scope）、Profile 套件。
 - **跨域边界与解耦图谱**: [seam-graph.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/contract/seam-graph.json)
-- **17 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/backend/constants/domain-catalog.json)
+- **20 域权威运行时编目**: [domain-catalog.json](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/packages/shared/backend/constants/domain-catalog.json)
 - **高阶反向思维工程铁律**: [HIGH-ORDER-INVERSE-THINKING.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.agents/rules/HIGH-ORDER-INVERSE-THINKING.md)
 - **统一规格包 (Spec) 与原型工程标准**: [FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md)
 
@@ -74,14 +79,14 @@ pnpm run dev                        # 访问 http://localhost:3200 (预填 super
 
 ## 自动化测试、双支柱架构与质量门禁 (Two-Pillar Harness × Spec-Kit CMMI & Gates)
 - **支柱一 `harness` (`HARNESS.md` + `scripts/harness.cjs`)**：定义 `pnpm harness <install|check|build|start|health|status|stop|e2e|deliver>` 9 大标准运行生命周期环节。
-- **支柱二 `speckit` + CMMI 00~09 扩展 (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)**：通过 `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]` 统一治理每个环节的宏观过程文档 (`docs/00_meta_standards/`~`docs/09_operations/`) 与特性规格阶段文档 (`docs/specs/<domain>/<name>/`)。
+- **支柱二 `speckit` + CMMI 00~09 扩展 (`scripts/cmmi-00-meta.cjs` ~ `scripts/cmmi-09-operations.cjs`)**：通过 `pnpm run speckit -- cmmi <00..09> [docs|check|asset|...]` 统一治理每个环节的宏观过程文档 (`.specify/memory/` + `docs/01_management/`~`docs/09_operations/`) 与特性规格阶段文档 (`docs/specs/<domain>/<name>/`)。
 - **`<500 Tokens` 蓝图一键交付**：`pnpm run blueprint:deliver -- --file <domain>.blueprint.json --verify-e2e`（自动完成 `doctor` 自愈 + Spec-Kit 展开 + 全栈插件代码生成 + 基于 `scripts/lib/ephemeral-pg.cjs` **Embedded PostgreSQL 18.4** 的 6 阶段真库 E2E）。
 - `pnpm run check`: 运行工程标准自检（0 Blocker, 0 High Debt 铁律）。
 - `pnpm run test:unit`: 运行 Vitest 单元与集成测试（100% PASS 门禁）。
 - `pnpm run smoke:login`: 登录链冒烟测试（建库 -> 迁移 -> 种子 -> 启动 -> 登录 200 -> 受保护接口 200）。
 
 ## 文档索引 (Deep Dive)
-- [llms-full.txt](llms-full.txt): 面向超长上下文模型 (100k+ Tokens) 的全量技术规范与架构契约。
-- [AGENTS.md](AGENTS.md): 仓库最高优先级核心工程铁律与 质量门禁规范（条数以 `pnpm run compat:check` 输出为准）。
-- [AI Delivery Workflow](docs/architecture/ai-agent-driven-delivery-workflow.md): AI-Driven 研发交付链与工程资产规范。
+- [llms-full.txt](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/llms-full.txt): 面向超长上下文模型 (100k+ Tokens) 的全量技术规范与架构契约。
+- [AGENTS.md](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/AGENTS.md): 仓库最高优先级核心工程铁律与质量门禁规范（条数以 `pnpm run compat:check` 输出为准）。
+- [AI Delivery Workflow](https://raw.githubusercontent.com/xaicd/cooliebase-all/main/docs/architecture/ai-agent-driven-delivery-workflow.md): AI-Driven 研发交付链与工程资产规范。
 

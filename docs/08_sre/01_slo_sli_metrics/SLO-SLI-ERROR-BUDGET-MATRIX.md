@@ -1,6 +1,6 @@
 # SRE 服务等级目标 (SLO) 与错误预算治理矩阵
 
-- **制定日期**: 2026-10-09
+- **更新日期**: 2026-11-16（当前模板基线 `v1.5.0`）
 - **归属规范**: CMMI 08_sre (CAM / SCON) / `.agents/skills/sre-slo-manager`
 - **对齐规范**: Google Site Reliability Engineering (SRE) 稳定性保障标准
 - **监控周期**: 30 天滚动窗口 (Rolling 30-Day Window)

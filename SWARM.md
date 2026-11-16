@@ -1,6 +1,6 @@
 # SWARM.md — CoolieBase-All 多智能体工匠协同与单写者交付法典
 
-> **架构定位**：本文件是 **CoolieBase-All（Next.js 16 全栈 + 15 原生业务插件域 + Expo 移动端一体化底座）** 及其派生客户工程的 **Swarm 多工匠协同宪法**。所有进入本工作区的协调者（Coordinator）、分片写作者（Author）与独立核验官（Verifier）必须无条件遵守本规约。
+> **架构定位**：本文件是 **CoolieBase-All（Next.js 16 全栈 + 18 第一方插件域 / 共 20 原生域 + Admin/2C/Expo/MiniApp 四位一体底座）** 及其派生客户工程的 **Swarm 多工匠协同宪法**。所有进入本工作区的协调者（Coordinator）、分片写作者（Author）与独立核验官（Verifier）必须无条件遵守本规约。
 > **底座快照真源**：`${COOLIE_HOME:-/opt/coolie}/blueprints/cooliebase-all`（派生工程初始化统一走 `node scripts/cmmi-01-management.cjs init --name <slug> --title "<系统中文名>" --target <project-root>`，严禁手工散拷文件或硬编码机器容器绝对路径）。
 
 ---
@@ -14,7 +14,7 @@
    - 全仓文档、脚本、测试与看板指令一律只准书写 **`pnpm run <script>`** 与 **`pnpm exec <tool>`**。
    - **绝对禁止**出现裸命令（禁止未加 `pnpm` 前缀的包管理调用与临时包执行器）以及无注释空 `catch` 块，由 `pnpm run standards:check`（`no-new-npm-run`、`no-new-npx`、`no-silent-catch` 棘轮）硬性拦截。
 3. **跨域边界铁律（Domain Facade Only）**：
-   - 15 个第一方业务插件域（`packages/plugins/plugin-*`：`ai`、`aigw`、`bpm`、`crm`、`erp`、`im`、`iot`、`mall`、`member`、`mes`、`mp`、`online`、`pay`、`report`、`wms`）与 2 个平台核心域（`packages/domains/system`、`packages/domains/infra`）之间**严禁跨包直接 import 对方 `backend/services/*`**。
+   - 18 个第一方插件域（`packages/plugins/plugin-*`：`ai`、`bpm`、`crm`、`erp`、`fms`、`hrm`、`im`、`iot`、`mall`、`member`、`mes`、`mp`、`oa`、`online`、`pay`、`pms`、`report`、`wms`）与 2 个平台核心域（`packages/domains/system`、`packages/domains/infra`）之间**严禁跨包直接 import 对方 `backend/services/*`**。
    - 一切跨域调用必须走公开的 **`Domain Facade`**（`packages/domains/<domain>/index.ts` 或插件契约动作层 `contract/*.actions.ts`），由 `pnpm run domain:check` 与 `pnpm run microservice:check` 机检守卫。
 4. **双目标文档字节级一致与零机器路径（`GOAL.md ≡ docs/GOAL.md` & Zero Host Path）**：
    - 当工程存在业务立项总纲 `GOAL.md` 时，根目录 `GOAL.md` 与 `docs/GOAL.md` **必须保持字节级完全一致**（`cmp -s GOAL.md docs/GOAL.md` 退出码为 `0`）。
@@ -33,7 +33,7 @@
 | :--- | :---: | :---: | :--- | :--- |
 | **`contract-architect`** | Wave 0 | `inherit` / `share` | `GOAL.md`, `docs/GOAL.md`, `docs/specs/<domain>/<name>/brief.json`, `prisma/`, `packages/shared/contract/`, `packages/shared/backend/constants/permissions.ts` | 立项规格（`cmmi-02-requirements.cjs`）、`<500 Tokens` 蓝图定义、数据库模型与迁移、全局静态权限键登记（`PERMISSIONS.<DOMAIN>_<KEBAB>_<ACTION>`）、冻结跨域契约。 |
 | **`backend-domain-<d>`** | Wave 1 | `share` | `packages/plugins/plugin-<d>/backend/`, `packages/plugins/plugin-<d>/routes/`, `packages/plugins/plugin-<d>/contract/`, `packages/domains/<d>/` | 按域分片实现 Repository / Service / Validator / Route / Domain Facade；静态引用 `PERMISSIONS` 键；严禁写假内存回退充当主路径。 |
-| **`multi-end-ui-<d>`** | Wave 2 | `share` | `packages/plugins/plugin-<d>/frontend/`, `src/app/(admin-pages)/`, `src/app/2c/`, `clients/expo/` | 落地带 Agent-Native 属性（`data-agent-scope` / `data-agent-target` / `data-agent-state` / `inert`）的后台页、2C 门户页与 Expo 端页面；遵守 `UI` 设计 Token、`<=4` 字菜单与 `2` 字按钮。 |
+| **`multi-end-ui-<d>`** | Wave 2 | `share` | `packages/plugins/plugin-<d>/frontend/`, `src/app/(admin-pages)/`, `src/app/(portal-pages)/`, `clients/expo/`, `clients/miniapp/` | 落地带 Agent-Native 属性（`data-agent-scope` / `data-agent-target` / `data-agent-state` / `inert`）的后台页、2C 门户页、Expo 端与微信小程序/H5 页面；遵守 `UI` 设计 Token、`<=4` 字菜单与 `2` 字按钮。 |
 | **`e2e-harness-author`** | Wave 3 | `share` | `test/e2e/`, `test/agent/`, `test/integration/`, `.env.ports`, `deploy/caddy/`, `scripts/service.sh`, `deploy/service.sh` | 基于 `scripts/lib/ephemeral-pg.cjs`（Embedded PostgreSQL 18.4，兼容 root 与普通用户零 Docker 自举）编排 6 阶段真实数据库 E2E，验证 8 动词服务控制面与网关反代。 |
 | **`delivery-verifier`** | Wave 4 | `inherit`（**只读**） | **`[]`（零写权限！严禁修改任何业务源码或测试断言）** | 独立黑盒实测：跑通 8 动词 `scripts/service.sh`、全量静态门禁、真实数据库 CRUD/状态机 E2E、`GOAL.md ≡ docs/GOAL.md` 与 `<=4` 字菜单核验；通过签发 `[SEALED]`，任一失败签发 `[REJECTED]` 打回对应写作者。 |
 

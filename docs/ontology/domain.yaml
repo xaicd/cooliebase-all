@@ -1,20 +1,87 @@
 # Cooliebase All 领域拓扑与本体映射 (Domain Topology)
-# 由 packages/domains/* 真实契约文件推导，禁止臆造；实体键 = contract/backend/routes 文件名主干。
+# 由 packages/domains/* 与 packages/plugins/plugin-* 真实契约推导，覆盖全仓 20 个原生域。
 platform: "cooliebase-all"
-architecture: "TypeScript + Next.js 16 + React 19 + Prisma（单语言全栈同构）"
+version: "1.5.0"
+lastUpdated: "2026-11-16"
+architecture: "TypeScript + Next.js 16 + React 19 + Prisma 7 + Kysely + Expo + Uni-App Vue 3（四端全栈同构）"
 domains:
-  - name: "infra"
-    title: "infra 域"
-    basePath: "packages/domains/infra"
-    entities:
-      - actions
-      - index
-      - common
-      - route
   - name: "system"
-    title: "system 域"
+    title: "系统权限与租户地基"
     basePath: "packages/domains/system"
-    entities:
-      - actions
-      - index
-      - route
+    entities: ["user", "role", "dept", "menu", "tenant"]
+  - name: "infra"
+    title: "基础设施与低码生成地基"
+    basePath: "packages/domains/infra"
+    entities: ["config", "codegen", "file", "job"]
+  - name: "online"
+    title: "在线动态表单与建模引擎"
+    basePath: "packages/plugins/plugin-online"
+    entities: ["online-definition", "page-schema"]
+  - name: "oa"
+    title: "协同办公插件"
+    basePath: "packages/plugins/plugin-oa"
+    entities: ["oa-notice", "oa-attendance", "oa-leave-apply"]
+  - name: "hrm"
+    title: "人力资源插件"
+    basePath: "packages/plugins/plugin-hrm"
+    entities: ["hrm-employee", "hrm-position", "hrm-payroll"]
+  - name: "fms"
+    title: "财务资金插件"
+    basePath: "packages/plugins/plugin-fms"
+    entities: ["fms-account", "fms-voucher", "fms-reconcile"]
+  - name: "pms"
+    title: "项目管理插件"
+    basePath: "packages/plugins/plugin-pms"
+    entities: ["pms-project", "pms-milestone", "pms-timesheet"]
+  - name: "bpm"
+    title: "工作流审批插件"
+    basePath: "packages/plugins/plugin-bpm"
+    entities: ["bpm-process-definition-info", "bpm-form"]
+  - name: "crm"
+    title: "客户关系管理插件"
+    basePath: "packages/plugins/plugin-crm"
+    entities: ["crm-customer", "crm-business", "crm-contract"]
+  - name: "erp"
+    title: "进销存经营中台插件"
+    basePath: "packages/plugins/plugin-erp"
+    entities: ["erp-purchase-order", "erp-sale-order", "erp-product"]
+  - name: "wms"
+    title: "仓储物流插件"
+    basePath: "packages/plugins/plugin-wms"
+    entities: ["wms-warehouse", "wms-item", "wms-inventory"]
+  - name: "mes"
+    title: "制造执行系统插件"
+    basePath: "packages/plugins/plugin-mes"
+    entities: ["mes-workorder", "mes-qc-template-item"]
+  - name: "mall"
+    title: "数字化商城插件"
+    basePath: "packages/plugins/plugin-mall"
+    entities: ["product-spu", "trade-order", "coupon-template"]
+  - name: "pay"
+    title: "聚合支付与退款插件"
+    basePath: "packages/plugins/plugin-pay"
+    entities: ["pay-order", "pay-refund", "pay-channel"]
+  - name: "member"
+    title: "C端会员中心插件"
+    basePath: "packages/plugins/plugin-member"
+    entities: ["member-user", "member-level"]
+  - name: "ai"
+    title: "AI 智能工作台与开放网关插件"
+    basePath: "packages/plugins/plugin-ai"
+    entities: ["ai-model", "ai-api-key", "ai-knowledge"]
+  - name: "iot"
+    title: "物联网管理插件"
+    basePath: "packages/plugins/plugin-iot"
+    entities: ["iot-device", "iot-product", "iot-scene-rule"]
+  - name: "im"
+    title: "即时通讯插件"
+    basePath: "packages/plugins/plugin-im"
+    entities: ["im-private-message", "im-group"]
+  - name: "mp"
+    title: "微信公众号插件"
+    basePath: "packages/plugins/plugin-mp"
+    entities: ["mp-account", "mp-tag"]
+  - name: "report"
+    title: "大屏可视化与报表插件"
+    basePath: "packages/plugins/plugin-report"
+    entities: ["go-view-project"]

@@ -12,7 +12,7 @@
 3. [第 2 步：声明新业务域与数据表（极简 JSON 自动展开全栈代码）](#3-第-2-步声明新业务域与数据表极简-json-自动展开全栈代码)
 4. [第 3 步：配置多端页面区块与 `{{ $form.xxx }}` 表单联动（PageBlockDSL v2）](#4-第-3-步配置多端页面区块与--formxxx--表单联动pageblockdsl-v2)
 5. [第 4 步：编写核心业务规则（状态机与跨模块 Facade 调用速查表）](#5-第-4-步编写核心业务规则状态机与跨模块-facade-调用速查表)
-6. [第 5 步：移动端与小程序（`clients/expo`）模块挂载](#6-第-5-步移动端与小程序clientsexpo模块挂载)
+6. [第 5 步：四端移动与小程序（`clients/expo` + `clients/miniapp`）模块挂载](#6-第-5-步四端移动与小程序clientsexpo--clientsminiapp模块挂载)
 7. [端到端完整案例：10 分钟开发「宠爱有家智慧动物医院系统」](#7-端到端完整案例10-分钟开发宠爱有家智慧动物医院系统)
 
 ---
@@ -23,7 +23,7 @@
 
 | 步骤 | 你需要编写的声明文件 | 执行的自动化引擎命令 | 引擎自动为你生成的产物 |
 | :--- | :--- | :--- | :--- |
-| **① 定品牌与行业门户** | 填写 `variables` 变量字典（基于根目录 `blueprint.template.json`） | `node scripts/blueprint-engine.cjs render` | 自动重写 `project-profile.json`、`clients/expo/app.json`、`.env.example`，全站首页、登录页、C端门户与移动端同步换肤 |
+| **① 定品牌与行业门户** | 填写 `variables` 变量字典（基于根目录 `blueprint.template.json`） | `node scripts/blueprint-engine.cjs render` | 自动重写 `project-profile.json`、`clients/expo/app.json`、`clients/miniapp/manifest.json`、`.env.example`，全站首页、登录页、C端门户与四端客户端同步换肤 |
 | **② 建业务表与全栈插件** | 编写极简业务域蓝图 `<domain>.blueprint.json`（只写业务字段与控件类型） | `node scripts/blueprint-engine.cjs compile-domain --file <domain>.blueprint.json --write` 随后 `pnpm run domain:new <domain>` | 自动补齐 `id` 与 6 大多租户审计列，生成 SQL 迁移、Repository、Service、Zod 校验器、BFF 路由、RBAC 权限与单测 |
 | **③ 配多区块画布与状态机** | 在 `<domain>.blueprint.json` 中声明 `blocks[]`、`visibleOn` 联动公式与 `stateMachine` | 自动同步至 `PageBlockDSL v2` 与 `defineStateMachine` | PC 管理端自动渲染顶部 KPI 指标卡、分布图表、表格/看板视图切换与联动弹窗；移动端同步渲染轮播、宫格与表单 |
 
@@ -39,7 +39,7 @@ node scripts/blueprint-engine.cjs schema --compact
 ```
 
 ### 2.2 5 套内置行业预设词包（`INDUSTRY_PRESET`）
-只需设置 `INDUSTRY_PRESET`，全站 C 端门户（`/2c`、`/portal`）的分类、精选服务卡片、购物车名称以及首页 15 大业务域的行业术语会自动切换：
+只需设置 `INDUSTRY_PRESET`，全站 C 端门户（`/2c`、`/portal`）的分类、精选服务卡片、购物车名称以及全仓 20 大原生业务域的行业术语会自动切换：
 
 | `INDUSTRY_PRESET` 取值 | 适用业务场景 | C 端门户默认标题 | 购物车/清单按钮名 | 主行动按钮文案 |
 | :--- | :--- | :--- | :--- | :--- |
@@ -188,12 +188,10 @@ export const appointmentStateMachine = defineStateMachine({
 
 ---
 
-## 6. 第 5 步：移动端与小程序（`clients/expo`）模块挂载
+## 6. 第 5 步：四端移动与小程序（`clients/expo` + `clients/miniapp`）模块挂载
 
-客户端遵循严格的 `clients/expo/src/{app,shared,modules/<domain>/{api,models,pages,components}}` 结构：
-1. 在 `clients/expo/src/modules/<domain>/` 下创建 `api/index.ts`、`models/index.ts`、`pages/`、`components/`；
-2. 页面内直接使用 `SchemaFieldRenderer` 与 `MobileBlockRenderer` 渲染服务端下发的 `PageBlockDSL v2`（自动支持移动端轮播 `banner`、宫格导航 `grid_nav`、统计卡 `stat_metrics` 及 `visibleOn` 表单联动）；
-3. 在 `clients/expo/src/modules/index.ts` 的 `CLIENT_DOMAIN_MODULES` 中登记该模块即可。
+- **Expo 原生/Web App (`clients/expo`)**：遵循 `clients/expo/src/{app,shared,modules/<domain>/{api,models,pages,components}}` 结构，使用 `SchemaFieldRenderer` 与 `MobileBlockRenderer` 渲染服务端下发的 `PageBlockDSL v2`，并在 `clients/expo/src/modules/index.ts` 的 `CLIENT_DOMAIN_MODULES` 中登记该模块；
+- **Uni-App 微信小程序与 H5 (`clients/miniapp`)**：基于 Vue 3 + TypeScript + Vite，通过 `clients/miniapp/src/utils/request.ts`（内置动态 `BASE_PATH`、`X-Client-Channel: miniapp` 与 `wxSilentLogin` 静默换签）统一对接 `/api/v1/app/<domain>`，业务分包注册于 `clients/miniapp/pages.json` 的 `subPackages`。
 
 ---
 

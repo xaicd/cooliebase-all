@@ -9,7 +9,7 @@ import { generateRoute } from "../../packages/domains/infra/backend/services/cod
 describe("permission-naming-unify: kebab permissionPrefix, zero governance debt, and static key compile guard", () => {
   const root = process.cwd()
 
-  it("tightens contract-governance-baseline.json from 338 to 0 and enforces kebab permissionPrefix across all 340 plugin contracts", () => {
+  it("tightens contract-governance-baseline.json from 338 to 0 and enforces kebab permissionPrefix across all 352 plugin contracts", () => {
     const baseline = JSON.parse(
       fs.readFileSync(path.join(root, "docs/architecture/artifacts/contract-governance-baseline.json"), "utf8"),
     )
@@ -40,7 +40,7 @@ describe("permission-naming-unify: kebab permissionPrefix, zero governance debt,
       }
     }
 
-    expect(totalContracts).toBe(340)
+    expect(totalContracts).toBe(352)
   })
 
   it("route.template.ts and WMS routes use static PERMISSIONS.<KEY> lookup without Record<string, string> erasure", () => {

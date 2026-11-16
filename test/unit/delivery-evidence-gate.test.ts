@@ -53,8 +53,30 @@ describe("交付门禁: 自报 passed 必须凭当前证据", () => {
   })
 
   it("反向对照：把一份规格改回无证据支持的 passed，必须 exit 1", () => {
-    const file = pickSpecEvidence()
-    expect(file, "仓库里应至少有一份带 evidence.json 的规格").not.toBeNull()
+    const existing = pickSpecEvidence()
+    const fixtureDomainDir = path.join(ROOT, "docs", "specs", "__evidence_fixture_domain__")
+    const fixtureSpecDir = path.join(fixtureDomainDir, "__evidence_fixture__")
+    let file = existing
+    let createdFixture = false
+
+    if (!file) {
+      createdFixture = true
+      fs.mkdirSync(fixtureSpecDir, { recursive: true })
+      fs.writeFileSync(path.join(fixtureSpecDir, "spec.json"), JSON.stringify({ name: "__evidence_fixture__", domain: "infra", type: "feature" }, null, 2))
+      fs.writeFileSync(path.join(fixtureSpecDir, "selection.md"), "# 选型研判\n\n已完成竞品对标。\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "requirements.md"), "# 需求说明\n\n1. **P0** 验证证据账本门禁\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "prototype.md"), "# 原型说明\n\n无需新增页面。\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "design.md"), "# 架构设计\n\n## 1. 关键不变量\n\n自报 passed 必须附证据。\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "tasks.md"), "# 任务表\n\n| ID | 父任务 | 说明 | 文件白名单 |\n|---|---|---|---|\n| T1 | main | 校验门禁 | - |\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "deployment.md"), "# 部署方案\n\n常规无状态滚动升级。\n")
+      fs.writeFileSync(path.join(fixtureSpecDir, "runbook.json"), JSON.stringify({ version: 1, steps: [] }, null, 2))
+      file = path.join(fixtureSpecDir, "evidence.json")
+      fs.writeFileSync(
+        file,
+        `${JSON.stringify({ gates: { G5_PRE: { status: "pending", evidence: [] } } }, null, 2)}\n`,
+        "utf8",
+      )
+    }
 
     const original = fs.readFileSync(file!, "utf8")
     try {
@@ -70,8 +92,15 @@ describe("交付门禁: 自报 passed 必须凭当前证据", () => {
       const { status, stdout } = runDeliveryStrict()
       expect(status).toBe(1)
       expect(stdout).toContain("没有证据")
-    } finally {
+
       fs.writeFileSync(file!, original, "utf8")
+      expect(runDeliveryStrict().status).toBe(0)
+    } finally {
+      if (createdFixture) {
+        fs.rmSync(fixtureDomainDir, { recursive: true, force: true })
+      } else {
+        fs.writeFileSync(file!, original, "utf8")
+      }
     }
 
     expect(runDeliveryStrict().status).toBe(0)

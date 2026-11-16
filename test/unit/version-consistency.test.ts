@@ -15,6 +15,7 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
 const GATE = "scripts/check-version-consistency.cjs"
 const PKG = "package.json"
 const UNIFIED_NOTES = "docs/07_release/release-notes.md"
+const RELEASE_TAG_MD = "docs/07_release/releases/v1.5.0.md"
 
 let root: IsolatedRoot
 
@@ -52,26 +53,45 @@ describe("版本一致性门禁（跑在隔离根上）", () => {
 
   it("★ 反向 2：最新 tag 没有发布说明登记 → 必须失败", () => {
     const original = root.read(UNIFIED_NOTES)
+    const originalTagMd = root.read(RELEASE_TAG_MD)
     try {
       root.remove(UNIFIED_NOTES)
+      root.remove(RELEASE_TAG_MD)
       const result = runGate()
       expect(result.code).not.toBe(0)
       expect(result.out).toMatch(/release-notes-missing/)
     } finally {
       root.write(UNIFIED_NOTES, original)
+      root.write(RELEASE_TAG_MD, originalTagMd)
     }
     expect(runGate().code).toBe(0)
   }, 120_000)
 
   it("★ 反向 3：tag 与模板版本不同但未声明 templateVersion 策略 → 必须失败", () => {
+    const COMPAT = "packages/shared/contract/compat-manifest.json"
+    const originalPkg = root.read(PKG)
+    const originalCompat = root.read(COMPAT)
     const original = root.read(UNIFIED_NOTES)
+    const originalTagMd = root.read(RELEASE_TAG_MD)
     try {
+      const parsedPkg = JSON.parse(originalPkg)
+      parsedPkg.version = "1.4.0"
+      root.write(PKG, `${JSON.stringify(parsedPkg, null, 2)}\n`)
+
+      const parsedCompat = JSON.parse(originalCompat)
+      parsedCompat.framework.templateVersion = "1.4.0"
+      root.write(COMPAT, `${JSON.stringify(parsedCompat, null, 2)}\n`)
+
       root.write(UNIFIED_NOTES, original.replace(/templateVersion/g, "versionField"))
+      root.write(RELEASE_TAG_MD, originalTagMd.replace(/templateVersion/g, "versionField"))
       const result = runGate()
       expect(result.code).not.toBe(0)
       expect(result.out).toMatch(/version-divergence-undocumented/)
     } finally {
+      root.write(PKG, originalPkg)
+      root.write(COMPAT, originalCompat)
       root.write(UNIFIED_NOTES, original)
+      root.write(RELEASE_TAG_MD, originalTagMd)
     }
     expect(runGate().code).toBe(0)
   }, 120_000)

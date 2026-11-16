@@ -12,7 +12,7 @@
 | **Level 2** | 真实执行性 (Real Execution) | 代码是否在真实数据库运行，还是跑在假 Mock 上？ | `verify:real-db` 100% 真实 PostgreSQL/SQLite，0 内存伪造。 |
 | **Level 3** | 非线性不变量 (Invariants) | 高并发或极端异常下，边界不变量是否成立？ | 并发 CAS 防超卖、4 态状态机真实覆盖、变异测试杀灭假断言。 |
 | **Level 4** | 自生自循环性 (Autopoiesis) | 系统能否自巡检、自愈合、自进化，还是只能等人类维护？ | `Agent Autopilot Daemon` + `Transactional Outbox` 自动排队清退。 |
-| **Level 5** | 非对称降维 (Asymmetry) | 为何要手写几百个 CRUD 页面？能否用动态本体画布降维打击？ | `UniversalSchemaCanvas` + 326 份机器可读契约，开发成本压缩 90%。 |
+| **Level 5** | 非对称降维 (Asymmetry) | 为何要手写几百个 CRUD 页面？能否用动态本体画布降维打击？ | `UniversalSchemaCanvas` + 354 份机器可读契约，开发成本压缩 90%。 |
 | **Level 6** | 终极目的对齐 (Telos Alignment) | 系统的一切能力是否为了实现全能力 AI Agent 闭环驱动？ | 全仓 38 个 Skills、MCP 服务、无头运营套件与 CI 强制门禁。 |
 
 ## 三、 门禁自循环闭环

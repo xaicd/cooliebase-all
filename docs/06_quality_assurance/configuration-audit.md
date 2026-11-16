@@ -1,8 +1,8 @@
 # 功能与物理配置审计报告 (FCA / PCA Configuration Audit)
 
 - **归属规范**: CMMI 06_quality_assurance (CM / PPQA)
-- **模板基线**: 对齐 `package.json#version` 与 `packages/shared/contract/compat-manifest.json`
-- **自动化凭证**: `docs/06_quality_assurance/gate-evidence-trace.json`（由 `pnpm run check` 与交付门禁生成）
+- **模板基线**: `1.5.0`（对齐 `package.json#version` 与 `packages/shared/contract/compat-manifest.json`）
+- **自动化凭证**: `docs/06_quality_assurance/gate-evidence-trace.json` · [`docs/audit/2026-11-16-core-docs-accuracy-audit.md`](../audit/2026-11-16-core-docs-accuracy-audit.md)
 
 ---
 

@@ -1,7 +1,7 @@
 # 生产环境安装部署与割接操作手册 (System Deployment SOP)
 
-- **版本基准**: v1.1.0 Enterprise Baseline
-- **生效日期**: 2026-10-09
+- **版本基准**: `v1.5.0` Enterprise Baseline
+- **更新日期**: 2026-11-16
 - **归属规范**: CMMI 07_release (TRANS - 部署与交付)
 
 ---
@@ -10,11 +10,11 @@
 
 ```mermaid
 flowchart TD
-    Client["客户端 (浏览器 / Expo 移动端)"] --> Gateway["Traefik 边缘反向代理 (端口 80 / 443 / SSL)"]
+    Client["四端客户端 (Admin / 2C门户 / Expo App / Uni-App 小程序与H5)"] --> Gateway["Traefik / Caddy 边缘反向代理 (端口 80 / 443 / SSL)"]
     Gateway --> BFF["Next.js BFF 服务集群 (端口 3200)"]
-    BFF --> Plugins["第一方业务插件 (15个)"]
+    BFF --> Plugins["第一方业务插件 (18个: oa/hrm/fms/pms/erp/wms/mes/mall/pay 等)"]
     BFF --> Platform["平台地基 (system / infra)"]
-    Plugins & Platform --> DB[(持久化存储: SQLite WAL / Postgres / MySQL)]
+    Plugins & Platform --> DB[(持久化存储: PostgreSQL / SQLite WAL / MySQL)]
     Plugins & Platform --> NATS["自研 NATS 消息总线与 Outbox"]
 ```
 
@@ -22,17 +22,17 @@ flowchart TD
 
 ## 2. 部署前置条件核验 (Pre-flight Checklist)
 
-1. **操作系统**: Linux (Ubuntu 22.04 LTS / Debian 12 / Alpine 3.19) 或 macOS (darwin-arm64)；
-2. **运行时环境**: Node.js $\ge 20.18.0$ (推荐 22.x LTS)；
-3. **包管理器**: pnpm $\ge 9.x / 10.x$（锁文件强依赖 `pnpm-lock.yaml`）；
+1. **操作系统**: Linux (Ubuntu 22.04+ LTS / Debian 12 / Alpine 3.19) 或 macOS (darwin-arm64)；
+2. **运行时环境**: Node.js $\ge 20.19.0$ (推荐 22.x / 24.x LTS)；
+3. **包管理器**: pnpm $\ge 10.x$（锁文件强依赖 `pnpm-lock.yaml`）；
 4. **环境变量注入**:
    ```bash
    NODE_ENV=production
    PORT=3200
    DB_DRIVER=postgresql
-   # **必须是真实 PostgreSQL**：Prisma 的 provider 固定 postgresql，15 个业务域（ai/aigw/bpm/
-   # crm/erp/im/iot/mall/member/mes/mp/pay/report/wms/online）全部走 Prisma。
-   # `DATABASE_URL=file:*.db`(SQLite) 或 `DB_DRIVER=memory` 只能跑 system/infra 两个域，
+   # **必须是真实 PostgreSQL**：Prisma 的 provider 固定 postgresql，18 个第一方插件域（ai/bpm/
+   # crm/erp/fms/hrm/im/iot/mall/member/mes/mp/oa/online/pay/pms/report/wms）全部支持 Prisma / Kysely。
+   # `DATABASE_URL=file:*.db`(SQLite) 或 `DB_DRIVER=memory` 仅供本地快速开发预览，
    # 且 production 下 memory 会被 `datasource-manager` 直接拒绝。
    DATABASE_URL="postgresql://<user>:<password>@<pg-host>:5432/<db>?schema=public"
    # Redis（缓存/限流/会话）；生产 compose 会注入带密码的 REDIS_URL
@@ -54,7 +54,7 @@ flowchart TD
 ### Step 1: 获取制品与锁定依赖
 ```bash
 # 1. 克隆代码并检出已发布 Release Tag
-git checkout v1.1.0
+git checkout v1.5.0
 
 # 2. 冻结锁文件安装生产依赖 (严禁联网升级)
 pnpm install --frozen-lockfile --prod=false
@@ -85,7 +85,7 @@ pnpm exec prisma migrate deploy
 #    （它是脚手架时生成的一次性产物，新增路由不会自动回填 —— 不同步会让新接口 404/500）
 pnpm run plugins:sync-routes
 
-# 2. 注册 15 个业务域插件清单（运行期只读数据库里的 manifest_json）
+# 2. 注册 18 个第一方插件域清单（运行期只读数据库里的 manifest_json）
 pnpm run plugins:register
 ```
 

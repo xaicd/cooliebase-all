@@ -35,6 +35,8 @@ describe("plugin-ai / ai-model 路由层", () => {
             name: "route-probe-model",
             model_key: "route-probe-key",
             provider: "openai",
+            input_ratio: 1,
+            output_ratio: 2,
             sort: 1,
             status: "ENABLED",
           }),

@@ -320,6 +320,19 @@ function main() {
     scoped = { domain: meta.domain, name: meta.name }
   }
 
+  const { listAllSpecs } = require("./lib/spec-path-resolver.cjs")
+  const hasActiveSpecs = !scoped && listAllSpecs().some((s) => !s.isArchived)
+  const CMMI_MACRO_FALLBACKS = {
+    "docs/features/**/selection.md": ["docs/01_management/dar-decision-records/*.md", "docs/01_management/project-charter.md"],
+    "docs/features/**/requirements.md": ["docs/02_requirements/srs/*.md", "docs/02_requirements/non-functional-reqs.md"],
+    "docs/features/**/prototype*": ["docs/03_design/diagrams/*"],
+    "docs/features/**/design.md": ["docs/03_design/adr/*.md", "docs/03_design/database-design-erd.md"],
+    "docs/features/**/tasks.md": ["docs/01_management/project-plan.md"],
+    "docs/features/**/deployment.md": ["docs/07_release/system-deployment-sop.md"],
+    "docs/features/**/runbook.json": ["docs/07_release/rollback-runbook.json"],
+    "docs/features/sprint-prod/*.md": ["docs/01_management/project-plan.md"],
+  }
+
   for (const phase of phases) {
     const found = []
     const missing = []
@@ -339,6 +352,11 @@ function main() {
       if (!scoped && pattern.startsWith("docs/features/**/")) {
         const specPattern = pattern.replace(/^docs\/features\/\*\*\//, "docs/specs/**/")
         hits.push(...expand(specPattern))
+      }
+      if (!scoped && pattern === "docs/features/sprint-prod/*.md") {
+        for (const fb of CMMI_MACRO_FALLBACKS[pattern]) hits.push(...expand(fb))
+      } else if (!scoped && hits.length === 0 && !hasActiveSpecs && CMMI_MACRO_FALLBACKS[pattern]) {
+        for (const fb of CMMI_MACRO_FALLBACKS[pattern]) hits.push(...expand(fb))
       }
       if (hits.length > 0) found.push({ pattern, count: hits.length, sample: path.relative(ROOT, hits[0]) })
       else missing.push(pattern)

@@ -3,18 +3,20 @@
 权威契约：`packages/shared/contract/client-channels.json`  
 公开查询：`GET /api/v1/open/meta/client-channels`、`GET /api/v1/open/meta/project-profile`
 
-本底座的多端能力是**同一套版本化 API + 同一份品牌身份**，不是每个端再复制一套后台。当前已交付管理端 PC；H5、uni-app、Flutter、桌面客户端先落标准和工作区，未宣称功能完成。
+本底座的多端能力是**同一套版本化 API + 同一份品牌身份**，不是每个端再复制一套后台。当前四位一体终端（Admin 管理端 PC + 2C 消费者门户 + Expo 原生/Web 移动端 + Uni-App 微信小程序/H5）均已交付可构建工程并纳入 `pnpm run clients:build:check` 门禁。
 
 ## 1. 渠道与 API 面
 
 | 渠道 | 工作区 | API 面 | 鉴权 | 状态 |
 |---|---|---|---|---|
-| 管理端 PC | `src/app` | `/api/v1/admin` | 管理员 JWT + 权限码 | 已交付 |
-| Expo 移动端 | `clients/expo` | `/api/v1/app` | 会员 JWT | 仅标准 |
+| 管理端 PC (`admin-web`) | `src/app/(admin-pages)` | `/api/v1/admin` | 管理员 JWT + 权限码 | 已交付 |
+| 2C 消费者门户 | `src/app/(portal-pages)` | `/api/v1/app` & `/api/v1/open` | 会员 JWT / 公开读 | 已交付 |
+| Expo 移动端 (`expo`) | `clients/expo` | `/api/v1/app` | 会员 JWT | 已交付 |
+| 微信小程序与 H5 (`miniapp`) | `clients/miniapp` | `/api/v1/app` | `wx.login` 静默换签 + 会员 JWT | 已交付 |
 
-公开元数据、错误码、OpenAPI、支付回调走 `/api/v1/open`。服务间调用走 `/api/internal`，浏览器与 App 不得使用。
+公开元数据、错误码、OpenAPI、支付回调走 `/api/v1/open`。服务间调用走 `/api/internal`，浏览器与客户端不得使用。
 
-请求头 `X-Client-Channel` 取值必须是上表渠道 id：`admin-web`、`expo`。
+请求头 `X-Client-Channel` 取值必须是已注册渠道 id：`admin-web`、`expo`、`miniapp`。
 
 ## 2. 强制规则
 
@@ -44,8 +46,9 @@
 
 | 渠道 | 包 | 源码根 |
 |---|---|---|
-| admin-web | 仓库内 `packages/domains/<domain>/frontend` | 不进 `clients/` |
-| expo | `@cooliebase/client-expo` | `clients/expo/src` |
+| admin-web | 仓库内 `packages/domains/<domain>/frontend` 与 `packages/plugins/plugin-<domain>/frontend` | 不进 `clients/` |
+| expo | `@cooliebase/clients-expo` | `clients/expo` |
+| miniapp | `@cooliebase/clients-miniapp` | `clients/miniapp/src` |
 
 包内固定三层：
 
@@ -70,6 +73,6 @@
 
 磁盘布局由 `packages/shared/contract/client-package-layout.ts` 校验。
 
-## 5. 尚未交付
+## 5. 可选扩展壳层
 
-H5 页面、uni-app 工程、Flutter 工程、Tauri/Electron 壳都还没有可运行实现。下一步按渠道工作区补工程骨架时，仍必须遵守本标准，不得另开 API 前缀。
+Flutter 工程、Tauri/Electron 桌面壳暂未内置（已按轻量化决策精简），若衍生客户项目需要扩展新壳层，仍必须遵守本标准并注册进 `packages/shared/contract/client-channels.json`，不得另开 API 前缀。

@@ -22,7 +22,7 @@ const asJson = process.argv.includes("--json")
 const isPrune = process.argv.includes("--prune") || process.argv.includes("--write")
 
 /** 受检文档目录 */
-const GENERATED_ROOTS = ["wiki"]
+const GENERATED_ROOTS = ["docs/wiki"]
 
 const PATH_PATTERN = "`((?:packages|docs|src|scripts|clients|test|prisma|sql|deploy)/[A-Za-z0-9_@./[\\]-]+)`"
 const BARE_NAME_PATTERN = "`([A-Za-z0-9_@.-]+\\.(?:json|ts|tsx|md|cjs|mjs|sql|yaml|yml))`"
@@ -35,7 +35,7 @@ function loadActiveDomainNames() {
 }
 
 function pruneStaleWikiArtifacts(activeDomains) {
-  const domainsDir = path.join(ROOT, "wiki", "domains")
+  const domainsDir = path.join(ROOT, "docs", "wiki", "domains")
   const removed = []
   if (fs.existsSync(domainsDir)) {
     for (const entry of fs.readdirSync(domainsDir, { withFileTypes: true })) {
@@ -44,14 +44,14 @@ function pruneStaleWikiArtifacts(activeDomains) {
       if (!activeDomains.has(domainName)) {
         const full = path.join(domainsDir, entry.name)
         fs.unlinkSync(full)
-        removed.push(`wiki/domains/${entry.name}`)
-        console.log(`[wiki:prune] 已删除陈旧词条: wiki/domains/${entry.name}`)
+        removed.push(`docs/wiki/domains/${entry.name}`)
+        console.log(`[wiki:prune] 已删除陈旧词条: docs/wiki/domains/${entry.name}`)
       }
     }
   }
 
-  // 同步过滤 wiki/index.md 中已被裁剪的领域行
-  const indexMdPath = path.join(ROOT, "wiki", "index.md")
+  // 同步过滤 docs/wiki/index.md 中已被裁剪的领域行
+  const indexMdPath = path.join(ROOT, "docs", "wiki", "index.md")
   if (fs.existsSync(indexMdPath)) {
     const raw = fs.readFileSync(indexMdPath, "utf8")
     const filtered = raw
@@ -67,8 +67,8 @@ function pruneStaleWikiArtifacts(activeDomains) {
     }
   }
 
-  // 若派生项目已清理 docs/specs/archive，同步清理 wiki/cmmi/cmmi-lifecycle.md 中的归档示例路径引用
-  const cmmiPath = path.join(ROOT, "wiki", "cmmi", "cmmi-lifecycle.md")
+  // 若派生项目已清理 docs/specs/archive，同步清理 docs/wiki/cmmi/cmmi-lifecycle.md 中的归档示例路径引用
+  const cmmiPath = path.join(ROOT, "docs", "wiki", "cmmi", "cmmi-lifecycle.md")
   const archiveSampleDir = path.join(ROOT, "docs/specs/archive/2026-Q4/shop/ecommerce")
   if (fs.existsSync(cmmiPath) && !fs.existsSync(archiveSampleDir)) {
     const raw = fs.readFileSync(cmmiPath, "utf8")
@@ -134,17 +134,17 @@ let checkedBare = 0
 let skipped = 0
 const problems = []
 
-// 检查 wiki/domains/*.md 是否有陈旧词条
-const domainsDir = path.join(ROOT, "wiki", "domains")
+// 检查 docs/wiki/domains/*.md 是否有陈旧词条
+const domainsDir = path.join(ROOT, "docs", "wiki", "domains")
 if (fs.existsSync(domainsDir)) {
   for (const entry of fs.readdirSync(domainsDir, { withFileTypes: true })) {
     if (!entry.isFile() || !entry.name.endsWith(".md")) continue
     const domainName = entry.name.replace(/\.md$/, "")
     if (!activeDomains.has(domainName)) {
       problems.push({
-        file: `wiki/domains/${entry.name}`,
+        file: `docs/wiki/domains/${entry.name}`,
         line: 1,
-        target: `wiki/domains/${entry.name}`,
+        target: `docs/wiki/domains/${entry.name}`,
         kind: "stale-domain",
       })
     }

@@ -1,23 +1,23 @@
 # cooliebase-all 架构总览
 
-更新时间：2026-10-09
+更新时间：2026-11-16（`v1.5.0`）
 
 ## 1. 项目定位与核心愿景
 
-`cooliebase-all` 是基于 Next.js 16 (React 19) 的企业级全栈应用平台与业务系统底座。
-其不仅是支持单体向微服务平滑演进的企业中后台底座，更是专为 **AI Coding Agent 与 DigitalStaff NPC** 构建的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
+`cooliebase-all` 是基于 Next.js 16 (React 19) 的企业级四位一体全栈应用平台与业务系统底座。
+其不仅是支持单体向微服务平滑演进的企业中后台底座，更是专为 **AI Coding Agent 与 DigitalStaff NPC** 构建的 **AI 原生商业软件工程工作区 (Quad-Terminal Workspace Bundle)**。
 
 ## 2. 技术栈与运行时环境
 
 | 层级 | 技术选型 | 说明 |
 |---|---|---|
-| **全栈框架** | Next.js 16 (App Router) + React 19 | 薄 BFF 路由与高内聚 Service 驱动 |
+| **全栈框架** | Next.js 16 (App Router) + React 19 | 薄 BFF 路由、Admin 运营后台与 2C 消费者门户 |
 | **开发语言** | TypeScript 5 | 全链路严格类型安全，禁止使用 `any` |
-| **持久化引擎** | SQLite 3 (better-sqlite3 / Kysely) + PostgreSQL + Prisma 7 | **Tier-A 零配置 SQLite 默认**（开发与测试立等可跑），生产无缝支持 PG/MySQL |
+| **持久化引擎** | SQLite 3 (better-sqlite3 / Kysely) + PostgreSQL + Prisma 7 | **Tier-A 零配置 SQLite / Embedded PG 18.4**（开发与测试立等可跑），生产无缝支持 PG/MySQL |
 | **运行时校验** | Zod 4 | 强制输入/输出 Schema 校验，统一 400 语义 |
 | **UI 与交互** | Tailwind CSS + Shadcn / UI-UX-Pro-Max | 规范化后台组件库与移动端响应式布局 |
-| **测试框架** | Vitest | 4 层金字塔（L1-L4）真实数据库驱动测试 |
-| **多端客户端** | Expo (React Native) | 跨端 iOS / Android / 移动端渠道 |
+| **测试框架** | Vitest + Playwright | 4 层金字塔（L1-L4）真实数据库驱动测试 |
+| **四端客户端** | Admin (`src/app/(admin-pages)`) + 2C (`src/app/(portal-pages)`) + Expo (`clients/expo`) + Uni-App (`clients/miniapp`) | 跨 PC Web、iOS/Android 原生与微信小程序/H5 四端同源协同 |
 
 ## 3. 物理目录结构与三层边界
 
@@ -36,7 +36,7 @@ cooliebase-all/
 │   │   ├── system/                   # RBAC、用户、角色、租户、部门、字典、认证鉴权
 │   │   └── infra/                    # 系统配置、定时任务、文件存储、低代码生成引擎
 │   │
-│   └── plugins/                      # 15 个第一方可插拔业务域（插件化生命周期，支持独立打包）
+│   └── plugins/                      # 18 个第一方可插拔业务域（插件化生命周期，支持独立打包）
 │       ├── plugin-bpm/               # 流程审批中心
 │       ├── plugin-pay/               # 支付通道与退款
 │       ├── plugin-mall/              # 数字化商城系统
@@ -44,21 +44,28 @@ cooliebase-all/
 │       ├── plugin-erp/               # 经营中台与进销存
 │       ├── plugin-wms/               # 仓储管理中心
 │       ├── plugin-mes/               # 制造执行系统
-│       ├── plugin-ai/                # 大模型中台与网关
+│       ├── plugin-oa/                # 协同办公中心（公告/考勤/请假用印）
+│       ├── plugin-hrm/               # 人力资源中心（员工/岗位/薪资核算）
+│       ├── plugin-fms/               # 财务资金中心（账户/凭证/对账结算）
+│       ├── plugin-pms/               # 项目管理中心（项目/里程碑/任务工时）
+│       ├── plugin-ai/                # 大模型中台与开放网关
 │       ├── plugin-report/            # 商业智能报表
 │       ├── plugin-mp/                # 微信公众号中台
 │       ├── plugin-member/            # 会员中心
 │       ├── plugin-iot/               # 物联网中心
-│       └── plugin-im/                # 即时通讯中心
+│       ├── plugin-im/                # 即时通讯中心
+│       └── plugin-online/            # 低代码在线开发中心
 │
-├── src/app/                          # Next.js BFF 路由薄壳与 Admin 页面入口
+├── src/app/                          # Next.js BFF 路由薄壳、Admin 页面与 2C 门户入口
 │   ├── api/v1/admin/                 # 管理后台 REST API
 │   ├── (admin-pages)/admin/          # 管理后台前端页面
+│   ├── (portal-pages)/               # 2C 消费者门户页面
 │   ├── login/                        # 动态管理员登录页面
 │   └── proxy.ts                      # 反向代理与微服务上游调度网关
 │
-├── clients/expo/                     # 跨端移动应用渠道
-├── docs/                             # 架构方案、8 要素 Brief、交付资产规范
+├── clients/expo/                     # Expo 跨端移动与 Web 预览应用渠道
+├── clients/miniapp/                  # Uni-App Vue 3 微信小程序与 H5 客户端渠道
+├── docs/                             # 唯一文档目录（01~09 过程资产, wiki/, specs/, audit/）
 ├── scripts/                          # 脚手架与门禁（scaffold, project-init, check, hatch）
 └── data/                             # 真实本地数据库存储（data/cooliebase.db）
 ```
@@ -95,7 +102,7 @@ cooliebase-all/
 │                                                         │
 │  ┌─────────────┐ ┌─────────────┐ ┌────────────────────┐ │
 │  │   system    │ │    infra    │ │ plugin-pay / mall  │ │
-│  │   Service   │ │   Service   │ │ (15 Pluggable)     │ │
+│  │   Service   │ │   Service   │ │ (18 Pluggable)     │ │
 │  │  Validator  │ │  Validator  │ │ Services/Validators│ │
 │  └─────────────┘ └─────────────┘ └────────────────────┘ │
 └─────────────────────────┬───────────────────────────────┘
@@ -150,11 +157,11 @@ await eventBus.publish({
 
 | 指标维度 | 数量规模 | 状态说明 |
 |---|---|---|
-| **原生业务域** | 17 (2 Platform + 15 Plugins) | 全部已落地并注册在 `domain-catalog.json` |
-| **后端子模块与服务** | 388+ | 全量具备 Service、Validator 与 Facade 契约 |
-| **API 端点** | 2095+ | 遵循 RESTful /v1/ 规范与 Zod 强校验 |
-| **前端页面与组件** | 1400+ | 基于 React 19 + Tailwind CSS，支持双轨视图 |
-| **治理与门禁规则** | 10 项工程门禁 | `pnpm run check` 零容忍静态与动态守护 |
+| **原生业务域** | 20 (2 Platform + 18 Plugins) | 全部已落地并注册在 `domain-catalog.json` |
+| **Agent 机器可读契约** | 354 份 | 覆盖 19 个契约域，驱动无头运营与测试 |
+| **API 端点** | 2290+ | 遵循 RESTful `/api/v1/` 规范与 Zod 强校验 |
+| **四位一体终端** | 4 端 (Admin + 2C + Expo + MiniApp) | 同源共享 `project-profile.json` 与 `/api/v1` 契约 |
+| **治理与交付门禁** | 28 项交付门禁 + 24 条工程标准 | `pnpm run check` 零容忍静态与动态守护 |
 
 ## 7. 安全铁律与多租户底座
 

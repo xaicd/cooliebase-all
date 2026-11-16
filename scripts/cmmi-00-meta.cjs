@@ -6,7 +6,7 @@
  *   - `harness.cjs` 定工作流程总规范
  *   - `cmmi-00-meta.cjs` 属于 `speckit` 在 CMMI-00 环节的文档与元契约扩展
  * 关联文档:
- *   - 宏观过程文档: docs/00_meta_standards/*, .specify/memory/constitution.md, AGENTS.md, HARNESS.md, wiki/index.md
+ *   - 宏观过程文档: .specify/memory/constitution.md, AGENTS.md, HARNESS.md, docs/wiki/index.md
  *   - 特性规格文档: docs/specs/<domain>/<name>/spec.json
  *
  * 统一跨底座命令:
@@ -48,7 +48,10 @@ if (sub === "check") {
   console.log("═══ [Spec-Kit × CMMI-00] 规范文档与元契约校验 (00_meta_standards) ═══");
   const d0 = checkStageDocs("00");
   if (d0 !== 0) process.exit(d0);
-  if (fs.existsSync(path.join(ROOT, "scripts/compat-check.cjs"))) {
+  if (fs.existsSync(path.join(ROOT, "scripts/check-compat-manifest.cjs"))) {
+    const c1 = runNode("scripts/check-compat-manifest.cjs", rest);
+    if (c1 !== 0) process.exit(c1);
+  } else if (fs.existsSync(path.join(ROOT, "scripts/compat-check.cjs"))) {
     const c1 = runNode("scripts/compat-check.cjs", rest);
     if (c1 !== 0) process.exit(c1);
   }
@@ -68,13 +71,14 @@ if (sub === "schema") {
 if (sub === "sync") {
   console.log("═══ [Spec-Kit × CMMI-00] 同步 Agent 表面契约与 OpenWiki ═══");
   if (fs.existsSync(path.join(ROOT, "scripts/sync-agent-surface.cjs"))) {
-    process.exit(runNode("scripts/sync-agent-surface.cjs", rest));
-  }
-  if (fs.existsSync(path.join(ROOT, "scripts/sync-openwiki.mjs"))) {
-    const code = runNode("scripts/sync-openwiki.mjs", rest);
+    const code = runNode("scripts/sync-agent-surface.cjs", rest);
     if (code !== 0) process.exit(code);
   }
-  process.exit(runNode("scripts/compat-check.cjs"));
+  if (fs.existsSync(path.join(ROOT, "scripts/check-generated-paths.cjs"))) {
+    const code = runNode("scripts/check-generated-paths.cjs", ["--prune"]);
+    if (code !== 0) process.exit(code);
+  }
+  process.exit(runNode("scripts/check-compat-manifest.cjs"));
 }
 
 if (sub === "--help" || sub === "-h" || sub === "help") {

@@ -1,15 +1,15 @@
 # CoolieBase-All-Next AI-Driven 全链路软件工厂与交付规范
 # (AI-Driven Software Delivery Foundry Blueprint)
 
-> **版本编号**: 2026.10-FOUNDRY-V1  
-> **核心吸收**: 融合 Coolie 商业级交付经验（CMMI Spec-First 交付资产、8 要素 Brief、反向五大视角）与 CoolieBase-All-Next 17 域插件化架构体系  
+> **版本编号**: `v1.5.0` (2026-11-16)  
+> **核心吸收**: 融合 Coolie 商业级交付经验（CMMI Spec-First 交付资产、8 要素 Brief、反向五大视角）与 CoolieBase-All **20 域插件化与四位一体终端架构体系**  
 > **适用对象**: 所有在本项目中从事架构设计、需求派发、编码施工、代码审查与交付验收的 AI Agent 及工程师
 
 ---
 
 ## 一、 顶层定位：从“代码生成器”升维为“AI 原生商业软件交付工厂”
 
-`cooliebase-all` 不仅是一个包含 17 个域的企业中后台模板，更是供 AI Agent 独立施工、自主进化的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
+`cooliebase-all` 不仅是一个包含 20 个原生域（2 平台地基 + 18 第一方插件）与四端客户端的企业中后台模板，更是供 AI Agent 独立施工、自主进化的 **AI 原生商业软件工程工作区 (Workspace Bundle)**。
 
 为了彻底杜绝大模型在大型复杂代码库中常见的“顺拐贴补丁、口头说完成、生成假 Mock、堆砌样板代码”四大顽疾，本项目严格推行 **AI Agent Driven 闭环流水线**：
 
