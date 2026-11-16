@@ -105,8 +105,8 @@
 
 | ID | 工作项 | 验收 | 状态 | 证据 |
 |---|---|---|---|---|
-| A1 | 17 域登记于唯一真源 | `domain-catalog.json` 域数 == `compat-manifest.contracts.domainCatalog.domains` | ✅ | `compat:check` |
-| A2 | 15 业务域插件化 | `packages/plugins/plugin-*` 与 catalog `layers.plugin` 一致 | ✅ | `pnpm run domain:check` |
+| A1 | 20 域登记于唯一真源 | `domain-catalog.json` 域数 == `compat-manifest.contracts.domainCatalog.domains` | ✅ | `compat:check` |
+| A2 | 18 第一方插件域标准化 | `packages/plugins/plugin-*` 与 catalog `layers.plugin` 一致 | ✅ | `pnpm run domain:check` |
 | A3 | 跨域只走 Facade | 禁止跨域 import Service | ✅ | `pnpm run microservice:check` |
 | A4 | seam 图不漂移 | 生成物与 catalog/contract 一致 | ✅ | `pnpm run domain:seams` + `domain:check` |
 | A5 | 平台地基不插件化 | `system`/`infra` 永不进 plugin 层 | ✅ | `check-harness-bundle.cjs` |
@@ -122,8 +122,8 @@
 | B5 | 依赖 CVE 棘轮 | 只拦新增；无补丁项入台账 | ✅ | `pnpm run deps:audit` |
 | B6 | 客户端构建门禁 | 导出产物存在 + 零污染 + 裁剪跳过 | ✅ | `pnpm run clients:build:check` |
 | B7 | 版本策略机检 | 模板版本两处同步；最新 tag 有发布说明；解耦须有据 | ✅ | `pnpm run version:check`（含两条反向对照） |
-| B8 | 路由校验覆盖（§4.1） | 写路由且读 body 就必须接 Zod；棘轮只拦新增 | ✅ | `pnpm run routes:validation:check`（已接线 **709/854**，剩 145 条全为非标准端点） |
-| B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `pnpm run repo:columns:check`（323 仓储 / 324 表，0 违规） |
+| B8 | 路由校验覆盖（§4.1） | 写路由且读 body 就必须接 Zod；棘轮只拦新增 | ✅ | `pnpm run routes:validation:check`（已接线 **734/875**，剩 141 条全为非标准端点） |
+| B9 | 生成物列覆盖 | 仓储列 ⊇ 元数据；可写列必须真能落库 | ✅ | `pnpm run repo:columns:check`（335 仓储 / 336 表，0 违规） |
 | B10 | 包管理器调用统一 | 仓内**可执行** `npx` 归零；三种形态 × 八类文件全覆盖 | ✅ | `no-new-npx`（enforce；条数以 `standards:check` 输出为准；反向对照三条） |
 | B11 | **WBS 时效性** | 能力面变化（新增 script / 门禁 / 域）必须在同一次提交里更新计划 | ✅ | `pnpm run plan:freshness`（pre-commit 内执行；硬失败=能力面，软提示=触及 `packages/`） |
 | B12 | **派生后可执行性自检** | 公开脚本不得依赖会被 de-leak 清洗的文件；package.json 不得引用会被清洗的文件、公开 script 键不得被清洗删掉；派生后必须能跑通 speckit 校验链 | ✅ | `pnpm run workspace:executability:check`（静态层：相对依赖逐条解析 + 清洗面依赖判红 + **package.json 维度**：值引用被清洗文件 / 公开键缺失 / 口径收窄自检；口径真源 `scripts/lib/workspace-executability-scope.cjs` = 平台 `cleanWorkspaceLeaks` **全量清洗面**）+ `pnpm run workspace:executability:smoke`（运行层：真跑 speckit.ts / check-specs-health / verify-task-commit）。**反向对照实测**：抽掉公开解析器 → 7 处断链判红 exit 1；package.json 装引用 `scripts/harness.sh` 的探针键 → 判红「平台清洗会把这个 script 键删掉」exit 1；删掉 `speckit` 键 → 判红「静默消失」exit 1 |
@@ -248,7 +248,7 @@
 ## 5. 当前进展快照（2026-11-16）
 
 - **v1.5.0 四位一体终端、19 大企业原生业务域与跨底座 CLI 100% 对齐（2026-11-16，能力面变化）**：
-  1. **企业级原生域补齐与定制业务剥离**：通过低代码元数据与 `create-business-domain.ts` 新增 `oa`（协同办公）、`hrm`（人力资源）、`fms`（财务管理）、`pms`（项目管理）4 大第一方插件，彻底剥离垂直定制插件 `plugin-aigw`（`KNOWN_CUSTOM` 清零），全仓收敛为 20 域（平台地基 `system/infra` + `online` + 17 大业务插件）；
+  1. **企业级原生域补齐与定制业务剥离**：通过低代码元数据与 `create-business-domain.ts` 新增 `oa`（协同办公）、`hrm`（人力资源）、`fms`（财务管理）、`pms`（项目管理）4 大第一方插件，彻底剥离非原生垂直定制插件（`KNOWN_CUSTOM` 清零），全仓收敛为 **20 个原生域**（2 个平台地基 `system/infra` + **18 个第一方插件**，含 `online` 与 `oa/hrm/fms/pms`）；
   2. **第四终端 `clients/miniapp` 交付**：新增基于 Uni-App Vue 3 + TypeScript + Vite 的微信小程序与 H5 多端客户端，内置动态 `VITE_API_BASE_URL` / `BASE_PATH`、`wx.login` 静默授权、4 大双字/三字 TabBar 页面、`subPackages` 分包与全面屏安全区适配，并接入 `project-init.cjs` 白标孵化与 `clients:build:check` 双端无污染构建门禁；
   3. **跨底座 CLI 与门禁别名 100% 同名同参**：补齐 `project:reactor`、`gates:23`、`gates:23:static`、`gen:three-role`、`domain:prune`、`trim:modules`、`trim:check`、`gateway:gen`、`verify:b0..b5`、`dev:miniapp`、`build:miniapp`、`dev:app`、`build:admin` 并全量纳入 `pnpm harness` 可达性治理，同步升级模板版本至 `1.5.0`。
 
@@ -347,7 +347,7 @@
   `git commit` **exit=1**；同时更新计划 → **exit=0**（拦得住 + 放得行，两个方向都测）。
 - **CLI 无关性（不装任何 CLI 也能守住）**：实测兜底链为
   `postinstall → setup-git-hooks`（`core.hooksPath=.githooks`）→ `.githooks/pre-commit` → CI 的 `pnpm run check`。
-  直接跑 `.githooks/pre-commit` 可 exit=0（只用 `npm run`，无 CLI 依赖；逃生阀 `AGENT_ROUTE_SKIP=1` 也无关 CLI）。
+  直接跑 `.githooks/pre-commit` 可 exit=0（只用 `pnpm run`，无 CLI 依赖；逃生阀 `AGENT_ROUTE_SKIP=1` 也无关 CLI）。
   **补了一个真缺口**：`plan:freshness` 此前**只挂在 git hook 上**，`--no-verify` 就完全失效且 **CI 不补**；
   已在 CI 加 `--range` 步骤，并**修掉该模式的 bug** —— 它原先 before 取 HEAD、after 取 index，
   提交后两者恒等，**永远不可能失败**（会是个假绿）。修后反向对照实测 exit 1。

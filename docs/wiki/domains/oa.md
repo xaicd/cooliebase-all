@@ -1,6 +1,6 @@
 # 领域百科：oa (第一方业务插件)
 
-> **唯一源码目录**：[`packages/plugins/plugin-oa/`](../../packages/plugins/plugin-oa)  
+> **唯一源码目录**：[`packages/plugins/plugin-oa/`](../../../packages/plugins/plugin-oa)  
 > **演进阶段**：阶段 B | **独立部署默认端口**：3226 | **上游环境变量**：`COOLIEBASE_DOMAIN_OA_UPSTREAM`
 
 ---
@@ -15,7 +15,7 @@
 
 ## 二、 跨域 Facade 门面
 
-- [oa.facade.ts](../../packages/plugins/plugin-oa/contract/oa.facade.ts)
+- [oa.facade.ts](../../../packages/plugins/plugin-oa/contract/oa.facade.ts)
 
 ---
 
@@ -23,6 +23,6 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `OaNotice` | 通知公告 | `/admin/oa/oa-notice` | `oa:notice` | [`oa-notice.agent.json`](../../packages/plugins/plugin-oa/agent/oa-notice.agent.json) |
-| `OaAttendance` | 考勤打卡 | `/admin/oa/oa-attendance` | `oa:attendance` | [`oa-attendance.agent.json`](../../packages/plugins/plugin-oa/agent/oa-attendance.agent.json) |
-| `OaLeaveApply` | 请假用印 | `/admin/oa/oa-leave-apply` | `oa:leave-apply` | [`oa-leave-apply.agent.json`](../../packages/plugins/plugin-oa/agent/oa-leave-apply.agent.json) |
+| `OaNotice` | 通知公告 | `/admin/oa/oa-notice` | `oa:notice` | [`oa-notice.agent.json`](../../../packages/plugins/plugin-oa/agent/oa-notice.agent.json) |
+| `OaAttendance` | 考勤打卡 | `/admin/oa/oa-attendance` | `oa:attendance` | [`oa-attendance.agent.json`](../../../packages/plugins/plugin-oa/agent/oa-attendance.agent.json) |
+| `OaLeaveApply` | 请假用印 | `/admin/oa/oa-leave-apply` | `oa:leave-apply` | [`oa-leave-apply.agent.json`](../../../packages/plugins/plugin-oa/agent/oa-leave-apply.agent.json) |

@@ -1,6 +1,6 @@
 # 领域百科：pay (第一方业务插件)
 
-> **唯一源码目录**：[`packages/plugins/plugin-pay/`](../../packages/plugins/plugin-pay)  
+> **唯一源码目录**：[`packages/plugins/plugin-pay/`](../../../packages/plugins/plugin-pay)  
 > **演进阶段**：阶段 B | **独立部署默认端口**：3214 | **上游环境变量**：`COOLIEBASE_DOMAIN_PAY_UPSTREAM`
 
 ---
@@ -24,7 +24,7 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [pay.facade.ts](../../packages/plugins/plugin-pay/contract/pay.facade.ts)
+- [pay.facade.ts](../../../packages/plugins/plugin-pay/contract/pay.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`
@@ -41,20 +41,20 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `PayApp` | 支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家 | `/admin/pay/pay-app` | `pay:pay_app` | [`pay-app.agent.json`](../../packages/plugins/plugin-pay/agent/pay-app.agent.json) |
-| `PayChannel` | 支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P | `/admin/pay/pay-channel` | `pay:pay_channel` | [`pay-channel.agent.json`](../../packages/plugins/plugin-pay/agent/pay-channel.agent.json) |
-| `PayDemoOrder` | 示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款 | `/admin/pay/pay-demo-order` | `pay:pay_demo_order` | [`pay-demo-order.agent.json`](../../packages/plugins/plugin-pay/agent/pay-demo-order.agent.json) |
-| `PayDemoWithdraw` | 示例提现订单演示业务系统的转账业务 | `/admin/pay/pay-demo-withdraw` | `pay:pay_demo_withdraw` | [`pay-demo-withdraw.agent.json`](../../packages/plugins/plugin-pay/agent/pay-demo-withdraw.agent.json) |
-| `PayNotifyLog` | 商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排 | `/admin/pay/pay-notify-log` | `pay:pay_notify_log` | [`pay-notify-log.agent.json`](../../packages/plugins/plugin-pay/agent/pay-notify-log.agent.json) |
-| `PayNotifyTask` | 支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直 | `/admin/pay/pay-notify-task` | `pay:pay_notify_task` | [`pay-notify-task.agent.json`](../../packages/plugins/plugin-pay/agent/pay-notify-task.agent.json) |
-| `PayOrder` | 支付订单 | `/admin/pay/pay-order` | `pay:pay_order` | [`pay-order.agent.json`](../../packages/plugins/plugin-pay/agent/pay-order.agent.json) |
-| `PayOrderExtension` | 支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录 | `/admin/pay/pay-order-extension` | `pay:pay_order_extension` | [`pay-order-extension.agent.json`](../../packages/plugins/plugin-pay/agent/pay-order-extension.agent.json) |
-| `PayRefund` | 支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : | `/admin/pay/pay-refund` | `pay:pay_refund` | [`pay-refund.agent.json`](../../packages/plugins/plugin-pay/agent/pay-refund.agent.json) |
-| `PayTransfer` | 转账单 | `/admin/pay/pay-transfer` | `pay:pay_transfer` | [`pay-transfer.agent.json`](../../packages/plugins/plugin-pay/agent/pay-transfer.agent.json) |
-| `PayWallet` | 会员钱包 | `/admin/pay/pay-wallet` | `pay:pay_wallet` | [`pay-wallet.agent.json`](../../packages/plugins/plugin-pay/agent/pay-wallet.agent.json) |
-| `PayWalletRecharge` | 会员钱包充值 | `/admin/pay/pay-wallet-recharge` | `pay:pay_wallet_recharge` | [`pay-wallet-recharge.agent.json`](../../packages/plugins/plugin-pay/agent/pay-wallet-recharge.agent.json) |
-| `PayWalletRechargePackage` | 会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额； | `/admin/pay/pay-wallet-recharge-package` | `pay:pay_wallet_recharge_package` | [`pay-wallet-recharge-package.agent.json`](../../packages/plugins/plugin-pay/agent/pay-wallet-recharge-package.agent.json) |
-| `PayWalletTransaction` | 会员钱包流水 | `/admin/pay/pay-wallet-transaction` | `pay:pay_wallet_transaction` | [`pay-wallet-transaction.agent.json`](../../packages/plugins/plugin-pay/agent/pay-wallet-transaction.agent.json) |
+| `PayApp` | 支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家 | `/admin/pay/pay-app` | `pay:app` | [`pay-app.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-app.agent.json) |
+| `PayChannel` | 支付渠道 DO一个应用下，会有多种支付渠道，例如说微信支付、支付宝支付等等即 P | `/admin/pay/pay-channel` | `pay:channel` | [`pay-channel.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-channel.agent.json) |
+| `PayDemoOrder` | 示例订单演示业务系统的订单，如何接入 pay 系统的支付与退款 | `/admin/pay/pay-demo-order` | `pay:demo-order` | [`pay-demo-order.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-demo-order.agent.json) |
+| `PayDemoWithdraw` | 示例提现订单演示业务系统的转账业务 | `/admin/pay/pay-demo-withdraw` | `pay:demo-withdraw` | [`pay-demo-withdraw.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-demo-withdraw.agent.json) |
+| `PayNotifyLog` | 商户支付、退款等的通知 Log每次通知时，都会在该表中，记录一次 Log，方便排 | `/admin/pay/pay-notify-log` | `pay:notify-log` | [`pay-notify-log.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-notify-log.agent.json) |
+| `PayNotifyTask` | 支付通知在支付系统收到支付渠道的支付、退款的结果后，需要不断的通知到业务系统，直 | `/admin/pay/pay-notify-task` | `pay:notify-task` | [`pay-notify-task.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-notify-task.agent.json) |
+| `PayOrder` | 支付订单 | `/admin/pay/pay-order` | `pay:order` | [`pay-order.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-order.agent.json) |
+| `PayOrderExtension` | 支付订单拓展 DO每次调用支付渠道，都会生成一条对应记录 | `/admin/pay/pay-order-extension` | `pay:order-extension` | [`pay-order-extension.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-order-extension.agent.json) |
+| `PayRefund` | 支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO : | `/admin/pay/pay-refund` | `pay:refund` | [`pay-refund.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-refund.agent.json) |
+| `PayTransfer` | 转账单 | `/admin/pay/pay-transfer` | `pay:transfer` | [`pay-transfer.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-transfer.agent.json) |
+| `PayWallet` | 会员钱包 | `/admin/pay/pay-wallet` | `pay:wallet` | [`pay-wallet.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-wallet.agent.json) |
+| `PayWalletRecharge` | 会员钱包充值 | `/admin/pay/pay-wallet-recharge` | `pay:wallet-recharge` | [`pay-wallet-recharge.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-wallet-recharge.agent.json) |
+| `PayWalletRechargePackage` | 会员钱包充值套餐 DO通过充值套餐时，可以赠送一定金额； | `/admin/pay/pay-wallet-recharge-package` | `pay:wallet-recharge-package` | [`pay-wallet-recharge-package.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-wallet-recharge-package.agent.json) |
+| `PayWalletTransaction` | 会员钱包流水 | `/admin/pay/pay-wallet-transaction` | `pay:wallet-transaction` | [`pay-wallet-transaction.agent.json`](../../../packages/plugins/plugin-pay/agent/pay-wallet-transaction.agent.json) |
 
 
 ---

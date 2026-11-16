@@ -1,6 +1,6 @@
 # 领域百科：infra (平台地基)
 
-> **唯一源码目录**：[`packages/domains/infra/`](../../packages/domains/infra)  
+> **唯一源码目录**：[`packages/domains/infra/`](../../../packages/domains/infra)  
 > **演进阶段**：阶段 A | **独立部署默认端口**：3211 | **上游环境变量**：`COOLIEBASE_DOMAIN_INFRA_UPSTREAM`
 
 ---
@@ -24,9 +24,9 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [infra.facade.ts](../../packages/domains/infra/contract/infra.facade.ts)
-- [infra.platform.facade.ts](../../packages/domains/infra/contract/infra.platform.facade.ts)
-- [infra.public.facade.ts](../../packages/domains/infra/contract/infra.public.facade.ts)
+- [infra.facade.ts](../../../packages/domains/infra/contract/infra.facade.ts)
+- [infra.platform.facade.ts](../../../packages/domains/infra/contract/infra.platform.facade.ts)
+- [infra.public.facade.ts](../../../packages/domains/infra/contract/infra.public.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`
@@ -85,7 +85,7 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `Config` | 系统参数设置 | `/admin/infra/configs` | `infra:config` | [`config.agent.json`](../../packages/domains/infra/agent/config.agent.json) |
+| `Config` | 系统参数设置 | `/admin/infra/configs` | `infra:config` | [`config.agent.json`](../../../packages/domains/infra/agent/config.agent.json) |
 
 
 ---

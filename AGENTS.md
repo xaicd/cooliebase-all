@@ -656,10 +656,10 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 
 建议命令：
 
-1. npm test -- --run packages/domains/infra/backend/services/__tests__/template-engine.service.test.ts
-2. npm test -- --run packages/shared/backend/lib/__tests__/rpc-protocol.test.ts
-3. npm test -- --run packages/domains/infra/backend/services/__tests__/codegen-engine.rpc.test.ts
-4. npm test
+1. pnpm exec vitest run packages/domains/infra/backend/services/__tests__/template-engine.service.test.ts
+2. pnpm exec vitest run packages/shared/backend/lib/__tests__/rpc-protocol.test.ts
+3. pnpm exec vitest run packages/domains/infra/backend/services/__tests__/codegen-engine.rpc.test.ts
+4. pnpm test
 
 ## 9. 本地开发与运行步骤
 
@@ -728,12 +728,9 @@ shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试�
 "查真实库还是走内存回退"。而本仓有三份**互相矛盾**的表定义来源
 （`prisma/schema.prisma` @@map / `prisma/migrations` / `scripts/bootstrap-sqlite.ts`），
 其中有一批表被仓储查询、三份里却一张都没有定义（`node scripts/report-table-inventory.cjs`
-会逐张列出）。**已修掉有权威定义可循的部分**（WMS 16 张已补建表迁移、
-`system_config` 已按 sqlite 定义 + Kysely schema 类型移植到 postgres）；
-剩下的 `aigw_*` / `system_partner` **没有定义来源**，补 DDL 等于凭空造 schema，
-故仍留在报告里等真源确定。
+会逐张列出）。**已修掉全部有权威定义可循的表**（WMS 16 张已补建表迁移、`system_config` 已按 sqlite 定义 + Kysely schema 类型移植到 postgres、`system_partner` 已补齐 `scripts/data/system-tables.ts` 元数据，非原生垂直定制插件已剥离）；当前无定义来源的遗留表已清零。
 
-于是出现这个**静默陷阱**：你按常规"先配好数据库再跑测试"，测试反而从全绿变成一片红
+于是出现这个**静默陷阱**：一旦出现仓储查询却未建表的情况，按常规"先配好数据库再跑测试"，测试反而会从全绿变成一片红
 （`relation "wms_item" does not exist`），而且看起来像是自己改坏了代码。
 
 ### 9.5 表定义真源 = **低代码元数据**（已定，2026-10）
@@ -758,8 +755,7 @@ shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试�
 **谁来保证它不再漂移**：`standards:check` 的 `table-definition-coverage` 规则（enforce）。
 它拦的是最危险的一类：**仓储在查、却没有任何地方创建**的表 ——
 内存回退下全绿，一配真实库必然 `relation "..." does not exist`，看起来却像自己改坏了代码。
-新增此类缺口会直接**失败**；已存在的 7 张（`aigw_*` / `system_partner`）在规则里显式列为欠债，
-补齐元数据后从列表删除。
+历史欠债列表 `KNOWN_DEBT` 现已**清零**，任何新增此类缺口都会直接**失败**。
 
 **相关入口**：
 
@@ -769,7 +765,7 @@ shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试�
 | `pnpm run tables:migration -- --tables … --export … --name … [--write]` | 元数据 → 建表迁移 |
 | `pnpm run tables:metadata-draft` | 为缺元数据的表导出**待评审草稿**（`docs/architecture/artifacts/table-metadata-draft.md`） |
 
-草稿工具的存在意义：给这 7 张表补元数据需要人判断 PG 类型（`number` 可能是 int 也可能是
+草稿工具的存在意义：给缺元数据的表补定义时需要人判断 PG 类型（`number` 可能是 int 也可能是
 decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*Row` 接口推导列，
 把不确定处标 `?` —— 但它**只产出评审产物，绝不直接进 `scripts/data/`**，
 否则等于凭空造 schema 并自动生成迁移。
@@ -779,7 +775,7 @@ decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*R
 ### 10.1 预发/生产构建
 
 1. pnpm run lint
-2. npm test
+2. pnpm test
 3. pnpm run build
 4. pnpm run start  # 运行 `.next-cooliebase/standalone/server.js`，验证生产构建
 

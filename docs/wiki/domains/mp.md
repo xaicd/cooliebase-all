@@ -1,6 +1,6 @@
 # 领域百科：mp (第一方业务插件)
 
-> **唯一源码目录**：[`packages/plugins/plugin-mp/`](../../packages/plugins/plugin-mp)  
+> **唯一源码目录**：[`packages/plugins/plugin-mp/`](../../../packages/plugins/plugin-mp)  
 > **演进阶段**：阶段 B | **独立部署默认端口**：3216 | **上游环境变量**：`COOLIEBASE_DOMAIN_MP_UPSTREAM`
 
 ---
@@ -24,7 +24,7 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [mp.facade.ts](../../packages/plugins/plugin-mp/contract/mp.facade.ts)
+- [mp.facade.ts](../../../packages/plugins/plugin-mp/contract/mp.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`
@@ -40,14 +40,14 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `MpAccount` | 公众号账号 | `/admin/mp/mp-account` | `mp:mp_account` | [`mp-account.agent.json`](../../packages/plugins/plugin-mp/agent/mp-account.agent.json) |
-| `MpAutoReply` | 公众号消息自动回复 | `/admin/mp/mp-auto-reply` | `mp:mp_auto_reply` | [`mp-auto-reply.agent.json`](../../packages/plugins/plugin-mp/agent/mp-auto-reply.agent.json) |
-| `MpMaterial` | 公众号素材 DO1. a href=https://developers.wei | `/admin/mp/mp-material` | `mp:mp_material` | [`mp-material.agent.json`](../../packages/plugins/plugin-mp/agent/mp-material.agent.json) |
-| `MpMenu` | 公众号菜单 | `/admin/mp/mp-menu` | `mp:mp_menu` | [`mp-menu.agent.json`](../../packages/plugins/plugin-mp/agent/mp-menu.agent.json) |
-| `MpMessage` | 公众号消息 | `/admin/mp/mp-message` | `mp:mp_message` | [`mp-message.agent.json`](../../packages/plugins/plugin-mp/agent/mp-message.agent.json) |
-| `MpMessageTemplate` | 公众号模版消息 | `/admin/mp/mp-message-template` | `mp:mp_message_template` | [`mp-message-template.agent.json`](../../packages/plugins/plugin-mp/agent/mp-message-template.agent.json) |
-| `MpTag` | 公众号标签 | `/admin/mp/mp-tag` | `mp:mp_tag` | [`mp-tag.agent.json`](../../packages/plugins/plugin-mp/agent/mp-tag.agent.json) |
-| `MpUser` | 微信公众号粉丝 | `/admin/mp/mp-user` | `mp:mp_user` | [`mp-user.agent.json`](../../packages/plugins/plugin-mp/agent/mp-user.agent.json) |
+| `MpAccount` | 公众号账号 | `/admin/mp/mp-account` | `mp:account` | [`mp-account.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-account.agent.json) |
+| `MpAutoReply` | 公众号消息自动回复 | `/admin/mp/mp-auto-reply` | `mp:auto-reply` | [`mp-auto-reply.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-auto-reply.agent.json) |
+| `MpMaterial` | 公众号素材 DO1. a href=https://developers.wei | `/admin/mp/mp-material` | `mp:material` | [`mp-material.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-material.agent.json) |
+| `MpMenu` | 公众号菜单 | `/admin/mp/mp-menu` | `mp:menu` | [`mp-menu.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-menu.agent.json) |
+| `MpMessage` | 公众号消息 | `/admin/mp/mp-message` | `mp:message` | [`mp-message.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-message.agent.json) |
+| `MpMessageTemplate` | 公众号模版消息 | `/admin/mp/mp-message-template` | `mp:message-template` | [`mp-message-template.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-message-template.agent.json) |
+| `MpTag` | 公众号标签 | `/admin/mp/mp-tag` | `mp:tag` | [`mp-tag.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-tag.agent.json) |
+| `MpUser` | 微信公众号粉丝 | `/admin/mp/mp-user` | `mp:user` | [`mp-user.agent.json`](../../../packages/plugins/plugin-mp/agent/mp-user.agent.json) |
 
 
 ---

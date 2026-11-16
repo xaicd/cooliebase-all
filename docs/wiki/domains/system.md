@@ -1,6 +1,6 @@
 # 领域百科：system (平台地基)
 
-> **唯一源码目录**：[`packages/domains/system/`](../../packages/domains/system)  
+> **唯一源码目录**：[`packages/domains/system/`](../../../packages/domains/system)  
 > **演进阶段**：阶段 A | **独立部署默认端口**：3210 | **上游环境变量**：`COOLIEBASE_DOMAIN_SYSTEM_UPSTREAM`
 
 ---
@@ -24,9 +24,9 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [system.facade.ts](../../packages/domains/system/contract/system.facade.ts)
-- [system.platform.facade.ts](../../packages/domains/system/contract/system.platform.facade.ts)
-- [system.public.facade.ts](../../packages/domains/system/contract/system.public.facade.ts)
+- [system.facade.ts](../../../packages/domains/system/contract/system.facade.ts)
+- [system.platform.facade.ts](../../../packages/domains/system/contract/system.platform.facade.ts)
+- [system.public.facade.ts](../../../packages/domains/system/contract/system.public.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`
@@ -157,7 +157,7 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `User` | 用户管理 | `/admin/system/users` | `system:user` | [`user.agent.json`](../../packages/domains/system/agent/user.agent.json) |
+| `User` | 用户管理 | `/admin/system/users` | `system:user` | [`user.agent.json`](../../../packages/domains/system/agent/user.agent.json) |
 
 
 ---

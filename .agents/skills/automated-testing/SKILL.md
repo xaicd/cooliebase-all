@@ -60,7 +60,7 @@ describe("EntityService Core Capabilities", () => {
 pnpm exec vitest run packages/domains/<domain>/backend/services/__tests__/
 
 # 运行全量单元测试
-npm test
+pnpm test
 
 # 运行全链路治理门禁检查
 pnpm run check

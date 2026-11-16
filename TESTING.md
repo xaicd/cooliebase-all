@@ -15,7 +15,7 @@
 ## 2. 命令
 
 ```bash
-npm test              # 全量 vitest（覆盖 src/**、scripts/**、test/**）
+pnpm test              # 全量 vitest（覆盖 src/**、scripts/**、test/**）
 pnpm run test:unit     # 仅 test/unit
 pnpm run test:integration  # 仅 test/integration
 pnpm run test:matrix   # test/unit + test/integration
@@ -52,7 +52,7 @@ pnpm run test:all      # test:matrix 串 playwright
    `NODE_ENV=production` 的 shell 里误红，实测）。
 2. **L4 目前跑不起来**：`package.json` 声明了 `test:e2e` / `test:agent`，`playwright.config.ts` 与
    `test/e2e/*.spec.ts` 也在，但 **`@playwright/test` 既不在依赖里也未安装**。启用前需要：
-   `npm i -D @playwright/test && pnpm exec playwright install`。
+   `pnpm add -D @playwright/test && pnpm exec playwright install`。
 3. **部分 L2 测试依赖外部数据库**：`infra-services` / `mp-services` / `oauth2.service` /
    `system-persistence-services` 是 PostgreSQL 集成测试，**未配置 `DATABASE_URL` 时会整体跳过**
    （不是失败）。要真实执行：直接跑 `pnpm run verify:real-db` —— 它会**自起嵌入式 Postgres**（零容器）、建独立验证库、迁移、种子，再跑全量测试；若已有真实库，设 `DATABASE_URL` 即可复用它。

@@ -1,6 +1,6 @@
 # 领域百科：online (第一方业务插件)
 
-> **唯一源码目录**：[`packages/plugins/plugin-online/`](../../packages/plugins/plugin-online)  
+> **唯一源码目录**：[`packages/plugins/plugin-online/`](../../../packages/plugins/plugin-online)  
 > **演进阶段**：阶段 B | **独立部署默认端口**：3212 | **上游环境变量**：`COOLIEBASE_DOMAIN_ONLINE_UPSTREAM`
 
 ---
@@ -24,7 +24,7 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [online.facade.ts](../../packages/plugins/plugin-online/contract/online.facade.ts)
+- [online.facade.ts](../../../packages/plugins/plugin-online/contract/online.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`

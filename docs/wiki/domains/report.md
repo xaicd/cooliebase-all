@@ -1,6 +1,6 @@
 # 领域百科：report (第一方业务插件)
 
-> **唯一源码目录**：[`packages/plugins/plugin-report/`](../../packages/plugins/plugin-report)  
+> **唯一源码目录**：[`packages/plugins/plugin-report/`](../../../packages/plugins/plugin-report)  
 > **演进阶段**：阶段 A | **独立部署默认端口**：3215 | **上游环境变量**：`COOLIEBASE_DOMAIN_REPORT_UPSTREAM`
 
 ---
@@ -24,7 +24,7 @@
 其他业务域**禁止直接 import 本域的 Service / Repository**，跨域调用必须走 Domain Facade：
 
 ### 1. 契约门面定义
-- [report.facade.ts](../../packages/plugins/plugin-report/contract/report.facade.ts)
+- [report.facade.ts](../../../packages/plugins/plugin-report/contract/report.facade.ts)
 
 ### 2. 公开支持的 RPC 方法清单
 - `ping`
@@ -39,7 +39,7 @@
 
 | 实体名 (Entity) | 业务名称 | 运营页面路由 | 权限码前缀 | 契约文件 |
 |---|---|---|---|---|
-| `GoViewProject` | GoView 项目表每个大屏图标，对应一个项目 | `/admin/report/go-view-project` | `report:go_view_project` | [`go-view-project.agent.json`](../../packages/plugins/plugin-report/agent/go-view-project.agent.json) |
+| `GoViewProject` | GoView 项目表每个大屏图标，对应一个项目 | `/admin/report/go-view-project` | `report:go-view-project` | [`go-view-project.agent.json`](../../../packages/plugins/plugin-report/agent/go-view-project.agent.json) |
 
 
 ---

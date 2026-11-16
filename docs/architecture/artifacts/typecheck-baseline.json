@@ -2,14 +2,14 @@
   "note": "类型检查棘轮基线。键 = file:line:code（不用错误消息全文，避免「改一行就误判为新增」）。只拦新增。",
   "generatedBy": "scripts/check-typecheck-ratchet.cjs --write-baseline",
   "command": "node node_modules/typescript/bin/tsc --noEmit",
-  "count": 60,
-  "uniqueKeys": 58,
-  "durationMs": 7143,
+  "count": 55,
+  "uniqueKeys": 53,
+  "durationMs": 4295,
   "byDir": {
-    "packages/plugins": 38,
+    "packages/plugins": 35,
     "packages/shared": 9,
     "packages/domains": 7,
-    "src/app": 6
+    "src/app": 4
   },
   "keys": [
     "packages/domains/infra/backend/lib/job-runtime.ts:72:TS2339",
@@ -19,9 +19,6 @@
     "packages/domains/infra/routes/admin/codegen/preview/route.ts:54:TS2339",
     "packages/domains/infra/routes/admin/codegen/route.ts:16:TS2345",
     "packages/domains/infra/testing/TestingKit.ts:15:TS2307",
-    "packages/plugins/plugin-aigw/routes/admin/channels/route.ts:26:TS2554",
-    "packages/plugins/plugin-aigw/routes/admin/models/route.ts:30:TS2554",
-    "packages/plugins/plugin-aigw/routes/admin/tokens/route.ts:30:TS2554",
     "packages/plugins/plugin-bpm/routes/admin/bpm-model/[id]/route.ts:21:TS2554",
     "packages/plugins/plugin-crm/backend/services/crm-clue.service.ts:27:TS2345",
     "packages/plugins/plugin-crm/backend/services/crm-clue.service.ts:44:TS2345",
@@ -66,8 +63,6 @@
     "packages/shared/backend/plugins/package-scanner.ts:106:TS2339",
     "packages/shared/backend/plugins/package-scanner.ts:110:TS2339",
     "packages/shared/backend/plugins/package-scanner.ts:82:TS2339",
-    "src/app/(admin-pages)/admin/_generated/admin-page-registry.ts:416:TS2551",
-    "src/app/(admin-pages)/admin/_generated/admin-page-registry.ts:437:TS2551",
     "src/app/api/internal/rpc/route.ts:14:TS2339",
     "src/app/api/internal/rpc/route.ts:14:TS2339",
     "src/app/api/v1/admin/modules/[...path]/route.ts:52:TS2339",
