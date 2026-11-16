@@ -1,0 +1,73 @@
+import type { CodegenConfig } from "../../packages/domains/infra/backend/services/codegen-templates"
+
+export const HRM_TABLES: CodegenConfig[] = [
+  {
+    moduleName: "hrm",
+    className: "HrmEmployee",
+    businessName: "员工档案",
+    parentMenuId: "hrm-dir",
+    permissionPrefix: "hrm:employee",
+    table: {
+      name: "hrm_employee",
+      comment: "人力资源员工档案表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "员工ID", isPk: true },
+        { name: "emp_no", type: "varchar", tsType: "string", nullable: false, comment: "员工工号", formValidation: "required", queryType: "LIKE" },
+        { name: "name", type: "varchar", tsType: "string", nullable: false, comment: "员工姓名", formValidation: "required", queryType: "LIKE" },
+        { name: "dept_id", type: "varchar", tsType: "string", nullable: false, comment: "所属部门ID", queryType: "EQ" },
+        { name: "position_id", type: "varchar", tsType: "string", nullable: true, comment: "岗位ID", queryType: "EQ" },
+        { name: "mobile", type: "varchar", tsType: "string", nullable: true, comment: "手机号码", queryType: "LIKE" },
+        { name: "entry_time", type: "timestamp", tsType: "string", nullable: false, comment: "入职时间" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "在职状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "hrm",
+    className: "HrmPosition",
+    businessName: "岗位编制",
+    parentMenuId: "hrm-dir",
+    permissionPrefix: "hrm:position",
+    table: {
+      name: "hrm_position",
+      comment: "岗位与编制管理表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "岗位ID", isPk: true },
+        { name: "code", type: "varchar", tsType: "string", nullable: false, comment: "岗位编码", formValidation: "required", queryType: "LIKE" },
+        { name: "name", type: "varchar", tsType: "string", nullable: false, comment: "岗位名称", formValidation: "required", queryType: "LIKE" },
+        { name: "dept_id", type: "varchar", tsType: "string", nullable: false, comment: "归属部门ID", queryType: "EQ" },
+        { name: "headcount", type: "int", tsType: "number", nullable: false, comment: "核定编制数" },
+        { name: "grade", type: "varchar", tsType: "string", nullable: true, comment: "职级序列" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "hrm",
+    className: "HrmPayroll",
+    businessName: "薪资核算",
+    parentMenuId: "hrm-dir",
+    permissionPrefix: "hrm:payroll",
+    table: {
+      name: "hrm_payroll",
+      comment: "月度薪资核算单表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "薪资单ID", isPk: true },
+        { name: "payroll_no", type: "varchar", tsType: "string", nullable: false, comment: "核算单号", formValidation: "required", queryType: "LIKE" },
+        { name: "employee_id", type: "varchar", tsType: "string", nullable: false, comment: "员工ID", formValidation: "required", queryType: "EQ" },
+        { name: "period", type: "varchar", tsType: "string", nullable: false, comment: "发薪期间", queryType: "EQ" },
+        { name: "base_amount", type: "decimal", tsType: "number", nullable: false, comment: "基本薪资" },
+        { name: "bonus_amount", type: "decimal", tsType: "number", nullable: false, comment: "绩效奖金" },
+        { name: "deduct_amount", type: "decimal", tsType: "number", nullable: false, comment: "代扣社保个税" },
+        { name: "net_amount", type: "decimal", tsType: "number", nullable: false, comment: "实发金额" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "发放状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+]

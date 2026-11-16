@@ -1,0 +1,284 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "hrm",
+  "entity": "HrmEmployee",
+  "kebab": "hrm-employee",
+  "businessName": "员工档案",
+  "permissionPrefix": "hrm:employee",
+  "page": {
+    "route": "/admin/hrm/hrm-employee",
+    "menuTitle": "员工档案",
+    "title": "员工档案管理",
+    "titleSelector": "[data-testid=\"hrm-employee-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.hrm/api",
+    "bffMount": "/api/v1/admin/hrm",
+    "resource": "hrm-employee",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/hrm-employee",
+        "query": [
+          "page",
+          "pageSize",
+          "emp_no",
+          "name",
+          "dept_id",
+          "position_id",
+          "mobile",
+          "status"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/hrm-employee/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/hrm-employee"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/hrm-employee/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/hrm-employee/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"hrm-employee-title\"]",
+    "refresh": "[data-testid=\"hrm-employee-refresh\"]",
+    "createButton": "[data-testid=\"hrm-employee-create\"]",
+    "searchForm": "[data-testid=\"hrm-employee-search\"]",
+    "searchSubmit": "[data-testid=\"hrm-employee-search-submit\"]",
+    "searchReset": "[data-testid=\"hrm-employee-search-reset\"]",
+    "total": "[data-testid=\"hrm-employee-total\"]",
+    "table": "[data-testid=\"hrm-employee-table\"]",
+    "row": "[data-testid=\"hrm-employee-row\"]",
+    "editButton": "[data-testid=\"hrm-employee-edit\"]",
+    "deleteButton": "[data-testid=\"hrm-employee-delete\"]",
+    "form": "[data-testid=\"hrm-employee-form\"]",
+    "formError": "[data-testid=\"hrm-employee-form-error\"]",
+    "formSubmit": "[data-testid=\"hrm-employee-form-submit\"]",
+    "formCancel": "[data-testid=\"hrm-employee-form-cancel\"]",
+    "formClose": "[data-testid=\"hrm-employee-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "员工档案列表",
+    "dialogLabel": {
+      "create": "新增员工档案",
+      "edit": "编辑员工档案"
+    },
+    "searchFields": [
+      {
+        "name": "emp_no",
+        "label": "员工工号",
+        "testId": "search-emp_no",
+        "selector": "[data-testid=\"search-emp_no\"]"
+      },
+      {
+        "name": "name",
+        "label": "员工姓名",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "dept_id",
+        "label": "所属部门ID",
+        "testId": "search-dept_id",
+        "selector": "[data-testid=\"search-dept_id\"]"
+      },
+      {
+        "name": "position_id",
+        "label": "岗位ID",
+        "testId": "search-position_id",
+        "selector": "[data-testid=\"search-position_id\"]"
+      },
+      {
+        "name": "mobile",
+        "label": "手机号码",
+        "testId": "search-mobile",
+        "selector": "[data-testid=\"search-mobile\"]"
+      },
+      {
+        "name": "status",
+        "label": "在职状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "emp_no",
+        "label": "员工工号",
+        "type": "string",
+        "required": true,
+        "testId": "field-emp_no",
+        "selector": "[data-testid=\"field-emp_no\"]"
+      },
+      {
+        "name": "name",
+        "label": "员工姓名",
+        "type": "string",
+        "required": true,
+        "testId": "field-name",
+        "selector": "[data-testid=\"field-name\"]"
+      },
+      {
+        "name": "dept_id",
+        "label": "所属部门ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-dept_id",
+        "selector": "[data-testid=\"field-dept_id\"]"
+      },
+      {
+        "name": "position_id",
+        "label": "岗位ID",
+        "type": "string",
+        "required": false,
+        "testId": "field-position_id",
+        "selector": "[data-testid=\"field-position_id\"]"
+      },
+      {
+        "name": "mobile",
+        "label": "手机号码",
+        "type": "string",
+        "required": false,
+        "testId": "field-mobile",
+        "selector": "[data-testid=\"field-mobile\"]"
+      },
+      {
+        "name": "entry_time",
+        "label": "入职时间",
+        "type": "string",
+        "required": true,
+        "testId": "field-entry_time",
+        "selector": "[data-testid=\"field-entry_time\"]"
+      },
+      {
+        "name": "status",
+        "label": "在职状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "hrm-employee",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"hrm-employee\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"hrm-employee-form-overlay\"]",
+      "dialog": "[data-testid=\"hrm-employee-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "hrm-employee:search",
+      "reset": "hrm-employee:reset",
+      "refresh": "hrm-employee:refresh",
+      "create": "hrm-employee:create",
+      "edit": "hrm-employee:edit",
+      "delete": "hrm-employee:delete",
+      "submit": "hrm-employee:submit",
+      "cancel": "hrm-employee:cancel",
+      "close": "hrm-employee:close",
+      "row": "hrm-employee:row",
+      "pagination": "hrm-employee:pagination",
+      "fields": {
+        "emp_no": "hrm-employee:field:emp_no",
+        "name": "hrm-employee:field:name",
+        "dept_id": "hrm-employee:field:dept_id",
+        "position_id": "hrm-employee:field:position_id",
+        "mobile": "hrm-employee:field:mobile",
+        "entry_time": "hrm-employee:field:entry_time",
+        "status": "hrm-employee:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "hrm.hrm-employee",
+      "examples": [
+        "hrm.hrm-employee__List__Refresh",
+        "hrm.hrm-employee__ListItem__Open",
+        "hrm.hrm-employee__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

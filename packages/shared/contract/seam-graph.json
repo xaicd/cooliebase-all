@@ -961,45 +961,6 @@
       "rolesComplete": true
     },
     {
-      "name": "aigw",
-      "kind": "plugin",
-      "stage": "B",
-      "definition": {
-        "dir": "packages/plugins/plugin-aigw/contract",
-        "facades": [
-          "packages/plugins/plugin-aigw/contract/aigw.facade.ts"
-        ],
-        "actions": [
-          "packages/plugins/plugin-aigw/contract/actions.ts"
-        ],
-        "proto": "packages/plugins/plugin-aigw/contract/aigw.proto",
-        "manifest": "packages/plugins/plugin-aigw/contract/route.manifest.yaml"
-      },
-      "provider": {
-        "servicesDir": "packages/plugins/plugin-aigw/backend/services",
-        "repositoriesDir": "packages/plugins/plugin-aigw/backend/repositories",
-        "methods": [
-          "ping",
-          "listChannels",
-          "createChannel",
-          "listTokens",
-          "createToken",
-          "listModels",
-          "relayChat",
-          "listPublicModels",
-          "embed"
-        ]
-      },
-      "consumer": {
-        "adminApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
-        "appApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
-        "openApi": "src/app/api/v1/plugins/cooliebase.aigw/api",
-        "frontendApi": "packages/plugins/plugin-aigw/frontend/api",
-        "modulePages": "packages/plugins/plugin-aigw/frontend/pages"
-      },
-      "rolesComplete": true
-    },
-    {
       "name": "iot",
       "kind": "plugin",
       "stage": "B",
@@ -1096,6 +1057,174 @@
         "openApi": "src/app/api/v1/plugins/cooliebase.im/api",
         "frontendApi": "packages/plugins/plugin-im/frontend/api",
         "modulePages": "packages/plugins/plugin-im/frontend/pages"
+      },
+      "rolesComplete": true
+    },
+    {
+      "name": "oa",
+      "kind": "plugin",
+      "stage": "B",
+      "definition": {
+        "dir": "packages/plugins/plugin-oa/contract",
+        "facades": [
+          "packages/plugins/plugin-oa/contract/oa.facade.ts"
+        ],
+        "actions": [
+          "packages/plugins/plugin-oa/contract/actions.ts",
+          "packages/plugins/plugin-oa/contract/oa-attendance.actions.ts",
+          "packages/plugins/plugin-oa/contract/oa-leave-apply.actions.ts",
+          "packages/plugins/plugin-oa/contract/oa-notice.actions.ts"
+        ],
+        "proto": "packages/plugins/plugin-oa/contract/oa.proto",
+        "manifest": "packages/plugins/plugin-oa/contract/route.manifest.yaml"
+      },
+      "provider": {
+        "servicesDir": "packages/plugins/plugin-oa/backend/services",
+        "repositoriesDir": "packages/plugins/plugin-oa/backend/repositories",
+        "methods": [
+          "oaAttendance.create",
+          "oaAttendance.page",
+          "oaAttendance.update",
+          "oaLeaveApply.create",
+          "oaLeaveApply.page",
+          "oaLeaveApply.update",
+          "oaNotice.create",
+          "oaNotice.page",
+          "oaNotice.update"
+        ]
+      },
+      "consumer": {
+        "adminApi": "src/app/api/v1/plugins/cooliebase.oa/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.oa/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.oa/api",
+        "frontendApi": "packages/plugins/plugin-oa/frontend/api",
+        "modulePages": "packages/plugins/plugin-oa/frontend/pages"
+      },
+      "rolesComplete": true
+    },
+    {
+      "name": "hrm",
+      "kind": "plugin",
+      "stage": "B",
+      "definition": {
+        "dir": "packages/plugins/plugin-hrm/contract",
+        "facades": [
+          "packages/plugins/plugin-hrm/contract/hrm.facade.ts"
+        ],
+        "actions": [
+          "packages/plugins/plugin-hrm/contract/actions.ts",
+          "packages/plugins/plugin-hrm/contract/hrm-employee.actions.ts",
+          "packages/plugins/plugin-hrm/contract/hrm-payroll.actions.ts",
+          "packages/plugins/plugin-hrm/contract/hrm-position.actions.ts"
+        ],
+        "proto": "packages/plugins/plugin-hrm/contract/hrm.proto",
+        "manifest": "packages/plugins/plugin-hrm/contract/route.manifest.yaml"
+      },
+      "provider": {
+        "servicesDir": "packages/plugins/plugin-hrm/backend/services",
+        "repositoriesDir": "packages/plugins/plugin-hrm/backend/repositories",
+        "methods": [
+          "hrmEmployee.create",
+          "hrmEmployee.page",
+          "hrmEmployee.update",
+          "hrmPayroll.create",
+          "hrmPayroll.page",
+          "hrmPayroll.update",
+          "hrmPosition.create",
+          "hrmPosition.page",
+          "hrmPosition.update"
+        ]
+      },
+      "consumer": {
+        "adminApi": "src/app/api/v1/plugins/cooliebase.hrm/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.hrm/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.hrm/api",
+        "frontendApi": "packages/plugins/plugin-hrm/frontend/api",
+        "modulePages": "packages/plugins/plugin-hrm/frontend/pages"
+      },
+      "rolesComplete": true
+    },
+    {
+      "name": "fms",
+      "kind": "plugin",
+      "stage": "B",
+      "definition": {
+        "dir": "packages/plugins/plugin-fms/contract",
+        "facades": [
+          "packages/plugins/plugin-fms/contract/fms.facade.ts"
+        ],
+        "actions": [
+          "packages/plugins/plugin-fms/contract/actions.ts",
+          "packages/plugins/plugin-fms/contract/fms-account.actions.ts",
+          "packages/plugins/plugin-fms/contract/fms-reconcile.actions.ts",
+          "packages/plugins/plugin-fms/contract/fms-voucher.actions.ts"
+        ],
+        "proto": "packages/plugins/plugin-fms/contract/fms.proto",
+        "manifest": "packages/plugins/plugin-fms/contract/route.manifest.yaml"
+      },
+      "provider": {
+        "servicesDir": "packages/plugins/plugin-fms/backend/services",
+        "repositoriesDir": "packages/plugins/plugin-fms/backend/repositories",
+        "methods": [
+          "fmsAccount.create",
+          "fmsAccount.page",
+          "fmsAccount.update",
+          "fmsReconcile.create",
+          "fmsReconcile.page",
+          "fmsReconcile.update",
+          "fmsVoucher.create",
+          "fmsVoucher.page",
+          "fmsVoucher.update"
+        ]
+      },
+      "consumer": {
+        "adminApi": "src/app/api/v1/plugins/cooliebase.fms/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.fms/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.fms/api",
+        "frontendApi": "packages/plugins/plugin-fms/frontend/api",
+        "modulePages": "packages/plugins/plugin-fms/frontend/pages"
+      },
+      "rolesComplete": true
+    },
+    {
+      "name": "pms",
+      "kind": "plugin",
+      "stage": "B",
+      "definition": {
+        "dir": "packages/plugins/plugin-pms/contract",
+        "facades": [
+          "packages/plugins/plugin-pms/contract/pms.facade.ts"
+        ],
+        "actions": [
+          "packages/plugins/plugin-pms/contract/actions.ts",
+          "packages/plugins/plugin-pms/contract/pms-milestone.actions.ts",
+          "packages/plugins/plugin-pms/contract/pms-project.actions.ts",
+          "packages/plugins/plugin-pms/contract/pms-timesheet.actions.ts"
+        ],
+        "proto": "packages/plugins/plugin-pms/contract/pms.proto",
+        "manifest": "packages/plugins/plugin-pms/contract/route.manifest.yaml"
+      },
+      "provider": {
+        "servicesDir": "packages/plugins/plugin-pms/backend/services",
+        "repositoriesDir": "packages/plugins/plugin-pms/backend/repositories",
+        "methods": [
+          "pmsMilestone.create",
+          "pmsMilestone.page",
+          "pmsMilestone.update",
+          "pmsProject.create",
+          "pmsProject.page",
+          "pmsProject.update",
+          "pmsTimesheet.create",
+          "pmsTimesheet.page",
+          "pmsTimesheet.update"
+        ]
+      },
+      "consumer": {
+        "adminApi": "src/app/api/v1/plugins/cooliebase.pms/api",
+        "appApi": "src/app/api/v1/plugins/cooliebase.pms/api",
+        "openApi": "src/app/api/v1/plugins/cooliebase.pms/api",
+        "frontendApi": "packages/plugins/plugin-pms/frontend/api",
+        "modulePages": "packages/plugins/plugin-pms/frontend/pages"
       },
       "rolesComplete": true
     }

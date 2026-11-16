@@ -975,11 +975,10 @@ const RULES = [
       const NATIVE_DOMAINS = new Set([
         "system", "infra", "online", "bpm", "pay", "report", "mp", "mall",
         "member", "crm", "erp", "wms", "mes", "ai", "iot", "im",
+        "oa", "hrm", "fms", "pms",
       ])
-      // 已知越界: 已经在基座里、但属定制业务的域。列出而不直接判死 ——
-      // 剥离它们是一次产品级搬迁（要连表、路由、页面一起挪到业务工程），
-      // 不是重命名；补齐后从这里删掉。
-      const KNOWN_CUSTOM = new Set(["aigw"])
+      // 已知越界: 已经在基座里、但属定制业务的域（aigw 已剥离清空）。
+      const KNOWN_CUSTOM = new Set([])
 
       // 这条规矩是给**基座自己**守的。由基座衍生的业务工程里，加定制域正是目的 ——
       // 判据: hatch-manifest.json 存在 ⇒ 这是孵化出来的工程，不是基座。

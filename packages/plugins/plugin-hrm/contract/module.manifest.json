@@ -1,0 +1,94 @@
+{
+  "$schema": "cooliebase-module-manifest/v1",
+  "domain": "hrm",
+  "id": "cooliebase.hrm",
+  "apiVersion": 1,
+  "displayName": "hrm",
+  "kind": "plugin",
+  "stage": "B",
+  "owner": "hrm",
+  "contractVersion": "v1",
+  "implementation": "local-ts",
+  "minimumHostVersion": "1.0.0",
+  "capabilities": [
+    "api.routes.register",
+    "facade.invoke",
+    "pack.independent"
+  ],
+  "entrypoints": {
+    "facade": [
+      "packages/plugins/plugin-hrm/contract/hrm.facade.ts"
+    ],
+    "proto": "packages/plugins/plugin-hrm/contract/hrm.proto",
+    "actions": "packages/plugins/plugin-hrm/contract/actions.ts"
+  },
+  "apiRoutes": {
+    "publicPrefix": [
+      "/api/v1/admin/hrm"
+    ],
+    "adminPrefix": "/api/v1/admin/hrm"
+  },
+  "auth": {
+    "audience": "admin",
+    "tenantPolicy": "required"
+  },
+  "messaging": {
+    "queueGroup": "cooliebase.hrm",
+    "commandSubject": "cooliebase.cmd.hrm.>",
+    "eventSubject": "cooliebase.evt.hrm.>"
+  },
+  "invoke": {
+    "colocated": "sdk",
+    "remote": "rpc",
+    "protocol": "nats-rr",
+    "serialization": "json"
+  },
+  "upstream": {
+    "env": "COOLIEBASE_DOMAIN_HRM_UPSTREAM",
+    "protocol": "http",
+    "defaultPort": 3227
+  },
+  "resilience": {
+    "timeoutMs": 15000,
+    "retry": {
+      "maxAttempts": 1,
+      "safeMethodsOnly": true
+    },
+    "idempotencyRequired": true
+  },
+  "facadeMethods": [
+    "hrmEmployee.create",
+    "hrmEmployee.page",
+    "hrmEmployee.update",
+    "hrmPayroll.create",
+    "hrmPayroll.page",
+    "hrmPayroll.update",
+    "hrmPosition.create",
+    "hrmPosition.page",
+    "hrmPosition.update"
+  ],
+  "rpc": [],
+  "actions": [],
+  "permissions": [
+    "hrm:employee:create",
+    "hrm:employee:delete",
+    "hrm:employee:query",
+    "hrm:employee:update",
+    "hrm:payroll:create",
+    "hrm:payroll:delete",
+    "hrm:payroll:query",
+    "hrm:payroll:update",
+    "hrm:position:create",
+    "hrm:position:delete",
+    "hrm:position:query",
+    "hrm:position:update"
+  ],
+  "dependsOn": [
+    "shared"
+  ],
+  "pack": {
+    "enabled": true,
+    "kind": "api-only",
+    "independentDatabase": false
+  }
+}

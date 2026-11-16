@@ -245,7 +245,12 @@
 另有一次是**反向对照本身设计错了**（只缩一个入口、其它入口仍在覆盖 → "通过"是假阳性）。
 **反向对照必须真的移除被检对象**，否则是自我安慰。
 
-## 5. 当前进展快照（2026-10-21）
+## 5. 当前进展快照（2026-11-16）
+
+- **v1.5.0 四位一体终端、19 大企业原生业务域与跨底座 CLI 100% 对齐（2026-11-16，能力面变化）**：
+  1. **企业级原生域补齐与定制业务剥离**：通过低代码元数据与 `create-business-domain.ts` 新增 `oa`（协同办公）、`hrm`（人力资源）、`fms`（财务管理）、`pms`（项目管理）4 大第一方插件，彻底剥离垂直定制插件 `plugin-aigw`（`KNOWN_CUSTOM` 清零），全仓收敛为 20 域（平台地基 `system/infra` + `online` + 17 大业务插件）；
+  2. **第四终端 `clients/miniapp` 交付**：新增基于 Uni-App Vue 3 + TypeScript + Vite 的微信小程序与 H5 多端客户端，内置动态 `VITE_API_BASE_URL` / `BASE_PATH`、`wx.login` 静默授权、4 大双字/三字 TabBar 页面、`subPackages` 分包与全面屏安全区适配，并接入 `project-init.cjs` 白标孵化与 `clients:build:check` 双端无污染构建门禁；
+  3. **跨底座 CLI 与门禁别名 100% 同名同参**：补齐 `project:reactor`、`gates:23`、`gates:23:static`、`gen:three-role`、`domain:prune`、`trim:modules`、`trim:check`、`gateway:gen`、`verify:b0..b5`、`dev:miniapp`、`build:miniapp`、`dev:app`、`build:admin` 并全量纳入 `pnpm harness` 可达性治理，同步升级模板版本至 `1.5.0`。
 
 - **Speckit E2E 页面拟人运营配置与反 Seed 门禁体系（2026-11-08，能力面变化）**：
   新增 `pnpm run e2e:ops` 与 `pnpm run e2e:ops:check`（`scripts/agent/run-e2e-ops.cjs` + `test/agent/e2e-human-ops.spec.ts`），
@@ -291,7 +296,7 @@
   （数据模型宽松，合法），真 bug 只有上述 9 个；`verify:zero-to-one --strict-create` 保留为可选硬门禁。
 
 - **0→1 可重复验证（2026-10-30，能力面变化）**：新增 `pnpm run verify:zero-to-one`
-  （`scripts/verify-zero-to-one.mjs`）。把「登录 → 342 份契约 list 接口 → 470 个管理页外壳 →
+  （`scripts/verify-zero-to-one.mjs`）。把「登录 → 354 份契约 list 接口 → 470 个管理页外壳 →
   写路径校验」固化**一条命令 + 退出码**，不再靠人肉一次性验证。
   判定：接口/页面非 200 或写路径 5xx 即失败；`create` 传空对象返回 201 属**存量债**（记账不判定）。
   实测：`342/342` 接口、`470/470` 页面、5xx `0`（`ai/AiApiKey` 的 500 已修为 400 ——
@@ -305,7 +310,7 @@
   - `pnpm run plugins:sync-routes`（`scripts/sync-plugin-routes.cjs`）：把
     `plugin.manifest.json#apiRoutes` 从**真实路由文件**重新派生并进 `check` 链。
     此前它是脚手架时写死的一次性产物 —— 10 个插件漂移、共缺约 200 条声明，
-    342 份契约里有 48 个"契约声明了、插件没声明"的接口。
+    354 份契约里有 48 个"契约声明了、插件没声明"的接口。
 
 - **管理端导航（2026-10-30，能力面变化）**：侧栏改由**生成的页面注册表**产出
   （`pnpm run admin:nav` → `packages/shared/contract/admin-nav.generated.ts`，18 组 / 470 项）。

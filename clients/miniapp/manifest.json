@@ -1,0 +1,26 @@
+{
+  "name": "CoolieBase All",
+  "appid": "__UNI__COOLIEBASE_MINIAPP",
+  "description": "企业级数字化全栈底座 · 微信小程序与 H5 客户端",
+  "versionName": "1.5.0",
+  "versionCode": "10500",
+  "transformPx": false,
+  "vueVersion": "3",
+  "mp-weixin": {
+    "appid": "wx0000000000000000",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true
+  },
+  "h5": {
+    "title": "CoolieBase All",
+    "router": {
+      "mode": "history",
+      "base": "/"
+    }
+  }
+}

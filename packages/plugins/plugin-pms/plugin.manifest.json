@@ -1,0 +1,225 @@
+{
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.pms",
+  "apiVersion": 1,
+  "version": "0.1.0",
+  "displayName": "pms",
+  "description": "pms 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
+  "author": "CoolieBase All",
+  "categories": [
+    "automation"
+  ],
+  "capabilities": [
+    "api.routes.register"
+  ],
+  "entrypoints": {
+    "merged": "./plugin-entry.ts"
+  },
+  "domain": {
+    "kind": "plugin",
+    "stage": "B",
+    "contractVersion": "v1",
+    "publicPrefixes": [
+      "/api/v1/admin/pms"
+    ],
+    "upstreamEnv": "COOLIEBASE_DOMAIN_PMS_UPSTREAM",
+    "defaultPort": 3229,
+    "packable": true,
+    "independentDatabase": false,
+    "dependsOnModules": [
+      "shared"
+    ],
+    "auth": {
+      "audience": "admin",
+      "tenantPolicy": "required"
+    },
+    "resilience": {
+      "timeoutMs": 15000,
+      "retryMaxAttempts": 1,
+      "safeMethodsOnly": true,
+      "idempotencyRequired": true
+    }
+  },
+  "apiRoutes": [
+    {
+      "routeKey": "admin:pms-milestone/[id]:delete",
+      "method": "DELETE",
+      "path": "/pms-milestone/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone/[id]:get",
+      "method": "GET",
+      "path": "/pms-milestone/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone/[id]:put",
+      "method": "PUT",
+      "path": "/pms-milestone/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone/export:post",
+      "method": "POST",
+      "path": "/pms-milestone/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone/import-template:get",
+      "method": "GET",
+      "path": "/pms-milestone/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone/import:post",
+      "method": "POST",
+      "path": "/pms-milestone/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone:delete",
+      "method": "DELETE",
+      "path": "/pms-milestone",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone:get",
+      "method": "GET",
+      "path": "/pms-milestone",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone:post",
+      "method": "POST",
+      "path": "/pms-milestone",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-milestone:put",
+      "method": "PUT",
+      "path": "/pms-milestone",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/[id]:delete",
+      "method": "DELETE",
+      "path": "/pms-project/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/[id]:get",
+      "method": "GET",
+      "path": "/pms-project/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/[id]:put",
+      "method": "PUT",
+      "path": "/pms-project/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/export:post",
+      "method": "POST",
+      "path": "/pms-project/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/import-template:get",
+      "method": "GET",
+      "path": "/pms-project/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project/import:post",
+      "method": "POST",
+      "path": "/pms-project/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project:delete",
+      "method": "DELETE",
+      "path": "/pms-project",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project:get",
+      "method": "GET",
+      "path": "/pms-project",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project:post",
+      "method": "POST",
+      "path": "/pms-project",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-project:put",
+      "method": "PUT",
+      "path": "/pms-project",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/[id]:delete",
+      "method": "DELETE",
+      "path": "/pms-timesheet/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/[id]:get",
+      "method": "GET",
+      "path": "/pms-timesheet/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/[id]:put",
+      "method": "PUT",
+      "path": "/pms-timesheet/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/export:post",
+      "method": "POST",
+      "path": "/pms-timesheet/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/import-template:get",
+      "method": "GET",
+      "path": "/pms-timesheet/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet/import:post",
+      "method": "POST",
+      "path": "/pms-timesheet/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet:delete",
+      "method": "DELETE",
+      "path": "/pms-timesheet",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet:get",
+      "method": "GET",
+      "path": "/pms-timesheet",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet:post",
+      "method": "POST",
+      "path": "/pms-timesheet",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:pms-timesheet:put",
+      "method": "PUT",
+      "path": "/pms-timesheet",
+      "auth": "operator"
+    }
+  ]
+}

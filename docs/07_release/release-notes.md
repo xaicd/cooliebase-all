@@ -1,6 +1,6 @@
 # 版本发布说明书与版本策略台账 (Release Notes & Version Ledger)
 
-- **模板基线版本 (`templateVersion`)**: `1.2.0`（对齐 `package.json#version` 与 `packages/shared/contract/compat-manifest.json`）
+- **模板基线版本 (`templateVersion`)**: `1.5.0`（对齐 `package.json#version` 与 `packages/shared/contract/compat-manifest.json`）
 - **归属规范**: CMMI 07_release (TRANS) / `.agents/skills/cmmi-asset-authoring` / `.agents/skills/devops`
 - **质量门禁要求**: `pnpm run check` 全量通过（Exit Code 0），真实数据库测试与制品指纹校验一致
 
@@ -21,8 +21,8 @@
 
 本基座严格区分**模板基线版本 (`templateVersion`)** 与**发布渠道标签 (Git Tag)**：
 
-- **模板版本 (`package.json.version` === `compat-manifest.json#framework.templateVersion` = `1.2.0`)**：代表下游派生工程继承的模板契约基线，两处必须始终同步。
-- **渠道里程碑标签 (Git Tags)**：包含 `v1.0.0`、`v1.1.0`、`v1.2.0`、`v1.3.0-brand-neutralized`、`v1.4.0-brand-shorthand`。渠道标签用于标识品牌脱敏与工程治理里程碑，与 `templateVersion` 刻意解耦；新增不 bump 模板版本的渠道标签必须在本说明书显式登记策略依据（由 `pnpm run version:check` 门禁机检守护）。
+- **模板版本 (`package.json.version` === `compat-manifest.json#framework.templateVersion` = `1.5.0`)**：代表下游派生工程继承的模板契约基线，两处必须始终同步。
+- **渠道里程碑标签 (Git Tags)**：包含 `v1.0.0`、`v1.1.0`、`v1.2.0`、`v1.3.0-brand-neutralized`、`v1.4.0-brand-shorthand`、`v1.5.0`（详见 `releases/v1.5.0.md`：四位一体终端 `Admin + 2C Portal + Expo App + MiniApp`、19 大企业原生业务域 `oa/hrm/fms/pms` 补齐与 `plugin-aigw` 剥离、跨底座 CLI 脚本门禁 100% 同参对齐）。渠道标签与 `templateVersion` 策略由 `pnpm run version:check` 门禁机检守护。
 
 ---
 

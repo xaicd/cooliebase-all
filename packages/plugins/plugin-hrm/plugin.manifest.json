@@ -1,0 +1,225 @@
+{
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.hrm",
+  "apiVersion": 1,
+  "version": "0.1.0",
+  "displayName": "hrm",
+  "description": "hrm 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
+  "author": "CoolieBase All",
+  "categories": [
+    "automation"
+  ],
+  "capabilities": [
+    "api.routes.register"
+  ],
+  "entrypoints": {
+    "merged": "./plugin-entry.ts"
+  },
+  "domain": {
+    "kind": "plugin",
+    "stage": "B",
+    "contractVersion": "v1",
+    "publicPrefixes": [
+      "/api/v1/admin/hrm"
+    ],
+    "upstreamEnv": "COOLIEBASE_DOMAIN_HRM_UPSTREAM",
+    "defaultPort": 3227,
+    "packable": true,
+    "independentDatabase": false,
+    "dependsOnModules": [
+      "shared"
+    ],
+    "auth": {
+      "audience": "admin",
+      "tenantPolicy": "required"
+    },
+    "resilience": {
+      "timeoutMs": 15000,
+      "retryMaxAttempts": 1,
+      "safeMethodsOnly": true,
+      "idempotencyRequired": true
+    }
+  },
+  "apiRoutes": [
+    {
+      "routeKey": "admin:hrm-employee/[id]:delete",
+      "method": "DELETE",
+      "path": "/hrm-employee/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee/[id]:get",
+      "method": "GET",
+      "path": "/hrm-employee/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee/[id]:put",
+      "method": "PUT",
+      "path": "/hrm-employee/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee/export:post",
+      "method": "POST",
+      "path": "/hrm-employee/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee/import-template:get",
+      "method": "GET",
+      "path": "/hrm-employee/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee/import:post",
+      "method": "POST",
+      "path": "/hrm-employee/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee:delete",
+      "method": "DELETE",
+      "path": "/hrm-employee",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee:get",
+      "method": "GET",
+      "path": "/hrm-employee",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee:post",
+      "method": "POST",
+      "path": "/hrm-employee",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-employee:put",
+      "method": "PUT",
+      "path": "/hrm-employee",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/[id]:delete",
+      "method": "DELETE",
+      "path": "/hrm-payroll/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/[id]:get",
+      "method": "GET",
+      "path": "/hrm-payroll/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/[id]:put",
+      "method": "PUT",
+      "path": "/hrm-payroll/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/export:post",
+      "method": "POST",
+      "path": "/hrm-payroll/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/import-template:get",
+      "method": "GET",
+      "path": "/hrm-payroll/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll/import:post",
+      "method": "POST",
+      "path": "/hrm-payroll/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll:delete",
+      "method": "DELETE",
+      "path": "/hrm-payroll",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll:get",
+      "method": "GET",
+      "path": "/hrm-payroll",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll:post",
+      "method": "POST",
+      "path": "/hrm-payroll",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-payroll:put",
+      "method": "PUT",
+      "path": "/hrm-payroll",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/[id]:delete",
+      "method": "DELETE",
+      "path": "/hrm-position/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/[id]:get",
+      "method": "GET",
+      "path": "/hrm-position/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/[id]:put",
+      "method": "PUT",
+      "path": "/hrm-position/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/export:post",
+      "method": "POST",
+      "path": "/hrm-position/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/import-template:get",
+      "method": "GET",
+      "path": "/hrm-position/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position/import:post",
+      "method": "POST",
+      "path": "/hrm-position/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position:delete",
+      "method": "DELETE",
+      "path": "/hrm-position",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position:get",
+      "method": "GET",
+      "path": "/hrm-position",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position:post",
+      "method": "POST",
+      "path": "/hrm-position",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:hrm-position:put",
+      "method": "PUT",
+      "path": "/hrm-position",
+      "auth": "operator"
+    }
+  ]
+}

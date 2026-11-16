@@ -1,7 +1,7 @@
 # 🧭 cooliebase-all 项目 PMO 待办与全息状态大盘 (Project PMO Dashboard)
 
 > **实时刷新命令**: `pnpm run pmo`（或 `node scripts/cmmi-01-management.cjs pmo [--write|--json]`）
-> **项目坐标**: `cooliebase-all@1.2.0` | **分支**: `fix/purge-blueprint-polluted-docs` | **HEAD**: `c786c31b fix(docs): purge mother-repo polluted history and harden layer-b hatch sanitizer (33 seconds ago)` | **工作区净度**: ✅ Clean (0 dirty)
+> **项目坐标**: `cooliebase-all@1.5.0` | **分支**: `main` | **HEAD**: `61b29d23 fix(standards,harness): stamp gate trace before evolution backlog and zero no-new-npm-run debt (20 hours ago)` | **工作区净度**: ⚠️ 388 处未提交变更
 
 ## 一、Spec-Kit 规格漏斗与 WBS 原子任务进度
 
@@ -11,7 +11,6 @@
 
 | 优先级 | 领域 / 门禁维度 | 待办事项描述 | 核验 / 执行命令 |
 | :--- | :--- | :--- | :--- |
-| **P2** | Evolution Backlog | no-new-npm-run: 70 file(s) carry frozen debt | `pnpm run standards:check` |
 | **P2** | Evolution Backlog | no-silent-catch: 16 file(s) carry frozen debt | `pnpm run standards:check` |
 | **P2** | Agent-Native 语义选择器基线消减 | 存量 470 个管理端页面/组件待补齐 data-agent-id (基线棘轮守护中，新增 0) | `pnpm run agent:native:check` |
 | **P2** | 插件层 TypeScript 类型与权限码基线消减 | 全仓存量 58 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
@@ -20,7 +19,6 @@
 
 | 序 | 优先级 | 归属范围 | 接下来的具体待办工作 | 立即执行命令 |
 | :--- | :--- | :--- | :--- | :--- |
-| 1 | **P2** | `Evolution Backlog` | no-new-npm-run: 70 file(s) carry frozen debt | `pnpm run standards:check` |
-| 2 | **P2** | `Evolution Backlog` | no-silent-catch: 16 file(s) carry frozen debt | `pnpm run standards:check` |
-| 3 | **P2** | `Agent-Native 语义选择器基线消减` | 存量 470 个管理端页面/组件待补齐 data-agent-id (基线棘轮守护中，新增 0) | `pnpm run agent:native:check` |
-| 4 | **P2** | `插件层 TypeScript 类型与权限码基线消减` | 全仓存量 58 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |
+| 1 | **P2** | `Evolution Backlog` | no-silent-catch: 16 file(s) carry frozen debt | `pnpm run standards:check` |
+| 2 | **P2** | `Agent-Native 语义选择器基线消减` | 存量 470 个管理端页面/组件待补齐 data-agent-id (基线棘轮守护中，新增 0) | `pnpm run agent:native:check` |
+| 3 | **P2** | `插件层 TypeScript 类型与权限码基线消减` | 全仓存量 58 项唯一类型键与 0 项权限码常量欠债棘轮守护中 | `pnpm run typecheck:check && pnpm run contracts:governance:check` |

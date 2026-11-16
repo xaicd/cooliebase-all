@@ -10,7 +10,6 @@
     "system/social-client": "社交客户端",
     "system/social-users": "社交用户",
     "system/user-profile": "个人资料",
-
     "infra/api-logs": "API 日志",
     "infra/db-configs": "数据库配置",
     "infra/demo01contact": "示例联系人（01）",
@@ -23,16 +22,6 @@
     "infra/job-logs": "定时任务日志",
     "infra/online-definitions/new": "在线表单新建",
     "infra/template-engine": "模板引擎",
-
-    "aigw/agent-sandbox": "智能体沙箱",
-    "aigw/channels": "渠道管理",
-    "aigw/chats": "对话记录",
-    "aigw/models": "模型管理",
-    "aigw/playground": "场景演练",
-    "aigw/tokens": "令牌管理",
-    "aigw/usages": "用量统计",
-    "aigw/workbench": "协同工作台",
-
     "bpm/bpm-comment": "流程评论",
     "bpm/bpm-model": "流程模型",
     "bpm/bpm-process-definition": "流程定义",
@@ -40,7 +29,6 @@
     "bpm/bpm-process-instance": "流程实例",
     "bpm/bpm-task": "流程任务",
     "bpm/tasks": "待办任务",
-
     "crm/crm-operate-log": "操作日志",
     "crm/crm-statistics-customer": "客户统计",
     "crm/crm-statistics-funnel": "销售漏斗",
@@ -49,12 +37,10 @@
     "crm/crm-statistics-portrait": "客户画像",
     "crm/crm-statistics-product": "产品统计",
     "crm/crm-statistics-rank": "业绩排行",
-
     "erp/orders": "订单列表",
     "erp/products": "产品列表",
     "erp/erp-purchase-statistics": "采购统计",
     "erp/erp-sale-statistics": "销售统计",
-
     "im/im-channel-manager": "频道管理",
     "im/im-channel-material-manager": "频道素材管理",
     "im/im-channel-message-manager": "频道消息管理",
@@ -73,41 +59,31 @@
     "im/im-rtc-live-kit": "音视频直播组件",
     "im/im-sensitive-word-manager": "敏感词管理",
     "im/im-statistics-manager": "统计分析",
-
     "iot/alerts": "告警列表",
     "iot/iot-device-message": "设备消息",
     "iot/iot-device-property": "设备属性",
     "iot/devices": "设备列表",
     "iot/iot-statistics": "设备统计",
-
     "mall/member-statistics": "会员统计",
     "mall/orders": "订单列表",
     "mall/pay-statistics": "支付统计",
     "mall/products": "商品列表",
-
     "member/address": "收货地址",
     "member/points": "积分明细",
-
     "mes/mes-cal-calendar": "生产日历",
     "mes/mes-home-statistics": "首页统计",
     "mes/mes-qc-pending-inspect": "待检任务",
     "mes/work-orders": "工单列表",
-
     "mp/mp-draft": "草稿箱",
     "mp/fans": "粉丝列表",
     "mp/mp-free-publish": "发布内容",
     "mp/mp-open": "开放配置",
     "mp/mp-statistics": "公众号统计",
-
     "overview/dashboard": "总览大屏",
-
     "pay/pay-notify": "支付回调",
-
     "report/boards": "数据大屏",
     "report/go-view-data": "GoView 数据源",
-
     "scheme/factories": "工厂方案",
-
     "wms/wms-home-statistics": "首页统计"
   }
 }

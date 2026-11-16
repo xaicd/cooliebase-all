@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server"
-import { AigwAccessTokenService, AigwRelayService } from "@/modules/aigw/backend/services"
+import { AiService } from "@/modules/ai/backend/services"
 import { readOpenApiKey } from "@/modules/ai/backend/lib/open-api-key"
 
 export async function GET(request: Request) {
@@ -8,9 +8,7 @@ export async function GET(request: Request) {
     return NextResponse.json({ error: { message: "缺少令牌" } }, { status: 401 })
   }
   try {
-    AigwAccessTokenService.assertUsable(apiKey)
-    return NextResponse.json(AigwRelayService.listPublicModels())
-
+    return NextResponse.json(await AiService.listPublicModels({ apiKey }))
   } catch (error) {
     const status =
       typeof error === "object" && error && "status" in error ? Number((error as { status: number }).status) : 401

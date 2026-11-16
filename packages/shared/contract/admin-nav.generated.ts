@@ -4,7 +4,7 @@
 //      + docs/agent/contracts.json（页面中文标题）
 //      + packages/*/*/contract/module.manifest.json（域显示名）
 //
-// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 468 个页面 ——
+// 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 472 个页面 ——
 // 手写映射与页面注册表必然漂移。页面注册表是唯一真源，导航由它派生。
 
 export type AdminNavItem = { id: string; href: string; label: string }
@@ -110,6 +110,24 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { id: "erp/erp-sale-order-item", href: "/admin/erp/erp-sale-order-item", label: "ERP 销售订单项管理" },
       { id: "erp/erp-sale-return", href: "/admin/erp/erp-sale-return", label: "ERP 销售退货管理" },
       { id: "erp/erp-sale-return-item", href: "/admin/erp/erp-sale-return-item", label: "ERP 销售退货项管理" },
+    ],
+  },
+  {
+    id: "fms",
+    title: "财务管理",
+    items: [
+      { id: "fms/fms-reconcile", href: "/admin/fms/fms-reconcile", label: "对账结算" },
+      { id: "fms/fms-voucher", href: "/admin/fms/fms-voucher", label: "收支凭证" },
+      { id: "fms/fms-account", href: "/admin/fms/fms-account", label: "资金账户" },
+    ],
+  },
+  {
+    id: "hrm",
+    title: "人力资源",
+    items: [
+      { id: "hrm/hrm-position", href: "/admin/hrm/hrm-position", label: "岗位编制" },
+      { id: "hrm/hrm-payroll", href: "/admin/hrm/hrm-payroll", label: "薪资核算" },
+      { id: "hrm/hrm-employee", href: "/admin/hrm/hrm-employee", label: "员工档案" },
     ],
   },
   {
@@ -423,6 +441,15 @@ export const ADMIN_NAV: AdminNavGroup[] = [
     ],
   },
   {
+    id: "oa",
+    title: "协同办公",
+    items: [
+      { id: "oa/oa-attendance", href: "/admin/oa/oa-attendance", label: "考勤打卡" },
+      { id: "oa/oa-leave-apply", href: "/admin/oa/oa-leave-apply", label: "请假用印" },
+      { id: "oa/oa-notice", href: "/admin/oa/oa-notice", label: "通知公告" },
+    ],
+  },
+  {
     id: "overview",
     title: "总览",
     items: [
@@ -450,6 +477,15 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { id: "pay/pay-refund", href: "/admin/pay/pay-refund", label: "支付退款单 DO一个支付订单，可以拥有多个支付退款单即 PayOrderDO :管理" },
       { id: "pay/pay-app", href: "/admin/pay/pay-app", label: "支付应用 DO一个商户下，可能会有多个支付应用。例如说，京东有京东商城、京东到家管理" },
       { id: "pay/pay-transfer", href: "/admin/pay/pay-transfer", label: "转账单管理" },
+    ],
+  },
+  {
+    id: "pms",
+    title: "项目管理",
+    items: [
+      { id: "pms/pms-milestone", href: "/admin/pms/pms-milestone", label: "里程碑" },
+      { id: "pms/pms-timesheet", href: "/admin/pms/pms-timesheet", label: "任务工时" },
+      { id: "pms/pms-project", href: "/admin/pms/pms-project", label: "项目台账" },
     ],
   },
   {
@@ -509,20 +545,6 @@ export const ADMIN_NAV: AdminNavGroup[] = [
       { id: "ai/ai-api-key", href: "/admin/ai/ai-api-key", label: "AI API 秘钥管理" },
       { id: "ai/ai-chat-conversation", href: "/admin/ai/ai-chat-conversation", label: "AI Chat 对话 DO用户每次发起 Chat 聊天时，会创建一个 对象，将它管理" },
       { id: "ai/ai-chat-message", href: "/admin/ai/ai-chat-message", label: "AI Chat 消息管理" },
-    ],
-  },
-  {
-    id: "aigw",
-    title: "AI 网关",
-    items: [
-      { id: "aigw/playground", href: "/admin/aigw/playground", label: "场景演练" },
-      { id: "aigw/chats", href: "/admin/aigw/chats", label: "对话记录" },
-      { id: "aigw/tokens", href: "/admin/aigw/tokens", label: "令牌管理" },
-      { id: "aigw/models", href: "/admin/aigw/models", label: "模型管理" },
-      { id: "aigw/channels", href: "/admin/aigw/channels", label: "渠道管理" },
-      { id: "aigw/workbench", href: "/admin/aigw/workbench", label: "协同工作台" },
-      { id: "aigw/usages", href: "/admin/aigw/usages", label: "用量统计" },
-      { id: "aigw/agent-sandbox", href: "/admin/aigw/agent-sandbox", label: "智能体沙箱" },
     ],
   },
   {

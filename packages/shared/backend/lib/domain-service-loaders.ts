@@ -21,13 +21,6 @@ export const DOMAIN_SERVICE_LOADERS: Record<string, Record<string, Loader>> = {
   "ai": {
     "index": () => import("@/modules/ai/backend/services/index"),
   },
-  "aigw": {
-    "aigw-access-token.service": () => import("@/modules/aigw/backend/services/aigw-access-token.service"),
-    "aigw-channel.service": () => import("@/modules/aigw/backend/services/aigw-channel.service"),
-    "aigw-model.service": () => import("@/modules/aigw/backend/services/aigw-model.service"),
-    "aigw-relay.service": () => import("@/modules/aigw/backend/services/aigw-relay.service"),
-    "index": () => import("@/modules/aigw/backend/services/index"),
-  },
   "bpm": {
     "index": () => import("@/modules/bpm/backend/services/index"),
     "process.service": () => import("@/modules/bpm/backend/services/process.service"),
@@ -37,6 +30,16 @@ export const DOMAIN_SERVICE_LOADERS: Record<string, Record<string, Loader>> = {
   },
   "erp": {
     "index": () => import("@/modules/erp/backend/services/index"),
+  },
+  "fms": {
+    "fms-account.service": () => import("@/modules/fms/backend/services/fms-account.service"),
+    "fms-reconcile.service": () => import("@/modules/fms/backend/services/fms-reconcile.service"),
+    "fms-voucher.service": () => import("@/modules/fms/backend/services/fms-voucher.service"),
+  },
+  "hrm": {
+    "hrm-employee.service": () => import("@/modules/hrm/backend/services/hrm-employee.service"),
+    "hrm-payroll.service": () => import("@/modules/hrm/backend/services/hrm-payroll.service"),
+    "hrm-position.service": () => import("@/modules/hrm/backend/services/hrm-position.service"),
   },
   "im": {
     "index": () => import("@/modules/im/backend/services/index"),
@@ -70,6 +73,11 @@ export const DOMAIN_SERVICE_LOADERS: Record<string, Record<string, Loader>> = {
   "mp": {
     "index": () => import("@/modules/mp/backend/services/index"),
   },
+  "oa": {
+    "oa-attendance.service": () => import("@/modules/oa/backend/services/oa-attendance.service"),
+    "oa-leave-apply.service": () => import("@/modules/oa/backend/services/oa-leave-apply.service"),
+    "oa-notice.service": () => import("@/modules/oa/backend/services/oa-notice.service"),
+  },
   "online": {
     "index": () => import("@/modules/online/backend/services/index"),
     "online-definition.service": () => import("@/modules/online/backend/services/online-definition.service"),
@@ -78,6 +86,11 @@ export const DOMAIN_SERVICE_LOADERS: Record<string, Record<string, Loader>> = {
   "pay": {
     "index": () => import("@/modules/pay/backend/services/index"),
     "refund.service": () => import("@/modules/pay/backend/services/refund.service"),
+  },
+  "pms": {
+    "pms-milestone.service": () => import("@/modules/pms/backend/services/pms-milestone.service"),
+    "pms-project.service": () => import("@/modules/pms/backend/services/pms-project.service"),
+    "pms-timesheet.service": () => import("@/modules/pms/backend/services/pms-timesheet.service"),
   },
   "report": {
     "index": () => import("@/modules/report/backend/services/index"),

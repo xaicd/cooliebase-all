@@ -14,9 +14,12 @@ import manifest9 from "@/plugins/plugin-erp/contract/module.manifest.json"
 import manifest10 from "@/plugins/plugin-wms/contract/module.manifest.json"
 import manifest11 from "@/plugins/plugin-mes/contract/module.manifest.json"
 import manifest12 from "@/plugins/plugin-ai/contract/module.manifest.json"
-import manifest13 from "@/plugins/plugin-aigw/contract/module.manifest.json"
-import manifest14 from "@/plugins/plugin-iot/contract/module.manifest.json"
-import manifest15 from "@/plugins/plugin-im/contract/module.manifest.json"
+import manifest13 from "@/plugins/plugin-iot/contract/module.manifest.json"
+import manifest14 from "@/plugins/plugin-im/contract/module.manifest.json"
+import manifest15 from "@/plugins/plugin-oa/contract/module.manifest.json"
+import manifest16 from "@/plugins/plugin-hrm/contract/module.manifest.json"
+import manifest17 from "@/plugins/plugin-fms/contract/module.manifest.json"
+import manifest18 from "@/plugins/plugin-pms/contract/module.manifest.json"
 
 export const MODULE_MANIFESTS = [
   manifest0,
@@ -35,4 +38,7 @@ export const MODULE_MANIFESTS = [
   manifest13,
   manifest14,
   manifest15,
+  manifest16,
+  manifest17,
+  manifest18,
 ] as const

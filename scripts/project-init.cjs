@@ -350,6 +350,92 @@ function updateEnvFiles(targetDir, opts) {
   }
 }
 
+function updateClientTerminals(targetDir, opts) {
+  const basePath = resolveInitBasePath(opts)
+
+  // 1. Expo 原生与 Web 同构客户端 (clients/expo)
+  const expoAppJson = path.join(targetDir, "clients", "expo", "app.json")
+  if (fs.existsSync(expoAppJson)) {
+    try {
+      const appCfg = JSON.parse(fs.readFileSync(expoAppJson, "utf8"))
+      if (appCfg.expo) {
+        appCfg.expo.name = opts.title
+        appCfg.expo.slug = `${opts.name}-app`
+        appCfg.expo.extra = {
+          ...(appCfg.expo.extra || {}),
+          apiBase: `http://localhost:${opts.port}${basePath}`,
+          basePath,
+        }
+      }
+      fs.writeFileSync(expoAppJson, JSON.stringify(appCfg, null, 2) + "\n", "utf8")
+      console.log(`[project-init] ✓ 已更新 Expo 客户端配置: clients/expo/app.json`)
+    } catch (_err) { /* Expo 配置解析异常时安全跳过 */ }
+  }
+
+  // 2. Uni-App 微信小程序与 H5 客户端 (clients/miniapp)
+  const miniappDir = path.join(targetDir, "clients", "miniapp")
+  const miniappPkgPath = path.join(miniappDir, "package.json")
+  if (!fs.existsSync(miniappPkgPath)) return
+
+  try {
+    const miniPkg = JSON.parse(fs.readFileSync(miniappPkgPath, "utf8"))
+    const isMasterBase = opts.name === "cooliebase" + "-all"
+    miniPkg.name = isMasterBase ? "@cooliebase/clients-miniapp" : `@${opts.name}/clients-miniapp`
+    miniPkg.description = `${opts.title} · 微信小程序与 H5 客户端`
+    fs.writeFileSync(miniappPkgPath, JSON.stringify(miniPkg, null, 2) + "\n", "utf8")
+  } catch (_err) { /* package.json 更新异常时安全跳过 */ }
+
+  const manifestPath = path.join(miniappDir, "manifest.json")
+  if (fs.existsSync(manifestPath)) {
+    try {
+      const mf = JSON.parse(fs.readFileSync(manifestPath, "utf8"))
+      mf.name = opts.title
+      mf.appid = `__UNI__${opts.name.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}`
+      mf.description = `${opts.title} · 微信小程序与 H5 客户端`
+      mf.h5 = {
+        ...(mf.h5 || {}),
+        title: opts.title,
+        router: {
+          ...((mf.h5 && mf.h5.router) || {}),
+          mode: "history",
+          base: basePath ? `${basePath}/miniapp/` : "/",
+        },
+      }
+      fs.writeFileSync(manifestPath, JSON.stringify(mf, null, 2) + "\n", "utf8")
+    } catch (_err) { /* manifest.json 更新异常时安全跳过 */ }
+  }
+
+  const pagesJsonPath = path.join(miniappDir, "pages.json")
+  if (fs.existsSync(pagesJsonPath)) {
+    try {
+      const pg = JSON.parse(fs.readFileSync(pagesJsonPath, "utf8"))
+      if (pg.globalStyle) {
+        pg.globalStyle.navigationBarTitleText = opts.shortName || opts.title
+      }
+      fs.writeFileSync(pagesJsonPath, JSON.stringify(pg, null, 2) + "\n", "utf8")
+    } catch (_err) { /* pages.json 更新异常时安全跳过 */ }
+  }
+
+  const indexHtmlPath = path.join(miniappDir, "index.html")
+  if (fs.existsSync(indexHtmlPath)) {
+    const html = fs.readFileSync(indexHtmlPath, "utf8").replace(/<title>[\s\S]*?<\/title>/, `<title>${opts.title}</title>`)
+    fs.writeFileSync(indexHtmlPath, html, "utf8")
+  }
+
+  const miniEnvPath = path.join(miniappDir, ".env")
+  const apiBaseUrl = basePath ? `${basePath}/api/v1/app` : "/api/v1/app"
+  const miniEnvContent = [
+    `VITE_APP_SLUG=${opts.name}`,
+    `VITE_APP_TITLE=${opts.title}`,
+    `VITE_BASE_PATH=${basePath}`,
+    `VITE_API_BASE_URL=${apiBaseUrl}`,
+    `BASE_PATH=${basePath}`,
+    "",
+  ].join("\n")
+  fs.writeFileSync(miniEnvPath, miniEnvContent, "utf8")
+  console.log(`[project-init] ✓ 已更新 MiniApp 客户端配置: clients/miniapp/{manifest.json,package.json,.env}`)
+}
+
 function updateGitRemote(targetDir, gitUrl) {
   if (!gitUrl) return
   try {
@@ -791,6 +877,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateProjectProfile(targetDir, opts)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)
+    updateClientTerminals(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
     assertProductScriptsParse(targetDir)
@@ -806,6 +893,7 @@ CoolieBase-All-Next 业务项目初始化引擎 (project-init)
     updateProjectProfile(targetDir, opts)
     updatePackageJson(targetDir, opts)
     updateEnvFiles(targetDir, opts)
+    updateClientTerminals(targetDir, opts)
     updateGitRemote(targetDir, opts.git)
     refreshArtifacts(targetDir, opts)
     assertProductScriptsParse(targetDir)

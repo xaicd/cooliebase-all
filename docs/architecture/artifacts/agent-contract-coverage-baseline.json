@@ -1,13 +1,11 @@
 {
   "note": "域级 Agent 契约覆盖的**已知零覆盖域**（棘轮基线）。契约由 codegen 产出，不可手写。某域补齐契约后跑 --write-baseline 收紧；新增零覆盖域会被门禁拦下。",
-  "updatedAt": "2026-10-19",
+  "updatedAt": "2026-11-16",
   "knownZeroCoverageDomains": [
-    "online",
-    "aigw"
+    "online"
   ],
   "reasons": {
-    "online": "低代码运行时域：实体由用户在运行时定义（online_definition），页面是设计器/运行器，**不存在静态 CRUD 实体**，因此没有可驱动的 CodegenConfig；其 API 由 contract/openapi.yaml 描述。",
-    "aigw": "网关域：有真实 service/repository/validators 与 AIGW_ACTION_SCHEMAS，但**没有表元数据（CodegenConfig）**，无法驱动契约模板；手写业务名/权限码/字段即编造，故不生成。"
+    "online": "低代码运行时域：实体由用户在运行时定义（online_definition），页面是设计器/运行器，**不存在静态 CRUD 实体**，因此没有可驱动的 CodegenConfig；其 API 由 contract/openapi.yaml 描述。"
   },
   "snapshot": [
     "system: 1 契约 / 31 页面",
@@ -24,8 +22,11 @@
     "wms: 16 契约 / 33 页面",
     "mes: 133 契约 / 261 页面",
     "ai: 14 契约 / 27 页面",
-    "aigw: 0 契约 / 8 页面",
     "iot: 15 契约 / 35 页面",
-    "im: 17 契约 / 48 页面"
+    "im: 17 契约 / 48 页面",
+    "oa: 3 契约 / 3 页面",
+    "hrm: 3 契约 / 3 页面",
+    "fms: 3 契约 / 3 页面",
+    "pms: 3 契约 / 3 页面"
   ]
 }

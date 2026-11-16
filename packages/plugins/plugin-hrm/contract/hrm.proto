@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package cooliebase.hrm.v1;
+
+option go_package = "cooliebase/all-base/gen/hrm/v1;hrmv1";
+
+// Generated from packages/shared/backend/constants/rpc-actions.json
+// Do not hand-edit. Run: pnpm run domain:contracts
+// gRPC path: /cooliebase.hrm.v1.HrmService/<Method>
+
+message JsonReply {
+  string json = 1;
+}
+
+message HrmEmployee.createRequest {
+  optional int32 n = 1;
+}
+
+message HrmEmployee.pageRequest {
+  optional int32 n = 1;
+}
+
+message HrmEmployee.updateRequest {
+  optional int32 n = 1;
+}
+
+message HrmPayroll.createRequest {
+  optional int32 n = 1;
+}
+
+message HrmPayroll.pageRequest {
+  optional int32 n = 1;
+}
+
+message HrmPayroll.updateRequest {
+  optional int32 n = 1;
+}
+
+message HrmPosition.createRequest {
+  optional int32 n = 1;
+}
+
+message HrmPosition.pageRequest {
+  optional int32 n = 1;
+}
+
+message HrmPosition.updateRequest {
+  optional int32 n = 1;
+}
+
+service HrmService {
+  rpc HrmEmployee.create(HrmEmployee.createRequest) returns (JsonReply);
+  rpc HrmEmployee.page(HrmEmployee.pageRequest) returns (JsonReply);
+  rpc HrmEmployee.update(HrmEmployee.updateRequest) returns (JsonReply);
+  rpc HrmPayroll.create(HrmPayroll.createRequest) returns (JsonReply);
+  rpc HrmPayroll.page(HrmPayroll.pageRequest) returns (JsonReply);
+  rpc HrmPayroll.update(HrmPayroll.updateRequest) returns (JsonReply);
+  rpc HrmPosition.create(HrmPosition.createRequest) returns (JsonReply);
+  rpc HrmPosition.page(HrmPosition.pageRequest) returns (JsonReply);
+  rpc HrmPosition.update(HrmPosition.updateRequest) returns (JsonReply);
+}

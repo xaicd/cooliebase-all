@@ -56,7 +56,7 @@ try {
 function discoverBusinessDomainPages(existingPages) {
   const existingModules = new Set(existingPages.map((p) => p.module).filter(Boolean));
   const existingSlugs = new Set(existingPages.map((p) => p.slug).filter(Boolean));
-  const BUILTIN_DOMAINS = new Set(["system", "infra", "ai", "aigw", "bpm", "crm", "erp", "im", "iot", "mall", "member", "mes", "mp", "overview", "pay", "report", "scheme", "wms", "flipshop"]);
+  const BUILTIN_DOMAINS = new Set(["system", "infra", "ai", "bpm", "crm", "erp", "im", "iot", "mall", "member", "mes", "mp", "overview", "pay", "report", "scheme", "wms", "flipshop"]);
   const discovered = [];
 
   const scanDir = (dir, domain) => {

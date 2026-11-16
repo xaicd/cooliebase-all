@@ -2,8 +2,8 @@
 
 - **生成方式**: `pnpm run sbom:generate`（**禁止手写**，本文件由脚本覆盖）
 - **锁文件真源**: `pnpm-lock.yaml`
-- **模板版本**: 1.2.0
-- **包总数**: 618（host 402 / client 216）
+- **模板版本**: 1.5.0
+- **包总数**: 632（host 406 / client 226）
 - **归属规范**: CMMI 04_implementation (TS / CM)
 
 > 机器可读版本：[`sbom.json`](./sbom.json)。漂移由 `pnpm run sbom:check` 判定。
@@ -17,7 +17,7 @@
 
 ## 0.1 未解析出许可证的包（UNKNOWN）
 
-共 **117** 个（占 618 的 18.9%）。
+共 **117** 个（占 632 的 18.5%）。
 
 原因**不是**锁文件缺信息，而是读取口径的限制：许可证来自**已安装依赖树**
 （`pnpm licenses list`），而清单里有大量**仅供其他平台使用的可选二进制**
@@ -32,7 +32,7 @@
 
 | 许可证 | 包数 |
 |---|---|
-| MIT | 415 |
+| MIT | 429 |
 | Apache-2.0 | 50 |
 | ISC | 23 |
 | MPL-2.0 | 4 |
@@ -54,7 +54,7 @@
 
 ---
 
-## 3. 全量包清单 (618)
+## 3. 全量包清单 (632)
 
 | 包名 | 版本 | 归属 | 许可证 |
 |---|---|---|---|
@@ -93,6 +93,7 @@
 | `@babel/helper-skip-transparent-expression-wrappers` | 7.29.7 | client | MIT |
 | `@babel/helper-wrap-function` | 7.29.7 | client | MIT |
 | `@babel/helpers` | 7.29.7 | host | MIT |
+| `@babel/parser` | 7.29.14 | host | MIT |
 | `@babel/parser` | 7.29.9 | host | MIT |
 | `@babel/plugin-proposal-decorators` | 7.29.7 | client | MIT |
 | `@babel/plugin-proposal-export-default-from` | 7.29.7 | client | MIT |
@@ -134,6 +135,7 @@
 | `@babel/preset-typescript` | 7.29.7 | client | MIT |
 | `@babel/template` | 7.29.7 | host | MIT |
 | `@babel/traverse` | 7.29.8 | host | MIT |
+| `@babel/types` | 7.29.14 | host | MIT |
 | `@babel/types` | 7.29.8 | host | MIT |
 | `@dnd-kit/abstract` | 0.4.0 | host | MIT |
 | `@dnd-kit/collision` | 0.4.0 | host | MIT |
@@ -385,7 +387,16 @@
 | `@visx/scale` | 4.0.1-alpha.0 | host | MIT |
 | `@visx/shape` | 4.0.1-alpha.0 | host | MIT |
 | `@visx/vendor` | 4.0.0-alpha.0 | host | MIT and ISC |
+| `@vitejs/plugin-vue` | 5.2.4 | client | MIT |
 | `@vitest/mocker` | 5.0.5 | host | MIT |
+| `@vue/compiler-core` | 3.5.45 | client | MIT |
+| `@vue/compiler-dom` | 3.5.45 | client | MIT |
+| `@vue/compiler-sfc` | 3.5.45 | client | MIT |
+| `@vue/compiler-ssr` | 3.5.45 | client | MIT |
+| `@vue/reactivity` | 3.5.45 | client | MIT |
+| `@vue/runtime-core` | 3.5.45 | client | MIT |
+| `@vue/runtime-dom` | 3.5.45 | client | MIT |
+| `@vue/server-renderer` | 3.5.45 | client | MIT |
 | `2g` | 1.0.1 | client | MIT |
 | `accepts` | 1.3.8 | client | MIT |
 | `accepts` | 2.0.0 | client | MIT |
@@ -528,6 +539,7 @@
 | `log-symbols` | 2.2.0 | client | MIT |
 | `loose-envify` | 1.4.0 | client | MIT |
 | `lru-cache` | 5.1.1 | host | ISC |
+| `magic-string` | 0.30.21 | host | MIT |
 | `magic-string` | 1.4.3 | host | MIT |
 | `makeerror` | 1.0.12 | client | BSD-3-Clause |
 | `metro` | 0.87.1 | client | MIT |
@@ -578,6 +590,7 @@
 | `plist` | 3.1.1 | client | MIT |
 | `postcss` | 8.5.23 | host | MIT |
 | `postcss` | 8.5.28 | host | MIT |
+| `postcss` | 8.5.33 | host | MIT |
 | `postcss-import` | 15.1.0 | host | MIT |
 | `postcss-js` | 4.1.0 | host | MIT |
 | `postcss-load-config` | 6.0.1 | host | MIT |
@@ -665,6 +678,7 @@
 | `valibot` | 1.4.2 | host | MIT |
 | `vite` | 7.3.7 | host | MIT |
 | `vitest` | 5.0.5 | host | MIT |
+| `vue` | 3.5.45 | client | MIT |
 | `walker` | 1.0.8 | client | Apache-2.0 |
 | `wcwidth` | 1.0.1 | client | MIT |
 | `whatwg-url` | 5.0.0 | client | MIT |

@@ -164,7 +164,7 @@ export function buildOpenApi31Spec(domainFilter?: string, basePath = getBasePath
     openapi: "3.1.0",
     info: {
       title: "CoolieBase AI-Native Enterprise API Reference & Sandbox",
-      version: "1.2.0",
+      version: "1.5.0",
       description: `聚合全仓 ${registry.total} 份机器可读 Agent 契约（覆盖 ${registry.domains.length} 个业务域），支持 Bearer JWT 注入与浏览器端实时 HTTP 调试。`,
     },
     servers: [

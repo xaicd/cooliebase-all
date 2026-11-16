@@ -20,6 +20,7 @@ const DOMAIN_PATH_PREFIXES = Object.freeze([
   "src/app/(cpc-pages)/cpc/",
   // 客户端内按域组织的模块（clients/<channel>/src/modules/<domain>）随被排除域同步裁剪
   "clients/expo/src/modules/",
+  "clients/miniapp/src/modules/",
 ])
 
 function splitCsv(value) {
@@ -226,7 +227,7 @@ function resolveHatchPlan(catalog, options = {}) {
   selected = selected.filter((name) => known.has(name))
   const requestedClients = unique(options.clients || [])
   if (requestedClients.length > 0) {
-    includeClients = requestedClients.includes("expo")
+    includeClients = requestedClients.includes("expo") || requestedClients.includes("miniapp")
   }
   const excludedDomains = catalogDomainNames(catalog).filter((name) => !selected.includes(name))
   const pruned = excludedDomains.length > 0 || !includeClients
@@ -234,7 +235,7 @@ function resolveHatchPlan(catalog, options = {}) {
   return {
     profile,
     includeClients,
-    clients: requestedClients.length > 0 ? requestedClients : includeClients ? ["admin-web", "expo"] : ["admin-web"],
+    clients: requestedClients.length > 0 ? requestedClients : includeClients ? ["admin-web", "expo", "miniapp"] : ["admin-web"],
     pruned,
     companions,
     domains: selected,
@@ -335,8 +336,16 @@ function shouldSkipRelPath(relPath, plan = {}) {
   if (rel.startsWith("docs/06_quality_assurance/audit/") && rel.endsWith(".md")) {
     return true
   }
-  // 当不包含客户端时，仅排除重型客户端子项目 (如 clients/expo)，保留 clients/ 目录及 README 标识
-  if (plan.includeClients === false && (rel === "clients/expo" || rel.startsWith("clients/expo/"))) return true
+  // 当不包含客户端时，排除独立客户端子项目 (clients/expo, clients/miniapp)，保留 clients/ 目录及 README 标识
+  if (
+    plan.includeClients === false &&
+    (rel === "clients/expo" ||
+      rel.startsWith("clients/expo/") ||
+      rel === "clients/miniapp" ||
+      rel.startsWith("clients/miniapp/"))
+  ) {
+    return true
+  }
   for (const domain of plan.excludedDomains || []) {
     if (matchesDomainPrefix(rel, domain)) return true
   }

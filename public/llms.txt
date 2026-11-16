@@ -1,11 +1,11 @@
 # cooliebase-all
 
-> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 17 个原生业务域、38 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
+> 基于 Next.js 16 + React 19 + TypeScript 5 的企业级现代化全栈工程底座与业务中台模板。支持模块化单体与微服务演进，内置 20 个原生业务域、38 个专业 Agent Skills、SpaceX 级全链路质量门禁与零配置真实本地数据库（SQLite/PostgreSQL）。
 
 ## 核心架构与能力一览 (Pre-Download Capabilities)
 
 - **定位**: 真实企业业务系统开发底座、DigitalStaff NPC 工作区模板、零样板代码低代码研发基座、AI Agent 友好型工程底座。
-- **17 原生业务域**: 
+- **20 原生业务域**: 
   - 平台地基: `system` (RBAC权限/多租户/部门岗位/数据字典), `infra` (动态参数/定时任务/代码生成器)
   - 业务域插件: `ai` (AI智能工作台/知识库), `aigw` (多模型聚合网关/Token计费), `bpm` (工作流/BPMN2.0), `pay` (聚合支付/微信支付宝/退款), `report` (大屏可视化/多维报表), `mp` (微信公众号管理), `mall` (电商/商品SPU-SKU/订单), `member` (C端会员/成长值), `crm` (客户关系/商机/公海池), `erp` (进销存/采购销售), `wms` (仓储物流/批次条码), `mes` (制造执行/排产报工), `iot` (物联网/物模型/告警), `im` (实时通信/长连接群聊), `online` (低代码在线开发)。
 - **38 个 Agent 专属技能 (Skills - 单一真源 .agents/skills)**:
@@ -19,7 +19,7 @@
   - 按域垂直隔离于 `docs/specs/<domain>/<name>/`（支持 `feature`, `bugfix`, `enhancement`, `refactor` 四态）
   - 机器输入只需 <500 Token `brief.json`，自动展开 7 类规范文档与 G0~G7 质量门禁。
 - **OpenWiki (LLM-Wiki 知识大脑)**:
-  - 内置 `wiki/` 互联百科（`pnpm run gen:paths:check`），与底层元数据及 342 份 Agent 契约对齐，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
+  - 内置 `wiki/` 互联百科（`pnpm run gen:paths:check`），与底层元数据及 354 份 Agent 契约对齐，覆盖 17 域独立词条、Facade 门面、权限码与高频避坑指南，AI 进场首屏检索，Token 消耗降低 80%。
 - **真实数据库驱动 (Zero Fake Mock)**:
   - 内置零配置本地 SQLite (`data/cooliebase.db`)，开发/预览无需安装外部容器，秒级开箱即用。
   - 生产支持一键连接 PostgreSQL / MySQL / TiDB / openGauss，统一采用 Kysely 抽象与租户自动隔离插件。

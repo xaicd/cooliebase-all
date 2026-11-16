@@ -1,0 +1,261 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "fms",
+  "entity": "FmsAccount",
+  "kebab": "fms-account",
+  "businessName": "资金账户",
+  "permissionPrefix": "fms:account",
+  "page": {
+    "route": "/admin/fms/fms-account",
+    "menuTitle": "资金账户",
+    "title": "资金账户管理",
+    "titleSelector": "[data-testid=\"fms-account-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.fms/api",
+    "bffMount": "/api/v1/admin/fms",
+    "resource": "fms-account",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/fms-account",
+        "query": [
+          "page",
+          "pageSize",
+          "account_no",
+          "name",
+          "currency",
+          "status"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/fms-account/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/fms-account"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/fms-account/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/fms-account/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"fms-account-title\"]",
+    "refresh": "[data-testid=\"fms-account-refresh\"]",
+    "createButton": "[data-testid=\"fms-account-create\"]",
+    "searchForm": "[data-testid=\"fms-account-search\"]",
+    "searchSubmit": "[data-testid=\"fms-account-search-submit\"]",
+    "searchReset": "[data-testid=\"fms-account-search-reset\"]",
+    "total": "[data-testid=\"fms-account-total\"]",
+    "table": "[data-testid=\"fms-account-table\"]",
+    "row": "[data-testid=\"fms-account-row\"]",
+    "editButton": "[data-testid=\"fms-account-edit\"]",
+    "deleteButton": "[data-testid=\"fms-account-delete\"]",
+    "form": "[data-testid=\"fms-account-form\"]",
+    "formError": "[data-testid=\"fms-account-form-error\"]",
+    "formSubmit": "[data-testid=\"fms-account-form-submit\"]",
+    "formCancel": "[data-testid=\"fms-account-form-cancel\"]",
+    "formClose": "[data-testid=\"fms-account-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "资金账户列表",
+    "dialogLabel": {
+      "create": "新增资金账户",
+      "edit": "编辑资金账户"
+    },
+    "searchFields": [
+      {
+        "name": "account_no",
+        "label": "银行账号",
+        "testId": "search-account_no",
+        "selector": "[data-testid=\"search-account_no\"]"
+      },
+      {
+        "name": "name",
+        "label": "账户名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "currency",
+        "label": "币种",
+        "testId": "search-currency",
+        "selector": "[data-testid=\"search-currency\"]"
+      },
+      {
+        "name": "status",
+        "label": "账户状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "account_no",
+        "label": "银行账号",
+        "type": "string",
+        "required": true,
+        "testId": "field-account_no",
+        "selector": "[data-testid=\"field-account_no\"]"
+      },
+      {
+        "name": "name",
+        "label": "账户名称",
+        "type": "string",
+        "required": true,
+        "testId": "field-name",
+        "selector": "[data-testid=\"field-name\"]"
+      },
+      {
+        "name": "bank_name",
+        "label": "开户行",
+        "type": "string",
+        "required": false,
+        "testId": "field-bank_name",
+        "selector": "[data-testid=\"field-bank_name\"]"
+      },
+      {
+        "name": "currency",
+        "label": "币种",
+        "type": "string",
+        "required": true,
+        "testId": "field-currency",
+        "selector": "[data-testid=\"field-currency\"]"
+      },
+      {
+        "name": "balance",
+        "label": "当前余额",
+        "type": "number",
+        "required": true,
+        "testId": "field-balance",
+        "selector": "[data-testid=\"field-balance\"]"
+      },
+      {
+        "name": "status",
+        "label": "账户状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "fms-account",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"fms-account\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"fms-account-form-overlay\"]",
+      "dialog": "[data-testid=\"fms-account-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "fms-account:search",
+      "reset": "fms-account:reset",
+      "refresh": "fms-account:refresh",
+      "create": "fms-account:create",
+      "edit": "fms-account:edit",
+      "delete": "fms-account:delete",
+      "submit": "fms-account:submit",
+      "cancel": "fms-account:cancel",
+      "close": "fms-account:close",
+      "row": "fms-account:row",
+      "pagination": "fms-account:pagination",
+      "fields": {
+        "account_no": "fms-account:field:account_no",
+        "name": "fms-account:field:name",
+        "bank_name": "fms-account:field:bank_name",
+        "currency": "fms-account:field:currency",
+        "balance": "fms-account:field:balance",
+        "status": "fms-account:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "fms.fms-account",
+      "examples": [
+        "fms.fms-account__List__Refresh",
+        "fms.fms-account__ListItem__Open",
+        "fms.fms-account__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

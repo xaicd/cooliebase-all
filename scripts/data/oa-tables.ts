@@ -1,0 +1,72 @@
+import type { CodegenConfig } from "../../packages/domains/infra/backend/services/codegen-templates"
+
+export const OA_TABLES: CodegenConfig[] = [
+  {
+    moduleName: "oa",
+    className: "OaNotice",
+    businessName: "通知公告",
+    parentMenuId: "oa-dir",
+    permissionPrefix: "oa:notice",
+    table: {
+      name: "oa_notice",
+      comment: "企业协同通知公告表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "公告ID", isPk: true },
+        { name: "notice_no", type: "varchar", tsType: "string", nullable: false, comment: "公告编号", formValidation: "required", queryType: "LIKE" },
+        { name: "title", type: "varchar", tsType: "string", nullable: false, comment: "公告标题", formValidation: "required", queryType: "LIKE" },
+        { name: "notice_type", type: "varchar", tsType: "string", nullable: false, comment: "公告类别", queryType: "EQ" },
+        { name: "content", type: "text", tsType: "string", nullable: true, comment: "正文内容" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "发布状态", queryType: "EQ" },
+        { name: "publish_time", type: "timestamp", tsType: "string", nullable: true, comment: "发布时间" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "oa",
+    className: "OaAttendance",
+    businessName: "考勤打卡",
+    parentMenuId: "oa-dir",
+    permissionPrefix: "oa:attendance",
+    table: {
+      name: "oa_attendance",
+      comment: "员工考勤打卡记录表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "打卡ID", isPk: true },
+        { name: "employee_id", type: "varchar", tsType: "string", nullable: false, comment: "员工ID", formValidation: "required", queryType: "EQ" },
+        { name: "employee_name", type: "varchar", tsType: "string", nullable: false, comment: "员工姓名", formValidation: "required", queryType: "LIKE" },
+        { name: "work_date", type: "varchar", tsType: "string", nullable: false, comment: "考勤日期", queryType: "EQ" },
+        { name: "check_in_time", type: "timestamp", tsType: "string", nullable: true, comment: "签到时间" },
+        { name: "check_out_time", type: "timestamp", tsType: "string", nullable: true, comment: "签退时间" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "考勤状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "oa",
+    className: "OaLeaveApply",
+    businessName: "请假用印",
+    parentMenuId: "oa-dir",
+    permissionPrefix: "oa:leave-apply",
+    table: {
+      name: "oa_leave_apply",
+      comment: "请假与用印审批单表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "申请单ID", isPk: true },
+        { name: "apply_no", type: "varchar", tsType: "string", nullable: false, comment: "申请单号", formValidation: "required", queryType: "LIKE" },
+        { name: "applicant_id", type: "varchar", tsType: "string", nullable: false, comment: "申请人ID", formValidation: "required", queryType: "EQ" },
+        { name: "apply_type", type: "varchar", tsType: "string", nullable: false, comment: "单据类型", queryType: "EQ" },
+        { name: "days", type: "decimal", tsType: "number", nullable: false, comment: "请假天数" },
+        { name: "start_time", type: "timestamp", tsType: "string", nullable: false, comment: "开始时间" },
+        { name: "end_time", type: "timestamp", tsType: "string", nullable: false, comment: "结束时间" },
+        { name: "reason", type: "varchar", tsType: "string", nullable: true, comment: "事由说明" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "审批状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+]

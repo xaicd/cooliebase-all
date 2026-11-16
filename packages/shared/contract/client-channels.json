@@ -23,7 +23,8 @@
       "auth": "member-jwt",
       "audience": "app",
       "usedBy": [
-        "expo"
+        "expo",
+        "miniapp"
       ]
     },
     {
@@ -77,6 +78,26 @@
       "tokenStore": "expo-secure-store",
       "packageKind": "standalone",
       "notes": "本仓标准多端移动/Web 同构客户端包，严格遵循 src/{app,shared,modules/<domain>} 三层架构与 PageBlockDSL v2 同源渲染。"
+    },
+    {
+      "id": "miniapp",
+      "name": "微信小程序 / H5",
+      "kind": "mini-program",
+      "surface": "app",
+      "workspace": "clients/miniapp",
+      "runtime": "uni-app",
+      "status": "ga",
+      "platforms": [
+        "mp-weixin",
+        "h5"
+      ],
+      "tokenStore": "uni-storage",
+      "packageKind": "standalone",
+      "requiredSourceDirs": [
+        "pages",
+        "utils"
+      ],
+      "notes": "Uni-App Vue 3 + TypeScript + Vite 多端小程序与 H5 客户端，内置动态 BASE_PATH、wx.login 静默授权、subPackages 分包与 iPhone 安全区适配。"
     }
   ],
   "rules": [
@@ -112,7 +133,7 @@
     "manifestByRuntime": {
       "next-app-router": "package.json",
       "uni-app-h5-or-next": "package.json",
-      "uni-app": "package.json",
+      "uni-app": "manifest.json",
       "flutter": "pubspec.yaml",
       "tauri": "package.json",
       "expo": "app.json"

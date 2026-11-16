@@ -8,9 +8,9 @@ on:
   workflow_dispatch:
     inputs:
       tag_name:
-        description: '发布版本 Tag (例如 v1.0.0)'
+        description: '发布版本 Tag (例如 v1.5.0)'
         required: true
-        default: 'v1.0.0'
+        default: 'v1.5.0'
 
 permissions:
   contents: write
@@ -26,6 +26,7 @@ jobs:
 
       - name: 安装 pnpm
         uses: pnpm/action-setup@v4
+
       - name: 安装 Node.js 24
         uses: actions/setup-node@v4
         with:
@@ -35,69 +36,30 @@ jobs:
       - name: 安装工作区依赖
         run: pnpm install --frozen-lockfile
 
-      - name: 运行 10 大 SpaceX 级质量门禁
+      - name: 运行全量静态质量门禁
         run: pnpm run check
 
-      - name: 运行自动化测试套件
-        run: env -u DATABASE_URL -u DB_DRIVER pnpm exec vitest run
+      - name: 运行清洁环境自动化测试套件
+        run: pnpm run test:clean
 
       - name: 构建生产应用
         run: pnpm run build
 
       - name: 打包离线骨架与发布制品 (Release Artifacts)
         run: |
-          mkdir -p dist/release-assets
           TAG="${{ github.ref_name }}"
           if [ -z "$TAG" ] || [ "$TAG" = "main" ]; then
-            TAG="${{ github.event.inputs.tag_name || 'v1.0.0' }}"
+            TAG="${{ github.event.inputs.tag_name || 'v1.5.0' }}"
           fi
-
-          echo "==> 正在准备版本制品: $TAG"
-
-          # 1. 离线纯净工程骨架包 (排除 Git 历史、node_modules、运行时 db)
-          tar --exclude='./.git' \
-              --exclude='./node_modules' \
-              --exclude='./.next' \
-              --exclude='./.next-cooliebase' \
-              --exclude='./*.tsbuildinfo' \
-              --exclude='./.turbo' \
-              --exclude='./.cache' \
-              --exclude='./data/*.db' \
-              --exclude='./data/*.db-wal' \
-              --exclude='./data/*.db-shm' \
-              --exclude='./backups' \
-              --exclude='./dist' \
-              -czf "dist/release-assets/cooliebase-all-${TAG}-skeleton.tar.gz" .
-
-          # 2. 导出 OpenAPI 契约规范与架构说明
-          if [ -f "packages/shared/contract/seam-graph.json" ]; then
-            cp packages/shared/contract/seam-graph.json dist/release-assets/
-          fi
-          if [ -f "compat-manifest.json" ]; then
-            cp compat-manifest.json dist/release-assets/
-          fi
-
-          # 3. 生成 SHA256 完整性校验和
-          cd dist/release-assets
-          sha256sum * > SHA256SUMS.txt
-          ls -la
-          cd ../..
+          pnpm run release:package -- --tag="$TAG"
 
       - name: 发布至 GitHub Releases (全球开发者分发)
         uses: softprops/action-gh-release@v2
         if: startsWith(github.ref, 'refs/tags/')
         with:
+          body_path: releases/${{ github.ref_name }}.md
           files: |
             dist/release-assets/*
           generate_release_notes: true
           draft: false
           prerelease: false
-
-      - name: Gitee Releases 国内同步指南与输出
-        run: |
-          echo "=========================================================="
-          echo "✅ GitHub Release 发布成功！"
-          echo "国内 Gitee Releases 同步指南："
-          echo "1. 推送 Tag 至 Gitee: git push gitee --tags"
-          echo "2. 上传 dist/release-assets/* 中的安装包与制品至 Gitee 发行版"
-          echo "=========================================================="

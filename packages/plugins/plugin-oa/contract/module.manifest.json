@@ -1,0 +1,94 @@
+{
+  "$schema": "cooliebase-module-manifest/v1",
+  "domain": "oa",
+  "id": "cooliebase.oa",
+  "apiVersion": 1,
+  "displayName": "oa",
+  "kind": "plugin",
+  "stage": "B",
+  "owner": "oa",
+  "contractVersion": "v1",
+  "implementation": "local-ts",
+  "minimumHostVersion": "1.0.0",
+  "capabilities": [
+    "api.routes.register",
+    "facade.invoke",
+    "pack.independent"
+  ],
+  "entrypoints": {
+    "facade": [
+      "packages/plugins/plugin-oa/contract/oa.facade.ts"
+    ],
+    "proto": "packages/plugins/plugin-oa/contract/oa.proto",
+    "actions": "packages/plugins/plugin-oa/contract/actions.ts"
+  },
+  "apiRoutes": {
+    "publicPrefix": [
+      "/api/v1/admin/oa"
+    ],
+    "adminPrefix": "/api/v1/admin/oa"
+  },
+  "auth": {
+    "audience": "admin",
+    "tenantPolicy": "required"
+  },
+  "messaging": {
+    "queueGroup": "cooliebase.oa",
+    "commandSubject": "cooliebase.cmd.oa.>",
+    "eventSubject": "cooliebase.evt.oa.>"
+  },
+  "invoke": {
+    "colocated": "sdk",
+    "remote": "rpc",
+    "protocol": "nats-rr",
+    "serialization": "json"
+  },
+  "upstream": {
+    "env": "COOLIEBASE_DOMAIN_OA_UPSTREAM",
+    "protocol": "http",
+    "defaultPort": 3226
+  },
+  "resilience": {
+    "timeoutMs": 15000,
+    "retry": {
+      "maxAttempts": 1,
+      "safeMethodsOnly": true
+    },
+    "idempotencyRequired": true
+  },
+  "facadeMethods": [
+    "oaAttendance.create",
+    "oaAttendance.page",
+    "oaAttendance.update",
+    "oaLeaveApply.create",
+    "oaLeaveApply.page",
+    "oaLeaveApply.update",
+    "oaNotice.create",
+    "oaNotice.page",
+    "oaNotice.update"
+  ],
+  "rpc": [],
+  "actions": [],
+  "permissions": [
+    "oa:attendance:create",
+    "oa:attendance:delete",
+    "oa:attendance:query",
+    "oa:attendance:update",
+    "oa:leave-apply:create",
+    "oa:leave-apply:delete",
+    "oa:leave-apply:query",
+    "oa:leave-apply:update",
+    "oa:notice:create",
+    "oa:notice:delete",
+    "oa:notice:query",
+    "oa:notice:update"
+  ],
+  "dependsOn": [
+    "shared"
+  ],
+  "pack": {
+    "enabled": true,
+    "kind": "api-only",
+    "independentDatabase": false
+  }
+}

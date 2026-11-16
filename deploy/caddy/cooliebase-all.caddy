@@ -1,5 +1,6 @@
 # deploy/caddy/cooliebase-all.caddy
 # 项目: cooliebase-all
+# 四端平面: /services/cooliebase-all/{admin,2c,miniapp,api} -> 127.0.0.1:3200
 # 动态 API 路由前缀: /cooliebase-all-api
 # 独立服务端口: 3200
 

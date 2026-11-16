@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package cooliebase.pms.v1;
+
+option go_package = "cooliebase/all-base/gen/pms/v1;pmsv1";
+
+// Generated from packages/shared/backend/constants/rpc-actions.json
+// Do not hand-edit. Run: pnpm run domain:contracts
+// gRPC path: /cooliebase.pms.v1.PmsService/<Method>
+
+message JsonReply {
+  string json = 1;
+}
+
+message PmsMilestone.createRequest {
+  optional int32 n = 1;
+}
+
+message PmsMilestone.pageRequest {
+  optional int32 n = 1;
+}
+
+message PmsMilestone.updateRequest {
+  optional int32 n = 1;
+}
+
+message PmsProject.createRequest {
+  optional int32 n = 1;
+}
+
+message PmsProject.pageRequest {
+  optional int32 n = 1;
+}
+
+message PmsProject.updateRequest {
+  optional int32 n = 1;
+}
+
+message PmsTimesheet.createRequest {
+  optional int32 n = 1;
+}
+
+message PmsTimesheet.pageRequest {
+  optional int32 n = 1;
+}
+
+message PmsTimesheet.updateRequest {
+  optional int32 n = 1;
+}
+
+service PmsService {
+  rpc PmsMilestone.create(PmsMilestone.createRequest) returns (JsonReply);
+  rpc PmsMilestone.page(PmsMilestone.pageRequest) returns (JsonReply);
+  rpc PmsMilestone.update(PmsMilestone.updateRequest) returns (JsonReply);
+  rpc PmsProject.create(PmsProject.createRequest) returns (JsonReply);
+  rpc PmsProject.page(PmsProject.pageRequest) returns (JsonReply);
+  rpc PmsProject.update(PmsProject.updateRequest) returns (JsonReply);
+  rpc PmsTimesheet.create(PmsTimesheet.createRequest) returns (JsonReply);
+  rpc PmsTimesheet.page(PmsTimesheet.pageRequest) returns (JsonReply);
+  rpc PmsTimesheet.update(PmsTimesheet.updateRequest) returns (JsonReply);
+}

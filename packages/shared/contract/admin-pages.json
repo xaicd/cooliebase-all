@@ -87,54 +87,6 @@
       "module": "@/modules/ai/frontend/pages/ai-write-list.page"
     },
     {
-      "slug": "aigw/agent-sandbox",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/agent-sandbox.page"
-    },
-    {
-      "slug": "aigw/channels",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/channels.page"
-    },
-    {
-      "slug": "aigw/chats",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/chats.page"
-    },
-    {
-      "slug": "aigw/models",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/models.page"
-    },
-    {
-      "slug": "aigw/playground",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/playground.page"
-    },
-    {
-      "slug": "aigw/tokens",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/tokens.page"
-    },
-    {
-      "slug": "aigw/usages",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/usages.page"
-    },
-    {
-      "slug": "aigw/workbench",
-      "kind": "page",
-      "exportName": "default",
-      "module": "@/modules/aigw/frontend/pages/workbench.page"
-    },
-    {
       "slug": "bpm/bpm-category",
       "kind": "page",
       "exportName": "BpmCategoryListPage",
@@ -2442,7 +2394,7 @@
     {
       "slug": "overview/dashboard",
       "kind": "page",
-      "exportName": "React",
+      "exportName": "default",
       "module": "react"
     },
     {
@@ -2568,7 +2520,7 @@
     {
       "slug": "scheme/factories",
       "kind": "page",
-      "exportName": "React",
+      "exportName": "default",
       "module": "react"
     },
     {
@@ -2852,6 +2804,78 @@
       "kind": "page",
       "exportName": "WmsWarehouseListPage",
       "module": "@/modules/wms/frontend/pages/wms-warehouse-list.page"
+    },
+    {
+      "slug": "oa/oa-attendance",
+      "kind": "page",
+      "exportName": "OaAttendanceListPage",
+      "module": "@/modules/oa/frontend/pages/oa-attendance-list.page"
+    },
+    {
+      "slug": "oa/oa-leave-apply",
+      "kind": "page",
+      "exportName": "OaLeaveApplyListPage",
+      "module": "@/modules/oa/frontend/pages/oa-leave-apply-list.page"
+    },
+    {
+      "slug": "oa/oa-notice",
+      "kind": "page",
+      "exportName": "OaNoticeListPage",
+      "module": "@/modules/oa/frontend/pages/oa-notice-list.page"
+    },
+    {
+      "slug": "hrm/hrm-employee",
+      "kind": "page",
+      "exportName": "HrmEmployeeListPage",
+      "module": "@/modules/hrm/frontend/pages/hrm-employee-list.page"
+    },
+    {
+      "slug": "hrm/hrm-payroll",
+      "kind": "page",
+      "exportName": "HrmPayrollListPage",
+      "module": "@/modules/hrm/frontend/pages/hrm-payroll-list.page"
+    },
+    {
+      "slug": "hrm/hrm-position",
+      "kind": "page",
+      "exportName": "HrmPositionListPage",
+      "module": "@/modules/hrm/frontend/pages/hrm-position-list.page"
+    },
+    {
+      "slug": "fms/fms-account",
+      "kind": "page",
+      "exportName": "FmsAccountListPage",
+      "module": "@/modules/fms/frontend/pages/fms-account-list.page"
+    },
+    {
+      "slug": "fms/fms-reconcile",
+      "kind": "page",
+      "exportName": "FmsReconcileListPage",
+      "module": "@/modules/fms/frontend/pages/fms-reconcile-list.page"
+    },
+    {
+      "slug": "fms/fms-voucher",
+      "kind": "page",
+      "exportName": "FmsVoucherListPage",
+      "module": "@/modules/fms/frontend/pages/fms-voucher-list.page"
+    },
+    {
+      "slug": "pms/pms-milestone",
+      "kind": "page",
+      "exportName": "PmsMilestoneListPage",
+      "module": "@/modules/pms/frontend/pages/pms-milestone-list.page"
+    },
+    {
+      "slug": "pms/pms-project",
+      "kind": "page",
+      "exportName": "PmsProjectListPage",
+      "module": "@/modules/pms/frontend/pages/pms-project-list.page"
+    },
+    {
+      "slug": "pms/pms-timesheet",
+      "kind": "page",
+      "exportName": "PmsTimesheetListPage",
+      "module": "@/modules/pms/frontend/pages/pms-timesheet-list.page"
     }
   ]
 }

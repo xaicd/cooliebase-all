@@ -9,9 +9,9 @@
 
 | 项 | 值 |
 |---|---|
-| 定位 | 企业级轻全栈**可派生旗舰底座**：Next.js 16 App Router + React 19 + Prisma 7 + Kysely + Expo 原生移动端 |
-| 架构模式 | 单一应用代码库 (Single-Engine Monorepo)，15 企业级业务域自闭环，支持一体化运行与解耦部署 |
-| 模板版本 | `templateVersion 1.2.0`（见 `compat-manifest.json`） |
+| 定位 | 企业级轻全栈**四位一体可派生旗舰底座**：Next.js 16 (Admin 中台 + 2C 门户) + Prisma 7 + Kysely + Expo 原生 App (`clients/expo`) + Uni-App 微信小程序/H5 (`clients/miniapp`) |
+| 架构模式 | 单一应用代码库 (Single-Engine Monorepo)，19 大企业原生域 (`+oa/hrm/fms/pms`) + `online` 低代码域（共 20 域）自闭环，支持一体化运行与解耦部署 |
+| 模板版本 | `templateVersion 1.5.0`（见 `compat-manifest.json`） |
 | 数据持久化 | 支持零 Docker **嵌入式真 PostgreSQL 18.4 (`embedded-postgres`, `scripts/lib/ephemeral-pg.cjs`)** 与 SQLite/MySQL，绝不在生产模式降级内存 |
 | 唯一网关基线 | 动态 BasePath 规范（`/${slug}`），单一端口（默认 `:3300`），绝不硬编码绝对子路径 |
 

@@ -1,0 +1,225 @@
+{
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.fms",
+  "apiVersion": 1,
+  "version": "0.1.0",
+  "displayName": "fms",
+  "description": "fms 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
+  "author": "CoolieBase All",
+  "categories": [
+    "automation"
+  ],
+  "capabilities": [
+    "api.routes.register"
+  ],
+  "entrypoints": {
+    "merged": "./plugin-entry.ts"
+  },
+  "domain": {
+    "kind": "plugin",
+    "stage": "B",
+    "contractVersion": "v1",
+    "publicPrefixes": [
+      "/api/v1/admin/fms"
+    ],
+    "upstreamEnv": "COOLIEBASE_DOMAIN_FMS_UPSTREAM",
+    "defaultPort": 3228,
+    "packable": true,
+    "independentDatabase": false,
+    "dependsOnModules": [
+      "shared"
+    ],
+    "auth": {
+      "audience": "admin",
+      "tenantPolicy": "required"
+    },
+    "resilience": {
+      "timeoutMs": 15000,
+      "retryMaxAttempts": 1,
+      "safeMethodsOnly": true,
+      "idempotencyRequired": true
+    }
+  },
+  "apiRoutes": [
+    {
+      "routeKey": "admin:fms-account/[id]:delete",
+      "method": "DELETE",
+      "path": "/fms-account/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account/[id]:get",
+      "method": "GET",
+      "path": "/fms-account/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account/[id]:put",
+      "method": "PUT",
+      "path": "/fms-account/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account/export:post",
+      "method": "POST",
+      "path": "/fms-account/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account/import-template:get",
+      "method": "GET",
+      "path": "/fms-account/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account/import:post",
+      "method": "POST",
+      "path": "/fms-account/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account:delete",
+      "method": "DELETE",
+      "path": "/fms-account",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account:get",
+      "method": "GET",
+      "path": "/fms-account",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account:post",
+      "method": "POST",
+      "path": "/fms-account",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-account:put",
+      "method": "PUT",
+      "path": "/fms-account",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/[id]:delete",
+      "method": "DELETE",
+      "path": "/fms-reconcile/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/[id]:get",
+      "method": "GET",
+      "path": "/fms-reconcile/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/[id]:put",
+      "method": "PUT",
+      "path": "/fms-reconcile/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/export:post",
+      "method": "POST",
+      "path": "/fms-reconcile/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/import-template:get",
+      "method": "GET",
+      "path": "/fms-reconcile/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile/import:post",
+      "method": "POST",
+      "path": "/fms-reconcile/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile:delete",
+      "method": "DELETE",
+      "path": "/fms-reconcile",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile:get",
+      "method": "GET",
+      "path": "/fms-reconcile",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile:post",
+      "method": "POST",
+      "path": "/fms-reconcile",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-reconcile:put",
+      "method": "PUT",
+      "path": "/fms-reconcile",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/[id]:delete",
+      "method": "DELETE",
+      "path": "/fms-voucher/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/[id]:get",
+      "method": "GET",
+      "path": "/fms-voucher/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/[id]:put",
+      "method": "PUT",
+      "path": "/fms-voucher/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/export:post",
+      "method": "POST",
+      "path": "/fms-voucher/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/import-template:get",
+      "method": "GET",
+      "path": "/fms-voucher/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher/import:post",
+      "method": "POST",
+      "path": "/fms-voucher/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher:delete",
+      "method": "DELETE",
+      "path": "/fms-voucher",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher:get",
+      "method": "GET",
+      "path": "/fms-voucher",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher:post",
+      "method": "POST",
+      "path": "/fms-voucher",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:fms-voucher:put",
+      "method": "PUT",
+      "path": "/fms-voucher",
+      "auth": "operator"
+    }
+  ]
+}

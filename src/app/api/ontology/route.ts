@@ -167,7 +167,7 @@ export async function GET() {
     message: "success",
     data: {
       platform: "cooliebase-all",
-      version: "1.2.0",
+      version: "1.5.0",
       architecture: "Next.js 16 + React 19 + Prisma + ODD Living Ontology",
       timestamp: new Date().toISOString(),
       ontology: {

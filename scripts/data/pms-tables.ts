@@ -1,0 +1,71 @@
+import type { CodegenConfig } from "../../packages/domains/infra/backend/services/codegen-templates"
+
+export const PMS_TABLES: CodegenConfig[] = [
+  {
+    moduleName: "pms",
+    className: "PmsProject",
+    businessName: "项目台账",
+    parentMenuId: "pms-dir",
+    permissionPrefix: "pms:project",
+    table: {
+      name: "pms_project",
+      comment: "研发与交付项目主台账表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "项目ID", isPk: true },
+        { name: "project_code", type: "varchar", tsType: "string", nullable: false, comment: "项目编号", formValidation: "required", queryType: "LIKE" },
+        { name: "name", type: "varchar", tsType: "string", nullable: false, comment: "项目名称", formValidation: "required", queryType: "LIKE" },
+        { name: "manager_id", type: "varchar", tsType: "string", nullable: false, comment: "项目经理ID", queryType: "EQ" },
+        { name: "budget_amount", type: "decimal", tsType: "number", nullable: false, comment: "项目预算" },
+        { name: "start_time", type: "timestamp", tsType: "string", nullable: false, comment: "计划启动时间" },
+        { name: "end_time", type: "timestamp", tsType: "string", nullable: true, comment: "计划结项时间" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "项目状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "pms",
+    className: "PmsMilestone",
+    businessName: "里程碑",
+    parentMenuId: "pms-dir",
+    permissionPrefix: "pms:milestone",
+    table: {
+      name: "pms_milestone",
+      comment: "项目里程碑节点表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "里程碑ID", isPk: true },
+        { name: "project_id", type: "varchar", tsType: "string", nullable: false, comment: "所属项目ID", formValidation: "required", queryType: "EQ" },
+        { name: "name", type: "varchar", tsType: "string", nullable: false, comment: "节点名称", formValidation: "required", queryType: "LIKE" },
+        { name: "owner_id", type: "varchar", tsType: "string", nullable: false, comment: "负责人ID", queryType: "EQ" },
+        { name: "due_time", type: "timestamp", tsType: "string", nullable: false, comment: "截止时间" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "达成状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "pms",
+    className: "PmsTimesheet",
+    businessName: "任务工时",
+    parentMenuId: "pms-dir",
+    permissionPrefix: "pms:timesheet",
+    table: {
+      name: "pms_timesheet",
+      comment: "项目任务工时填报单表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "工时单ID", isPk: true },
+        { name: "project_id", type: "varchar", tsType: "string", nullable: false, comment: "所属项目ID", formValidation: "required", queryType: "EQ" },
+        { name: "member_id", type: "varchar", tsType: "string", nullable: false, comment: "成员ID", formValidation: "required", queryType: "EQ" },
+        { name: "work_date", type: "varchar", tsType: "string", nullable: false, comment: "工作日期", queryType: "EQ" },
+        { name: "hours", type: "decimal", tsType: "number", nullable: false, comment: "投入工时" },
+        { name: "cost_amount", type: "decimal", tsType: "number", nullable: false, comment: "工时折算成本" },
+        { name: "remark", type: "varchar", tsType: "string", nullable: true, comment: "工作内容说明" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "核准状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+]

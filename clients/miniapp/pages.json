@@ -1,0 +1,72 @@
+{
+  "pages": [
+    {
+      "path": "pages/index/index",
+      "style": {
+        "navigationBarTitleText": "首页"
+      }
+    },
+    {
+      "path": "pages/category/index",
+      "style": {
+        "navigationBarTitleText": "分类"
+      }
+    },
+    {
+      "path": "pages/workspace/index",
+      "style": {
+        "navigationBarTitleText": "工作台"
+      }
+    },
+    {
+      "path": "pages/profile/index",
+      "style": {
+        "navigationBarTitleText": "我的"
+      }
+    }
+  ],
+  "subPackages": [
+    {
+      "root": "subpackages/detail",
+      "name": "detail",
+      "pages": [
+        {
+          "path": "index",
+          "style": {
+            "navigationBarTitleText": "详情"
+          }
+        }
+      ]
+    }
+  ],
+  "globalStyle": {
+    "navigationBarTextStyle": "black",
+    "navigationBarTitleText": "CoolieBase All",
+    "navigationBarBackgroundColor": "#FFFFFF",
+    "backgroundColor": "#F8FAFC"
+  },
+  "tabBar": {
+    "color": "#64748B",
+    "selectedColor": "#0F172A",
+    "backgroundColor": "#FFFFFF",
+    "borderStyle": "black",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/category/index",
+        "text": "分类"
+      },
+      {
+        "pagePath": "pages/workspace/index",
+        "text": "工作台"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

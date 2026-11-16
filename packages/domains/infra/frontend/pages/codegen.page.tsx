@@ -31,7 +31,7 @@ function deduceModuleFromMenuId(id: string, tree: MenuTreeNode[]): string | null
   if (!node) return null
   if (node.id.includes("-")) {
     const candidate = node.id.split("-")[0]
-    if (["aigw", "system", "infra", "bpm", "pay", "mall", "member", "crm", "erp", "wms", "mes", "ai", "iot", "im"].includes(candidate)) {
+    if (["system", "infra", "bpm", "pay", "mall", "member", "crm", "erp", "wms", "mes", "ai", "iot", "im", "oa", "hrm", "fms", "pms"].includes(candidate)) {
       return candidate
     }
   }

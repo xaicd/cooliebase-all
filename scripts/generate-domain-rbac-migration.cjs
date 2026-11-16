@@ -74,7 +74,7 @@ const DOMAIN_LABEL = {
   system: "系统管理", infra: "基础设施", bpm: "工作流", pay: "支付", report: "报表",
   mp: "微信公众号", mall: "商城", member: "会员", crm: "客户关系", erp: "ERP",
   wms: "仓储", mes: "生产制造", ai: "人工智能", iot: "物联网", im: "即时通讯",
-  online: "在线表单", aigw: "AI 网关",
+  online: "在线表单", oa: "协同办公", hrm: "人力资源", fms: "财务管理", pms: "项目管理",
 }
 
 function main() {

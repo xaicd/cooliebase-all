@@ -273,11 +273,11 @@ ${searchControls}
                     ]
                   : ["DEFAULT"],
               )}),
-              ...data.map((item) => String((item as Record<string, unknown>)["${statusField}"] ?? "DEFAULT")),
+              ...data.map((item) => String((item as unknown as Record<string, unknown>)["${statusField}"] ?? "DEFAULT")),
             ]),
           ).map((laneStatus) => {
             const laneItems = data.filter(
-              (item) => String((item as Record<string, unknown>)["${statusField}"] ?? "DEFAULT") === laneStatus,
+              (item) => String((item as unknown as Record<string, unknown>)["${statusField}"] ?? "DEFAULT") === laneStatus,
             )
             return (
               <div key={laneStatus} data-testid={"${kebab}-kanban-lane-" + laneStatus} className="bg-slate-50 rounded-xl border border-slate-200 p-3 space-y-2.5">
@@ -288,7 +288,7 @@ ${searchControls}
                 <div className="space-y-2">
                   {laneItems.map((item) => (
                     <div key={item.id} data-testid="${kebab}-kanban-card" className="bg-white rounded-lg border border-slate-200 p-3 shadow-xs space-y-2">
-                      <div className="text-xs font-medium text-slate-800 truncate">{String((item as Record<string, unknown>)["${displayCols[0]?.name ?? "id"}"] ?? item.id)}</div>
+                      <div className="text-xs font-medium text-slate-800 truncate">{String((item as unknown as Record<string, unknown>)["${displayCols[0]?.name ?? "id"}"] ?? item.id)}</div>
                       <div className="flex flex-wrap items-center justify-end gap-2 pt-1 border-t border-slate-100 text-xs">
 ${stateActionButtons}
 ${convertActionButtons}

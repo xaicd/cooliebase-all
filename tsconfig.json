@@ -96,12 +96,6 @@
       "@/modules/im": [
         "packages/plugins/plugin-im"
       ],
-      "@/modules/aigw/*": [
-        "packages/plugins/plugin-aigw/*"
-      ],
-      "@/modules/aigw": [
-        "packages/plugins/plugin-aigw"
-      ],
       "@/modules/ai/*": [
         "packages/plugins/plugin-ai/*"
       ],
@@ -137,6 +131,30 @@
       ],
       "@/modules/mes": [
         "packages/plugins/plugin-mes"
+      ],
+      "@/modules/oa/*": [
+        "packages/plugins/plugin-oa/*"
+      ],
+      "@/modules/oa": [
+        "packages/plugins/plugin-oa"
+      ],
+      "@/modules/hrm/*": [
+        "packages/plugins/plugin-hrm/*"
+      ],
+      "@/modules/hrm": [
+        "packages/plugins/plugin-hrm"
+      ],
+      "@/modules/fms/*": [
+        "packages/plugins/plugin-fms/*"
+      ],
+      "@/modules/fms": [
+        "packages/plugins/plugin-fms"
+      ],
+      "@/modules/pms/*": [
+        "packages/plugins/plugin-pms/*"
+      ],
+      "@/modules/pms": [
+        "packages/plugins/plugin-pms"
       ]
     }
   },
@@ -157,6 +175,7 @@
     "test/e2e",
     "node_modules",
     "scripts",
+    "clients/miniapp",
     ".next-cooliebase"
   ]
 }

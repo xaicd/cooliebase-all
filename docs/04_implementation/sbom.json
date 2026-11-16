@@ -1,13 +1,13 @@
 {
   "kind": "sbom",
   "specVersion": "cooliebase-sbom/1",
-  "templateVersion": "1.2.0",
+  "templateVersion": "1.5.0",
   "lockfile": "pnpm-lock.yaml",
   "generatedBy": "scripts/generate-sbom.cjs --write",
   "componentCount": {
-    "total": 618,
-    "host": 402,
-    "client": 216
+    "total": 632,
+    "host": 406,
+    "client": 226
   },
   "licenses": {
     "(BSD-2-Clause OR MIT OR Apache-2.0)": 1,
@@ -17,7 +17,7 @@
     "BSD-3-Clause": 1,
     "ISC": 23,
     "LGPL-3.0-or-later": 1,
-    "MIT": 415,
+    "MIT": 429,
     "MIT and ISC": 1,
     "MPL-2.0": 4,
     "UNKNOWN": 117
@@ -230,6 +230,12 @@
     {
       "name": "@babel/helpers",
       "version": "7.29.7",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "@babel/parser",
+      "version": "7.29.14",
       "reach": "host",
       "license": "MIT"
     },
@@ -476,6 +482,12 @@
     {
       "name": "@babel/traverse",
       "version": "7.29.8",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "@babel/types",
+      "version": "7.29.14",
       "reach": "host",
       "license": "MIT"
     },
@@ -1986,9 +1998,63 @@
       "license": "MIT and ISC"
     },
     {
+      "name": "@vitejs/plugin-vue",
+      "version": "5.2.4",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
       "name": "@vitest/mocker",
       "version": "5.0.5",
       "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/compiler-core",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/compiler-dom",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/compiler-sfc",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/compiler-ssr",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/reactivity",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/runtime-core",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/runtime-dom",
+      "version": "3.5.45",
+      "reach": "client",
+      "license": "MIT"
+    },
+    {
+      "name": "@vue/server-renderer",
+      "version": "3.5.45",
+      "reach": "client",
       "license": "MIT"
     },
     {
@@ -2845,6 +2911,12 @@
     },
     {
       "name": "magic-string",
+      "version": "0.30.21",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "magic-string",
       "version": "1.4.3",
       "reach": "host",
       "license": "MIT"
@@ -3140,6 +3212,12 @@
     {
       "name": "postcss",
       "version": "8.5.28",
+      "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "postcss",
+      "version": "8.5.33",
       "reach": "host",
       "license": "MIT"
     },
@@ -3663,6 +3741,12 @@
       "name": "vitest",
       "version": "5.0.5",
       "reach": "host",
+      "license": "MIT"
+    },
+    {
+      "name": "vue",
+      "version": "3.5.45",
+      "reach": "client",
       "license": "MIT"
     },
     {

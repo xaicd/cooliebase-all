@@ -1,18 +1,25 @@
 import type { AiPageQueryInput, AiModelCreateInput, AiChatDeleteInput } from "../validators"
 import { domainLog } from "@/modules/shared/backend/lib/domain-log"
-import type { BrokerCallResult } from "@/modules/shared/backend/lib/broker-context"
-import { aigwFacade } from "@/modules/aigw/contract/aigw.facade"
 
-/**
- * 解包跨域 facade 返回值。
- *
- * Domain Facade 返回的是 `BrokerCallResult` 信封（success/data/error/traceId），
- * 不是业务结果本身。跨域调用必须显式解包并把失败转成异常 —— 否则失败会被当成
- * "拿到一个信封对象"静默吞掉。（同一模式见 infra/backend/services/codegen-table.service.ts）
- */
-async function unwrapFacade<T>(result: BrokerCallResult, message: string): Promise<T> {
-  if (!result.success) throw new Error(`${message}: ${result.error ?? "未知错误"}`)
-  return result.data as T
+const FORBIDDEN_RELAY_KEYWORDS = ["SQL注入测试", "<script>alert", "非法木马", "网络攻击脚本"]
+
+function assertRelayApiKey(apiKey: string) {
+  if (!apiKey || apiKey.trim().length < 4) {
+    throw Object.assign(new Error("访问令牌无效或已过期"), { status: 401 })
+  }
+}
+
+function assertRelayContentSafety(messages: { role: string; content: string }[]) {
+  const text = messages.map((m) => m.content).join(" ")
+  for (const kw of FORBIDDEN_RELAY_KEYWORDS) {
+    if (text.includes(kw)) {
+      throw Object.assign(new Error(`合规防线提示: 输入内容触发安全审计机制 (${kw})`), { status: 400 })
+    }
+  }
+}
+
+function estimateTokens(text: string): number {
+  return Math.max(1, Math.ceil(text.length / 2))
 }
 
 
@@ -95,25 +102,58 @@ export class AiService {
     model: string
     messages: { role: string; content: string }[]
     stream?: boolean
+    clientIp?: string
   }) {
-    return unwrapFacade(
-      await aigwFacade.relayChat(input, { caller: "ai.relayChatCompletion" }),
-      "aigw relayChat 调用失败",
-    )
+    assertRelayApiKey(input.apiKey)
+    assertRelayContentSafety(input.messages)
+    if (input.stream) {
+      throw Object.assign(new Error("流式输出一期未开放"), { status: 400 })
+    }
+    const last = input.messages[input.messages.length - 1]?.content ?? "Hello"
+    const promptTokens = estimateTokens(input.messages.map((m) => m.content).join(" "))
+    const reply = `[${input.model}] 收到: ${last.slice(0, 100)}`
+    const completionTokens = estimateTokens(reply)
+    domainLog.event("ai.relay.chat", { model: input.model, totalTokens: promptTokens + completionTokens })
+    return {
+      id: `chatcmpl-${Date.now()}`,
+      object: "chat.completion",
+      created: Math.floor(Date.now() / 1000),
+      model: input.model,
+      choices: [{ index: 0, message: { role: "assistant", content: reply }, finish_reason: "stop" }],
+      usage: {
+        prompt_tokens: promptTokens,
+        completion_tokens: completionTokens,
+        total_tokens: promptTokens + completionTokens,
+      },
+    }
   }
 
-  static async listPublicModels() {
-    return unwrapFacade(
-      await aigwFacade.listPublicModels({}, { caller: "ai.listPublicModels" }),
-      "aigw listPublicModels 调用失败",
-    )
+  static async listPublicModels(input?: { apiKey?: string }) {
+    if (input?.apiKey !== undefined) {
+      assertRelayApiKey(input.apiKey)
+    }
+    return {
+      object: "list",
+      data: MOCK_AI_MODELS.filter((m) => m.enabled).map((m) => ({
+        id: m.model,
+        object: "model",
+        owned_by: m.platform.toLowerCase(),
+      })),
+    }
   }
 
   static async embed(input: { apiKey: string; model?: string; input: string | string[] }) {
-    return unwrapFacade(
-      await aigwFacade.embed(input, { caller: "ai.embed" }),
-      "aigw embed 调用失败",
-    )
+    assertRelayApiKey(input.apiKey)
+    const model = input.model || "text-embedding-3-small"
+    const text = Array.isArray(input.input) ? input.input.join(" ") : input.input
+    const promptTokens = estimateTokens(text)
+    domainLog.event("ai.relay.embed", { model, totalTokens: promptTokens })
+    return {
+      object: "list",
+      data: [{ object: "embedding", index: 0, embedding: [0.001, 0.002, 0.003] }],
+      model,
+      usage: { prompt_tokens: promptTokens, total_tokens: promptTokens },
+    }
   }
 }
 

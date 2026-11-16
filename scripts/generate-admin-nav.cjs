@@ -33,9 +33,9 @@ const MENU_SEED = path.join(ROOT, "prisma", "data", "menus.seed-data.ts")
 const OUT = path.join(ROOT, "packages", "shared", "contract", "admin-nav.generated.ts")
 
 /** 侧栏排序：业务域排在最前（用户核心业务一目了然），平台基座下沉在后。 */
-const PLATFORM_DOMAINS = ["online", "ai", "aigw", "infra", "system"]
+const PLATFORM_DOMAINS = ["online", "ai", "infra", "system"]
 /** 常见业务域与没有 module.manifest.json 的域补中文名。 */
-const DOMAIN_TITLE_PATCH = { meeting: "会议室管理", booking: "预订中心", aigw: "AI 网关", mall: "商城中心", overview: "总览", scheme: "方案" }
+const DOMAIN_TITLE_PATCH = { meeting: "会议室管理", booking: "预订中心", mall: "商城中心", overview: "总览", scheme: "方案", oa: "协同办公", hrm: "人力资源", fms: "财务管理", pms: "项目管理" }
 
 function readJson(file) {
   if (!fs.existsSync(file)) {

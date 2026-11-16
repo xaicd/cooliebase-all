@@ -1,7 +1,7 @@
 {
   "$schema": "cooliebase.agent.registry/v1",
   "generatedBy": "scripts/agent/collect-contracts.cjs",
-  "total": 342,
+  "total": 354,
   "domains": [
     {
       "domain": "ai",
@@ -18,6 +18,14 @@
     {
       "domain": "erp",
       "count": 33
+    },
+    {
+      "domain": "fms",
+      "count": 3
+    },
+    {
+      "domain": "hrm",
+      "count": 3
     },
     {
       "domain": "im",
@@ -48,8 +56,16 @@
       "count": 8
     },
     {
+      "domain": "oa",
+      "count": 3
+    },
+    {
       "domain": "pay",
       "count": 14
+    },
+    {
+      "domain": "pms",
+      "count": 3
     },
     {
       "domain": "report",
@@ -22307,6 +22323,1644 @@
         ]
       },
       "__source": "packages/plugins/plugin-erp/agent/erp-warehouse.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "fms",
+      "entity": "FmsAccount",
+      "kebab": "fms-account",
+      "businessName": "资金账户",
+      "permissionPrefix": "fms:account",
+      "page": {
+        "route": "/admin/fms/fms-account",
+        "menuTitle": "资金账户",
+        "title": "资金账户管理",
+        "titleSelector": "[data-testid=\"fms-account-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.fms/api",
+        "bffMount": "/api/v1/admin/fms",
+        "resource": "fms-account",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/fms-account",
+            "query": [
+              "page",
+              "pageSize",
+              "account_no",
+              "name",
+              "currency",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/fms-account/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/fms-account"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/fms-account/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/fms-account/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"fms-account-title\"]",
+        "refresh": "[data-testid=\"fms-account-refresh\"]",
+        "createButton": "[data-testid=\"fms-account-create\"]",
+        "searchForm": "[data-testid=\"fms-account-search\"]",
+        "searchSubmit": "[data-testid=\"fms-account-search-submit\"]",
+        "searchReset": "[data-testid=\"fms-account-search-reset\"]",
+        "total": "[data-testid=\"fms-account-total\"]",
+        "table": "[data-testid=\"fms-account-table\"]",
+        "row": "[data-testid=\"fms-account-row\"]",
+        "editButton": "[data-testid=\"fms-account-edit\"]",
+        "deleteButton": "[data-testid=\"fms-account-delete\"]",
+        "form": "[data-testid=\"fms-account-form\"]",
+        "formError": "[data-testid=\"fms-account-form-error\"]",
+        "formSubmit": "[data-testid=\"fms-account-form-submit\"]",
+        "formCancel": "[data-testid=\"fms-account-form-cancel\"]",
+        "formClose": "[data-testid=\"fms-account-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "资金账户列表",
+        "dialogLabel": {
+          "create": "新增资金账户",
+          "edit": "编辑资金账户"
+        },
+        "searchFields": [
+          {
+            "name": "account_no",
+            "label": "银行账号",
+            "testId": "search-account_no",
+            "selector": "[data-testid=\"search-account_no\"]"
+          },
+          {
+            "name": "name",
+            "label": "账户名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "currency",
+            "label": "币种",
+            "testId": "search-currency",
+            "selector": "[data-testid=\"search-currency\"]"
+          },
+          {
+            "name": "status",
+            "label": "账户状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "account_no",
+            "label": "银行账号",
+            "type": "string",
+            "required": true,
+            "testId": "field-account_no",
+            "selector": "[data-testid=\"field-account_no\"]"
+          },
+          {
+            "name": "name",
+            "label": "账户名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "bank_name",
+            "label": "开户行",
+            "type": "string",
+            "required": false,
+            "testId": "field-bank_name",
+            "selector": "[data-testid=\"field-bank_name\"]"
+          },
+          {
+            "name": "currency",
+            "label": "币种",
+            "type": "string",
+            "required": true,
+            "testId": "field-currency",
+            "selector": "[data-testid=\"field-currency\"]"
+          },
+          {
+            "name": "balance",
+            "label": "当前余额",
+            "type": "number",
+            "required": true,
+            "testId": "field-balance",
+            "selector": "[data-testid=\"field-balance\"]"
+          },
+          {
+            "name": "status",
+            "label": "账户状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "fms-account",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"fms-account\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"fms-account-form-overlay\"]",
+          "dialog": "[data-testid=\"fms-account-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "fms-account:search",
+          "reset": "fms-account:reset",
+          "refresh": "fms-account:refresh",
+          "create": "fms-account:create",
+          "edit": "fms-account:edit",
+          "delete": "fms-account:delete",
+          "submit": "fms-account:submit",
+          "cancel": "fms-account:cancel",
+          "close": "fms-account:close",
+          "row": "fms-account:row",
+          "pagination": "fms-account:pagination",
+          "fields": {
+            "account_no": "fms-account:field:account_no",
+            "name": "fms-account:field:name",
+            "bank_name": "fms-account:field:bank_name",
+            "currency": "fms-account:field:currency",
+            "balance": "fms-account:field:balance",
+            "status": "fms-account:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "fms.fms-account",
+          "examples": [
+            "fms.fms-account__List__Refresh",
+            "fms.fms-account__ListItem__Open",
+            "fms.fms-account__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-fms/agent/fms-account.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "fms",
+      "entity": "FmsReconcile",
+      "kebab": "fms-reconcile",
+      "businessName": "对账结算",
+      "permissionPrefix": "fms:reconcile",
+      "page": {
+        "route": "/admin/fms/fms-reconcile",
+        "menuTitle": "对账结算",
+        "title": "对账结算管理",
+        "titleSelector": "[data-testid=\"fms-reconcile-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.fms/api",
+        "bffMount": "/api/v1/admin/fms",
+        "resource": "fms-reconcile",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/fms-reconcile",
+            "query": [
+              "page",
+              "pageSize",
+              "reconcile_no",
+              "account_id",
+              "statement_period",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/fms-reconcile/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/fms-reconcile"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/fms-reconcile/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/fms-reconcile/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"fms-reconcile-title\"]",
+        "refresh": "[data-testid=\"fms-reconcile-refresh\"]",
+        "createButton": "[data-testid=\"fms-reconcile-create\"]",
+        "searchForm": "[data-testid=\"fms-reconcile-search\"]",
+        "searchSubmit": "[data-testid=\"fms-reconcile-search-submit\"]",
+        "searchReset": "[data-testid=\"fms-reconcile-search-reset\"]",
+        "total": "[data-testid=\"fms-reconcile-total\"]",
+        "table": "[data-testid=\"fms-reconcile-table\"]",
+        "row": "[data-testid=\"fms-reconcile-row\"]",
+        "editButton": "[data-testid=\"fms-reconcile-edit\"]",
+        "deleteButton": "[data-testid=\"fms-reconcile-delete\"]",
+        "form": "[data-testid=\"fms-reconcile-form\"]",
+        "formError": "[data-testid=\"fms-reconcile-form-error\"]",
+        "formSubmit": "[data-testid=\"fms-reconcile-form-submit\"]",
+        "formCancel": "[data-testid=\"fms-reconcile-form-cancel\"]",
+        "formClose": "[data-testid=\"fms-reconcile-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "对账结算列表",
+        "dialogLabel": {
+          "create": "新增对账结算",
+          "edit": "编辑对账结算"
+        },
+        "searchFields": [
+          {
+            "name": "reconcile_no",
+            "label": "对账单号",
+            "testId": "search-reconcile_no",
+            "selector": "[data-testid=\"search-reconcile_no\"]"
+          },
+          {
+            "name": "account_id",
+            "label": "资金账户ID",
+            "testId": "search-account_id",
+            "selector": "[data-testid=\"search-account_id\"]"
+          },
+          {
+            "name": "statement_period",
+            "label": "对账账期",
+            "testId": "search-statement_period",
+            "selector": "[data-testid=\"search-statement_period\"]"
+          },
+          {
+            "name": "status",
+            "label": "平账状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "reconcile_no",
+            "label": "对账单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-reconcile_no",
+            "selector": "[data-testid=\"field-reconcile_no\"]"
+          },
+          {
+            "name": "account_id",
+            "label": "资金账户ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-account_id",
+            "selector": "[data-testid=\"field-account_id\"]"
+          },
+          {
+            "name": "statement_period",
+            "label": "对账账期",
+            "type": "string",
+            "required": true,
+            "testId": "field-statement_period",
+            "selector": "[data-testid=\"field-statement_period\"]"
+          },
+          {
+            "name": "book_amount",
+            "label": "账面总额",
+            "type": "number",
+            "required": true,
+            "testId": "field-book_amount",
+            "selector": "[data-testid=\"field-book_amount\"]"
+          },
+          {
+            "name": "bank_amount",
+            "label": "银行实收总额",
+            "type": "number",
+            "required": true,
+            "testId": "field-bank_amount",
+            "selector": "[data-testid=\"field-bank_amount\"]"
+          },
+          {
+            "name": "diff_amount",
+            "label": "轧差金额",
+            "type": "number",
+            "required": true,
+            "testId": "field-diff_amount",
+            "selector": "[data-testid=\"field-diff_amount\"]"
+          },
+          {
+            "name": "status",
+            "label": "平账状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "fms-reconcile",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"fms-reconcile\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"fms-reconcile-form-overlay\"]",
+          "dialog": "[data-testid=\"fms-reconcile-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "fms-reconcile:search",
+          "reset": "fms-reconcile:reset",
+          "refresh": "fms-reconcile:refresh",
+          "create": "fms-reconcile:create",
+          "edit": "fms-reconcile:edit",
+          "delete": "fms-reconcile:delete",
+          "submit": "fms-reconcile:submit",
+          "cancel": "fms-reconcile:cancel",
+          "close": "fms-reconcile:close",
+          "row": "fms-reconcile:row",
+          "pagination": "fms-reconcile:pagination",
+          "fields": {
+            "reconcile_no": "fms-reconcile:field:reconcile_no",
+            "account_id": "fms-reconcile:field:account_id",
+            "statement_period": "fms-reconcile:field:statement_period",
+            "book_amount": "fms-reconcile:field:book_amount",
+            "bank_amount": "fms-reconcile:field:bank_amount",
+            "diff_amount": "fms-reconcile:field:diff_amount",
+            "status": "fms-reconcile:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "fms.fms-reconcile",
+          "examples": [
+            "fms.fms-reconcile__List__Refresh",
+            "fms.fms-reconcile__ListItem__Open",
+            "fms.fms-reconcile__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-fms/agent/fms-reconcile.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "fms",
+      "entity": "FmsVoucher",
+      "kebab": "fms-voucher",
+      "businessName": "收支凭证",
+      "permissionPrefix": "fms:voucher",
+      "page": {
+        "route": "/admin/fms/fms-voucher",
+        "menuTitle": "收支凭证",
+        "title": "收支凭证管理",
+        "titleSelector": "[data-testid=\"fms-voucher-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.fms/api",
+        "bffMount": "/api/v1/admin/fms",
+        "resource": "fms-voucher",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/fms-voucher",
+            "query": [
+              "page",
+              "pageSize",
+              "voucher_no",
+              "account_id",
+              "direction",
+              "summary",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/fms-voucher/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/fms-voucher"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/fms-voucher/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/fms-voucher/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"fms-voucher-title\"]",
+        "refresh": "[data-testid=\"fms-voucher-refresh\"]",
+        "createButton": "[data-testid=\"fms-voucher-create\"]",
+        "searchForm": "[data-testid=\"fms-voucher-search\"]",
+        "searchSubmit": "[data-testid=\"fms-voucher-search-submit\"]",
+        "searchReset": "[data-testid=\"fms-voucher-search-reset\"]",
+        "total": "[data-testid=\"fms-voucher-total\"]",
+        "table": "[data-testid=\"fms-voucher-table\"]",
+        "row": "[data-testid=\"fms-voucher-row\"]",
+        "editButton": "[data-testid=\"fms-voucher-edit\"]",
+        "deleteButton": "[data-testid=\"fms-voucher-delete\"]",
+        "form": "[data-testid=\"fms-voucher-form\"]",
+        "formError": "[data-testid=\"fms-voucher-form-error\"]",
+        "formSubmit": "[data-testid=\"fms-voucher-form-submit\"]",
+        "formCancel": "[data-testid=\"fms-voucher-form-cancel\"]",
+        "formClose": "[data-testid=\"fms-voucher-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "收支凭证列表",
+        "dialogLabel": {
+          "create": "新增收支凭证",
+          "edit": "编辑收支凭证"
+        },
+        "searchFields": [
+          {
+            "name": "voucher_no",
+            "label": "凭证字号",
+            "testId": "search-voucher_no",
+            "selector": "[data-testid=\"search-voucher_no\"]"
+          },
+          {
+            "name": "account_id",
+            "label": "资金账户ID",
+            "testId": "search-account_id",
+            "selector": "[data-testid=\"search-account_id\"]"
+          },
+          {
+            "name": "direction",
+            "label": "借贷方向",
+            "testId": "search-direction",
+            "selector": "[data-testid=\"search-direction\"]"
+          },
+          {
+            "name": "summary",
+            "label": "凭证摘要",
+            "testId": "search-summary",
+            "selector": "[data-testid=\"search-summary\"]"
+          },
+          {
+            "name": "status",
+            "label": "审核状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "voucher_no",
+            "label": "凭证字号",
+            "type": "string",
+            "required": true,
+            "testId": "field-voucher_no",
+            "selector": "[data-testid=\"field-voucher_no\"]"
+          },
+          {
+            "name": "account_id",
+            "label": "资金账户ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-account_id",
+            "selector": "[data-testid=\"field-account_id\"]"
+          },
+          {
+            "name": "direction",
+            "label": "借贷方向",
+            "type": "string",
+            "required": true,
+            "testId": "field-direction",
+            "selector": "[data-testid=\"field-direction\"]"
+          },
+          {
+            "name": "amount",
+            "label": "发生金额",
+            "type": "number",
+            "required": true,
+            "testId": "field-amount",
+            "selector": "[data-testid=\"field-amount\"]"
+          },
+          {
+            "name": "summary",
+            "label": "凭证摘要",
+            "type": "string",
+            "required": true,
+            "testId": "field-summary",
+            "selector": "[data-testid=\"field-summary\"]"
+          },
+          {
+            "name": "voucher_time",
+            "label": "记账时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-voucher_time",
+            "selector": "[data-testid=\"field-voucher_time\"]"
+          },
+          {
+            "name": "status",
+            "label": "审核状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "fms-voucher",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"fms-voucher\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"fms-voucher-form-overlay\"]",
+          "dialog": "[data-testid=\"fms-voucher-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "fms-voucher:search",
+          "reset": "fms-voucher:reset",
+          "refresh": "fms-voucher:refresh",
+          "create": "fms-voucher:create",
+          "edit": "fms-voucher:edit",
+          "delete": "fms-voucher:delete",
+          "submit": "fms-voucher:submit",
+          "cancel": "fms-voucher:cancel",
+          "close": "fms-voucher:close",
+          "row": "fms-voucher:row",
+          "pagination": "fms-voucher:pagination",
+          "fields": {
+            "voucher_no": "fms-voucher:field:voucher_no",
+            "account_id": "fms-voucher:field:account_id",
+            "direction": "fms-voucher:field:direction",
+            "amount": "fms-voucher:field:amount",
+            "summary": "fms-voucher:field:summary",
+            "voucher_time": "fms-voucher:field:voucher_time",
+            "status": "fms-voucher:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "fms.fms-voucher",
+          "examples": [
+            "fms.fms-voucher__List__Refresh",
+            "fms.fms-voucher__ListItem__Open",
+            "fms.fms-voucher__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-fms/agent/fms-voucher.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "hrm",
+      "entity": "HrmEmployee",
+      "kebab": "hrm-employee",
+      "businessName": "员工档案",
+      "permissionPrefix": "hrm:employee",
+      "page": {
+        "route": "/admin/hrm/hrm-employee",
+        "menuTitle": "员工档案",
+        "title": "员工档案管理",
+        "titleSelector": "[data-testid=\"hrm-employee-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.hrm/api",
+        "bffMount": "/api/v1/admin/hrm",
+        "resource": "hrm-employee",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/hrm-employee",
+            "query": [
+              "page",
+              "pageSize",
+              "emp_no",
+              "name",
+              "dept_id",
+              "position_id",
+              "mobile",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/hrm-employee/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/hrm-employee"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/hrm-employee/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/hrm-employee/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"hrm-employee-title\"]",
+        "refresh": "[data-testid=\"hrm-employee-refresh\"]",
+        "createButton": "[data-testid=\"hrm-employee-create\"]",
+        "searchForm": "[data-testid=\"hrm-employee-search\"]",
+        "searchSubmit": "[data-testid=\"hrm-employee-search-submit\"]",
+        "searchReset": "[data-testid=\"hrm-employee-search-reset\"]",
+        "total": "[data-testid=\"hrm-employee-total\"]",
+        "table": "[data-testid=\"hrm-employee-table\"]",
+        "row": "[data-testid=\"hrm-employee-row\"]",
+        "editButton": "[data-testid=\"hrm-employee-edit\"]",
+        "deleteButton": "[data-testid=\"hrm-employee-delete\"]",
+        "form": "[data-testid=\"hrm-employee-form\"]",
+        "formError": "[data-testid=\"hrm-employee-form-error\"]",
+        "formSubmit": "[data-testid=\"hrm-employee-form-submit\"]",
+        "formCancel": "[data-testid=\"hrm-employee-form-cancel\"]",
+        "formClose": "[data-testid=\"hrm-employee-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "员工档案列表",
+        "dialogLabel": {
+          "create": "新增员工档案",
+          "edit": "编辑员工档案"
+        },
+        "searchFields": [
+          {
+            "name": "emp_no",
+            "label": "员工工号",
+            "testId": "search-emp_no",
+            "selector": "[data-testid=\"search-emp_no\"]"
+          },
+          {
+            "name": "name",
+            "label": "员工姓名",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "dept_id",
+            "label": "所属部门ID",
+            "testId": "search-dept_id",
+            "selector": "[data-testid=\"search-dept_id\"]"
+          },
+          {
+            "name": "position_id",
+            "label": "岗位ID",
+            "testId": "search-position_id",
+            "selector": "[data-testid=\"search-position_id\"]"
+          },
+          {
+            "name": "mobile",
+            "label": "手机号码",
+            "testId": "search-mobile",
+            "selector": "[data-testid=\"search-mobile\"]"
+          },
+          {
+            "name": "status",
+            "label": "在职状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "emp_no",
+            "label": "员工工号",
+            "type": "string",
+            "required": true,
+            "testId": "field-emp_no",
+            "selector": "[data-testid=\"field-emp_no\"]"
+          },
+          {
+            "name": "name",
+            "label": "员工姓名",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "dept_id",
+            "label": "所属部门ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-dept_id",
+            "selector": "[data-testid=\"field-dept_id\"]"
+          },
+          {
+            "name": "position_id",
+            "label": "岗位ID",
+            "type": "string",
+            "required": false,
+            "testId": "field-position_id",
+            "selector": "[data-testid=\"field-position_id\"]"
+          },
+          {
+            "name": "mobile",
+            "label": "手机号码",
+            "type": "string",
+            "required": false,
+            "testId": "field-mobile",
+            "selector": "[data-testid=\"field-mobile\"]"
+          },
+          {
+            "name": "entry_time",
+            "label": "入职时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-entry_time",
+            "selector": "[data-testid=\"field-entry_time\"]"
+          },
+          {
+            "name": "status",
+            "label": "在职状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "hrm-employee",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"hrm-employee\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"hrm-employee-form-overlay\"]",
+          "dialog": "[data-testid=\"hrm-employee-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "hrm-employee:search",
+          "reset": "hrm-employee:reset",
+          "refresh": "hrm-employee:refresh",
+          "create": "hrm-employee:create",
+          "edit": "hrm-employee:edit",
+          "delete": "hrm-employee:delete",
+          "submit": "hrm-employee:submit",
+          "cancel": "hrm-employee:cancel",
+          "close": "hrm-employee:close",
+          "row": "hrm-employee:row",
+          "pagination": "hrm-employee:pagination",
+          "fields": {
+            "emp_no": "hrm-employee:field:emp_no",
+            "name": "hrm-employee:field:name",
+            "dept_id": "hrm-employee:field:dept_id",
+            "position_id": "hrm-employee:field:position_id",
+            "mobile": "hrm-employee:field:mobile",
+            "entry_time": "hrm-employee:field:entry_time",
+            "status": "hrm-employee:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "hrm.hrm-employee",
+          "examples": [
+            "hrm.hrm-employee__List__Refresh",
+            "hrm.hrm-employee__ListItem__Open",
+            "hrm.hrm-employee__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-hrm/agent/hrm-employee.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "hrm",
+      "entity": "HrmPayroll",
+      "kebab": "hrm-payroll",
+      "businessName": "薪资核算",
+      "permissionPrefix": "hrm:payroll",
+      "page": {
+        "route": "/admin/hrm/hrm-payroll",
+        "menuTitle": "薪资核算",
+        "title": "薪资核算管理",
+        "titleSelector": "[data-testid=\"hrm-payroll-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.hrm/api",
+        "bffMount": "/api/v1/admin/hrm",
+        "resource": "hrm-payroll",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/hrm-payroll",
+            "query": [
+              "page",
+              "pageSize",
+              "payroll_no",
+              "employee_id",
+              "period",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/hrm-payroll/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/hrm-payroll"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/hrm-payroll/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/hrm-payroll/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"hrm-payroll-title\"]",
+        "refresh": "[data-testid=\"hrm-payroll-refresh\"]",
+        "createButton": "[data-testid=\"hrm-payroll-create\"]",
+        "searchForm": "[data-testid=\"hrm-payroll-search\"]",
+        "searchSubmit": "[data-testid=\"hrm-payroll-search-submit\"]",
+        "searchReset": "[data-testid=\"hrm-payroll-search-reset\"]",
+        "total": "[data-testid=\"hrm-payroll-total\"]",
+        "table": "[data-testid=\"hrm-payroll-table\"]",
+        "row": "[data-testid=\"hrm-payroll-row\"]",
+        "editButton": "[data-testid=\"hrm-payroll-edit\"]",
+        "deleteButton": "[data-testid=\"hrm-payroll-delete\"]",
+        "form": "[data-testid=\"hrm-payroll-form\"]",
+        "formError": "[data-testid=\"hrm-payroll-form-error\"]",
+        "formSubmit": "[data-testid=\"hrm-payroll-form-submit\"]",
+        "formCancel": "[data-testid=\"hrm-payroll-form-cancel\"]",
+        "formClose": "[data-testid=\"hrm-payroll-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "薪资核算列表",
+        "dialogLabel": {
+          "create": "新增薪资核算",
+          "edit": "编辑薪资核算"
+        },
+        "searchFields": [
+          {
+            "name": "payroll_no",
+            "label": "核算单号",
+            "testId": "search-payroll_no",
+            "selector": "[data-testid=\"search-payroll_no\"]"
+          },
+          {
+            "name": "employee_id",
+            "label": "员工ID",
+            "testId": "search-employee_id",
+            "selector": "[data-testid=\"search-employee_id\"]"
+          },
+          {
+            "name": "period",
+            "label": "发薪期间",
+            "testId": "search-period",
+            "selector": "[data-testid=\"search-period\"]"
+          },
+          {
+            "name": "status",
+            "label": "发放状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "payroll_no",
+            "label": "核算单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-payroll_no",
+            "selector": "[data-testid=\"field-payroll_no\"]"
+          },
+          {
+            "name": "employee_id",
+            "label": "员工ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-employee_id",
+            "selector": "[data-testid=\"field-employee_id\"]"
+          },
+          {
+            "name": "period",
+            "label": "发薪期间",
+            "type": "string",
+            "required": true,
+            "testId": "field-period",
+            "selector": "[data-testid=\"field-period\"]"
+          },
+          {
+            "name": "base_amount",
+            "label": "基本薪资",
+            "type": "number",
+            "required": true,
+            "testId": "field-base_amount",
+            "selector": "[data-testid=\"field-base_amount\"]"
+          },
+          {
+            "name": "bonus_amount",
+            "label": "绩效奖金",
+            "type": "number",
+            "required": true,
+            "testId": "field-bonus_amount",
+            "selector": "[data-testid=\"field-bonus_amount\"]"
+          },
+          {
+            "name": "deduct_amount",
+            "label": "代扣社保个税",
+            "type": "number",
+            "required": true,
+            "testId": "field-deduct_amount",
+            "selector": "[data-testid=\"field-deduct_amount\"]"
+          },
+          {
+            "name": "net_amount",
+            "label": "实发金额",
+            "type": "number",
+            "required": true,
+            "testId": "field-net_amount",
+            "selector": "[data-testid=\"field-net_amount\"]"
+          },
+          {
+            "name": "status",
+            "label": "发放状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "hrm-payroll",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"hrm-payroll\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"hrm-payroll-form-overlay\"]",
+          "dialog": "[data-testid=\"hrm-payroll-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "hrm-payroll:search",
+          "reset": "hrm-payroll:reset",
+          "refresh": "hrm-payroll:refresh",
+          "create": "hrm-payroll:create",
+          "edit": "hrm-payroll:edit",
+          "delete": "hrm-payroll:delete",
+          "submit": "hrm-payroll:submit",
+          "cancel": "hrm-payroll:cancel",
+          "close": "hrm-payroll:close",
+          "row": "hrm-payroll:row",
+          "pagination": "hrm-payroll:pagination",
+          "fields": {
+            "payroll_no": "hrm-payroll:field:payroll_no",
+            "employee_id": "hrm-payroll:field:employee_id",
+            "period": "hrm-payroll:field:period",
+            "base_amount": "hrm-payroll:field:base_amount",
+            "bonus_amount": "hrm-payroll:field:bonus_amount",
+            "deduct_amount": "hrm-payroll:field:deduct_amount",
+            "net_amount": "hrm-payroll:field:net_amount",
+            "status": "hrm-payroll:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "hrm.hrm-payroll",
+          "examples": [
+            "hrm.hrm-payroll__List__Refresh",
+            "hrm.hrm-payroll__ListItem__Open",
+            "hrm.hrm-payroll__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-hrm/agent/hrm-payroll.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "hrm",
+      "entity": "HrmPosition",
+      "kebab": "hrm-position",
+      "businessName": "岗位编制",
+      "permissionPrefix": "hrm:position",
+      "page": {
+        "route": "/admin/hrm/hrm-position",
+        "menuTitle": "岗位编制",
+        "title": "岗位编制管理",
+        "titleSelector": "[data-testid=\"hrm-position-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.hrm/api",
+        "bffMount": "/api/v1/admin/hrm",
+        "resource": "hrm-position",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/hrm-position",
+            "query": [
+              "page",
+              "pageSize",
+              "code",
+              "name",
+              "dept_id",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/hrm-position/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/hrm-position"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/hrm-position/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/hrm-position/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"hrm-position-title\"]",
+        "refresh": "[data-testid=\"hrm-position-refresh\"]",
+        "createButton": "[data-testid=\"hrm-position-create\"]",
+        "searchForm": "[data-testid=\"hrm-position-search\"]",
+        "searchSubmit": "[data-testid=\"hrm-position-search-submit\"]",
+        "searchReset": "[data-testid=\"hrm-position-search-reset\"]",
+        "total": "[data-testid=\"hrm-position-total\"]",
+        "table": "[data-testid=\"hrm-position-table\"]",
+        "row": "[data-testid=\"hrm-position-row\"]",
+        "editButton": "[data-testid=\"hrm-position-edit\"]",
+        "deleteButton": "[data-testid=\"hrm-position-delete\"]",
+        "form": "[data-testid=\"hrm-position-form\"]",
+        "formError": "[data-testid=\"hrm-position-form-error\"]",
+        "formSubmit": "[data-testid=\"hrm-position-form-submit\"]",
+        "formCancel": "[data-testid=\"hrm-position-form-cancel\"]",
+        "formClose": "[data-testid=\"hrm-position-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "岗位编制列表",
+        "dialogLabel": {
+          "create": "新增岗位编制",
+          "edit": "编辑岗位编制"
+        },
+        "searchFields": [
+          {
+            "name": "code",
+            "label": "岗位编码",
+            "testId": "search-code",
+            "selector": "[data-testid=\"search-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "岗位名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "dept_id",
+            "label": "归属部门ID",
+            "testId": "search-dept_id",
+            "selector": "[data-testid=\"search-dept_id\"]"
+          },
+          {
+            "name": "status",
+            "label": "状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "code",
+            "label": "岗位编码",
+            "type": "string",
+            "required": true,
+            "testId": "field-code",
+            "selector": "[data-testid=\"field-code\"]"
+          },
+          {
+            "name": "name",
+            "label": "岗位名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "dept_id",
+            "label": "归属部门ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-dept_id",
+            "selector": "[data-testid=\"field-dept_id\"]"
+          },
+          {
+            "name": "headcount",
+            "label": "核定编制数",
+            "type": "number",
+            "required": true,
+            "testId": "field-headcount",
+            "selector": "[data-testid=\"field-headcount\"]"
+          },
+          {
+            "name": "grade",
+            "label": "职级序列",
+            "type": "string",
+            "required": false,
+            "testId": "field-grade",
+            "selector": "[data-testid=\"field-grade\"]"
+          },
+          {
+            "name": "status",
+            "label": "状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "hrm-position",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"hrm-position\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"hrm-position-form-overlay\"]",
+          "dialog": "[data-testid=\"hrm-position-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "hrm-position:search",
+          "reset": "hrm-position:reset",
+          "refresh": "hrm-position:refresh",
+          "create": "hrm-position:create",
+          "edit": "hrm-position:edit",
+          "delete": "hrm-position:delete",
+          "submit": "hrm-position:submit",
+          "cancel": "hrm-position:cancel",
+          "close": "hrm-position:close",
+          "row": "hrm-position:row",
+          "pagination": "hrm-position:pagination",
+          "fields": {
+            "code": "hrm-position:field:code",
+            "name": "hrm-position:field:name",
+            "dept_id": "hrm-position:field:dept_id",
+            "headcount": "hrm-position:field:headcount",
+            "grade": "hrm-position:field:grade",
+            "status": "hrm-position:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "hrm.hrm-position",
+          "examples": [
+            "hrm.hrm-position__List__Refresh",
+            "hrm.hrm-position__ListItem__Open",
+            "hrm.hrm-position__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-hrm/agent/hrm-position.agent.json"
     },
     {
       "$schema": "cooliebase.agent.contract/v1",
@@ -90765,6 +92419,810 @@
     },
     {
       "$schema": "cooliebase.agent.contract/v1",
+      "domain": "oa",
+      "entity": "OaAttendance",
+      "kebab": "oa-attendance",
+      "businessName": "考勤打卡",
+      "permissionPrefix": "oa:attendance",
+      "page": {
+        "route": "/admin/oa/oa-attendance",
+        "menuTitle": "考勤打卡",
+        "title": "考勤打卡管理",
+        "titleSelector": "[data-testid=\"oa-attendance-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.oa/api",
+        "bffMount": "/api/v1/admin/oa",
+        "resource": "oa-attendance",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/oa-attendance",
+            "query": [
+              "page",
+              "pageSize",
+              "employee_id",
+              "employee_name",
+              "work_date",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/oa-attendance/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/oa-attendance"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/oa-attendance/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/oa-attendance/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"oa-attendance-title\"]",
+        "refresh": "[data-testid=\"oa-attendance-refresh\"]",
+        "createButton": "[data-testid=\"oa-attendance-create\"]",
+        "searchForm": "[data-testid=\"oa-attendance-search\"]",
+        "searchSubmit": "[data-testid=\"oa-attendance-search-submit\"]",
+        "searchReset": "[data-testid=\"oa-attendance-search-reset\"]",
+        "total": "[data-testid=\"oa-attendance-total\"]",
+        "table": "[data-testid=\"oa-attendance-table\"]",
+        "row": "[data-testid=\"oa-attendance-row\"]",
+        "editButton": "[data-testid=\"oa-attendance-edit\"]",
+        "deleteButton": "[data-testid=\"oa-attendance-delete\"]",
+        "form": "[data-testid=\"oa-attendance-form\"]",
+        "formError": "[data-testid=\"oa-attendance-form-error\"]",
+        "formSubmit": "[data-testid=\"oa-attendance-form-submit\"]",
+        "formCancel": "[data-testid=\"oa-attendance-form-cancel\"]",
+        "formClose": "[data-testid=\"oa-attendance-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "考勤打卡列表",
+        "dialogLabel": {
+          "create": "新增考勤打卡",
+          "edit": "编辑考勤打卡"
+        },
+        "searchFields": [
+          {
+            "name": "employee_id",
+            "label": "员工ID",
+            "testId": "search-employee_id",
+            "selector": "[data-testid=\"search-employee_id\"]"
+          },
+          {
+            "name": "employee_name",
+            "label": "员工姓名",
+            "testId": "search-employee_name",
+            "selector": "[data-testid=\"search-employee_name\"]"
+          },
+          {
+            "name": "work_date",
+            "label": "考勤日期",
+            "testId": "search-work_date",
+            "selector": "[data-testid=\"search-work_date\"]"
+          },
+          {
+            "name": "status",
+            "label": "考勤状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "employee_id",
+            "label": "员工ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-employee_id",
+            "selector": "[data-testid=\"field-employee_id\"]"
+          },
+          {
+            "name": "employee_name",
+            "label": "员工姓名",
+            "type": "string",
+            "required": true,
+            "testId": "field-employee_name",
+            "selector": "[data-testid=\"field-employee_name\"]"
+          },
+          {
+            "name": "work_date",
+            "label": "考勤日期",
+            "type": "string",
+            "required": true,
+            "testId": "field-work_date",
+            "selector": "[data-testid=\"field-work_date\"]"
+          },
+          {
+            "name": "check_in_time",
+            "label": "签到时间",
+            "type": "string",
+            "required": false,
+            "testId": "field-check_in_time",
+            "selector": "[data-testid=\"field-check_in_time\"]"
+          },
+          {
+            "name": "check_out_time",
+            "label": "签退时间",
+            "type": "string",
+            "required": false,
+            "testId": "field-check_out_time",
+            "selector": "[data-testid=\"field-check_out_time\"]"
+          },
+          {
+            "name": "status",
+            "label": "考勤状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "oa-attendance",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"oa-attendance\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"oa-attendance-form-overlay\"]",
+          "dialog": "[data-testid=\"oa-attendance-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "oa-attendance:search",
+          "reset": "oa-attendance:reset",
+          "refresh": "oa-attendance:refresh",
+          "create": "oa-attendance:create",
+          "edit": "oa-attendance:edit",
+          "delete": "oa-attendance:delete",
+          "submit": "oa-attendance:submit",
+          "cancel": "oa-attendance:cancel",
+          "close": "oa-attendance:close",
+          "row": "oa-attendance:row",
+          "pagination": "oa-attendance:pagination",
+          "fields": {
+            "employee_id": "oa-attendance:field:employee_id",
+            "employee_name": "oa-attendance:field:employee_name",
+            "work_date": "oa-attendance:field:work_date",
+            "check_in_time": "oa-attendance:field:check_in_time",
+            "check_out_time": "oa-attendance:field:check_out_time",
+            "status": "oa-attendance:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "oa.oa-attendance",
+          "examples": [
+            "oa.oa-attendance__List__Refresh",
+            "oa.oa-attendance__ListItem__Open",
+            "oa.oa-attendance__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-oa/agent/oa-attendance.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "oa",
+      "entity": "OaLeaveApply",
+      "kebab": "oa-leave-apply",
+      "businessName": "请假用印",
+      "permissionPrefix": "oa:leave-apply",
+      "page": {
+        "route": "/admin/oa/oa-leave-apply",
+        "menuTitle": "请假用印",
+        "title": "请假用印管理",
+        "titleSelector": "[data-testid=\"oa-leave-apply-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.oa/api",
+        "bffMount": "/api/v1/admin/oa",
+        "resource": "oa-leave-apply",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/oa-leave-apply",
+            "query": [
+              "page",
+              "pageSize",
+              "apply_no",
+              "applicant_id",
+              "apply_type",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/oa-leave-apply/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/oa-leave-apply"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/oa-leave-apply/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/oa-leave-apply/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"oa-leave-apply-title\"]",
+        "refresh": "[data-testid=\"oa-leave-apply-refresh\"]",
+        "createButton": "[data-testid=\"oa-leave-apply-create\"]",
+        "searchForm": "[data-testid=\"oa-leave-apply-search\"]",
+        "searchSubmit": "[data-testid=\"oa-leave-apply-search-submit\"]",
+        "searchReset": "[data-testid=\"oa-leave-apply-search-reset\"]",
+        "total": "[data-testid=\"oa-leave-apply-total\"]",
+        "table": "[data-testid=\"oa-leave-apply-table\"]",
+        "row": "[data-testid=\"oa-leave-apply-row\"]",
+        "editButton": "[data-testid=\"oa-leave-apply-edit\"]",
+        "deleteButton": "[data-testid=\"oa-leave-apply-delete\"]",
+        "form": "[data-testid=\"oa-leave-apply-form\"]",
+        "formError": "[data-testid=\"oa-leave-apply-form-error\"]",
+        "formSubmit": "[data-testid=\"oa-leave-apply-form-submit\"]",
+        "formCancel": "[data-testid=\"oa-leave-apply-form-cancel\"]",
+        "formClose": "[data-testid=\"oa-leave-apply-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "请假用印列表",
+        "dialogLabel": {
+          "create": "新增请假用印",
+          "edit": "编辑请假用印"
+        },
+        "searchFields": [
+          {
+            "name": "apply_no",
+            "label": "申请单号",
+            "testId": "search-apply_no",
+            "selector": "[data-testid=\"search-apply_no\"]"
+          },
+          {
+            "name": "applicant_id",
+            "label": "申请人ID",
+            "testId": "search-applicant_id",
+            "selector": "[data-testid=\"search-applicant_id\"]"
+          },
+          {
+            "name": "apply_type",
+            "label": "单据类型",
+            "testId": "search-apply_type",
+            "selector": "[data-testid=\"search-apply_type\"]"
+          },
+          {
+            "name": "status",
+            "label": "审批状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "apply_no",
+            "label": "申请单号",
+            "type": "string",
+            "required": true,
+            "testId": "field-apply_no",
+            "selector": "[data-testid=\"field-apply_no\"]"
+          },
+          {
+            "name": "applicant_id",
+            "label": "申请人ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-applicant_id",
+            "selector": "[data-testid=\"field-applicant_id\"]"
+          },
+          {
+            "name": "apply_type",
+            "label": "单据类型",
+            "type": "string",
+            "required": true,
+            "testId": "field-apply_type",
+            "selector": "[data-testid=\"field-apply_type\"]"
+          },
+          {
+            "name": "days",
+            "label": "请假天数",
+            "type": "number",
+            "required": true,
+            "testId": "field-days",
+            "selector": "[data-testid=\"field-days\"]"
+          },
+          {
+            "name": "start_time",
+            "label": "开始时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-start_time",
+            "selector": "[data-testid=\"field-start_time\"]"
+          },
+          {
+            "name": "end_time",
+            "label": "结束时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-end_time",
+            "selector": "[data-testid=\"field-end_time\"]"
+          },
+          {
+            "name": "reason",
+            "label": "事由说明",
+            "type": "string",
+            "required": false,
+            "testId": "field-reason",
+            "selector": "[data-testid=\"field-reason\"]"
+          },
+          {
+            "name": "status",
+            "label": "审批状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "oa-leave-apply",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"oa-leave-apply\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"oa-leave-apply-form-overlay\"]",
+          "dialog": "[data-testid=\"oa-leave-apply-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "oa-leave-apply:search",
+          "reset": "oa-leave-apply:reset",
+          "refresh": "oa-leave-apply:refresh",
+          "create": "oa-leave-apply:create",
+          "edit": "oa-leave-apply:edit",
+          "delete": "oa-leave-apply:delete",
+          "submit": "oa-leave-apply:submit",
+          "cancel": "oa-leave-apply:cancel",
+          "close": "oa-leave-apply:close",
+          "row": "oa-leave-apply:row",
+          "pagination": "oa-leave-apply:pagination",
+          "fields": {
+            "apply_no": "oa-leave-apply:field:apply_no",
+            "applicant_id": "oa-leave-apply:field:applicant_id",
+            "apply_type": "oa-leave-apply:field:apply_type",
+            "days": "oa-leave-apply:field:days",
+            "start_time": "oa-leave-apply:field:start_time",
+            "end_time": "oa-leave-apply:field:end_time",
+            "reason": "oa-leave-apply:field:reason",
+            "status": "oa-leave-apply:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "oa.oa-leave-apply",
+          "examples": [
+            "oa.oa-leave-apply__List__Refresh",
+            "oa.oa-leave-apply__ListItem__Open",
+            "oa.oa-leave-apply__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-oa/agent/oa-leave-apply.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "oa",
+      "entity": "OaNotice",
+      "kebab": "oa-notice",
+      "businessName": "通知公告",
+      "permissionPrefix": "oa:notice",
+      "page": {
+        "route": "/admin/oa/oa-notice",
+        "menuTitle": "通知公告",
+        "title": "通知公告管理",
+        "titleSelector": "[data-testid=\"oa-notice-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.oa/api",
+        "bffMount": "/api/v1/admin/oa",
+        "resource": "oa-notice",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/oa-notice",
+            "query": [
+              "page",
+              "pageSize",
+              "notice_no",
+              "title",
+              "notice_type",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/oa-notice/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/oa-notice"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/oa-notice/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/oa-notice/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"oa-notice-title\"]",
+        "refresh": "[data-testid=\"oa-notice-refresh\"]",
+        "createButton": "[data-testid=\"oa-notice-create\"]",
+        "searchForm": "[data-testid=\"oa-notice-search\"]",
+        "searchSubmit": "[data-testid=\"oa-notice-search-submit\"]",
+        "searchReset": "[data-testid=\"oa-notice-search-reset\"]",
+        "total": "[data-testid=\"oa-notice-total\"]",
+        "table": "[data-testid=\"oa-notice-table\"]",
+        "row": "[data-testid=\"oa-notice-row\"]",
+        "editButton": "[data-testid=\"oa-notice-edit\"]",
+        "deleteButton": "[data-testid=\"oa-notice-delete\"]",
+        "form": "[data-testid=\"oa-notice-form\"]",
+        "formError": "[data-testid=\"oa-notice-form-error\"]",
+        "formSubmit": "[data-testid=\"oa-notice-form-submit\"]",
+        "formCancel": "[data-testid=\"oa-notice-form-cancel\"]",
+        "formClose": "[data-testid=\"oa-notice-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "通知公告列表",
+        "dialogLabel": {
+          "create": "新增通知公告",
+          "edit": "编辑通知公告"
+        },
+        "searchFields": [
+          {
+            "name": "notice_no",
+            "label": "公告编号",
+            "testId": "search-notice_no",
+            "selector": "[data-testid=\"search-notice_no\"]"
+          },
+          {
+            "name": "title",
+            "label": "公告标题",
+            "testId": "search-title",
+            "selector": "[data-testid=\"search-title\"]"
+          },
+          {
+            "name": "notice_type",
+            "label": "公告类别",
+            "testId": "search-notice_type",
+            "selector": "[data-testid=\"search-notice_type\"]"
+          },
+          {
+            "name": "status",
+            "label": "发布状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "notice_no",
+            "label": "公告编号",
+            "type": "string",
+            "required": true,
+            "testId": "field-notice_no",
+            "selector": "[data-testid=\"field-notice_no\"]"
+          },
+          {
+            "name": "title",
+            "label": "公告标题",
+            "type": "string",
+            "required": true,
+            "testId": "field-title",
+            "selector": "[data-testid=\"field-title\"]"
+          },
+          {
+            "name": "notice_type",
+            "label": "公告类别",
+            "type": "string",
+            "required": true,
+            "testId": "field-notice_type",
+            "selector": "[data-testid=\"field-notice_type\"]"
+          },
+          {
+            "name": "content",
+            "label": "正文内容",
+            "type": "string",
+            "required": false,
+            "testId": "field-content",
+            "selector": "[data-testid=\"field-content\"]"
+          },
+          {
+            "name": "status",
+            "label": "发布状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          },
+          {
+            "name": "publish_time",
+            "label": "发布时间",
+            "type": "string",
+            "required": false,
+            "testId": "field-publish_time",
+            "selector": "[data-testid=\"field-publish_time\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "oa-notice",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"oa-notice\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"oa-notice-form-overlay\"]",
+          "dialog": "[data-testid=\"oa-notice-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "oa-notice:search",
+          "reset": "oa-notice:reset",
+          "refresh": "oa-notice:refresh",
+          "create": "oa-notice:create",
+          "edit": "oa-notice:edit",
+          "delete": "oa-notice:delete",
+          "submit": "oa-notice:submit",
+          "cancel": "oa-notice:cancel",
+          "close": "oa-notice:close",
+          "row": "oa-notice:row",
+          "pagination": "oa-notice:pagination",
+          "fields": {
+            "notice_no": "oa-notice:field:notice_no",
+            "title": "oa-notice:field:title",
+            "notice_type": "oa-notice:field:notice_type",
+            "content": "oa-notice:field:content",
+            "status": "oa-notice:field:status",
+            "publish_time": "oa-notice:field:publish_time"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "oa.oa-notice",
+          "examples": [
+            "oa.oa-notice__List__Refresh",
+            "oa.oa-notice__ListItem__Open",
+            "oa.oa-notice__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-oa/agent/oa-notice.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
       "domain": "pay",
       "entity": "PayApp",
       "kebab": "pay-app",
@@ -95045,6 +97503,801 @@
         ]
       },
       "__source": "packages/plugins/plugin-pay/agent/pay-wallet-transaction.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "pms",
+      "entity": "PmsMilestone",
+      "kebab": "pms-milestone",
+      "businessName": "里程碑",
+      "permissionPrefix": "pms:milestone",
+      "page": {
+        "route": "/admin/pms/pms-milestone",
+        "menuTitle": "里程碑",
+        "title": "里程碑管理",
+        "titleSelector": "[data-testid=\"pms-milestone-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.pms/api",
+        "bffMount": "/api/v1/admin/pms",
+        "resource": "pms-milestone",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/pms-milestone",
+            "query": [
+              "page",
+              "pageSize",
+              "project_id",
+              "name",
+              "owner_id",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/pms-milestone/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/pms-milestone"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/pms-milestone/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/pms-milestone/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"pms-milestone-title\"]",
+        "refresh": "[data-testid=\"pms-milestone-refresh\"]",
+        "createButton": "[data-testid=\"pms-milestone-create\"]",
+        "searchForm": "[data-testid=\"pms-milestone-search\"]",
+        "searchSubmit": "[data-testid=\"pms-milestone-search-submit\"]",
+        "searchReset": "[data-testid=\"pms-milestone-search-reset\"]",
+        "total": "[data-testid=\"pms-milestone-total\"]",
+        "table": "[data-testid=\"pms-milestone-table\"]",
+        "row": "[data-testid=\"pms-milestone-row\"]",
+        "editButton": "[data-testid=\"pms-milestone-edit\"]",
+        "deleteButton": "[data-testid=\"pms-milestone-delete\"]",
+        "form": "[data-testid=\"pms-milestone-form\"]",
+        "formError": "[data-testid=\"pms-milestone-form-error\"]",
+        "formSubmit": "[data-testid=\"pms-milestone-form-submit\"]",
+        "formCancel": "[data-testid=\"pms-milestone-form-cancel\"]",
+        "formClose": "[data-testid=\"pms-milestone-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "里程碑列表",
+        "dialogLabel": {
+          "create": "新增里程碑",
+          "edit": "编辑里程碑"
+        },
+        "searchFields": [
+          {
+            "name": "project_id",
+            "label": "所属项目ID",
+            "testId": "search-project_id",
+            "selector": "[data-testid=\"search-project_id\"]"
+          },
+          {
+            "name": "name",
+            "label": "节点名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "owner_id",
+            "label": "负责人ID",
+            "testId": "search-owner_id",
+            "selector": "[data-testid=\"search-owner_id\"]"
+          },
+          {
+            "name": "status",
+            "label": "达成状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "project_id",
+            "label": "所属项目ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-project_id",
+            "selector": "[data-testid=\"field-project_id\"]"
+          },
+          {
+            "name": "name",
+            "label": "节点名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "owner_id",
+            "label": "负责人ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-owner_id",
+            "selector": "[data-testid=\"field-owner_id\"]"
+          },
+          {
+            "name": "due_time",
+            "label": "截止时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-due_time",
+            "selector": "[data-testid=\"field-due_time\"]"
+          },
+          {
+            "name": "status",
+            "label": "达成状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "pms-milestone",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"pms-milestone\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"pms-milestone-form-overlay\"]",
+          "dialog": "[data-testid=\"pms-milestone-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "pms-milestone:search",
+          "reset": "pms-milestone:reset",
+          "refresh": "pms-milestone:refresh",
+          "create": "pms-milestone:create",
+          "edit": "pms-milestone:edit",
+          "delete": "pms-milestone:delete",
+          "submit": "pms-milestone:submit",
+          "cancel": "pms-milestone:cancel",
+          "close": "pms-milestone:close",
+          "row": "pms-milestone:row",
+          "pagination": "pms-milestone:pagination",
+          "fields": {
+            "project_id": "pms-milestone:field:project_id",
+            "name": "pms-milestone:field:name",
+            "owner_id": "pms-milestone:field:owner_id",
+            "due_time": "pms-milestone:field:due_time",
+            "status": "pms-milestone:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "pms.pms-milestone",
+          "examples": [
+            "pms.pms-milestone__List__Refresh",
+            "pms.pms-milestone__ListItem__Open",
+            "pms.pms-milestone__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-pms/agent/pms-milestone.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "pms",
+      "entity": "PmsProject",
+      "kebab": "pms-project",
+      "businessName": "项目台账",
+      "permissionPrefix": "pms:project",
+      "page": {
+        "route": "/admin/pms/pms-project",
+        "menuTitle": "项目台账",
+        "title": "项目台账管理",
+        "titleSelector": "[data-testid=\"pms-project-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.pms/api",
+        "bffMount": "/api/v1/admin/pms",
+        "resource": "pms-project",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/pms-project",
+            "query": [
+              "page",
+              "pageSize",
+              "project_code",
+              "name",
+              "manager_id",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/pms-project/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/pms-project"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/pms-project/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/pms-project/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"pms-project-title\"]",
+        "refresh": "[data-testid=\"pms-project-refresh\"]",
+        "createButton": "[data-testid=\"pms-project-create\"]",
+        "searchForm": "[data-testid=\"pms-project-search\"]",
+        "searchSubmit": "[data-testid=\"pms-project-search-submit\"]",
+        "searchReset": "[data-testid=\"pms-project-search-reset\"]",
+        "total": "[data-testid=\"pms-project-total\"]",
+        "table": "[data-testid=\"pms-project-table\"]",
+        "row": "[data-testid=\"pms-project-row\"]",
+        "editButton": "[data-testid=\"pms-project-edit\"]",
+        "deleteButton": "[data-testid=\"pms-project-delete\"]",
+        "form": "[data-testid=\"pms-project-form\"]",
+        "formError": "[data-testid=\"pms-project-form-error\"]",
+        "formSubmit": "[data-testid=\"pms-project-form-submit\"]",
+        "formCancel": "[data-testid=\"pms-project-form-cancel\"]",
+        "formClose": "[data-testid=\"pms-project-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "项目台账列表",
+        "dialogLabel": {
+          "create": "新增项目台账",
+          "edit": "编辑项目台账"
+        },
+        "searchFields": [
+          {
+            "name": "project_code",
+            "label": "项目编号",
+            "testId": "search-project_code",
+            "selector": "[data-testid=\"search-project_code\"]"
+          },
+          {
+            "name": "name",
+            "label": "项目名称",
+            "testId": "search-name",
+            "selector": "[data-testid=\"search-name\"]"
+          },
+          {
+            "name": "manager_id",
+            "label": "项目经理ID",
+            "testId": "search-manager_id",
+            "selector": "[data-testid=\"search-manager_id\"]"
+          },
+          {
+            "name": "status",
+            "label": "项目状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "project_code",
+            "label": "项目编号",
+            "type": "string",
+            "required": true,
+            "testId": "field-project_code",
+            "selector": "[data-testid=\"field-project_code\"]"
+          },
+          {
+            "name": "name",
+            "label": "项目名称",
+            "type": "string",
+            "required": true,
+            "testId": "field-name",
+            "selector": "[data-testid=\"field-name\"]"
+          },
+          {
+            "name": "manager_id",
+            "label": "项目经理ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-manager_id",
+            "selector": "[data-testid=\"field-manager_id\"]"
+          },
+          {
+            "name": "budget_amount",
+            "label": "项目预算",
+            "type": "number",
+            "required": true,
+            "testId": "field-budget_amount",
+            "selector": "[data-testid=\"field-budget_amount\"]"
+          },
+          {
+            "name": "start_time",
+            "label": "计划启动时间",
+            "type": "string",
+            "required": true,
+            "testId": "field-start_time",
+            "selector": "[data-testid=\"field-start_time\"]"
+          },
+          {
+            "name": "end_time",
+            "label": "计划结项时间",
+            "type": "string",
+            "required": false,
+            "testId": "field-end_time",
+            "selector": "[data-testid=\"field-end_time\"]"
+          },
+          {
+            "name": "status",
+            "label": "项目状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "pms-project",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"pms-project\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"pms-project-form-overlay\"]",
+          "dialog": "[data-testid=\"pms-project-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "pms-project:search",
+          "reset": "pms-project:reset",
+          "refresh": "pms-project:refresh",
+          "create": "pms-project:create",
+          "edit": "pms-project:edit",
+          "delete": "pms-project:delete",
+          "submit": "pms-project:submit",
+          "cancel": "pms-project:cancel",
+          "close": "pms-project:close",
+          "row": "pms-project:row",
+          "pagination": "pms-project:pagination",
+          "fields": {
+            "project_code": "pms-project:field:project_code",
+            "name": "pms-project:field:name",
+            "manager_id": "pms-project:field:manager_id",
+            "budget_amount": "pms-project:field:budget_amount",
+            "start_time": "pms-project:field:start_time",
+            "end_time": "pms-project:field:end_time",
+            "status": "pms-project:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "pms.pms-project",
+          "examples": [
+            "pms.pms-project__List__Refresh",
+            "pms.pms-project__ListItem__Open",
+            "pms.pms-project__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-pms/agent/pms-project.agent.json"
+    },
+    {
+      "$schema": "cooliebase.agent.contract/v1",
+      "domain": "pms",
+      "entity": "PmsTimesheet",
+      "kebab": "pms-timesheet",
+      "businessName": "任务工时",
+      "permissionPrefix": "pms:timesheet",
+      "page": {
+        "route": "/admin/pms/pms-timesheet",
+        "menuTitle": "任务工时",
+        "title": "任务工时管理",
+        "titleSelector": "[data-testid=\"pms-timesheet-title\"]"
+      },
+      "api": {
+        "pluginMount": "/api/v1/plugins/cooliebase.pms/api",
+        "bffMount": "/api/v1/admin/pms",
+        "resource": "pms-timesheet",
+        "methods": {
+          "list": {
+            "http": "GET",
+            "path": "/pms-timesheet",
+            "query": [
+              "page",
+              "pageSize",
+              "project_id",
+              "member_id",
+              "work_date",
+              "status"
+            ]
+          },
+          "get": {
+            "http": "GET",
+            "path": "/pms-timesheet/:id"
+          },
+          "create": {
+            "http": "POST",
+            "path": "/pms-timesheet"
+          },
+          "update": {
+            "http": "PUT",
+            "path": "/pms-timesheet/:id"
+          },
+          "delete": {
+            "http": "DELETE",
+            "path": "/pms-timesheet/:id"
+          }
+        }
+      },
+      "auth": {
+        "login": {
+          "http": "POST",
+          "path": "/api/v1/admin/system/auth",
+          "payload": {
+            "username": "$COOLIEBASE_AGENT_USERNAME",
+            "password": "$COOLIEBASE_AGENT_PASSWORD"
+          }
+        },
+        "tokenField": "data.token",
+        "header": "Authorization",
+        "scheme": "Bearer"
+      },
+      "selectors": {
+        "title": "[data-testid=\"pms-timesheet-title\"]",
+        "refresh": "[data-testid=\"pms-timesheet-refresh\"]",
+        "createButton": "[data-testid=\"pms-timesheet-create\"]",
+        "searchForm": "[data-testid=\"pms-timesheet-search\"]",
+        "searchSubmit": "[data-testid=\"pms-timesheet-search-submit\"]",
+        "searchReset": "[data-testid=\"pms-timesheet-search-reset\"]",
+        "total": "[data-testid=\"pms-timesheet-total\"]",
+        "table": "[data-testid=\"pms-timesheet-table\"]",
+        "row": "[data-testid=\"pms-timesheet-row\"]",
+        "editButton": "[data-testid=\"pms-timesheet-edit\"]",
+        "deleteButton": "[data-testid=\"pms-timesheet-delete\"]",
+        "form": "[data-testid=\"pms-timesheet-form\"]",
+        "formError": "[data-testid=\"pms-timesheet-form-error\"]",
+        "formSubmit": "[data-testid=\"pms-timesheet-form-submit\"]",
+        "formCancel": "[data-testid=\"pms-timesheet-form-cancel\"]",
+        "formClose": "[data-testid=\"pms-timesheet-form-close\"]"
+      },
+      "accessibility": {
+        "tableLabel": "任务工时列表",
+        "dialogLabel": {
+          "create": "新增任务工时",
+          "edit": "编辑任务工时"
+        },
+        "searchFields": [
+          {
+            "name": "project_id",
+            "label": "所属项目ID",
+            "testId": "search-project_id",
+            "selector": "[data-testid=\"search-project_id\"]"
+          },
+          {
+            "name": "member_id",
+            "label": "成员ID",
+            "testId": "search-member_id",
+            "selector": "[data-testid=\"search-member_id\"]"
+          },
+          {
+            "name": "work_date",
+            "label": "工作日期",
+            "testId": "search-work_date",
+            "selector": "[data-testid=\"search-work_date\"]"
+          },
+          {
+            "name": "status",
+            "label": "核准状态",
+            "testId": "search-status",
+            "selector": "[data-testid=\"search-status\"]"
+          }
+        ],
+        "fields": [
+          {
+            "name": "project_id",
+            "label": "所属项目ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-project_id",
+            "selector": "[data-testid=\"field-project_id\"]"
+          },
+          {
+            "name": "member_id",
+            "label": "成员ID",
+            "type": "string",
+            "required": true,
+            "testId": "field-member_id",
+            "selector": "[data-testid=\"field-member_id\"]"
+          },
+          {
+            "name": "work_date",
+            "label": "工作日期",
+            "type": "string",
+            "required": true,
+            "testId": "field-work_date",
+            "selector": "[data-testid=\"field-work_date\"]"
+          },
+          {
+            "name": "hours",
+            "label": "投入工时",
+            "type": "number",
+            "required": true,
+            "testId": "field-hours",
+            "selector": "[data-testid=\"field-hours\"]"
+          },
+          {
+            "name": "cost_amount",
+            "label": "工时折算成本",
+            "type": "number",
+            "required": true,
+            "testId": "field-cost_amount",
+            "selector": "[data-testid=\"field-cost_amount\"]"
+          },
+          {
+            "name": "remark",
+            "label": "工作内容说明",
+            "type": "string",
+            "required": false,
+            "testId": "field-remark",
+            "selector": "[data-testid=\"field-remark\"]"
+          },
+          {
+            "name": "status",
+            "label": "核准状态",
+            "type": "string",
+            "required": true,
+            "testId": "field-status",
+            "selector": "[data-testid=\"field-status\"]"
+          }
+        ]
+      },
+      "agentNative": {
+        "scheme": "cooliebase.agent.native/v1",
+        "scope": "pms-timesheet",
+        "readiness": {
+          "attribute": "data-agent-page-ready",
+          "readySelector": "[data-agent-scope=\"pms-timesheet\"][data-agent-page-ready=\"true\"]",
+          "states": [
+            "true",
+            "false"
+          ]
+        },
+        "state": {
+          "attribute": "data-agent-state",
+          "page": [
+            "loading",
+            "modal-open",
+            "empty",
+            "ready"
+          ],
+          "row": [
+            "idle",
+            "editing"
+          ],
+          "form": [
+            "open",
+            "submitting",
+            "error"
+          ]
+        },
+        "modal": {
+          "overlay": "[data-testid=\"pms-timesheet-form-overlay\"]",
+          "dialog": "[data-testid=\"pms-timesheet-form\"]",
+          "pruneAttribute": "inert",
+          "pruneTarget": "页面基底内容容器"
+        },
+        "targets": {
+          "search": "pms-timesheet:search",
+          "reset": "pms-timesheet:reset",
+          "refresh": "pms-timesheet:refresh",
+          "create": "pms-timesheet:create",
+          "edit": "pms-timesheet:edit",
+          "delete": "pms-timesheet:delete",
+          "submit": "pms-timesheet:submit",
+          "cancel": "pms-timesheet:cancel",
+          "close": "pms-timesheet:close",
+          "row": "pms-timesheet:row",
+          "pagination": "pms-timesheet:pagination",
+          "fields": {
+            "project_id": "pms-timesheet:field:project_id",
+            "member_id": "pms-timesheet:field:member_id",
+            "work_date": "pms-timesheet:field:work_date",
+            "hours": "pms-timesheet:field:hours",
+            "cost_amount": "pms-timesheet:field:cost_amount",
+            "remark": "pms-timesheet:field:remark",
+            "status": "pms-timesheet:field:status"
+          }
+        },
+        "mobile": {
+          "testIdScheme": "[Screen]__[Component]__[Action]",
+          "screen": "pms.pms-timesheet",
+          "examples": [
+            "pms.pms-timesheet__List__Refresh",
+            "pms.pms-timesheet__ListItem__Open",
+            "pms.pms-timesheet__Form__Submit"
+          ]
+        }
+      },
+      "journey": [
+        "goto",
+        "assertTitle",
+        "search",
+        "openCreateForm",
+        "fillForm",
+        "submitForm",
+        "edit",
+        "delete"
+      ],
+      "ops": {
+        "automations": [
+          {
+            "name": "health",
+            "kind": "query",
+            "description": "列表接口连通性 + 返回结构",
+            "method": "list"
+          },
+          {
+            "name": "seed-sample",
+            "kind": "mutation",
+            "description": "写入一条样例数据（幂等靠业务字段）",
+            "method": "create"
+          },
+          {
+            "name": "purge-sample",
+            "kind": "mutation",
+            "description": "清理本契约造的样例数据",
+            "method": "delete"
+          }
+        ]
+      },
+      "__source": "packages/plugins/plugin-pms/agent/pms-timesheet.agent.json"
     },
     {
       "$schema": "cooliebase.agent.contract/v1",

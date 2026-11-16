@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package cooliebase.fms.v1;
+
+option go_package = "cooliebase/all-base/gen/fms/v1;fmsv1";
+
+// Generated from packages/shared/backend/constants/rpc-actions.json
+// Do not hand-edit. Run: pnpm run domain:contracts
+// gRPC path: /cooliebase.fms.v1.FmsService/<Method>
+
+message JsonReply {
+  string json = 1;
+}
+
+message FmsAccount.createRequest {
+  optional int32 n = 1;
+}
+
+message FmsAccount.pageRequest {
+  optional int32 n = 1;
+}
+
+message FmsAccount.updateRequest {
+  optional int32 n = 1;
+}
+
+message FmsReconcile.createRequest {
+  optional int32 n = 1;
+}
+
+message FmsReconcile.pageRequest {
+  optional int32 n = 1;
+}
+
+message FmsReconcile.updateRequest {
+  optional int32 n = 1;
+}
+
+message FmsVoucher.createRequest {
+  optional int32 n = 1;
+}
+
+message FmsVoucher.pageRequest {
+  optional int32 n = 1;
+}
+
+message FmsVoucher.updateRequest {
+  optional int32 n = 1;
+}
+
+service FmsService {
+  rpc FmsAccount.create(FmsAccount.createRequest) returns (JsonReply);
+  rpc FmsAccount.page(FmsAccount.pageRequest) returns (JsonReply);
+  rpc FmsAccount.update(FmsAccount.updateRequest) returns (JsonReply);
+  rpc FmsReconcile.create(FmsReconcile.createRequest) returns (JsonReply);
+  rpc FmsReconcile.page(FmsReconcile.pageRequest) returns (JsonReply);
+  rpc FmsReconcile.update(FmsReconcile.updateRequest) returns (JsonReply);
+  rpc FmsVoucher.create(FmsVoucher.createRequest) returns (JsonReply);
+  rpc FmsVoucher.page(FmsVoucher.pageRequest) returns (JsonReply);
+  rpc FmsVoucher.update(FmsVoucher.updateRequest) returns (JsonReply);
+}

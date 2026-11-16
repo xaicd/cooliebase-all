@@ -41,7 +41,7 @@ const BASE_DB_NAME = "cooliebase_next"
  * 裁剪别名时必须按「是否是被裁的域」判断，而不是「是否在保留集里」；
  * 后者会误删 @/modules/shared，工程能过门禁却起不来（实测）。
  */
-const ALL_DOMAINS = ["system","infra","online","ai","aigw","bpm","pay","report","mp","mall","member","crm","erp","wms","mes","iot","im"]
+const ALL_DOMAINS = ["system","infra","online","ai","bpm","pay","report","mp","mall","member","crm","erp","wms","mes","iot","im","oa","hrm","fms","pms"]
 
 // 二进制白名单后缀（直接二进制复制，严禁文本替换，防止破坏文件结构）
 const BINARY_EXTENSIONS = new Set([
@@ -227,6 +227,21 @@ function reactorCopy(src, dest, ctx, rel = "") {
             }
           }
           fs.writeFileSync(destPath, JSON.stringify(appCfg, null, 2) + "\n", "utf8")
+          continue
+        } catch (_err) { /* 回退通用替换 */ }
+      }
+
+      // 特殊处理小程序 manifest.json（clients/miniapp/manifest.json）：同步重写名称、appid 与 h5.router.base
+      if (entry.name === "manifest.json" && entryRel.includes("clients/miniapp")) {
+        try {
+          const mfCfg = JSON.parse(fs.readFileSync(srcPath, "utf8"))
+          mfCfg.name = `${ctx.targetTitle}`
+          mfCfg.appid = `__UNI__${ctx.targetName.toUpperCase().replace(/[^A-Z0-9]+/g, "_")}`
+          if (mfCfg.h5) {
+            mfCfg.h5.title = `${ctx.targetTitle}`
+            mfCfg.h5.router = { ...(mfCfg.h5.router || {}), base: `/${ctx.targetName}/miniapp/` }
+          }
+          fs.writeFileSync(destPath, JSON.stringify(mfCfg, null, 2) + "\n", "utf8")
           continue
         } catch (_err) { /* 回退通用替换 */ }
       }

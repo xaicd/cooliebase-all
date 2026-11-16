@@ -1,0 +1,225 @@
+{
+  "$schema": "cooliebase-plugin-manifest/v1",
+  "id": "cooliebase.oa",
+  "apiVersion": 1,
+  "version": "0.1.0",
+  "displayName": "oa",
+  "description": "oa 域（由 scripts/scaffold-domain-plugin.cjs 生成的第一方插件声明）",
+  "author": "CoolieBase All",
+  "categories": [
+    "automation"
+  ],
+  "capabilities": [
+    "api.routes.register"
+  ],
+  "entrypoints": {
+    "merged": "./plugin-entry.ts"
+  },
+  "domain": {
+    "kind": "plugin",
+    "stage": "B",
+    "contractVersion": "v1",
+    "publicPrefixes": [
+      "/api/v1/admin/oa"
+    ],
+    "upstreamEnv": "COOLIEBASE_DOMAIN_OA_UPSTREAM",
+    "defaultPort": 3226,
+    "packable": true,
+    "independentDatabase": false,
+    "dependsOnModules": [
+      "shared"
+    ],
+    "auth": {
+      "audience": "admin",
+      "tenantPolicy": "required"
+    },
+    "resilience": {
+      "timeoutMs": 15000,
+      "retryMaxAttempts": 1,
+      "safeMethodsOnly": true,
+      "idempotencyRequired": true
+    }
+  },
+  "apiRoutes": [
+    {
+      "routeKey": "admin:oa-attendance/[id]:delete",
+      "method": "DELETE",
+      "path": "/oa-attendance/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance/[id]:get",
+      "method": "GET",
+      "path": "/oa-attendance/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance/[id]:put",
+      "method": "PUT",
+      "path": "/oa-attendance/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance/export:post",
+      "method": "POST",
+      "path": "/oa-attendance/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance/import-template:get",
+      "method": "GET",
+      "path": "/oa-attendance/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance/import:post",
+      "method": "POST",
+      "path": "/oa-attendance/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance:delete",
+      "method": "DELETE",
+      "path": "/oa-attendance",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance:get",
+      "method": "GET",
+      "path": "/oa-attendance",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance:post",
+      "method": "POST",
+      "path": "/oa-attendance",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-attendance:put",
+      "method": "PUT",
+      "path": "/oa-attendance",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/[id]:delete",
+      "method": "DELETE",
+      "path": "/oa-leave-apply/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/[id]:get",
+      "method": "GET",
+      "path": "/oa-leave-apply/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/[id]:put",
+      "method": "PUT",
+      "path": "/oa-leave-apply/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/export:post",
+      "method": "POST",
+      "path": "/oa-leave-apply/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/import-template:get",
+      "method": "GET",
+      "path": "/oa-leave-apply/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply/import:post",
+      "method": "POST",
+      "path": "/oa-leave-apply/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply:delete",
+      "method": "DELETE",
+      "path": "/oa-leave-apply",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply:get",
+      "method": "GET",
+      "path": "/oa-leave-apply",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply:post",
+      "method": "POST",
+      "path": "/oa-leave-apply",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-leave-apply:put",
+      "method": "PUT",
+      "path": "/oa-leave-apply",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/[id]:delete",
+      "method": "DELETE",
+      "path": "/oa-notice/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/[id]:get",
+      "method": "GET",
+      "path": "/oa-notice/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/[id]:put",
+      "method": "PUT",
+      "path": "/oa-notice/[id]",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/export:post",
+      "method": "POST",
+      "path": "/oa-notice/export",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/import-template:get",
+      "method": "GET",
+      "path": "/oa-notice/import-template",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice/import:post",
+      "method": "POST",
+      "path": "/oa-notice/import",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice:delete",
+      "method": "DELETE",
+      "path": "/oa-notice",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice:get",
+      "method": "GET",
+      "path": "/oa-notice",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice:post",
+      "method": "POST",
+      "path": "/oa-notice",
+      "auth": "operator"
+    },
+    {
+      "routeKey": "admin:oa-notice:put",
+      "method": "PUT",
+      "path": "/oa-notice",
+      "auth": "operator"
+    }
+  ]
+}

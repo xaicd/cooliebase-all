@@ -55,7 +55,6 @@ function assertStrongBootstrapPassword(password: string): void {
 async function fullMenuCatalog(): Promise<Array<{ id: string }>> {
   const companions: Array<[string, string]> = [
     ["online", "withOnlineMenuCatalog"],
-    ["aigw", "withAigwMenuCatalog"],
     ["ai", "withAiMenuCatalog"],
   ]
   let catalog: Array<{ id: string }> = INIT_MENUS

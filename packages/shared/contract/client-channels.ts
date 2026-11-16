@@ -10,7 +10,7 @@ const surfaceSchema = z.object({
 })
 
 const channelSchema = z.object({
-  id: z.enum(["admin-web", "expo"]),
+  id: z.enum(["admin-web", "expo", "miniapp"]),
   name: z.string().min(1).max(32),
   kind: z.enum(["web", "mini-program", "native", "desktop"]),
   surface: z.enum(["admin", "app", "open", "internal"]),

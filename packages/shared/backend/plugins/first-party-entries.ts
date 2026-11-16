@@ -24,13 +24,16 @@ export const FIRST_PARTY_PLUGIN_ENTRIES: Record<string, PluginEntryFactory> = {
   "cooliebase.iot": () => import("@/plugins/plugin-iot/plugin-entry"),
   "cooliebase.erp": () => import("@/plugins/plugin-erp/plugin-entry"),
   "cooliebase.im": () => import("@/plugins/plugin-im/plugin-entry"),
-  "cooliebase.aigw": () => import("@/plugins/plugin-aigw/plugin-entry"),
   "cooliebase.ai": () => import("@/plugins/plugin-ai/plugin-entry"),
   "cooliebase.crm": () => import("@/plugins/plugin-crm/plugin-entry"),
   "cooliebase.wms": () => import("@/plugins/plugin-wms/plugin-entry"),
   "cooliebase.online": () => import("@/plugins/plugin-online/plugin-entry"),
   "cooliebase.mall": () => import("@/plugins/plugin-mall/plugin-entry"),
   "cooliebase.mes": () => import("@/plugins/plugin-mes/plugin-entry"),
+  "cooliebase.oa": () => import("@/plugins/plugin-oa/plugin-entry"),
+  "cooliebase.hrm": () => import("@/plugins/plugin-hrm/plugin-entry"),
+  "cooliebase.fms": () => import("@/plugins/plugin-fms/plugin-entry"),
+  "cooliebase.pms": () => import("@/plugins/plugin-pms/plugin-entry"),
 }
 
 /** 取第一方插件入口工厂；不是第一方插件时返回 undefined（调用方回退到运行期 import）。 */

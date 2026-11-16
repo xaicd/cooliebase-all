@@ -1,0 +1,270 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "fms",
+  "entity": "FmsReconcile",
+  "kebab": "fms-reconcile",
+  "businessName": "对账结算",
+  "permissionPrefix": "fms:reconcile",
+  "page": {
+    "route": "/admin/fms/fms-reconcile",
+    "menuTitle": "对账结算",
+    "title": "对账结算管理",
+    "titleSelector": "[data-testid=\"fms-reconcile-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.fms/api",
+    "bffMount": "/api/v1/admin/fms",
+    "resource": "fms-reconcile",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/fms-reconcile",
+        "query": [
+          "page",
+          "pageSize",
+          "reconcile_no",
+          "account_id",
+          "statement_period",
+          "status"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/fms-reconcile/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/fms-reconcile"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/fms-reconcile/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/fms-reconcile/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"fms-reconcile-title\"]",
+    "refresh": "[data-testid=\"fms-reconcile-refresh\"]",
+    "createButton": "[data-testid=\"fms-reconcile-create\"]",
+    "searchForm": "[data-testid=\"fms-reconcile-search\"]",
+    "searchSubmit": "[data-testid=\"fms-reconcile-search-submit\"]",
+    "searchReset": "[data-testid=\"fms-reconcile-search-reset\"]",
+    "total": "[data-testid=\"fms-reconcile-total\"]",
+    "table": "[data-testid=\"fms-reconcile-table\"]",
+    "row": "[data-testid=\"fms-reconcile-row\"]",
+    "editButton": "[data-testid=\"fms-reconcile-edit\"]",
+    "deleteButton": "[data-testid=\"fms-reconcile-delete\"]",
+    "form": "[data-testid=\"fms-reconcile-form\"]",
+    "formError": "[data-testid=\"fms-reconcile-form-error\"]",
+    "formSubmit": "[data-testid=\"fms-reconcile-form-submit\"]",
+    "formCancel": "[data-testid=\"fms-reconcile-form-cancel\"]",
+    "formClose": "[data-testid=\"fms-reconcile-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "对账结算列表",
+    "dialogLabel": {
+      "create": "新增对账结算",
+      "edit": "编辑对账结算"
+    },
+    "searchFields": [
+      {
+        "name": "reconcile_no",
+        "label": "对账单号",
+        "testId": "search-reconcile_no",
+        "selector": "[data-testid=\"search-reconcile_no\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "资金账户ID",
+        "testId": "search-account_id",
+        "selector": "[data-testid=\"search-account_id\"]"
+      },
+      {
+        "name": "statement_period",
+        "label": "对账账期",
+        "testId": "search-statement_period",
+        "selector": "[data-testid=\"search-statement_period\"]"
+      },
+      {
+        "name": "status",
+        "label": "平账状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "reconcile_no",
+        "label": "对账单号",
+        "type": "string",
+        "required": true,
+        "testId": "field-reconcile_no",
+        "selector": "[data-testid=\"field-reconcile_no\"]"
+      },
+      {
+        "name": "account_id",
+        "label": "资金账户ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-account_id",
+        "selector": "[data-testid=\"field-account_id\"]"
+      },
+      {
+        "name": "statement_period",
+        "label": "对账账期",
+        "type": "string",
+        "required": true,
+        "testId": "field-statement_period",
+        "selector": "[data-testid=\"field-statement_period\"]"
+      },
+      {
+        "name": "book_amount",
+        "label": "账面总额",
+        "type": "number",
+        "required": true,
+        "testId": "field-book_amount",
+        "selector": "[data-testid=\"field-book_amount\"]"
+      },
+      {
+        "name": "bank_amount",
+        "label": "银行实收总额",
+        "type": "number",
+        "required": true,
+        "testId": "field-bank_amount",
+        "selector": "[data-testid=\"field-bank_amount\"]"
+      },
+      {
+        "name": "diff_amount",
+        "label": "轧差金额",
+        "type": "number",
+        "required": true,
+        "testId": "field-diff_amount",
+        "selector": "[data-testid=\"field-diff_amount\"]"
+      },
+      {
+        "name": "status",
+        "label": "平账状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "fms-reconcile",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"fms-reconcile\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"fms-reconcile-form-overlay\"]",
+      "dialog": "[data-testid=\"fms-reconcile-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "fms-reconcile:search",
+      "reset": "fms-reconcile:reset",
+      "refresh": "fms-reconcile:refresh",
+      "create": "fms-reconcile:create",
+      "edit": "fms-reconcile:edit",
+      "delete": "fms-reconcile:delete",
+      "submit": "fms-reconcile:submit",
+      "cancel": "fms-reconcile:cancel",
+      "close": "fms-reconcile:close",
+      "row": "fms-reconcile:row",
+      "pagination": "fms-reconcile:pagination",
+      "fields": {
+        "reconcile_no": "fms-reconcile:field:reconcile_no",
+        "account_id": "fms-reconcile:field:account_id",
+        "statement_period": "fms-reconcile:field:statement_period",
+        "book_amount": "fms-reconcile:field:book_amount",
+        "bank_amount": "fms-reconcile:field:bank_amount",
+        "diff_amount": "fms-reconcile:field:diff_amount",
+        "status": "fms-reconcile:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "fms.fms-reconcile",
+      "examples": [
+        "fms.fms-reconcile__List__Refresh",
+        "fms.fms-reconcile__ListItem__Open",
+        "fms.fms-reconcile__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

@@ -8,6 +8,7 @@ packages:
   - "packages/plugins/examples/*"
   - "packages/tools/*"
   - "clients/expo"
+  - "clients/miniapp"
 
 # 允许执行构建脚本的原生/工具依赖。
 # pnpm 默认拦截依赖的 install/postinstall 脚本（供应链防护），与 npm 11 的行为类似但配置方式不同：

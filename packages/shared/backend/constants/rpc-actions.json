@@ -3399,136 +3399,6 @@
         }
       ]
     },
-    "aigw": {
-      "actions": [
-        {
-          "method": "ping",
-          "schema": "ping"
-        },
-        {
-          "method": "listChannels",
-          "service": "AigwChannelService",
-          "module": "aigw-channel.service",
-          "target": "page",
-          "schema": "aigwPageQuerySchema",
-          "fieldsRef": "pageQuery"
-        },
-        {
-          "method": "createChannel",
-          "service": "AigwChannelService",
-          "module": "aigw-channel.service",
-          "target": "create",
-          "schema": "aigwChannelCreateSchema",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "name": "provider",
-              "type": "string"
-            },
-            {
-              "name": "baseUrl",
-              "type": "string",
-              "optional": true
-            },
-            {
-              "name": "apiKey",
-              "type": "string",
-              "optional": true
-            },
-            {
-              "name": "models",
-              "type": "json"
-            }
-          ]
-        },
-        {
-          "method": "listTokens",
-          "service": "AigwAccessTokenService",
-          "module": "aigw-access-token.service",
-          "target": "page",
-          "schema": "aigwPageQuerySchema",
-          "fieldsRef": "pageQuery"
-        },
-        {
-          "method": "createToken",
-          "service": "AigwAccessTokenService",
-          "module": "aigw-access-token.service",
-          "target": "create",
-          "schema": "aigwTokenCreateSchema",
-          "fields": [
-            {
-              "name": "name",
-              "type": "string"
-            },
-            {
-              "name": "remainQuota",
-              "type": "int32",
-              "optional": true
-            }
-          ]
-        },
-        {
-          "method": "listModels",
-          "service": "AigwModelService",
-          "module": "aigw-model.service",
-          "target": "page",
-          "schema": "aigwPageQuerySchema",
-          "fieldsRef": "pageQuery"
-        },
-        {
-          "method": "relayChat",
-          "service": "AigwRelayService",
-          "module": "aigw-relay.service",
-          "target": "relayChatCompletion",
-          "schema": "aigwRelayChatSchema",
-          "fields": [
-            {
-              "name": "apiKey",
-              "type": "string"
-            },
-            {
-              "name": "model",
-              "type": "string"
-            },
-            {
-              "name": "messages",
-              "type": "json"
-            }
-          ]
-        },
-        {
-          "method": "listPublicModels",
-          "service": "AigwRelayService",
-          "module": "aigw-relay.service",
-          "schema": "aigwListPublicModelsSchema",
-          "fields": []
-        },
-        {
-          "method": "embed",
-          "service": "AigwRelayService",
-          "module": "aigw-relay.service",
-          "schema": "aigwEmbedSchema",
-          "fields": [
-            {
-              "name": "apiKey",
-              "type": "string"
-            },
-            {
-              "name": "model",
-              "type": "string",
-              "optional": true
-            },
-            {
-              "name": "input",
-              "type": "json"
-            }
-          ]
-        }
-      ]
-    },
     "iot": {
       "actions": [
         {
@@ -3653,6 +3523,238 @@
               "optional": true
             }
           ]
+        }
+      ]
+    },
+    "oa": {
+      "actions": [
+        {
+          "method": "oaAttendance.create",
+          "service": "oaAttendanceService",
+          "module": "oa-attendance.service",
+          "schema": "oaAttendanceCreateSchema"
+        },
+        {
+          "method": "oaAttendance.page",
+          "service": "oaAttendanceService",
+          "module": "oa-attendance.service",
+          "schema": "oaAttendancePageQuerySchema"
+        },
+        {
+          "method": "oaAttendance.update",
+          "service": "oaAttendanceService",
+          "module": "oa-attendance.service",
+          "schema": "oaAttendanceUpdateSchema"
+        },
+        {
+          "method": "oaLeaveApply.create",
+          "service": "oaLeaveApplyService",
+          "module": "oa-leave-apply.service",
+          "schema": "oaLeaveApplyCreateSchema"
+        },
+        {
+          "method": "oaLeaveApply.page",
+          "service": "oaLeaveApplyService",
+          "module": "oa-leave-apply.service",
+          "schema": "oaLeaveApplyPageQuerySchema"
+        },
+        {
+          "method": "oaLeaveApply.update",
+          "service": "oaLeaveApplyService",
+          "module": "oa-leave-apply.service",
+          "schema": "oaLeaveApplyUpdateSchema"
+        },
+        {
+          "method": "oaNotice.create",
+          "service": "oaNoticeService",
+          "module": "oa-notice.service",
+          "schema": "oaNoticeCreateSchema"
+        },
+        {
+          "method": "oaNotice.page",
+          "service": "oaNoticeService",
+          "module": "oa-notice.service",
+          "schema": "oaNoticePageQuerySchema"
+        },
+        {
+          "method": "oaNotice.update",
+          "service": "oaNoticeService",
+          "module": "oa-notice.service",
+          "schema": "oaNoticeUpdateSchema"
+        }
+      ]
+    },
+    "hrm": {
+      "actions": [
+        {
+          "method": "hrmEmployee.create",
+          "service": "hrmEmployeeService",
+          "module": "hrm-employee.service",
+          "schema": "hrmEmployeeCreateSchema"
+        },
+        {
+          "method": "hrmEmployee.page",
+          "service": "hrmEmployeeService",
+          "module": "hrm-employee.service",
+          "schema": "hrmEmployeePageQuerySchema"
+        },
+        {
+          "method": "hrmEmployee.update",
+          "service": "hrmEmployeeService",
+          "module": "hrm-employee.service",
+          "schema": "hrmEmployeeUpdateSchema"
+        },
+        {
+          "method": "hrmPayroll.create",
+          "service": "hrmPayrollService",
+          "module": "hrm-payroll.service",
+          "schema": "hrmPayrollCreateSchema"
+        },
+        {
+          "method": "hrmPayroll.page",
+          "service": "hrmPayrollService",
+          "module": "hrm-payroll.service",
+          "schema": "hrmPayrollPageQuerySchema"
+        },
+        {
+          "method": "hrmPayroll.update",
+          "service": "hrmPayrollService",
+          "module": "hrm-payroll.service",
+          "schema": "hrmPayrollUpdateSchema"
+        },
+        {
+          "method": "hrmPosition.create",
+          "service": "hrmPositionService",
+          "module": "hrm-position.service",
+          "schema": "hrmPositionCreateSchema"
+        },
+        {
+          "method": "hrmPosition.page",
+          "service": "hrmPositionService",
+          "module": "hrm-position.service",
+          "schema": "hrmPositionPageQuerySchema"
+        },
+        {
+          "method": "hrmPosition.update",
+          "service": "hrmPositionService",
+          "module": "hrm-position.service",
+          "schema": "hrmPositionUpdateSchema"
+        }
+      ]
+    },
+    "fms": {
+      "actions": [
+        {
+          "method": "fmsAccount.create",
+          "service": "fmsAccountService",
+          "module": "fms-account.service",
+          "schema": "fmsAccountCreateSchema"
+        },
+        {
+          "method": "fmsAccount.page",
+          "service": "fmsAccountService",
+          "module": "fms-account.service",
+          "schema": "fmsAccountPageQuerySchema"
+        },
+        {
+          "method": "fmsAccount.update",
+          "service": "fmsAccountService",
+          "module": "fms-account.service",
+          "schema": "fmsAccountUpdateSchema"
+        },
+        {
+          "method": "fmsReconcile.create",
+          "service": "fmsReconcileService",
+          "module": "fms-reconcile.service",
+          "schema": "fmsReconcileCreateSchema"
+        },
+        {
+          "method": "fmsReconcile.page",
+          "service": "fmsReconcileService",
+          "module": "fms-reconcile.service",
+          "schema": "fmsReconcilePageQuerySchema"
+        },
+        {
+          "method": "fmsReconcile.update",
+          "service": "fmsReconcileService",
+          "module": "fms-reconcile.service",
+          "schema": "fmsReconcileUpdateSchema"
+        },
+        {
+          "method": "fmsVoucher.create",
+          "service": "fmsVoucherService",
+          "module": "fms-voucher.service",
+          "schema": "fmsVoucherCreateSchema"
+        },
+        {
+          "method": "fmsVoucher.page",
+          "service": "fmsVoucherService",
+          "module": "fms-voucher.service",
+          "schema": "fmsVoucherPageQuerySchema"
+        },
+        {
+          "method": "fmsVoucher.update",
+          "service": "fmsVoucherService",
+          "module": "fms-voucher.service",
+          "schema": "fmsVoucherUpdateSchema"
+        }
+      ]
+    },
+    "pms": {
+      "actions": [
+        {
+          "method": "pmsMilestone.create",
+          "service": "pmsMilestoneService",
+          "module": "pms-milestone.service",
+          "schema": "pmsMilestoneCreateSchema"
+        },
+        {
+          "method": "pmsMilestone.page",
+          "service": "pmsMilestoneService",
+          "module": "pms-milestone.service",
+          "schema": "pmsMilestonePageQuerySchema"
+        },
+        {
+          "method": "pmsMilestone.update",
+          "service": "pmsMilestoneService",
+          "module": "pms-milestone.service",
+          "schema": "pmsMilestoneUpdateSchema"
+        },
+        {
+          "method": "pmsProject.create",
+          "service": "pmsProjectService",
+          "module": "pms-project.service",
+          "schema": "pmsProjectCreateSchema"
+        },
+        {
+          "method": "pmsProject.page",
+          "service": "pmsProjectService",
+          "module": "pms-project.service",
+          "schema": "pmsProjectPageQuerySchema"
+        },
+        {
+          "method": "pmsProject.update",
+          "service": "pmsProjectService",
+          "module": "pms-project.service",
+          "schema": "pmsProjectUpdateSchema"
+        },
+        {
+          "method": "pmsTimesheet.create",
+          "service": "pmsTimesheetService",
+          "module": "pms-timesheet.service",
+          "schema": "pmsTimesheetCreateSchema"
+        },
+        {
+          "method": "pmsTimesheet.page",
+          "service": "pmsTimesheetService",
+          "module": "pms-timesheet.service",
+          "schema": "pmsTimesheetPageQuerySchema"
+        },
+        {
+          "method": "pmsTimesheet.update",
+          "service": "pmsTimesheetService",
+          "module": "pms-timesheet.service",
+          "schema": "pmsTimesheetUpdateSchema"
         }
       ]
     }

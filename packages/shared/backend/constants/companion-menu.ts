@@ -19,13 +19,11 @@ type PackageMenuIdWrapper = (ids: string[]) => string[]
 /** 各伴生域提供的包装函数（模块路径 + 导出名）。 */
 const COMPANION_CATALOG_WRAPPERS: Array<[string, string]> = [
   ["@/modules/online/contract/menu-catalog", "withOnlineMenuCatalog"],
-  ["@/modules/aigw/contract/menu-catalog", "withAigwMenuCatalog"],
   ["@/modules/ai/contract/menu-catalog", "withAiMenuCatalog"],
 ]
 
 const COMPANION_PACKAGE_ID_WRAPPERS: Array<[string, string]> = [
   ["@/modules/online/contract/menu-catalog", "withOnlinePackageMenuIds"],
-  ["@/modules/aigw/contract/menu-catalog", "withAigwPackageMenuIds"],
   ["@/modules/ai/contract/menu-catalog", "withAiPackageMenuIds"],
 ]
 

@@ -1,0 +1,94 @@
+{
+  "$schema": "cooliebase-module-manifest/v1",
+  "domain": "pms",
+  "id": "cooliebase.pms",
+  "apiVersion": 1,
+  "displayName": "pms",
+  "kind": "plugin",
+  "stage": "B",
+  "owner": "pms",
+  "contractVersion": "v1",
+  "implementation": "local-ts",
+  "minimumHostVersion": "1.0.0",
+  "capabilities": [
+    "api.routes.register",
+    "facade.invoke",
+    "pack.independent"
+  ],
+  "entrypoints": {
+    "facade": [
+      "packages/plugins/plugin-pms/contract/pms.facade.ts"
+    ],
+    "proto": "packages/plugins/plugin-pms/contract/pms.proto",
+    "actions": "packages/plugins/plugin-pms/contract/actions.ts"
+  },
+  "apiRoutes": {
+    "publicPrefix": [
+      "/api/v1/admin/pms"
+    ],
+    "adminPrefix": "/api/v1/admin/pms"
+  },
+  "auth": {
+    "audience": "admin",
+    "tenantPolicy": "required"
+  },
+  "messaging": {
+    "queueGroup": "cooliebase.pms",
+    "commandSubject": "cooliebase.cmd.pms.>",
+    "eventSubject": "cooliebase.evt.pms.>"
+  },
+  "invoke": {
+    "colocated": "sdk",
+    "remote": "rpc",
+    "protocol": "nats-rr",
+    "serialization": "json"
+  },
+  "upstream": {
+    "env": "COOLIEBASE_DOMAIN_PMS_UPSTREAM",
+    "protocol": "http",
+    "defaultPort": 3229
+  },
+  "resilience": {
+    "timeoutMs": 15000,
+    "retry": {
+      "maxAttempts": 1,
+      "safeMethodsOnly": true
+    },
+    "idempotencyRequired": true
+  },
+  "facadeMethods": [
+    "pmsMilestone.create",
+    "pmsMilestone.page",
+    "pmsMilestone.update",
+    "pmsProject.create",
+    "pmsProject.page",
+    "pmsProject.update",
+    "pmsTimesheet.create",
+    "pmsTimesheet.page",
+    "pmsTimesheet.update"
+  ],
+  "rpc": [],
+  "actions": [],
+  "permissions": [
+    "pms:milestone:create",
+    "pms:milestone:delete",
+    "pms:milestone:query",
+    "pms:milestone:update",
+    "pms:project:create",
+    "pms:project:delete",
+    "pms:project:query",
+    "pms:project:update",
+    "pms:timesheet:create",
+    "pms:timesheet:delete",
+    "pms:timesheet:query",
+    "pms:timesheet:update"
+  ],
+  "dependsOn": [
+    "shared"
+  ],
+  "pack": {
+    "enabled": true,
+    "kind": "api-only",
+    "independentDatabase": false
+  }
+}

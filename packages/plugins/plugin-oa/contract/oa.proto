@@ -1,0 +1,61 @@
+syntax = "proto3";
+
+package cooliebase.oa.v1;
+
+option go_package = "cooliebase/all-base/gen/oa/v1;oav1";
+
+// Generated from packages/shared/backend/constants/rpc-actions.json
+// Do not hand-edit. Run: pnpm run domain:contracts
+// gRPC path: /cooliebase.oa.v1.OaService/<Method>
+
+message JsonReply {
+  string json = 1;
+}
+
+message OaAttendance.createRequest {
+  optional int32 n = 1;
+}
+
+message OaAttendance.pageRequest {
+  optional int32 n = 1;
+}
+
+message OaAttendance.updateRequest {
+  optional int32 n = 1;
+}
+
+message OaLeaveApply.createRequest {
+  optional int32 n = 1;
+}
+
+message OaLeaveApply.pageRequest {
+  optional int32 n = 1;
+}
+
+message OaLeaveApply.updateRequest {
+  optional int32 n = 1;
+}
+
+message OaNotice.createRequest {
+  optional int32 n = 1;
+}
+
+message OaNotice.pageRequest {
+  optional int32 n = 1;
+}
+
+message OaNotice.updateRequest {
+  optional int32 n = 1;
+}
+
+service OaService {
+  rpc OaAttendance.create(OaAttendance.createRequest) returns (JsonReply);
+  rpc OaAttendance.page(OaAttendance.pageRequest) returns (JsonReply);
+  rpc OaAttendance.update(OaAttendance.updateRequest) returns (JsonReply);
+  rpc OaLeaveApply.create(OaLeaveApply.createRequest) returns (JsonReply);
+  rpc OaLeaveApply.page(OaLeaveApply.pageRequest) returns (JsonReply);
+  rpc OaLeaveApply.update(OaLeaveApply.updateRequest) returns (JsonReply);
+  rpc OaNotice.create(OaNotice.createRequest) returns (JsonReply);
+  rpc OaNotice.page(OaNotice.pageRequest) returns (JsonReply);
+  rpc OaNotice.update(OaNotice.updateRequest) returns (JsonReply);
+}

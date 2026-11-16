@@ -1,0 +1,270 @@
+{
+  "$schema": "cooliebase.agent.contract/v1",
+  "domain": "pms",
+  "entity": "PmsProject",
+  "kebab": "pms-project",
+  "businessName": "项目台账",
+  "permissionPrefix": "pms:project",
+  "page": {
+    "route": "/admin/pms/pms-project",
+    "menuTitle": "项目台账",
+    "title": "项目台账管理",
+    "titleSelector": "[data-testid=\"pms-project-title\"]"
+  },
+  "api": {
+    "pluginMount": "/api/v1/plugins/cooliebase.pms/api",
+    "bffMount": "/api/v1/admin/pms",
+    "resource": "pms-project",
+    "methods": {
+      "list": {
+        "http": "GET",
+        "path": "/pms-project",
+        "query": [
+          "page",
+          "pageSize",
+          "project_code",
+          "name",
+          "manager_id",
+          "status"
+        ]
+      },
+      "get": {
+        "http": "GET",
+        "path": "/pms-project/:id"
+      },
+      "create": {
+        "http": "POST",
+        "path": "/pms-project"
+      },
+      "update": {
+        "http": "PUT",
+        "path": "/pms-project/:id"
+      },
+      "delete": {
+        "http": "DELETE",
+        "path": "/pms-project/:id"
+      }
+    }
+  },
+  "auth": {
+    "login": {
+      "http": "POST",
+      "path": "/api/v1/admin/system/auth",
+      "payload": {
+        "username": "$COOLIEBASE_AGENT_USERNAME",
+        "password": "$COOLIEBASE_AGENT_PASSWORD"
+      }
+    },
+    "tokenField": "data.token",
+    "header": "Authorization",
+    "scheme": "Bearer"
+  },
+  "selectors": {
+    "title": "[data-testid=\"pms-project-title\"]",
+    "refresh": "[data-testid=\"pms-project-refresh\"]",
+    "createButton": "[data-testid=\"pms-project-create\"]",
+    "searchForm": "[data-testid=\"pms-project-search\"]",
+    "searchSubmit": "[data-testid=\"pms-project-search-submit\"]",
+    "searchReset": "[data-testid=\"pms-project-search-reset\"]",
+    "total": "[data-testid=\"pms-project-total\"]",
+    "table": "[data-testid=\"pms-project-table\"]",
+    "row": "[data-testid=\"pms-project-row\"]",
+    "editButton": "[data-testid=\"pms-project-edit\"]",
+    "deleteButton": "[data-testid=\"pms-project-delete\"]",
+    "form": "[data-testid=\"pms-project-form\"]",
+    "formError": "[data-testid=\"pms-project-form-error\"]",
+    "formSubmit": "[data-testid=\"pms-project-form-submit\"]",
+    "formCancel": "[data-testid=\"pms-project-form-cancel\"]",
+    "formClose": "[data-testid=\"pms-project-form-close\"]"
+  },
+  "accessibility": {
+    "tableLabel": "项目台账列表",
+    "dialogLabel": {
+      "create": "新增项目台账",
+      "edit": "编辑项目台账"
+    },
+    "searchFields": [
+      {
+        "name": "project_code",
+        "label": "项目编号",
+        "testId": "search-project_code",
+        "selector": "[data-testid=\"search-project_code\"]"
+      },
+      {
+        "name": "name",
+        "label": "项目名称",
+        "testId": "search-name",
+        "selector": "[data-testid=\"search-name\"]"
+      },
+      {
+        "name": "manager_id",
+        "label": "项目经理ID",
+        "testId": "search-manager_id",
+        "selector": "[data-testid=\"search-manager_id\"]"
+      },
+      {
+        "name": "status",
+        "label": "项目状态",
+        "testId": "search-status",
+        "selector": "[data-testid=\"search-status\"]"
+      }
+    ],
+    "fields": [
+      {
+        "name": "project_code",
+        "label": "项目编号",
+        "type": "string",
+        "required": true,
+        "testId": "field-project_code",
+        "selector": "[data-testid=\"field-project_code\"]"
+      },
+      {
+        "name": "name",
+        "label": "项目名称",
+        "type": "string",
+        "required": true,
+        "testId": "field-name",
+        "selector": "[data-testid=\"field-name\"]"
+      },
+      {
+        "name": "manager_id",
+        "label": "项目经理ID",
+        "type": "string",
+        "required": true,
+        "testId": "field-manager_id",
+        "selector": "[data-testid=\"field-manager_id\"]"
+      },
+      {
+        "name": "budget_amount",
+        "label": "项目预算",
+        "type": "number",
+        "required": true,
+        "testId": "field-budget_amount",
+        "selector": "[data-testid=\"field-budget_amount\"]"
+      },
+      {
+        "name": "start_time",
+        "label": "计划启动时间",
+        "type": "string",
+        "required": true,
+        "testId": "field-start_time",
+        "selector": "[data-testid=\"field-start_time\"]"
+      },
+      {
+        "name": "end_time",
+        "label": "计划结项时间",
+        "type": "string",
+        "required": false,
+        "testId": "field-end_time",
+        "selector": "[data-testid=\"field-end_time\"]"
+      },
+      {
+        "name": "status",
+        "label": "项目状态",
+        "type": "string",
+        "required": true,
+        "testId": "field-status",
+        "selector": "[data-testid=\"field-status\"]"
+      }
+    ]
+  },
+  "agentNative": {
+    "scheme": "cooliebase.agent.native/v1",
+    "scope": "pms-project",
+    "readiness": {
+      "attribute": "data-agent-page-ready",
+      "readySelector": "[data-agent-scope=\"pms-project\"][data-agent-page-ready=\"true\"]",
+      "states": [
+        "true",
+        "false"
+      ]
+    },
+    "state": {
+      "attribute": "data-agent-state",
+      "page": [
+        "loading",
+        "modal-open",
+        "empty",
+        "ready"
+      ],
+      "row": [
+        "idle",
+        "editing"
+      ],
+      "form": [
+        "open",
+        "submitting",
+        "error"
+      ]
+    },
+    "modal": {
+      "overlay": "[data-testid=\"pms-project-form-overlay\"]",
+      "dialog": "[data-testid=\"pms-project-form\"]",
+      "pruneAttribute": "inert",
+      "pruneTarget": "页面基底内容容器"
+    },
+    "targets": {
+      "search": "pms-project:search",
+      "reset": "pms-project:reset",
+      "refresh": "pms-project:refresh",
+      "create": "pms-project:create",
+      "edit": "pms-project:edit",
+      "delete": "pms-project:delete",
+      "submit": "pms-project:submit",
+      "cancel": "pms-project:cancel",
+      "close": "pms-project:close",
+      "row": "pms-project:row",
+      "pagination": "pms-project:pagination",
+      "fields": {
+        "project_code": "pms-project:field:project_code",
+        "name": "pms-project:field:name",
+        "manager_id": "pms-project:field:manager_id",
+        "budget_amount": "pms-project:field:budget_amount",
+        "start_time": "pms-project:field:start_time",
+        "end_time": "pms-project:field:end_time",
+        "status": "pms-project:field:status"
+      }
+    },
+    "mobile": {
+      "testIdScheme": "[Screen]__[Component]__[Action]",
+      "screen": "pms.pms-project",
+      "examples": [
+        "pms.pms-project__List__Refresh",
+        "pms.pms-project__ListItem__Open",
+        "pms.pms-project__Form__Submit"
+      ]
+    }
+  },
+  "journey": [
+    "goto",
+    "assertTitle",
+    "search",
+    "openCreateForm",
+    "fillForm",
+    "submitForm",
+    "edit",
+    "delete"
+  ],
+  "ops": {
+    "automations": [
+      {
+        "name": "health",
+        "kind": "query",
+        "description": "列表接口连通性 + 返回结构",
+        "method": "list"
+      },
+      {
+        "name": "seed-sample",
+        "kind": "mutation",
+        "description": "写入一条样例数据（幂等靠业务字段）",
+        "method": "create"
+      },
+      {
+        "name": "purge-sample",
+        "kind": "mutation",
+        "description": "清理本契约造的样例数据",
+        "method": "delete"
+      }
+    ]
+  }
+}

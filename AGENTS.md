@@ -22,7 +22,7 @@
 > 10. **0-1 软件工程交付资产与 No Artifact, No Done 铁律 (Spec-First Artifacts, 详见 §24 & .agents/rules/SPEC-FIRST-ENGINEERING-ARTIFACTS.md)**：严禁将上线运行期业务数据（订单数据、图纸、运营指标）当成交付资产；严禁口头声明完工；每个工单必须基于 8 要素 Brief 派发，且必须产出 7 类物理工程资产之一（SRS/RTM、OpenAPI 契约、0 报错源码、真实 DB 状态机单测报告、生产回滚 SOP、SRE 稳定性基线、持续运营对账单）！
 > 11. **单一真源与全生命周期过程资产防污染铁律 (Single Source of Truth & Anti-Pollution, 详见 §25 & docs/architecture/CMMI-PROCESS-ASSETS-AND-DELIVERY-STANDARD.md)**：技能唯一真源为 `.agents/skills/<name>/SKILL.md`，严禁在 `docs/skills` 等建立任何重复副本；业务规格按域隔离于 `docs/specs/<domain>/<name>/`（支持 feature/bugfix/enhancement/refactor 四态）并支持自动归档；过程资产收敛于 `docs/01_management` ~ `09_operations`（含 08_sre 全栈保障与 09_operations 持续运营），执行三存三不存法则，杜绝 Git 仓库被二进制撑爆与认知污染！
 > 12. **OpenWiki (LLM-Wiki) 动态百科首屏导航 (OpenWiki First, 详见 wiki/index.md)**：任何外部 AI 助手进场时，优先阅读 `wiki/index.md` 与目标域百科 `wiki/domains/<domain>.md`，基于机器可读契约与架构词条开展工作，严禁全盘盲扫代码浪费 Token 与引起漂移！
-> 13. **全能力 AI Agent 驱动公理 (All Capabilities Must Be AI Agent Driven)**：系统内的一切能力（需求立项、代码实现、API 契约、页面交互、接口运营、自动化测试、容器发版、故障自愈）必须具备 **100% 机器可读与 AI Agent 闭环驱动能力**；严禁设计仅供人类手点、无法被 AI Agent 编排或无头探针访问的孤岛能力；前端必须挂载机器可读 Page Schema，后端必须挂载 342 份 Agent 契约并支持 `pnpm run agent:ops` 无头运营，测试必须支持 Strix 多智能体自主红队渗透演练！
+> 13. **全能力 AI Agent 驱动公理 (All Capabilities Must Be AI Agent Driven)**：系统内的一切能力（需求立项、代码实现、API 契约、页面交互、接口运营、自动化测试、容器发版、故障自愈）必须具备 **100% 机器可读与 AI Agent 闭环驱动能力**；严禁设计仅供人类手点、无法被 AI Agent 编排或无头探针访问的孤岛能力；前端必须挂载机器可读 Page Schema，后端必须挂载 354 份 Agent 契约并支持 `pnpm run agent:ops` 无头运营，测试必须支持 Strix 多智能体自主红队渗透演练！
 
 ---
 
@@ -100,7 +100,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 2. all-next 当前阶段只允许建设 CoolieBase 原生域，不接收非原生扩展域。
 3. 原生域清单、规模证据、迁移阶段以扫描结果为准。权威运行时清单：`packages/shared/backend/constants/domain-catalog.json`。
 
-原生域（15）：
+原生域（19）：
 
 1. system
 2. infra
@@ -117,6 +117,10 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 13. ai
 14. iot
 15. im
+16. oa
+17. hrm
+18. fms
+19. pms
 
 低代码域 `online` 已在 catalog 业务层登记，跨域必须走 Domain Facade，不得直接 import 其他域 Service。`shared` 是核心基础 SDK，不是域、不是微服务。
 
@@ -148,8 +152,11 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 1. Route 层：`src/app/api/v1/**/route.ts`（另有内部 RPC：`src/app/api/internal/rpc/route.ts` 与开放接口 `src/app/api/v1/open/**`）
 2. Service 层：`packages/domains/<domain>/backend/services/**`
 3. Validator 层：`packages/domains/<domain>/backend/validators/**`
-4. Page 层（Admin 运营后台）：
-   - Admin 运营后台：`src/app/(admin-pages)/admin/**` + `packages/domains/<domain>/frontend/pages/**`
+4. Page 与多端客户端层（Admin + 2C Portal + Expo App + MiniApp 四位一体）：
+   - Admin 运营后台：`src/app/(admin-pages)/admin/**` + `packages/domains/<domain>/frontend/pages/**` + `packages/plugins/plugin-<domain>/frontend/pages/**`
+   - 2C 消费者门户：`src/app/(portal-pages)/**`
+   - Expo 原生/Web App：`clients/expo/**`
+   - Uni-App 微信小程序与 H5：`clients/miniapp/**`
 5. 基座层：`packages/shared/backend/constants`、`packages/shared/backend/lib`
 6. Contract 层：`packages/domains/<domain>/contract/`（Facade、actions、proto、route manifest）
 
@@ -157,7 +164,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 
 1. 业务域落在两处之一，**不要凭记忆猜**：
    - `packages/domains/<domain>/` —— 尚未插件化的域与**平台地基**（`system` / `infra`）；
-   - `packages/plugins/plugin-<domain>/` —— **已插件化的第一方插件**（当前 15 个业务域）。
+   - `packages/plugins/plugin-<domain>/` —— **已插件化的第一方插件**（当前 18 个业务域插件）。
    解析域名对应的真实目录一律用共享解析器（脚本侧 `scripts/lib/domain-catalog.cjs` 的
    `domainDirOf` / `domainPathOf`；服务端 TS 侧 codegen 用 `domainBaseDir`），
    **禁止写死 `packages/domains/`** —— 写死的后果通常不是报错，而是**静默失效**

@@ -1,0 +1,72 @@
+import type { CodegenConfig } from "../../packages/domains/infra/backend/services/codegen-templates"
+
+export const FMS_TABLES: CodegenConfig[] = [
+  {
+    moduleName: "fms",
+    className: "FmsAccount",
+    businessName: "资金账户",
+    parentMenuId: "fms-dir",
+    permissionPrefix: "fms:account",
+    table: {
+      name: "fms_account",
+      comment: "企业资金结算账户表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "账户ID", isPk: true },
+        { name: "account_no", type: "varchar", tsType: "string", nullable: false, comment: "银行账号", formValidation: "required", queryType: "LIKE" },
+        { name: "name", type: "varchar", tsType: "string", nullable: false, comment: "账户名称", formValidation: "required", queryType: "LIKE" },
+        { name: "bank_name", type: "varchar", tsType: "string", nullable: true, comment: "开户行" },
+        { name: "currency", type: "varchar", tsType: "string", nullable: false, comment: "币种", queryType: "EQ" },
+        { name: "balance", type: "decimal", tsType: "number", nullable: false, comment: "当前余额" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "账户状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "fms",
+    className: "FmsVoucher",
+    businessName: "收支凭证",
+    parentMenuId: "fms-dir",
+    permissionPrefix: "fms:voucher",
+    table: {
+      name: "fms_voucher",
+      comment: "财务收支记账凭证表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "凭证ID", isPk: true },
+        { name: "voucher_no", type: "varchar", tsType: "string", nullable: false, comment: "凭证字号", formValidation: "required", queryType: "LIKE" },
+        { name: "account_id", type: "varchar", tsType: "string", nullable: false, comment: "资金账户ID", formValidation: "required", queryType: "EQ" },
+        { name: "direction", type: "varchar", tsType: "string", nullable: false, comment: "借贷方向", queryType: "EQ" },
+        { name: "amount", type: "decimal", tsType: "number", nullable: false, comment: "发生金额" },
+        { name: "summary", type: "varchar", tsType: "string", nullable: false, comment: "凭证摘要", formValidation: "required", queryType: "LIKE" },
+        { name: "voucher_time", type: "timestamp", tsType: "string", nullable: false, comment: "记账时间" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "审核状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+  {
+    moduleName: "fms",
+    className: "FmsReconcile",
+    businessName: "对账结算",
+    parentMenuId: "fms-dir",
+    permissionPrefix: "fms:reconcile",
+    table: {
+      name: "fms_reconcile",
+      comment: "财务账实核对结算单表",
+      columns: [
+        { name: "id", type: "varchar", tsType: "string", nullable: false, comment: "对账单ID", isPk: true },
+        { name: "reconcile_no", type: "varchar", tsType: "string", nullable: false, comment: "对账单号", formValidation: "required", queryType: "LIKE" },
+        { name: "account_id", type: "varchar", tsType: "string", nullable: false, comment: "资金账户ID", formValidation: "required", queryType: "EQ" },
+        { name: "statement_period", type: "varchar", tsType: "string", nullable: false, comment: "对账账期", queryType: "EQ" },
+        { name: "book_amount", type: "decimal", tsType: "number", nullable: false, comment: "账面总额" },
+        { name: "bank_amount", type: "decimal", tsType: "number", nullable: false, comment: "银行实收总额" },
+        { name: "diff_amount", type: "decimal", tsType: "number", nullable: false, comment: "轧差金额" },
+        { name: "status", type: "varchar", tsType: "string", nullable: false, comment: "平账状态", queryType: "EQ" },
+        { name: "tenant_id", type: "varchar", tsType: "string", nullable: false, comment: "租户ID" },
+        { name: "create_time", type: "timestamp", tsType: "string", nullable: false, comment: "创建时间" },
+      ],
+    },
+  },
+]

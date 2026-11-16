@@ -237,7 +237,6 @@ for (const [label, relPath, token] of [
   ["mp fans route", "src/app/api/v1/admin/mp/fans/route.ts", "MP_ACTION_SCHEMAS"],
   ["wms warehouse route", "src/app/api/v1/admin/wms/wms-warehouse/route.ts", "WMS_ACTION_SCHEMAS"],
   ["mes work-order route", "src/app/api/v1/admin/mes/mes-pro-work-order/route.ts", "MES_ACTION_SCHEMAS"],
-  ["aigw channels route", "src/app/api/v1/admin/aigw/channels/route.ts", "AIGW_ACTION_SCHEMAS"],
   ["iot devices route", "src/app/api/v1/admin/iot/devices/route.ts", "IOT_ACTION_SCHEMAS"],
 
   ["iot alerts route", "src/app/api/v1/admin/iot/alerts/route.ts", "IOT_ACTION_SCHEMAS"],

@@ -41,7 +41,7 @@ import {
 const TABLE_NAME = ${JSON.stringify(config.table.name)}
 const TABLE_COLUMNS = ${JSON.stringify(tableColumns)} as const
 const WRITABLE_COLUMNS = ${JSON.stringify(writableColumns)} as const
-const FILTERS = ${JSON.stringify(filters)} as Array<{ name: string; operator: DynamicQueryOperator }>
+const FILTERS = ${JSON.stringify(filters)} as unknown as Array<{ name: string; operator: DynamicQueryOperator }>
 const ORDER_COLUMN = ${JSON.stringify(persistOrderColumn(config))}
 const HAS_TENANT = ${hasTableColumn(config, "tenant_id")}
 const HAS_DELETED = ${hasTableColumn(config, "deleted")}

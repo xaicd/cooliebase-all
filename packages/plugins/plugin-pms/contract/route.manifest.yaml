@@ -1,0 +1,43 @@
+# Generated from packages/shared/backend/constants/domain-catalog.json
+# Do not hand-edit pack/upstream fields. Run: pnpm run domain:manifests
+domain: pms
+owner: pms
+kind: plugin
+stage: B
+contractVersion: v1
+implementation: local-ts
+publicPrefix:
+  - /api/v1/admin/pms
+upstream:
+  env: COOLIEBASE_DOMAIN_PMS_UPSTREAM
+  protocol: http
+  defaultPort: 3229
+auth:
+  audience: admin
+  tenantPolicy: required
+resilience:
+  timeoutMs: 15000
+  retry:
+    maxAttempts: 1
+    safeMethodsOnly: true
+  idempotencyRequired: true
+rollout:
+  mode: local
+messaging:
+  transport: in-process
+  queueGroup: cooliebase.pms
+  commandSubject: cooliebase.cmd.pms.>
+  eventSubject: cooliebase.evt.pms.>
+invoke:
+  colocated: sdk
+  remote: rpc
+  protocol: nats-rr
+  serialization: json
+  facade: required
+pack:
+  enabled: true
+  kind: api-only
+  independentDatabase: false
+  dependsOnModules:
+    - shared
+    - pms

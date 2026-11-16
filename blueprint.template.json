@@ -588,7 +588,7 @@
     "ENABLED_DOMAINS": {
       "group": "topologyAndDomains",
       "type": "string",
-      "default": "system,infra,online,mall,member,pay,bpm,crm,erp,wms,mes,ai,aigw,iot,im,mp,report",
+      "default": "system,infra,online,mall,member,pay,bpm,crm,erp,wms,mes,ai,iot,im,mp,report,oa,hrm,fms,pms",
       "description": "启用的业务域列表（逗号分隔）"
     },
     "ENABLED_CLIENTS": {

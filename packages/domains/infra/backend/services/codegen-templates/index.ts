@@ -5,7 +5,7 @@ import { generateValidator } from "./validator.template"
 import { generateRepository } from "./repository.template"
 import { generateService } from "./service.template"
 import { generateActions } from "./actions.template"
-import { generateRoute, generateActionRoutes } from "./route.template"
+import { generateRoute, generateItemRoute, generateActionRoutes } from "./route.template"
 import { generateApiClient } from "./frontend-api.template"
 import { generateFormComponent } from "./frontend-form.template"
 import { generateListPage } from "./frontend-list.template"
@@ -69,6 +69,7 @@ export function generateAllCodegenOutputs(config: CodegenConfig, options?: Gener
     generateService(config),
     generateActions(config),
     generateRoute(config),
+    generateItemRoute(config),
     ...generateActionRoutes(config),
     generateApiClient(config),
     generateFormComponent(config),

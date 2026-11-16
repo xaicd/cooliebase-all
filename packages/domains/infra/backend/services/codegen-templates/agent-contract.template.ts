@@ -54,6 +54,7 @@ export function generateAgentContract(config: CodegenConfig): CodegenOutput {
     // ---- 页面（agent-browser: goto -> 操作 -> 断言）----
     page: {
       route: `/admin/${moduleName}${sub}/${kebab}`,
+      menuTitle: jsxText(businessName).slice(0, 4),
       // 插件域若已插件化，页面仍由 Next 直接渲染；接口面走插件挂载点（见下）
       title: `${businessName}管理`,
       titleSelector: tx("title"),

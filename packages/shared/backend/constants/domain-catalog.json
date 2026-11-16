@@ -325,18 +325,21 @@
     "plugin": {
       "domains": [
         "ai",
-        "aigw",
         "bpm",
         "crm",
         "erp",
+        "fms",
+        "hrm",
         "im",
         "iot",
         "mall",
         "member",
         "mes",
         "mp",
+        "oa",
         "online",
         "pay",
+        "pms",
         "report",
         "wms"
       ],
@@ -797,36 +800,6 @@
       }
     },
     {
-      "name": "aigw",
-      "owner": "aigw",
-      "kind": "plugin",
-      "stage": "B",
-      "contractVersion": "v1",
-      "publicPrefixes": [
-        "/api/v1/admin/aigw",
-        "/api/v1/open/aigw"
-      ],
-      "implementation": "local-ts",
-      "upstreamEnv": "COOLIEBASE_DOMAIN_AIGW_UPSTREAM",
-      "defaultPort": 3226,
-      "packable": true,
-      "packKind": "api-only",
-      "dependsOnModules": [
-        "shared"
-      ],
-      "independentDatabase": false,
-      "auth": {
-        "audience": "admin",
-        "tenantPolicy": "required"
-      },
-      "resilience": {
-        "timeoutMs": 15000,
-        "retryMaxAttempts": 1,
-        "safeMethodsOnly": true,
-        "idempotencyRequired": true
-      }
-    },
-    {
       "name": "iot",
       "owner": "iot",
       "kind": "plugin",
@@ -879,6 +852,122 @@
       },
       "resilience": {
         "timeoutMs": 5000,
+        "retryMaxAttempts": 1,
+        "safeMethodsOnly": true,
+        "idempotencyRequired": true
+      }
+    },
+    {
+      "name": "oa",
+      "owner": "oa",
+      "kind": "plugin",
+      "stage": "B",
+      "contractVersion": "v1",
+      "publicPrefixes": [
+        "/api/v1/admin/oa"
+      ],
+      "implementation": "local-ts",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_OA_UPSTREAM",
+      "defaultPort": 3226,
+      "packable": true,
+      "packKind": "api-only",
+      "dependsOnModules": [
+        "shared"
+      ],
+      "independentDatabase": false,
+      "auth": {
+        "audience": "admin",
+        "tenantPolicy": "required"
+      },
+      "resilience": {
+        "timeoutMs": 15000,
+        "retryMaxAttempts": 1,
+        "safeMethodsOnly": true,
+        "idempotencyRequired": true
+      }
+    },
+    {
+      "name": "hrm",
+      "owner": "hrm",
+      "kind": "plugin",
+      "stage": "B",
+      "contractVersion": "v1",
+      "publicPrefixes": [
+        "/api/v1/admin/hrm"
+      ],
+      "implementation": "local-ts",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_HRM_UPSTREAM",
+      "defaultPort": 3227,
+      "packable": true,
+      "packKind": "api-only",
+      "dependsOnModules": [
+        "shared"
+      ],
+      "independentDatabase": false,
+      "auth": {
+        "audience": "admin",
+        "tenantPolicy": "required"
+      },
+      "resilience": {
+        "timeoutMs": 15000,
+        "retryMaxAttempts": 1,
+        "safeMethodsOnly": true,
+        "idempotencyRequired": true
+      }
+    },
+    {
+      "name": "fms",
+      "owner": "fms",
+      "kind": "plugin",
+      "stage": "B",
+      "contractVersion": "v1",
+      "publicPrefixes": [
+        "/api/v1/admin/fms"
+      ],
+      "implementation": "local-ts",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_FMS_UPSTREAM",
+      "defaultPort": 3228,
+      "packable": true,
+      "packKind": "api-only",
+      "dependsOnModules": [
+        "shared"
+      ],
+      "independentDatabase": false,
+      "auth": {
+        "audience": "admin",
+        "tenantPolicy": "required"
+      },
+      "resilience": {
+        "timeoutMs": 15000,
+        "retryMaxAttempts": 1,
+        "safeMethodsOnly": true,
+        "idempotencyRequired": true
+      }
+    },
+    {
+      "name": "pms",
+      "owner": "pms",
+      "kind": "plugin",
+      "stage": "B",
+      "contractVersion": "v1",
+      "publicPrefixes": [
+        "/api/v1/admin/pms"
+      ],
+      "implementation": "local-ts",
+      "upstreamEnv": "COOLIEBASE_DOMAIN_PMS_UPSTREAM",
+      "defaultPort": 3229,
+      "packable": true,
+      "packKind": "api-only",
+      "dependsOnModules": [
+        "shared"
+      ],
+      "independentDatabase": false,
+      "auth": {
+        "audience": "admin",
+        "tenantPolicy": "required"
+      },
+      "resilience": {
+        "timeoutMs": 15000,
         "retryMaxAttempts": 1,
         "safeMethodsOnly": true,
         "idempotencyRequired": true

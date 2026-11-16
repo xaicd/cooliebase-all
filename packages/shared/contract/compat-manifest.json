@@ -5,8 +5,8 @@
   "framework": {
     "name": "cooliebase-all",
     "role": "workspace-bundle",
-    "templateVersion": "1.2.0",
-    "releasedAt": "2026-10-10",
+    "templateVersion": "1.5.0",
+    "releasedAt": "2026-11-16",
     "note": "templateVersion tracks the TEMPLATE, not the hatched project. package.json version is the project's own and is deliberately not compared."
   },
   "deployment": {
@@ -18,6 +18,26 @@
     "basePathEnvKey": "NEXT_PUBLIC_BASE_PATH",
     "backendPrefixPattern": "/${slug}",
     "gatewayStripPrefix": false
+  },
+  "terminals": {
+    "admin": {
+      "workspace": "src/app/(admin-pages)/admin",
+      "routePrefix": "/admin",
+      "runtime": "next-app-router"
+    },
+    "portal2c": {
+      "workspace": "src/app/(portal-pages)",
+      "routePrefix": "/2c",
+      "runtime": "next-app-router"
+    },
+    "expo": {
+      "workspace": "clients/expo",
+      "runtime": "expo"
+    },
+    "miniapp": {
+      "workspace": "clients/miniapp",
+      "runtime": "uni-app-vue3-vite"
+    }
   },
   "apiPartitions": {
     "admin": {
@@ -93,11 +113,11 @@
     "domainCatalog": {
       "path": "packages/shared/backend/constants/domain-catalog.json",
       "version": 1,
-      "domains": 17
+      "domains": 20
     },
     "rpcActions": {
       "path": "packages/shared/backend/constants/rpc-actions.json",
-      "domains": 17
+      "domains": 20
     },
     "messagingProtocol": "v1",
     "agentProfile": {
