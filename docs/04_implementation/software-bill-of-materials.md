@@ -460,7 +460,7 @@
 | `defaults` | 1.0.4 | client | MIT |
 | `delaunator` | 5.1.0 | host | ISC |
 | `detect-libc` | 1.0.3 | host | Apache-2.0 |
-| `effect` | 3.20.0 | host | MIT |
+| `effect` | 3.22.4 | host | MIT |
 | `embedded-postgres` | 18.4.0-beta.17 | host | MIT |
 | `end-of-stream` | 1.4.5 | host | MIT |
 | `error-stack-parser` | 2.1.4 | client | MIT |

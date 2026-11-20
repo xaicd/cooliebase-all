@@ -39,6 +39,9 @@ overrides:
   happy-dom: 21.0.4
   node-forge: 1.4.3
   vite: ^7.3.7
+  # effect ReDoS 高危 (GHSA-7589-6fvf-x4pw, 经 @prisma/config 传递)：受影响 <3.22.1，补丁 >=3.22.1。
+  # 锁 ^3 大版本：>=3.22.1 会被解析到 effect@4.x，越过 @prisma/config 的 ^3 语义化边界。
+  effect: ^3.22.1
 
 # 从 .npmrc 迁来：**pnpm 12 不再读 .npmrc 里的这两项**（实测 `pnpm config get` 返回 undefined，
 # 即"写了但没生效"）。这里的键用 camelCase。
