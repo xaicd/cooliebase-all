@@ -60,11 +60,11 @@ pnpm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 
 
 全量测试文件合计请看生成物 [`docs/05_verification/test-summary-report.md`](../05_verification/test-summary-report.md)（由 `pnpm run test:summary` 自动生成，本表不重复硬编码文件计数）。
 
-## 4. 活跃规格（1 份，`docs/specs/<域>/<名>/`）
+## 4. 活跃规格（数量以真源为准，`docs/specs/<域>/<名>/`）
 
 > 复算：`ls docs/specs/*/*/brief.json 2>/dev/null | wc -l`
 
-活跃规格 **1** 份（`docs/specs/infra/stop-go-stubs/`，RPC 契约默认不再生成 Go 客户端桩）。新需求经 `pnpm run agent:route` 判定需立项后，通过 `pnpm run speckit:new` 创建并在投产后按 `pnpm run speckit:archive -- --name <名>` 归档。
+活跃规格以复算命令实测为准（当前含 `docs/specs/infra/stop-go-stubs/`、`docs/specs/infra/hatch-selfasset-slim/`，不在此写死数字）。新需求经 `pnpm run agent:route` 判定需立项后，通过 `pnpm run speckit:new` 创建并在投产后按 `pnpm run speckit:archive -- --name <名>` 归档。
 
 ## 5. 已知边界与诚实登记
 

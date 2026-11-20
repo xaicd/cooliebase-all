@@ -140,6 +140,13 @@ describe("hatch-profile", () => {
       "docs/01_management/dar-decision-records/pay-order-status-column-type.md",
       "docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md",
       "docs/07_release/RELEASE_NOTES_v1.1.0.md",
+      // 底座自留地（2026-11-20 · 与工坊母仓层B瘦身清单同源）：gen 存根树、scratch 脚手架、
+      // 母仓 agent 契约缓存(3.3M 可再生)、母仓 wiki、llms 全文缓存均不属派生项目
+      "gen/go/go.mod",
+      "scratch/port-force.sh",
+      "docs/agent/contracts.json",
+      "docs/wiki/index.md",
+      "llms-full.txt",
     ]) {
       expect(shouldSkipRelPath(polluted, plan), `${polluted} 必须被孵化器剥离`).toBe(true)
     }

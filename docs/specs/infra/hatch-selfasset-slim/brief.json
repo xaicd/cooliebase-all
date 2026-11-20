@@ -1,0 +1,137 @@
+{
+  "name": "hatch-selfasset-slim",
+  "domain": "infra",
+  "title": "hatch裁剪清单补齐底座自留地",
+  "type": "refactor",
+  "goal": "hatch 派生（clone-project-base / project-init 双入口）不再把蓝图母仓自身资产带进派生工程：gen 存根树、scratch 脚手架、docs/agent 契约缓存、docs/wiki、llms-full.txt 一律在 hatch 第一道闸剥离，与工坊母仓（coolie）层 B 文档层瘦身清单同源对齐。",
+  "baselineMetric": "派生工程残留 5 类母仓自留地：gen/（含 go 存根）、scratch/、docs/agent/（contracts.json 约 3.3M，可由 pnpm run agent:contracts 再生）、docs/wiki/（46 文件）、llms-full.txt（106K）。",
+  "targetMetric": "全档位 hatch 产物 0 残留上述 5 类路径；hatch-profile 单测 13/13 绿、pnpm run check 全绿。",
+  "roles": [
+    {
+      "role": "派生项目交付工程师",
+      "can": "开工即见干净工程树，不再误把母仓自留地当本项目资产维护"
+    },
+    {
+      "role": "工坊总 PMO",
+      "can": "层 A（本母仓）与层 B（工坊派生管线）瘦身清单同源，治理口径一致可审计"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "hatch-profile RETIRED_DIR_PREFIXES 增补 gen、scratch、docs/agent、docs/wiki；RETIRED_FILE_PREFIXES 增补 llms-full.txt"
+    },
+    {
+      "priority": "P0",
+      "text": "hatch-profile 单测覆盖 5 类新剥离路径（含 gen/go/go.mod、docs/agent/contracts.json 实例断言）"
+    },
+    {
+      "priority": "P1",
+      "text": "rtm-traceability-matrix 活跃规格计数改为真源命令引用，不再写死数字"
+    }
+  ],
+  "constraints": [
+    "前缀匹配语义必须是 rel === p || rel.startsWith(p + '/')，不得裸 startsWith（防误伤 docs/agents 类似名路径）。",
+    "只裁剪 hatch 复制层；母仓自身工作区资产不动（本仓开发仍依赖这些目录）。",
+    "与工坊母仓 layerb 派生瘦身清单（gen/scratch/docs/agent/docs/wiki/llms-full.txt）逐项同源。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm exec vitest run scripts/lib/__tests__/hatch-profile.test.ts scripts/lib/__tests__/hatch-profile-real-catalog.test.ts` 13/13 绿"
+    },
+    {
+      "check": "`pnpm run check` exit=0"
+    }
+  ],
+  "nonGoals": [
+    "不在本规格内裁剪 docs/architecture、CMMI 01-09 基线资产、TESTING.md（v2 记账）",
+    "不改 clone-project-base.cjs 白标化替换引擎（盲替换源头收敛属 v2）"
+  ],
+  "architecture": "单点真源：scripts/lib/hatch-profile.cjs 的 RETIRED_DIR_PREFIXES / RETIRED_FILE_PREFIXES → shouldSkipRelPath 被 clone-project-base.cjs:153 与 project-init.cjs:691 两个 hatch 入口共同消费，一处增补两处生效。",
+  "entities": [
+    {
+      "table": "（无数据库变更）",
+      "note": "纯 hatch 复制策略改动"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "清单同源不变量",
+      "how": "本仓 RETIRED 清单与 coolie 工坊 blueprint-derivation.ts copyTreeSlim/scrubLeakedBlueprintDocs 的瘦身项保持逐项一致，任一侧增删必须双向同步"
+    }
+  ],
+  "ui": [
+    "无 UI 变更"
+  ],
+  "ops": [
+    "蓝图热同步后由工坊母仓 blueprints-record --check 校验母本 Commit 新鲜度"
+  ],
+  "risks": [
+    {
+      "risk": "前缀误伤（如未来出现 genesis/ 或 docs/agents 目录）",
+      "mitigation": "目录前缀语义要求整段或带斜杠匹配；单测 keep-list 已覆盖边界语义"
+    },
+    {
+      "risk": "派生工程若真需要 wiki 类文档无处安放",
+      "mitigation": "派生项目文档应放 docs/ 本项目自建目录；母仓 wiki 是底座说明不适用客户工程"
+    }
+  ],
+  "screens": [
+    {
+      "name": "无界面",
+      "wireframe": "CLI 工具行为变更"
+    }
+  ],
+  "interactions": [
+    "保持既有 hatch CLI 参数与输出格式不变"
+  ],
+  "states": [
+    "加载中：不适用。",
+    "空数据：不适用。",
+    "出错：shouldSkipRelPath 对空 rel 返回 false，保持安全默认（不裁剪）。",
+    "成功：5 类路径静默剥离，hatch manifest 正常记录。"
+  ],
+  "candidates": [
+    {
+      "name": "复用既有 RETIRED 前缀清单机制",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无（零新依赖）"
+    }
+  ],
+  "benchmarks": [
+    "工坊母仓 spec: core/layerb-docs-slim（2026-11-20 同日落地）"
+  ],
+  "scan": [
+    "clone-project-base.cjs / project-init.cjs 双消费方调用链核查"
+  ],
+  "licenseConclusion": "不涉及第三方引入，无合规风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "RETIRED 清单增补 5 类母仓自留地（hatch-profile.cjs）",
+      "files": [
+        "scripts/lib/hatch-profile.cjs"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "单测覆盖新剥离路径与边界语义",
+      "files": [
+        "scripts/lib/__tests__/hatch-profile.test.ts"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "main",
+      "title": "rtm 活跃规格计数改真源命令引用，check 全绿验证",
+      "files": [
+        "docs/02_requirements/rtm-traceability-matrix.md"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 10
+}

@@ -283,6 +283,12 @@ const RETIRED_DIR_PREFIXES = Object.freeze([
   "docs/specs/system",
   "docs/features",
   ".kiro/specs",
+  // 底座自留地（2026-11-20 · 层B文档层瘦身对齐）：母仓自身资产不属派生项目，
+  // 与工坊母仓 layerb 派生瘦身清单（gen/scratch/docs/agent/docs/wiki/llms-full.txt）同源同步
+  "gen",
+  "scratch",
+  "docs/agent",
+  "docs/wiki",
   "docs/architecture/OPEN-SOURCE-TRACKING-MANUAL.md",
   "docs/architecture/CURRENT-PROGRESS.md",
   "docs/architecture/EVOLUTION-ROADMAP-2026.md",
@@ -309,6 +315,7 @@ const RETIRED_DIR_PREFIXES = Object.freeze([
  * **文件名前缀**裁剪（与目录前缀分开）：按 `rel.startsWith(p)` 匹配母本客户/外部调研/历史发布说明前缀。
  */
 const RETIRED_FILE_PREFIXES = Object.freeze([
+  "llms-full.txt",
   "docs/architecture/artifacts/all-next-starter-coverage-",
   "docs/architecture/artifacts/cooliebase-full-scan-",
   "docs/architecture/artifacts/upstream-radar-report",

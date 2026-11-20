@@ -1,0 +1,12 @@
+{
+  "name": "hatch-selfasset-slim",
+  "domain": "infra",
+  "title": "hatch裁剪清单补齐底座自留地",
+  "type": "refactor",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 2,
+  "invariants": 1,
+  "tasks": 3,
+  "updatedAt": "2026-11-20T09:24:53.214Z"
+}
