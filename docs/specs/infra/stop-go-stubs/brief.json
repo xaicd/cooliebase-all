@@ -1,0 +1,134 @@
+{
+  "name": "stop-go-stubs",
+  "domain": "infra",
+  "title": "RPC 契约默认不再生成 Go 客户端桩",
+  "type": "refactor",
+  "goal": "<!-- 待填: 一句话说清『重构目标：消除哪些技术债，达到何种架构整洁度』 -->",
+  "debtAnalysis": "<!-- 待填: 现有架构痛点、耦合点与坏味道 (Code Smells) -->",
+  "targetArchitecture": "<!-- 待填: 重构后的领域边界、分层与交互契约 -->",
+  "roles": [
+    {
+      "role": "业务研发工程师",
+      "can": "在整洁清晰的分层架构下快速扩展新特性"
+    },
+    {
+      "role": "架构委员会/审计员",
+      "can": "确信重构遵循领域边界铁律且无业务行为漂移"
+    }
+  ],
+  "stories": [
+    {
+      "priority": "P0",
+      "text": "<!-- 待填: 确立业务等价性安全网单测 (Parity Tests) -->"
+    },
+    {
+      "priority": "P0",
+      "text": "<!-- 待填: 运用绞杀者模式 (Strangler Fig) 逐步迁移模块 -->"
+    },
+    {
+      "priority": "P1",
+      "text": "<!-- 待填: 清除冗余遗留样板并验证全部门禁 -->"
+    }
+  ],
+  "constraints": [
+    "功能等价性：重构前后外部对外 API 行为与返回值 100% 等价保持。",
+    "跨域通信：必须经过 Domain Facade，禁止违规侵入内部私有服务。"
+  ],
+  "acceptance": [
+    {
+      "check": "`pnpm run check` exit=0"
+    },
+    {
+      "check": "`pnpm run test:matrix` exit=0 (真实 SQLite 矩阵 100% 通过)"
+    },
+    {
+      "check": "<!-- 待填: 业务等价性单测全部通过 -->"
+    }
+  ],
+  "nonGoals": [
+    "不在本次重构中增加未经评审的业务新功能"
+  ],
+  "architecture": "<!-- 待填: 目标分层架构图与依赖倒置示意 -->",
+  "entities": [
+    {
+      "table": "<!-- 待填: 涉及的表名 -->",
+      "note": "<!-- 待填 -->"
+    }
+  ],
+  "invariants": [
+    {
+      "name": "业务数据零破坏",
+      "how": "重构不涉及数据库表物理结构的破坏性变更"
+    }
+  ],
+  "ui": [
+    "<!-- 待填: 界面结构与交互完全保持等价 -->"
+  ],
+  "ops": [
+    "<!-- 待填: 灰度切换方案与快速回滚预案 -->"
+  ],
+  "risks": [
+    {
+      "risk": "隐式隐蔽副作用未被覆盖",
+      "mitigation": "变异测试打假与全量真实数据库集成测试"
+    }
+  ],
+  "screens": [
+    {
+      "name": "重构涉及模块",
+      "wireframe": "保持既有线框不变"
+    }
+  ],
+  "interactions": [
+    "保持既有交互模式不变"
+  ],
+  "states": [
+    "加载中：正常展示。",
+    "空数据：正常展示。",
+    "出错：正常展示。",
+    "成功：正常展示。"
+  ],
+  "candidates": [
+    {
+      "name": "模块化重构方案",
+      "type": "自研",
+      "license": "MIT",
+      "risk": "无"
+    }
+  ],
+  "benchmarks": [
+    "Clean Architecture 与 DDD 规范"
+  ],
+  "scan": [
+    "全仓静态分析与依赖引用图"
+  ],
+  "licenseConclusion": "无外部依赖许可风险",
+  "tasks": [
+    {
+      "id": "T1",
+      "parent": "main",
+      "title": "建立业务等价性自动化测试基线",
+      "files": [
+        "<!-- 待填: 测试文件 -->"
+      ]
+    },
+    {
+      "id": "T2",
+      "parent": "T1",
+      "title": "按领域分层重构实现与契约迁移",
+      "files": [
+        "<!-- 待填: 重构代码 -->"
+      ]
+    },
+    {
+      "id": "T3",
+      "parent": "main",
+      "title": "清理旧实现并验证无回归债务",
+      "files": [
+        "-"
+      ]
+    }
+  ],
+  "dependencies": "T1 → T2 → T3",
+  "windowMinutes": 15
+}

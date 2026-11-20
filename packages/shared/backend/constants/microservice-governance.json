@@ -323,14 +323,6 @@
       "marker": "service PayService"
     },
     {
-      "id": "goStub",
-      "moleculer": "Go client SDK",
-      "nestNats": "generated client",
-      "status": "DONE",
-      "ref": "gen/go/pay/v1/service.go",
-      "marker": "type PayService interface"
-    },
-    {
       "id": "httpRpc",
       "moleculer": "remote transporter hop",
       "nestNats": "ClientProxy over HTTP",
@@ -388,7 +380,6 @@
     "contractActions",
     "rpcActionsCatalog",
     "domainProto",
-    "goStub",
     "httpRpc",
     "splitRuntime",
     "lowcodeTemplates",

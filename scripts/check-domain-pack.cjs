@@ -88,16 +88,11 @@ for (const domain of domains) {
   if (!rpcCatalog.domains[domain.name]) fail(`rpc-actions.json missing domain ${domain.name}`)
   const expected = renderDomain(domain.name, rpcCatalog)
   const targets = contractPaths(domain.name)
-  for (const [kind, file] of [["actions", targets.actions], ["facade", targets.facade], ["proto", targets.proto], ["go", targets.go]]) {
+  for (const [kind, file] of [["actions", targets.actions], ["facade", targets.facade], ["proto", targets.proto]]) {
     if (!fs.existsSync(file)) fail(`missing ${kind} ${path.relative(ROOT, file)}; run pnpm run domain:contracts`)
     const actual = fs.readFileSync(file, "utf8")
     if (actual !== expected[kind]) fail(`contract drift ${path.relative(ROOT, file)}; run pnpm run domain:contracts`)
   }
-}
-
-const goModPath = path.join(ROOT, "gen", "go", "go.mod")
-if (!fs.existsSync(goModPath) || !fs.readFileSync(goModPath, "utf8").includes("module cooliebase/all-base/gen")) {
-  fail("missing gen/go/go.mod; run pnpm run domain:contracts")
 }
 
 if (!fs.existsSync(path.join(ROOT, "src", "app", "api", "internal", "rpc", "route.ts"))) {
@@ -110,4 +105,4 @@ try {
   fail(error.message || String(error))
 }
 
-console.log(`[domain-pack:check] PASS: ${domains.length} domains have packable modules, API prefixes, route manifests, RPC contracts, Go stubs, and ${SEAM_GRAPH_REL}`)
+console.log(`[domain-pack:check] PASS: ${domains.length} domains have packable modules, API prefixes, route manifests, RPC contracts, and ${SEAM_GRAPH_REL}`)

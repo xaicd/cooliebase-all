@@ -16,7 +16,7 @@ if (!Array.isArray(catalog.capabilities) || catalog.capabilities.length < 20) {
 }
 
 // required 从真源读（此前硬编码在这里，与 JSON 两处维护 —— 孵化裁剪时必然漏掉一处）
-const required = catalog.required ?? ["broker", "gateway", "action", "event", "queueGroup", "registry", "circuitBreaker", "bulkhead", "fallback", "natsAdapter", "jetStream", "outbox", "cacher", "validator", "moduleLayers", "dualInvoke", "rpcCodec", "rpcFacade", "rpcTransport", "grpcAdapter", "protobufCodec", "contractActions", "rpcActionsCatalog", "domainProto", "goStub", "httpRpc", "splitRuntime", "lowcodeTemplates", "schemaConfluence"]
+const required = catalog.required ?? ["broker", "gateway", "action", "event", "queueGroup", "registry", "circuitBreaker", "bulkhead", "fallback", "natsAdapter", "jetStream", "outbox", "cacher", "validator", "moduleLayers", "dualInvoke", "rpcCodec", "rpcFacade", "rpcTransport", "grpcAdapter", "protobufCodec", "contractActions", "rpcActionsCatalog", "domainProto", "httpRpc", "splitRuntime", "lowcodeTemplates", "schemaConfluence"]
 for (const id of required) {
   const item = catalog.capabilities.find((capability) => capability.id === id)
   if (!item || item.status === "TODO") fail(`${id} must not be TODO`)
@@ -96,11 +96,6 @@ if (hasDomain("pay")) {
   const protoPath = path.join(domainPathOf(ROOT, "pay"), "contract", "pay.proto")
   if (!fs.existsSync(protoPath) || !fs.readFileSync(protoPath, "utf8").includes("service PayService")) {
     fail("pay.proto must declare PayService; run pnpm run domain:contracts")
-  }
-
-  const goStubPath = path.join(ROOT, "gen", "go", "pay", "v1", "service.go")
-  if (!fs.existsSync(goStubPath) || !fs.readFileSync(goStubPath, "utf8").includes("type PayService interface")) {
-    fail("gen/go/pay/v1/service.go must declare PayService; run pnpm run domain:contracts")
   }
 }
 

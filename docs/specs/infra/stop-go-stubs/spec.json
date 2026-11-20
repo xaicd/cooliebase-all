@@ -1,0 +1,12 @@
+{
+  "name": "stop-go-stubs",
+  "domain": "infra",
+  "title": "RPC 契约默认不再生成 Go 客户端桩",
+  "type": "refactor",
+  "status": "PLAN_APPROVED",
+  "stories": 3,
+  "acceptance": 3,
+  "invariants": 1,
+  "tasks": 3,
+  "updatedAt": "2026-11-20T07:46:25.814Z"
+}

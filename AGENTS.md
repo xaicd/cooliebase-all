@@ -684,7 +684,7 @@ L3 只覆盖**契约产物**的一致性。新增契约产物测试请放进 `pa
 3. 一体运行：pnpm run dev（或 pnpm run runtime:all）
 4. 域独立运行：pnpm run domain:dev -- pay
 5. 拆分部署（BFF + pay，Facade RPC）：pnpm run runtime:split 或 pnpm run domain:up -- pay
-6. 域 RPC 契约：pnpm run domain:contracts（生成 TS Facade / proto / gen/go 桩）
+6. 域 RPC 契约：pnpm run domain:contracts（生成 TS Facade / proto，不生成 Go 桩）
 7. 微服务治理门禁：pnpm run microservice:check
 8. 全域初始化与最新 SQL 编译（唯一官方标准入口）：`pnpm run build:init-sql`（对应 `scripts/build-v1-init-sql.ts`，严禁编写临时 scratch 导出脚本！）
 

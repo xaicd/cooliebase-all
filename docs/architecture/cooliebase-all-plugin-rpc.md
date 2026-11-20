@@ -84,7 +84,7 @@ await pay.createOrder({ amount: 9900 }, { caller: "mall.order", idempotencyKey: 
 2. **Thrift**：多一套 IDL 与运行时，收益不足以覆盖现有 NATS subject 契约。
 3. **Moleculer / NestJS transporter**：只对标治理能力，不引入运行时。
 
-阶段 C 的 gRPC **只替换** Facade 后面的 remote adapter（`dispatchRemoteAction`）。方法名、DTO、权限与 tenant 语义保持不变；浏览器 HTTP 契约不变。当前实现是自研 unary：路径 `/cooliebase.<domain>.v1.<Domain>Service/<Method>`，5 字节帧 + protojson，不引入 grpc 运行时。每域 `.proto` 与 Go 客户端桩（`gen/go/<domain>/v1/service.go`）已生成；Go 侧通过 `Invoker` 对接传输，尚未接入官方 grpc-go。
+阶段 C 的 gRPC **只替换** Facade 后面的 remote adapter（`dispatchRemoteAction`）。方法名、DTO、权限与 tenant 语义保持不变；浏览器 HTTP 契约不变。当前实现是自研 unary：路径 `/cooliebase.<domain>.v1.<Domain>Service/<Method>`，5 字节帧 + protojson，不引入 grpc 运行时。每域 `.proto` 已生成；仓库默认**不再**生成 Go 客户端桩（`gen/go/` 已移除），外部 Go 消费方按需依据 `.proto` 自行生成客户端。
 
 ## 5. 双模切换规则
 
@@ -113,11 +113,10 @@ broker.start({ COOLIEBASE_PACK_DOMAIN: "pay", COOLIEBASE_RPC_PROTOCOL: "grpc" })
 6. 契约 action schema：`packages/domains/<domain>/contract/actions.ts`（由 `rpc-actions.json` 生成）
 7. 域 Facade：`packages/domains/<domain>/contract/<domain>.facade.ts`
 8. Go proto：`packages/domains/<domain>/contract/<domain>.proto`（`pnpm run domain:contracts`）
-9. Go 客户端桩：`gen/go/<domain>/v1/service.go`（无 grpc-go 运行时，注入 `Invoker`）
-10. Broker 分发：`packages/shared/backend/lib/service-broker.ts`；`rpc-actions.json` 的 `service`/`module`/`target` 指定落到哪个 Service 文件
-11. 跨进程 RPC：`packages/shared/backend/lib/rpc-http.ts`，入口 `POST /api/internal/rpc`
-12. 门禁：`pnpm run microservice:check` 与 `pnpm run domain:check`
-13. 低代码：Online 预览/下载走 `infraPlatformFacade.previewCodegen` / `generateCodegen`；字典走 `systemPublicFacade.getDictDataByType`；模板引擎 Facade 预置与 codegen ZIP / module-pack 输出 `createDomainFacade` 与 `*.rpc.ts`
+9. Broker 分发：`packages/shared/backend/lib/service-broker.ts`；`rpc-actions.json` 的 `service`/`module`/`target` 指定落到哪个 Service 文件
+10. 跨进程 RPC：`packages/shared/backend/lib/rpc-http.ts`，入口 `POST /api/internal/rpc`
+11. 门禁：`pnpm run microservice:check` 与 `pnpm run domain:check`
+12. 低代码：Online 预览/下载走 `infraPlatformFacade.previewCodegen` / `generateCodegen`；字典走 `systemPublicFacade.getDictDataByType`；模板引擎 Facade 预置与 codegen ZIP / module-pack 输出 `createDomainFacade` 与 `*.rpc.ts`
 
 ## 7. 低代码模板与生成器
 

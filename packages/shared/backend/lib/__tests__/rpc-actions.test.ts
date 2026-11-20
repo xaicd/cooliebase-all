@@ -1,4 +1,3 @@
-import { readFileSync } from "node:fs"
 import path from "node:path"
 import { describe, expect, it } from "vitest"
 import { listDomainCatalog } from "../../constants/domain-catalog"
@@ -195,9 +194,5 @@ describe("rpc action contracts", () => {
     expect(grpcMethodPath("system", "resolveTenantEntitlement")).toBe("/cooliebase.system.v1.SystemService/ResolveTenantEntitlement")
     expect(rpcActions.exposure.system.public).toEqual(["getDictDataByType", "getPermissionInfoByUser"])
     expect(rpcActions.exposure.infra.public).toEqual([])
-    const goStub = readFileSync(path.resolve(process.cwd(), "gen/go/pay/v1/service.go"), "utf8")
-    expect(goStub).toContain('CreateOrderPath = "/cooliebase.pay.v1.PayService/CreateOrder"')
-    expect(goStub).toContain("type PayService interface")
-    expect(goStub).toContain("func (c *Client) CreateOrder")
   })
 })
