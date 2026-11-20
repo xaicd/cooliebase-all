@@ -469,6 +469,57 @@ function pruneDomainReferenceLists(destRoot, plan) {
     }
   }
 
+  // 4.5b) 机检基准线全量清洗: gate-assets 下**所有** JSON 基准线都可能含被裁域路径
+  //      （0.8.9 上游同步新增了 agent-native / design-tokens / handwritten-files /
+  //      route-validation / typecheck 等多个 baseline，只洗 engineering-standards 会漏，
+  //      孵化自检 assertNoStaleDomainReferences 直接判红 —— 实测踩过）。逐一枚举必再漏，
+  //      这里遍历目录全量清洗。
+  {
+    const gaDir = path.join(destRoot, "packages/shared/contract/gate-assets")
+    const pruned = new Set(["pay","report","bpm","mp","member","iot","erp","im","crm","wms","mall","mes"].filter((d) => !keep.has(d)))
+    if (fs.existsSync(gaDir) && pruned.size > 0) {
+      for (const entry of fs.readdirSync(gaDir)) {
+        if (!entry.endsWith(".json")) continue
+        const rel = `packages/shared/contract/gate-assets/${entry}`
+        const text = read(rel)
+        if (!text) continue
+        let json
+        try { json = JSON.parse(text) } catch { continue }
+        let hit = 0
+        const scrubAll = (value) => {
+          if (typeof value === "string") {
+            for (const domain of pruned) {
+              if (value.includes(`plugins/plugin-${domain}/`) || value.includes(`domains/${domain}/`)) { hit++; return undefined }
+            }
+            return value
+          }
+          if (Array.isArray(value)) return value.map(scrubAll).filter((v) => v !== undefined)
+          if (value && typeof value === "object") {
+            const out = {}
+            for (const [k, v] of Object.entries(value)) {
+              if (typeof k === "string") {
+                let skip = false
+                for (const domain of pruned) {
+                  if (k.includes(`plugins/plugin-${domain}/`) || k.includes(`domains/${domain}/`)) { skip = true; hit++; break }
+                }
+                if (skip) continue
+              }
+              const cleaned = scrubAll(v)
+              if (cleaned !== undefined) out[k] = cleaned
+            }
+            return out
+          }
+          return value
+        }
+        const cleaned = scrubAll(json)
+        if (hit > 0) {
+          write(rel, `${JSON.stringify(cleaned, null, 2)}\n`)
+          dropped.push(`${rel}: ${hit} 条指向被裁域的路径`)
+        }
+      }
+    }
+  }
+
   // 4.6) 兼容性契约: 里面有从域集派生的**计数**。裁剪后必须**全部**重算 ——
   //      逐一补会漏（实测连撞两次: domainCatalog.domains 之后还有 rpcActions.domains）。
   //      这里按"每个计数都能在真源里数出来"来做，不再枚举。
