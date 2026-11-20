@@ -42,8 +42,8 @@ interface AgentContractsRegistry {
 
 function loadAgentContractsRegistry(): AgentContractsRegistry {
   const candidates = [
-    path.join(process.cwd(), "docs", "agent", "contracts.json"),
-    path.resolve(__dirname, "../../../../../docs/agent/contracts.json"),
+    path.join(process.cwd(), "packages", "shared", "contract", "agent-contracts.json"),
+    path.resolve(__dirname, "../../../../../packages/shared/contract/agent-contracts.json"),
   ]
   for (const file of candidates) {
     if (fs.existsSync(file)) {
@@ -54,7 +54,7 @@ function loadAgentContractsRegistry(): AgentContractsRegistry {
 }
 
 /**
- * 将全量 Agent 契约（docs/agent/contracts.json）动态编译为 OpenAPI 3.1.0 标准文档
+ * 将全量 Agent 契约（packages/shared/contract/agent-contracts.json）动态编译为 OpenAPI 3.1.0 标准文档
  */
 export function buildOpenApi31Spec(domainFilter?: string, basePath = getBasePath()) {
   const registry = loadAgentContractsRegistry()

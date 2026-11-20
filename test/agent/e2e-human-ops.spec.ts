@@ -44,7 +44,7 @@ type AgentContract = {
   }
 }
 
-const registryPath = path.resolve(__dirname, "..", "..", "docs", "agent", "contracts.json")
+const registryPath = path.resolve(__dirname, "..", "..", "packages", "shared", "contract", "agent-contracts.json")
 const registry: { contracts: AgentContract[] } = fs.existsSync(registryPath)
   ? (JSON.parse(fs.readFileSync(registryPath, "utf8")) as { contracts: AgentContract[] })
   : { contracts: [] }
@@ -278,7 +278,7 @@ test.describe("L4 Agent: E2E 页面拟人运营配置与全链路交易验证 (Z
 
     for (const step of MALL_HUMAN_OPS_PLAYBOOK) {
       const contract = registry.contracts.find((c) => c.domain === "mall" && c.kebab === step.kebab)
-      expect(contract, `mall.${step.kebab} 必须存在于 docs/agent/contracts.json`).toBeDefined()
+      expect(contract, `mall.${step.kebab} 必须存在于 packages/shared/contract/agent-contracts.json`).toBeDefined()
       expect(contract?.page.route).toBe(step.route)
       expect(contract?.selectors.createButton).toBe(step.selectors.createButton)
       expect(contract?.selectors.form).toBe(step.selectors.form)

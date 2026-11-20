@@ -576,7 +576,7 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
   // 4. 扫描工程门禁与技术债待办池
   const techDebts = [];
   if (isCoolieBase) {
-    const evoPath = path.join(repoRoot, "docs/architecture/artifacts/evolution-backlog.json");
+    const evoPath = path.join(repoRoot, "packages/shared/contract/gate-assets/evolution-backlog.json");
     if (fs.existsSync(evoPath)) {
       try {
         const evo = JSON.parse(fs.readFileSync(evoPath, "utf8"));
@@ -609,11 +609,11 @@ function analyzeRepoPmo(repoRoot, opts = {}) {
     let typecheckKeys = 58;
     let contractGovCount = 0;
     try {
-      const tcPath = path.join(repoRoot, "docs/architecture/artifacts/typecheck-baseline.json");
+      const tcPath = path.join(repoRoot, "packages/shared/contract/gate-assets/typecheck-baseline.json");
       if (fs.existsSync(tcPath)) {
         typecheckKeys = JSON.parse(fs.readFileSync(tcPath, "utf8")).uniqueKeys ?? typecheckKeys;
       }
-      const cgPath = path.join(repoRoot, "docs/architecture/artifacts/contract-governance-baseline.json");
+      const cgPath = path.join(repoRoot, "packages/shared/contract/gate-assets/contract-governance-baseline.json");
       if (fs.existsSync(cgPath)) {
         contractGovCount = JSON.parse(fs.readFileSync(cgPath, "utf8")).count ?? contractGovCount;
       }

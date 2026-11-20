@@ -56,7 +56,7 @@
       {
         "name": "high-order-prompts",
         "order": -40,
-        "path": "docs/architecture/universal-high-order-inverse-prompts.md"
+        "path": "packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md"
       },
       {
         "name": "soul",
@@ -212,7 +212,7 @@
   ],
   "trace": {
     "sprintProd": "docs/features/sprint-prod/",
-    "gateArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
+    "gateArtifact": "packages/shared/contract/gate-assets/harness-trace-latest.json",
     "writer": "scripts/write-harness-trace.cjs",
     "note": "Human log is append-only sprint-prod. Gate stamp is written by pnpm run check. Session events stay in DigitalStaff."
   },

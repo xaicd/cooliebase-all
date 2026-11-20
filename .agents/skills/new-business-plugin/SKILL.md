@@ -189,7 +189,7 @@ pnpm run dev                      # 运行（或 ./start.sh app）
 
 每张表产出 `<插件根>/agent/<kebab>.agent.json`：页面路由、接口面、鉴权、选择器、
 无障碍标签、旅程、运营动作，外加 `agentNative` 段（上面的属性规范，机器可读）。
-汇总: `pnpm run agent:contracts` → `docs/agent/contracts.json`。
+汇总: `pnpm run agent:contracts` → `packages/shared/contract/agent-contracts.json`。
 
 ### 9.3 两个通用 runner（消费契约，无需逐域写代码）
 
@@ -223,5 +223,5 @@ pnpm test:agent                                # L4: 契约驱动的浏览器端
 ## 11. 权威文档
 
 `AGENTS.md`（§3.2 目录与插件、§9.5 表定义真源、§14 代码生成、§17 基座边界、§19 零浪费）、
-`pnpm run domains:parity -- --source <上游克隆路径>`（与源框架的能力对账；**只输出到 stdout、不落盘**，且需要先克隆上游仓库 —— 此前这里写的是一个**并不存在**的产物路径 `docs/architecture/artifacts/source-parity-report.md`）、
+`pnpm run domains:parity -- --source <上游克隆路径>`（与源框架的能力对账；**只输出到 stdout、不落盘**，且需要先克隆上游仓库 —— 此前这里写的是一个**并不存在**的产物路径 `packages/shared/contract/gate-assets/source-parity-report.md`）、
 `pnpm run domains:capabilities`（按域盘点）。

@@ -4,7 +4,7 @@ import fs from "node:fs"
 import path from "node:path"
 import { runAutopilotCycle } from "@/shared/backend/lib/agent-autopilot"
 
-const HEARTBEAT_FILE = path.join(/*turbopackIgnore: true*/ process.cwd(), "docs", "architecture", "artifacts", "agent-autopilot-heartbeat.json")
+const HEARTBEAT_FILE = path.join(/*turbopackIgnore: true*/ process.cwd(), "packages", "shared", "contract", "gate-assets", "agent-autopilot-heartbeat.json")
 
 function verifyInternalToken(request: Request): boolean {
   const token = process.env.COOLIEBASE_RPC_TOKEN || process.env.COOLIEBASE_INTERNAL_TOKEN

@@ -28,7 +28,7 @@ const fs = require("fs")
 const path = require("path")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
-const BASELINE_REL = "docs/architecture/artifacts/agent-contract-coverage-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/agent-contract-coverage-baseline.json"
 const CATALOG_REL = "packages/shared/backend/constants/domain-catalog.json"
 const PLATFORM_DOMAINS = new Set(["system", "infra"])
 

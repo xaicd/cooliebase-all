@@ -253,29 +253,45 @@ function matchesDomainPrefix(rel, domain) {
 }
 
 /**
- * `docs/architecture/artifacts/` 仅允许携带门禁链运行必需的静态基线 JSON。
- * 母本运行期心跳、分诊痕迹、压测/扫描结果及历史盘点草稿一律拦截，绝不污染 Layer-B 派生工程。
+ * 机读资产区 = `packages/shared/contract/gate-assets/`（2026-11-20 v2 定位修复）。
+ * 门禁基线/机读契约是**代码**不是文档 —— 必须与人读文档区（docs/）分离，
+ * 否则任何"文档瘦身"都会误伤门禁真源（实测：docs/agent 退役炸穿 nav 页面标题真源）。
+ * 派生时这些资产**重定位**到机读区，老路径一律不落盘。
  */
-const GATE_REQUIRED_ARTIFACTS = new Set([
-  "docs/architecture/artifacts/admin-route-policy-baseline.json",
-  "docs/architecture/artifacts/agent-contract-coverage-baseline.json",
-  "docs/architecture/artifacts/agent-native-baseline.json",
-  "docs/architecture/artifacts/agent-route-coverage-baseline.json",
-  "docs/architecture/artifacts/clause-mechanism-map.json",
-  "docs/architecture/artifacts/contract-governance-baseline.json",
-  "docs/architecture/artifacts/deps-audit-baseline.json",
-  "docs/architecture/artifacts/design-tokens-baseline.json",
-  "docs/architecture/artifacts/engineering-standards-baseline.json",
-  "docs/architecture/artifacts/frontend-raw-fetch-baseline.json",
-  "docs/architecture/artifacts/handwritten-files-baseline.json",
-  "docs/architecture/artifacts/harness-unreachable-scripts.json",
-  "docs/architecture/artifacts/menu-title-length-baseline.json",
-  "docs/architecture/artifacts/route-validation-baseline.json",
-  "docs/architecture/artifacts/socratic-inquiry-latest.json",
-  "docs/architecture/artifacts/typecheck-baseline.json",
-  "docs/architecture/artifacts/write-path-depth-baseline.json",
-  "docs/architecture/artifacts/write-path-depth-evidence-baseline.json",
+const GATE_ASSETS_DIR = "packages/shared/contract/gate-assets"
+
+/** 派生时 from(母本老路径) → to(派生机读区新路径) 的重定位表。 */
+const RELOCATED_ASSETS = Object.freeze([
+  // 门禁链运行必需的静态基线 JSON（母本运行期心跳/压测/扫描等非基线不迁）
+  ...[
+    "admin-route-policy-baseline.json",
+    "agent-contract-coverage-baseline.json",
+    "agent-native-baseline.json",
+    "agent-route-coverage-baseline.json",
+    "clause-mechanism-map.json",
+    "contract-governance-baseline.json",
+    "deps-audit-baseline.json",
+    "design-tokens-baseline.json",
+    "engineering-standards-baseline.json",
+    "frontend-raw-fetch-baseline.json",
+    "handwritten-files-baseline.json",
+    "harness-unreachable-scripts.json",
+    "menu-title-length-baseline.json",
+    "route-validation-baseline.json",
+    "socratic-inquiry-latest.json",
+    "typecheck-baseline.json",
+    "write-path-depth-baseline.json",
+    "write-path-depth-evidence-baseline.json",
+  ].map((name) => ({ from: `docs/architecture/artifacts/${name}`, to: `${GATE_ASSETS_DIR}/${name}` })),
+  // nav 页面中文标题第一真源（机读契约, 曾被 docs/agent 整目录退役误杀）
+  { from: "docs/agent/contracts.json", to: "packages/shared/contract/agent-contracts.json" },
+  // 守卫门强制挂载的治理大纲与高阶提示词库（机读守卫资产, 非 AI 注入规则）
+  { from: "docs/architecture/universal-high-order-inverse-prompts.md", to: `${GATE_ASSETS_DIR}/universal-high-order-inverse-prompts.md` },
+  { from: "docs/architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md", to: `${GATE_ASSETS_DIR}/ai-driven-full-lifecycle-governance-and-reinforcement.md` },
 ])
+
+/** 门禁必需资产（新机读区路径）——供守卫与测试断言用。 */
+const GATE_REQUIRED_ARTIFACTS = new Set(RELOCATED_ASSETS.map((entry) => entry.to))
 
 const RETIRED_DIR_PREFIXES = Object.freeze([
   "docs/architecture/archive",
@@ -334,7 +350,11 @@ function shouldSkipRelPath(relPath, plan = {}) {
   for (const prefix of RETIRED_FILE_PREFIXES) {
     if (rel.startsWith(prefix)) return true
   }
-  if (rel.startsWith("docs/architecture/artifacts/") && !GATE_REQUIRED_ARTIFACTS.has(rel)) {
+  // 老机读路径整体不落盘（门禁必需者由 RELOCATED_ASSETS 重定位 pass 落到新机读区）
+  if (rel.startsWith("docs/architecture/artifacts/")) return true
+  if (RELOCATED_ASSETS.some((entry) => entry.from === rel)) return true
+  // 新机读区同样只放行门禁必需资产 —— 运行期心跳/分诊痕迹/压测结果不随派生污染
+  if (rel.startsWith("packages/shared/contract/gate-assets/") && !GATE_REQUIRED_ARTIFACTS.has(rel)) {
     return true
   }
   if (rel.startsWith("docs/01_management/dar-decision-records/") && rel.endsWith(".md")) {
@@ -403,6 +423,8 @@ module.exports = {
   PROFILES,
   PLATFORM_COMPANIONS,
   DOMAIN_PATH_PREFIXES,
+  GATE_ASSETS_DIR,
+  RELOCATED_ASSETS,
   parseArgv,
   helpText,
   resolveHatchPlan,

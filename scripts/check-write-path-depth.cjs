@@ -30,16 +30,16 @@
  * ## 棘轮
  *
  * 存量规格（历史遗留，brief 里没有这些声明）冻结在
- * `docs/architecture/artifacts/write-path-depth-baseline.json`，**只减不增**。
+ * `packages/shared/contract/gate-assets/write-path-depth-baseline.json`，**只减不增**。
  */
 const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE_REL = "docs/architecture/artifacts/write-path-depth-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/write-path-depth-baseline.json"
 const BASELINE = path.join(ROOT, BASELINE_REL)
 /** 「已声明深度测试、但还没有结构化证据」的存量规格（棘轮：只减不增）。 */
-const EVIDENCE_BASELINE_REL = "docs/architecture/artifacts/write-path-depth-evidence-baseline.json"
+const EVIDENCE_BASELINE_REL = "packages/shared/contract/gate-assets/write-path-depth-evidence-baseline.json"
 const EVIDENCE_BASELINE = path.join(ROOT, EVIDENCE_BASELINE_REL)
 
 const DEPTH_MARKERS = /(E2E|真实|落库|数据库|对抗|API 拦截)/i

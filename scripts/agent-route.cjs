@@ -114,7 +114,7 @@ if (!noLog) {
 }
 
 // ── 机器可读记录：供 hooks / 门禁核对"这条需求跑过分诊没有" ────────────────────
-const artifact = process.env.AGENT_ROUTE_ARTIFACT ?? path.join(ROOT, "docs", "architecture", "artifacts", "agent-route-last.json")
+const artifact = process.env.AGENT_ROUTE_ARTIFACT ?? path.join(ROOT, "packages", "shared", "contract", "gate-assets", "agent-route-last.json")
 fs.mkdirSync(path.dirname(artifact), { recursive: true })
 fs.writeFileSync(artifact, `${JSON.stringify(record, null, 2)}\n`)
 

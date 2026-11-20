@@ -68,9 +68,9 @@ check("Rule-Mounting", () => {
   }
 
   // 检查通用高阶反向提示词库文件存在性与 5 大模版完备性
-  const promptLibPath = path.join(ROOT, "docs/architecture/universal-high-order-inverse-prompts.md");
+  const promptLibPath = path.join(ROOT, "packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md");
   if (!fs.existsSync(promptLibPath)) {
-    throw new Error("缺失 docs/architecture/universal-high-order-inverse-prompts.md 通用提示词库文件！");
+    throw new Error("缺失 packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md 通用提示词库文件！");
   }
   const promptLibContent = fs.readFileSync(promptLibPath, "utf8");
   if (!promptLibContent.includes("模版 1") || !promptLibContent.includes("模版 5")) {
@@ -78,9 +78,9 @@ check("Rule-Mounting", () => {
   }
 
   // 检查 AI-Driven 全生命周期 6 大阶段治理大纲
-  const lifecyclePath = path.join(ROOT, "docs/architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md");
+  const lifecyclePath = path.join(ROOT, "packages/shared/contract/gate-assets/ai-driven-full-lifecycle-governance-and-reinforcement.md");
   if (!fs.existsSync(lifecyclePath)) {
-    throw new Error("缺失 docs/architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md 全生命周期治理大纲！");
+    throw new Error("缺失 packages/shared/contract/gate-assets/ai-driven-full-lifecycle-governance-and-reinforcement.md 全生命周期治理大纲！");
   }
   const lifecycleContent = fs.readFileSync(lifecyclePath, "utf8");
   const requiredPhases = ["需求", "设计", "开发", "测试", "运营", "运维"];

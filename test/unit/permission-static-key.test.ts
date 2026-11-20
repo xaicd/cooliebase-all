@@ -11,7 +11,7 @@ describe("permission-naming-unify: kebab permissionPrefix, zero governance debt,
 
   it("tightens contract-governance-baseline.json from 338 to 0 and enforces kebab permissionPrefix across all 352 plugin contracts", () => {
     const baseline = JSON.parse(
-      fs.readFileSync(path.join(root, "docs/architecture/artifacts/contract-governance-baseline.json"), "utf8"),
+      fs.readFileSync(path.join(root, "packages/shared/contract/gate-assets/contract-governance-baseline.json"), "utf8"),
     )
     expect(baseline.count).toBe(0)
     expect(baseline.entries).toEqual([])

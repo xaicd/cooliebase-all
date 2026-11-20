@@ -23,7 +23,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE = path.join(ROOT, "docs", "architecture", "artifacts", "route-validation-baseline.json")
+const BASELINE = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "route-validation-baseline.json")
 /**
  * 校验的三种实现方式，缺一不可：
  *  · `.parse(` / `.safeParse(` —— 直接调 Zod；

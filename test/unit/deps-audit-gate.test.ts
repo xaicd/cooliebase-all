@@ -10,7 +10,7 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
  *
  * ## 为什么跑在**隔离根**上（实测：这个文件曾是最大的污染源）
  *
- * 本文件原来直接改真仓的基线：把一个 7.5 秒的窗口开在 `docs/architecture/artifacts/deps-audit-baseline.json`
+ * 本文件原来直接改真仓的基线：把一个 7.5 秒的窗口开在 `packages/shared/contract/gate-assets/deps-audit-baseline.json`
  * 上（`renameSync` 移开 → 两次**联网**跑门禁 → 再移回）。而别的测试会读到中间态，
  * 导致 `pnpm run test:clean` 间歇随机变红。探针实测：
 
@@ -27,7 +27,7 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
  */
 
 const GATE = "scripts/check-deps-audit.cjs"
-const BASELINE = "docs/architecture/artifacts/deps-audit-baseline.json"
+const BASELINE = "packages/shared/contract/gate-assets/deps-audit-baseline.json"
 
 let root: IsolatedRoot
 

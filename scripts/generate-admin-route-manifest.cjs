@@ -3,7 +3,7 @@ const path = require("path")
 
 const root = path.resolve(__dirname, "..")
 const routesRoot = path.join(root, "src", "app", "api", "v1", "admin")
-const outputPath = path.join(root, "docs", "architecture", "artifacts", "admin-route-policy-baseline.json")
+const outputPath = path.join(root, "packages", "shared", "contract", "gate-assets", "admin-route-policy-baseline.json")
 const HTTP_METHODS = ["GET", "POST", "PUT", "PATCH", "DELETE"]
 
 const { resolveRouteSource } = require("./lib/route-source.cjs")

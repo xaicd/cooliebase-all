@@ -184,7 +184,7 @@ public/sounds/
 public/dvr/
 
 # Last npm run check stamp (local replay; not a second domain list)
-docs/architecture/artifacts/harness-trace-latest.json
+packages/shared/contract/gate-assets/harness-trace-latest.json
 
 # 数据库自动备份（必须排除在 git 之外）
 backups/
@@ -197,16 +197,16 @@ apps/cooliebase-all/
 apps/cooliebase
 
 # 派生证据快照: 每次跑 check 都会变，作为缓存而非源
-/docs/architecture/artifacts/evolution-backlog.json
+/packages/shared/contract/gate-assets/evolution-backlog.json
 
 # 环境指纹: 每次构建都会变，作为流水线产物而非源
-/docs/architecture/artifacts/env-fingerprint.json
+/packages/shared/contract/gate-assets/env-fingerprint.json
 
 # 运行期证据快照: 每次跑扫描/压测都会变，作为流水线产物而非源
-/docs/architecture/artifacts/security-scan-result.json
-/docs/architecture/artifacts/load-test-result.json
+/packages/shared/contract/gate-assets/security-scan-result.json
+/packages/shared/contract/gate-assets/load-test-result.json
 # 依赖审计「可不可判定」状态: 每次审计都会变（环境快照），作为流水线产物而非源
-/docs/architecture/artifacts/deps-audit-status.json
+/packages/shared/contract/gate-assets/deps-audit-status.json
 
 # 忽略 Axure 导出原型包中庞大的静态库资源，防止 Git 膨胀
 .kiro/specs/**/prototypes/axure/resources/
@@ -218,10 +218,10 @@ __pycache__/
 *.pyc
 
 # 需求分诊的**本机瞬时状态**（每次运行都变；不是产物，不进版本库）
-docs/architecture/artifacts/agent-route-last.json
+packages/shared/contract/gate-assets/agent-route-last.json
 
 # hook 心跳（金丝雀自检用；本机状态，不进版本库）
-docs/architecture/artifacts/harness-heartbeat.jsonl
+packages/shared/contract/gate-assets/harness-heartbeat.jsonl
 
 # AI 运行时的 pid 与日志（本机产物，不提交）
 .agent-runtime.pid
@@ -235,7 +235,7 @@ test-results/
 .embedded-pg/
 logs/
 
-docs/architecture/artifacts/agent-autopilot-heartbeat.json
+packages/shared/contract/gate-assets/agent-autopilot-heartbeat.json
 
 # 严禁在根目录生成非 docs/ 平行文档目录（统一收敛至 docs/wiki、docs/specs、docs/07_release/releases、docs/audit）
 /doc/

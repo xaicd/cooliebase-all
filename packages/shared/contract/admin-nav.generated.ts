@@ -1,7 +1,7 @@
 // 由 scripts/generate-admin-nav.cjs 生成，**勿手改**。
 //
 // 真源: packages/shared/contract/admin-pages.json（页面清单）
-//      + docs/agent/contracts.json（页面中文标题）
+//      + packages/shared/contract/agent-contracts.json（页面中文标题）
 //      + packages/*/*/contract/module.manifest.json（域显示名）
 //
 // 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 472 个页面 ——

@@ -240,7 +240,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 
 | 步骤 | 命令 | 产物 / 证据 |
 |---|---|---|
-| **0. 需求分诊（强制第一步）** | `pnpm run agent:route -- "<用户原始需求>"` | **三值确定性**判定（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`——后者指确认、授权、上下文陈述、调研提问、续作指令等**根本不是需求**的输入）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `docs/architecture/artifacts/agent-route-last.json`。 |
+| **0. 需求分诊（强制第一步）** | `pnpm run agent:route -- "<用户原始需求>"` | **三值确定性**判定（`SPEC_REQUIRED` / `DIRECT_OK` / `NOT_A_REQUIREMENT`——后者指确认、授权、上下文陈述、调研提问、续作指令等**根本不是需求**的输入）+ 规格类型 + 命中的规则 + 下一步确切命令；顺带兑现 §15（把原始输入记入 `docs/features/sprint-prod/{MMDD}.md`）。规则真源 `scripts/lib/spec-necessity-rules.cjs`（可审阅、可修改；判**不准**时宁严勿宽）。机器可读记录 `packages/shared/contract/gate-assets/agent-route-last.json`。 |
 | 1. 规格立项 | `pnpm run speckit:new -- --name <名> --domain <域> --title "<标题>" [--type feature\|bugfix\|enhancement\|refactor\|security]` | `brief.json` + `assets/` + `prototypes/`（**按域隔离于 docs/specs/<域>/<名>，由 Spec-Kit 原生引擎 scripts/speckit.ts 统一驱动**） |
 | 2. 填 brief | 编辑 `docs/specs/<域>/<名>/brief.json` | 目标/角色/故事/约束/验收/不变量/表/任务（bugfix 特化 symptom/rootCause/RedTest） |
 | 3. 展开 | `pnpm run speckit:build -- --name <名>` | 10~15 份标准资产 + `evidence.json` + `runbook.json`（**由 Spec-Kit 引擎 scripts/speckit.ts 展开，结构不可能缺**） |
@@ -290,7 +290,7 @@ node scripts/cmmi-09-operations.cjs archive --name <spec>
 | **09 持续运营与归档** (`docs/09_operations`) | `operations.md` | `pnpm run speckit -- cmmi 09`<br>`scripts/cmmi-09-operations.cjs` | `docs \| check \| asset \| archive --name <spec> \| ops`：运营对账单与历史规格防污染归档 |
 > 加一个新操作 = 在主干表/分组映射里加一行，**不是**再加一个平行 npm script。
 > 机检：`harness-integrity` 的「脚本可达性」（棘轮，冻结存量于
-> `docs/architecture/artifacts/harness-unreachable-scripts.json`）+
+> `packages/shared/contract/gate-assets/harness-unreachable-scripts.json`）+
 > 「npm 脚本自环」（enforce）。**当前基线为 0 项** —— 194 个 npm script 全部可从主干进；
 > 基线文件必须存在（空数组也行），它是「可达性被检查过」的凭证，**缺失即失败**。
 > 加新操作就在 `TRUNK` / `GROUPS` / `ALIASES` 里加一行；重写基线用 `pnpm harness baseline`。
@@ -489,7 +489,7 @@ CI 前置检查：
 9. pnpm run deps:audit（依赖 CVE 棘轮：与基线比对**只拦新增**。注意"冻结"≠"无漏洞"；已接受风险台账见 `docs/architecture/cooliebase-all-dependency-policy.md`）
 10. pnpm run evolution:backlog（非门禁：把上述证据聚合为进化待办，永不失败）
 
-一键门禁：`pnpm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述门禁，随后生成进化待办，最后写 `docs/architecture/artifacts/harness-trace-latest.json`）。
+一键门禁：`pnpm run check`（先执行 `contracts:sync` 幂等再生成契约，再依次跑上述门禁，随后生成进化待办，最后写 `packages/shared/contract/gate-assets/harness-trace-latest.json`）。
 **门禁数量不写死**：真源是 `packages/shared/contract/compat-manifest.json` 的 `consumptionSurface.gates`（`pnpm run compat:check` 会打印当前条数），`check` 链的步骤数以 `package.json` 的 `check` 脚本为准。
 
 注意：`gen/**` 被 `.gitignore` 排除，干净检出上 `domain:check` / `microservice:check` 依赖的 Go 桩须由 `contracts:sync` 先生成，故这两道门禁不可单独在干净检出上直接执行。
@@ -501,7 +501,7 @@ CI 前置检查：
 | 模式 | 语义 |
 |---|---|
 | `enforce` | 有违规即失败 |
-| `ratchet` | 冻结既有欠债于 `docs/architecture/artifacts/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `pnpm run standards:baseline` 并复核增量 |
+| `ratchet` | 冻结既有欠债于 `packages/shared/contract/gate-assets/engineering-standards-baseline.json`，**只拦新增**；修复后跑 `pnpm run standards:baseline` 并复核增量 |
 | `report` | 仅供人工判断，永不失败 |
 
 当前规则的**真源是** `scripts/check-engineering-standards.cjs` 的规则注册表，随时可用 `pnpm run standards:check --audit` 列出；下面这份是 2026-10-21 的**快照**（共 16 条）：
@@ -536,8 +536,8 @@ CI 前置检查：
 
 ```
 pnpm run check                 # 门禁产出证据 + 轨迹
-  ├─ docs/architecture/artifacts/harness-trace-latest.json
-  └─ docs/architecture/artifacts/evolution-backlog.json
+  ├─ packages/shared/contract/gate-assets/harness-trace-latest.json
+  └─ packages/shared/contract/gate-assets/evolution-backlog.json
         ↑ scripts/build-evolution-backlog.cjs 聚合：
           门禁轨迹状态 / standards report 项与冻结欠债 /
           各域测试覆盖（§8）/ 超 200 行文件（§11 第 2 条）/ TODO 标记（§12）
@@ -763,7 +763,7 @@ shell 里若已有该变量，其优先级高于 `.env`，否则迁移与测试�
 |---|---|
 | `pnpm run tables:inventory` | 盘点四种来源 + "仓储在查但无处创建" |
 | `pnpm run tables:migration -- --tables … --export … --name … [--write]` | 元数据 → 建表迁移 |
-| `pnpm run tables:metadata-draft` | 为缺元数据的表导出**待评审草稿**（`docs/architecture/artifacts/table-metadata-draft.md`） |
+| `pnpm run tables:metadata-draft` | 为缺元数据的表导出**待评审草稿**（`packages/shared/contract/gate-assets/table-metadata-draft.md`） |
 
 草稿工具的存在意义：给缺元数据的表补定义时需要人判断 PG 类型（`number` 可能是 int 也可能是
 decimal，`createdAt: string` 语义上是 timestamp）。草稿从仓储的 `*Row` 接口推导列，

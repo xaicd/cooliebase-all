@@ -157,7 +157,7 @@ function main() {
   const debt = violations.filter(isDebt)
   const hard = violations.filter((v) => !isDebt(v))
 
-  const baselineRel = "docs/architecture/artifacts/contract-governance-baseline.json"
+  const baselineRel = "packages/shared/contract/gate-assets/contract-governance-baseline.json"
   const baselineAbs = path.join(ROOT, baselineRel)
   // 键必须带上**权限前缀取值**，不能只用文件路径 ——
   // 否则把一个已在基线里的契约改成一个新的未登记前缀，不会产生新键、也就拦不住（实测踩到过）。

@@ -18,8 +18,8 @@ const path = require("path")
 const { spawnSync } = require("child_process")
 const { ROOT, loadCatalog, domainDirOf } = require("./lib/domain-catalog.cjs")
 
-const ARTIFACT_REL = "docs/architecture/artifacts/evolution-backlog.json"
-const TRACE_REL = "docs/architecture/artifacts/harness-trace-latest.json"
+const ARTIFACT_REL = "packages/shared/contract/gate-assets/evolution-backlog.json"
+const TRACE_REL = "packages/shared/contract/gate-assets/harness-trace-latest.json"
 
 const SEVERITY_ORDER = { blocker: 0, high: 1, medium: 2, low: 3 }
 const SRC_MODULES = "packages/domains"

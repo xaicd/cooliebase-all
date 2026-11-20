@@ -18,7 +18,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const DEFAULT_ROOT = path.resolve(__dirname, "..")
-const BASELINE_REL = "docs/architecture/artifacts/design-tokens-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/design-tokens-baseline.json"
 const SKIP_DIRS = new Set(["node_modules", ".git", ".next", ".next-cooliebase", "dist", "coverage", "__tests__"])
 
 const TABLE_CELL_TAG_RE = /<(td|th)\b([\s\S]*?)>/g

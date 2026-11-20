@@ -20,7 +20,7 @@
    - 当工程存在业务立项总纲 `GOAL.md` 时，根目录 `GOAL.md` 与 `docs/GOAL.md` **必须保持字节级完全一致**（`cmp -s GOAL.md docs/GOAL.md` 退出码为 `0`）。
    - 全仓源码、规格包、脚本与测试中**严禁写入宿主机或容器挂载绝对路径字面量**，一律使用相对 `<project-root>` 路径或 `${COOLIE_HOME:-/opt/coolie}/blueprints/cooliebase-all`。
 5. **极简中文导航与按钮密度铁律（`<=4` 字菜单 & `2` 字按钮）**：
-   - 管理后台左侧导航栏所有**新增可见菜单标题必须 `<= 4` 个汉字**（如 `采购订单`、`库位盘点`、`结算批次`），禁止堆砌“管理列表配置中心”等冗余后缀；由 `pnpm run admin:nav:check` 与 `scripts/blueprint-engine.cjs` 自愈守卫拦截（历史导入表存量冻结于 `docs/architecture/artifacts/menu-title-length-baseline.json`）。
+   - 管理后台左侧导航栏所有**新增可见菜单标题必须 `<= 4` 个汉字**（如 `采购订单`、`库位盘点`、`结算批次`），禁止堆砌“管理列表配置中心”等冗余后缀；由 `pnpm run admin:nav:check` 与 `scripts/blueprint-engine.cjs` 自愈守卫拦截（历史导入表存量冻结于 `packages/shared/contract/gate-assets/menu-title-length-baseline.json`）。
    - 表格工具栏与行级标准动作按钮统一采用 **`2` 字极简动词**（`新增` / `查询` / `重置` / `刷新` / `编辑` / `删除` / `导出` / `审批`），间距与表头样式统一引用 `packages/shared/frontend/lib/design-tokens.ts` 的 `UI` 常量。
 
 ---

@@ -38,7 +38,7 @@ const ROOT = path.resolve(__dirname, "../..")
 const HARNESS = path.join(ROOT, "scripts/harness.cjs")
 const TRUNK_CHECK = path.join(ROOT, "scripts/check-harness-trunk-dispatch.cjs")
 const INTEGRITY_CHECK = path.join(ROOT, "scripts/check-harness-integrity.cjs")
-const BASE = path.join(ROOT, "docs/architecture/artifacts/harness-unreachable-scripts.json")
+const BASE = path.join(ROOT, "packages/shared/contract/gate-assets/harness-unreachable-scripts.json")
 
 describe("harness 入口：结构与规则存在性", () => {
   it("入口脚本 harness.cjs 可解析 —— 它坏了就等于所有操作都进不去", () => {

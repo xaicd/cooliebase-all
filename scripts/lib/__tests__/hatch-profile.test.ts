@@ -70,9 +70,9 @@ describe("hatch-profile", () => {
     // 这三个是**门禁必需的已提交基线**，一旦被裁，新孵化工程的 `pnpm run check` 必红
     //（实测：socratic:check 报缺少 socratic-inquiry-latest.json）。
     for (const keep of [
-      "docs/architecture/artifacts/socratic-inquiry-latest.json",
-      "docs/architecture/artifacts/deps-audit-baseline.json",
-      "docs/architecture/artifacts/engineering-standards-baseline.json",
+      "packages/shared/contract/gate-assets/socratic-inquiry-latest.json",
+      "packages/shared/contract/gate-assets/deps-audit-baseline.json",
+      "packages/shared/contract/gate-assets/engineering-standards-baseline.json",
     ]) {
       expect(shouldSkipRelPath(keep, plan), `${keep} 不应被裁剪`).toBe(false)
     }
@@ -81,9 +81,9 @@ describe("hatch-profile", () => {
     // `rel === p || rel.startsWith(p + "/")`，对以 `-` 结尾的片段永远不会命中——
     // 这正是本仓踩过的坑（写成目录前缀后 8 个历史报告一个都没被裁掉）。
     expect(
-      shouldSkipRelPath("docs/architecture/artifacts/all-next-starter-coverage-2026-08-02.json", plan),
+      shouldSkipRelPath("packages/shared/contract/gate-assets/all-next-starter-coverage-2026-08-02.json", plan),
     ).toBe(true)
-    expect(shouldSkipRelPath("docs/architecture/artifacts/cooliebase-full-scan-2026-08-02.md", plan)).toBe(true)
+    expect(shouldSkipRelPath("packages/shared/contract/gate-assets/cooliebase-full-scan-2026-08-02.md", plan)).toBe(true)
 
     // 归档目录按目录前缀裁剪
     expect(shouldSkipRelPath("docs/architecture/archive/upstream-2026-Q3/README.md", plan)).toBe(true)
@@ -132,19 +132,21 @@ describe("hatch-profile", () => {
       "docs/architecture/cooliebase-module-first-migration.md",
       "docs/architecture/cooliebase-all-sync-taskboard.md",
       "docs/architecture/cooliebase-all-module-to-plugin-migration.md",
-      "docs/architecture/artifacts/harness-heartbeat.jsonl",
-      "docs/architecture/artifacts/agent-route-last.json",
-      "docs/architecture/artifacts/upstream-radar-report.json",
+      "packages/shared/contract/gate-assets/harness-heartbeat.jsonl",
+      "packages/shared/contract/gate-assets/agent-route-last.json",
+      "packages/shared/contract/gate-assets/upstream-radar-report.json",
+      // 老机读路径与母本 agent 契约缓存老路径：一律由重定位 pass 接管, 老路径不落盘
+      "docs/architecture/artifacts/clause-mechanism-map.json",
+      "docs/agent/contracts.json",
       "docs/guides/dsh-integration.md",
       "docs/guides/dbx-mcp-integration.md",
       "docs/01_management/dar-decision-records/pay-order-status-column-type.md",
       "docs/06_quality_assurance/audit/PCA-FCA-COMPLIANCE-AUDIT-v1.1.0.md",
       "docs/07_release/RELEASE_NOTES_v1.1.0.md",
       // 底座自留地（2026-11-20 · 与工坊母仓层B瘦身清单同源）：gen 存根树、scratch 脚手架、
-      // 母仓 agent 契约缓存(3.3M 可再生)、母仓 wiki、llms 全文缓存均不属派生项目
+      // 母仓 wiki、llms 全文缓存均不属派生项目
       "gen/go/go.mod",
       "scratch/port-force.sh",
-      "docs/agent/contracts.json",
       "docs/wiki/index.md",
       "llms-full.txt",
     ]) {
@@ -163,6 +165,11 @@ describe("hatch-profile", () => {
       "docs/07_release/release-notes.md",
       "docs/architecture/cooliebase-all-architecture.md",
       "docs/architecture/cooliebase-all-ontology-navigation.md",
+      // v2 机读区重定位: 门禁基线/治理大纲与 nav 标题真源契约必须随派生落盘（2026-11-20）
+      "packages/shared/contract/gate-assets/clause-mechanism-map.json",
+      "packages/shared/contract/gate-assets/route-validation-baseline.json",
+      "packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md",
+      "packages/shared/contract/agent-contracts.json",
     ]) {
       expect(shouldSkipRelPath(cleanKeep, plan), `${cleanKeep} 应保留给派生工程`).toBe(false)
     }

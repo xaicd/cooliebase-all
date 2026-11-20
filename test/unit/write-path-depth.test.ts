@@ -21,7 +21,7 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
  */
 
 const GATE = "scripts/check-write-path-depth.cjs"
-const BASELINE = "docs/architecture/artifacts/write-path-depth-baseline.json"
+const BASELINE = "packages/shared/contract/gate-assets/write-path-depth-baseline.json"
 
 /** 真实存在、且确实导出 POST 的路由（用它造"触及写链路"的规格） */
 const WRITE_ROUTE = "packages/plugins/plugin-ai/routes/admin/ai-tool/route.ts"

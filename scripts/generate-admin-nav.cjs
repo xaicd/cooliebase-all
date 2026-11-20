@@ -14,7 +14,7 @@
  *
  * ## 真源
  *   1. `packages/shared/contract/admin-pages.json` —— 有哪些页面（slug / kind）
- *   2. `docs/agent/contracts.json`               —— 页面的中文标题（page.title / page.route）
+ *   2. `packages/shared/contract/agent-contracts.json`               —— 页面的中文标题（page.title / page.route）
  *   3. `packages/*\/*\/contract/module.manifest.json` —— 域显示名（displayName）
  *
  * ## 用法
@@ -27,7 +27,7 @@ const { checkNavMenuLengths } = require("./lib/menu-title-guard.cjs")
 
 const ROOT = path.resolve(__dirname, "..")
 const DECLARATION = path.join(ROOT, "packages", "shared", "contract", "admin-pages.json")
-const CONTRACTS = path.join(ROOT, "docs", "agent", "contracts.json")
+const CONTRACTS = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 const LABELS = path.join(ROOT, "packages", "shared", "contract", "admin-nav.labels.json")
 const MENU_SEED = path.join(ROOT, "prisma", "data", "menus.seed-data.ts")
 const OUT = path.join(ROOT, "packages", "shared", "contract", "admin-nav.generated.ts")
@@ -214,7 +214,7 @@ function render(nav) {
   return `// 由 scripts/generate-admin-nav.cjs 生成，**勿手改**。
 //
 // 真源: packages/shared/contract/admin-pages.json（页面清单）
-//      + docs/agent/contracts.json（页面中文标题）
+//      + packages/shared/contract/agent-contracts.json（页面中文标题）
 //      + packages/*/*/contract/module.manifest.json（域显示名）
 //
 // 为什么生成而不是手写: 侧栏曾只暴露 9 个入口而声明了 ${nav.reduce((n, g) => n + g.items.length, 0)} 个页面 ——

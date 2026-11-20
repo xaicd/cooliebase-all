@@ -20,7 +20,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..", "..")
-const REGISTRY = path.join(ROOT, "docs", "agent", "contracts.json")
+const REGISTRY = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 
 const defaultBaseUrl = (() => {
   let autoSlug = ""
@@ -47,7 +47,7 @@ const asJson = process.argv.includes("--json")
 // `--record`：把 `--json` 报告落成**留痕产物**（与 security-scan / load-test 同族）。
 // **只在 CLI 显式要求时写**；MCP 工具永不落盘（AGENTS §18 的零写契约）。
 const record = process.argv.includes("--record")
-const ARTIFACT_REL = "docs/architecture/artifacts/api-probe-result.json"
+const ARTIFACT_REL = "packages/shared/contract/gate-assets/api-probe-result.json"
 const username = process.env.COOLIEBASE_AGENT_USERNAME || "admin"
 const password = process.env.COOLIEBASE_AGENT_PASSWORD || ""
 

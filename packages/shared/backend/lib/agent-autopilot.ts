@@ -17,8 +17,8 @@ import { listOutbox, outboxDispatch } from "./transactional-outbox"
 import { getOutboxStore } from "./outbox-store"
 
 const ROOT = path.resolve(/*turbopackIgnore: true*/ process.cwd())
-const HEARTBEAT_FILE = path.join(ROOT, "docs", "architecture", "artifacts", "agent-autopilot-heartbeat.json")
-const CONTRACTS_FILE = path.join(ROOT, "docs", "agent", "contracts.json")
+const HEARTBEAT_FILE = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "agent-autopilot-heartbeat.json")
+const CONTRACTS_FILE = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 
 export interface DomainHealthProbe {
   name: string
@@ -189,7 +189,7 @@ export async function probeAndHealOutbox(forceHeal = false): Promise<{ probe: Ou
  */
 export function probeAgentContracts(): ContractsProbeResult {
   if (!fs.existsSync(CONTRACTS_FILE)) {
-    return { total: 0, domainsCount: 0, valid: false, error: "契约注册表 docs/agent/contracts.json 不存在" }
+    return { total: 0, domainsCount: 0, valid: false, error: "契约注册表 packages/shared/contract/agent-contracts.json 不存在" }
   }
 
   try {

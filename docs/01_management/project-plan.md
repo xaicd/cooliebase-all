@@ -331,7 +331,7 @@
 - **消费面**：17 domains / 38 skills / 18 MCP tools / **28 gates / 3 commands**（`compat:check` 实测）。
 - **本体模型**：`layers.foundation.capabilities` **11 项，`foundation:ontology:check` 无漂移**。
   （本轮是工具链/流程工作，不改运行时基座能力 —— **这是判断，不是遗漏**。）
-- **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（由 `docs/architecture/artifacts/route-validation-baseline.json` 棘轮冻结）。
+- **路由校验覆盖**：已接线 **709 / 854**（82.9%），剩 145 条全为非标准端点（由 `packages/shared/contract/gate-assets/route-validation-baseline.json` 棘轮冻结）。
 - **包管理器**：可执行 `npx` **归零**（三种形态 × 八类文件，`no-new-npx` enforce）。
 - **供应链**：漏洞 43 → 9（`deps:audit` 棘轮；`shell-quote` 仍为 critical，属开发调试链）。
 - **客户端**：Expo SDK 52 → 58，`clients:build:check` 全绿。
@@ -401,7 +401,7 @@
   **反向对照已进单测**（`test/unit/typecheck-ratchet.test.ts`）：注入一个类型错误 → exit 1 并点名文件。
   踩到并记录了两个坑：`--incremental false` 会丢 2 条错误；`tsc` 会在同一位置报多条诊断（诊断数 ≠ 唯一键数）。
 - **D3 + D5 整改**：新增 `harness:integrity:check`（进 `check` 链），把审计维度 2/4/9 的共同缺口变成机检：
-  ① **条款 ↔ 机制登记表**（`docs/architecture/artifacts/clause-mechanism-map.json`）：
+  ① **条款 ↔ 机制登记表**（`packages/shared/contract/gate-assets/clause-mechanism-map.json`）：
      **29 条条款全部映射到真实存在的 npm script**（77 个去重机制）；新增条款不登记、或登记不存在的脚本 → 失败；
   ② **孤儿门禁脚本**：`scripts/check-*.cjs` / `audit-*.cjs` 必须被 npm script / check 链 / harness 引用；
   ③ **harness 子命令一致性**：转发到的每个 script 必须存在。
@@ -575,5 +575,5 @@ windows      success  416s      mutation     success   31s
 - **对标芋道 DataScope 5 级数据权限 AST 插件与 `/api/docs` OpenAPI 3.1 交互式调试沙箱**：落地 `packages/shared/backend/lib/database/data-scope-plugin.ts` 与 `src/app/api/docs/route.ts`。
 - **通用蓝图底座 4 大业务原语全栈展开（T10）**：升级 `scripts/blueprint-engine.cjs` 与 `codegen-templates/`（`common.ts`、`service.template.ts`、`route.template.ts`、`frontend-api.template.ts`、`frontend-list.template.ts`），支持任意领域系统的 `stateMachine` 全栈状态跃迁、`convertActions` 跨单据一键转化、`layoutMode` 看板/表格视图切换及 27B 模型同义词防呆自愈器 `diagnoseAndHealBlueprint`。
 - **通用蓝图底座终极收口与对标演进闭环（T11）**：升级 `frontend-form.template.ts`（支持 `visibleOn`/`requiredOn`/`disabledOn` 反应式联动与 `sub_table` 主子表内联增删行）、升级 `frontend-list.template.ts`（真实分栏状态看板泳道 `kanban-board`）、新增 `pnpm run blueprint:deliver` 单命令交付，并落地对标大典 A3（`/api/metrics` Prometheus 指标端点）、B1（`saga-runner.ts` TS 原生可逆 Saga 补偿工作流引擎）与 B3（`/api/v1/realtime/sse` SSE 实时通知流）。
-- **蓝图母本历史/外部污染文档清剿与 Layer-B 孵化净化加固（2026-11-15）**：清理母本历史归档规格、历史施工日记、外部客户与调研泄漏文档及一次性扫描草稿；升级 `scripts/lib/hatch-profile.cjs`、`scripts/clone-project-base.cjs` 与 `scripts/project-init.cjs`，对 `docs/architecture/artifacts/` 实施门禁基线白名单放行并在孵化时自动重置 Layer-B 洁净 CMMI `01..09` 模板与 PMO 大盘。
+- **蓝图母本历史/外部污染文档清剿与 Layer-B 孵化净化加固（2026-11-15）**：清理母本历史归档规格、历史施工日记、外部客户与调研泄漏文档及一次性扫描草稿；升级 `scripts/lib/hatch-profile.cjs`、`scripts/clone-project-base.cjs` 与 `scripts/project-init.cjs`，对 `packages/shared/contract/gate-assets/` 实施门禁基线白名单放行并在孵化时自动重置 Layer-B 洁净 CMMI `01..09` 模板与 PMO 大盘。
 - **AI Agent 项目 PMO 进场秒级待办大盘与三仓统一对齐（2026-11-10）**：新增 `pnpm run pmo`（`node scripts/cmmi-01-management.cjs pmo [--write|--json|--federated]` / `pnpm run speckit -- cmmi 01 pmo` / `pnpm harness pmo`），自动扫描活跃规格 WBS 漏斗、三层 Git 任务归因、演化待办池与优先级 `P0/P1/P2` 行动队列，并持久化生成 [`docs/01_management/pmo-dashboard.md`](pmo-dashboard.md)，让任意打开项目的 AI Agent 即刻具备项目 PMO 全局视角。

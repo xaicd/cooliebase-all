@@ -27,7 +27,7 @@
 
 ## 已知欠债（棘轮冻结，只拦新增）
 
-基线：`docs/architecture/artifacts/contract-governance-baseline.json`。
+基线：`packages/shared/contract/gate-assets/contract-governance-baseline.json`。
 修法：在 `permissions.ts` 登记权限码，然后 `node scripts/check-contract-governance.cjs --write-baseline` 收紧。
 
 **为什么是棘轮而不是 enforce**：一次性让 `check` 全红会逼出无意义的豁免（本仓反复踩过）。

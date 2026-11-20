@@ -18,7 +18,7 @@ const path = require("node:path")
 const { isGeneratedFile } = require("./lib/generated-file.cjs")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE = path.join(ROOT, "docs", "architecture", "artifacts", "handwritten-files-baseline.json")
+const BASELINE = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "handwritten-files-baseline.json")
 const auditOnly = process.argv.includes("--audit")
 const updateBaseline = process.argv.includes("--update-baseline")
 

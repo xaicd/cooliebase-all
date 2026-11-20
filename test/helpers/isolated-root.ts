@@ -9,7 +9,7 @@ import { execFileSync } from "node:child_process"
  * ## 为什么需要它（实测事故：`test-shared-file-isolation` 规格）
  *
  * 本仓有一批「验证门禁行为」的测试，做法是**临时改写仓库里的共享文件**
- * （`package.json` / `AGENTS.md` / `docs/architecture/artifacts/*baseline*.json`）。
+ * （`package.json` / `AGENTS.md` / `packages/shared/contract/gate-assets/*baseline*.json`）。
  * 另有一批测试**通过 spawn 门禁脚本间接读**这些文件。探针实测到的窗口：
  *
  * ```

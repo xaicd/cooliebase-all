@@ -1,4 +1,4 @@
-// 由 scripts/generate-page-schemas.cjs 从 docs/agent/contracts.json 生成，**勿手改**。
+// 由 scripts/generate-page-schemas.cjs 从 packages/shared/contract/agent-contracts.json 生成，**勿手改**。
 //
 // 用途: PageSchemaService 在 system_config 里读不到 `page.schema.<entity>` 时回退到这份数据，
 // 让**新生成的业务域在 C 端就有真实字段**（否则是空页面）。

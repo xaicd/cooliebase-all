@@ -339,7 +339,7 @@ const TOOLS = [
   {
     name: "cooliebase_api_probe",
     description:
-      "Read-only health probe across EVERY declared API contract (docs/agent/contracts.json, ~342 entries): calls each contract's list endpoint and asserts the response shape (items[] + numeric total), so it catches contract drift that a shallow /healthz probe cannot. Never writes. Requires the app to be running; set baseUrl or COOLIEBASE_AGENT_BASE_URL. Authentication uses COOLIEBASE_AGENT_USERNAME / COOLIEBASE_AGENT_PASSWORD from the environment — when absent it reports authenticated:false and every probe returns 401 (routes exist and are guarded, but health is unverified).",
+      "Read-only health probe across EVERY declared API contract (packages/shared/contract/agent-contracts.json, ~342 entries): calls each contract's list endpoint and asserts the response shape (items[] + numeric total), so it catches contract drift that a shallow /healthz probe cannot. Never writes. Requires the app to be running; set baseUrl or COOLIEBASE_AGENT_BASE_URL. Authentication uses COOLIEBASE_AGENT_USERNAME / COOLIEBASE_AGENT_PASSWORD from the environment — when absent it reports authenticated:false and every probe returns 401 (routes exist and are guarded, but health is unverified).",
     inputSchema: {
       type: "object",
       properties: {

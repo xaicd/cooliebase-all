@@ -22,7 +22,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const ARTIFACT = path.join(ROOT, "docs", "architecture", "artifacts", "env-fingerprint.json")
+const ARTIFACT = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "env-fingerprint.json")
 const BUILD_DIR = path.join(ROOT, ".next-cooliebase", "standalone")
 
 const git = (args) => {

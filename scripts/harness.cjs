@@ -401,7 +401,7 @@ function doctor() {
   if (orphan.length > 12) console.log(`  … 另有 ${orphan.length - 12} 个`)
 
   // 6) 类型债务（只读：读基线，不跑 tsc —— doctor 必须快）
-  const tcBaseline = path.join(ROOT, "docs/architecture/artifacts/typecheck-baseline.json")
+  const tcBaseline = path.join(ROOT, "packages/shared/contract/gate-assets/typecheck-baseline.json")
   if (fs.existsSync(tcBaseline)) {
     try {
       const b = JSON.parse(fs.readFileSync(tcBaseline, "utf8"))

@@ -10,13 +10,13 @@ import { makeIsolatedRoot, type IsolatedRoot } from "../helpers/isolated-root"
  * 规则：页面/组件不得裸调 `fetch(` —— 必须走 `packages/shared/frontend/lib/request.ts`
  * （它负责结构化错误、401 跳转、超时归一；裸 fetch 会绕过全部这些）。
  *
- * 存量 10 个文件冻结在 `docs/architecture/artifacts/frontend-raw-fetch-baseline.json`，**只减不增**。
+ * 存量 10 个文件冻结在 `packages/shared/contract/gate-assets/frontend-raw-fetch-baseline.json`，**只减不增**。
  *
  * 跑在隔离根上：用例要**新增文件/改文件**，不能碰真仓。
  */
 
 const GATE = "scripts/check-frontend-request-contract.cjs"
-const BASELINE = "docs/architecture/artifacts/frontend-raw-fetch-baseline.json"
+const BASELINE = "packages/shared/contract/gate-assets/frontend-raw-fetch-baseline.json"
 /** 一个确实在扫描面内、且不在基线里的新文件路径（用例自己创建） */
 const NEW_PAGE = "packages/domains/infra/frontend/pages/__probe-new.page.tsx"
 

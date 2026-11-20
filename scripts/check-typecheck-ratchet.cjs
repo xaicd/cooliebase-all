@@ -23,7 +23,7 @@ const path = require("node:path")
 const { spawnSync } = require("node:child_process")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE_REL = "docs/architecture/artifacts/typecheck-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/typecheck-baseline.json"
 
 /** 跑 tsc 并解析出错误集合 */
 function collectTypeErrors() {

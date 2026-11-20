@@ -135,9 +135,9 @@ export function runSocraticInquiry(goal: string, domain?: string) {
 }
 
 function checkSocraticHealth() {
-  const artifactPath = path.join(ROOT, "docs/architecture/artifacts/socratic-inquiry-latest.json")
+  const artifactPath = path.join(ROOT, "packages/shared/contract/gate-assets/socratic-inquiry-latest.json")
   if (!fs.existsSync(artifactPath)) {
-    console.error("[socratic:check] ✗ 缺少高阶反问与辩证演化快照 docs/architecture/artifacts/socratic-inquiry-latest.json，请运行 pnpm run socratic:inquire --write")
+    console.error("[socratic:check] ✗ 缺少高阶反问与辩证演化快照 packages/shared/contract/gate-assets/socratic-inquiry-latest.json，请运行 pnpm run socratic:inquire --write")
     process.exit(1)
   }
 
@@ -179,7 +179,7 @@ function main() {
   const results = runSocraticInquiry(goal, domain)
 
   if (args.includes("--write") || !args.includes("--dry-run")) {
-    const artifactPath = path.join(ROOT, "docs/architecture/artifacts/socratic-inquiry-latest.json")
+    const artifactPath = path.join(ROOT, "packages/shared/contract/gate-assets/socratic-inquiry-latest.json")
     fs.mkdirSync(path.dirname(artifactPath), { recursive: true })
     fs.writeFileSync(artifactPath, JSON.stringify({
       goal,

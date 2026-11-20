@@ -127,7 +127,7 @@ describe("G5 证据规则", () => {
   it("G5=passed 且有全过的运行记录 → 不被误伤", () => {
     // G5 现在要**三样**: runbook 记录 + 安全扫描绿 + 压测达阈值（后两者是仓级产物）。
     // 夹具必须把三样都造齐，否则测的是"新规则拦下了夹具"，不是"不误伤"。
-    const artifacts = path.join(ROOT, "docs", "architecture", "artifacts")
+    const artifacts = path.join(ROOT, "packages", "shared", "contract", "gate-assets")
     const security = path.join(artifacts, "security-scan-result.json")
     const load = path.join(artifacts, "load-test-result.json")
     const backup = { security: fs.existsSync(security) ? fs.readFileSync(security, "utf8") : null, load: fs.existsSync(load) ? fs.readFileSync(load, "utf8") : null }

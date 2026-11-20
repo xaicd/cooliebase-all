@@ -45,9 +45,9 @@ describe("证据账本", () => {
   })
 
   it("G5_PRE 标 passed 但没跑过安全扫描 → 拦下（上线前必须扫过）", () => {
-    // 规则读的是仓库级产物（docs/architecture/artifacts/security-scan-result.json），
+    // 规则读的是仓库级产物（packages/shared/contract/gate-assets/security-scan-result.json），
     // 所以必须**临时移开再恢复** —— 否则本机跑过扫描时这条测试永远不会触发。
-    const scan = path.join(ROOT, "docs", "architecture", "artifacts", "security-scan-result.json")
+    const scan = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "security-scan-result.json")
     const backup = fs.existsSync(scan) ? fs.readFileSync(scan, "utf8") : null
     fs.rmSync(scan, { force: true })
     const all = ["G0_DAR", "G1_FDA", "G2_CoreSWE", "G3_FDSE", "G4_DS"]

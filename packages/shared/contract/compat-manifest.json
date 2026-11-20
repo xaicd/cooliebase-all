@@ -178,8 +178,8 @@
       "count": 18
     },
     "evolution": {
-      "traceArtifact": "docs/architecture/artifacts/harness-trace-latest.json",
-      "backlogArtifact": "docs/architecture/artifacts/evolution-backlog.json",
+      "traceArtifact": "packages/shared/contract/gate-assets/harness-trace-latest.json",
+      "backlogArtifact": "packages/shared/contract/gate-assets/evolution-backlog.json",
       "builder": "pnpm run evolution:backlog",
       "note": "Gates produce evidence on every `pnpm run check`; the backlog aggregates that evidence into prioritised work for an external agent. No agent loop runs in this repository."
     },

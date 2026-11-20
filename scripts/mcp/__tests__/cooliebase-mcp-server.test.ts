@@ -281,7 +281,7 @@ describe("MCP: 写类工具（plan/preview，零落盘）", () => {
  * 全接口探测工具（`cooliebase_api_probe`）。
  *
  * 它存在的理由：`/healthz` 只证明"进程活着"，证明不了**342 个契约对应的接口**是否可用
- * 或是否漂移。本工具按 `docs/agent/contracts.json` 逐个调 list 并断言响应结构
+ * 或是否漂移。本工具按 `packages/shared/contract/agent-contracts.json` 逐个调 list 并断言响应结构
  * （`items[]` + 数字 `total`），能抓到浅探抓不到的契约漂移。
  *
  * 两条硬约束在这里被钉死：

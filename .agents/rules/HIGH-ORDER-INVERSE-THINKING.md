@@ -106,7 +106,7 @@
 
 ## 六、 通用高阶反向提示词资产库索引 (Universal Prompts Index)
 
-当收到特定业务诉求时，AI 助手必须在会话中主动挂载并执行对应的通用高阶反向提示词模版（详见 `docs/architecture/universal-high-order-inverse-prompts.md`）：
+当收到特定业务诉求时，AI 助手必须在会话中主动挂载并执行对应的通用高阶反向提示词模版（详见 `packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md`）：
 - **模版 1：【反向穿透·重型业务实体溯源与模型减法】** — 适用于建表、加字段、加模块、设计数据流；
 - **模版 2：【反向穿透·企业级严格多租户与组织权限防线】** — 适用于写接口、查数据、加权限、租户隔离；
 - **模版 3：【反向穿透·现场人机工效与极简两字交互】** — 适用于做页面、移动原生端、大盘、表单防遮挡；
@@ -119,7 +119,7 @@
 
 本工程严禁产生任何无法被 AI Agent 感知、调用、测试、运维的纯人工黑盒能力：
 1. **规格机器可读**：所有研发任务必须基于 Kiro SDD 规范与 `brief.json` 极简声明驱动，由 `scripts/speckit.ts` 展开并由 CI 双向校验；
-2. **接口契约全息**：所有业务接口必须收敛于 Agent 契约（份数以实际 `.agent.json` 文件为准）（`docs/agent/contracts.json`），必须支持 `pnpm run agent:ops` 无头体检与自动造数；
+2. **接口契约全息**：所有业务接口必须收敛于 Agent 契约（份数以实际 `.agent.json` 文件为准）（`packages/shared/contract/agent-contracts.json`），必须支持 `pnpm run agent:ops` 无头体检与自动造数；
 3. **界面无头探针**：所有页面必须具备机器可读的 Page Schema（生成物 `packages/shared/contract/page-schemas.generated.ts`），支持 `agent-device` 与 `agent-browser` (Playwright) 自动化驱动；
 4. **测试与安全自主闭环**：变异测试杀灭假 Mock，红队安全演练采用 Strix 多智能体自主渗透，拒绝形式主义！
 

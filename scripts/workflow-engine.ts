@@ -336,7 +336,7 @@ function handleRun(flags: Record<string, string>, positional: string[]) {
   console.log(`\n▶️ 开始执行工作流: \x1b[36m${recipe.name}\x1b[0m (Run ID: ${runId})`)
   console.log(`🎯 目标规格: ${vars.domain}/${vars.name} (${vars.title})`)
 
-  const artifactsDir = path.join(ROOT, "docs", "architecture", "artifacts", "workflow-runs")
+  const artifactsDir = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "workflow-runs")
   if (!fs.existsSync(artifactsDir)) {
     fs.mkdirSync(artifactsDir, { recursive: true })
   }

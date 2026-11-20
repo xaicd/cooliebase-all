@@ -36,7 +36,7 @@ const PASSWORD = "LoadTest@123456"
 const SALT = "loadtest-salt"
 
 const BASELINE_REL = "packages/shared/contract/load-baseline.json"
-const RESULT_REL = "docs/architecture/artifacts/load-test-result.json"
+const RESULT_REL = "packages/shared/contract/gate-assets/load-test-result.json"
 
 const sh = (cmd, args, env = {}) => spawnSync(cmd, args, { cwd: ROOT, encoding: "utf8", env: { ...process.env, ...env } })
 

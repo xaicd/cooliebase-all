@@ -160,8 +160,8 @@ for (const [key, rel] of Object.entries({
   if (!rel) fail(`consumptionSurface.evolution.${key} is required`)
   // Declared artefacts are produced by the gate chain, so assert placement, not pre-existence:
   // compat:check runs before evolution:backlog in that chain.
-  if (!rel.startsWith("docs/architecture/artifacts/")) {
-    fail(`consumptionSurface.evolution.${key} must live under docs/architecture/artifacts/, got "${rel}"`)
+  if (!rel.startsWith("packages/shared/contract/gate-assets/")) {
+    fail(`consumptionSurface.evolution.${key} must live under packages/shared/contract/gate-assets/, got "${rel}"`)
   }
 }
 

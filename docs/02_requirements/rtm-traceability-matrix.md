@@ -69,5 +69,5 @@ pnpm run speckit:tasks -- --spec <名>   # 单份规格的真实完成度（从 
 ## 5. 已知边界与诚实登记
 
 1. **`online` 域侧重动态运行时 Schema 引擎** —— 实体由运行时动态定义，静态单测较少，建议随低代码特性迭代继续加厚。
-2. **REQ-G06 的既有供应链通告为"冻结"而非"清零"** —— 11 条历史依赖通告在 `docs/architecture/artifacts/deps-audit-baseline.json` 棘轮守护中（新增 0）。
+2. **REQ-G06 的既有供应链通告为"冻结"而非"清零"** —— 11 条历史依赖通告在 `packages/shared/contract/gate-assets/deps-audit-baseline.json` 棘轮守护中（新增 0）。
 3. **`02_requirements` 的单体 SRS / URS 为「刻意不产出」（架构决策，非遗漏）** —— 需求真源是分散的 `docs/specs/<域>/<名>/brief.json`，避免第二真源漂移（见 `docs/01_management/project-plan.md` H1）。

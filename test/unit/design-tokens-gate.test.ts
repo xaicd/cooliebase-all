@@ -50,7 +50,7 @@ describe("ui-design-tokens: executable UI tokens & bare table spacing ratchet", 
     const tmpRoot = fs.mkdtempSync(path.join(os.tmpdir(), "cb-design-tokens-"))
     try {
       const pageDir = path.join(tmpRoot, "packages", "domains", "demo", "frontend", "pages")
-      const artifactDir = path.join(tmpRoot, "docs", "architecture", "artifacts")
+      const artifactDir = path.join(tmpRoot, "packages", "shared", "contract", "gate-assets")
       fs.mkdirSync(pageDir, { recursive: true })
       fs.mkdirSync(artifactDir, { recursive: true })
       fs.writeFileSync(

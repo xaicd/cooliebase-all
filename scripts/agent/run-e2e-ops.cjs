@@ -5,7 +5,7 @@
  * 核心职责：
  * 1. `--check` 模式（静态契约与反 Seed 门禁）：
  *    - 校验 `test/agent/e2e-human-ops.spec.ts` 拟人运营配置剧本存在且完整；
- *    - 校验 `docs/agent/contracts.json` 中运营实体均具备完整的页面拟人操作选择器（createButton / form / formSubmit / table / fields）；
+ *    - 校验 `packages/shared/contract/agent-contracts.json` 中运营实体均具备完整的页面拟人操作选择器（createButton / form / formSubmit / table / fields）；
  *    - 校验 `MallSolutionService` 严禁包含 `ensureMallSeedData` / `deriveDynamicSeedCatalog` 等后台静默灌数逻辑；
  *    - 校验 `speckit` 引擎与交付工作流 (`feature-delivery.workflow.json`、`runbook-template.json`) 已内置 E2E 页面拟人运营配置步骤。
  * 2. 实跑模式（`pnpm run e2e:ops [--domain <domain>]`）：
@@ -66,8 +66,8 @@ function runStaticVerification(targetDomain = "mall") {
     }
   }
 
-  // 3. 核验 docs/agent/contracts.json 运营页面选择器契约
-  const contractsRel = "docs/agent/contracts.json"
+  // 3. 核验 packages/shared/contract/agent-contracts.json 运营页面选择器契约
+  const contractsRel = "packages/shared/contract/agent-contracts.json"
   const contractsAbs = path.join(ROOT, contractsRel)
   if (!fs.existsSync(contractsAbs)) {
     errors.push(`缺失 Agent 契约注册表: ${contractsRel}`)

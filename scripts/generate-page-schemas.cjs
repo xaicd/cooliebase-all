@@ -24,7 +24,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const REGISTRY = path.join(ROOT, "docs", "agent", "contracts.json")
+const REGISTRY = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 const OUT = path.join(ROOT, "packages", "shared", "contract", "page-schemas.generated.ts")
 const write = process.argv.includes("--write")
 const check = process.argv.includes("--check")
@@ -88,7 +88,7 @@ function main() {
     })
     .join("\n")
 
-  const content = `// 由 scripts/generate-page-schemas.cjs 从 docs/agent/contracts.json 生成，**勿手改**。
+  const content = `// 由 scripts/generate-page-schemas.cjs 从 packages/shared/contract/agent-contracts.json 生成，**勿手改**。
 //
 // 用途: PageSchemaService 在 system_config 里读不到 \`page.schema.<entity>\` 时回退到这份数据，
 // 让**新生成的业务域在 C 端就有真实字段**（否则是空页面）。

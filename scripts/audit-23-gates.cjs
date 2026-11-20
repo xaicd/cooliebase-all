@@ -142,7 +142,7 @@ function main() {
   }
 
   if (writeReport) {
-    const outFile = path.join(ROOT, "docs/architecture/artifacts/23-gates-audit.json")
+    const outFile = path.join(ROOT, "packages/shared/contract/gate-assets/23-gates-audit.json")
     fs.mkdirSync(path.dirname(outFile), { recursive: true })
     fs.writeFileSync(outFile, `${JSON.stringify(summary, null, 2)}\n`, "utf8")
   }

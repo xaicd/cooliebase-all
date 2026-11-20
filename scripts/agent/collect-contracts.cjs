@@ -8,17 +8,17 @@
  * 用途:
  *   - `test/agent/agent-contract.spec.ts` 逐条驱动页面（L4）
  *   - `scripts/agent/run-ops.cjs` 逐条执行运营动作（agent-device 风格）
- *   - 人或 agent 直接读 `docs/agent/contracts.json` 了解"这个系统能自动化什么"
+ *   - 人或 agent 直接读 `packages/shared/contract/agent-contracts.json` 了解"这个系统能自动化什么"
  *
  * 用法:
- *   node scripts/agent/collect-contracts.cjs            # 写入 docs/agent/contracts.json
+ *   node scripts/agent/collect-contracts.cjs            # 写入 packages/shared/contract/agent-contracts.json
  *   node scripts/agent/collect-contracts.cjs --check    # 只校验（CI 门禁用）
  */
 const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..", "..")
-const OUT = path.join(ROOT, "docs", "agent", "contracts.json")
+const OUT = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 const checkOnly = process.argv.includes("--check")
 
 /** 域目录可能是 packages/domains/<域> 或 packages/plugins/plugin-<域>，两处都扫。 */
@@ -66,7 +66,7 @@ function main() {
 
   if (checkOnly) {
     if (!fs.existsSync(OUT)) {
-      console.error("[agent:contracts] docs/agent/contracts.json 不存在 —— 运行 node scripts/agent/collect-contracts.cjs")
+      console.error("[agent:contracts] packages/shared/contract/agent-contracts.json 不存在 —— 运行 node scripts/agent/collect-contracts.cjs")
       process.exit(1)
     }
     const current = JSON.parse(fs.readFileSync(OUT, "utf8"))

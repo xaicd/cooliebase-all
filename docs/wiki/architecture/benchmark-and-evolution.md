@@ -1,6 +1,6 @@
 # 架构百科：对标顶级开源项目差距深度分析与持续演进大典
 
-> 对应规则：AGENTS.md §23 / docs/architecture/ai-driven-full-lifecycle-governance-and-reinforcement.md
+> 对应规则：AGENTS.md §23 / packages/shared/contract/gate-assets/ai-driven-full-lifecycle-governance-and-reinforcement.md
 
 ## 一、 对标全球顶尖项目矩阵
 1. **Supabase (80k★)**: 极致的本地开发体验、Realtime CDC 变更广播、原生 pgvector 向量检索；

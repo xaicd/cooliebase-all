@@ -3,7 +3,7 @@
  * ============================================================================
  * 规范目标:
  *   1. 管理后台侧边栏所有新增/蓝图生成的可见导航菜单标题（一级分组 title 与二级条目 label）必须 <= 4 个可见字符（如「采购订单」「库位盘点」）。
- *   2. 历史批量导入源表遗留的 >4 字菜单标签冻结于 docs/architecture/artifacts/menu-title-length-baseline.json（只减不增棘轮）。
+ *   2. 历史批量导入源表遗留的 >4 字菜单标签冻结于 packages/shared/contract/gate-assets/menu-title-length-baseline.json（只减不增棘轮）。
  *   3. 供 scripts/generate-admin-nav.cjs (--check / --write-baseline) 与 scripts/blueprint-engine.cjs 共用同一真源。
  */
 "use strict"
@@ -12,7 +12,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const MAX_VISIBLE_MENU_CHARS = 4
-const DEFAULT_BASELINE_REL = "docs/architecture/artifacts/menu-title-length-baseline.json"
+const DEFAULT_BASELINE_REL = "packages/shared/contract/gate-assets/menu-title-length-baseline.json"
 
 /**
  * 按 Unicode 码点统计去除首尾空白后的可见字符数（中文汉字、ASCII 字母、数字各计 1 字符）。

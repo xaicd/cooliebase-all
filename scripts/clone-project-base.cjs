@@ -19,6 +19,7 @@ const {
   helpText,
   resolveHatchPlan,
   shouldSkipRelPath,
+  RELOCATED_ASSETS,
   pruneCatalog,
   pruneRpcActions,
   buildHatchManifest,
@@ -134,6 +135,23 @@ function transformFileContent(content, targetName, targetTitle, targetDbName, ta
     })
 
   return res
+}
+
+/**
+ * 门禁机读资产重定位 pass（2026-11-20 v2）：
+ * RELOCATED_ASSETS.from 在 reactorCopy 里已被老路径 skip，这里把门禁真源
+ * 落到派生工程的机读区 to（packages/shared/contract/gate-assets 等）。
+ * 机读资产是代码不是文档 —— 与 docs/ 人读区物理分离，文档瘦身永不再误伤门禁。
+ */
+function relocateGateAssets(srcRoot, destRoot) {
+  for (const entry of RELOCATED_ASSETS) {
+    const srcPath = path.join(srcRoot, ...entry.from.split("/"))
+    if (!fs.existsSync(srcPath)) continue
+    const destPath = path.join(destRoot, ...entry.to.split("/"))
+    fs.mkdirSync(path.dirname(destPath), { recursive: true })
+    fs.copyFileSync(srcPath, destPath)
+    console.log(`[REACTOR RELOCATE] ${entry.from} → ${entry.to}`)
+  }
 }
 
 /**
@@ -415,7 +433,7 @@ function pruneDomainReferenceLists(destRoot, plan) {
 
   // 4.5) 机检基准线: 冻结欠债用的文件路径清单，同样会指向被裁域。
   {
-    const rel = "docs/architecture/artifacts/engineering-standards-baseline.json"
+    const rel = "packages/shared/contract/gate-assets/engineering-standards-baseline.json"
     const text = read(rel)
     if (text) {
       const pruned = new Set(["pay","report","bpm","mp","member","iot","erp","im","crm","wms","mall","mes"].filter((d) => !keep.has(d)))
@@ -970,6 +988,7 @@ async function runProjectReactor(targetDir, plan, sourceCatalog, options = {}) {
   }
 
   reactorCopy(SOURCE_ROOT, resolvedTarget, ctx)
+  relocateGateAssets(SOURCE_ROOT, resolvedTarget)
   applyHatchPatches(resolvedTarget, plan, sourceCatalog, targetName)
 
   // **裁剪后必须重生成 wiki** —— 与 `project-init.cjs` 的既有做法一致。

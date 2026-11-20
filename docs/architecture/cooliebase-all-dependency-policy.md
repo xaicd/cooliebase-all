@@ -26,7 +26,7 @@
 | `--json` | 机器可读（供 MCP / CI 消费） |
 
 **棘轮不是"没问题"。** 门禁通过的确切含义是「相对基线没有**新增**」，不是「仓库没有漏洞」。
-基线 `docs/architecture/artifacts/deps-audit-baseline.json` 是**生成物**，由脚本产出，禁止手改。
+基线 `packages/shared/contract/gate-assets/deps-audit-baseline.json` 是**生成物**，由脚本产出，禁止手改。
 
 分层由**锁文件的依赖图离线推导**（不写死包名，也不读审计输出的采样字段）：
 
@@ -173,7 +173,7 @@ SBOM 由 `pnpm run sbom:generate` 从 `pnpm-lock.yaml`（包与版本）+ 已安
 ## 6. 相关文件
 
 - 门禁实现：`scripts/check-deps-audit.cjs`
-- 基线（生成物）：`docs/architecture/artifacts/deps-audit-baseline.json`
+- 基线（生成物）：`packages/shared/contract/gate-assets/deps-audit-baseline.json`
 - 回归测试：`test/unit/deps-audit-gate.test.ts`
 
 ---

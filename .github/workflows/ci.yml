@@ -159,7 +159,7 @@ jobs:
         run: pnpm run security:scan
       - name: 失败时输出扫描结果
         if: failure()
-        run: cat docs/architecture/artifacts/security-scan-result.json 2>/dev/null || true
+        run: cat packages/shared/contract/gate-assets/security-scan-result.json 2>/dev/null || true
 
   # 容量回归护栏（§3.3 第 6 条: 容量目标须由 SLO、**压测**和资源预算确定）
   load:
@@ -177,7 +177,7 @@ jobs:
         run: pnpm run load:test
       - name: 失败时输出压测结果
         if: failure()
-        run: cat docs/architecture/artifacts/load-test-result.json 2>/dev/null || true
+        run: cat packages/shared/contract/gate-assets/load-test-result.json 2>/dev/null || true
 
   # 变异测试: 证明关键断言**有杀伤力**（会临时改写源码再还原，故独立 job）
   mutation:

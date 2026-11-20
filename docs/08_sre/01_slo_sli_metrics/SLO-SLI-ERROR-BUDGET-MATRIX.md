@@ -54,7 +54,7 @@ flowchart LR
 | **P95 响应延迟 (Latency)** | $\le 20\text{ms}$ | **3.8ms** | **达标 (优于基线 81%)** |
 | **HTTP 请求失败率 (Error Rate)** | 严格等于 $0.00\%$ | **0.00%** | **达标 (0 报错)** |
 
-> **当前实测以产物为准，本节不写现状数字**：`docs/architecture/artifacts/load-test-result.json`
+> **当前实测以产物为准，本节不写现状数字**：`packages/shared/contract/gate-assets/load-test-result.json`
 >（含 `environment.loadavg1` / `busyRatio` 与 `verdict` 三态）。
 > 上表是 **v1.1.0 时点**的历史快照（当前 `package.json.version` 已前进）——
 > 保留它是为了留痕，**不代表当前版本的表现**；两处数字不一致时**以产物为准**。

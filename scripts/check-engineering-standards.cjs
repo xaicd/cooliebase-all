@@ -20,7 +20,7 @@ const { ROOT, loadCatalog } = require("./lib/domain-catalog.cjs")
 const { findDuplicateKeys } = require("./lib/json-duplicate-keys.cjs")
 const { spawnSync } = require("node:child_process")
 
-const BASELINE_REL = "docs/architecture/artifacts/engineering-standards-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/engineering-standards-baseline.json"
 const GOVERNANCE_DOC = "docs/architecture/cooliebase-all-domain-governance.md"
 const SRC = "src"
 // 各域与 shared 已迁到 packages/（见 pnpm-workspace.yaml 与 AGENTS.md §3.2）。
@@ -486,7 +486,7 @@ const RULES = [
         "node_modules/",
         ".git/",
         "docs/features/",
-        "docs/architecture/artifacts/",
+        "packages/shared/contract/gate-assets/",
         ".claude/worktrees/", // git worktree 里的副本，不参与判定
         ".kiro/steering/ui-ux-pro-max/data/", // 第三方技能数据（Astro/shadcn/Nuxt 的生态建议），改它等于改上游
         "docs/specs/archive/", // 已归档规格是**历史记录**，会刻意引用旧代码与旧命令
@@ -563,7 +563,7 @@ const RULES = [
         "coverage/",
         "build/",
         "docs/features/", // 施工日志：历史记录，刻意保留当时的写法
-        "docs/architecture/artifacts/", // 生成物
+        "packages/shared/contract/gate-assets/", // 生成物
         "docs/specs/archive/", // 已归档规格是历史记录
         ".claude/worktrees/", // git worktree 里的副本，不参与判定
         "public/", // 由 surface:sync 生成的镜像，改它无意义

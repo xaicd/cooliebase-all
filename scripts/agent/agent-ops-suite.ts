@@ -24,7 +24,7 @@ import path from "node:path"
 import process from "node:process"
 
 const ROOT = path.resolve(__dirname, "..", "..")
-const REGISTRY_FILE = path.join(ROOT, "docs", "agent", "contracts.json")
+const REGISTRY_FILE = path.join(ROOT, "packages", "shared", "contract", "agent-contracts.json")
 const REPORT_FILE = path.join(ROOT, "docs", "agent", "agent-ops-suite-result.json")
 
 const baseUrl = (process.env.COOLIEBASE_AGENT_BASE_URL || "http://localhost:3200").replace(/\/$/, "")

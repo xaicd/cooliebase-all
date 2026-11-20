@@ -4,7 +4,7 @@ import path from "node:path"
 import { afterAll, beforeAll, describe, expect, it } from "vitest"
 
 const ROOT = path.resolve(__dirname, "../..")
-const ARTIFACT = path.join(ROOT, "docs", "architecture", "artifacts", "env-fingerprint.json")
+const ARTIFACT = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "env-fingerprint.json")
 const BUILD_FILE = path.join(ROOT, ".next-cooliebase", "standalone", "server.js")
 
 /** 跑指纹脚本，返回退出码（不抛）。 */

@@ -32,7 +32,7 @@ const arg = (name, fallback) => {
   return index >= 0 ? argv[index + 1] : fallback
 }
 
-const HEARTBEAT = process.env.AGENT_ROUTE_HEARTBEAT ?? path.join(ROOT, "docs", "architecture", "artifacts", "harness-heartbeat.jsonl")
+const HEARTBEAT = process.env.AGENT_ROUTE_HEARTBEAT ?? path.join(ROOT, "packages", "shared", "contract", "gate-assets", "harness-heartbeat.jsonl")
 const windowMinutes = Number(arg("--window", "1440"))
 const requireKinds = (arg("--require", "") || "").split(",").map((s) => s.trim()).filter(Boolean)
 const trim = argv.includes("--trim") || !argv.includes("--no-trim") // 默认自动收敛

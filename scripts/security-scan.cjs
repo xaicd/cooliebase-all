@@ -282,7 +282,7 @@ main()
   .finally(async () => {
     const failed = findings.filter((f) => !f.ok)
     const report = { scannedAt: new Date().toISOString(), base: BASE, total: findings.length, failed: failed.length, findings }
-    const out = path.join(ROOT, "docs", "architecture", "artifacts", "security-scan-result.json")
+    const out = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "security-scan-result.json")
     fs.mkdirSync(path.dirname(out), { recursive: true })
     fs.writeFileSync(out, JSON.stringify(report, null, 2) + "\n")
     if (failed.length > 0) {

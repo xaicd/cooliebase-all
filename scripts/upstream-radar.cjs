@@ -19,8 +19,8 @@ const { execSync } = require("node:child_process")
 
 const ROOT = path.resolve(__dirname, "..")
 const CATALOG_PATH = path.join(ROOT, "docs/architecture/upstream-radar-catalog.json")
-const REPORT_JSON_PATH = path.join(ROOT, "docs/architecture/artifacts/upstream-radar-report.json")
-const REPORT_MD_PATH = path.join(ROOT, "docs/architecture/artifacts/upstream-radar-report.md")
+const REPORT_JSON_PATH = path.join(ROOT, "packages/shared/contract/gate-assets/upstream-radar-report.json")
+const REPORT_MD_PATH = path.join(ROOT, "packages/shared/contract/gate-assets/upstream-radar-report.md")
 const PKG_JSON_PATH = path.join(ROOT, "package.json")
 
 const argv = process.argv.slice(2)

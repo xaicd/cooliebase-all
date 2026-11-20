@@ -16,7 +16,7 @@ DigitalStaff Native / Cursor / 其他 Agent 应按下面顺序加载。`inject` 
 | -39 | all-role-contract-families | `.agents/rules/ALL-ROLE-CONTRACT-FAMILIES.md` | 无 | 涉及数据同步/BI/运营编排/运维发布时（§22：四类契约族各自的质量门禁） |
 | -37 | feature-spec-and-prototype | `.agents/rules/FEATURE-SPEC-AND-PROTOTYPE-STANDARD.md` | 无 | 开规格、写原型、切图归档时 |
 | -36 | project-reactor | `.agents/rules/PROJECT-REACTOR.md` | 无 | 孵化新工程（project:create / degit / hatch）或调整派生工程 profile 时 |
-| -40 | high-order-prompts | `docs/architecture/universal-high-order-inverse-prompts.md` | 无 | 每次进入本仓库（高阶反向通用提示词库：实体溯源/多租户防线/两字交互/因果归因/插件反向传播） |
+| -40 | high-order-prompts | `packages/shared/contract/gate-assets/universal-high-order-inverse-prompts.md` | 无 | 每次进入本仓库（高阶反向通用提示词库：实体溯源/多租户防线/两字交互/因果归因/插件反向传播） |
 | 0 | soul | `.agents/context/SOUL.md` | 无 | 每次进入本仓库 |
 | 40 | ontology-navigation | `docs/architecture/cooliebase-all-ontology-navigation.md` | 无 | 每次进入本仓库（导航总纲：定位模块/工具/预览/skills + 新应用派生 + 基座自进化） |
 | 50 | agent-profile | `packages/shared/contract/agent-profile.json` | 无 | 孵化、NPC、架构演进 |

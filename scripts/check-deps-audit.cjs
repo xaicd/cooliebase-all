@@ -45,9 +45,9 @@ const { ROOT } = require("./lib/domain-catalog.cjs")
 // 锁文件窄解析器已提取为共享 lib —— 依赖分层与 SBOM 用的是同一份真源。
 const { LOCKFILE_REL, hostReachablePackageNames } = require("./lib/pnpm-lock.cjs")
 
-const BASELINE_REL = "docs/architecture/artifacts/deps-audit-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/deps-audit-baseline.json"
 // 「不可判定」也要留痕：状态工件是这次审计**能不能判定**的唯一可查证据。
-const STATUS_REL = "docs/architecture/artifacts/deps-audit-status.json"
+const STATUS_REL = "packages/shared/contract/gate-assets/deps-audit-status.json"
 // pnpm audit 要联网查通告库，给足时间。
 const AUDIT_TIMEOUT_MS = 180000
 

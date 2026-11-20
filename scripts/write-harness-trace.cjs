@@ -3,8 +3,8 @@ const path = require("path")
 const { execSync } = require("child_process")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
-const ARTIFACT_REL = "docs/architecture/artifacts/harness-trace-latest.json"
-const BACKLOG_REL = "docs/architecture/artifacts/evolution-backlog.json"
+const ARTIFACT_REL = "packages/shared/contract/gate-assets/harness-trace-latest.json"
+const BACKLOG_REL = "packages/shared/contract/gate-assets/evolution-backlog.json"
 
 function tryGit(command) {
   try {

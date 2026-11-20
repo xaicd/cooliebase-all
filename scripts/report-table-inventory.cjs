@@ -79,7 +79,7 @@ function main() {
     console.log("    查它们必然报 relation does not exist —— 且是静默陷阱：按常规\"先配库\"反而全红。")
   }
 
-  const target = path.join(ROOT, "docs", "architecture", "artifacts", "table-inventory-report.json")
+  const target = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "table-inventory-report.json")
   fs.mkdirSync(path.dirname(target), { recursive: true })
   fs.writeFileSync(target, `${JSON.stringify(report, null, 2)}\n`)
   console.log(`[table-inventory] wrote ${path.relative(ROOT, target).replace(/\\/g, "/")}`)

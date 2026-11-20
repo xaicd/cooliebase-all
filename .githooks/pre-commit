@@ -20,7 +20,7 @@ if [ "${AGENT_ROUTE_SKIP:-0}" = "1" ]; then
 fi
 
 ROOT=$(git rev-parse --show-toplevel)
-RECORD="$ROOT/docs/architecture/artifacts/agent-route-last.json"
+RECORD="$ROOT/packages/shared/contract/gate-assets/agent-route-last.json"
 
 # ── WBS 时效性：能力面变了（新增 script / 门禁 / 域），计划就必须在同一次提交里跟随 ──
 # 放在"受保护路径早退"**之前**：能力面变化未必触及 packages/（例如只加了 npm script），

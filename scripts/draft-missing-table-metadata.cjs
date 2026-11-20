@@ -19,7 +19,7 @@ const path = require("path")
 const { ROOT, readMetadataTables, readMigrationTables, readSqliteBootstrapTables, readPrismaTables, readQueriedTables } =
   require("./lib/table-definitions.cjs")
 
-const ARTIFACT = path.join(ROOT, "docs", "architecture", "artifacts", "table-metadata-draft.md")
+const ARTIFACT = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "table-metadata-draft.md")
 
 /** 已知欠债（与 check-engineering-standards 的 table-definition-coverage 规则保持一致）。 */
 const KNOWN_DEBT = [

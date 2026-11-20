@@ -10,7 +10,7 @@
  * 本脚本把这三件事变成**可失败**的检查：
  *
  *  ## ① 条款 ↔ 机制（D5）
- *   `docs/architecture/artifacts/clause-mechanism-map.json` 登记每条 `## N.` 条款对应的 npm script。
+ *   `packages/shared/contract/gate-assets/clause-mechanism-map.json` 登记每条 `## N.` 条款对应的 npm script。
  *   - AGENTS 里**每条**编号条款都必须在登记表里（新增条款不登记 → 失败）；
  *   - 登记的每个 script 必须**真实存在**于 package.json（防"编造出处"）；
  *   - 登记表不得引用 AGENTS 里**已删除**的条款。
@@ -30,7 +30,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const MAP_REL = "docs/architecture/artifacts/clause-mechanism-map.json"
+const MAP_REL = "packages/shared/contract/gate-assets/clause-mechanism-map.json"
 
 function readJson(rel) {
   return JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8"))
@@ -263,7 +263,7 @@ function main() {
   // 动机（用户要求）：**所有流程与操作都必须能从 `pnpm harness` 进**。
   // 判据：一个 npm script 要么是主干 / 分组映射目标 / check 链步骤 / 被别的脚本调用，
   //       要么就必须登记在基线里（已知欠债，**只减不增**）。
-  const REACH_BASE = "docs/architecture/artifacts/harness-unreachable-scripts.json"
+  const REACH_BASE = "packages/shared/contract/gate-assets/harness-unreachable-scripts.json"
   {
     const harnessSource = fs.readFileSync(path.join(ROOT, "scripts/harness.cjs"), "utf8")
     const reachable = new Set(["harness"]) // 入口脚本自己就是入口

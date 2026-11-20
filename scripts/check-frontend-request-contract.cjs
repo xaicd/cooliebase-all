@@ -26,7 +26,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE_REL = "docs/architecture/artifacts/frontend-raw-fetch-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/frontend-raw-fetch-baseline.json"
 const BASELINE = path.join(ROOT, BASELINE_REL)
 
 /** 扫描面：只看页面与组件，不看 api 层 */

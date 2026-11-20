@@ -24,7 +24,7 @@ const fs = require("node:fs")
 const path = require("node:path")
 
 const ROOT = path.resolve(__dirname, "..")
-const BASELINE = path.join(ROOT, "docs", "architecture", "artifacts", "agent-native-baseline.json")
+const BASELINE = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "agent-native-baseline.json")
 const auditOnly = process.argv.includes("--audit")
 const updateBaseline = process.argv.includes("--update-baseline")
 

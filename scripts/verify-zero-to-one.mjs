@@ -7,7 +7,7 @@
  * 那就把它固化成脚本，任何人任何时候跑同一条命令，得到同一个机器裁决。
  *
  * 它验证什么（全部是**物理真值**，不看文档声明）：
- *   1. 契约 list 接口：`docs/agent/contracts.json` 里每份契约的 `methods.list`
+ *   1. 契约 list 接口：`packages/shared/contract/agent-contracts.json` 里每份契约的 `methods.list`
  *      → 期望 **200**（按 `pluginMount` 实打）
  *   2. 管理页外壳：`admin-nav.generated.ts` 里的每个路由 → 期望 **200**
  *   3. 插件挂载点健康：插件 API 不得 5xx
@@ -71,7 +71,7 @@ async function login() {
 }
 
 function readContracts() {
-  return JSON.parse(fs.readFileSync(path.join(ROOT, "docs/agent/contracts.json"), "utf8")).contracts ?? []
+  return JSON.parse(fs.readFileSync(path.join(ROOT, "packages/shared/contract/agent-contracts.json"), "utf8")).contracts ?? []
 }
 
 function readNavHrefs() {

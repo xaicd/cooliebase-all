@@ -52,7 +52,7 @@
       "name": "架构设计",
       "artifacts": [
         "docs/features/**/design.md",
-        "docs/architecture/artifacts/harness-trace-latest.json"
+        "packages/shared/contract/gate-assets/harness-trace-latest.json"
       ],
       "skill": "architecture-design",
       "gate": "G1_FDA",
@@ -81,7 +81,7 @@
       "id": "testing",
       "name": "测试",
       "artifacts": [
-        "docs/agent/contracts.json",
+        "packages/shared/contract/agent-contracts.json",
         "test/e2e/**",
         "**/__tests__/**"
       ],
@@ -108,7 +108,7 @@
       "id": "operations",
       "name": "业务持续运营",
       "artifacts": [
-        "docs/agent/contracts.json",
+        "packages/shared/contract/agent-contracts.json",
         "scripts/agent/run-ops.cjs"
       ],
       "skill": "new-business-plugin",

@@ -43,7 +43,7 @@ KIND="${REST#*$'\t'}"
 # 只验证"配置文件合法"是不够的 —— CLI 可能因为 schema 变更、allowlist、cwd 不同而根本没加载它。
 # 这里每次被调用都追加一行（gitignored），`pnpm run harness:health` 据此报告各家是否真的生效。
 DECISION="allow"
-HEARTBEAT="${AGENT_ROUTE_HEARTBEAT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/docs/architecture/artifacts/harness-heartbeat.jsonl}"
+HEARTBEAT="${AGENT_ROUTE_HEARTBEAT:-$(git rev-parse --show-toplevel 2>/dev/null || pwd)/packages/shared/contract/gate-assets/harness-heartbeat.jsonl}"
 beat() {
   printf '{"at":"%s","kind":"%s","decision":"%s","protocol":"%s","file":"%s"}\n' \
     "$(date -u +%FT%TZ)" "$KIND" "$DECISION" "$PROTOCOL" "$FILE_PATH" >> "$HEARTBEAT" 2>/dev/null || true
@@ -59,7 +59,7 @@ esac
 
 ROOT=$(git rev-parse --show-toplevel 2>/dev/null || pwd)
 # 记录路径可覆盖：测试用临时文件；也便于在尚未接入的仓库里显式指定
-RECORD="${AGENT_ROUTE_ARTIFACT:-$ROOT/docs/architecture/artifacts/agent-route-last.json}"
+RECORD="${AGENT_ROUTE_ARTIFACT:-$ROOT/packages/shared/contract/gate-assets/agent-route-last.json}"
 
 if [ ! -f "$RECORD" ]; then
   exit 0   # 没有分诊记录时不拦（避免在还没跑过 agent:route 的仓库里卡死）

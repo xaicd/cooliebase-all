@@ -14,7 +14,7 @@
  *   · **enforce**（必须为 0）：HTTP 方法不匹配；以及"资源目录存在、但某个方法路径文件缺失"
  *     —— 这两类是**回归**，一出现就是真错。
  *   · **ratchet**（冻结既有欠债，只拦新增）：整块缺失的资源目录，基线记录在
- *     `docs/architecture/artifacts/agent-route-coverage-baseline.json`。
+ *     `packages/shared/contract/gate-assets/agent-route-coverage-baseline.json`。
  *     补齐后跑 `--write-baseline` 收紧基线。
  *
  * Usage:
@@ -27,7 +27,7 @@ const fs = require("fs")
 const path = require("path")
 const { ROOT } = require("./lib/domain-catalog.cjs")
 
-const BASELINE_REL = "docs/architecture/artifacts/agent-route-coverage-baseline.json"
+const BASELINE_REL = "packages/shared/contract/gate-assets/agent-route-coverage-baseline.json"
 const PLATFORM_DOMAINS = new Set(["system", "infra"])
 
 const asJson = process.argv.includes("--json")

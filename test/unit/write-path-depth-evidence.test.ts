@@ -9,7 +9,7 @@ import { afterAll, describe, expect, it } from "vitest"
  * ## 为什么必须有这个文件
  *
  * 实测：本仓当前**没有任何规格**触及写链路 ——
- * `docs/architecture/artifacts/write-path-depth-baseline.json` 与
+ * `packages/shared/contract/gate-assets/write-path-depth-baseline.json` 与
  * `write-path-depth-evidence-baseline.json` 都是**空数组**。
  *
  * 也就是说门禁在真实数据上**永远绿**，光看它 pass 根本看不出它会不会失败 ——
@@ -78,8 +78,8 @@ afterAll(() => {
 describe("write:path:depth 的证据判定", () => {
   it("基线确定是空的 —— 没有这个前提，下面的反向对照就没有意义", () => {
     for (const rel of [
-      "docs/architecture/artifacts/write-path-depth-baseline.json",
-      "docs/architecture/artifacts/write-path-depth-evidence-baseline.json",
+      "packages/shared/contract/gate-assets/write-path-depth-baseline.json",
+      "packages/shared/contract/gate-assets/write-path-depth-evidence-baseline.json",
     ]) {
       const data = JSON.parse(fs.readFileSync(path.join(ROOT, rel), "utf8")) as { specs: string[] }
       expect(data.specs, `${rel} 应为空数组（若已非空，本文件的探针结论需重估）`).toEqual([])

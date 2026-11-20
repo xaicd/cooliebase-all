@@ -174,7 +174,7 @@ function inspectEvidence(featureDir, gateIds) {
   // G5 是"上线前"：指纹一致 + 割接演练 + **安全扫描绿**，三样缺一不可。
   // 安全扫描结果由 `pnpm run security:scan` 落盘（自管理环境、对着跑起来的应用打真实请求）。
   if (g5?.status === "passed") {
-    const secPath = path.join(ROOT, "docs", "architecture", "artifacts", "security-scan-result.json")
+    const secPath = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "security-scan-result.json")
     if (!fs.existsSync(secPath)) {
       problems.push("G5_PRE 标了 passed 但没有 security-scan-result.json（没跑过安全扫描）")
     } else {
@@ -190,7 +190,7 @@ function inspectEvidence(featureDir, gateIds) {
   }
   // 第三条: 同条件 —— 上线前也要有一份**新鲜且过阈值**的压测结果（§3.3 第 6 条）
   if (g5?.status === "passed") {
-    const loadPath = path.join(ROOT, "docs", "architecture", "artifacts", "load-test-result.json")
+    const loadPath = path.join(ROOT, "packages", "shared", "contract", "gate-assets", "load-test-result.json")
     if (!fs.existsSync(loadPath)) {
       problems.push("G5_PRE 标了 passed 但没有 load-test-result.json（没跑过压测）")
     } else {
