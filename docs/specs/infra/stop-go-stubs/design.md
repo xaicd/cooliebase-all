@@ -1,7 +1,7 @@
 # Technical Architecture & Implementation Plan: RPC 契约默认不再生成 Go 客户端桩
 
 > **Spec-Kit 架构与技术实施方案 (ADD: Architecture & Design Document)**
-> 上游真源：`spec.md` (或 `requirements.md`)。技术方案严格支撑需求，严禁反向变更业务目标。
+> 上游真源：`docs/specs/infra/stop-go-stubs/spec.md` (或 `requirements.md`)。技术方案严格支撑需求，严禁反向变更业务目标。
 > 状态：`PLAN_APPROVED` | 所属领域：`infra` | 规格标识：`stop-go-stubs`
 > 对应项目宪法：`.specify/memory/constitution.md` (Rule 0.2 模式复用 / Rule 0.6 真实测试驱动 / Rule 0.8 E2E 任务同等对齐)
 
