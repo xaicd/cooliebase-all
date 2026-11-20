@@ -187,6 +187,8 @@ const ASSET_REGISTRY = {
         title: "需求双向跟踪矩阵 (RTM)",
         template: (opts) => `# 需求双向跟踪矩阵 (Requirements Traceability Matrix - RTM)
 
+> 上游真源: AGENTS.md
+
 - **基线版本**: ${opts.version || "v1.1.0"}
 - **更新日期**: ${new Date().toISOString().split("T")[0]}
 - **归属规范**: CMMI 02_requirements (RDM) / .agents/skills/spec-driven-development
@@ -209,6 +211,8 @@ const ASSET_REGISTRY = {
         file: "docs/02_requirements/non-functional-reqs.md",
         title: "非功能性需求规范 (NFR)",
         template: (opts) => `# 非功能性需求与性能指标规范 (Non-Functional Requirements - NFR)
+
+> 上游真源: AGENTS.md
 
 - **制定日期**: ${new Date().toISOString().split("T")[0]}
 - **归属规范**: CMMI 02_requirements (RDM) / .agents/skills/product-requirements
@@ -234,6 +238,8 @@ const ASSET_REGISTRY = {
         file: "docs/02_requirements/user-requirements.md",
         title: "用户原始需求说明书 (URS)",
         template: (opts) => `# 用户原始需求说明书 (User Requirements Specification - URS)
+
+> 上游真源: AGENTS.md
 
 > **同 SRS：本基座刻意不产出，这是决策而非遗漏。**
 > 用户原始输入的记录真源在 \`docs/features/sprint-prod/<MMDD>.md\`（AGENTS §15 要求逐条记录原始输入）。
@@ -289,7 +295,9 @@ const ASSET_REGISTRY = {
       "erd": {
         file: "docs/03_design/database-design-erd.md",
         title: "数据库底座设计与 8 大审计字段规范",
-        template: () => `# 数据库底座设计与 8 大审计字段规范 (Database Design & ERD)
+        template: (opts) => `# 数据库底座设计与 8 大审计字段规范 (Database Design & ERD)
+
+> 上游真源: AGENTS.md
 
 - **基线版本**: ${opts.version || "v1.1.0"} Enterprise Baseline
 - **归属规范**: CMMI 03_design (TS) / .agents/skills/database-design
@@ -337,6 +345,8 @@ flowchart TD
         file: "docs/03_design/architecture-design-hld.md",
         title: "系统总体架构概要设计说明书 (HLD)",
         template: (opts) => `# 系统总体架构概要设计说明书 (High-Level Design - HLD)
+
+> 上游真源: AGENTS.md
 
 - **系统名称**: ${opts.title || "CoolieBase-All-Next Architecture"}
 - **基线版本**: ${opts.version || "v1.1.0"}
@@ -561,6 +571,8 @@ flowchart TD
         title: "生产安装部署与割接 SOP",
         template: () => `# 生产环境安装部署与割接操作手册 (System Deployment SOP)
 
+> 上游真源: AGENTS.md
+
 - **生效日期**: ${new Date().toISOString().split("T")[0]}
 - **归属规范**: CMMI 07_release (TRANS) / .agents/skills/devops
 
@@ -579,6 +591,8 @@ flowchart TD
         file: (opts) => `docs/07_release/RELEASE_NOTES_${opts.version || "v1.1.0"}.md`,
         title: "版本发布说明 (Release Notes)",
         template: (opts) => `# 版本发布说明 (Release Notes): ${opts.version || "v1.1.0"}
+
+> 上游真源: CHANGELOG.md
 
 - **发布版本**: ${opts.version || "v1.1.0"}
 - **发布日期**: ${new Date().toISOString().split("T")[0]}
@@ -610,6 +624,8 @@ flowchart TD
         file: "docs/07_release/user-operation-manual.md",
         title: "用户操作与运维指导手册",
         template: () => `# 用户操作与运维指导手册 (User Operation Manual)
+
+> 上游真源: AGENTS.md
 
 - **归属规范**: CMMI 07_release (TRANS)
 
@@ -1034,4 +1050,7 @@ function main() {
   }
 }
 
-main()
+if (require.main === module) main()
+
+/** 供单测锁死「阶段产物模板必须带溯源头」（v2 文档定位修复③） */
+module.exports = { ASSET_REGISTRY }
