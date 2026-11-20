@@ -1,5 +1,7 @@
 # 非功能性需求与性能指标规范 (Non-Functional Requirements - NFR)
 
+> 上游真源: AGENTS.md
+
 - **归属规范**: CMMI 02_requirements (RDM) / `.agents/skills/product-requirements`
 - **编写原则**: 每条指标都必须**可复现**（写明度量方式）或**明确标注为历史实测**。
   不可复现又不标来源的数字，比没有数字更糟 —— 它会被当成事实引用下去。

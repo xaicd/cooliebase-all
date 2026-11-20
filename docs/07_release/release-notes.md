@@ -1,5 +1,7 @@
 # 版本发布说明书与版本策略台账 (Release Notes & Version Ledger)
 
+> 上游真源: CHANGELOG.md
+
 - **模板基线版本 (`templateVersion`)**: `1.5.0`（对齐 `package.json#version` 与 `packages/shared/contract/compat-manifest.json`）
 - **归属规范**: CMMI 07_release (TRANS) / `.agents/skills/cmmi-asset-authoring` / `.agents/skills/devops`
 - **质量门禁要求**: `pnpm run check` 全量通过（Exit Code 0），真实数据库测试与制品指纹校验一致

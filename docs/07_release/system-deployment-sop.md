@@ -1,5 +1,7 @@
 # 生产环境安装部署与割接操作手册 (System Deployment SOP)
 
+> 上游真源: deploy/docker-compose.dev.yml
+
 - **版本基准**: `v1.5.0` Enterprise Baseline
 - **更新日期**: 2026-11-16
 - **归属规范**: CMMI 07_release (TRANS - 部署与交付)

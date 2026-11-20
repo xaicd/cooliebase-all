@@ -1,5 +1,7 @@
 # 需求双向跟踪矩阵 (Requirements Traceability Matrix - RTM)
 
+> 上游真源: packages/shared/contract/delivery-phases.json
+
 - **归属规范**: CMMI 02_requirements (RDM) / `.agents/skills/spec-driven-development`
 - **基线版本**: `v1.5.0`（2026-11-16）
 - **编写原则**: 表中**每一条引用都必须是真实存在的路径**。严禁编造不存在的测试路径或悬空目录。
